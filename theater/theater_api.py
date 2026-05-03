@@ -60,6 +60,13 @@ def s(r):
     return r
 
 @asynccontextmanager
+CINEOS_API_KEY = os.getenv("CINEOS_API_KEY", "")
+
+def verify_api_key(x_api_key: Optional[str] = Header(None)):
+    if CINEOS_API_KEY and x_api_key != CINEOS_API_KEY:
+        raise HTTPException(status_code=401, detail="Invalid API key")
+    return x_api_key
+
 async def lifespan(app):
     if PG_AVAILABLE and DATABASE_URL:
         try:
@@ -96,7 +103,7 @@ async def health():
     return {"status":"ok","version":"2.0.0","patent":"US Prov. Pat. 64/049,190","database":db_status,"timestamp":datetime.utcnow().isoformat()}
 
 @app.post("/theater/incident")
-async def log_incident(inc: IncidentCreate):
+async def log_incident(inc: IncidentCreate, api_key: str = Depends(verify_api_key)):
     row = await db_fetchrow("INSERT INTO incidents (theater_name,screen_number,seat_location,zone,detection_type,confidence,film_title,alerted,device_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *",
         inc.theater_name,inc.screen_number,inc.seat_location,inc.zone,inc.detection_type,round(inc.confidence,4),inc.film_title,inc.alerted,inc.device_id)
     return {"status":"logged","incident":s(row)}

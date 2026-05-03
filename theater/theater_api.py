@@ -157,9 +157,9 @@ if __name__=="__main__":
 
 
 @app.get("/theater/alerts")
-async def get_alerts(db=Depends(get_db)):
+async def get_alerts():
     try:
-        rows = await db.fetch("""
+        rows = await db_fetch("""
             SELECT i.id, i.theater_name, i.film_title, i.zone,
                    i.confidence, i.detected_at,
                    s.scan_time, s.hits_found, s.platforms,
@@ -174,9 +174,9 @@ async def get_alerts(db=Depends(get_db)):
         return {"count": 0, "alerts": [], "error": str(e)}
 
 @app.get("/theater/scan_status/{film_title}")
-async def scan_status(film_title: str, db=Depends(get_db)):
+async def scan_status(film_title: str):
     try:
-        row = await db.fetchrow("""
+        row = await db_fetchrow("""
             SELECT film_title, hits_found, platforms, first_hit_url,
                    gap_minutes, scan_time
             FROM scan_results
@@ -198,7 +198,7 @@ async def scan_status(film_title: str, db=Depends(get_db)):
         return {"film_title": film_title, "status": "error", "error": str(e)}
 
 @app.post("/theater/manual_scan")
-async def manual_scan(film_title: str, db=Depends(get_db)):
+async def manual_scan(film_title: str):
     from layer4_trigger import search_piracy
     scan = await search_piracy(film_title)
     return {"film_title": film_title, "hits": scan["hits"],

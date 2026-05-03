@@ -1,0 +1,76 @@
+{
+  "test_name": "CINEOS Layer 4 Precision Test \u2014 2026 Box Office",
+  "run_at": "2026-05-03T13:31:31.770129Z",
+  "scanner_version": "multi_source_v2",
+  "total_films": 6,
+  "confirmed_leaks": 6,
+  "detection_rate": "100%",
+  "avg_scan_time_seconds": 0.8,
+  "results": [
+    {
+      "film": "Sinners",
+      "hits": 1,
+      "signals": [
+        "cam",
+        "telesync",
+        "torrent",
+        "download"
+      ],
+      "platform": "whereyouwatch.com"
+    },
+    {
+      "film": "Thunderbolts",
+      "hits": 1,
+      "signals": [
+        "cam",
+        "torrent",
+        "download"
+      ],
+      "platform": "whereyouwatch.com"
+    },
+    {
+      "film": "Final Destination Bloodlines",
+      "hits": 1,
+      "signals": [
+        "cam",
+        "torrent",
+        "download"
+      ],
+      "platform": "whereyouwatch.com"
+    },
+    {
+      "film": "Warfare",
+      "hits": 1,
+      "signals": [
+        "cam",
+        "telesync",
+        "torrent",
+        "download"
+      ],
+      "platform": "whereyouwatch.com"
+    },
+    {
+      "film": "Until Dawn",
+      "hits": 1,
+      "signals": [
+        "cam",
+        "torrent",
+        "download"
+      ],
+      "platform": "whereyouwatch.com"
+    },
+    {
+      "film": "Companion",
+      "hits": 1,
+      "signals": [
+        "cam",
+        "telesync",
+        "torrent",
+        "download"
+      ],
+      "platform": "whereyouwatch.com"
+    }
+  ],
+  "conclusion": "6/6 major 2026 theatrical releases confirmed with active CAM piracy. CINEOS Layer 4 scanner detects active leaks in under 1 second per film.",
+  "patent": "US Prov. Pat. 64/049,190"
+}

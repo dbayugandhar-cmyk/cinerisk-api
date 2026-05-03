@@ -53,7 +53,7 @@ async def root():
         "version": "2.0.0",
         "patent": "US Prov. Pat. 64/049,190",
         "layers": {
-            "layer1": "Risk prediction — /simulate",
+            "layer1": "Risk prediction — /simulate | Threat briefing — /theater/threat_briefing",
             "layer2": "Theater detection — /theater/incident",
             "layer3": "Session tracking — /theater/sessions",
             "layer4": "Leak monitor — /theater/manual_scan",

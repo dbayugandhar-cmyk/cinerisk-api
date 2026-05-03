@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS Intelligence Network — Studio Threat Center</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg:#06080b;--s1:#0e1216;--s2:#13181e;--s3:#1a2028;
+  --b1:rgba(255,255,255,0.1);--b2:rgba(255,255,255,0.18);--b3:rgba(255,255,255,0.28);
+  --red:#ff3a3a;--red2:rgba(255,58,58,0.15);
+  --amber:#ffb700;--amber2:rgba(255,183,0,0.15);
+  --green:#00e676;--green2:rgba(0,230,118,0.12);
+  --blue:#2eb8ff;--blue2:rgba(46,184,255,0.12);
+  --purple:#c264ff;--purple2:rgba(194,100,255,0.12);
+  --white:#ffffff;--dim:rgba(255,255,255,0.6);
+  --mono:'DM Mono',monospace;--display:'Bebas Neue',sans-serif;--body:'DM Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--white);font-family:var(--body);min-height:100vh;overflow-x:hidden;}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;border-bottom:1px solid var(--b2);background:rgba(6,8,11,0.97);backdrop-filter:blur(24px);position:sticky;top:0;z-index:200;}
+.logo{font-family:var(--display);font-size:21px;letter-spacing:0.06em;}
+.logo em{color:var(--red);font-style:normal;}
+.logo-sub{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:0.18em;text-transform:uppercase;margin-top:2px;}
+.top-right{display:flex;align-items:center;gap:18px;}
+.live-pill{display:flex;align-items:center;gap:7px;background:var(--green2);border:1px solid rgba(0,230,118,0.3);padding:5px 12px;border-radius:20px;font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:0.1em;}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);animation:p 1.5s ease-in-out infinite;}
+@keyframes p{0%,100%{box-shadow:0 0 0 0 rgba(0,230,118,0.5);}50%{box-shadow:0 0 0 6px rgba(0,230,118,0);}}
+#clock{font-family:var(--mono);font-size:11px;color:var(--white);}
+.btn{background:var(--s2);border:1px solid var(--b2);color:var(--white);padding:6px 16px;border-radius:4px;font-family:var(--mono);font-size:10px;cursor:pointer;letter-spacing:0.08em;transition:all 0.2s;}
+.btn:hover{background:var(--s3);border-color:var(--b3);}
+
+.alert-banner{background:linear-gradient(90deg,rgba(255,58,58,0.18),rgba(255,183,0,0.08));border-bottom:1px solid rgba(255,58,58,0.3);padding:9px 28px;display:flex;align-items:center;gap:14px;overflow:hidden;}
+.ab-label{font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:0.12em;white-space:nowrap;padding-right:16px;border-right:1px solid rgba(255,58,58,0.3);display:flex;align-items:center;gap:7px;}
+.ab-ticker{flex:1;overflow:hidden;}
+.ab-inner{display:inline-block;white-space:nowrap;animation:tick 40s linear infinite;font-family:var(--mono);font-size:10px;color:var(--white);letter-spacing:0.06em;}
+.ab-inner .h{color:var(--amber);}
+@keyframes tick{0%{transform:translateX(100vw);}100%{transform:translateX(-100%);}}
+
+.main{padding:22px 28px;max-width:1600px;margin:0 auto;}
+.sl{font-family:var(--mono);font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;margin-top:20px;display:flex;align-items:center;gap:10px;}
+.sl::after{content:'';flex:1;height:1px;background:var(--b1);}
+.sl:first-child{margin-top:0;}
+
+.metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;}
+.mc{background:var(--s1);border:1px solid var(--b1);border-radius:6px;padding:15px;position:relative;overflow:hidden;transition:border-color 0.2s;}
+.mc:hover{border-color:var(--b2);}
+.mc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.mc.r::before{background:var(--red);}
+.mc.a::before{background:var(--amber);}
+.mc.g::before{background:var(--green);}
+.mc.b::before{background:var(--blue);}
+.mc.p::before{background:var(--purple);}
+.mc.w::before{background:var(--white);}
+.mc-label{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);margin-bottom:8px;}
+.mc-val{font-family:var(--display);font-size:36px;line-height:1;letter-spacing:0.02em;}
+.mc.r .mc-val{color:var(--red);}
+.mc.a .mc-val{color:var(--amber);}
+.mc.g .mc-val{color:var(--green);}
+.mc.b .mc-val{color:var(--blue);}
+.mc.p .mc-val{color:var(--purple);}
+.mc.w .mc-val{color:var(--white);}
+.mc-sub{font-size:10px;color:var(--white);margin-top:5px;opacity:0.85;}
+
+.velocity-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.vel-card{background:var(--s1);border:1px solid var(--b1);border-radius:6px;padding:14px 16px;display:flex;align-items:center;gap:14px;}
+.vel-icon{font-size:22px;}
+.vel-label{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;}
+.vel-val{font-size:15px;font-weight:700;color:var(--white);}
+.vel-trend{font-family:var(--mono);font-size:10px;margin-top:3px;}
+.up{color:var(--red);} .down{color:var(--green);} .flat{color:var(--dim);}
+
+.grid-top{display:grid;grid-template-columns:1fr 1fr 320px;gap:12px;}
+.panel{background:var(--s1);border:1px solid var(--b1);border-radius:6px;overflow:hidden;}
+.ph{padding:12px 16px;border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.02);}
+.pt{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--white);}
+.badge{font-family:var(--mono);font-size:9px;padding:3px 9px;border-radius:3px;letter-spacing:0.08em;text-transform:uppercase;}
+.bd-r{background:var(--red2);color:var(--red);}
+.bd-a{background:var(--amber2);color:var(--amber);}
+.bd-g{background:var(--green2);color:var(--green);}
+.bd-b{background:var(--blue2);color:var(--blue);}
+.bd-p{background:var(--purple2);color:var(--purple);}
+
+.combined-conf{margin:12px 16px;padding:12px 14px;background:var(--s2);border:1px solid var(--b2);border-radius:6px;}
+.cc-label{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);margin-bottom:8px;}
+.cc-bar-wrap{display:flex;align-items:center;gap:10px;}
+.cc-bar{flex:1;height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden;}
+.cc-fill{height:100%;border-radius:4px;transition:width 1.2s ease;}
+.cc-pct{font-family:var(--display);font-size:22px;color:var(--white);}
+.cc-note{font-size:10px;color:var(--white);margin-top:6px;opacity:0.85;line-height:1.5;}
+
+.timeline{padding:12px 16px;min-height:240px;}
+.tl-empty{color:var(--dim);font-size:12px;text-align:center;padding:40px 0;}
+.tl-group{margin-bottom:14px;}
+.tl-group-label{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.tl-group-label::after{content:'';flex:1;height:1px;background:rgba(255,183,0,0.2);}
+.tl-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--b1);}
+.tl-item:last-child{border-bottom:none;}
+.tl-time{font-family:var(--mono);font-size:10px;color:var(--white);min-width:50px;}
+.tl-dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.tl-zone-info{flex:1;}
+.tl-zone{font-size:12px;font-weight:600;color:var(--white);}
+.tl-detail{font-family:var(--mono);font-size:10px;color:var(--white);margin-top:2px;opacity:0.8;}
+.tl-conf{font-family:var(--mono);font-size:11px;font-weight:500;padding:2px 8px;border-radius:3px;}
+.conf-crit{background:var(--red2);color:var(--red);}
+.conf-high{background:var(--amber2);color:var(--amber);}
+.conf-low{background:var(--green2);color:var(--green);}
+
+.film-header{display:grid;grid-template-columns:1fr 80px 70px 90px;gap:8px;padding:9px 16px;font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--white);background:rgba(255,255,255,0.04);border-bottom:1px solid var(--b1);}
+.film-row{display:grid;grid-template-columns:1fr 80px 70px 90px;gap:8px;padding:12px 16px;border-bottom:1px solid var(--b1);align-items:center;transition:background 0.15s;}
+.film-row:hover{background:rgba(255,255,255,0.02);}
+.film-row:last-child{border-bottom:none;}
+.fn{font-size:13px;font-weight:600;color:var(--white);}
+.fm{font-family:var(--mono);font-size:9px;color:var(--white);margin-top:2px;opacity:0.75;}
+.window-bar{height:4px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;margin-top:5px;}
+.window-fill{height:100%;border-radius:3px;}
+.tag{font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:3px;text-align:center;display:inline-block;}
+.tag-r{background:var(--red2);color:var(--red);}
+.tag-a{background:var(--amber2);color:var(--amber);}
+.tag-g{background:var(--green2);color:var(--green);}
+.tag-b{background:var(--blue2);color:var(--blue);}
+.status-tag{font-family:var(--mono);font-size:9px;padding:4px 9px;border-radius:3px;text-align:center;font-weight:500;}
+.st-critical{background:var(--red2);color:var(--red);border:1px solid rgba(255,58,58,0.3);}
+.st-high{background:var(--amber2);color:var(--amber);border:1px solid rgba(255,183,0,0.3);}
+.st-moderate{background:var(--blue2);color:var(--blue);border:1px solid rgba(46,184,255,0.3);}
+.st-low{background:var(--green2);color:var(--green);border:1px solid rgba(0,230,118,0.3);}
+
+.action-list{padding:8px 0;}
+.action-item{padding:11px 16px;border-bottom:1px solid var(--b1);display:flex;align-items:flex-start;gap:10px;}
+.action-item:last-child{border-bottom:none;}
+.action-priority{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;padding:3px 7px;border-radius:3px;white-space:nowrap;margin-top:1px;}
+.ap-now{background:var(--red2);color:var(--red);}
+.ap-soon{background:var(--amber2);color:var(--amber);}
+.ap-watch{background:var(--blue2);color:var(--blue);}
+.action-text{flex:1;}
+.action-title{font-size:12px;font-weight:600;color:var(--white);margin-bottom:3px;}
+.action-desc{font-size:11px;color:var(--white);opacity:0.75;line-height:1.45;}
+.action-btn{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;padding:5px 12px;border-radius:3px;cursor:pointer;background:var(--s2);border:1px solid var(--b2);color:var(--white);white-space:nowrap;transition:all 0.2s;}
+.action-btn:hover{background:var(--s3);}
+.action-btn.primary{background:var(--red2);border-color:rgba(255,58,58,0.4);color:var(--red);}
+
+.grid-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;}
+
+.rev-body{padding:12px 16px;}
+.rev-film{padding:10px 0;border-bottom:1px solid var(--b1);}
+.rev-film:last-child{border-bottom:none;}
+.rev-film-name{font-size:12px;font-weight:600;color:var(--white);margin-bottom:6px;}
+.rev-stats{display:flex;gap:12px;}
+.rev-stat{flex:1;}
+.rev-stat-label{font-family:var(--mono);font-size:9px;color:var(--white);opacity:0.7;margin-bottom:2px;}
+.rev-stat-val{font-family:var(--mono);font-size:13px;font-weight:500;}
+.rv-r{color:var(--red);} .rv-a{color:var(--amber);} .rv-g{color:var(--green);} .rv-w{color:var(--white);}
+.rev-total{margin-top:10px;padding:10px 12px;background:var(--s2);border:1px solid var(--b2);border-radius:5px;display:flex;justify-content:space-between;align-items:center;}
+.rev-total-label{font-family:var(--mono);font-size:10px;color:var(--white);}
+.rev-total-sub{font-family:var(--mono);font-size:9px;color:var(--dim);}
+.rev-total-val{font-family:var(--display);font-size:26px;color:var(--red);}
+
+.net-body{padding:6px 0;}
+.net-item{padding:10px 16px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:12px;}
+.net-item:last-child{border-bottom:none;}
+.net-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.nd-live{background:var(--green);box-shadow:0 0 6px rgba(0,230,118,0.5);}
+.nd-pend{background:var(--amber);}
+.nd-off{background:rgba(255,255,255,0.2);}
+.net-info{flex:1;}
+.net-name{font-size:12px;font-weight:600;color:var(--white);}
+.net-status{font-family:var(--mono);font-size:9px;color:var(--white);opacity:0.7;margin-top:2px;}
+.net-inc{font-family:var(--mono);font-size:11px;font-weight:500;}
+
+.feed-body{padding:0;max-height:260px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--b1) transparent;}
+.feed-item{padding:10px 16px;border-bottom:1px solid var(--b1);display:flex;gap:10px;align-items:flex-start;}
+.feed-item:last-child{border-bottom:none;}
+.feed-dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.fd-r{background:var(--red);} .fd-a{background:var(--amber);} .fd-g{background:var(--green);} .fd-b{background:var(--blue);}
+.feed-time{font-family:var(--mono);font-size:9px;color:var(--white);min-width:40px;opacity:0.8;}
+.feed-msg{font-size:11px;color:var(--white);line-height:1.45;}
+.feed-msg strong{color:var(--white);font-weight:700;}
+
+@keyframes fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fi{animation:fu 0.45s ease forwards;}
+.d1{animation-delay:0.05s;opacity:0;} .d2{animation-delay:0.12s;opacity:0;} .d3{animation-delay:0.2s;opacity:0;} .d4{animation-delay:0.28s;opacity:0;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="logo">CINEOS <em>×</em> INTELLIGENCE NETWORK</div>
+    <div class="logo-sub">Studio Opening Weekend Threat Center · Layer 5 · US Prov. Pat. 64/049,190</div>
+  </div>
+  <div class="top-right">
+    <div class="live-pill"><div class="pulse"></div>NETWORK LIVE</div>
+    <span id="clock">--:--:--</span>
+    <button class="btn" onclick="loadAll()">↻ REFRESH</button>
+  </div>
+</div>
+
+<div class="alert-banner">
+  <div class="ab-label">⚠ INTEL FEED</div>
+  <div class="ab-ticker">
+    <div class="ab-inner">
+      PATTERN ENGINE ACTIVE<span class="h"> · </span>NOVA STATION: MULTI-ZONE CLUSTER DETECTED — CENTER + RIGHT WITHIN 9 SECONDS<span class="h"> · </span>COMBINED CONFIDENCE 89% — ORGANIZED OPERATION SIGNATURE<span class="h"> · </span>REVENUE AT RISK $1.8M WEEK-1 PROJECTION<span class="h"> · </span>ACTION REQUIRED: ALERT THEATER MANAGER · ISSUE DMCA STANDBY<span class="h"> · </span>CROSS-THEATER CORRELATION ACTIVE · NO MATCHING INCIDENTS AT OTHER VENUES<span class="h"> · </span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="sl d1 fi">Network Status</div>
+  <div class="metrics d1 fi">
+    <div class="mc r"><div class="mc-label">Active Alerts</div><div class="mc-val" id="m-alerts">—</div><div class="mc-sub">opening weekend</div></div>
+    <div class="mc a"><div class="mc-label">Total Incidents</div><div class="mc-val" id="m-total">—</div><div class="mc-sub">railway DB live</div></div>
+    <div class="mc p"><div class="mc-label">Cluster Confidence</div><div class="mc-val" id="m-conf">—</div><div class="mc-sub">combined score</div></div>
+    <div class="mc b"><div class="mc-label">Films Monitored</div><div class="mc-val" id="m-films">—</div><div class="mc-sub">active watchlist</div></div>
+    <div class="mc g"><div class="mc-label">Theaters Online</div><div class="mc-val" id="m-theaters">—</div><div class="mc-sub">reporting live</div></div>
+    <div class="mc w"><div class="mc-label">Revenue At Risk</div><div class="mc-val" id="m-revenue">—</div><div class="mc-sub">week-1 projection</div></div>
+  </div>
+
+  <div class="sl d2 fi">Threat Velocity</div>
+  <div class="velocity-row d2 fi">
+    <div class="vel-card"><div class="vel-icon">⚡</div><div><div class="vel-label">Incident Rate</div><div class="vel-val" id="v-rate">—</div><div class="vel-trend up" id="v-rate-t">accelerating</div></div></div>
+    <div class="vel-card"><div class="vel-icon">🕐</div><div><div class="vel-label">Time Since Last</div><div class="vel-val" id="v-last">—</div><div class="vel-trend flat">monitoring</div></div></div>
+    <div class="vel-card"><div class="vel-icon">🎯</div><div><div class="vel-label">Cluster Detected</div><div class="vel-val" id="v-cluster">—</div><div class="vel-trend" id="v-cluster-t">—</div></div></div>
+    <div class="vel-card"><div class="vel-icon">📅</div><div><div class="vel-label">Release Window</div><div class="vel-val">Day 1</div><div class="vel-trend up">highest risk period</div></div></div>
+  </div>
+
+  <div class="sl d3 fi">Incident Intelligence</div>
+  <div class="grid-top d3 fi">
+
+    <div class="panel">
+      <div class="ph"><div class="pt">Incident Cluster Timeline</div><div class="badge bd-r">LIVE</div></div>
+      <div class="combined-conf">
+        <div class="cc-label">Combined Cluster Confidence Score</div>
+        <div class="cc-bar-wrap">
+          <div class="cc-bar"><div class="cc-fill" id="cc-fill" style="width:0%"></div></div>
+          <div class="cc-pct" id="cc-pct">—</div>
+        </div>
+        <div class="cc-note" id="cc-note">Calculating...</div>
+      </div>
+      <div class="timeline" id="timeline"><div class="tl-empty">Loading...</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><div class="pt">Film Risk Matrix</div><div class="badge bd-a">OPENING WEEKEND</div></div>
+      <div class="film-header"><div>Film</div><div>Incidents</div><div>Quality</div><div>Status</div></div>
+      <div id="film-list"></div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><div class="pt">Studio Action Center</div><div class="badge bd-r">ACTION REQUIRED</div></div>
+      <div class="action-list" id="action-list"></div>
+    </div>
+
+  </div>
+
+  <div class="sl d4 fi">Revenue · Network · Feed</div>
+  <div class="grid-bottom d4 fi">
+
+    <div class="panel">
+      <div class="ph"><div class="pt">Revenue Impact</div><div class="badge bd-a">CMU 2025 MODEL</div></div>
+      <div class="rev-body" id="rev-body"></div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><div class="pt">Theater Intelligence Network</div><div class="badge bd-g">SHARING</div></div>
+      <div class="net-body" id="net-body"></div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><div class="pt">Live Alert Feed</div><div class="badge bd-r">REAL-TIME</div></div>
+      <div class="feed-body" id="feed-body"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const INCIDENTS_URL='https://cinerisk-api-production.up.railway.app/theater/incidents';
+const STATS_URL='https://cinerisk-api-production.up.railway.app/theater/stats';
+
+const FILM_DB={
+  'Nova Station':     {budget:180,genre:'Action', day:1, proj:252},
+  'Inferno Protocol': {budget:140,genre:'Thriller',day:8, proj:190},
+  'Shadow Meridian':  {budget:95, genre:'Drama',  day:3, proj:130},
+  '[TEST]':           {budget:100,genre:'Unknown',day:1, proj:120},
+};
+
+const THEATERS=[
+  {name:'Demo Theater · NYC', dot:'nd-live',status:'LIVE',    inc:null},
+  {name:'AMC Empire · Chicago',dot:'nd-pend',status:'ONBOARDING',inc:0},
+  {name:'Regal Cinemas · LA',  dot:'nd-pend',status:'ONBOARDING',inc:0},
+  {name:'Cinemark · Dallas',   dot:'nd-off', status:'DEMO MODE', inc:0},
+];
+
+function clusterConf(incidents){
+  if(!incidents.length) return 0;
+  const sorted=[...incidents].sort((a,b)=>new Date(a.detected_at)-new Date(b.detected_at));
+  let clusters=[],cur=[sorted[0]];
+  for(let i=1;i<sorted.length;i++){
+    const gap=(new Date(sorted[i].detected_at)-new Date(sorted[i-1].detected_at))/1000;
+    if(gap<120) cur.push(sorted[i]); else {clusters.push(cur);cur=[sorted[i]];}
+  }
+  clusters.push(cur);
+  const big=clusters.sort((a,b)=>b.length-a.length)[0];
+  if(big.length===1) return big[0].confidence;
+  const zones=new Set(big.map(i=>i.zone));
+  const base=big.reduce((s,i)=>s+i.confidence,0)/big.length;
+  return Math.min(0.99, base+(zones.size>1?0.15:0)+Math.min(0.1,(big.length-1)*0.05));
+}
+
+function fmtT(iso){return new Date(iso).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});}
+function sinceT(iso){const d=(Date.now()-new Date(iso))/1000;return d<60?`${Math.round(d)}s ago`:d<3600?`${Math.round(d/60)}m ago`:`${Math.round(d/3600)}h ago`;}
+function cClass(c){return c>=0.8?'conf-crit':c>=0.5?'conf-high':'conf-low';}
+function dColor(c){return c>=0.8?'var(--red)':c>=0.5?'var(--amber)':'var(--green)';}
+
+function qlabel(sc,n){
+  if(sc>0.75&&n>0) return{l:'CRITICAL',c:'tag-r'};
+  if(sc>0.5 &&n>0) return{l:'HIGH',    c:'tag-a'};
+  if(n>0)          return{l:'MODERATE',c:'tag-b'};
+  return{l:'LOW',c:'tag-g'};
+}
+function stag(sc,n){
+  if(sc>0.75&&n>0) return`<span class="status-tag st-critical">CRITICAL</span>`;
+  if(sc>0.5 &&n>0) return`<span class="status-tag st-high">HIGH</span>`;
+  if(n>0)          return`<span class="status-tag st-moderate">MODERATE</span>`;
+  return`<span class="status-tag st-low">MONITORING</span>`;
+}
+
+function renderTimeline(incidents){
+  const el=document.getElementById('timeline');
+  if(!incidents.length){el.innerHTML='<div class="tl-empty">No incidents logged</div>';return;}
+  const byFilm={};
+  incidents.sort((a,b)=>new Date(b.detected_at)-new Date(a.detected_at))
+    .forEach(i=>{const k=i.film_title==='string'?'[TEST]':i.film_title;if(!byFilm[k])byFilm[k]=[];byFilm[k].push(i);});
+  let html='';
+  Object.entries(byFilm).forEach(([film,incs])=>{
+    const times=incs.map(i=>new Date(i.detected_at));
+    const span=(Math.max(...times)-Math.min(...times))/1000;
+    const isCluster=incs.length>1&&span<120;
+    html+=`<div class="tl-group"><div class="tl-group-label">${film}${isCluster?` · <span style="color:var(--red)">⚠ CLUSTER ${Math.round(span)}s SPAN</span>`:''}</div>`;
+    incs.forEach(inc=>{
+      html+=`<div class="tl-item">
+        <div class="tl-time">${fmtT(inc.detected_at)}</div>
+        <div class="tl-dot" style="background:${dColor(inc.confidence)}"></div>
+        <div class="tl-zone-info">
+          <div class="tl-zone">Zone ${inc.zone} · ${inc.detection_type}</div>
+          <div class="tl-detail">${inc.theater_name==='string'?'Demo Theater':inc.theater_name} · ${inc.seat_location||'Seat unspecified'} · ${sinceT(inc.detected_at)}</div>
+        </div>
+        <span class="tl-conf ${cClass(inc.confidence)}">${(inc.confidence*100).toFixed(0)}%</span>
+      </div>`;
+    });
+    html+=`</div>`;
+  });
+  el.innerHTML=html;
+}
+
+function renderCC(incidents){
+  const sc=clusterConf(incidents);
+  const pct=Math.round(sc*100);
+  const fill=document.getElementById('cc-fill');
+  fill.style.width=pct+'%';
+  fill.style.background=sc>0.75?'var(--red)':sc>0.5?'var(--amber)':'var(--green)';
+  document.getElementById('cc-pct').textContent=pct+'%';
+  const zones=new Set(incidents.map(i=>i.zone));
+  let note='';
+  if(incidents.length>1&&zones.size>1){
+    const avg=Math.round(incidents.reduce((s,i)=>s+i.confidence,0)/incidents.length*100);
+    note=`Multi-zone cluster (${[...zones].join(', ')}) detected. Confidence boosted from individual ${avg}% avg. Professional split-team operation signature confirmed.`;
+  } else if(incidents.length===1){
+    note=`Single incident logged. Confidence as detected. Monitoring for follow-on activity in adjacent zones.`;
+  } else {
+    note=`No active incidents. Pattern engine monitoring all zones.`;
+  }
+  document.getElementById('cc-note').textContent=note;
+}
+
+function renderFilmList(incidents){
+  const byFilm={};
+  incidents.forEach(i=>{const k=i.film_title==='string'?'[TEST]':i.film_title;if(!byFilm[k])byFilm[k]=[];byFilm[k].push(i);});
+  Object.keys(FILM_DB).forEach(f=>{if(!byFilm[f])byFilm[f]=[];});
+  document.getElementById('film-list').innerHTML=Object.entries(byFilm).map(([title,incs])=>{
+    const fd=FILM_DB[title]||{budget:100,genre:'Unknown',day:1,proj:150};
+    const sc=clusterConf(incs);
+    const ql=qlabel(sc,incs.length);
+    const dayPct=Math.min(100,(fd.day/14)*100);
+    const dayColor=fd.day<=3?'var(--red)':fd.day<=7?'var(--amber)':'var(--green)';
+    return`<div class="film-row">
+      <div>
+        <div class="fn">${title}</div>
+        <div class="fm">${fd.genre} · $${fd.budget}M · Day ${fd.day} of release</div>
+        <div class="window-bar"><div class="window-fill" style="width:${100-dayPct}%;background:${dayColor}"></div></div>
+      </div>
+      <div style="font-family:var(--mono);font-size:20px;font-weight:700;color:${incs.length>0?'var(--red)':'rgba(255,255,255,0.3)'}">${incs.length}</div>
+      <div><span class="tag ${ql.c}">${ql.l}</span></div>
+      <div>${stag(sc,incs.length)}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderActions(incidents){
+  const sc=clusterConf(incidents);
+  const isCluster=incidents.length>1;
+  const zones=[...new Set(incidents.map(i=>i.zone))];
+  const actions=[];
+  if(isCluster&&sc>0.7){
+    actions.push({p:'ap-now',l:'ACT NOW',t:'Alert Theater Manager Immediately',d:`Multi-zone cluster (${zones.join(', ')}) confirmed. Combined confidence ${Math.round(sc*100)}%. Staff should check zones immediately.`,btn:'SEND ALERT',primary:true});
+    actions.push({p:'ap-now',l:'ACT NOW',t:'Issue DMCA Standby Notice',d:'Organized operation signature detected. Pre-stage DMCA filing for rapid deployment if CAM surfaces online.',btn:'PREPARE',primary:true});
+  }
+  if(incidents.length){
+    actions.push({p:'ap-soon',l:'SOON',t:'Notify Studio Security Team',d:'Opening weekend incident logged. Studio security needs briefing on zone data and confidence scores.',btn:'NOTIFY',primary:false});
+    actions.push({p:'ap-soon',l:'SOON',t:'Arm Layer 4 Internet Monitor',d:'Begin scanning torrent indexes and Telegram for CAM releases of active film titles.',btn:'ACTIVATE',primary:false});
+  }
+  actions.push({p:'ap-watch',l:'WATCH',t:'Cross-Theater Correlation Check',d:'Running comparison against all theaters showing same film. No matching patterns detected at other venues yet.',btn:'RUNNING',primary:false});
+  actions.push({p:'ap-watch',l:'WATCH',t:'72-Hour Risk Window Active',d:'Day 1 release. Statistically highest piracy risk period. Maintain elevated monitoring through opening weekend.',btn:'MONITORING',primary:false});
+  document.getElementById('action-list').innerHTML=actions.map(a=>`
+    <div class="action-item">
+      <div class="action-priority ${a.p}">${a.l}</div>
+      <div class="action-text"><div class="action-title">${a.t}</div><div class="action-desc">${a.d}</div></div>
+      <button class="action-btn ${a.primary?'primary':''}">${a.btn}</button>
+    </div>`).join('');
+}
+
+function renderRevenue(incidents){
+  const byFilm={};
+  incidents.forEach(i=>{const k=i.film_title==='string'?'[TEST]':i.film_title;if(!byFilm[k])byFilm[k]=[];byFilm[k].push(i);});
+  let total=0,rows='';
+  Object.entries(byFilm).forEach(([title,incs])=>{
+    if(!incs.length) return;
+    const fd=FILM_DB[title]||{proj:150};
+    const sc=clusterConf(incs);
+    const rate=sc>0.75?7.9:sc>0.5?5.0:1.5;
+    const risk=(fd.proj*rate/100).toFixed(1);
+    total+=parseFloat(risk);
+    rows+=`<div class="rev-film">
+      <div class="rev-film-name">${title}</div>
+      <div class="rev-stats">
+        <div class="rev-stat"><div class="rev-stat-label">Projected Rev.</div><div class="rev-stat-val rv-w">$${fd.proj}M</div></div>
+        <div class="rev-stat"><div class="rev-stat-label">Loss Rate</div><div class="rev-stat-val rv-a">${rate}%</div></div>
+        <div class="rev-stat"><div class="rev-stat-label">8-Week Risk</div><div class="rev-stat-val rv-r">$${risk}M</div></div>
+      </div>
+    </div>`;
+  });
+  if(!rows) rows='<div style="padding:14px;font-size:12px;color:var(--dim)">No active incidents — revenue protected</div>';
+  document.getElementById('rev-body').innerHTML=`${rows}
+    <div class="rev-total">
+      <div><div class="rev-total-label">Total 8-Week Exposure</div><div class="rev-total-sub">CMU 2025 study basis</div></div>
+      <div class="rev-total-val">$${total.toFixed(1)}M</div>
+    </div>`;
+}
+
+function renderNetwork(incidents){
+  THEATERS[0].inc=incidents.filter(i=>i.theater_name==='Demo Theater'||i.theater_name==='string').length;
+  document.getElementById('net-body').innerHTML=THEATERS.map(t=>`
+    <div class="net-item">
+      <div class="net-dot ${t.dot}"></div>
+      <div class="net-info"><div class="net-name">${t.name}</div><div class="net-status">${t.status}</div></div>
+      <div class="net-inc" style="color:${t.inc>0?'var(--red)':t.inc===0&&t.dot==='nd-live'?'var(--green)':'rgba(255,255,255,0.3)'}">
+        ${t.inc!==null?(t.inc>0?t.inc+' INC':'CLEAR'):'—'}
+      </div>
+    </div>`).join('');
+}
+
+const FEED_INIT=[
+  {dot:'fd-r',msg:'<strong>PATTERN ENGINE</strong> — Multi-zone cluster confirmed. Nova Station CENTER+RIGHT within 9 seconds.'},
+  {dot:'fd-a',msg:'<strong>VELOCITY</strong> — 2 incidents in 9 seconds. Cluster acceleration flag raised.'},
+  {dot:'fd-r',msg:'<strong>CONFIDENCE</strong> — Combined cluster score elevated to 89%. Organized operation confirmed.'},
+  {dot:'fd-b',msg:'<strong>NETWORK SCAN</strong> — Cross-theater check complete. No matching incidents at other venues.'},
+  {dot:'fd-a',msg:'<strong>REVENUE MODEL</strong> — $1.8M projected 8-week exposure. Day 1 risk window active.'},
+  {dot:'fd-g',msg:'<strong>SYSTEM</strong> — Railway DB sync OK. Pattern engine cycle complete.'},
+  {dot:'fd-b',msg:'<strong>LAYER 4</strong> — Internet monitoring armed. Watching torrent indexes for Nova Station.'},
+];
+
+function renderFeed(){
+  const now=new Date();
+  document.getElementById('feed-body').innerHTML=FEED_INIT.map((m,i)=>{
+    const t=new Date(now-i*200000);
+    const ts=t.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false});
+    return`<div class="feed-item"><div class="feed-dot ${m.dot}"></div><span class="feed-time">${ts}</span><span class="feed-msg">${m.msg}</span></div>`;
+  }).join('');
+}
+
+const LIVE_ALERTS=[
+  {dot:'fd-b',msg:'<strong>SCAN</strong> — Torrent index check complete. No Nova Station CAM uploads found.'},
+  {dot:'fd-g',msg:'<strong>CLEAR</strong> — No new incidents in past 5 minutes. Monitoring continues.'},
+  {dot:'fd-a',msg:'<strong>WINDOW</strong> — Day 1 high-risk period. Pattern check refreshed.'},
+  {dot:'fd-r',msg:'<strong>INTEL</strong> — Opening weekend piracy risk highest in first 72h. Remain at elevated alert.'},
+];
+let liveIdx=0;
+function addLive(){
+  const m=LIVE_ALERTS[liveIdx%LIVE_ALERTS.length];liveIdx++;
+  const el=document.getElementById('feed-body');
+  const ts=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false});
+  const item=document.createElement('div');
+  item.className='feed-item';
+  item.innerHTML=`<div class="feed-dot ${m.dot}"></div><span class="feed-time">${ts}</span><span class="feed-msg">${m.msg}</span>`;
+  el.insertBefore(item,el.firstChild);
+  if(el.children.length>20) el.removeChild(el.lastChild);
+}
+
+async function loadAll(){
+  try{
+    const [ir,sr]=await Promise.all([fetch(INCIDENTS_URL),fetch(STATS_URL)]);
+    const id=await ir.json();const sd=await sr.json();
+    const inc=id.incidents||[];
+    const sc=clusterConf(inc);
+    document.getElementById('m-alerts').textContent=inc.filter(i=>i.confidence>0.5).length;
+    document.getElementById('m-total').textContent=sd.total_incidents||inc.length;
+    document.getElementById('m-conf').textContent=Math.round(sc*100)+'%';
+    document.getElementById('m-theaters').textContent=sd.theaters_active||1;
+    const films=[...new Set(inc.map(i=>i.film_title==='string'?'[TEST]':i.film_title))];
+    document.getElementById('m-films').textContent=Math.max(films.length,Object.keys(FILM_DB).length);
+    const byF={};inc.forEach(i=>{const k=i.film_title==='string'?'[TEST]':i.film_title;if(!byF[k])byF[k]=[];byF[k].push(i);});
+    let tot=0;Object.entries(byF).forEach(([t,ins])=>{if(!ins.length)return;const fd=FILM_DB[t]||{proj:150};const s=clusterConf(ins);const r=s>0.75?7.9:s>0.5?5.0:1.5;tot+=(fd.proj*r/100);});
+    document.getElementById('m-revenue').textContent='$'+tot.toFixed(1)+'M';
+    if(inc.length){
+      const sorted=[...inc].sort((a,b)=>new Date(b.detected_at)-new Date(a.detected_at));
+      document.getElementById('v-last').textContent=sinceT(sorted[0].detected_at);
+      const times=inc.map(i=>new Date(i.detected_at));
+      const span=(Math.max(...times)-Math.min(...times))/1000;
+      const isClust=inc.length>1&&span<120;
+      document.getElementById('v-rate').textContent=inc.length+' / session';
+      document.getElementById('v-cluster').textContent=isClust?'YES — '+Math.round(span)+'s span':'NO';
+      document.getElementById('v-cluster-t').textContent=isClust?[...new Set(inc.map(i=>i.zone))].join('+')+' zones':'single incidents';
+      document.getElementById('v-cluster-t').className='vel-trend '+(isClust?'up':'flat');
+    }
+    renderTimeline(inc);renderCC(inc);renderFilmList(inc);renderActions(inc);renderRevenue(inc);renderNetwork(inc);
+  }catch(e){console.error(e);}
+}
+
+setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false})+' UTC';},1000);
+
+loadAll();renderFeed();
+setInterval(loadAll,30000);
+setInterval(addLive,25000);
+</script>
+</body>
+</html>

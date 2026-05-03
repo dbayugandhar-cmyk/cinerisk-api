@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinema Piracy — Live Threat Map</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap');
+
+  :root {
+    --red: #ff2a2a;
+    --red-dim: #7a0000;
+    --amber: #ff9500;
+    --green: #00ff88;
+    --green-dim: #004422;
+    --bg: #050508;
+    --panel: #0c0c12;
+    --border: #1a1a2a;
+    --text: #c8ccd8;
+    --muted: #445;
+    --seat-empty: #111118;
+    --seat-clear: #0d1f0d;
+    --seat-border: #1a2a1a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Scanline overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 28px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+  }
+
+  .header-left { display: flex; align-items: center; gap: 16px; }
+
+  .logo {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--green);
+    letter-spacing: 0.1em;
+  }
+
+  .patent {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .live-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 42, 42, 0.12);
+    border: 1px solid rgba(255, 42, 42, 0.3);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--red);
+    letter-spacing: 0.1em;
+  }
+
+  .live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    animation: blink 1s ease-in-out infinite;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  .stats-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+  }
+
+  .stat {
+    flex: 1;
+    padding: 12px 24px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-val {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .stat-val.red { color: var(--red); }
+  .stat-val.amber { color: var(--amber); }
+  .stat-val.green { color: var(--green); }
+  .stat-val.white { color: #fff; }
+
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    height: calc(100vh - 113px);
+  }
+
+  /* ── THEATER MAP ── */
+  .map-panel {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: hidden;
+  }
+
+  .screen-label {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .screen {
+    height: 8px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    border-radius: 2px;
+    margin: 0 40px;
+    position: relative;
+  }
+
+  .screen::after {
+    content: 'SCREEN';
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .theater-grid {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+    justify-content: center;
+  }
+
+  .seat-row {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .row-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .seat {
+    width: 18px;
+    height: 16px;
+    border-radius: 3px 3px 2px 2px;
+    background: var(--seat-empty);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .seat:hover { border-color: #334; transform: scale(1.1); }
+
+  .seat.clear {
+    background: var(--seat-clear);
+    border-color: var(--seat-border);
+  }
+
+  .seat.alert {
+    background: var(--red);
+    border-color: #ff6666;
+    box-shadow: 0 0 8px rgba(255,42,42,0.6);
+    animation: pulse-seat 1.5s ease-in-out infinite;
+  }
+
+  .seat.warning {
+    background: var(--amber);
+    border-color: #ffb830;
+    box-shadow: 0 0 6px rgba(255,149,0,0.5);
+  }
+
+  .seat.recent {
+    background: var(--red-dim);
+    border-color: var(--red);
+  }
+
+  @keyframes pulse-seat {
+    0%,100% { box-shadow: 0 0 8px rgba(255,42,42,0.6); }
+    50% { box-shadow: 0 0 16px rgba(255,42,42,0.9), 0 0 24px rgba(255,42,42,0.3); }
+  }
+
+  .aisle { width: 12px; flex-shrink: 0; }
+
+  /* ── INCIDENT FEED ── */
+  .feed-panel {
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    background: var(--panel);
+  }
+
+  .feed-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .feed-title {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .feed-count {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--red);
+  }
+
+  .feed-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+
+  .feed-list::-webkit-scrollbar { width: 3px; }
+  .feed-list::-webkit-scrollbar-track { background: transparent; }
+  .feed-list::-webkit-scrollbar-thumb { background: var(--border); }
+
+  .incident {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    animation: slide-in 0.3s ease-out;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .incident:hover { background: rgba(255,255,255,0.02); }
+
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateX(8px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .incident.new { background: rgba(255,42,42,0.06); }
+
+  .incident-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .incident-seat {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--red);
+  }
+
+  .incident-time {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .incident-theater {
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .incident-type {
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .type-badge {
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .type-badge.phone { background: rgba(255,42,42,0.2); color: var(--red); border: 1px solid rgba(255,42,42,0.3); }
+  .type-badge.camera { background: rgba(255,149,0,0.2); color: var(--amber); border: 1px solid rgba(255,149,0,0.3); }
+
+  .zone-bar {
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  .zone {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .zone.active {
+    border-color: var(--red);
+    background: rgba(255,42,42,0.06);
+  }
+
+  .zone-name {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .zone-count {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--text);
+  }
+
+  .zone.active .zone-count { color: var(--red); }
+
+  .status-bar {
+    padding: 8px 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .status-dot-green {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    padding: 8px 24px;
+    border-top: 1px solid var(--border);
+    background: var(--panel);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .legend-seat {
+    width: 12px; height: 10px;
+    border-radius: 2px 2px 1px 1px;
+  }
+
+  .tooltip {
+    position: fixed;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--text);
+    pointer-events: none;
+    z-index: 100;
+    display: none;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo">CINEMA PIRACY SOLUTION</div>
+    <div class="patent">US PROV. PAT. 64/049,190</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div style="font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace" id="clock"></div>
+    <div class="live-badge"><div class="live-dot"></div>LIVE MONITORING</div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-val red" id="stat-total">0</div>
+    <div class="stat-lbl">Total incidents</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val amber" id="stat-today">0</div>
+    <div class="stat-lbl">Today</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val green" id="stat-screens">1</div>
+    <div class="stat-lbl">Screens monitored</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val white" id="stat-theater">Demo Theater</div>
+    <div class="stat-lbl">Active theater</div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="map-panel">
+    <div class="screen"></div>
+    <div class="theater-grid" id="theater-grid"></div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-seat" style="background:var(--seat-empty);border:1px solid var(--border)"></div>Empty</div>
+      <div class="legend-item"><div class="legend-seat" style="background:var(--seat-clear);border:1px solid var(--seat-border)"></div>Clear</div>
+      <div class="legend-item"><div class="legend-seat" style="background:var(--red);box-shadow:0 0 6px rgba(255,42,42,0.6)"></div>Active alert</div>
+      <div class="legend-item"><div class="legend-seat" style="background:var(--red-dim);border:1px solid var(--red)"></div>Recent incident</div>
+      <div class="legend-item"><div class="legend-seat" style="background:var(--amber)"></div>Warning</div>
+    </div>
+  </div>
+
+  <div class="feed-panel">
+    <div class="feed-header">
+      <div class="feed-title">Incident feed</div>
+      <div class="feed-count" id="feed-count">0 incidents</div>
+    </div>
+    <div class="feed-list" id="feed-list">
+      <div style="padding:24px 16px;text-align:center;font-size:12px;color:var(--muted);font-family:'Share Tech Mono',monospace">
+        Waiting for incidents...
+      </div>
+    </div>
+    <div class="zone-bar">
+      <div class="zone" id="zone-left">
+        <div class="zone-name">LEFT</div>
+        <div class="zone-count" id="zone-left-count">0</div>
+      </div>
+      <div class="zone" id="zone-center">
+        <div class="zone-name">CENTER</div>
+        <div class="zone-count" id="zone-center-count">0</div>
+      </div>
+      <div class="zone" id="zone-right">
+        <div class="zone-name">RIGHT</div>
+        <div class="zone-count" id="zone-right-count">0</div>
+      </div>
+    </div>
+    <div class="status-bar">
+      <div class="status-dot-green"></div>
+      <span>Connected to Supabase · Auto-refresh 3s</span>
+    </div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const SUPABASE_URL = 'https://fuaybehxfusfywghuxwp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1YXliZWh4ZnVzZnl3Z2h1eHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTIzNDgsImV4cCI6MjA5MjcyODM0OH0.mbYxdL8NilgZOT4_vyWGK73h64UVxqCpT5SEzO3Kcks';
+
+const ROWS = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+const SEATS_PER_ROW = 20;
+let allIncidents = [];
+let alertSeats = new Set();
+let recentSeats = new Map();
+
+// Build theater grid
+function buildTheater() {
+  const grid = document.getElementById('theater-grid');
+  grid.innerHTML = '';
+  ROWS.forEach(row => {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'seat-row';
+    const lbl = document.createElement('div');
+    lbl.className = 'row-label';
+    lbl.textContent = row;
+    rowEl.appendChild(lbl);
+    for (let s = 1; s <= SEATS_PER_ROW; s++) {
+      if (s === 8 || s === 14) {
+        const aisle = document.createElement('div');
+        aisle.className = 'aisle';
+        rowEl.appendChild(aisle);
+      }
+      const seat = document.createElement('div');
+      seat.className = 'seat clear';
+      seat.id = `seat-${row}-${s}`;
+      seat.addEventListener('mouseenter', e => showTooltip(e, row, s));
+      seat.addEventListener('mouseleave', hideTooltip);
+      rowEl.appendChild(seat);
+    }
+    grid.appendChild(rowEl);
+  });
+}
+
+function showTooltip(e, row, seat) {
+  const id = `${row}-${seat}`;
+  const tooltip = document.getElementById('tooltip');
+  const incident = allIncidents.find(i => parseSeat(i.seat_location) === id);
+  if (incident) {
+    tooltip.innerHTML = `Row ${row}, Seat ${seat}<br>${incident.theater_name} · ${incident.screen_number}<br>${new Date(incident.detected_at).toLocaleTimeString()}`;
+    tooltip.style.display = 'block';
+    tooltip.style.left = (e.clientX + 12) + 'px';
+    tooltip.style.top = (e.clientY - 32) + 'px';
+  }
+}
+
+function hideTooltip() {
+  document.getElementById('tooltip').style.display = 'none';
+}
+
+function parseSeat(location) {
+  if (!location) return null;
+  const m = location.match(/Row\s+([A-Z])[,\s]+Seat\s+(\d+)/i);
+  if (m) return `${m[1].toUpperCase()}-${m[2]}`;
+  const z = location.match(/Zone\s+(LEFT|CENTER|RIGHT)/i);
+  if (z) {
+    const zone = z[1].toUpperCase();
+    const randomRow = ROWS[Math.floor(Math.random() * ROWS.length)];
+    if (zone === 'LEFT') return `${randomRow}-${Math.floor(Math.random()*6)+1}`;
+    if (zone === 'CENTER') return `${randomRow}-${Math.floor(Math.random()*6)+8}`;
+    if (zone === 'RIGHT') return `${randomRow}-${Math.floor(Math.random()*6)+15}`;
+  }
+  return null;
+}
+
+function updateSeats() {
+  // Clear all alerts first
+  document.querySelectorAll('.seat.alert').forEach(s => {
+    s.classList.remove('alert');
+    s.classList.add('recent');
+  });
+
+  const now = Date.now();
+  const recentCutoff = 5 * 60 * 1000; // 5 min = recent
+  const oldCutoff = 30 * 60 * 1000;   // 30 min = fades
+
+  allIncidents.forEach(incident => {
+    const seatId = parseSeat(incident.seat_location);
+    if (!seatId) return;
+    const [row, num] = seatId.split('-');
+    const el = document.getElementById(`seat-${row}-${num}`);
+    if (!el) return;
+    const age = now - new Date(incident.detected_at).getTime();
+    el.classList.remove('clear', 'alert', 'recent', 'warning');
+    if (age < recentCutoff) {
+      el.classList.add('alert');
+    } else if (age < oldCutoff) {
+      el.classList.add('recent');
+    } else {
+      el.classList.add('warning');
+    }
+  });
+}
+
+function updateFeed(incidents) {
+  const feed = document.getElementById('feed-list');
+  if (!incidents.length) return;
+  feed.innerHTML = '';
+  const today = new Date().toDateString();
+  let todayCount = 0;
+  let zoneL = 0, zoneC = 0, zoneR = 0;
+
+  incidents.forEach((inc, i) => {
+    const incDate = new Date(inc.detected_at);
+    if (incDate.toDateString() === today) todayCount++;
+    const loc = (inc.seat_location || '').toUpperCase();
+    if (loc.includes('LEFT')) zoneL++;
+    else if (loc.includes('CENTER')) zoneC++;
+    else if (loc.includes('RIGHT')) zoneR++;
+    else zoneC++;
+
+    const el = document.createElement('div');
+    el.className = 'incident' + (i === 0 ? ' new' : '');
+    const type = (inc.detection_type || 'PHONE').toUpperCase();
+    el.innerHTML = `
+      <div class="incident-top">
+        <div class="incident-seat">${inc.seat_location || 'Unknown'}</div>
+        <div class="incident-time">${incDate.toLocaleTimeString()}</div>
+      </div>
+      <div class="incident-theater">${inc.theater_name || 'Demo Theater'} · ${inc.screen_number || 'Screen 1'}</div>
+      <div class="incident-type">
+        <span class="type-badge ${type.includes('CAMERA') ? 'camera' : 'phone'}">${type}</span>
+        ${incDate.toLocaleDateString()}
+      </div>
+    `;
+    feed.appendChild(el);
+  });
+
+  document.getElementById('stat-total').textContent = incidents.length;
+  document.getElementById('stat-today').textContent = todayCount;
+  document.getElementById('feed-count').textContent = incidents.length + ' incidents';
+
+  document.getElementById('zone-left-count').textContent = zoneL;
+  document.getElementById('zone-center-count').textContent = zoneC;
+  document.getElementById('zone-right-count').textContent = zoneR;
+
+  document.getElementById('zone-left').classList.toggle('active', zoneL > 0);
+  document.getElementById('zone-center').classList.toggle('active', zoneC > 0);
+  document.getElementById('zone-right').classList.toggle('active', zoneR > 0);
+}
+
+async function fetchIncidents() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/incidents?select=*&order=detected_at.desc&limit=50`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+    });
+    const data = await res.json();
+    if (Array.isArray(data)) {
+      allIncidents = data;
+      updateFeed(data);
+      updateSeats();
+    }
+  } catch(e) {
+    console.error('Fetch error:', e);
+  }
+}
+
+function updateClock() {
+  document.getElementById('clock').textContent = new Date().toLocaleTimeString();
+}
+
+buildTheater();
+fetchIncidents();
+setInterval(fetchIncidents, 3000);
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+</body>
+</html>

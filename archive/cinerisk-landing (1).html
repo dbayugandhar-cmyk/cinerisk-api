@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CineRisk — Film Release Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07090c;
+  --bg2: #0c0f14;
+  --bg3: #111620;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --gold: #c9a84c;
+  --gold2: #e8c96a;
+  --gold-dim: rgba(201,168,76,0.15);
+  --red: #d94f4f;
+  --green: #3db87a;
+  --text: #dde1e8;
+  --text2: #7a8494;
+  --text3: #3a4150;
+  --display: 'Bebas Neue', sans-serif;
+  --serif: 'Instrument Serif', serif;
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform .1s ease;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform .25s ease, width .2s, height .2s;
+}
+
+/* Film grain */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+  opacity: .5;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 90;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px;
+  background: linear-gradient(to bottom, rgba(7,9,12,0.95), transparent);
+}
+.nav-logo {
+  font-family: var(--display);
+  font-size: 22px; letter-spacing: 2px;
+  color: var(--text);
+}
+.nav-logo span { color: var(--gold); }
+.nav-links {
+  display: flex; align-items: center; gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: .1em;
+  color: var(--text2);
+  text-decoration: none; text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  padding: 9px 20px;
+  background: var(--gold);
+  color: var(--bg) !important;
+  border-radius: 4px;
+  font-weight: 500 !important;
+  letter-spacing: .05em !important;
+  transition: background .2s !important;
+}
+.nav-cta:hover { background: var(--gold2) !important; color: var(--bg) !important; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  padding: 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background number grid */
+.hero-grid {
+  position: absolute; inset: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  opacity: .04;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-grid-cell {
+  border: 1px solid rgba(201,168,76,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--gold);
+}
+
+/* Scanning line */
+.scan-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: scan 6s linear infinite;
+  opacity: .15;
+  z-index: 1;
+}
+@keyframes scan { from{top:-2px} to{top:100%} }
+
+.hero-content { position: relative; z-index: 2; max-width: 820px; }
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 24px;
+  animation: fadeUp .6s ease both;
+}
+.eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(0.8)} }
+.eyebrow-text {
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: .15em;
+  color: var(--gold); text-transform: uppercase;
+}
+
+.hero-headline {
+  font-family: var(--display);
+  font-size: clamp(56px, 9vw, 108px);
+  line-height: .92;
+  letter-spacing: 1px;
+  color: var(--text);
+  margin-bottom: 8px;
+  animation: fadeUp .7s ease .1s both;
+}
+.hero-headline em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--gold);
+  letter-spacing: 0;
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--text2);
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 24px 0 40px;
+  font-weight: 300;
+  animation: fadeUp .7s ease .2s both;
+}
+
+.hero-actions {
+  display: flex; align-items: center; gap: 16px;
+  animation: fadeUp .7s ease .3s both;
+}
+.btn-primary {
+  padding: 14px 32px;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--sans);
+  font-size: 14px; font-weight: 500;
+  cursor: none;
+  transition: all .2s;
+  letter-spacing: .02em;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+.btn-ghost {
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  font-family: var(--sans);
+  font-size: 14px;
+  cursor: none;
+  transition: all .2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Floating risk card */
+.hero-card {
+  position: absolute;
+  right: 48px; top: 50%;
+  transform: translateY(-50%);
+  width: 280px;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 24px;
+  z-index: 2;
+  animation: floatIn .8s ease .4s both;
+}
+@keyframes floatIn { from{opacity:0;transform:translateY(-40%)} to{opacity:1;transform:translateY(-50%)} }
+.card-film {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .1em;
+  color: var(--text3); text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.card-title {
+  font-family: var(--display);
+  font-size: 22px; letter-spacing: 1px;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.card-score {
+  display: flex; align-items: baseline; gap: 8px;
+  margin-bottom: 4px;
+}
+.score-num {
+  font-family: var(--display);
+  font-size: 64px; line-height: 1;
+  color: var(--red);
+}
+.score-label {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .1em;
+  color: var(--red); text-transform: uppercase;
+}
+.score-bar-wrap {
+  width: 100%; height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.score-bar-fill {
+  height: 100%;
+  background: var(--red);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 1.2s ease .8s;
+}
+.card-metrics {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.metric { }
+.metric-val {
+  font-family: var(--mono);
+  font-size: 16px; font-weight: 500;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.metric-val.danger { color: var(--red); }
+.metric-val.success { color: var(--green); }
+.metric-label {
+  font-family: var(--mono);
+  font-size: 9px; letter-spacing: .1em;
+  color: var(--text3); text-transform: uppercase;
+}
+.card-rec {
+  margin-top: 16px;
+  padding: 10px 12px;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--gold);
+  line-height: 1.5;
+}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── STATS STRIP ── */
+.stats-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 32px 48px;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 0;
+}
+.stat-item {
+  padding: 0 32px;
+  border-right: 1px solid var(--border);
+}
+.stat-item:first-child { padding-left: 0; }
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--display);
+  font-size: 42px; letter-spacing: 1px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .1em;
+  color: var(--text3); text-transform: uppercase;
+}
+
+/* ── PROBLEM SECTION ── */
+.section { padding: 100px 48px; }
+.section-tag {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .2em;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 64px);
+  letter-spacing: 1px;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.section-title em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--gold);
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 48px;
+}
+.problem-card {
+  background: var(--bg2);
+  padding: 36px;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.problem-card:hover { border-color: var(--border2); }
+.problem-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s ease;
+}
+.problem-card:hover::before { transform: scaleX(1); }
+.problem-num {
+  font-family: var(--display);
+  font-size: 56px; line-height: 1;
+  color: var(--text3);
+  margin-bottom: 12px;
+}
+.problem-title {
+  font-size: 16px; font-weight: 500;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.problem-body {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+/* ── HOW IT WORKS ── */
+.how-section {
+  padding: 100px 48px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 48px;
+  margin-top: 64px;
+}
+.step { position: relative; }
+.step-num {
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: .15em;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.step-title {
+  font-family: var(--display);
+  font-size: 28px; letter-spacing: 1px;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+.step-body {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+.step-connector {
+  position: absolute;
+  top: 8px; right: -24px;
+  width: 48px; height: 1px;
+  background: linear-gradient(90deg, var(--border2), transparent);
+}
+
+/* ── REPORT PREVIEW ── */
+.report-section {
+  padding: 100px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.report-preview {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.report-cover {
+  background: #090b0f;
+  padding: 32px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.report-cover-logo {
+  font-family: var(--display);
+  font-size: 16px; letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+.report-cover-logo span { color: var(--gold); }
+.report-film-title {
+  font-family: var(--display);
+  font-size: 28px; letter-spacing: 1px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.report-subtitle {
+  font-family: var(--mono);
+  font-size: 9px; letter-spacing: .15em;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.report-score-big {
+  font-family: var(--display);
+  font-size: 72px; line-height: 1;
+  color: var(--red);
+}
+.report-score-lbl {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .1em;
+  color: var(--red); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.report-divider {
+  width: 48px; height: 2px;
+  background: var(--gold);
+  margin-bottom: 16px;
+}
+.report-prepared {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text3);
+}
+.report-body {
+  padding: 24px 32px;
+}
+.report-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+.report-row:last-child { border-bottom: none; }
+.report-row-label { color: var(--text3); }
+.report-row-val { font-weight: 500; }
+.rred { color: var(--red); }
+.rgreen { color: var(--green); }
+.rgold { color: var(--gold); }
+
+/* ── PRICING ── */
+.pricing-section {
+  padding: 100px 48px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 2px;
+  margin-top: 64px;
+}
+.price-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 36px;
+  position: relative;
+  transition: border-color .2s;
+}
+.price-card:hover { border-color: var(--border2); }
+.price-card.featured {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.04);
+}
+.price-card.featured::after {
+  content: 'MOST POPULAR';
+  position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 9px; letter-spacing: .12em;
+  padding: 3px 12px;
+  font-weight: 500;
+}
+.price-tier {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .15em;
+  color: var(--text3); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.price-amount {
+  font-family: var(--display);
+  font-size: 48px; letter-spacing: 1px;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.price-period {
+  font-family: var(--mono);
+  font-size: 11px; color: var(--text3);
+  margin-bottom: 24px;
+}
+.price-features { list-style: none; margin-bottom: 32px; }
+.price-features li {
+  font-size: 13px; color: var(--text2);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+}
+.price-features li::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.price-cta {
+  display: block; width: 100%;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  font-family: var(--sans);
+  font-size: 13px; font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  transition: all .2s;
+  cursor: none;
+}
+.price-cta:hover { border-color: var(--gold); color: var(--gold); }
+.price-card.featured .price-cta {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bg);
+}
+.price-card.featured .price-cta:hover {
+  background: var(--gold2);
+  color: var(--bg);
+}
+
+/* ── CTA SECTION ── */
+.cta-section {
+  padding: 120px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-title {
+  font-family: var(--display);
+  font-size: clamp(40px,6vw,80px);
+  letter-spacing: 1px;
+  color: var(--text);
+  margin-bottom: 16px;
+  position: relative;
+}
+.cta-sub {
+  font-size: 16px;
+  color: var(--text2);
+  max-width: 440px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+.email-form {
+  display: flex;
+  gap: 0;
+  max-width: 440px;
+  margin: 0 auto;
+}
+.email-input {
+  flex: 1;
+  padding: 14px 20px;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s;
+}
+.email-input:focus { border-color: var(--gold); }
+.email-input::placeholder { color: var(--text3); }
+.email-submit {
+  padding: 14px 24px;
+  background: var(--gold);
+  color: var(--bg);
+  border: 1px solid var(--gold);
+  border-radius: 0 4px 4px 0;
+  font-family: var(--sans);
+  font-size: 14px; font-weight: 500;
+  cursor: none;
+  transition: background .2s;
+  white-space: nowrap;
+}
+.email-submit:hover { background: var(--gold2); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 32px 48px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo {
+  font-family: var(--display);
+  font-size: 18px; letter-spacing: 2px;
+  color: var(--text3);
+}
+.footer-logo span { color: var(--gold); opacity: .6; }
+.footer-copy {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .08em;
+  color: var(--text3);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-card { display: none; }
+  .hero { padding: 120px 24px 60px; }
+  .stats-strip,.section,.how-section,.report-section,.pricing-section,.cta-section { padding: 60px 24px; }
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .problem-grid,.steps,.pricing-grid { grid-template-columns: 1fr; }
+  .report-section { grid-template-columns: 1fr; }
+  .stats-strip { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .stat-item { border: none; padding: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<nav>
+  <div class="nav-logo">CINE<span>RISK</span></div>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#report">The report</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Get a free report</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid" id="heroGrid"></div>
+  <div class="scan-line"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      <span class="eyebrow-text">Film Release Intelligence</span>
+    </div>
+    <h1 class="hero-headline">
+      KNOW THE RISK<br>
+      BEFORE YOU<br>
+      <em>Release</em>
+    </h1>
+    <p class="hero-sub">
+      Piracy costs film distributors an estimated 19% of revenue per title.
+      CineRisk tells you exactly when, where, and how much — before you lock your release calendar.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get a free risk report</a>
+      <a href="#how" class="btn-ghost">See how it works</a>
+    </div>
+  </div>
+
+  <div class="hero-card" id="heroCard">
+    <div class="card-film">Upcoming release</div>
+    <div class="card-title">NOVA STATION</div>
+    <div class="card-score">
+      <div class="score-num" id="scoreCounter">0</div>
+      <div class="score-label">High risk</div>
+    </div>
+    <div class="score-bar-wrap">
+      <div class="score-bar-fill" id="scoreBar"></div>
+    </div>
+    <div class="card-metrics">
+      <div class="metric">
+        <div class="metric-val success">$310M</div>
+        <div class="metric-label">Revenue est.</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val danger">$104M</div>
+        <div class="metric-label">At risk</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val danger">Day +6</div>
+        <div class="metric-label">Est. leak day</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val" style="color:var(--gold)">Staggered</div>
+        <div class="metric-label">Current strategy</div>
+      </div>
+    </div>
+    <div class="card-rec">
+      ↑ Switch to global simultaneous<br>+$8M net revenue protected
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip reveal">
+  <div class="stat-item">
+    <div class="stat-num">$75B</div>
+    <div class="stat-label">Annual piracy losses, global</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">19.1%</div>
+    <div class="stat-label">Revenue lost to pre-release piracy</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">Day 6</div>
+    <div class="stat-label">Avg. first leak for staggered releases</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">84%</div>
+    <div class="stat-label">Model accuracy before greenlight</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section" id="problem">
+  <div class="section-tag">The problem</div>
+  <h2 class="section-title">YOUR RELEASE STRATEGY<br>IS LEAKING <em>Revenue</em></h2>
+
+  <div class="problem-grid reveal">
+    <div class="problem-card">
+      <div class="problem-num">01</div>
+      <div class="problem-title">Staggered releases are the #1 piracy driver</div>
+      <div class="problem-body">Every day you delay a territory is a day someone in that market turns to piracy. India, China, and Brazil are the highest-risk markets — and most releases stagger them by 3–4 weeks.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">02</div>
+      <div class="problem-title">The leak spreads globally within 48 hours</div>
+      <div class="problem-body">A cam rip in one territory doesn't stay there. Within 48 hours it's on every major torrent and streaming piracy platform worldwide, undermining your theatrical window everywhere.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">03</div>
+      <div class="problem-title">You're making release decisions without data</div>
+      <div class="problem-body">Most distribution teams still rely on gut instinct and historical precedent to set release windows. There's no standardised model that tells you what a strategy costs in real money.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">04</div>
+      <div class="problem-title">By the time you react, it's too late</div>
+      <div class="problem-body">Piracy response is reactive — you find out after the leak. CineRisk gives you the risk profile before you commit to a strategy, when you can still change it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-tag">How it works</div>
+  <h2 class="section-title">FROM TITLE TO<br><em>Intelligence</em> IN 48 HOURS</h2>
+
+  <div class="steps reveal">
+    <div class="step">
+      <div class="step-num">Step 01</div>
+      <div class="step-title">YOU SEND US THE TITLE</div>
+      <div class="step-body">Film name, release strategy, target territories. That's all we need to start. We pull the rest from public sources — TMDB, box office records, social data.</div>
+      <div class="step-connector"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">Step 02</div>
+      <div class="step-title">WE RUN THE MODEL</div>
+      <div class="step-body">Our risk engine scores 8 signals — genre, budget, franchise status, release strategy, streaming gap, social buzz, territory delays, and historical leak velocity for comparable titles.</div>
+      <div class="step-connector"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">Step 03</div>
+      <div class="step-title">YOU GET THE REPORT</div>
+      <div class="step-body">A 5-page PDF with a risk score, revenue at risk, scenario comparison across 3 release strategies, territory breakdown, and 5 specific actions to protect revenue.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORT PREVIEW -->
+<section class="report-section" id="report">
+  <div>
+    <div class="section-tag">The deliverable</div>
+    <h2 class="section-title">A REPORT YOUR<br>TEAM CAN <em>Act On</em></h2>
+    <p style="font-size:15px;color:var(--text2);line-height:1.7;margin:20px 0 32px">
+      Not a dashboard. Not a tool that needs onboarding. A studio-ready intelligence report you can open in a meeting and make a decision from. Branded with your client's name on the cover.
+    </p>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:12px">
+      <li style="display:flex;gap:12px;align-items:flex-start">
+        <span style="color:var(--gold);font-family:var(--mono);font-size:11px;margin-top:2px">01</span>
+        <span style="font-size:14px;color:var(--text2)">Risk score 0–100 with confidence band</span>
+      </li>
+      <li style="display:flex;gap:12px;align-items:flex-start">
+        <span style="color:var(--gold);font-family:var(--mono);font-size:11px;margin-top:2px">02</span>
+        <span style="font-size:14px;color:var(--text2)">3-scenario strategy comparison with net revenue delta</span>
+      </li>
+      <li style="display:flex;gap:12px;align-items:flex-start">
+        <span style="color:var(--gold);font-family:var(--mono);font-size:11px;margin-top:2px">03</span>
+        <span style="font-size:14px;color:var(--text2)">Territory-level risk index across 9 major markets</span>
+      </li>
+      <li style="display:flex;gap:12px;align-items:flex-start">
+        <span style="color:var(--gold);font-family:var(--mono);font-size:11px;margin-top:2px">04</span>
+        <span style="font-size:14px;color:var(--text2)">5 specific actions to protect revenue before release</span>
+      </li>
+      <li style="display:flex;gap:12px;align-items:flex-start">
+        <span style="color:var(--gold);font-family:var(--mono);font-size:11px;margin-top:2px">05</span>
+        <span style="font-size:14px;color:var(--text2)">Methodology backed by peer-reviewed research</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="report-preview reveal">
+    <div class="report-cover">
+      <div class="report-cover-logo">CINE<span>RISK</span></div>
+      <div class="report-film-title">TITAN'S EDGE</div>
+      <div class="report-subtitle">Release Risk Intelligence Report</div>
+      <div class="report-score-big">78</div>
+      <div class="report-score-lbl">High Risk</div>
+      <div class="report-divider"></div>
+      <div class="report-prepared">Prepared for: Meridian Pictures · May 2025</div>
+    </div>
+    <div class="report-body">
+      <div class="report-row">
+        <span class="report-row-label">Risk Score</span>
+        <span class="report-row-val rred">78 / 100</span>
+      </div>
+      <div class="report-row">
+        <span class="report-row-label">Est. First Leak</span>
+        <span class="report-row-val rred">Day +8</span>
+      </div>
+      <div class="report-row">
+        <span class="report-row-label">Revenue Potential</span>
+        <span class="report-row-val rgreen">$220M</span>
+      </div>
+      <div class="report-row">
+        <span class="report-row-label">Revenue at Risk</span>
+        <span class="report-row-val rred">$69M</span>
+      </div>
+      <div class="report-row">
+        <span class="report-row-label">Recommendation</span>
+        <span class="report-row-val rgold">Global Simultaneous</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-tag">Pricing</div>
+  <h2 class="section-title">PAY PER REPORT.<br>NO <em>Subscriptions</em> YET.</h2>
+  <p style="font-size:15px;color:var(--text2);max-width:480px;line-height:1.6;margin-top:16px">
+    We're in early access. You pay per report while we calibrate the model with real distributor data. Subscription tiers open once we have 10 pilot clients.
+  </p>
+
+  <div class="pricing-grid reveal">
+    <div class="price-card">
+      <div class="price-tier">Single Report</div>
+      <div class="price-amount">$500</div>
+      <div class="price-period">per film</div>
+      <ul class="price-features">
+        <li>Full 5-page risk report</li>
+        <li>3-scenario comparison</li>
+        <li>Territory breakdown</li>
+        <li>5 action recommendations</li>
+        <li>PDF delivered in 48hrs</li>
+      </ul>
+      <a href="#contact" class="price-cta">Request report</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-tier">Pilot Package</div>
+      <div class="price-amount">$2K</div>
+      <div class="price-period">per month · 3 month minimum</div>
+      <ul class="price-features">
+        <li>Up to 5 reports per month</li>
+        <li>Priority 24hr turnaround</li>
+        <li>Custom territory profiles</li>
+        <li>Strategy review call included</li>
+        <li>Early access to dashboard</li>
+      </ul>
+      <a href="#contact" class="price-cta">Start pilot</a>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Studio Deal</div>
+      <div class="price-amount">Custom</div>
+      <div class="price-period">annual contract</div>
+      <ul class="price-features">
+        <li>Unlimited reports</li>
+        <li>Live dashboard access</li>
+        <li>API integration</li>
+        <li>Custom ML model on your data</li>
+        <li>Dedicated analyst support</li>
+      </ul>
+      <a href="#contact" class="price-cta">Talk to us</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2 class="cta-title">GET YOUR FREE<br>RISK REPORT</h2>
+  <p class="cta-sub">Send us your next title. We'll run the analysis and send back a sample report — no commitment, no pitch call.</p>
+  <form class="email-form" onsubmit="handleSubmit(event)">
+    <input type="email" class="email-input" placeholder="your@studio.com" required>
+    <button type="submit" class="email-submit">Get free report →</button>
+  </form>
+  <p style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:16px;letter-spacing:.05em">
+    We'll reply within 24 hours to collect your film details.
+  </p>
+</section>
+
+<footer>
+  <div class="footer-logo">CINE<span>RISK</span></div>
+  <div class="footer-copy">© 2025 CineRisk Intelligence — Confidential</div>
+</footer>
+
+<script>
+// Custom cursor
+const cur=document.getElementById('cur'), ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-4+'px';cur.style.top=my-4+'px';});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx-16+'px';ring.style.top=ry-16+'px';requestAnimationFrame(animRing);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.marginLeft='-8px';ring.style.marginTop='-8px';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.marginLeft='0';ring.style.marginTop='0';});
+});
+
+// Hero grid
+const grid=document.getElementById('heroGrid');
+const nums=['84','78','92','67','31','55','88','42','19.1','$104M','Day+6','HIGH','$310M','STAG','RISK','LOW'];
+for(let i=0;i<40;i++){
+  const c=document.createElement('div');c.className='hero-grid-cell';
+  c.textContent=nums[i%nums.length];grid.appendChild(c);
+}
+
+// Score counter animation
+let scored=false;
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting&&!scored){
+      scored=true;
+      let n=0,target=84;
+      const t=setInterval(()=>{n+=2;document.getElementById('scoreCounter').textContent=n;if(n>=target){document.getElementById('scoreCounter').textContent=target;clearInterval(t);}},20);
+      document.getElementById('scoreBar').style.width='84%';
+    }
+  });
+},{threshold:.3});
+observer.observe(document.getElementById('heroCard'));
+
+// Scroll reveal
+const revObserver=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){e.target.style.transitionDelay=i*.08+'s';e.target.classList.add('visible');}
+  });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>revObserver.observe(el));
+
+// Form submit
+function handleSubmit(e){
+  e.preventDefault();
+  const email=e.target.querySelector('input').value;
+  e.target.innerHTML=`<div style="font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.05em;padding:14px 20px;background:var(--bg2);border:1px solid rgba(201,168,76,0.3);border-radius:4px;width:100%">✓ Got it — we'll email you within 24 hours to get your film details.</div>`;
+}
+</script>
+</body>
+</html>

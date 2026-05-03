@@ -199,7 +199,7 @@ async def scan_status(film_title: str, db=Depends(get_db)):
 
 @app.post("/theater/manual_scan")
 async def manual_scan(film_title: str, db=Depends(get_db)):
-    from theater.layer4_trigger import search_piracy
+    from layer4_trigger import search_piracy
     scan = await search_piracy(film_title)
     return {"film_title": film_title, "hits": scan["hits"],
             "platforms": scan["platforms"], "first_url": scan["first_url"]}

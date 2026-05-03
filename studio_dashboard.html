@@ -21,8 +21,8 @@
   --blue: #0088ff;
   --blue-dim: rgba(0,136,255,0.1);
   --text: #e8e8f0;
-  --muted: #4a4a6a;
-  --muted2: #2a2a3a;
+  --muted: #a8c0e0;
+  --muted2: #4a6080;
   --gold: #c9a84c;
 }
 
@@ -575,6 +575,53 @@ body::before {
   gap: 6px;
   color: var(--green);
 }
+
+  /* ── VISIBILITY OVERRIDES ── */
+  .stat-label, .stat-sub { color: #b8d0f0 !important; }
+  .brand-tag { color: #90b0d0 !important; }
+  .film-meta-item { color: #b0c8e8 !important; }
+  .section-label, .sec-label { color: #90b0d0 !important; letter-spacing: 0.12em; }
+  .score-label { color: #c0d8f8 !important; }
+  .leg-label { color: #c0d4f0 !important; }
+  .t-label { color: #8090a8 !important; }
+  table th { color: #c0d8f8 !important; }
+  table td { color: #e0eeff !important; }
+  .inc-theater, .inc-time { color: #b0c8e8 !important; }
+  .inc-seat { color: #ffa060 !important; font-weight: 700; }
+  .status-row .status-name { color: #e0f0ff !important; }
+  .cert-label { color: #80a0c0 !important; }
+  .cert-val { color: #e0f0ff !important; }
+  .footer { color: #6080a0 !important; }
+  .verified-badge { color: #80c080 !important; }
+  .clock { color: #c0d8f8 !important; }
+  .topbar-right { color: #c0d8f8 !important; }
+  .film-title { color: #ffffff !important; font-size: 38px !important; }
+  .film-meta { color: #b0c8e8 !important; }
+  .section-title { color: #e0f0ff !important; font-weight: 700; }
+  .score-val { font-size: 52px !important; font-weight: 900 !important; }
+  /* KPI sublabels */
+  [id="bar-total"], [id="bar-today"], [id="bar-phones"], [id="bar-silent"] { opacity: 0.9; }
+  .compliance-label { color: #a0c0e0 !important; letter-spacing: 0.1em; }
+  /* Detection breakdown */
+  .det-label { color: #c0d8f8 !important; }
+  .det-count { color: #e0f0ff !important; font-weight: 700; }
+  /* Timeline labels */
+  .t-axis { color: #7090b0 !important; }
+  /* Incident feed empty state */
+  .feed-empty { color: #8090a8 !important; }
+  /* Theater table rows */
+  tbody tr td:first-child { color: #ffffff !important; font-weight: 600; }
+  tbody tr td { color: #d0e4ff !important; }
+  /* Score pills */
+  .score-pill { font-weight: 700 !important; }
+  .score-high { background: rgba(0,232,122,0.2) !important; color: #00e87a !important; border: 1px solid #00e87a !important; }
+  .score-mid  { background: rgba(255,170,0,0.2) !important; color: #ffaa00 !important; border: 1px solid #ffaa00 !important; }
+  .score-low  { background: rgba(255,42,42,0.2) !important; color: #ff4040 !important; border: 1px solid #ff4040 !important; }
+  /* Last updated */
+  #last-updated { color: #e0f0ff !important; font-weight: 700; }
+  /* Any remaining dark text */
+  * { -webkit-font-smoothing: antialiased; }
+
 </style>
 </head>
 <body>

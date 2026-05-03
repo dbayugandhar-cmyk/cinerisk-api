@@ -1,4 +1,6 @@
 import cv2
+import warnings
+warnings.filterwarnings("ignore")
 import asyncio
 import httpx
 import os

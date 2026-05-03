@@ -1,179 +1,325 @@
+"""
+CINEOS Layer 4 — Piracy Scanner v4
+Plugin-based architecture — add new sources by adding a function to SCANNERS list
+US Prov. Pat. 64/049,190
+"""
 import asyncio
 import httpx
 import os
+import json
 from datetime import datetime, timezone
+from typing import Optional
 
 SERP_API_KEY = os.getenv("SERP_API_KEY", "")
+SCANNER_TIMEOUT = 8
 
-PIRACY_DOMAINS = [
-    "1337x.to", "rarbg.to", "yts.mx", "eztv.re",
-    "thepiratebay.org", "kickasstorrents.cr", "torrentgalaxy.to",
-    "limetorrents.info", "torlock.com", "zooqle.com",
-    "rutracker.org", "nyaa.si", "animebytes.tv"
+# ─── KEYWORD ENGINE ───────────────────────────────────────────────────────────
+
+CAM_KEYWORDS = [
+    "cam", "hdcam", "camrip", "cam-rip",
+    "ts", "telesync", "tele-sync",
+    "telecine", "tc",
+    "hc.cam", "hcam", "hc-cam",
+    "webrip", "web-rip",         # sometimes pre-release
+    "screener", "scr",           # screener leaks
+    "r5", "r6",                  # region releases
+    "pdvd",                      # pirated dvd
 ]
 
-PIRACY_KEYWORDS = [
-    "CAM", "HDCAM", "TS", "TELESYNC", "TELECINE",
-    "CAMRIP", "CAMRip", "HC.CAM", "HCAM"
+STREAMING_SIGNALS = [
+    "watch online", "free download", "direct download",
+    "google drive", "mega.nz", "1fichier",
+    "480p", "720p", "1080p",
 ]
 
-async def check_whereyouwatch(film: str, client: httpx.AsyncClient) -> dict:
+def find_keyword(text: str) -> str:
+    t = text.lower()
+    for kw in CAM_KEYWORDS:
+        if kw in t:
+            return kw
+    return ""
+
+def film_match(text: str, film: str) -> bool:
+    t = text.lower()
+    words = [w for w in film.lower().split() if len(w) > 2]
+    return sum(1 for w in words if w in t) >= max(1, len(words) // 2)
+
+# ─── SCANNER PLUGINS ─────────────────────────────────────────────────────────
+# Each plugin is an async function(film, client) -> dict or list
+# Return: {"source": str, "hit": bool, "url": str, ...}
+
+async def scan_whereyouwatch(film: str, c: httpx.AsyncClient) -> dict:
     slug = film.lower().replace(" ", "-").replace(":", "").replace("'", "")
     url = f"https://whereyouwatch.com/movies/{slug}/"
     try:
-        r = await client.get(url, timeout=12, follow_redirects=True)
+        r = await c.get(url)
         if r.status_code == 200:
             body = r.text.lower()
             found = [k for k in ["cam", "telesync", "torrent", "download"] if k in body]
             if len(found) >= 2:
                 return {"source": "whereyouwatch.com", "hit": True, "url": url, "signals": found}
-    except Exception as e:
-        print(f"[SCANNER] whereyouwatch error: {e}")
-    return {"source": "whereyouwatch.com", "hit": False, "url": url}
+    except: pass
+    return {"source": "whereyouwatch.com", "hit": False}
 
-async def check_google_serp(film: str, client: httpx.AsyncClient) -> list:
+async def scan_piratebay(film: str, c: httpx.AsyncClient) -> dict:
+    try:
+        r = await c.get("https://apibay.org/q.php", params={"q": f"{film} CAM", "cat": "0"})
+        if r.status_code == 200:
+            for item in r.json():
+                name = item.get("name", "")
+                kw = find_keyword(name)
+                if kw and film_match(name, film):
+                    return {"source": "thepiratebay.org", "hit": True,
+                            "url": f"https://thepiratebay.org/description.php?id={item.get('id')}",
+                            "title": name, "seeders": item.get("seeders"), "keyword": kw}
+    except: pass
+    return {"source": "thepiratebay.org", "hit": False}
+
+async def scan_solidtorrents(film: str, c: httpx.AsyncClient) -> dict:
+    try:
+        r = await c.get("https://solidtorrents.to/api/v1/search",
+                        params={"q": f"{film} CAM", "category": "video"})
+        if r.status_code == 200:
+            for item in r.json().get("results", []):
+                title = item.get("title", "")
+                kw = find_keyword(title)
+                if kw and film_match(title, film):
+                    return {"source": "solidtorrents.to", "hit": True,
+                            "url": f"https://solidtorrents.to/view/{item.get('_id')}",
+                            "title": title, "keyword": kw}
+    except: pass
+    return {"source": "solidtorrents.to", "hit": False}
+
+async def scan_eztv(film: str, c: httpx.AsyncClient) -> dict:
+    try:
+        r = await c.get("https://eztv.re/api/get-torrents",
+                        params={"limit": 20, "keywords": film})
+        if r.status_code == 200:
+            for item in r.json().get("torrents", []):
+                title = item.get("title", "")
+                kw = find_keyword(title)
+                if kw and film_match(title, film):
+                    return {"source": "eztv.re", "hit": True,
+                            "url": item.get("torrent_url", ""),
+                            "title": title, "keyword": kw}
+    except: pass
+    return {"source": "eztv.re", "hit": False}
+
+async def scan_bitsearch(film: str, c: httpx.AsyncClient) -> dict:
+    try:
+        r = await c.get("https://bitsearch.to/search",
+                        params={"q": f"{film} CAM", "category": "1"})
+        if r.status_code == 200:
+            body = r.text.lower()
+            kw = find_keyword(body)
+            if kw and film_match(body, film):
+                return {"source": "bitsearch.to", "hit": True,
+                        "url": f"https://bitsearch.to/search?q={film}+CAM", "keyword": kw}
+    except: pass
+    return {"source": "bitsearch.to", "hit": False}
+
+async def scan_rarbg(film: str, c: httpx.AsyncClient) -> dict:
+    try:
+        r = await c.get("https://rarbggo.to/torrents.php",
+                        params={"search": f"{film} CAM"})
+        if r.status_code == 200:
+            body = r.text.lower()
+            kw = find_keyword(body)
+            if kw and film_match(body, film):
+                return {"source": "rarbg.mirror", "hit": True,
+                        "url": f"https://rarbggo.to/torrents.php?search={film}+CAM", "keyword": kw}
+    except: pass
+    return {"source": "rarbg.mirror", "hit": False}
+
+async def scan_glodls(film: str, c: httpx.AsyncClient) -> dict:
+    try:
+        r = await c.get("https://glodls.to/search_results.php",
+                        params={"search": f"{film} CAM"})
+        if r.status_code == 200:
+            body = r.text.lower()
+            kw = find_keyword(body)
+            if kw and film_match(body, film):
+                return {"source": "glodls.to", "hit": True,
+                        "url": f"https://glodls.to/search_results.php?search={film}+CAM", "keyword": kw}
+    except: pass
+    return {"source": "glodls.to", "hit": False}
+
+async def scan_limetorrents(film: str, c: httpx.AsyncClient) -> dict:
+    try:
+        slug = film.lower().replace(" ", "-")
+        url = f"https://www.limetorrents.lol/search/all/{slug}-CAM/"
+        r = await c.get(url)
+        if r.status_code == 200:
+            body = r.text.lower()
+            kw = find_keyword(body)
+            if kw and film_match(body, film):
+                return {"source": "limetorrents.lol", "hit": True, "url": url, "keyword": kw}
+    except: pass
+    return {"source": "limetorrents.lol", "hit": False}
+
+async def scan_torlock(film: str, c: httpx.AsyncClient) -> dict:
+    try:
+        slug = film.lower().replace(" ", "-")
+        url = f"https://www.torlock.com/all/torrents/{slug}-cam.html"
+        r = await c.get(url)
+        if r.status_code == 200:
+            body = r.text.lower()
+            kw = find_keyword(body)
+            if kw and film_match(body, film):
+                return {"source": "torlock.com", "hit": True, "url": url, "keyword": kw}
+    except: pass
+    return {"source": "torlock.com", "hit": False}
+
+async def scan_kickass(film: str, c: httpx.AsyncClient) -> dict:
+    try:
+        r = await c.get(f"https://kickasstorrents.to/usearch/{film.replace(' ', '%20')}%20CAM/")
+        if r.status_code == 200:
+            body = r.text.lower()
+            kw = find_keyword(body)
+            if kw and film_match(body, film):
+                return {"source": "kickasstorrents.to", "hit": True,
+                        "url": f"https://kickasstorrents.to/usearch/{film}+CAM/", "keyword": kw}
+    except: pass
+    return {"source": "kickasstorrents.to", "hit": False}
+
+async def scan_reddit(film: str, c: httpx.AsyncClient) -> dict:
+    try:
+        r = await c.get("https://www.reddit.com/search.json",
+                        params={"q": f"{film} CAM torrent", "sort": "new", "limit": 5},
+                        headers={"User-Agent": "CINEOS-Scanner/1.0"})
+        if r.status_code == 200:
+            for post in r.json().get("data", {}).get("children", []):
+                pd = post.get("data", {})
+                title = pd.get("title", "")
+                kw = find_keyword(title)
+                if kw and film_match(title, film):
+                    return {"source": "reddit.com", "hit": True,
+                            "url": f"https://reddit.com{pd.get('permalink', '')}",
+                            "title": title, "keyword": kw}
+    except: pass
+    return {"source": "reddit.com", "hit": False}
+
+async def scan_telegram(film: str, c: httpx.AsyncClient) -> list:
+    channels = [
+        "CamRips", "moviehdfree", "hdmovies4u",
+        "MoviesFlixPro", "piratebayofficial", "freemovies4utg"
+    ]
+    hits = []
+    for ch in channels:
+        try:
+            r = await c.get(f"https://t.me/s/{ch}")
+            if r.status_code == 200:
+                body = r.text.lower()
+                if film_match(body, film):
+                    kw = find_keyword(body)
+                    hits.append({
+                        "source": f"telegram:t.me/{ch}",
+                        "hit": True,
+                        "url": f"https://t.me/s/{ch}",
+                        "signal": "film_mentioned",
+                        "keyword": kw or "mentioned"
+                    })
+        except: pass
+    return hits
+
+async def scan_streaming_sites(film: str, c: httpx.AsyncClient) -> list:
+    sites = [
+        ("720pstream.me", f"https://720pstream.me/?s={film.replace(' ', '+')}"),
+        ("yesmovies.mn", f"https://yesmovies.mn/search/?q={film.replace(' ', '+')}"),
+        ("lookmovie2.to", f"https://lookmovie2.to/movies/search/?q={film.replace(' ', '+')}"),
+    ]
+    hits = []
+    for name, url in sites:
+        try:
+            r = await c.get(url)
+            if r.status_code == 200:
+                body = r.text.lower()
+                if film_match(body, film):
+                    hits.append({
+                        "source": name,
+                        "hit": True,
+                        "url": url,
+                        "signal": "film_available_on_streaming_site"
+                    })
+        except: pass
+    return hits
+
+async def scan_google_serp(film: str, c: httpx.AsyncClient) -> list:
     if not SERP_API_KEY:
         return []
-    results = []
+    hits = []
     queries = [
         f'"{film}" CAM torrent download 2026',
         f'"{film}" HDCAM free download',
-        f'"{film}" CAMRip 1080p torrent',
+    ]
+    PIRACY_DOMAINS = [
+        "1337x", "rarbg", "yts", "eztv", "thepiratebay",
+        "kickass", "torrentgalaxy", "nyaa", "rutracker"
     ]
     for query in queries:
         try:
-            r = await client.get(
-                "https://serpapi.com/search",
-                params={"q": query, "api_key": SERP_API_KEY, "num": 10, "engine": "google"},
-                timeout=15
-            )
-            data = r.json()
-            organic = data.get("organic_results", [])
-            for item in organic:
+            r = await c.get("https://serpapi.com/search",
+                            params={"q": query, "api_key": SERP_API_KEY, "num": 10})
+            for item in r.json().get("organic_results", []):
                 link = item.get("link", "").lower()
-                title = item.get("title", "").lower()
-                snippet = item.get("snippet", "").lower()
                 for domain in PIRACY_DOMAINS:
                     if domain in link:
-                        results.append({
-                            "source": domain,
+                        hits.append({
+                            "source": f"serp:{domain}",
                             "hit": True,
                             "url": item.get("link"),
                             "title": item.get("title"),
                             "query": query
                         })
                         break
-                for kw in [k.lower() for k in PIRACY_KEYWORDS]:
-                    if kw in title or kw in snippet:
-                        if not any(r["url"] == item.get("link") for r in results):
-                            results.append({
-                                "source": "google_serp",
-                                "hit": True,
-                                "url": item.get("link"),
-                                "title": item.get("title"),
-                                "keyword": kw,
-                                "query": query
-                            })
-                        break
-        except Exception as e:
-            print(f"[SCANNER] SERP error for '{query}': {e}")
-    return results
+        except: pass
+    return hits
 
-async def check_telegram_signals(film: str, client: httpx.AsyncClient) -> dict:
-    slug = film.lower().replace(" ", "+").replace(":", "").replace("'", "")
-    search_url = f"https://t.me/s/camrips"
-    try:
-        r = await client.get(search_url, timeout=10)
-        if r.status_code == 200:
-            body = r.text.lower()
-            film_lower = film.lower()
-            if film_lower in body or slug.replace("+", " ") in body:
-                return {"source": "telegram", "hit": True, "url": search_url, "signal": "film_mentioned"}
-    except Exception as e:
-        print(f"[SCANNER] Telegram error: {e}")
-    return {"source": "telegram", "hit": False}
+# ─── PLUGIN REGISTRY ─────────────────────────────────────────────────────────
+# To add a new source: write scan_SOURCENAME(film, client) -> dict|list
+# Then add it here. That's it.
 
-async def check_reddit_signals(film: str, client: httpx.AsyncClient) -> dict:
-    query = f"{film} CAM torrent"
-    url = f"https://www.reddit.com/search.json?q={query}&sort=new&limit=5"
-    try:
-        r = await client.get(url, timeout=10, headers={"User-Agent": "CINEOS-Scanner/1.0"})
-        if r.status_code == 200:
-            data = r.json()
-            posts = data.get("data", {}).get("children", [])
-            for post in posts:
-                pd = post.get("data", {})
-                title = pd.get("title", "").lower()
-                for kw in [k.lower() for k in PIRACY_KEYWORDS]:
-                    if kw in title and film.lower() in title:
-                        return {
-                            "source": "reddit",
-                            "hit": True,
-                            "url": f"https://reddit.com{pd.get('permalink', '')}",
-                            "title": pd.get("title"),
-                            "keyword": kw
-                        }
-    except Exception as e:
-        print(f"[SCANNER] Reddit error: {e}")
-    return {"source": "reddit", "hit": False}
+SCANNERS = [
+    # Torrent indexes
+    scan_whereyouwatch,
+    scan_piratebay,
+    scan_solidtorrents,
+    scan_eztv,
+    scan_bitsearch,
+    scan_rarbg,
+    scan_glodls,
+    scan_limetorrents,
+    scan_torlock,
+    scan_kickass,
+    # Social / community
+    scan_reddit,
+    scan_telegram,
+    # Streaming piracy sites
+    scan_streaming_sites,
+    # Paid API (optional)
+    scan_google_serp,
+]
 
-async def check_yts_api(film: str, client: httpx.AsyncClient) -> dict:
-    try:
-        r = await client.get(
-            "https://yts.mx/api/v2/list_movies.json",
-            params={"query_term": film, "limit": 5},
-            timeout=10
-        )
-        if r.status_code == 200:
-            data = r.json()
-            movies = data.get("data", {}).get("movies", [])
-            for movie in movies:
-                title = movie.get("title", "").lower()
-                if film.lower() in title:
-                    year = movie.get("year", 0)
-                    if year >= 2026:
-                        return {
-                            "source": "yts.mx",
-                            "hit": True,
-                            "url": movie.get("url"),
-                            "title": movie.get("title"),
-                            "year": year,
-                            "quality": [t.get("quality") for t in movie.get("torrents", [])]
-                        }
-    except Exception as e:
-        print(f"[SCANNER] YTS error: {e}")
-    return {"source": "yts.mx", "hit": False}
+# ─── MAIN SCAN ───────────────────────────────────────────────────────────────
 
 async def full_scan(film_title: str) -> dict:
-    print(f"[SCANNER] Starting full scan for: {film_title}")
+    print(f"[SCANNER] Starting full scan — {film_title} — {len(SCANNERS)} sources")
     start = datetime.now(timezone.utc)
-    
+
     async with httpx.AsyncClient(
-        timeout=15,
+        timeout=SCANNER_TIMEOUT,
         follow_redirects=True,
-        headers={"User-Agent": "Mozilla/5.0 (compatible; CINEOS-Scanner/1.0)"}
+        headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
     ) as client:
-        tasks = [
-            check_whereyouwatch(film_title, client),
-            check_telegram_signals(film_title, client),
-            check_reddit_signals(film_title, client),
-            check_yts_api(film_title, client),
-        ]
-        
-        if SERP_API_KEY:
-            serp_task = check_google_serp(film_title, client)
-            results_list = await asyncio.gather(*tasks, serp_task, return_exceptions=True)
-            basic_results = results_list[:4]
-            serp_results = results_list[4] if not isinstance(results_list[4], Exception) else []
-        else:
-            results_list = await asyncio.gather(*tasks, return_exceptions=True)
-            basic_results = results_list
-            serp_results = []
+        results_list = await asyncio.gather(
+            *[s(film_title, client) for s in SCANNERS],
+            return_exceptions=True
+        )
 
     hits = []
     all_results = []
 
-    for r in basic_results:
+    for r in results_list:
         if isinstance(r, Exception):
             continue
         if isinstance(r, list):
@@ -184,31 +330,26 @@ async def full_scan(film_title: str) -> dict:
             if r.get("hit"):
                 hits.append(r)
 
-    if isinstance(serp_results, list):
-        all_results.extend(serp_results)
-        hits.extend([x for x in serp_results if x.get("hit")])
-
     duration = (datetime.now(timezone.utc) - start).total_seconds()
-    
+
     summary = {
         "film": film_title,
         "scanned_at": start.isoformat(),
         "duration_seconds": round(duration, 2),
-        "sources_checked": len(set(r.get("source") for r in all_results)),
+        "sources_checked": len(SCANNERS),
         "total_hits": len(hits),
         "hits": hits,
         "platforms": list(set(h.get("source") for h in hits)),
         "first_url": hits[0].get("url") if hits else "",
-        "query": f"{film_title} CAM torrent",
-        "scan_method": "multi_source_v2"
+        "query": f"{film_title} CAM",
+        "scan_method": "multi_source_v4_plugin"
     }
 
-    print(f"[SCANNER] Complete — {len(hits)} hits across {summary['sources_checked']} sources in {duration:.1f}s")
+    print(f"[SCANNER] Done — {len(hits)} hits / {len(SCANNERS)} sources / {duration:.1f}s")
     return summary
 
 if __name__ == "__main__":
     import sys
-    film = sys.argv[1] if len(sys.argv) > 1 else "Mandalorian Grogu"
+    film = sys.argv[1] if len(sys.argv) > 1 else "Sinners"
     result = asyncio.run(full_scan(film))
-    import json
     print(json.dumps(result, indent=2))

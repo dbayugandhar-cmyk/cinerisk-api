@@ -154,3 +154,52 @@ async def repeat_offenders(min_incidents:int=Query(2)):
 if __name__=="__main__":
     import uvicorn
     uvicorn.run("theater_api:app",host="0.0.0.0",port=8001,reload=True)
+
+
+@app.get("/theater/alerts")
+async def get_alerts(db=Depends(get_db)):
+    try:
+        rows = await db.fetch("""
+            SELECT i.id, i.theater_name, i.film_title, i.zone,
+                   i.confidence, i.detected_at,
+                   s.scan_time, s.hits_found, s.platforms,
+                   s.first_hit_url, s.gap_minutes
+            FROM incidents i
+            JOIN scan_results s ON s.incident_id = i.id
+            WHERE i.alerted = true
+            ORDER BY i.detected_at DESC LIMIT 50
+        """)
+        return {"count": len(rows), "alerts": [dict(r) for r in rows]}
+    except Exception as e:
+        return {"count": 0, "alerts": [], "error": str(e)}
+
+@app.get("/theater/scan_status/{film_title}")
+async def scan_status(film_title: str, db=Depends(get_db)):
+    try:
+        row = await db.fetchrow("""
+            SELECT film_title, hits_found, platforms, first_hit_url,
+                   gap_minutes, scan_time
+            FROM scan_results
+            WHERE LOWER(film_title) = LOWER($1)
+            ORDER BY scan_time DESC LIMIT 1
+        """, film_title)
+        if not row:
+            return {"film_title": film_title, "status": "not_scanned", "hits": 0}
+        return {
+            "film_title": film_title,
+            "status": "cam_confirmed" if row["hits_found"] > 0 else "clean",
+            "hits": row["hits_found"],
+            "platforms": row["platforms"],
+            "first_url": row["first_hit_url"],
+            "gap_minutes": row["gap_minutes"],
+            "scan_time": str(row["scan_time"]),
+        }
+    except Exception as e:
+        return {"film_title": film_title, "status": "error", "error": str(e)}
+
+@app.post("/theater/manual_scan")
+async def manual_scan(film_title: str, db=Depends(get_db)):
+    from theater.layer4_trigger import search_piracy
+    scan = await search_piracy(film_title)
+    return {"film_title": film_title, "hits": scan["hits"],
+            "platforms": scan["platforms"], "first_url": scan["first_url"]}

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS — Multi-Theater Command Centre</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Bebas+Neue&family=Syne:wght@400;600;700;800&display=swap');
+
+:root {
+  --bg:      #03040a;
+  --panel:   #07080f;
+  --card:    #0a0c18;
+  --border:  #141830;
+  --border2: #1e2848;
+  --cyan:    #00d4ff;
+  --gold:    #f5a623;
+  --red:     #ff3a3a;
+  --green:   #00e87a;
+  --amber:   #ffaa00;
+  --text:    #e8f0ff;
+  --muted:   #8090b8;
+  --dim:     #3a4a6a;
+  --mono:    'DM Mono', monospace;
+  --display: 'Bebas Neue', sans-serif;
+  --sans:    'Syne', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100%; }
+
+/* ── TOPBAR ── */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px; height: 50px;
+  background: var(--panel); border-bottom: 1px solid var(--border2);
+  position: sticky; top: 0; z-index: 100;
+}
+.brand { font-family: var(--display); font-size: 18px; letter-spacing: 0.14em; color: var(--text); }
+.brand-sub { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 0.1em; margin-left: 10px; }
+.live-pill {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(0,232,122,0.1); border: 1px solid var(--green);
+  padding: 4px 14px; border-radius: 3px;
+  font-family: var(--mono); font-size: 9px; color: var(--green); letter-spacing: 0.1em;
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 1.6s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.clock { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+/* ── GLOBAL STATS ── */
+.global-stats {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  border-bottom: 1px solid var(--border2);
+}
+.gstat {
+  padding: 16px 22px; border-right: 1px solid var(--border2);
+  position: relative; overflow: hidden;
+}
+.gstat:last-child { border-right: none; }
+.gstat-bar { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.gstat-label { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 0.12em; margin-bottom: 8px; }
+.gstat-val { font-family: var(--display); font-size: 36px; line-height: 1; }
+.gstat-sub { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 4px; }
+
+/* ── MAIN LAYOUT ── */
+.main { display: grid; grid-template-columns: 360px 1fr; min-height: calc(100vh - 50px - 76px); }
+
+/* ── THEATER LIST ── */
+.theater-list { border-right: 1px solid var(--border2); overflow-y: auto; }
+.list-head {
+  padding: 14px 20px; border-bottom: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0;
+  background: var(--panel); z-index: 10;
+}
+.list-head-title { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 0.14em; }
+.sort-btns { display: flex; gap: 4px; }
+.sort-btn {
+  font-family: var(--mono); font-size: 8px; color: var(--muted);
+  background: var(--card); border: 1px solid var(--border2);
+  padding: 3px 8px; cursor: pointer; border-radius: 2px;
+}
+.sort-btn.active { color: var(--cyan); border-color: var(--cyan); }
+
+.theater-card {
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background 0.15s; position: relative;
+}
+.theater-card:hover { background: var(--card); }
+.theater-card.selected { background: rgba(0,212,255,0.05); border-left: 3px solid var(--cyan); }
+.theater-card.selected .tc-name { color: var(--cyan); }
+
+.tc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.tc-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.tc-rank {
+  font-family: var(--mono); font-size: 8px; font-weight: 700;
+  padding: 2px 7px; border-radius: 2px;
+}
+.rank-1 { background: rgba(255,58,58,0.2); color: var(--red); border: 1px solid rgba(255,58,58,0.4); }
+.rank-2 { background: rgba(255,170,0,0.2); color: var(--amber); border: 1px solid rgba(255,170,0,0.4); }
+.rank-3 { background: rgba(245,166,35,0.15); color: var(--gold); border: 1px solid rgba(245,166,35,0.3); }
+.rank-ok { background: rgba(0,232,122,0.1); color: var(--green); border: 1px solid rgba(0,232,122,0.3); }
+
+.tc-meta { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-bottom: 8px; }
+.tc-bar-track { height: 3px; background: var(--border2); border-radius: 2px; overflow: hidden; margin-bottom: 6px; }
+.tc-bar-fill { height: 100%; border-radius: 2px; transition: width 1s; }
+.tc-stats { display: flex; gap: 14px; }
+.tc-stat { font-family: var(--mono); font-size: 9px; color: var(--muted); }
+.tc-stat span { color: var(--text); font-weight: 600; }
+.tc-last { font-family: var(--mono); font-size: 8px; color: var(--dim); margin-top: 4px; }
+
+/* ── DETAIL PANEL ── */
+.detail { display: flex; flex-direction: column; overflow: hidden; }
+.detail-head {
+  padding: 16px 24px; border-bottom: 1px solid var(--border2);
+  display: flex; align-items: flex-start; justify-content: space-between;
+  background: linear-gradient(135deg, rgba(0,212,255,0.03) 0%, transparent 60%);
+}
+.detail-theater { font-family: var(--display); font-size: 32px; letter-spacing: 0.06em; line-height: 1; }
+.detail-meta { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 6px; }
+.compliance-badge {
+  font-family: var(--display); font-size: 42px; text-align: center;
+  min-width: 80px;
+}
+.compliance-label { font-family: var(--mono); font-size: 8px; color: var(--muted); text-align: center; letter-spacing: 0.1em; margin-top: 2px; }
+
+.detail-body { display: grid; grid-template-columns: 1fr 320px; flex: 1; overflow: hidden; }
+
+/* ── SEAT MAP ── */
+.seat-panel { padding: 20px; border-right: 1px solid var(--border2); overflow-y: auto; }
+.seat-panel-title { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 0.14em; margin-bottom: 16px; }
+.screen-bar {
+  height: 5px; background: var(--cyan);
+  box-shadow: 0 0 20px var(--cyan), 0 0 40px rgba(0,212,255,0.3);
+  border-radius: 2px; margin-bottom: 6px; width: 80%; margin-left: auto; margin-right: auto;
+}
+.screen-label { font-family: var(--mono); font-size: 9px; color: var(--cyan); text-align: center; letter-spacing: 0.3em; margin-bottom: 20px; opacity: 0.7; }
+.seat-grid-wrap { overflow-x: auto; }
+.seat-row { display: flex; align-items: center; gap: 3px; margin-bottom: 3px; }
+.row-label { font-family: var(--mono); font-size: 9px; color: var(--muted); width: 16px; text-align: right; margin-right: 4px; flex-shrink: 0; }
+.seat {
+  width: 16px; height: 12px; border-radius: 2px 2px 0 0;
+  background: #121a28; border: 1px solid #1e2a40;
+  cursor: pointer; transition: all 0.3s; flex-shrink: 0;
+}
+.seat:hover { transform: scale(1.2); border-color: var(--cyan); }
+.seat.clear { background: #0d2010; border-color: #1a3520; }
+.seat.alert {
+  background: var(--red); border-color: #ff6666;
+  box-shadow: 0 0 10px rgba(255,58,58,0.9), 0 0 20px rgba(255,58,58,0.4);
+  animation: pulse-seat 1.2s ease-in-out infinite;
+}
+.seat.recent { background: rgba(255,58,58,0.6); border-color: #ff6666; box-shadow: 0 0 6px rgba(255,58,58,0.5); }
+.seat.warning { background: rgba(255,170,0,0.55); border-color: var(--amber); }
+@keyframes pulse-seat { 0%,100%{opacity:1} 50%{opacity:0.6} }
+.aisle { width: 10px; flex-shrink: 0; }
+
+/* Zone indicators */
+.zone-strip { display: flex; gap: 8px; margin-top: 16px; }
+.zone-ind {
+  flex: 1; padding: 8px 10px; border-radius: 4px;
+  background: var(--card); border: 1px solid var(--border2);
+  text-align: center;
+}
+.zone-ind.active { border-color: var(--red); background: rgba(255,58,58,0.08); }
+.zone-ind-name { font-family: var(--mono); font-size: 8px; color: var(--muted); letter-spacing: 0.12em; }
+.zone-ind-count { font-family: var(--display); font-size: 22px; color: var(--text); }
+.zone-ind.active .zone-ind-count { color: var(--red); }
+
+/* Legend */
+.seat-legend { display: flex; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+.leg-item { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 9px; color: var(--muted); }
+.leg-dot { width: 14px; height: 10px; border-radius: 2px; }
+
+/* ── INCIDENT FEED ── */
+.feed-panel { display: flex; flex-direction: column; overflow: hidden; }
+.feed-head {
+  padding: 12px 18px; border-bottom: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.feed-head-title { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 0.12em; }
+.feed-badge {
+  font-family: var(--mono); font-size: 9px; color: var(--red);
+  background: rgba(255,58,58,0.1); border: 1px solid rgba(255,58,58,0.3);
+  padding: 2px 8px; border-radius: 2px;
+}
+.feed-list { flex: 1; overflow-y: auto; }
+.feed-list::-webkit-scrollbar { width: 3px; }
+.feed-list::-webkit-scrollbar-thumb { background: var(--border2); }
+.feed-item {
+  padding: 10px 18px; border-bottom: 1px solid var(--border);
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn { from{opacity:0;transform:translateX(8px)} to{opacity:1;transform:translateX(0)} }
+.fi-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px; }
+.fi-seat { font-size: 12px; font-weight: 700; color: var(--red); }
+.fi-time { font-family: var(--mono); font-size: 9px; color: var(--muted); }
+.fi-meta { font-family: var(--mono); font-size: 9px; color: var(--muted); }
+.fi-badge {
+  display: inline-block; font-family: var(--mono); font-size: 8px; font-weight: 700;
+  padding: 1px 6px; border-radius: 2px; margin-top: 3px;
+}
+.fi-phone { background: rgba(255,58,58,0.15); color: var(--red); border: 1px solid rgba(255,58,58,0.3); }
+.fi-silent { background: rgba(0,232,122,0.15); color: var(--green); border: 1px solid rgba(0,232,122,0.3); }
+
+/* ── EMPTY STATE ── */
+.empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px; color: var(--dim); gap: 8px; }
+.empty-state-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; }
+.empty-state-sub { font-family: var(--mono); font-size: 9px; }
+
+/* ── FOOTER ── */
+.footer {
+  padding: 10px 28px; border-top: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--mono); font-size: 9px; color: var(--dim);
+}
+.refresh-spin { width: 8px; height: 8px; border: 1px solid var(--dim); border-top-color: var(--cyan); border-radius: 50%; display: inline-block; margin-right: 6px; }
+.refresh-spin.spinning { animation: spin 0.8s linear infinite; }
+@keyframes spin { to{transform:rotate(360deg)} }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div style="display:flex;align-items:baseline;gap:0">
+    <span class="brand">CINEOS</span>
+    <span class="brand-sub">Multi-Theater Command Centre · US Prov. Pat. 64/049,190</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="live-pill"><div class="dot"></div>LIVE · ALL THEATERS</div>
+    <div class="clock" id="clock">--:--:--</div>
+  </div>
+</div>
+
+<!-- GLOBAL STATS -->
+<div class="global-stats">
+  <div class="gstat">
+    <div class="gstat-bar" style="background:linear-gradient(90deg,var(--red),transparent)"></div>
+    <div class="gstat-label">TOTAL INCIDENTS</div>
+    <div class="gstat-val" id="g-total" style="color:var(--red)">—</div>
+    <div class="gstat-sub">all theaters · all time</div>
+  </div>
+  <div class="gstat">
+    <div class="gstat-bar" style="background:linear-gradient(90deg,var(--amber),transparent)"></div>
+    <div class="gstat-label">THEATERS MONITORED</div>
+    <div class="gstat-val" id="g-theaters" style="color:var(--amber)">—</div>
+    <div class="gstat-sub">active venues</div>
+  </div>
+  <div class="gstat">
+    <div class="gstat-bar" style="background:linear-gradient(90deg,var(--cyan),transparent)"></div>
+    <div class="gstat-label">FILMS TRACKED</div>
+    <div class="gstat-val" id="g-films" style="color:var(--cyan)">—</div>
+    <div class="gstat-sub">unique titles</div>
+  </div>
+  <div class="gstat">
+    <div class="gstat-bar" style="background:linear-gradient(90deg,var(--gold),transparent)"></div>
+    <div class="gstat-label">TODAY</div>
+    <div class="gstat-val" id="g-today" style="color:var(--gold)">—</div>
+    <div class="gstat-sub">last 24 hours</div>
+  </div>
+  <div class="gstat">
+    <div class="gstat-bar" style="background:linear-gradient(90deg,var(--green),transparent)"></div>
+    <div class="gstat-label">AVG CONFIDENCE</div>
+    <div class="gstat-val" id="g-conf" style="color:var(--green)">—</div>
+    <div class="gstat-sub">signal strength</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- THEATER LIST -->
+  <div class="theater-list">
+    <div class="list-head">
+      <span class="list-head-title">THEATERS — RANKED BY INCIDENTS</span>
+      <div class="sort-btns">
+        <button class="sort-btn active" onclick="sortBy('incidents',this)">Incidents</button>
+        <button class="sort-btn" onclick="sortBy('name',this)">Name</button>
+        <button class="sort-btn" onclick="sortBy('compliance',this)">Compliance</button>
+      </div>
+    </div>
+    <div id="theater-list-body">
+      <div class="empty-state"><div class="empty-state-title">LOADING THEATERS...</div></div>
+    </div>
+  </div>
+
+  <!-- DETAIL -->
+  <div class="detail">
+    <div class="detail-head" id="detail-head">
+      <div>
+        <div class="detail-theater" id="detail-name">SELECT A THEATER</div>
+        <div class="detail-meta" id="detail-meta">Click any theater on the left to view its seat map and incidents</div>
+      </div>
+      <div>
+        <div class="compliance-badge" id="detail-compliance" style="color:var(--green)">—</div>
+        <div class="compliance-label">COMPLIANCE</div>
+      </div>
+    </div>
+
+    <div class="detail-body">
+      <!-- SEAT MAP -->
+      <div class="seat-panel">
+        <div class="seat-panel-title">SEAT MAP — REAL-TIME INCIDENT OVERLAY</div>
+        <div class="screen-bar"></div>
+        <div class="screen-label">◀ ─── SCREEN ─── ▶</div>
+        <div class="seat-grid-wrap">
+          <div id="seat-grid"></div>
+        </div>
+        <div class="zone-strip">
+          <div class="zone-ind" id="zone-LEFT">
+            <div class="zone-ind-name">LEFT</div>
+            <div class="zone-ind-count" id="zc-LEFT">0</div>
+          </div>
+          <div class="zone-ind" id="zone-CENTER">
+            <div class="zone-ind-name">CENTER</div>
+            <div class="zone-ind-count" id="zc-CENTER">0</div>
+          </div>
+          <div class="zone-ind" id="zone-RIGHT">
+            <div class="zone-ind-name">RIGHT</div>
+            <div class="zone-ind-count" id="zc-RIGHT">0</div>
+          </div>
+        </div>
+        <div class="seat-legend">
+          <div class="leg-item"><div class="leg-dot" style="background:#121a28;border:1px solid #1e2a40"></div>Empty</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#0d2010;border:1px solid #1a3520"></div>Clear</div>
+          <div class="leg-item"><div class="leg-dot" style="background:rgba(255,58,58,0.6);border:1px solid #ff6666"></div>Recent signal</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--red);border:1px solid #ff6666;box-shadow:0 0 6px rgba(255,58,58,0.8)"></div>Active alert</div>
+          <div class="leg-item"><div class="leg-dot" style="background:rgba(255,170,0,0.55);border:1px solid var(--amber)"></div>Warning</div>
+        </div>
+      </div>
+
+      <!-- INCIDENT FEED -->
+      <div class="feed-panel">
+        <div class="feed-head">
+          <span class="feed-head-title">INCIDENT FEED</span>
+          <span class="feed-badge" id="feed-badge">0 incidents</span>
+        </div>
+        <div class="feed-list" id="feed-list">
+          <div class="empty-state">
+            <div class="empty-state-title">NO THEATER SELECTED</div>
+            <div class="empty-state-sub">Select a theater to view incidents</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span><span class="refresh-spin" id="spin"></span><span id="refresh-label">Connecting to Railway PostgreSQL...</span></span>
+  <span>CINEOS Platform · US Prov. Pat. 64/049,190 · Yugandhar Mallavarapu</span>
+</div>
+
+<script>
+const API = 'https://cinerisk-api-production.up.railway.app';
+const ROWS = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+const SEATS_PER_ROW = 20;
+const ZONE_RANGES = { LEFT:[1,7], CENTER:[8,13], RIGHT:[14,20] };
+
+let allIncidents = [];
+let theaterGroups = {};
+let selectedTheater = null;
+let currentSort = 'incidents';
+
+// Stable seat ID from incident
+function incidentToSeat(inc) {
+  if (inc.seat_location && inc.seat_location !== 'string' && inc.seat_location !== 'null') {
+    const m = inc.seat_location.match(/Row\s+([A-Z])[,\s]+Seat\s+(\d+)/i);
+    if (m) return `${m[1].toUpperCase()}-${parseInt(m[2])}`;
+  }
+  const zone = (inc.zone || 'CENTER').toUpperCase();
+  const [sMin, sMax] = ZONE_RANGES[zone] || [8,13];
+  let hash = 0;
+  const key = inc.id || (inc.zone + inc.detected_at);
+  for (let i = 0; i < key.length; i++) hash = (hash * 31 + key.charCodeAt(i)) & 0xffffffff;
+  const row = ROWS[Math.abs(hash) % ROWS.length];
+  const seat = sMin + (Math.abs(hash >> 4) % (sMax - sMin + 1));
+  return `${row}-${seat}`;
+}
+
+function complianceScore(count) {
+  if (count === 0) return 100;
+  if (count >= 20) return 60;
+  return Math.max(60, Math.round(100 - count * 2));
+}
+
+function complianceColor(score) {
+  if (score >= 90) return 'var(--green)';
+  if (score >= 75) return 'var(--amber)';
+  return 'var(--red)';
+}
+
+function timeAgo(dateStr) {
+  const age = Date.now() - new Date(dateStr).getTime();
+  const m = Math.floor(age / 60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  return new Date(dateStr).toLocaleDateString();
+}
+
+// Build seat grid
+function buildGrid() {
+  const grid = document.getElementById('seat-grid');
+  grid.innerHTML = '';
+  ROWS.forEach(row => {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'seat-row';
+    const lbl = document.createElement('div');
+    lbl.className = 'row-label';
+    lbl.textContent = row;
+    rowEl.appendChild(lbl);
+    for (let s = 1; s <= SEATS_PER_ROW; s++) {
+      if (s === 8 || s === 14) {
+        const a = document.createElement('div');
+        a.className = 'aisle';
+        rowEl.appendChild(a);
+      }
+      const seat = document.createElement('div');
+      seat.className = 'seat clear';
+      seat.id = `s-${row}-${s}`;
+      seat.title = `Row ${row}, Seat ${s}`;
+      rowEl.appendChild(seat);
+    }
+    grid.appendChild(rowEl);
+  });
+}
+
+// Update seats for selected theater
+function updateSeats(incidents) {
+  // Reset all
+  document.querySelectorAll('.seat').forEach(s => {
+    s.className = 'seat clear';
+  });
+
+  const now = Date.now();
+  const zones = { LEFT:0, CENTER:0, RIGHT:0 };
+
+  incidents.forEach(inc => {
+    const seatId = incidentToSeat(inc);
+    if (!seatId) return;
+    const [row, num] = seatId.split('-');
+    const el = document.getElementById(`s-${row}-${num}`);
+    if (!el) return;
+
+    const age = now - new Date(inc.detected_at).getTime();
+    el.classList.remove('clear');
+    if (age < 3600000) el.classList.add('alert');        // < 1hr: red pulse
+    else if (age < 86400000) el.classList.add('recent'); // < 24hr: orange
+    else el.classList.add('warning');                     // older: amber
+    el.title = `Row ${row}, Seat ${num} · ${inc.theater_name} · ${timeAgo(inc.detected_at)}`;
+
+    const z = (inc.zone || 'CENTER').toUpperCase();
+    if (zones[z] !== undefined) zones[z]++;
+  });
+
+  // Update zone indicators
+  ['LEFT','CENTER','RIGHT'].forEach(z => {
+    document.getElementById(`zc-${z}`).textContent = zones[z];
+    document.getElementById(`zone-${z}`).classList.toggle('active', zones[z] > 0);
+  });
+}
+
+// Render theater list
+function renderTheaterList() {
+  const body = document.getElementById('theater-list-body');
+  const theaters = Object.values(theaterGroups);
+
+  if (theaters.length === 0) {
+    body.innerHTML = '<div class="empty-state"><div class="empty-state-title">NO THEATERS YET</div><div class="empty-state-sub">Log incidents to see theaters here</div></div>';
+    return;
+  }
+
+  // Sort
+  theaters.sort((a, b) => {
+    if (currentSort === 'incidents') return b.incidents.length - a.incidents.length;
+    if (currentSort === 'name') return a.name.localeCompare(b.name);
+    if (currentSort === 'compliance') return complianceScore(a.incidents.length) - complianceScore(b.incidents.length);
+    return 0;
+  });
+
+  const maxInc = Math.max(...theaters.map(t => t.incidents.length), 1);
+
+  body.innerHTML = '';
+  theaters.forEach((t, idx) => {
+    const count = t.incidents.length;
+    const score = complianceScore(count);
+    const scoreClr = complianceColor(score);
+    const pct = Math.round((count / maxInc) * 100);
+    const barClr = count === 0 ? 'var(--green)' : count < 5 ? 'var(--amber)' : 'var(--red)';
+    const rankClass = idx === 0 && count > 0 ? 'rank-1' : idx === 1 && count > 0 ? 'rank-2' : idx === 2 && count > 0 ? 'rank-3' : 'rank-ok';
+    const rankLabel = idx === 0 && count > 0 ? '⚠ HIGHEST RISK' : score >= 90 ? '✓ CLEAR' : score >= 75 ? '↑ MONITOR' : '! ALERT';
+    const lastInc = t.incidents[0];
+    const lastTime = lastInc ? timeAgo(lastInc.detected_at) : 'No incidents';
+    const zones = { LEFT:0, CENTER:0, RIGHT:0 };
+    t.incidents.forEach(i => { const z = (i.zone||'CENTER').toUpperCase(); if(zones[z]!==undefined) zones[z]++; });
+
+    const card = document.createElement('div');
+    card.className = 'theater-card' + (selectedTheater === t.name ? ' selected' : '');
+    card.onclick = () => selectTheater(t.name);
+    card.innerHTML = `
+      <div class="tc-top">
+        <span class="tc-name">${t.name}</span>
+        <span class="tc-rank ${rankClass}">${rankLabel}</span>
+      </div>
+      <div class="tc-meta">${t.screens.size} screen${t.screens.size !== 1 ? 's' : ''} · ${[...new Set(t.incidents.map(i=>i.film_title).filter(f=>f&&f!=='string'))].length || 0} films</div>
+      <div class="tc-bar-track">
+        <div class="tc-bar-fill" style="width:${pct}%;background:${barClr}"></div>
+      </div>
+      <div class="tc-stats">
+        <div class="tc-stat">Incidents <span style="color:${barClr}">${count}</span></div>
+        <div class="tc-stat">Compliance <span style="color:${scoreClr}">${score}%</span></div>
+        <div class="tc-stat">L <span>${zones.LEFT}</span> C <span>${zones.CENTER}</span> R <span>${zones.RIGHT}</span></div>
+      </div>
+      <div class="tc-last">Last event: ${lastTime}</div>`;
+    body.appendChild(card);
+  });
+}
+
+// Select a theater and show detail
+function selectTheater(name) {
+  selectedTheater = name;
+  const t = theaterGroups[name];
+  if (!t) return;
+
+  const count = t.incidents.length;
+  const score = complianceScore(count);
+
+  document.getElementById('detail-name').textContent = name.toUpperCase();
+  document.getElementById('detail-meta').textContent =
+    `${t.screens.size} screen${t.screens.size!==1?'s':''} · ${count} total incidents · ${[...new Set(t.incidents.map(i=>i.film_title).filter(f=>f&&f!=='string'))].join(', ') || 'No films logged'}`;
+  document.getElementById('detail-compliance').textContent = score + '%';
+  document.getElementById('detail-compliance').style.color = complianceColor(score);
+
+  updateSeats(t.incidents);
+  renderFeed(t.incidents);
+  renderTheaterList(); // re-render to update selected state
+}
+
+// Render incident feed
+function renderFeed(incidents) {
+  const list = document.getElementById('feed-list');
+  document.getElementById('feed-badge').textContent = incidents.length + ' incident' + (incidents.length !== 1 ? 's' : '');
+
+  if (incidents.length === 0) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-state-title">NO INCIDENTS</div><div class="empty-state-sub">This theater is clean</div></div>';
+    return;
+  }
+
+  list.innerHTML = '';
+  incidents.slice(0, 40).forEach(inc => {
+    const seat = inc.seat_location && inc.seat_location !== 'string' ? inc.seat_location : `Zone ${inc.zone || 'CENTER'}`;
+    const type = (inc.detection_type || 'PHONE').toUpperCase();
+    const isSilent = type.includes('SILENT');
+    const item = document.createElement('div');
+    item.className = 'feed-item';
+    item.innerHTML = `
+      <div class="fi-top">
+        <span class="fi-seat">📍 ${seat}</span>
+        <span class="fi-time">${timeAgo(inc.detected_at)}</span>
+      </div>
+      <div class="fi-meta">${inc.screen_number && inc.screen_number !== 'string' ? inc.screen_number : 'Screen 1'} · ${inc.confidence ? Math.round(inc.confidence*100)+'% confidence' : ''}</div>
+      <span class="fi-badge ${isSilent ? 'fi-silent' : 'fi-phone'}">${type}</span>`;
+    list.appendChild(item);
+  });
+}
+
+// Sort handler
+function sortBy(field, btn) {
+  currentSort = field;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTheaterList();
+}
+
+// Main fetch
+async function fetchData() {
+  const spin = document.getElementById('spin');
+  spin.classList.add('spinning');
+  try {
+    const res = await fetch(`${API}/theater/incidents?limit=200`);
+    const data = await res.json();
+    if (!data.incidents) return;
+
+    allIncidents = data.incidents;
+
+    // Group by theater
+    theaterGroups = {};
+    allIncidents.forEach(inc => {
+      const name = (inc.theater_name && inc.theater_name !== 'string') ? inc.theater_name : 'Demo Theater';
+      if (!theaterGroups[name]) theaterGroups[name] = { name, incidents: [], screens: new Set() };
+      theaterGroups[name].incidents.push(inc);
+      if (inc.screen_number && inc.screen_number !== 'string') theaterGroups[name].screens.add(inc.screen_number);
+    });
+    // Sort incidents newest first per theater
+    Object.values(theaterGroups).forEach(t => t.incidents.sort((a,b) => new Date(b.detected_at) - new Date(a.detected_at)));
+
+    // Global stats
+    const now = Date.now();
+    const today = allIncidents.filter(i => now - new Date(i.detected_at).getTime() < 86400000).length;
+    const films = [...new Set(allIncidents.map(i=>i.film_title).filter(f=>f&&f!=='string'))];
+    const avgConf = allIncidents.length ? Math.round(allIncidents.reduce((s,i)=>s+i.confidence,0)/allIncidents.length*100) : 0;
+
+    document.getElementById('g-total').textContent = allIncidents.length;
+    document.getElementById('g-theaters').textContent = Object.keys(theaterGroups).length;
+    document.getElementById('g-films').textContent = Math.max(films.length, 1);
+    document.getElementById('g-today').textContent = today;
+    document.getElementById('g-conf').textContent = avgConf + '%';
+
+    renderTheaterList();
+
+    // Auto-select first theater if none selected
+    if (!selectedTheater && Object.keys(theaterGroups).length > 0) {
+      const first = Object.values(theaterGroups).sort((a,b) => b.incidents.length - a.incidents.length)[0];
+      selectTheater(first.name);
+    } else if (selectedTheater && theaterGroups[selectedTheater]) {
+      updateSeats(theaterGroups[selectedTheater].incidents);
+      renderFeed(theaterGroups[selectedTheater].incidents);
+    }
+
+    document.getElementById('refresh-label').textContent =
+      `Last updated ${new Date().toLocaleTimeString('en-US',{hour12:false})} · ${allIncidents.length} total events · Railway PostgreSQL · Auto-refresh 5s`;
+  } catch(e) {
+    document.getElementById('refresh-label').textContent = 'Connection error — retrying...';
+  }
+  spin.classList.remove('spinning');
+}
+
+// Init
+buildGrid();
+setInterval(() => document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-US',{hour12:false}), 1000);
+fetchData();
+setInterval(fetchData, 5000);
+</script>
+</body>
+</html>

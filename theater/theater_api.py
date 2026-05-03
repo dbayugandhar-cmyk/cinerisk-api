@@ -210,3 +210,57 @@ async def manual_scan(film_title: str):
     scan = await search_piracy(film_title)
     return {"film_title": film_title, "hits": scan["hits"],
             "platforms": scan["platforms"], "first_url": scan["first_url"]}
+
+@app.get("/theater/threat_briefing")
+async def threat_briefing(days_ahead: int = 60, api_key: str = Header(None, alias="X-API-Key")):
+    """CINEOS Layer 1 — Live threat briefing from TMDB + proprietary CAM patterns"""
+    verify_api_key(api_key)
+    try:
+        import sys
+        sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        from layer1_pipeline import fetch_films, _primary_genre, _estimate_budget, _risk, _revenue_at_risk, _level, _action, CINEOS_CAM_PATTERNS
+        from datetime import timezone
+        
+        films = await fetch_films()
+        today = __import__('datetime').datetime.now(timezone.utc).date()
+        threats = []
+        
+        for f in films:
+            try:
+                from datetime import datetime
+                release = datetime.strptime(f["release_date"], "%Y-%m-%d").date()
+                days = (release - today).days
+                pop = f.get("popularity", 10)
+                if days < -30 or days > days_ahead or pop < 5.0:
+                    continue
+                gid, gname = _primary_genre(f.get("genre_ids", []))
+                budget = _estimate_budget(pop)
+                risk = _risk(gid, pop, budget, days)
+                rev = _revenue_at_risk(gid, budget, risk)
+                _, avg_plat, avg_leak = CINEOS_CAM_PATTERNS.get(gid, (0.6, 5, 7))
+                threats.append({
+                    "title": f["title"],
+                    "release_date": f["release_date"],
+                    "days_to_release": days,
+                    "genre": gname,
+                    "popularity": round(pop, 1),
+                    "cam_risk_score": risk,
+                    "threat_level": _level(risk),
+                    "revenue_at_risk_m": rev,
+                    "cineos_action": _action(risk, days)
+                })
+            except:
+                pass
+        
+        threats.sort(key=lambda x: x["cam_risk_score"], reverse=True)
+        return {
+            "generated_at": __import__('datetime').datetime.now(timezone.utc).isoformat(),
+            "total_films": len(threats),
+            "critical": len([t for t in threats if t["threat_level"]=="CRITICAL"]),
+            "high": len([t for t in threats if t["threat_level"]=="HIGH"]),
+            "films": threats,
+            "data_source": "TMDB API + CINEOS Layer 4 empirical CAM patterns",
+            "patent": "US Prov. Pat. 64/049,190"
+        }
+    except Exception as e:
+        raise HTTPException(500, f"Pipeline error: {e}")

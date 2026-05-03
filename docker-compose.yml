@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # Screen 1 detector
+  cineos-screen-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.detector
+    restart: unless-stopped
+    environment:
+      - THEATER_NAME=${THEATER_NAME:-Alamo Drafthouse}
+      - FILM_TITLE=${FILM_TITLE:-Unknown}
+      - SCREEN_NUMBER=Screen 1
+      - CINEOS_API=https://cinerisk-api-production.up.railway.app
+      - CINEOS_API_KEY=${CINEOS_API_KEY:-cineos-prod-2026-secure-key}
+      - CONFIDENCE_THRESHOLD=0.55
+      - DATABASE_URL=${DATABASE_URL}
+    command: python3 theater/detector_rtsp.py ${SCREEN_1_RTSP:-0}
+    devices:
+      - /dev/video0:/dev/video0
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Screen 2 detector
+  cineos-screen-2:
+    build:
+      context: .
+      dockerfile: Dockerfile.detector
+    restart: unless-stopped
+    environment:
+      - THEATER_NAME=${THEATER_NAME:-Alamo Drafthouse}
+      - FILM_TITLE=${FILM_TITLE_2:-Unknown}
+      - SCREEN_NUMBER=Screen 2
+      - CINEOS_API=https://cinerisk-api-production.up.railway.app
+      - CINEOS_API_KEY=${CINEOS_API_KEY:-cineos-prod-2026-secure-key}
+      - CONFIDENCE_THRESHOLD=0.55
+      - DATABASE_URL=${DATABASE_URL}
+    command: python3 theater/detector_rtsp.py ${SCREEN_2_RTSP:-1}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Screen 3 detector
+  cineos-screen-3:
+    build:
+      context: .
+      dockerfile: Dockerfile.detector
+    restart: unless-stopped
+    environment:
+      - THEATER_NAME=${THEATER_NAME:-Alamo Drafthouse}
+      - FILM_TITLE=${FILM_TITLE_3:-Unknown}
+      - SCREEN_NUMBER=Screen 3
+      - CINEOS_API=https://cinerisk-api-production.up.railway.app
+      - CINEOS_API_KEY=${CINEOS_API_KEY:-cineos-prod-2026-secure-key}
+      - CONFIDENCE_THRESHOLD=0.55
+      - DATABASE_URL=${DATABASE_URL}
+    command: python3 theater/detector_rtsp.py ${SCREEN_3_RTSP:-2}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

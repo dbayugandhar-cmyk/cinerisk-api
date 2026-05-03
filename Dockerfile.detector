@@ -1,0 +1,31 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y \
+    libgl1 \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir \
+    ultralytics \
+    opencv-python-headless \
+    httpx \
+    asyncpg
+
+COPY theater/ ./theater/
+
+RUN python3 -c "from ultralytics import YOLO; YOLO('yolo11n.pt')"
+
+ENV CINEOS_API=https://cinerisk-api-production.up.railway.app
+ENV THEATER_NAME=Demo Theater
+ENV FILM_TITLE=Unknown
+ENV SCREEN_NUMBER=Screen 1
+ENV CONFIDENCE_THRESHOLD=0.50
+ENV CINEOS_API_KEY=cineos-prod-2026-secure-key
+
+CMD ["python3", "theater/detector_rtsp.py"]

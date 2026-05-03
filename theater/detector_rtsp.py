@@ -6,6 +6,9 @@ import sys
 import time
 from datetime import datetime, timezone
 from ultralytics import YOLO
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from session_tracker import update_session, get_active_sessions
 
 API = os.getenv("CINEOS_API", "https://cinerisk-api-production.up.railway.app")
 THEATER = os.getenv("THEATER_NAME", "Demo Theater")
@@ -105,7 +108,3 @@ if __name__ == "__main__":
     stream = int(arg) if arg.isdigit() else arg
     run_detector(stream)
 
-# Import session tracker
-import sys
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from session_tracker import update_session, get_active_sessions

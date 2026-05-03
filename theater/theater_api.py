@@ -218,10 +218,22 @@ async def threat_briefing(days_ahead: int = 60, api_key: str = Header(None, alia
     try:
         import sys
         sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        from layer1_pipeline import fetch_films, _primary_genre, _estimate_budget, _risk, _revenue_at_risk, _level, _action, CINEOS_CAM_PATTERNS
+        from layer1_pipeline import _primary_genre, _estimate_budget, _risk, _revenue_at_risk, _level, _action, CINEOS_CAM_PATTERNS, TMDB_KEY
         from datetime import timezone
+        import httpx as _httpx
         
-        films = await fetch_films()
+        # Fetch directly — avoid asyncio.run() conflict
+        films = []
+        tmdb_key = os.getenv("TMDB_API_KEY", TMDB_KEY)
+        if tmdb_key:
+            async with _httpx.AsyncClient(timeout=15) as _client:
+                for _page in range(1, 4):
+                    _r = await _client.get(
+                        "https://api.themoviedb.org/3/movie/upcoming",
+                        params={"api_key": tmdb_key, "region": "US", "page": _page}
+                    )
+                    if _r.status_code == 200:
+                        films.extend(_r.json().get("results", []))
         today = __import__('datetime').datetime.now(timezone.utc).date()
         threats = []
         

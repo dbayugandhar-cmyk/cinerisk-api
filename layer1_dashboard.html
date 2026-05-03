@@ -1344,6 +1344,10 @@ async function searchFilm() {
     const level = cti >= 80 ? 'CRITICAL' : cti >= 60 ? 'HIGH' : cti >= 40 ? 'MEDIUM' : 'LOW';
     const gapConfidence = maxGap > 0 ? (Object.values(gaps).filter(v=>v>0).length >= 3 ? 'HIGH' : 'MEDIUM') : 'LOW';
     
+    const manualBudget = parseFloat(document.getElementById('budget-input').value);
+    const finalBudget = manualBudget || budgetEst;
+    const budgetLabel = manualBudget ? 'manual input' : budgetSource;
+
     const genreNames = {28:'Action',27:'Horror',53:'Thriller',878:'Sci-Fi',35:'Comedy',18:'Drama',16:'Animation',12:'Adventure',80:'Crime',9648:'Mystery'};
     const genreName = genreNames[primaryGenre] || 'Unknown';
     
@@ -1362,9 +1366,7 @@ async function searchFilm() {
     const spectacleGenres = [28, 878, 12, 16];
     const impactRate = spectacleGenres.includes(primaryGenre) ? 0.05 : 0.079;
     const revenueAtRisk = Math.round(estimatedGross * impactRate * baseRisk);
-    const manualBudget = parseFloat(document.getElementById('budget-input').value);
-    const finalBudget = manualBudget || budgetEst;
-    const budgetLabel = manualBudget ? 'manual input' : budgetSource;
+
     
     result.innerHTML = `
       <div class="film-card ${level}" style="animation:fadeIn 0.4s ease forwards">

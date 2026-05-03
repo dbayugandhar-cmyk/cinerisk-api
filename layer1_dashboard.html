@@ -872,6 +872,30 @@ body::after {
     </div>
   </div>
 
+
+  <!-- SEARCH -->
+  <div class="animate-in" style="animation-delay:0.12s;margin-bottom:32px">
+    <div class="section-header">
+      <div class="section-title">Film Search — On-Demand CTI Analysis</div>
+      <div class="section-count">ANY TITLE · ANY YEAR</div>
+    </div>
+    <div style="display:flex;gap:12px;margin-bottom:16px">
+      <input 
+        id="search-input"
+        type="text" 
+        placeholder="Enter film title e.g. Mission Impossible 8..."
+        style="flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:12px 16px;font-family:var(--mono);font-size:12px;color:var(--white);outline:none;letter-spacing:0.06em"
+        onkeydown="if(event.key==='Enter') searchFilm()"
+      />
+      <button 
+        onclick="searchFilm()"
+        style="background:var(--red);color:white;border:none;border-radius:6px;padding:12px 24px;font-family:var(--mono);font-size:11px;letter-spacing:0.12em;cursor:pointer;text-transform:uppercase;white-space:nowrap"
+      >
+        ANALYZE →
+      </button>
+    </div>
+    <div id="search-result"></div>
+  </div>
   <!-- FILM LIST -->
   <div class="animate-in" style="animation-delay:0.15s">
     <div class="section-header">
@@ -1205,6 +1229,179 @@ async function loadData() {
       loader.style.opacity = '0';
       setTimeout(() => loader.style.display = 'none', 500);
     }, 800);
+  }
+}
+
+
+async function searchFilm() {
+  const title = document.getElementById('search-input').value.trim();
+  if (!title) return;
+  
+  const result = document.getElementById('search-result');
+  result.innerHTML = `<div style="padding:20px;font-family:var(--mono);font-size:11px;color:var(--dim2);letter-spacing:0.1em">SCANNING: ${title}...</div>`;
+  
+  try {
+    const TMDB_KEY = '28ff1ef4ae81f137ddd9cbeec2634033';
+    
+    // Search TMDB for the film
+    const search = await fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(title)}`
+    );
+    const sdata = await search.json();
+    const film = sdata.results?.[0];
+    
+    if (!film) {
+      result.innerHTML = `<div style="padding:20px;font-family:var(--mono);font-size:11px;color:var(--red)">NOT FOUND: "${title}" — try a different spelling</div>`;
+      return;
+    }
+    
+    // Get release dates by territory
+    const rdReq = await fetch(
+      `https://api.themoviedb.org/3/movie/${film.id}/release_dates?api_key=${TMDB_KEY}`
+    );
+    const rdData = await rdReq.json();
+    
+    // Get collection info
+    const detailReq = await fetch(
+      `https://api.themoviedb.org/3/movie/${film.id}?api_key=${TMDB_KEY}`
+    );
+    const detail = await detailReq.json();
+    
+    // Parse release dates
+    const HIGH_PIRACY = {IN:3.0, CN:2.0, PH:1.8, RU:1.5, BR:1.2, MX:1.1};
+    let usDate = null;
+    const countryDates = {};
+    
+    for (const r of rdData.results || []) {
+      if (r.release_dates?.[0]?.release_date) {
+        countryDates[r.iso_3166_1] = r.release_dates[0].release_date.slice(0,10);
+        if (r.iso_3166_1 === 'US') usDate = r.release_dates[0].release_date.slice(0,10);
+      }
+    }
+    
+    // Calculate gaps
+    const gaps = {};
+    let weighted = 0;
+    let knownWeight = 0;
+    if (usDate) {
+      const usDt = new Date(usDate);
+      for (const [market, weight] of Object.entries(HIGH_PIRACY)) {
+        if (countryDates[market]) {
+          const gap = Math.max(0, (new Date(countryDates[market]) - usDt) / 86400000);
+          gaps[market] = Math.round(gap);
+          if (gap > 0) {
+            weighted += Math.min(1.0, gap/14) * weight;
+            knownWeight += weight;
+          }
+        }
+      }
+    }
+    const gapScore = knownWeight > 0 ? Math.min(1.0, weighted/knownWeight) : 0;
+    const maxGap = Math.max(0, ...Object.values(gaps));
+    const hasGapData = maxGap > 0;
+    
+    // Calculate base CAM risk
+    const genreMap = {28:0.62,27:0.42,53:0.48,878:0.55,35:0.25,18:0.18,16:0.30,12:0.50,80:0.45,9648:0.40};
+    const hypeMap = {low:0.65,medium:1.0,high:1.38};
+    const pop = film.popularity || 10;
+    const primaryGenre = film.genre_ids?.[0] || 18;
+    const sensitivity = genreMap[primaryGenre] || 0.40;
+    const hypeLevel = pop >= 200 ? 'high' : pop >= 50 ? 'medium' : 'low';
+    const hypeM = hypeMap[hypeLevel];
+    const budgetEst = pop >= 500 ? 220 : pop >= 200 ? 130 : pop >= 100 ? 65 : pop >= 50 ? 30 : pop >= 20 ? 15 : 8;
+    const budgetMod = budgetEst >= 200 ? 0.18 : budgetEst >= 150 ? 0.12 : budgetEst >= 80 ? 0.06 : 0;
+    const today = new Date();
+    const releaseDate = film.release_date ? new Date(film.release_date) : today;
+    const daysToRelease = Math.round((releaseDate - today) / 86400000);
+    const urgMod = daysToRelease <= 7 ? 1.15 : daysToRelease <= 14 ? 1.08 : 1.0;
+    const baseRisk = Math.min(0.97, Math.max(0.04, sensitivity * hypeM * urgMod + budgetMod));
+    
+    // Franchise
+    const isSequel = !!detail.belongs_to_collection;
+    const franchiseMult = isSequel ? 1.3 : 1.0;
+    const adjusted = Math.min(0.97, baseRisk * franchiseMult);
+    
+    // CTI
+    let cti;
+    if (hasGapData) {
+      cti = Math.min(100, Math.round((adjusted*0.40 + gapScore*0.35 + 0.15) * 100));
+    } else {
+      cti = Math.min(100, Math.round((adjusted*0.70 + 0.20) * 100));
+    }
+    if (isSequel && daysToRelease <= 7 && cti >= 60) cti = Math.min(100, cti + 10);
+    
+    const level = cti >= 80 ? 'CRITICAL' : cti >= 60 ? 'HIGH' : cti >= 40 ? 'MEDIUM' : 'LOW';
+    const gapConfidence = maxGap > 0 ? (Object.values(gaps).filter(v=>v>0).length >= 3 ? 'HIGH' : 'MEDIUM') : 'LOW';
+    
+    const genreNames = {28:'Action',27:'Horror',53:'Thriller',878:'Sci-Fi',35:'Comedy',18:'Drama',16:'Animation',12:'Adventure',80:'Crime',9648:'Mystery'};
+    const genreName = genreNames[primaryGenre] || 'Unknown';
+    
+    const gapHtml = Object.entries(gaps).filter(([,v])=>v>0)
+      .sort(([,a],[,b])=>b-a)
+      .map(([k,v])=>`<span class="gap-tag ${v>=14?'high-gap':''}">${k} +${v}d</span>`)
+      .join('');
+    
+    const revenueAtRisk = Math.round(budgetEst * 1.8 * 0.191 * baseRisk);
+    
+    result.innerHTML = `
+      <div class="film-card ${level}" style="animation:fadeIn 0.4s ease forwards">
+        <div class="film-cti">
+          <div class="cti-number">${cti}</div>
+          <div class="cti-label">/100 CTI</div>
+          <div class="threat-pill">${level}</div>
+          ${isSequel ? '<div class="sequel-badge" style="margin-top:4px">SEQUEL</div>' : ''}
+        </div>
+        <div class="film-info">
+          <div class="film-title-row">
+            <div class="film-title">${film.title}</div>
+            ${detail.belongs_to_collection ? `<div class="sequel-badge">${detail.belongs_to_collection.name.replace(' Collection','').replace(' Reboot','')}</div>` : ''}
+          </div>
+          <div class="film-meta-row">
+            <div class="film-meta-item"><span class="label">Release</span>${film.release_date || 'TBD'} (${daysToRelease}d)</div>
+            <div class="film-meta-item"><span class="label">Genre</span>${genreName}</div>
+            <div class="film-meta-item"><span class="label">Popularity</span>${pop.toFixed(1)}</div>
+            <div class="film-meta-item"><span class="label">Budget est.</span>$${budgetEst}M</div>
+            <div class="film-meta-item" style="color:${gapConfidence==='HIGH'?'var(--green)':gapConfidence==='MEDIUM'?'var(--amber)':'var(--dim2)'}">
+              <span class="label" style="color:var(--dim3)">Gap confidence</span>${gapConfidence}
+            </div>
+          </div>
+          <div class="signals-row">
+            <div class="signal-bar">
+              <div class="signal-name">Base CAM</div>
+              <div class="signal-track"><div class="signal-fill" style="width:${Math.round(baseRisk*100)}%;background:var(--red)"></div></div>
+              <div class="signal-val">${Math.round(baseRisk*100)}%</div>
+            </div>
+            <div class="signal-bar">
+              <div class="signal-name">Gap score</div>
+              <div class="signal-track"><div class="signal-fill" style="width:${Math.round(gapScore*100)}%;background:var(--amber)"></div></div>
+              <div class="signal-val">${Math.round(gapScore*100)}%</div>
+            </div>
+            <div class="signal-bar">
+              <div class="signal-name">Franchise</div>
+              <div class="signal-track"><div class="signal-fill" style="width:${isSequel?100:0}%;background:var(--amber)"></div></div>
+              <div class="signal-val">${isSequel?'YES':'NO'}</div>
+            </div>
+          </div>
+        </div>
+        <div class="film-action">
+          <div class="action-label">Revenue at risk</div>
+          <div style="font-size:24px;font-weight:800;color:var(--red);font-variant-numeric:tabular-nums">$${revenueAtRisk}M</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--dim2);margin:8px 0">MARKET GAPS</div>
+          <div class="gap-info">${gapHtml || '<span style="font-family:var(--mono);font-size:9px;color:var(--dim3)">No confirmed gaps yet</span>'}</div>
+          <div style="margin-top:12px;font-family:var(--mono);font-size:9px;color:var(--dim2);line-height:1.7">
+            US release: ${usDate || 'TBD'}<br>
+            Gap confidence: ${gapConfidence}<br>
+            Screener risk: ${([10,11,12,1].includes(releaseDate.getMonth()+1) && [18,36].includes(primaryGenre)) ? 'HIGH' : 'LOW'}
+          </div>
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--dim3);padding:8px 4px;letter-spacing:0.08em">
+        TMDB ID: ${film.id} · Data: TMDB API + CINEOS CAM patterns · Disclaimer: informational only, not financial advice · US Prov. Pat. 64/049,190
+      </div>
+    `;
+    
+  } catch(e) {
+    result.innerHTML = `<div style="padding:20px;font-family:var(--mono);font-size:11px;color:var(--red)">ERROR: ${e.message}</div>`;
   }
 }
 

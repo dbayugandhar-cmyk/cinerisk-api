@@ -1,4 +1,14 @@
 import cv2
+try:
+    from theater.pose_detector import PoseDetector
+    POSE_AVAILABLE = True
+except:
+    try:
+        from pose_detector import PoseDetector
+        POSE_AVAILABLE = True
+    except:
+        POSE_AVAILABLE = False
+        print("[DETECTOR] Pose detector not available")
 import warnings
 warnings.filterwarnings("ignore")
 import asyncio
@@ -37,7 +47,7 @@ def get_zone(x_center, frame_width):
         return "CENTER"
     return "RIGHT"
 
-async def report_incident(zone, confidence):
+async def report_incident(zone, confidence, detection_type="PHONE"):
     now = time.time()
     if now - last_reported[zone] < COOLDOWN:
         return
@@ -46,7 +56,7 @@ async def report_incident(zone, confidence):
         "theater_name": THEATER,
         "screen_number": SCREEN,
         "zone": zone,
-        "detection_type": "PHONE",
+        "detection_type": detection_type,
         "confidence": round(confidence, 3),
         "film_title": FILM,
         "device_id": f"cineos-rtsp-{SCREEN.replace(' ','-').lower()}-{int(now)}",
@@ -83,6 +93,21 @@ def run_detector(stream_url: str):
         # Filter to cell phone class (67) above confidence threshold
         detections = results.xyxy[0]  # [x1,y1,x2,y2,conf,class]
         phone_dets = detections[(detections[:, 5] == 67) & (detections[:, 4] >= CONFIDENCE_THRESHOLD)] if len(detections) else detections
+
+        # Pose detection — behavioral signal (catches camcorders too)
+        if pose_detector:
+            try:
+                pose_alerts = pose_detector.process_frame(frame)
+                for alert in pose_alerts:
+                    print(f"[POSE] {alert.posture} | Zone:{alert.zone} | Conf:{alert.confidence:.0%}")
+                    import asyncio
+                    asyncio.run(report_incident(
+                        alert.zone,
+                        alert.confidence,
+                        detection_type=alert.posture
+                    ))
+            except Exception as e:
+                pass
         total_boxes = len(phone_dets)
         if total_boxes > 0: print(f"[DEBUG] {total_boxes} detection(s) this frame")
 

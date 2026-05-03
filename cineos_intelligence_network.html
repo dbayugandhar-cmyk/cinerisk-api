@@ -73,7 +73,7 @@ body::after {
 .logo-sub {
   font-family:var(--mono);
   font-size:10px;
-  color:var(--muted2);
+  color:#ffffff;
   letter-spacing:0.15em;
   text-transform:uppercase;
   padding-top:2px;
@@ -97,7 +97,7 @@ body::after {
 #topbar-clock {
   font-family:var(--mono);
   font-size:12px;
-  color:var(--muted2);
+  color:#ffffff;
 }
 
 /* THREAT BANNER */
@@ -130,7 +130,7 @@ body::after {
   display:inline-block;
   white-space:nowrap;
   animation: tickerScroll 35s linear infinite;
-  color:var(--muted2);
+  color:#ffffff;
 }
 .threat-ticker-inner .hl { color:var(--amber); }
 @keyframes tickerScroll {
@@ -147,7 +147,7 @@ body::after {
   font-size:10px;
   letter-spacing:0.2em;
   text-transform:uppercase;
-  color:var(--muted);
+  color:#ffffff;
   margin-bottom:12px;
   display:flex;
   align-items:center;
@@ -195,7 +195,7 @@ body::after {
   font-size:9px;
   letter-spacing:0.15em;
   text-transform:uppercase;
-  color:var(--muted);
+  color:#ffffff;
   margin-bottom:10px;
 }
 .metric-val {
@@ -210,7 +210,7 @@ body::after {
 .metric-card.b .metric-val { color:var(--blue); }
 .metric-card.p .metric-val { color:var(--purple); }
 .metric-card.w .metric-val { color:#fff; }
-.metric-sub { font-size:10px; color:var(--muted2); margin-top:6px; }
+.metric-sub { font-size:10px; color:#ffffff; margin-top:6px; }
 
 /* MAIN GRID */
 .grid-main {
@@ -275,7 +275,7 @@ body::after {
   font-size:9px;
   letter-spacing:0.12em;
   text-transform:uppercase;
-  color:var(--muted);
+  color:#ffffff;
   background:rgba(255,255,255,0.01);
   padding:9px 18px;
   cursor:default;
@@ -291,7 +291,7 @@ body::after {
   overflow:hidden;
   text-overflow:ellipsis;
 }
-.film-meta { font-size:10px; color:var(--muted2); margin-top:2px; }
+.film-meta { font-size:10px; color:#ffffff; margin-top:2px; }
 
 .threat-bar-wrap { display:flex; align-items:center; gap:10px; }
 .threat-bar {
@@ -305,7 +305,7 @@ body::after {
 .fill-red { background:linear-gradient(90deg,var(--red),#ff6b6b); }
 .fill-amber { background:linear-gradient(90deg,var(--amber),#ffd040); }
 .fill-green { background:linear-gradient(90deg,var(--green),#69f0ae); }
-.threat-pct { font-family:var(--mono); font-size:11px; color:var(--muted2); min-width:32px; }
+.threat-pct { font-family:var(--mono); font-size:11px; color:#ffffff; min-width:32px; }
 
 .incidents-count {
   font-family:var(--display);
@@ -360,8 +360,8 @@ body::after {
 .pattern-type.org { color:var(--red); }
 .pattern-type.coord { color:var(--amber); }
 .pattern-type.solo { color:var(--blue); }
-.pattern-time { font-family:var(--mono); font-size:9px; color:var(--muted); }
-.pattern-desc { font-size:12px; color:var(--muted2); line-height:1.5; }
+.pattern-time { font-family:var(--mono); font-size:9px; color:#ffffff; }
+.pattern-desc { font-size:12px; color:#ffffff; line-height:1.5; }
 .pattern-desc strong { color:var(--text); }
 
 /* BOTTOM GRID */
@@ -386,7 +386,7 @@ body::after {
 .net-dot.pending { background:var(--amber); }
 .net-dot.offline { background:var(--muted); }
 .net-name { font-size:12px; font-weight:500; color:var(--text); flex:1; }
-.net-incidents { font-family:var(--mono); font-size:11px; color:var(--muted2); }
+.net-incidents { font-family:var(--mono); font-size:11px; color:#ffffff; }
 .net-status { font-family:var(--mono); font-size:9px; letter-spacing:0.08em; }
 .ns-live { color:var(--green); }
 .ns-pending { color:var(--amber); }
@@ -403,7 +403,7 @@ body::after {
   font-size:12px;
 }
 .rev-row:last-child { border-bottom:none; }
-.rev-label { color:var(--muted2); }
+.rev-label { color:#ffffff; }
 .rev-val { font-family:var(--mono); font-weight:500; }
 .rv-red { color:var(--red); }
 .rv-amber { color:var(--amber); }
@@ -425,15 +425,15 @@ body::after {
 .ad-amber { background:var(--amber); }
 .ad-green { background:var(--green); }
 .ad-blue { background:var(--blue); }
-.alert-time { font-family:var(--mono); font-size:9px; color:var(--muted); min-width:42px; }
-.alert-msg { font-size:11px; color:var(--muted2); line-height:1.45; }
+.alert-time { font-family:var(--mono); font-size:9px; color:#ffffff; min-width:42px; }
+.alert-msg { font-size:11px; color:#ffffff; line-height:1.45; }
 .alert-msg strong { color:var(--text); }
 
 /* REFRESH BTN */
 .refresh-btn {
   background:rgba(255,255,255,0.05);
   border:1px solid var(--border2);
-  color:var(--muted2);
+  color:#ffffff;
   padding:5px 14px;
   border-radius:4px;
   font-family:var(--mono);
@@ -468,7 +468,7 @@ body::after {
   </div>
   <div class="topbar-right">
     <div class="live-badge"><div class="pulse"></div>NETWORK ACTIVE</div>
-    <span id="topbar-clock" style="font-family:var(--mono);font-size:11px;color:var(--muted2);">--:--:--</span>
+    <span id="topbar-clock" style="font-family:var(--mono);font-size:11px;color:#ffffff;">--:--:--</span>
     <button class="refresh-btn" onclick="loadAll()">↻ REFRESH</button>
   </div>
 </div>

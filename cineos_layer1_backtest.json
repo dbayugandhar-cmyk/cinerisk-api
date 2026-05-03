@@ -1,0 +1,55 @@
+{
+  "test_name": "CINEOS Layer 1 CTI Back-Test \u2014 2026 Confirmed CAM Leaks",
+  "run_date": "2026-05-03T22:36:08.525812+00:00",
+  "methodology": "CINEOS base_cam_risk score applied to 6 films confirmed by Layer 4 scanner as having active CAM leaks on May 3, 2026",
+  "sample_size": 6,
+  "correct_predictions": 6,
+  "accuracy": "100%",
+  "limitation": "Small sample size \u2014 2025 historical data needed for full validation",
+  "results": [
+    {
+      "title": "Thunderbolts",
+      "base_risk": 0.97,
+      "level": "CRITICAL",
+      "leaked": true,
+      "correct": true
+    },
+    {
+      "title": "Final Destination Bloodlines",
+      "base_risk": 0.97,
+      "level": "CRITICAL",
+      "leaked": true,
+      "correct": true
+    },
+    {
+      "title": "Sinners",
+      "base_risk": 0.95,
+      "level": "CRITICAL",
+      "leaked": true,
+      "correct": true
+    },
+    {
+      "title": "Warfare",
+      "base_risk": 0.95,
+      "level": "CRITICAL",
+      "leaked": true,
+      "correct": true
+    },
+    {
+      "title": "Until Dawn",
+      "base_risk": 0.68,
+      "level": "HIGH",
+      "leaked": true,
+      "correct": true
+    },
+    {
+      "title": "Companion",
+      "base_risk": 0.74,
+      "level": "HIGH",
+      "leaked": true,
+      "correct": true
+    }
+  ],
+  "patent": "US Prov. Pat. 64/049,190",
+  "research_basis": "Ma et al. 2014 \u2014 19.1% revenue impact. MPA CineAsia reports. CINEOS Layer 4 empirical data."
+}

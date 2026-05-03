@@ -887,6 +887,12 @@ body::after {
         style="flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:12px 16px;font-family:var(--mono);font-size:12px;color:var(--white);outline:none;letter-spacing:0.06em"
         onkeydown="if(event.key==='Enter') searchFilm()"
       />
+      <input
+        id="budget-input"
+        type="number"
+        placeholder="Real budget $M (optional)"
+        style="width:200px;background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:12px 16px;font-family:var(--mono);font-size:12px;color:var(--white);outline:none;letter-spacing:0.06em"
+      />
       <button 
         onclick="searchFilm()"
         style="background:var(--red);color:white;border:none;border-radius:6px;padding:12px 24px;font-family:var(--mono);font-size:11px;letter-spacing:0.12em;cursor:pointer;text-transform:uppercase;white-space:nowrap"
@@ -1341,7 +1347,17 @@ async function searchFilm() {
       .map(([k,v])=>`<span class="gap-tag ${v>=14?'high-gap':''}">${k} +${v}d</span>`)
       .join('');
     
-    const revenueAtRisk = Math.round(budgetEst * 1.8 * 0.191 * baseRisk);
+    // Use real budget if provided, otherwise estimate
+    const realBudget = parseFloat(document.getElementById('budget-input').value) || budgetEst;
+    const genreMultiplier = {28:2.6,27:2.0,53:1.8,878:2.3,35:1.5,18:1.4,16:2.9,12:2.2,80:1.7,9648:1.6}[primaryGenre] || 1.8;
+    const estimatedGross = realBudget * genreMultiplier;
+    // 7.9% = Zeng et al. 2025 (peer-reviewed) — revenue reduction from high-quality CAM week 1
+    // Spectacle films (action/scifi/adventure) lose less — 3-5%
+    // Story films (drama/thriller/horror) lose more — 10-30%
+    const spectacleGenres = [28, 878, 12, 16];
+    const impactRate = spectacleGenres.includes(primaryGenre) ? 0.05 : 0.079;
+    const revenueAtRisk = Math.round(estimatedGross * impactRate * baseRisk);
+    const budgetLabel = parseFloat(document.getElementById('budget-input').value) ? 'real budget' : 'est. budget';
     
     result.innerHTML = `
       <div class="film-card ${level}" style="animation:fadeIn 0.4s ease forwards">
@@ -1386,6 +1402,7 @@ async function searchFilm() {
         <div class="film-action">
           <div class="action-label">Revenue at risk</div>
           <div style="font-size:24px;font-weight:800;color:var(--red);font-variant-numeric:tabular-nums">$${revenueAtRisk}M</div>
+          <div style="font-family:var(--mono);font-size:8px;color:var(--dim3);margin:4px 0 8px">Gross est: $${Math.round(estimatedGross)}M · ${budgetLabel} · Zeng et al. 2025</div>
           <div style="font-family:var(--mono);font-size:9px;color:var(--dim2);margin:8px 0">MARKET GAPS</div>
           <div class="gap-info">${gapHtml || '<span style="font-family:var(--mono);font-size:9px;color:var(--dim3)">No confirmed gaps yet</span>'}</div>
           <div style="margin-top:12px;font-family:var(--mono);font-size:9px;color:var(--dim2);line-height:1.7">

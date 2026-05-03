@@ -90,6 +90,9 @@ def run_detector(stream_url: str):
                 if zone_timers[zone] >= 5:
                     print(f"[CINEOS] ALERT {zone} zone — conf {conf:.2f} — {FILM}")
                     loop.run_until_complete(report_incident(zone, conf))
+                    level, session = loop.run_until_complete(update_session(THEATER, SCREEN, FILM, zone, conf))
+                    if level >= 2:
+                        print(f"[CINEOS] Session count: {session['count']} — Escalation L{level}")
                     zone_timers[zone] = 0
 
         # Decay timers for zones not detected this frame
@@ -101,3 +104,8 @@ if __name__ == "__main__":
     arg = sys.argv[1] if len(sys.argv) > 1 else "0"
     stream = int(arg) if arg.isdigit() else arg
     run_detector(stream)
+
+# Import session tracker
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from session_tracker import update_session, get_active_sessions

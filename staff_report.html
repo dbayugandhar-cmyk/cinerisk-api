@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>CINEOS Staff Report</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0d12; color: #fff; font-family: -apple-system, sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+  .logo { font-size: 13px; letter-spacing: 0.2em; color: #ff3a3a; text-transform: uppercase; margin-bottom: 6px; }
+  .theater { font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px; }
+  .film { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 32px; text-align: center; }
+  .instruction { font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 20px; text-align: center; }
+  .btn { width: 100%; max-width: 340px; padding: 22px; margin-bottom: 14px; border: none; border-radius: 12px; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; cursor: pointer; transition: transform 0.1s, opacity 0.1s; }
+  .btn:active { transform: scale(0.97); opacity: 0.85; }
+  .btn-zone { background: #ff3a3a; color: #fff; }
+  .status { margin-top: 28px; font-size: 15px; text-align: center; min-height: 28px; }
+  .status.ok { color: #00e676; }
+  .status.err { color: #ff3a3a; }
+  .pat { font-size: 10px; color: rgba(255,255,255,0.2); margin-top: 40px; letter-spacing: 0.1em; text-align: center; }
+</style>
+</head>
+<body>
+<div class="logo">CINEOS</div>
+<div class="theater" id="theater-name">Loading...</div>
+<div class="film" id="film-name"></div>
+<div class="instruction">Tap the zone where you see recording activity</div>
+
+<button class="btn btn-zone" onclick="report('LEFT')">◀  LEFT ZONE</button>
+<button class="btn btn-zone" onclick="report('CENTER')">●  CENTER ZONE</button>
+<button class="btn btn-zone" onclick="report('RIGHT')">RIGHT ZONE  ▶</button>
+
+<div class="status" id="status"></div>
+<div class="pat">US PROV. PAT. 64/049,190 · CINEOS</div>
+
+<script>
+const API = "https://cinerisk-api-production.up.railway.app";
+const params = new URLSearchParams(window.location.search);
+const theater = params.get("theater") || "Demo Theater";
+const screen  = params.get("screen")  || "Screen 1";
+const film    = params.get("film")    || "Nova Station";
+
+document.getElementById("theater-name").textContent = theater + " — Screen " + screen;
+document.getElementById("film-name").textContent = film;
+
+let lastZone = null;
+let cooldown = false;
+
+async function report(zone) {
+  if (cooldown) return;
+  cooldown = true;
+  lastZone = zone;
+  const status = document.getElementById("status");
+  status.className = "status";
+  status.textContent = "Sending...";
+
+  try {
+    const r = await fetch(API + "/theater/incident", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        theater_name:   theater,
+        screen_number:  "Screen " + screen,
+        seat_location:  null,
+        zone:           zone,
+        detection_type: "PHONE",
+        confidence:     0.85,
+        film_title:     film,
+        device_id:      "staff-web-" + Date.now()
+      })
+    });
+    if (r.ok) {
+      status.className = "status ok";
+      status.textContent = "✓ " + zone + " zone reported. Thank you.";
+    } else {
+      throw new Error("HTTP " + r.status);
+    }
+  } catch(e) {
+    status.className = "status err";
+    status.textContent = "Error — check connection and try again";
+  }
+
+  setTimeout(() => { cooldown = false; }, 5000);
+}
+</script>
+</body>
+</html>

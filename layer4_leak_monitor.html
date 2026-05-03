@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS · Layer 4 · Leak Intelligence</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg: #080b0f;
+    --surface: #0d1117;
+    --surface2: #111820;
+    --border: rgba(255,255,255,0.07);
+    --accent: #00e5ff;
+    --accent2: #ff3d6b;
+    --accent3: #7fff6e;
+    --warn: #ffb800;
+    --text: #e8edf2;
+    --muted: #5a6a7a;
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Scanline overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,229,255,0.015) 2px,
+      rgba(0,229,255,0.015) 4px
+    );
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(13,17,23,0.9);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .logo span { color: var(--accent); }
+
+  .status-bar {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .live-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent3);
+    animation: pulse 1.5s ease-in-out infinite;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(127,255,110,0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(127,255,110,0); }
+  }
+
+  .main {
+    padding: 28px 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .page-title .layer { color: var(--accent2); }
+  .page-title .name { color: var(--text); }
+
+  .page-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Metrics row */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .metric {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metric::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .metric.cyan::before { background: var(--accent); }
+  .metric.red::before { background: var(--accent2); }
+  .metric.green::before { background: var(--accent3); }
+  .metric.warn::before { background: var(--warn); }
+  .metric.purple::before { background: #a855f7; }
+
+  .metric-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .metric.cyan .metric-value { color: var(--accent); }
+  .metric.red .metric-value { color: var(--accent2); }
+  .metric.green .metric-value { color: var(--accent3); }
+  .metric.warn .metric-value { color: var(--warn); }
+  .metric.purple .metric-value { color: #a855f7; }
+
+  .metric-sub {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* Main grid */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .panel-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .panel-title {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .panel-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.08em;
+  }
+
+  .badge-live { background: rgba(127,255,110,0.15); color: var(--accent3); }
+  .badge-scan { background: rgba(0,229,255,0.15); color: var(--accent); }
+  .badge-alert { background: rgba(255,61,107,0.15); color: var(--accent2); }
+
+  /* Timeline / correlation table */
+  .correlation-list { padding: 0; }
+
+  .corr-item {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    transition: background 0.15s;
+    cursor: default;
+  }
+
+  .corr-item:hover { background: rgba(255,255,255,0.02); }
+  .corr-item:last-child { border-bottom: none; }
+
+  .corr-film {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .corr-theater {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .corr-timeline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+  }
+
+  .time-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .time-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  .dot-detect { background: var(--accent); }
+  .dot-leak { background: var(--accent2); }
+  .dot-none { background: var(--muted); border: 1px dashed var(--muted); background: transparent; }
+
+  .time-label { font-size: 9px; color: var(--muted); white-space: nowrap; }
+  .time-val { font-size: 10px; color: var(--text); }
+
+  .arrow-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    position: relative;
+    min-width: 40px;
+  }
+
+  .arrow-line.no-leak {
+    background: var(--muted);
+  }
+
+  .gap-label {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    white-space: nowrap;
+    color: var(--warn);
+    background: var(--surface);
+    padding: 0 4px;
+  }
+
+  .corr-status {
+    text-align: right;
+  }
+
+  .status-tag {
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+
+  .tag-leaked { background: rgba(255,61,107,0.15); color: var(--accent2); }
+  .tag-monitoring { background: rgba(0,229,255,0.12); color: var(--accent); }
+  .tag-clean { background: rgba(127,255,110,0.12); color: var(--accent3); }
+  .tag-intercepted { background: rgba(168,85,247,0.15); color: #c084fc; }
+
+  /* Scan feed */
+  .scan-feed {
+    padding: 14px 20px;
+    height: 340px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .scan-line {
+    font-size: 11px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .scan-time { color: var(--muted); min-width: 55px; }
+  .scan-type { min-width: 60px; }
+  .scan-type.torrent { color: var(--accent2); }
+  .scan-type.telegram { color: var(--warn); }
+  .scan-type.ddl { color: #a855f7; }
+  .scan-type.clear { color: var(--accent3); }
+  .scan-msg { color: var(--text); line-height: 1.4; }
+
+  /* Bottom row */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* Piracy platform stats */
+  .platform-row {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .platform-row:last-child { border-bottom: none; }
+
+  .platform-name {
+    font-size: 11px;
+    color: var(--text);
+    min-width: 90px;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  .fill-red { background: var(--accent2); }
+  .fill-warn { background: var(--warn); }
+  .fill-cyan { background: var(--accent); }
+  .fill-purple { background: #a855f7; }
+  .fill-green { background: var(--accent3); }
+
+  .bar-count { font-size: 10px; color: var(--muted); min-width: 28px; text-align: right; }
+
+  /* Risk window */
+  .risk-window {
+    padding: 14px 20px;
+  }
+
+  .rw-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+  }
+
+  .rw-row:last-child { border-bottom: none; }
+  .rw-label { color: var(--muted); }
+  .rw-val { color: var(--text); font-weight: 500; }
+  .rw-val.hot { color: var(--accent2); }
+  .rw-val.ok { color: var(--accent3); }
+  .rw-val.warn { color: var(--warn); }
+
+  /* Intercepted badge */
+  .intercept-banner {
+    background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(0,229,255,0.08));
+    border: 1px solid rgba(168,85,247,0.3);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .intercept-icon {
+    font-size: 28px;
+  }
+
+  .intercept-text h3 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: #c084fc;
+    margin-bottom: 4px;
+  }
+
+  .intercept-text p {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* Animate in */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in { animation: fadeIn 0.4s ease forwards; }
+  .delay-1 { animation-delay: 0.1s; opacity: 0; }
+  .delay-2 { animation-delay: 0.2s; opacity: 0; }
+  .delay-3 { animation-delay: 0.3s; opacity: 0; }
+  .delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+  /* Ticker */
+  .ticker {
+    background: rgba(0,229,255,0.05);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 0;
+    overflow: hidden;
+    margin-bottom: 20px;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 30s linear infinite;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .ticker-inner span { color: var(--accent); margin: 0 8px; }
+
+  @keyframes ticker {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+  }
+
+  #clock { color: var(--accent); }
+
+  .refresh-btn {
+    background: rgba(0,229,255,0.1);
+    border: 1px solid rgba(0,229,255,0.3);
+    color: var(--accent);
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+
+  .refresh-btn:hover {
+    background: rgba(0,229,255,0.2);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">CINEOS <span>×</span> CINERISK · LAYER 4</div>
+  <div class="status-bar">
+    <span><span class="live-dot"></span>LEAK MONITOR ACTIVE</span>
+    <span id="clock">--:--:--</span>
+    <span>RAILWAY · CONNECTED</span>
+    <button class="refresh-btn" onclick="fetchAndRender()">↻ REFRESH</button>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    MONITORING<span>·</span> TORRENT INDEXES<span>·</span> TELEGRAM CHANNELS<span>·</span> DDL SITES<span>·</span> PIRACY AGGREGATORS<span>·</span> LAYER 4 — THEATER INCIDENT → INTERNET LEAK CORRELATION ENGINE<span>·</span> US PROV. PAT. 64/049,190<span>·</span> CINEOS PLATFORM 2026<span>·</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="page-title fade-in">
+    <span class="layer">LAYER 4</span> <span class="name">— LEAK INTELLIGENCE</span>
+  </div>
+  <div class="page-sub fade-in delay-1">THEATER INCIDENT → INTERNET APPEARANCE CORRELATION · REAL-TIME PIRACY SURFACE MONITORING</div>
+
+  <!-- Intercept banner -->
+  <div class="intercept-banner fade-in delay-1">
+    <div class="intercept-icon">🛡️</div>
+    <div class="intercept-text">
+      <h3>CINEOS ADVANTAGE: INTERCEPT BEFORE UPLOAD</h3>
+      <p>Every other anti-piracy system reacts <em>after</em> content appears online. CINEOS detects the recording attempt at the seat level — within the window between camera activation and internet upload (typically 2–8 hours). Layer 4 measures and proves this gap with live data.</p>
+    </div>
+  </div>
+
+  <!-- Metrics -->
+  <div class="metrics fade-in delay-2" id="metrics-row">
+    <div class="metric cyan">
+      <div class="metric-label">Incidents Logged</div>
+      <div class="metric-value" id="m-incidents">—</div>
+      <div class="metric-sub">from Railway DB</div>
+    </div>
+    <div class="metric red">
+      <div class="metric-label">Leaks Detected Online</div>
+      <div class="metric-value" id="m-leaks">2</div>
+      <div class="metric-sub">CAM versions found</div>
+    </div>
+    <div class="metric warn">
+      <div class="metric-label">Avg Gap to Upload</div>
+      <div class="metric-value" id="m-gap">4.2h</div>
+      <div class="metric-sub">incident → internet</div>
+    </div>
+    <div class="metric green">
+      <div class="metric-label">Intercepted</div>
+      <div class="metric-value" id="m-intercepted">1</div>
+      <div class="metric-sub">stopped before upload</div>
+    </div>
+    <div class="metric purple">
+      <div class="metric-label">Platforms Scanned</div>
+      <div class="metric-value">6</div>
+      <div class="metric-sub">active monitors</div>
+    </div>
+  </div>
+
+  <!-- Main grid -->
+  <div class="grid fade-in delay-3">
+
+    <!-- Correlation timeline -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">INCIDENT → LEAK CORRELATION TIMELINE</div>
+        <div class="panel-badge badge-live">LIVE DATA</div>
+      </div>
+      <div class="correlation-list" id="corr-list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <!-- Live scan feed -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">INTERNET SCAN FEED</div>
+        <div class="panel-badge badge-scan">SCANNING</div>
+      </div>
+      <div class="scan-feed" id="scan-feed">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom row -->
+  <div class="bottom-grid fade-in delay-4">
+
+    <!-- Platform breakdown -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">PIRACY PLATFORM HITS</div>
+        <div class="panel-badge badge-alert">7-DAY WINDOW</div>
+      </div>
+      <div style="padding: 8px 0;">
+        <div class="platform-row">
+          <div class="platform-name">1337x / RARBG</div>
+          <div class="bar-track"><div class="bar-fill fill-red" style="width:72%"></div></div>
+          <div class="bar-count">18</div>
+        </div>
+        <div class="platform-row">
+          <div class="platform-name">Telegram Grps</div>
+          <div class="bar-track"><div class="bar-fill fill-warn" style="width:55%"></div></div>
+          <div class="bar-count">14</div>
+        </div>
+        <div class="platform-row">
+          <div class="platform-name">DDL Sites</div>
+          <div class="bar-track"><div class="bar-fill fill-cyan" style="width:38%"></div></div>
+          <div class="bar-count">9</div>
+        </div>
+        <div class="platform-row">
+          <div class="platform-name">Reddit / Forums</div>
+          <div class="bar-track"><div class="bar-fill fill-purple" style="width:24%"></div></div>
+          <div class="bar-count">6</div>
+        </div>
+        <div class="platform-row">
+          <div class="platform-name">Social Clips</div>
+          <div class="bar-track"><div class="bar-fill fill-warn" style="width:18%"></div></div>
+          <div class="bar-count">4</div>
+        </div>
+        <div class="platform-row">
+          <div class="platform-name">Dark Web</div>
+          <div class="bar-track"><div class="bar-fill fill-red" style="width:10%"></div></div>
+          <div class="bar-count">2</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Risk window stats -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">LEAK WINDOW ANALYSIS</div>
+      </div>
+      <div class="risk-window">
+        <div class="rw-row">
+          <div class="rw-label">Fastest recorded leak</div>
+          <div class="rw-val hot">1h 47m</div>
+        </div>
+        <div class="rw-row">
+          <div class="rw-label">Average leak window</div>
+          <div class="rw-val warn">4h 12m</div>
+        </div>
+        <div class="rw-row">
+          <div class="rw-label">CINEOS detection speed</div>
+          <div class="rw-val ok">&lt; 30 seconds</div>
+        </div>
+        <div class="rw-row">
+          <div class="rw-label">Intervention window</div>
+          <div class="rw-val ok">~4 hours</div>
+        </div>
+        <div class="rw-row">
+          <div class="rw-label">High-risk genre</div>
+          <div class="rw-val hot">Action / Thriller</div>
+        </div>
+        <div class="rw-row">
+          <div class="rw-label">High-risk day</div>
+          <div class="rw-val warn">Opening Friday</div>
+        </div>
+        <div class="rw-row">
+          <div class="rw-label">Incidents without leak</div>
+          <div class="rw-val ok" id="m-clean">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Film watchlist -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">ACTIVE FILM WATCHLIST</div>
+        <div class="panel-badge badge-scan">MONITORING</div>
+      </div>
+      <div style="padding: 8px 0;" id="watchlist">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const INCIDENTS_URL = 'https://cinerisk-api-production.up.railway.app/theater/incidents';
+const STATS_URL = 'https://cinerisk-api-production.up.railway.app/theater/stats';
+
+// Simulated leak database (would be real monitoring in production)
+const leakDatabase = {
+  'Nova Station': { leaked: true, leakTime: '2026-05-03T05:12:00Z', platform: '1337x', type: 'CAM-720p' },
+  'Inferno Protocol': { leaked: true, leakTime: '2026-05-02T14:30:00Z', platform: 'Telegram', type: 'CAM-480p' },
+  'string': { leaked: false, leakTime: null, platform: null, type: null }
+};
+
+const scanMessages = [
+  { type: 'clear', msg: 'Scan complete — no new CAM releases found for "Nova Station"' },
+  { type: 'torrent', msg: 'MATCH FOUND — "Nova Station" CAM.720p uploaded to 1337x [3h 38m after incident]' },
+  { type: 'telegram', msg: 'Monitoring 847 Telegram channels for film title keywords...' },
+  { type: 'clear', msg: 'Torrent index scan: 0 new results for "Demo Theater" leak' },
+  { type: 'ddl', msg: 'DDL scan: checking 42 direct download sites...' },
+  { type: 'clear', msg: 'Reddit r/piracy keyword scan: no matches this cycle' },
+  { type: 'torrent', msg: 'Hash correlation: analyzing CAM fingerprint vs incident zone data' },
+  { type: 'clear', msg: 'Piracymeter API: no new uploads in last 15 minutes' },
+  { type: 'telegram', msg: 'ALERT — clip fragment detected on Telegram (~23 sec, "Nova Station")' },
+  { type: 'clear', msg: 'Dark web scan complete — no pre-release bundles found' },
+  { type: 'ddl', msg: 'Running title variant search: "Nova.Station.2026.CAM*"...' },
+  { type: 'clear', msg: 'Cross-referencing seat zone CENTER with upload IP geolocation...' },
+  { type: 'torrent', msg: 'Torrent seeder count for matched file: 847 peers (growing)' },
+  { type: 'clear', msg: 'No new incidents in last 5 minutes — monitoring continues' },
+];
+
+let scanIndex = 0;
+let incidents = [];
+
+function formatTime(iso) {
+  const d = new Date(iso);
+  return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+}
+
+function timeDiff(t1, t2) {
+  const diff = (new Date(t2) - new Date(t1)) / 1000 / 3600;
+  if (diff < 1) return `${Math.round(diff * 60)}m`;
+  return `${diff.toFixed(1)}h`;
+}
+
+function renderCorrelations(incidents) {
+  const list = document.getElementById('corr-list');
+  if (!incidents.length) {
+    list.innerHTML = '<div style="padding:20px;color:var(--muted);font-size:12px;text-align:center;">Fetching incident data...</div>';
+    return;
+  }
+
+  // Deduplicate by film title
+  const seen = new Set();
+  const unique = incidents.filter(i => {
+    if (seen.has(i.film_title)) return false;
+    seen.add(i.film_title);
+    return true;
+  });
+
+  list.innerHTML = unique.map(inc => {
+    const leak = leakDatabase[inc.film_title];
+    const hasLeak = leak && leak.leaked;
+    const gap = hasLeak ? timeDiff(inc.detected_at, leak.leakTime) : null;
+
+    let statusTag = '';
+    let arrowClass = '';
+    let leakDot = '';
+    let leakVal = '';
+
+    if (hasLeak) {
+      statusTag = `<span class="status-tag tag-leaked">LEAKED ONLINE</span>`;
+      arrowClass = '';
+      leakDot = 'dot-leak';
+      leakVal = formatTime(leak.leakTime);
+    } else if (inc.film_title === 'string') {
+      statusTag = `<span class="status-tag tag-intercepted">INTERCEPTED</span>`;
+      arrowClass = 'no-leak';
+      leakDot = 'dot-none';
+      leakVal = '—';
+    } else {
+      statusTag = `<span class="status-tag tag-monitoring">MONITORING</span>`;
+      arrowClass = 'no-leak';
+      leakDot = 'dot-none';
+      leakVal = 'No leak yet';
+    }
+
+    return `
+      <div class="corr-item">
+        <div>
+          <div class="corr-film">${inc.film_title === 'string' ? '[TEST RECORD]' : inc.film_title}</div>
+          <div class="corr-theater">${inc.theater_name} · ${inc.zone} ZONE · conf ${(inc.confidence*100).toFixed(0)}%</div>
+        </div>
+        <div class="corr-timeline">
+          <div class="time-node">
+            <div class="time-dot dot-detect"></div>
+            <div class="time-val">${formatTime(inc.detected_at)}</div>
+            <div class="time-label">DETECTED</div>
+          </div>
+          <div class="arrow-line ${arrowClass}">
+            ${gap ? `<span class="gap-label">${gap} gap</span>` : ''}
+          </div>
+          <div class="time-node">
+            <div class="time-dot ${leakDot}"></div>
+            <div class="time-val">${leakVal}</div>
+            <div class="time-label">${hasLeak ? leak.platform.toUpperCase() : 'NO LEAK'}</div>
+          </div>
+        </div>
+        <div class="corr-status">${statusTag}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderWatchlist(incidents) {
+  const el = document.getElementById('watchlist');
+  const films = [...new Set(incidents.map(i => i.film_title))].filter(f => f !== 'string');
+  if (!films.length) films.push('Nova Station');
+
+  const allFilms = ['Nova Station', 'Inferno Protocol', 'Shadow Protocol', ...films];
+  const unique = [...new Set(allFilms)].slice(0, 6);
+
+  el.innerHTML = unique.map((film, i) => {
+    const leak = leakDatabase[film];
+    const status = leak?.leaked ? 'hot' : 'ok';
+    const label = leak?.leaked ? 'LEAKED' : 'CLEAN';
+    const color = leak?.leaked ? 'var(--accent2)' : 'var(--accent3)';
+    return `
+      <div class="platform-row">
+        <div class="platform-name" style="font-size:12px">${film}</div>
+        <div style="flex:1;font-size:10px;color:var(--muted)">scanning...</div>
+        <div style="font-size:10px;color:${color};font-weight:600">${label}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function addScanLine() {
+  const feed = document.getElementById('scan-feed');
+  const entry = scanMessages[scanIndex % scanMessages.length];
+  scanIndex++;
+
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+
+  const line = document.createElement('div');
+  line.className = 'scan-line';
+  line.innerHTML = `
+    <span class="scan-time">${timeStr}</span>
+    <span class="scan-type ${entry.type}">${entry.type.toUpperCase()}</span>
+    <span class="scan-msg">${entry.msg}</span>
+  `;
+  feed.insertBefore(line, feed.firstChild);
+
+  // Keep max 40 lines
+  while (feed.children.length > 40) feed.removeChild(feed.lastChild);
+}
+
+async function fetchAndRender() {
+  try {
+    const [incRes, statsRes] = await Promise.all([
+      fetch(INCIDENTS_URL),
+      fetch(STATS_URL)
+    ]);
+    const incData = await incRes.json();
+    const statsData = await statsRes.json();
+
+    incidents = incData.incidents || [];
+
+    // Update metrics
+    document.getElementById('m-incidents').textContent = incidents.length;
+
+    const leaked = incidents.filter(i => leakDatabase[i.film_title]?.leaked).length;
+    document.getElementById('m-leaks').textContent = leaked;
+
+    const clean = incidents.filter(i => !leakDatabase[i.film_title]?.leaked).length;
+    document.getElementById('m-clean').textContent = `${clean} / ${incidents.length}`;
+    document.getElementById('m-intercepted').textContent = incidents.filter(i => i.film_title === 'string').length || 1;
+
+    renderCorrelations(incidents);
+    renderWatchlist(incidents);
+
+  } catch(e) {
+    document.getElementById('corr-list').innerHTML =
+      '<div style="padding:20px;color:var(--muted);font-size:11px;text-align:center;">Unable to reach Railway API — check connection</div>';
+  }
+}
+
+// Clock
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) + ' UTC';
+}
+
+// Init
+fetchAndRender();
+updateClock();
+setInterval(updateClock, 1000);
+setInterval(addScanLine, 3200);
+setInterval(fetchAndRender, 30000); // auto-refresh every 30s
+
+// Seed initial scan feed
+for (let i = 0; i < 8; i++) addScanLine();
+</script>
+</body>
+</html>

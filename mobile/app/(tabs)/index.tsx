@@ -286,6 +286,9 @@ export default function StaffScreen() {
         )}
 
         <Text style={s.footer}>Auto-refreshes every 8s - {theater}</Text>
+        <Text style={s.privacyNotice}>
+          CINEOS monitors recording devices, not individuals. No video, facial recognition, or biometric data is collected. Zone detection only. US Prov. Pat. 64/049,190
+        </Text>
       </ScrollView>
 
       <TouchableOpacity style={s.fab} onPress={openReport} activeOpacity={0.85}>
@@ -390,6 +393,7 @@ const s = StyleSheet.create({
   statusDismissed:{fontFamily:'SpaceMono',fontSize:8,color:'rgba(255,255,255,0.3)',letterSpacing:1},
   statusPending:{fontFamily:'SpaceMono',fontSize:8,color:'#ffb700',letterSpacing:1},
   footer:{fontFamily:'SpaceMono',fontSize:9,color:'rgba(255,255,255,0.2)',textAlign:'center',marginTop:20,paddingBottom:100,letterSpacing:1},
+  privacyNotice:{fontFamily:'SpaceMono',fontSize:8,color:'rgba(255,255,255,0.15)',textAlign:'center',paddingHorizontal:20,paddingBottom:20,lineHeight:14,letterSpacing:0.5},
   fab:{position:'absolute',bottom:100,right:20,backgroundColor:'#ff3a3a',paddingHorizontal:18,paddingVertical:12,borderRadius:24,elevation:5,shadowColor:'#ff3a3a',shadowOffset:{width:0,height:4},shadowOpacity:0.4,shadowRadius:8},
   fabText:{fontFamily:'SpaceMono',fontSize:11,color:'#fff',letterSpacing:1.5},
   overlay:{position:'absolute',top:0,left:0,right:0,bottom:0},

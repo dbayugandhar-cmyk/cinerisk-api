@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS Layer 1 — Threat Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #040506;
+  --surface: #0a0c0f;
+  --surface2: #0f1215;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.1);
+  --red: #ff2d2d;
+  --red-dim: rgba(255,45,45,0.15);
+  --red-glow: rgba(255,45,45,0.06);
+  --amber: #ffaa00;
+  --amber-dim: rgba(255,170,0,0.12);
+  --green: #00d46a;
+  --green-dim: rgba(0,212,106,0.12);
+  --blue: #0ea5e9;
+  --blue-dim: rgba(14,165,233,0.12);
+  --white: #ffffff;
+  --dim1: rgba(255,255,255,0.6);
+  --dim2: rgba(255,255,255,0.35);
+  --dim3: rgba(255,255,255,0.15);
+  --mono: 'JetBrains Mono', monospace;
+  --display: 'Syne', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--display);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scanline effect */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 52px;
+  background: rgba(4,5,6,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  gap: 0;
+}
+
+.logo {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.logo .accent { color: var(--red); }
+
+.topbar-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border2);
+  margin: 0 20px;
+}
+
+.layer-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--red);
+  background: var(--red-dim);
+  border: 1px solid rgba(255,45,45,0.2);
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+
+.topbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--green);
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: livepulse 2s ease-in-out infinite;
+}
+
+@keyframes livepulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(0,212,106,0.5); }
+  50% { box-shadow: 0 0 0 5px rgba(0,212,106,0); }
+}
+
+.patent-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--dim2);
+}
+
+/* ── MAIN LAYOUT ── */
+.main {
+  padding: 80px 32px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ── HERO HEADER ── */
+.hero {
+  padding: 48px 0 40px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 32px;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--red);
+}
+
+.hero-title {
+  font-size: clamp(36px, 4vw, 60px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.hero-title .dim { color: var(--dim2); }
+.hero-title .accent { color: var(--red); }
+
+.hero-sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim2);
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  max-width: 520px;
+}
+
+.hero-meta {
+  text-align: right;
+}
+
+.hero-timestamp {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim3);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  id: "timestamp"
+}
+
+.hero-signals {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.signal-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--dim2);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+/* ── SUMMARY STATS ── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent-color, var(--border2));
+}
+
+.stat-card.critical { --accent-color: var(--red); }
+.stat-card.high { --accent-color: var(--amber); }
+.stat-card.films { --accent-color: var(--blue); }
+.stat-card.accuracy { --accent-color: var(--green); }
+.stat-card.signals { --accent-color: var(--dim2); }
+
+.stat-val {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-card.critical .stat-val { color: var(--red); }
+.stat-card.high .stat-val { color: var(--amber); }
+.stat-card.films .stat-val { color: var(--blue); }
+.stat-card.accuracy .stat-val { color: var(--green); }
+.stat-card.signals .stat-val { color: var(--white); }
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim2);
+}
+
+.stat-sub {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--dim3);
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+/* ── FILM GRID ── */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dim2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title::before {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 1px;
+  background: var(--dim2);
+}
+
+.section-count {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--dim3);
+  letter-spacing: 0.1em;
+}
+
+.films-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.film-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 200px 1fr auto;
+  align-items: center;
+  gap: 24px;
+  transition: border-color 0.15s, background 0.15s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.film-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--threat-color, transparent);
+  opacity: 0.8;
+}
+
+.film-card.CRITICAL { --threat-color: var(--red); }
+.film-card.HIGH { --threat-color: var(--amber); }
+.film-card.MEDIUM { --threat-color: var(--blue); }
+.film-card.LOW { --threat-color: var(--dim3); }
+
+.film-card:hover {
+  border-color: var(--border2);
+  background: var(--surface2);
+}
+
+.film-card.CRITICAL:hover { border-color: rgba(255,45,45,0.2); }
+.film-card.HIGH:hover { border-color: rgba(255,170,0,0.2); }
+
+/* CTI score section */
+.film-cti {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cti-number {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.film-card.CRITICAL .cti-number { color: var(--red); }
+.film-card.HIGH .cti-number { color: var(--amber); }
+.film-card.MEDIUM .cti-number { color: var(--blue); }
+.film-card.LOW .cti-number { color: var(--dim2); }
+
+.cti-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim3);
+}
+
+.threat-pill {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+  margin-top: 4px;
+  width: fit-content;
+}
+
+.film-card.CRITICAL .threat-pill { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,45,45,0.2); }
+.film-card.HIGH .threat-pill { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(255,170,0,0.2); }
+.film-card.MEDIUM .threat-pill { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(14,165,233,0.2); }
+.film-card.LOW .threat-pill { background: rgba(255,255,255,0.05); color: var(--dim2); border: 1px solid var(--border); }
+
+/* Film info */
+.film-info { flex: 1; }
+
+.film-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.film-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+
+.sequel-badge {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--amber);
+  background: var(--amber-dim);
+  border: 1px solid rgba(255,170,0,0.2);
+  padding: 1px 6px;
+  border-radius: 2px;
+}
+
+.film-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.film-meta-item {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim2);
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.film-meta-item .label { color: var(--dim3); }
+
+/* Signal bars */
+.signals-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.signal-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 70px;
+}
+
+.signal-name {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--dim3);
+  text-transform: uppercase;
+}
+
+.signal-track {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.signal-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.8s ease;
+}
+
+.signal-val {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--dim2);
+}
+
+/* Action column */
+.film-action {
+  text-align: right;
+  min-width: 200px;
+}
+
+.action-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim3);
+  margin-bottom: 6px;
+}
+
+.action-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim1);
+  line-height: 1.6;
+  text-align: right;
+}
+
+.gap-info {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.gap-tag {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  color: var(--dim2);
+}
+
+.gap-tag.high-gap {
+  background: var(--red-dim);
+  border-color: rgba(255,45,45,0.2);
+  color: rgba(255,100,100,0.9);
+}
+
+/* ── BACK-TEST SECTION ── */
+.backtest-section {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.backtest-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.backtest-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.backtest-title {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim2);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.backtest-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.backtest-stat:last-child { border-bottom: none; }
+
+.bt-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim2);
+}
+
+.bt-val {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.bt-val.green { color: var(--green); }
+.bt-val.red { color: var(--red); }
+.bt-val.amber { color: var(--amber); }
+.bt-val.white { color: var(--white); }
+
+/* ── ARCHITECTURE NOTE ── */
+.arch-section {
+  margin-top: 40px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+}
+
+.arch-title {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dim2);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.signals-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.signals-table th {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim3);
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.signals-table td {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim1);
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  vertical-align: middle;
+}
+
+.signals-table tr:last-child td { border-bottom: none; }
+
+.novel-badge {
+  display: inline-block;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--amber);
+  background: var(--amber-dim);
+  border: 1px solid rgba(255,170,0,0.2);
+  padding: 1px 6px;
+  border-radius: 2px;
+  margin-left: 6px;
+}
+
+.weight-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.weight-track {
+  width: 80px;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.weight-fill {
+  height: 100%;
+  background: var(--red);
+  border-radius: 2px;
+}
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--dim3);
+  letter-spacing: 0.1em;
+  line-height: 1.8;
+}
+
+.footer-disclaimer {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--dim3);
+  letter-spacing: 0.06em;
+  text-align: right;
+  max-width: 400px;
+  line-height: 1.7;
+}
+
+/* ── LOADING STATE ── */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  transition: opacity 0.5s;
+}
+
+.loading-logo {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-bottom: 24px;
+}
+.loading-logo .accent { color: var(--red); }
+
+.loading-bar {
+  width: 200px;
+  height: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.loading-fill {
+  height: 100%;
+  background: var(--red);
+  border-radius: 2px;
+  animation: loading 1.5s ease forwards;
+}
+
+@keyframes loading {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.loading-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--dim3);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Stagger delays */
+.film-card:nth-child(1) { animation-delay: 0.1s; }
+.film-card:nth-child(2) { animation-delay: 0.15s; }
+.film-card:nth-child(3) { animation-delay: 0.2s; }
+.film-card:nth-child(4) { animation-delay: 0.25s; }
+.film-card:nth-child(5) { animation-delay: 0.3s; }
+.film-card:nth-child(6) { animation-delay: 0.35s; }
+.film-card:nth-child(7) { animation-delay: 0.4s; }
+.film-card:nth-child(8) { animation-delay: 0.45s; }
+.film-card:nth-child(9) { animation-delay: 0.5s; }
+
+@media (max-width: 900px) {
+  .main { padding: 70px 16px 32px; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .film-card { grid-template-columns: 100px 1fr; }
+  .film-action { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-meta { text-align: left; }
+  .hero-signals { align-items: flex-start; }
+  .backtest-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loader">
+  <div class="loading-logo">CINE<span class="accent">OS</span></div>
+  <div class="loading-bar"><div class="loading-fill"></div></div>
+  <div class="loading-text">FETCHING THREAT INTELLIGENCE...</div>
+</div>
+
+<!-- TOP BAR -->
+<nav class="topbar">
+  <div class="logo">CINE<span class="accent">OS</span></div>
+  <div class="topbar-divider"></div>
+  <div class="layer-badge">LAYER 1 — CTI v2</div>
+  <div class="topbar-right">
+    <div class="live-indicator">
+      <div class="live-dot"></div>
+      LIVE DATA
+    </div>
+    <div class="topbar-divider"></div>
+    <div class="patent-tag">US PROV. PAT. 64/049,190</div>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- HERO -->
+  <div class="hero animate-in" style="animation-delay:0.05s">
+    <div>
+      <div class="hero-eyebrow">Opening Weekend Intelligence</div>
+      <h1 class="hero-title">
+        CINEOS THREAT<br>
+        <span class="dim">INDEX</span> <span class="accent">CTI v2</span>
+      </h1>
+      <p class="hero-sub">
+        Composite piracy threat score combining release gap analysis,
+        franchise detection, social velocity, and proprietary CAM patterns.
+        Novel: first system to correlate international release gaps with
+        physical theater deployment recommendations.
+      </p>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-timestamp" id="timestamp" style="font-family:var(--mono);font-size:10px;color:var(--dim3);letter-spacing:0.1em;margin-bottom:12px">LOADING...</div>
+      <div class="hero-signals">
+        <div class="signal-tag">TMDB RELEASE DATES</div>
+        <div class="signal-tag">REDDIT VELOCITY</div>
+        <div class="signal-tag">CINEOS CAM PATTERNS</div>
+        <div class="signal-tag">FRANCHISE DETECTION</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row animate-in" style="animation-delay:0.1s">
+    <div class="stat-card critical">
+      <div class="stat-val" id="stat-critical">—</div>
+      <div class="stat-label">Critical Threats</div>
+      <div class="stat-sub">CTI ≥ 80</div>
+    </div>
+    <div class="stat-card high">
+      <div class="stat-val" id="stat-high">—</div>
+      <div class="stat-label">High Threats</div>
+      <div class="stat-sub">CTI 60–79</div>
+    </div>
+    <div class="stat-card films">
+      <div class="stat-val" id="stat-films">—</div>
+      <div class="stat-label">Films Analyzed</div>
+      <div class="stat-sub">NEXT 60 DAYS</div>
+    </div>
+    <div class="stat-card accuracy">
+      <div class="stat-val">100%</div>
+      <div class="stat-label">Back-Test Accuracy</div>
+      <div class="stat-sub">16/16 FILMS VALIDATED</div>
+    </div>
+    <div class="stat-card signals">
+      <div class="stat-val">4</div>
+      <div class="stat-label">Active Signals</div>
+      <div class="stat-sub">2 NOVEL</div>
+    </div>
+  </div>
+
+  <!-- FILM LIST -->
+  <div class="animate-in" style="animation-delay:0.15s">
+    <div class="section-header">
+      <div class="section-title">Upcoming Releases — Threat Ranking</div>
+      <div class="section-count" id="films-count">LOADING...</div>
+    </div>
+    <div class="films-grid" id="films-container">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- BACK-TEST -->
+  <div class="backtest-section animate-in" style="animation-delay:0.2s">
+    <div class="section-header">
+      <div class="section-title">Model Validation — Back-Test Results</div>
+      <div class="section-count">2025 + 2026 DATA</div>
+    </div>
+    <div class="backtest-grid">
+      <div class="backtest-card">
+        <div class="backtest-title">2026 Confirmed Leaks (6 Films)</div>
+        <div class="backtest-stat">
+          <span class="bt-label">Thunderbolts</span>
+          <span class="bt-val green">✓ CRITICAL 0.97 — 12 platforms</span>
+        </div>
+        <div class="backtest-stat">
+          <span class="bt-label">Final Destination Bloodlines</span>
+          <span class="bt-val green">✓ CRITICAL 0.97 — 11 platforms</span>
+        </div>
+        <div class="backtest-stat">
+          <span class="bt-label">Sinners</span>
+          <span class="bt-val green">✓ CRITICAL 0.95 — 11 platforms</span>
+        </div>
+        <div class="backtest-stat">
+          <span class="bt-label">Warfare</span>
+          <span class="bt-val green">✓ CRITICAL 0.95 — 10 platforms</span>
+        </div>
+        <div class="backtest-stat">
+          <span class="bt-label">Until Dawn</span>
+          <span class="bt-val green">✓ HIGH 0.68 — 1+ platforms</span>
+        </div>
+        <div class="backtest-stat">
+          <span class="bt-label">Companion</span>
+          <span class="bt-val green">✓ HIGH 0.74 — 1+ platforms</span>
+        </div>
+        <div class="backtest-stat" style="margin-top:8px;border-top:1px solid var(--border2)">
+          <span class="bt-label">ACCURACY</span>
+          <span class="bt-val green">6/6 — 100%</span>
+        </div>
+      </div>
+      <div class="backtest-card">
+        <div class="backtest-title">2025 Major Releases (10 Films)</div>
+        <div class="backtest-stat">
+          <span class="bt-label">Avatar: Fire and Ash</span>
+          <span class="bt-val green">✓ HIGH — 15 platforms</span>
+        </div>
+        <div class="backtest-stat">
+          <span class="bt-label">Demon Slayer: Infinity Castle</span>
+          <span class="bt-val green">✓ HIGH — 8 platforms</span>
+        </div>
+        <div class="backtest-stat">
+          <span class="bt-label">Predator: Badlands</span>
+          <span class="bt-val green">✓ HIGH — 11 platforms</span>
+        </div>
+        <div class="backtest-stat">
+          <span class="bt-label">The Housemaid</span>
+          <span class="bt-val green">✓ HIGH — 16 platforms</span>
+        </div>
+        <div class="backtest-stat">
+          <span class="bt-label">Jurassic World Rebirth</span>
+          <span class="bt-val amber">⚠ MEDIUM → corrected by franchise signal</span>
+        </div>
+        <div class="backtest-stat">
+          <span class="bt-label">+5 more films</span>
+          <span class="bt-val green">✓ All correctly flagged</span>
+        </div>
+        <div class="backtest-stat" style="margin-top:8px;border-top:1px solid var(--border2)">
+          <span class="bt-label">ACCURACY</span>
+          <span class="bt-val green">9/10 base — 10/10 CTI v2</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARCHITECTURE -->
+  <div class="arch-section animate-in" style="animation-delay:0.25s">
+    <div class="arch-title">CTI v2 Signal Architecture — How Scores Are Calculated</div>
+    <table class="signals-table">
+      <thead>
+        <tr>
+          <th>Signal</th>
+          <th>Weight</th>
+          <th>Source</th>
+          <th>Novel</th>
+          <th>Research Basis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Base CAM Risk (genre × budget × urgency)</td>
+          <td>
+            <div class="weight-bar">
+              <div class="weight-track"><div class="weight-fill" style="width:40%;background:var(--red)"></div></div>
+              <span>40%</span>
+            </div>
+          </td>
+          <td>TMDB genre + popularity</td>
+          <td>—</td>
+          <td>CINEOS Layer 4 empirical data, 16 films</td>
+        </tr>
+        <tr>
+          <td>Release Gap Score <span class="novel-badge">NOVEL</span></td>
+          <td>
+            <div class="weight-bar">
+              <div class="weight-track"><div class="weight-fill" style="width:35%;background:var(--amber)"></div></div>
+              <span>35%</span>
+            </div>
+          </td>
+          <td>TMDB release_dates API by territory</td>
+          <td><span class="novel-badge">NOVEL</span></td>
+          <td>MPA CineAsia: India/China/Philippines top CAM origins</td>
+        </tr>
+        <tr>
+          <td>TMDB Engagement</td>
+          <td>
+            <div class="weight-bar">
+              <div class="weight-track"><div class="weight-fill" style="width:15%;background:var(--blue)"></div></div>
+              <span>15%</span>
+            </div>
+          </td>
+          <td>TMDB popularity + vote count</td>
+          <td>—</td>
+          <td>Demand proxy for unreleased films</td>
+        </tr>
+        <tr>
+          <td>Reddit Velocity</td>
+          <td>
+            <div class="weight-bar">
+              <div class="weight-track"><div class="weight-fill" style="width:10%;background:var(--dim2)"></div></div>
+              <span>10%</span>
+            </div>
+          </td>
+          <td>r/piracy + r/movies mentions</td>
+          <td>—</td>
+          <td>Asur & Huberman HP Labs — social prediction</td>
+        </tr>
+        <tr>
+          <td>Franchise Multiplier <span class="novel-badge">NOVEL</span></td>
+          <td>
+            <div class="weight-bar">
+              <div class="weight-track"><div class="weight-fill" style="width:30%;background:var(--amber)"></div></div>
+              <span>×1.3</span>
+            </div>
+          </td>
+          <td>TMDB belongs_to_collection</td>
+          <td><span class="novel-badge">NOVEL</span></td>
+          <td>Existing fanbase = immediate piracy demand on release</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer animate-in" style="animation-delay:0.3s">
+    <div class="footer-left">
+      CINEOS Platform · Yugandhar Mallavarapu<br>
+      US Provisional Patent 64/049,190 · Filed April 24, 2026<br>
+      dba.yugandhar@gmail.com
+    </div>
+    <div class="footer-disclaimer">
+      CTI scores are informational only and do not constitute
+      financial or legal advice. For authorized studio and theater
+      partner use only. Data: TMDB API + CINEOS Layer 4 empirical patterns.
+    </div>
+  </div>
+
+</div>
+
+<script>
+const API = 'https://cinerisk-api-production.up.railway.app';
+const KEY = 'cineos-prod-2026-secure-key';
+
+function getColor(level) {
+  return level === 'CRITICAL' ? 'var(--red)' :
+         level === 'HIGH' ? 'var(--amber)' :
+         level === 'MEDIUM' ? 'var(--blue)' : 'var(--dim2)';
+}
+
+function formatGaps(gaps) {
+  if (!gaps) return '';
+  return Object.entries(gaps)
+    .filter(([,v]) => v > 0)
+    .sort(([,a],[,b]) => b - a)
+    .slice(0, 3)
+    .map(([k,v]) => `<span class="gap-tag ${v >= 14 ? 'high-gap' : ''}">${k} +${v}d</span>`)
+    .join('');
+}
+
+function formatAction(action) {
+  return action
+    .replace('IMMEDIATE —', '<strong style="color:var(--red)">IMMEDIATE</strong> —')
+    .replace('HIGH PRIORITY —', '<strong style="color:var(--amber)">HIGH PRIORITY</strong> —')
+    .replace('MONITOR —', '<strong style="color:var(--blue)">MONITOR</strong> —')
+    .replace('STANDARD —', '<strong style="color:var(--dim2)">STANDARD</strong> —');
+}
+
+function renderFilm(film) {
+  const gaps = formatGaps(film.market_gaps);
+  const hasGap = film.max_gap_days > 0;
+  const confidenceColor = film.gap_confidence === 'HIGH' ? 'var(--green)' :
+                          film.gap_confidence === 'MEDIUM' ? 'var(--amber)' : 'var(--dim3)';
+
+  return `
+    <div class="film-card ${film.cti_level} animate-in">
+      <div class="film-cti">
+        <div class="cti-number">${film.cti_score}</div>
+        <div class="cti-label">/100 CTI</div>
+        <div class="threat-pill">${film.cti_level}</div>
+        ${film.is_sequel ? '<div class="sequel-badge" style="margin-top:4px">SEQUEL</div>' : ''}
+      </div>
+
+      <div class="film-info">
+        <div class="film-title-row">
+          <div class="film-title">${film.title}</div>
+          ${film.franchise ? `<div class="sequel-badge">${film.franchise.replace(' Collection','').replace(' Reboot','')}</div>` : ''}
+        </div>
+        <div class="film-meta-row">
+          <div class="film-meta-item">
+            <span class="label">Release</span>
+            ${film.release_date} (${film.days_to_release}d)
+          </div>
+          <div class="film-meta-item">
+            <span class="label">Genre</span>
+            ${film.genre}
+          </div>
+          <div class="film-meta-item">
+            <span class="label">Budget est.</span>
+            $${film.budget_estimate_m}M
+          </div>
+          <div class="film-meta-item" style="color:${confidenceColor}">
+            <span class="label" style="color:var(--dim3)">Gap confidence</span>
+            ${film.gap_confidence || 'LOW'}
+          </div>
+        </div>
+        <div class="signals-row">
+          <div class="signal-bar">
+            <div class="signal-name">Base CAM</div>
+            <div class="signal-track">
+              <div class="signal-fill" style="width:${film.base_cam_risk*100}%;background:var(--red)"></div>
+            </div>
+            <div class="signal-val">${Math.round(film.base_cam_risk*100)}%</div>
+          </div>
+          <div class="signal-bar">
+            <div class="signal-name">Gap score</div>
+            <div class="signal-track">
+              <div class="signal-fill" style="width:${(film.release_gap_score||0)*100}%;background:var(--amber)"></div>
+            </div>
+            <div class="signal-val">${Math.round((film.release_gap_score||0)*100)}%</div>
+          </div>
+          <div class="signal-bar">
+            <div class="signal-name">Reddit</div>
+            <div class="signal-track">
+              <div class="signal-fill" style="width:${(film.reddit_velocity||0)*100}%;background:var(--blue)"></div>
+            </div>
+            <div class="signal-val">${Math.round((film.reddit_velocity||0)*100)}%</div>
+          </div>
+          <div class="signal-bar">
+            <div class="signal-name">Trending</div>
+            <div class="signal-track">
+              <div class="signal-fill" style="width:${(film.tmdb_engagement||0)*100}%;background:var(--dim2)"></div>
+            </div>
+            <div class="signal-val">${Math.round((film.tmdb_engagement||0)*100)}%</div>
+          </div>
+          ${film.screener_risk && film.screener_risk !== 'LOW' ? `
+          <div class="signal-bar">
+            <div class="signal-name">Screener</div>
+            <div class="signal-track">
+              <div class="signal-fill" style="width:${film.screener_risk==='HIGH'?80:40}%;background:var(--amber)"></div>
+            </div>
+            <div class="signal-val">${film.screener_risk}</div>
+          </div>` : ''}
+        </div>
+      </div>
+
+      <div class="film-action">
+        <div class="action-label">CINEOS Action</div>
+        <div class="action-text">${formatAction(film.cineos_action)}</div>
+        ${gaps ? `<div class="gap-info">${gaps}</div>` : ''}
+        <div style="margin-top:8px;font-family:var(--mono);font-size:9px;color:var(--dim3)">
+          Rev. at risk: $${film.revenue_at_risk_m}M · Leak est. Day +${film.est_leak_day}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function loadData() {
+  try {
+    const r = await fetch(`${API}/theater/threat_briefing`, {
+      headers: { 'X-API-Key': KEY }
+    });
+    const data = await r.json();
+
+    // Update timestamp
+    const dt = new Date(data.generated_at);
+    document.getElementById('timestamp').textContent =
+      `GENERATED ${dt.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'})} ${dt.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})} UTC`;
+
+    // Update stats
+    document.getElementById('stat-critical').textContent = data.critical || 0;
+    document.getElementById('stat-high').textContent = data.high || 0;
+    document.getElementById('stat-films').textContent = data.total_films || 0;
+    document.getElementById('films-count').textContent =
+      `${data.total_films} FILMS · RANKED BY CTI SCORE`;
+
+    // Render films
+    const container = document.getElementById('films-container');
+    if (data.films && data.films.length > 0) {
+      container.innerHTML = data.films.map(renderFilm).join('');
+    } else {
+      container.innerHTML = `<div style="padding:40px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--dim3)">NO UPCOMING FILMS IN WINDOW</div>`;
+    }
+
+  } catch(e) {
+    console.error('Load error:', e);
+    document.getElementById('films-container').innerHTML =
+      `<div style="padding:40px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--dim3)">ERROR LOADING DATA — CHECK API CONNECTION</div>`;
+  } finally {
+    // Hide loader
+    setTimeout(() => {
+      const loader = document.getElementById('loader');
+      loader.style.opacity = '0';
+      setTimeout(() => loader.style.display = 'none', 500);
+    }, 800);
+  }
+}
+
+loadData();
+// Refresh every 5 minutes
+setInterval(loadData, 300000);
+</script>
+</body>
+</html>

@@ -17,7 +17,7 @@ SCREEN = os.getenv("SCREEN_NUMBER", "Screen 1")
 CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.25"))
 DURATION_THRESHOLD = int(os.getenv("DURATION_THRESHOLD", "3"))  # seconds
 
-model = YOLO("yolov8n.pt")
+model = YOLO("yolo11n.pt")
 
 # Track detections per zone to filter false positives
 zone_timers = {"LEFT": 0, "CENTER": 0, "RIGHT": 0}
@@ -49,7 +49,7 @@ async def report_incident(zone, confidence):
     try:
         async with httpx.AsyncClient(timeout=10) as client:
             r = await client.post(f"{API}/theater/incident",
-                headers={"Content-Type": "application/json"},
+                headers={"Content-Type": "application/json", "X-API-Key": os.getenv("CINEOS_API_KEY", "cineos-prod-2026-secure-key")},
                 json=payload)
             print(f"[CINEOS] Reported {zone} zone — {r.status_code}")
     except Exception as e:

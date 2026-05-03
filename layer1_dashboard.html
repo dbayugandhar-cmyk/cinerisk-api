@@ -1314,7 +1314,12 @@ async function searchFilm() {
     const sensitivity = genreMap[primaryGenre] || 0.40;
     const hypeLevel = pop >= 200 ? 'high' : pop >= 50 ? 'medium' : 'low';
     const hypeM = hypeMap[hypeLevel];
-    const budgetEst = pop >= 500 ? 220 : pop >= 200 ? 130 : pop >= 100 ? 65 : pop >= 50 ? 30 : pop >= 20 ? 15 : 8;
+    // Use TMDB real budget if available (in dollars, convert to millions)
+    const tmdbBudget = detail.budget ? Math.round(detail.budget / 1_000_000) : 0;
+    const budgetEst = tmdbBudget > 0 ? tmdbBudget : 
+                      pop >= 500 ? 220 : pop >= 200 ? 130 : pop >= 100 ? 65 : 
+                      pop >= 50 ? 30 : pop >= 20 ? 15 : 8;
+    const budgetSource = tmdbBudget > 0 ? 'TMDB confirmed' : 'estimated from popularity';
     const budgetMod = budgetEst >= 200 ? 0.18 : budgetEst >= 150 ? 0.12 : budgetEst >= 80 ? 0.06 : 0;
     const today = new Date();
     const releaseDate = film.release_date ? new Date(film.release_date) : today;
@@ -1350,14 +1355,16 @@ async function searchFilm() {
     // Use real budget if provided, otherwise estimate
     const realBudget = parseFloat(document.getElementById('budget-input').value) || budgetEst;
     const genreMultiplier = {28:2.6,27:2.0,53:1.8,878:2.3,35:1.5,18:1.4,16:2.9,12:2.2,80:1.7,9648:1.6}[primaryGenre] || 1.8;
-    const estimatedGross = realBudget * genreMultiplier;
+    const estimatedGross = (manualBudget || budgetEst) * genreMultiplier;
     // 7.9% = Zeng et al. 2025 (peer-reviewed) — revenue reduction from high-quality CAM week 1
     // Spectacle films (action/scifi/adventure) lose less — 3-5%
     // Story films (drama/thriller/horror) lose more — 10-30%
     const spectacleGenres = [28, 878, 12, 16];
     const impactRate = spectacleGenres.includes(primaryGenre) ? 0.05 : 0.079;
     const revenueAtRisk = Math.round(estimatedGross * impactRate * baseRisk);
-    const budgetLabel = parseFloat(document.getElementById('budget-input').value) ? 'real budget' : 'est. budget';
+    const manualBudget = parseFloat(document.getElementById('budget-input').value);
+    const finalBudget = manualBudget || budgetEst;
+    const budgetLabel = manualBudget ? 'manual input' : budgetSource;
     
     result.innerHTML = `
       <div class="film-card ${level}" style="animation:fadeIn 0.4s ease forwards">
@@ -1376,7 +1383,7 @@ async function searchFilm() {
             <div class="film-meta-item"><span class="label">Release</span>${film.release_date || 'TBD'} (${daysToRelease}d)</div>
             <div class="film-meta-item"><span class="label">Genre</span>${genreName}</div>
             <div class="film-meta-item"><span class="label">Popularity</span>${pop.toFixed(1)}</div>
-            <div class="film-meta-item"><span class="label">Budget est.</span>$${budgetEst}M</div>
+            <div class="film-meta-item"><span class="label">Budget</span>$${finalBudget}M <span style="color:var(--dim3);font-size:9px">(${budgetLabel})</span></div>
             <div class="film-meta-item" style="color:${gapConfidence==='HIGH'?'var(--green)':gapConfidence==='MEDIUM'?'var(--amber)':'var(--dim2)'}">
               <span class="label" style="color:var(--dim3)">Gap confidence</span>${gapConfidence}
             </div>

@@ -59,7 +59,6 @@ def s(r):
         return {k: v.isoformat() if hasattr(v,'isoformat') else v for k,v in r.items()}
     return r
 
-@asynccontextmanager
 CINEOS_API_KEY = os.getenv("CINEOS_API_KEY", "")
 
 def verify_api_key(x_api_key: Optional[str] = Header(None)):
@@ -67,6 +66,7 @@ def verify_api_key(x_api_key: Optional[str] = Header(None)):
         raise HTTPException(status_code=401, detail="Invalid API key")
     return x_api_key
 
+@asynccontextmanager
 async def lifespan(app):
     if PG_AVAILABLE and DATABASE_URL:
         try:

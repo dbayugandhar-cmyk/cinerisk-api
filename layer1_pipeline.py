@@ -158,4 +158,5 @@ async def main():
     print(f"  Saved: cineos_threat_briefing.json")
     print(f"{'='*65}")
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

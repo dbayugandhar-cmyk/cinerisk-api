@@ -5,7 +5,8 @@ import os
 import sys
 import time
 from datetime import datetime, timezone
-from ultralytics import YOLO
+import torch
+import numpy as np
 import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from session_tracker import update_session, get_active_sessions
@@ -17,7 +18,9 @@ SCREEN = os.getenv("SCREEN_NUMBER", "Screen 1")
 CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.25"))
 DURATION_THRESHOLD = int(os.getenv("DURATION_THRESHOLD", "3"))  # seconds
 
-model = YOLO("yolo11n.pt")
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True, verbose=False)
+model.conf = float(os.getenv("CONFIDENCE_THRESHOLD", "0.25"))
+model.classes = [67]  # cell phone only
 
 # Track detections per zone to filter false positives
 zone_timers = {"LEFT": 0, "CENTER": 0, "RIGHT": 0}
@@ -74,18 +77,19 @@ def run_detector(stream_url: str):
             continue
 
         h, w = frame.shape[:2]
-        results = model(frame, classes=[67], verbose=False)  # class 67 = cell phone
-        total_boxes = sum(len(r.boxes) for r in results)
+        results = model(frame)  # YOLOv5 torch hub inference
+        # Filter to cell phone class (67) above confidence threshold
+        detections = results.xyxy[0]  # [x1,y1,x2,y2,conf,class]
+        phone_dets = detections[(detections[:, 5] == 67) & (detections[:, 4] >= CONFIDENCE_THRESHOLD)] if len(detections) else detections
+        total_boxes = len(phone_dets)
         if total_boxes > 0: print(f"[DEBUG] {total_boxes} detection(s) this frame")
 
         detected_zones = set()
-        for result in results:
-            for box in result.boxes:
-                conf = float(box.conf[0])
-                if conf < CONFIDENCE_THRESHOLD:
-                    continue
-                x1, y1, x2, y2 = box.xyxy[0]
-                x_center = (x1 + x2) / 2
+        for det in phone_dets:
+            x1, y1, x2, y2, conf, cls = det.tolist()
+            if True:  # already filtered above
+                if True:
+                    x_center = (x1 + x2) / 2
                 zone = get_zone(x_center, w)
                 detected_zones.add(zone)
                 zone_timers[zone] = zone_timers.get(zone, 0) + 1

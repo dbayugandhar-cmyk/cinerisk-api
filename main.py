@@ -10,8 +10,17 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 # Import both apps as routers
-from theater.theater_api import app as theater_app
-from api import app as risk_app
+try:
+    from theater.theater_api import app as theater_app
+except Exception as e:
+    print(f"[WARN] Theater API import error: {e}")
+    theater_app = None
+
+try:
+    from api import app as risk_app
+except Exception as e:
+    print(f"[WARN] Risk API import error: {e}")
+    risk_app = None
 
 app = FastAPI(
     title="CINEOS Platform API",
@@ -27,13 +36,15 @@ app.add_middleware(
 )
 
 # Mount theater routes (Layers 2-5)
-for route in theater_app.routes:
-    app.routes.append(route)
+if theater_app:
+    for route in theater_app.routes:
+        app.routes.append(route)
 
 # Mount risk engine routes (Layer 1)
-for route in risk_app.routes:
-    if not any(r.path == route.path for r in app.routes):
-        app.routes.append(route)
+if risk_app:
+    for route in risk_app.routes:
+        if not any(r.path == route.path for r in app.routes):
+            app.routes.append(route)
 
 @app.get("/")
 async def root():

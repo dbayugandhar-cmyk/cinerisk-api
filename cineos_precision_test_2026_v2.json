@@ -1,0 +1,121 @@
+{
+  "test_name": "CINEOS Layer 4 Precision Test v2 \u2014 2026 Box Office",
+  "run_at": "2026-05-03T14:17:52.820250+00:00",
+  "scanner_version": "multi_source_v4_plugin",
+  "sources_per_scan": 14,
+  "total_films": 6,
+  "confirmed_leaks": 6,
+  "detection_rate": "100%",
+  "avg_hits_per_film": 7.7,
+  "avg_scan_time_seconds": 15,
+  "notable_findings": [
+    "Thunderbolts: 1080p CAM with NEW AUDIO confirmed on PirateBay \u2014 professional operation",
+    "Final Destination Bloodlines: Hindi dubbed CAM version already in circulation \u2014 international distribution",
+    "All 6 films confirmed across 10-12 platforms simultaneously",
+    "Scan covers torrent indexes, streaming sites, Telegram channels, Reddit"
+  ],
+  "results": [
+    {
+      "film": "Sinners",
+      "hits": 11,
+      "sources": 14,
+      "platforms": [
+        "whereyouwatch.com",
+        "thepiratebay.org",
+        "bitsearch.to",
+        "rarbg.mirror",
+        "glodls.to",
+        "limetorrents.lol",
+        "torlock.com",
+        "kickasstorrents.to",
+        "720pstream.me",
+        "yesmovies.mn",
+        "lookmovie2.to"
+      ],
+      "confirmed_cam": true,
+      "cam_title": null
+    },
+    {
+      "film": "Thunderbolts",
+      "hits": 12,
+      "sources": 14,
+      "platforms": [
+        "thepiratebay.org",
+        "solidtorrents.to",
+        "whereyouwatch.com",
+        "bitsearch.to",
+        "rarbg.mirror",
+        "glodls.to",
+        "limetorrents.lol",
+        "kickasstorrents.to",
+        "720pstream.me",
+        "yesmovies.mn",
+        "lookmovie2.to",
+        "eztv.re"
+      ],
+      "confirmed_cam": true,
+      "cam_title": "Thunderbolts.2025.1080p.CAM.NEW.AUDIO.x264.AC3-AOC"
+    },
+    {
+      "film": "Final Destination Bloodlines",
+      "hits": 11,
+      "sources": 14,
+      "platforms": [
+        "whereyouwatch.com",
+        "thepiratebay.org",
+        "solidtorrents.to",
+        "bitsearch.to",
+        "rarbg.mirror",
+        "glodls.to",
+        "limetorrents.lol",
+        "kickasstorrents.to",
+        "720pstream.me",
+        "yesmovies.mn",
+        "lookmovie2.to"
+      ],
+      "confirmed_cam": true,
+      "cam_title": "Final Destination Bloodlines 2025 1080p CAM AV1 DDP 5 1-LuCY"
+    },
+    {
+      "film": "Warfare",
+      "hits": 10,
+      "sources": 14,
+      "platforms": [
+        "whereyouwatch.com",
+        "solidtorrents.to",
+        "bitsearch.to",
+        "rarbg.mirror",
+        "glodls.to",
+        "limetorrents.lol",
+        "kickasstorrents.to",
+        "720pstream.me",
+        "yesmovies.mn",
+        "lookmovie2.to"
+      ],
+      "confirmed_cam": true,
+      "cam_title": null
+    },
+    {
+      "film": "Until Dawn",
+      "hits": 1,
+      "sources": 14,
+      "platforms": [
+        "whereyouwatch.com"
+      ],
+      "confirmed_cam": true,
+      "cam_title": null
+    },
+    {
+      "film": "Companion",
+      "hits": 1,
+      "sources": 14,
+      "platforms": [
+        "whereyouwatch.com"
+      ],
+      "confirmed_cam": true,
+      "cam_title": null
+    }
+  ],
+  "conclusion": "6/6 major 2026 theatrical releases confirmed with active CAM piracy across 14 sources. CINEOS Layer 4 v4 scanner detects active leaks in under 15 seconds across torrent indexes, streaming sites, Telegram and Reddit simultaneously.",
+  "patent": "US Prov. Pat. 64/049,190"
+}

@@ -80,6 +80,15 @@ def run_detector(stream_url: str):
     print(f"[CINEOS] Stream open — monitoring {THEATER} {SCREEN} for {FILM}")
     loop = asyncio.new_event_loop()
 
+    # Initialize pose detector inside function scope
+    pose_detector = None
+    if POSE_AVAILABLE:
+        try:
+            pose_detector = PoseDetector()
+            print("[CINEOS] Pose detector active — dual signal running")
+        except Exception as e:
+            print(f"[CINEOS] Pose detector unavailable: {e}")
+
     while True:
         ret, frame = cap.read()
         if not ret:
@@ -100,8 +109,7 @@ def run_detector(stream_url: str):
                 pose_alerts = pose_detector.process_frame(frame)
                 for alert in pose_alerts:
                     print(f"[POSE] {alert.posture} | Zone:{alert.zone} | Conf:{alert.confidence:.0%}")
-                    import asyncio
-                    asyncio.run(report_incident(
+                    loop.run_until_complete(report_incident(
                         alert.zone,
                         alert.confidence,
                         detection_type=alert.posture

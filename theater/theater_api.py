@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 import httpx
 
 DATABASE_URL = os.getenv("DATABASE_URL", "")
-CINERISK_API = os.getenv("CINERISK_API", "https://web-production-f7244.up.railway.app")
+CINEOS_API = os.getenv("CINEOS_API", "https://web-production-f7244.up.railway.app")
 
 try:
     import asyncpg
@@ -143,7 +143,7 @@ async def get_film_risk(film_title:str,genre:str=Query("action"),hype:str=Query(
     engine_data=None
     try:
         async with httpx.AsyncClient(timeout=8.0) as client:
-            r=await client.post(f"{CINERISK_API}/simulate",json={"genre":genre,"hype":hype,"strategy":strategy,"budget_m":budget_m,"film_title":film_title})
+            r=await client.post(f"{CINEOS_API}/simulate",json={"genre":genre,"hype":hype,"strategy":strategy,"budget_m":budget_m,"film_title":film_title})
         if r.status_code==200: engine_data=r.json()
     except: pass
     observed=await db_fetch("SELECT * FROM incidents WHERE film_title ILIKE $1 LIMIT 500",f"%{film_title}%")

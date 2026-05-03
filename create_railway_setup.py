@@ -1,5 +1,5 @@
 # Run: python3 create_railway_setup.py
-# Creates all files needed to deploy CineRisk API to Railway
+# Creates all files needed to deploy CINEOS API to Railway
 import os
 
 base = os.path.expanduser("~/Desktop/cinerisk")
@@ -38,7 +38,7 @@ node_modules/
 """
 
 # ── README for the repo ───────────────────────────────────────────────
-readme = """# CineRisk API
+readme = """# CINEOS API
 
 Film release risk and revenue intelligence engine.
 
@@ -97,7 +97,7 @@ DEPLOY IN 4 STEPS:
 Step 1 — Push to GitHub (run in ~/Desktop/cinerisk):
   git init
   git add engine.py api.py requirements.txt Procfile railway.json .gitignore README.md
-  git commit -m "CineRisk API v1"
+  git commit -m "CINEOS API v1"
   gh repo create cinerisk-api --public --push
   (or: go to github.com → New repo → upload files manually)
 

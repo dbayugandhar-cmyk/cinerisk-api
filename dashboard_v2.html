@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CineRisk — Release Intelligence</title>
+<title>CINEOS — Release Intelligence</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -503,7 +503,7 @@ async function runSimulation() {
     document.getElementById('sim-results').innerHTML = `
       <div class="error-state">
         <div class="error-title">API not reachable</div>
-        <div class="error-body">Make sure the CineRisk API is running: <code>python3 -m uvicorn api:app --reload --port 8000</code><br>Error: ${e.message}</div>
+        <div class="error-body">Make sure the CINEOS API is running: <code>python3 -m uvicorn api:app --reload --port 8000</code><br>Error: ${e.message}</div>
       </div>`;
   }
 }

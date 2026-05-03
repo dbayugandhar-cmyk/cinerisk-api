@@ -1,5 +1,5 @@
 """
-CineRisk Core Engine v2.1
+CINEOS Core Engine v2.1
 =========================
 Changes from v2:
 - Budget sensitivity added — large films are bigger piracy targets

@@ -4,7 +4,7 @@ import os
 
 api_code = '''
 """
-CineRisk API v1 — FastAPI bridge over engine.py
+CINEOS API v1 — FastAPI bridge over engine.py
 Run: python3 -m uvicorn api:app --reload --port 8000
 Docs: http://localhost:8000/docs
 """
@@ -17,7 +17,7 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from engine import simulate, SimulationOutput
 
-app = FastAPI(title="CineRisk API", version="1.0.0")
+app = FastAPI(title="CINEOS API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,

@@ -81,7 +81,7 @@ async def run():
             print(f"  {title}")
             print(f"  {film['studio']} · {film['genre']} · Day {film['release_day']}")
             print(f"  BO open: {fmt(film['domestic_open_m'])} dom · cumulative: {fmt(film['cumulative_m'])}")
-            print(f"  RT: {film['rt_score']}% · CineRisk: {film['cinerisk_score']} · "
+            print(f"  RT: {film['rt_score']}% · CINEOS: {film['cinerisk_score']} · "
                   f"Revenue risk: {fmt(film['revenue_risk_m'])}")
 
             # Check 1: risk vs outcome
@@ -201,7 +201,7 @@ async def run():
         print(f"\n  CINEOS detection : <30 seconds from seat")
         print(f"  Industry standard: 0 seconds advance warning")
         print(f"\n  Next live test:")
-        print(f"    Mandalorian & Grogu · May 22 · CineRisk 0.94 · CRITICAL")
+        print(f"    Mandalorian & Grogu · May 22 · CINEOS 0.94 · CRITICAL")
         print(f"    Deploy staff_report.html to one theater before opening night")
         print(f"{'='*62}\n")
 

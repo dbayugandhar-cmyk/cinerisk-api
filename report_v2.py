@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-CineRisk Report Generator v2
+CINEOS Report Generator v2
 =============================
 Calls the API (engine.py via api.py) for all data.
 No calculation logic here — pure PDF rendering.
@@ -23,7 +23,7 @@ from reportlab.platypus import (
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_RIGHT
 
-API = os.getenv("CINERISK_API", "http://localhost:8000")
+API = os.getenv("CINEOS_API", "http://localhost:8000")
 
 # ── Colours ───────────────────────────────────────────────────────────
 BG=colors.HexColor("#07090c"); SU=colors.HexColor("#0c0f14")
@@ -74,7 +74,7 @@ def make_pages(film_title, client, date, risk_score, expiry=""):
         c.setFillColor(SU);    c.rect(0,0,W,42*mm,fill=1,stroke=0)
         c.setFillColor(BO);    c.rect(0,42*mm,W,0.5,fill=1,stroke=0)
         c.saveState(); c.setFillColor(T3); c.setFont("Helvetica",7)
-        c.translate(9*mm,H/2); c.rotate(90); c.drawCentredString(0,0,"CINERISK — ENGINE v1 — SINGLE SOURCE OF TRUTH"); c.restoreState()
+        c.translate(9*mm,H/2); c.rotate(90); c.drawCentredString(0,0,"CINEOS — ENGINE v1 — SINGLE SOURCE OF TRUTH"); c.restoreState()
         c.setFillColor(colors.white); c.setFont("Helvetica-Bold",24); c.drawString(22*mm,H-30*mm,"CINE")
         c.setFillColor(GOLD); c.drawString(22*mm+45,H-30*mm,"RISK")
         c.setFillColor(T3); c.setFont("Helvetica",7); c.drawString(22*mm,H-35*mm,"RELEASE INTELLIGENCE PLATFORM  ·  ENGINE v1")
@@ -88,7 +88,7 @@ def make_pages(film_title, client, date, risk_score, expiry=""):
         c.drawString(22*mm,26*mm,f"Prepared for: {client}")
         c.drawString(22*mm,19*mm,f"Date: {date}")
         c.setFillColor(T3); c.setFont("Helvetica",7)
-        c.drawString(22*mm,12*mm,"Confidential — CineRisk Intelligence  ·  All figures from Engine v1")
+        c.drawString(22*mm,12*mm,"Confidential — CINEOS Intelligence  ·  All figures from Engine v1")
         c.drawRightString(W-MG,12*mm,"Page 1 of 4")
 
     def inner(c,doc):
@@ -106,10 +106,10 @@ def make_pages(film_title, client, date, risk_score, expiry=""):
         c.setFillColor(SU);  c.rect(14*mm,0,W-14*mm,10*mm,fill=1,stroke=0)
         c.setFillColor(BO);  c.rect(14*mm,10*mm,W-14*mm,0.5,fill=1,stroke=0)
         c.setFillColor(T3); c.setFont("Helvetica",7)
-        c.drawString(22*mm,4*mm,f"Engine v1 output — {date}  ·  CineRisk Intelligence")
+        c.drawString(22*mm,4*mm,f"Engine v1 output — {date}  ·  CINEOS Intelligence")
         c.drawRightString(W-MG,4*mm,"Confidential")
         c.saveState(); c.setFillColor(T3); c.setFont("Helvetica",7)
-        c.translate(9*mm,H/2); c.rotate(90); c.drawCentredString(0,0,"CINERISK ENGINE v1"); c.restoreState()
+        c.translate(9*mm,H/2); c.rotate(90); c.drawCentredString(0,0,"CINEOS ENGINE v1"); c.restoreState()
 
     def on_page(c,doc): cover(c,doc) if doc.page==1 else inner(c,doc)
     return on_page
@@ -294,7 +294,7 @@ def build_pdf(data, client, output_path):
 
 # ── CLI ───────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    p = argparse.ArgumentParser(description="CineRisk Report Generator v2 — API-powered")
+    p = argparse.ArgumentParser(description="CINEOS Report Generator v2 — API-powered")
     p.add_argument("--genre",    required=True, choices=["action","scifi","thriller","horror","drama","animation"])
     p.add_argument("--hype",     required=True, choices=["low","medium","high"])
     p.add_argument("--strategy", required=True, choices=["global_day1","staggered","streaming_delay"])
@@ -304,7 +304,7 @@ if __name__ == "__main__":
     p.add_argument("--output",   default=None)
     args = p.parse_args()
 
-    print(f"\nCineRisk Report Generator v2")
+    print(f"\nCINEOS Report Generator v2")
     print(f"  Film:     {args.title or 'Untitled'}")
     print(f"  Inputs:   {args.genre} / {args.hype} / {args.strategy} / ${args.budget}M")
     print(f"  Client:   {args.client}")
@@ -319,7 +319,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     safe = (args.title or "report").replace(" ","_").replace("/","_")
-    out  = args.output or os.path.expanduser(f"~/Desktop/cinerisk/CineRisk_{safe}_Report.pdf")
+    out  = args.output or os.path.expanduser(f"~/Desktop/cinerisk/CINEOS_{safe}_Report.pdf")
     build_pdf(data, args.client, out)
     print(f"\n  Opening report...")
     os.system(f"open '{out}'")

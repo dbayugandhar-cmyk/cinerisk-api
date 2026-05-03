@@ -1,4 +1,4 @@
-# CineRisk API
+# CINEOS API
 
 Film release risk and revenue intelligence engine.
 

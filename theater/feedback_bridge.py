@@ -1,5 +1,5 @@
 """
-CINEOS → CineRisk Feedback Bridge (Layer 3)
+CINEOS → CINEOS Feedback Bridge (Layer 3)
 ============================================
 Queries Supabase for observed incident data.
 Compares predicted leak_day (Layer 1) vs observed first incident (Layer 2).
@@ -17,7 +17,7 @@ from datetime import datetime
 
 SUPABASE_URL = os.getenv("SUPABASE_URL", "https://fuaybehxfusfywghuxwp.supabase.co")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1YXliZWh4ZnVzZnl3Z2h1eHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTIzNDgsImV4cCI6MjA5MjcyODM0OH0.mbYxdL8NilgZOT4_vyWGK73h64UVxqCpT5SEzO3Kcks")
-CINERISK_API = os.getenv("CINERISK_API", "http://localhost:8000")
+CINEOS_API = os.getenv("CINEOS_API", "http://localhost:8000")
 
 def run():
     print(f"\nCINEOS Feedback Bridge — Layer 3")
@@ -82,7 +82,7 @@ def run():
 
         try:
             with httpx.Client(timeout=6.0) as client:
-                r = client.post(f"{CINERISK_API}/simulate", json={
+                r = client.post(f"{CINEOS_API}/simulate", json={
                     "genre": genre, "hype": "medium",
                     "strategy": strategy, "budget_m": 100.0,
                     "film_title": film,

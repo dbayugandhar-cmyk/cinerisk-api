@@ -54,7 +54,7 @@ def assemble(title,distributor):
           "strategy":"staggered","strategy_label":"Staggered by region","gap":6,"buzz":60.0,
           "director":"Unknown","cast":[],"release_year":str(datetime.now().year),
           "runtime":120,"rating":"PG-13","overview":"",
-          "prepared_for":distributor,"prepared_by":"CineRisk Intelligence",
+          "prepared_for":distributor,"prepared_by":"CINEOS Intelligence",
           "date":datetime.now().strftime("%B %Y")}
     result=search_film(title)
     if result:
@@ -293,7 +293,7 @@ if __name__=="__main__":
     title=sys.argv[1]; dist=sys.argv[2] if len(sys.argv)>2 else "Confidential Client"
     film=assemble(title,dist)
     safe=title.replace(' ','_').replace('/','_')
-    out=f"{os.path.expanduser('~/Desktop/cinerisk')}/CineRisk_{safe}_Report.pdf"
+    out=f"{os.path.expanduser('~/Desktop/cinerisk')}/CINEOS_{safe}_Report.pdf"
     build_pdf(film,out)
     print(f"\n Report saved to: {out}")
     os.system(f"open '{out}'")

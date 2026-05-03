@@ -434,24 +434,50 @@
     white-space: nowrap;
   }
 
-  /* VISIBILITY */
-  .stat-label { color: #b8d0f0 !important; }
-  .row-label { color: #d0e8ff !important; font-weight: 700; }
-  .screen-label { color: #90b8d8 !important; letter-spacing: 0.3em; }
-  .incident-theater { color: #c0d4f0 !important; }
-  .incident-time { color: #a0b8d8 !important; }
-  .incident-seat { color: #ff7070 !important; font-weight: 700; }
-  .zone-name { color: #e0f0ff !important; font-weight: 700; }
-  .zone-count { color: #ffffff !important; font-size: 22px !important; font-weight: 800 !important; }
+  
+  /* VISIBILITY - ALL TEXT WHITE */
+  body, div, span, p, text { color: #e0eeff; }
+  .stat-label { color: #c0d8ff !important; font-size: 11px !important; letter-spacing: 0.12em !important; }
+  .stat-val { font-size: 38px !important; }
+  .row-label { color: #d0e8ff !important; font-weight: 700 !important; font-size: 12px !important; }
+  .screen-label { color: #90b8d8 !important; letter-spacing: 0.3em !important; }
+  .incident-theater { color: #c8dff5 !important; font-size: 12px !important; }
+  .incident-time { color: #a8c4e0 !important; font-size: 11px !important; }
+  .incident-seat { color: #ff7070 !important; font-weight: 700 !important; font-size: 13px !important; }
+  .incident-type { color: #8090a8 !important; font-size: 11px !important; }
+  .zone-name { color: #e8f4ff !important; font-weight: 700 !important; font-size: 11px !important; letter-spacing: 0.15em !important; }
+  .zone-count { color: #ffffff !important; font-size: 24px !important; font-weight: 800 !important; }
+  .zone.active .zone-name { color: #ff6060 !important; }
   .zone.active .zone-count { color: #ff4040 !important; }
-  .legend-item { color: #c0d4f0 !important; }
-  .feed-title { color: #e0f0ff !important; }
-  .feed-count { color: #ff5050 !important; font-weight: 700; }
-  .clock { color: #c0d8f8 !important; }
-  .theater-name { color: #ffffff !important; }
-  .theater-sub { color: #a0b8d8 !important; }
-  .patent { color: #708098 !important; }
-  .stat-val { color: #ff4040; }
+  .zone { border: 1px solid #253550 !important; background: #0a1020 !important; padding: 12px 16px !important; border-radius: 6px !important; }
+  .zone.active { border-color: #ff4040 !important; background: #1a0808 !important; }
+  .legend-item { color: #c0d4f0 !important; font-size: 11px !important; }
+  .feed-title { color: #e8f4ff !important; font-weight: 700 !important; letter-spacing: 0.12em !important; }
+  .feed-count { color: #ff5050 !important; font-weight: 700 !important; }
+  .clock { color: #c0d8f8 !important; font-size: 13px !important; }
+  .theater-name { color: #ffffff !important; font-size: 26px !important; font-weight: 700 !important; }
+  .theater-sub { color: #a0b8d8 !important; font-size: 11px !important; letter-spacing: 0.1em !important; }
+  .patent { color: #708098 !important; font-size: 11px !important; }
+  .brand { color: #00ff88 !important; font-weight: 800 !important; letter-spacing: 0.15em !important; }
+  .live-pill { font-size: 10px !important; letter-spacing: 0.1em !important; }
+  /* Stats bar */
+  .stats-bar { border-bottom: 1px solid #1e2e48 !important; }
+  /* Feed items */
+  .incident { border-bottom: 1px solid #1a2a40 !important; }
+  .incident.new { background: #0f1a28 !important; }
+  /* Zone bar */
+  .zone-bar { background: #080e18 !important; border-top: 1px solid #1e2e48 !important; gap: 10px !important; padding: 12px 16px !important; }
+  /* Screen label */
+  .screen-wrap { border-bottom: 1px solid #1e2e48 !important; }
+  /* Footer refresh note */
+  div[style*="font-size: 10px"], div[style*="font-size:10px"] { color: #5070a0 !important; }
+  /* Type badge */
+  .type-badge { font-size: 9px !important; font-weight: 800 !important; padding: 2px 6px !important; }
+  .type-badge.phone { background: rgba(255,42,42,0.2) !important; color: #ff6060 !important; border: 1px solid rgba(255,42,42,0.4) !important; }
+  .type-badge.camera { background: rgba(255,170,0,0.2) !important; color: #ffaa40 !important; border: 1px solid rgba(255,170,0,0.4) !important; }
+  /* Seat legend */
+  .legend { margin-top: 12px !important; gap: 16px !important; }
+  .legend-seat { width: 14px !important; height: 10px !important; border-radius: 2px !important; }
 
 </style>
 </head>

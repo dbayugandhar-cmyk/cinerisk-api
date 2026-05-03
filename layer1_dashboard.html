@@ -1355,7 +1355,7 @@ async function searchFilm() {
     // Use real budget if provided, otherwise estimate
     const realBudget = parseFloat(document.getElementById('budget-input').value) || budgetEst;
     const genreMultiplier = {28:2.6,27:2.0,53:1.8,878:2.3,35:1.5,18:1.4,16:2.9,12:2.2,80:1.7,9648:1.6}[primaryGenre] || 1.8;
-    const estimatedGross = (manualBudget || budgetEst) * genreMultiplier;
+    const estimatedGross = finalBudget * genreMultiplier;
     // 7.9% = Zeng et al. 2025 (peer-reviewed) — revenue reduction from high-quality CAM week 1
     // Spectacle films (action/scifi/adventure) lose less — 3-5%
     // Story films (drama/thriller/horror) lose more — 10-30%

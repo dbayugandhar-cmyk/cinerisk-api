@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "uvicorn api:app --host 0.0.0.0 --port $PORT",
+    "startCommand": "python3 layer4_worker.py",
     "restartPolicyType": "ON_FAILURE"
   }
 }

@@ -1,4 +1,6 @@
-import asyncio, asyncpg, os, httpx
+import asyncio, asyncpg, os, httpx, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from theater.piracy_scanner import full_scan
 from datetime import datetime, timezone
 
 DATABASE_URL = os.getenv("DATABASE_URL", "")
@@ -74,7 +76,7 @@ async def process_unalerted():
             if not film or film == 'string':
                 continue
             print(f"[WORKER] Scanning for: {film}")
-            scan = await scan_film(film)
+            scan = await full_scan(film)
             detected_at = incident['detected_at']
             now = datetime.now(timezone.utc)
             gap_minutes = int((now - detected_at).total_seconds() / 60)

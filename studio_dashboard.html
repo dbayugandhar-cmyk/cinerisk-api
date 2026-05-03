@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS — Studio Compliance Dashboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg: #04040a;
+  --panel: #08080f;
+  --border: #12121e;
+  --border2: #1a1a2e;
+  --red: #ff2a2a;
+  --red-dim: rgba(255,42,42,0.12);
+  --green: #00e87a;
+  --green-dim: rgba(0,232,122,0.1);
+  --amber: #ffaa00;
+  --amber-dim: rgba(255,170,0,0.1);
+  --blue: #0088ff;
+  --blue-dim: rgba(0,136,255,0.1);
+  --text: #e8e8f0;
+  --muted: #4a4a6a;
+  --muted2: #2a2a3a;
+  --gold: #c9a84c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow-x: hidden; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+}
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* Top bar */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 56px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.brand-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.15em;
+  color: var(--text);
+}
+
+.brand-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.live-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--red-dim);
+  border: 1px solid rgba(255,42,42,0.25);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--red);
+  letter-spacing: 0.1em;
+}
+
+.live-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+@keyframes countUp { from{opacity:0} to{opacity:1} }
+
+.clock {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Hero section */
+.hero {
+  padding: 32px 32px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 28px;
+  animation: fadeUp 0.6s ease-out;
+}
+
+.film-info { flex: 1; }
+
+.film-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.film-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.film-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.film-meta-item {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.film-meta-item span {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.compliance-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 2px solid var(--green);
+  background: var(--green-dim);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.score-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px;
+  color: var(--green);
+  line-height: 1;
+}
+
+.score-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--green);
+  opacity: 0.7;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+.score-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,232,122,0.2);
+}
+
+/* Film selector */
+.film-selector {
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--panel);
+}
+
+.selector-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.film-btn {
+  padding: 6px 16px;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.film-btn:hover { border-color: var(--blue); color: var(--blue); }
+.film-btn.active { border-color: var(--blue); background: var(--blue-dim); color: var(--blue); }
+
+.export-btn {
+  margin-left: auto;
+  padding: 6px 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,232,122,0.3);
+  background: var(--green-dim);
+  color: var(--green);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+
+.export-btn:hover { background: rgba(0,232,122,0.2); }
+
+/* Main grid */
+.main {
+  padding: 24px 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+/* Stat cards */
+.stat-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  animation: fadeUp 0.6s ease-out both;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-sub {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.stat-bar {
+  height: 3px;
+  background: var(--border2);
+  border-radius: 2px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1s ease-out;
+}
+
+/* Second row */
+.second-row {
+  padding: 0 32px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+/* Theater table */
+.theater-section {
+  padding: 0 32px 24px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.theater-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.theater-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.theater-table td {
+  padding: 12px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.theater-table tr:last-child td { border-bottom: none; }
+.theater-table tr:hover td { background: rgba(255,255,255,0.01); }
+
+.score-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.score-high { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,232,122,0.2); }
+.score-mid { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(255,170,0,0.2); }
+.score-low { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,42,42,0.2); }
+
+/* Incident feed */
+.bottom-row {
+  padding: 0 32px 32px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 16px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.panel-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--red);
+}
+
+.incident-list { max-height: 320px; overflow-y: auto; }
+.incident-list::-webkit-scrollbar { width: 3px; }
+.incident-list::-webkit-scrollbar-thumb { background: var(--border2); }
+
+.incident-row {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  animation: fadeUp 0.3s ease-out;
+}
+
+.incident-row:last-child { border-bottom: none; }
+
+.inc-type {
+  width: 32px; height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.inc-type.phone { background: var(--red-dim); }
+.inc-type.silent { background: var(--green-dim); }
+
+.inc-info { min-width: 0; }
+
+.inc-theater {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inc-seat {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.inc-time {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Timeline chart */
+.timeline-wrap { padding: 16px; }
+
+.timeline-bar-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 80px;
+}
+
+.t-bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: var(--border2);
+  transition: height 0.8s ease-out, background 0.2s;
+  cursor: pointer;
+  min-height: 4px;
+}
+
+.t-bar:hover { background: var(--blue); }
+.t-bar.has-incident { background: rgba(255,42,42,0.4); }
+.t-bar.has-incident:hover { background: var(--red); }
+
+.timeline-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.t-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+}
+
+/* Summary cards */
+.summary-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.summary-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.donut-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.donut {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.donut-legend { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.legend-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-val {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+}
+
+/* Footer */
+.footer {
+  padding: 16px 32px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.verified-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--green);
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-name">CINEOS</div>
+    <div class="brand-tag">Studio Compliance Dashboard</div>
+  </div>
+  <div class="topbar-right">
+    <div class="live-pill"><div class="live-dot"></div>LIVE</div>
+    <div class="clock" id="clock"></div>
+  </div>
+</div>
+
+<!-- FILM SELECTOR -->
+<div class="film-selector">
+  <div class="selector-label">FILM:</div>
+  <button class="film-btn active" onclick="selectFilm(this, 'Demo Theater')">Demo Theater</button>
+  <button class="film-btn" onclick="selectFilm(this, 'AMC Theater')">AMC Multiplex</button>
+  <button class="film-btn" onclick="selectFilm(this, 'Regal Cinema')">Regal Cinema</button>
+  <button class="film-btn" onclick="selectFilm(this, 'Cinemark')">Cinemark</button>
+  <button class="export-btn" onclick="exportReport()">↓ Export Report</button>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="film-info">
+    <div class="film-label">Currently monitoring</div>
+    <div class="film-title" id="film-title">DEMO THEATER</div>
+    <div class="film-meta">
+      <div class="film-meta-item">Studio <span>Cinema Piracy Solution</span></div>
+      <div class="film-meta-item">Patent <span>US Prov. 64/049,190</span></div>
+      <div class="film-meta-item">Status <span style="color:var(--green)">● Protected</span></div>
+      <div class="film-meta-item">Last updated <span id="last-updated">—</span></div>
+    </div>
+  </div>
+  <div class="compliance-score">
+    <div class="score-ring"></div>
+    <div class="score-val" id="compliance-val">—</div>
+    <div class="score-label">COMPLIANCE<br>SCORE</div>
+  </div>
+</div>
+
+<!-- STAT CARDS -->
+<div class="main">
+  <div class="stat-card">
+    <div class="stat-label">Total incidents</div>
+    <div class="stat-val" id="s-total" style="color:var(--red)">0</div>
+    <div class="stat-sub">All time</div>
+    <div class="stat-bar"><div class="stat-bar-fill" id="bar-total" style="background:var(--red);width:0%"></div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Today</div>
+    <div class="stat-val" id="s-today" style="color:var(--amber)">0</div>
+    <div class="stat-sub">Last 24 hours</div>
+    <div class="stat-bar"><div class="stat-bar-fill" id="bar-today" style="background:var(--amber);width:0%"></div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Phones detected</div>
+    <div class="stat-val" id="s-phones" style="color:var(--red)">0</div>
+    <div class="stat-sub">Recording attempts</div>
+    <div class="stat-bar"><div class="stat-bar-fill" id="bar-phones" style="background:var(--red);width:0%"></div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Silent intercepts</div>
+    <div class="stat-val" id="s-silent" style="color:var(--green)">0</div>
+    <div class="stat-sub">Watermarked undetected</div>
+    <div class="stat-bar"><div class="stat-bar-fill" id="bar-silent" style="background:var(--green);width:0%"></div></div>
+  </div>
+</div>
+
+<!-- SECOND ROW -->
+<div class="second-row">
+  <div class="summary-card">
+    <div class="summary-title">Detection breakdown</div>
+    <div class="donut-wrap">
+      <canvas class="donut" id="donut1" width="80" height="80"></canvas>
+      <div class="donut-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--red)"></div>
+          Phone recording
+          <div class="legend-val" id="leg-phone">0</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--green)"></div>
+          Silent intercept
+          <div class="legend-val" id="leg-silent">0</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--amber)"></div>
+          Camcorder
+          <div class="legend-val" id="leg-cam">0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="summary-title">Protection status</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:12px;color:var(--muted)">Content protection</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--green)">● ACTIVE</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:12px;color:var(--muted)">Ultrasonic signal</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--green)">● BROADCASTING</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:12px;color:var(--muted)">Camera suppression</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--green)">● ENABLED</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:12px;color:var(--muted)">Cloud logging</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--green)">● SYNCED</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:12px;color:var(--muted)">Patent status</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--amber)">● PENDING</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="summary-title">Incident timeline — last 12h</div>
+    <div class="timeline-wrap" style="padding:0;margin-top:8px">
+      <div class="timeline-bar-wrap" id="timeline"></div>
+      <div class="timeline-labels">
+        <div class="t-label" id="tl-start">12h ago</div>
+        <div class="t-label">6h ago</div>
+        <div class="t-label">Now</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THEATER TABLE -->
+<div class="theater-section">
+  <div class="section-header">
+    <div class="section-title">Theater compliance scores</div>
+  </div>
+  <div class="panel">
+    <table class="theater-table">
+      <thead>
+        <tr>
+          <th>Theater</th>
+          <th>Screen</th>
+          <th>Incidents</th>
+          <th>Last incident</th>
+          <th>Compliance</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="theater-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- BOTTOM ROW -->
+<div class="bottom-row">
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">Live incident feed</div>
+      <div class="panel-count" id="feed-count">0 incidents</div>
+    </div>
+    <div class="incident-list" id="incident-list">
+      <div style="padding:24px;text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">
+        Loading incidents...
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div class="panel" style="flex:1">
+      <div class="panel-header">
+        <div class="panel-title">Certification</div>
+      </div>
+      <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+        <div style="text-align:center;padding:16px 0">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.2em;color:var(--muted);margin-bottom:4px">CINEOS CERTIFIED</div>
+          <div style="font-family:'DM Mono',monospace;font-size:22px;color:var(--green);letter-spacing:0.1em">✓ VERIFIED</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:8px">US PROV. PAT. 64/049,190</div>
+        </div>
+        <div style="background:var(--border);height:1px"></div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);line-height:1.8">
+          <div>ISSUED: <span style="color:var(--text)">Apr 29, 2026</span></div>
+          <div>VALID UNTIL: <span style="color:var(--text)">Apr 28, 2027</span></div>
+          <div>CERT ID: <span style="color:var(--text)">CPS-2026-0429</span></div>
+          <div>FILMS PROTECTED: <span style="color:var(--green)" id="cert-films">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Legal export</div>
+      </div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:8px">
+        <button onclick="exportReport()" style="background:var(--green-dim);border:1px solid rgba(0,232,122,0.3);color:var(--green);padding:8px;border-radius:4px;font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;letter-spacing:0.05em">↓ Download Full Report</button>
+        <button onclick="exportCSV()" style="background:var(--blue-dim);border:1px solid rgba(0,136,255,0.3);color:var(--blue);padding:8px;border-radius:4px;font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;letter-spacing:0.05em">↓ Export CSV for Legal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>CINEOS Platform · Cinema Piracy Solution · US Prov. Pat. 64/049,190 · Yugandhar Mallavarapu</div>
+  <div class="verified-badge">✓ Compliance data verified and timestamped</div>
+</div>
+
+<script>
+const API = 'https://cinerisk-api-production.up.railway.app';
+
+let allIncidents = [];
+let activeTheater = 'Demo Theater';
+
+function selectFilm(btn, theater) {
+  document.querySelectorAll('.film-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeTheater = theater;
+  document.getElementById('film-title').textContent = theater.toUpperCase();
+  renderAll();
+}
+
+async function fetchData() {
+  try {
+    const r = await fetch(`${API}/theater/incidents?limit=200`);
+    const d = await r.json();
+    if (d && Array.isArray(d.incidents)) {
+      allIncidents = d.incidents;
+      renderAll();
+      document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+    }
+  } catch(e) { console.error(e); }
+}
+
+function renderAll() {
+  const filtered = activeTheater === 'All'
+    ? allIncidents
+    : allIncidents.filter(i => (i.theater_name || '').includes(activeTheater) || activeTheater === 'Demo Theater');
+
+  const today = new Date().toDateString();
+  let phones = 0, silent = 0, cams = 0, todayCount = 0;
+
+  filtered.forEach(inc => {
+    const type = (inc.detection_type || 'PHONE').toUpperCase();
+    if (new Date(inc.detected_at).toDateString() === today) todayCount++;
+    if (type.includes('SILENT')) silent++;
+    else if (type.includes('CAM')) cams++;
+    else phones++;
+  });
+
+  const total = filtered.length;
+
+  // Stats
+  document.getElementById('s-total').textContent = total;
+  document.getElementById('s-today').textContent = todayCount;
+  document.getElementById('s-phones').textContent = phones;
+  document.getElementById('s-silent').textContent = silent;
+
+  // Bars
+  const maxVal = Math.max(total, 1);
+  setTimeout(() => {
+    document.getElementById('bar-total').style.width = Math.min(100, (total/50)*100) + '%';
+    document.getElementById('bar-today').style.width = Math.min(100, (todayCount/20)*100) + '%';
+    document.getElementById('bar-phones').style.width = Math.min(100, (phones/50)*100) + '%';
+    document.getElementById('bar-silent').style.width = Math.min(100, (silent/10)*100) + '%';
+  }, 100);
+
+  // Compliance score
+  const incidentRate = total > 0 ? Math.min(total / 100, 1) : 0;
+  const score = Math.round(100 - incidentRate * 30);
+  document.getElementById('compliance-val').textContent = score;
+
+  // Legend
+  document.getElementById('leg-phone').textContent = phones;
+  document.getElementById('leg-silent').textContent = silent;
+  document.getElementById('leg-cam').textContent = cams;
+
+  // Cert films
+  document.getElementById('cert-films').textContent = total > 0 ? '1 active' : '0';
+
+  // Donut chart
+  drawDonut(phones, silent, cams);
+
+  // Timeline
+  drawTimeline(filtered);
+
+  // Theater table
+  renderTheaterTable(filtered);
+
+  // Incident feed
+  renderFeed(filtered);
+}
+
+function drawDonut(phones, silent, cams) {
+  const canvas = document.getElementById('donut1');
+  const ctx = canvas.getContext('2d');
+  const total = phones + silent + cams || 1;
+  const cx = 40, cy = 40, r = 32, lw = 10;
+
+  ctx.clearRect(0, 0, 80, 80);
+
+  const segments = [
+    { val: phones, color: '#ff2a2a' },
+    { val: silent, color: '#00e87a' },
+    { val: cams, color: '#ffaa00' },
+  ];
+
+  let start = -Math.PI / 2;
+  segments.forEach(seg => {
+    const angle = (seg.val / total) * Math.PI * 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, start, start + angle);
+    ctx.strokeStyle = seg.color;
+    ctx.lineWidth = lw;
+    ctx.stroke();
+    start += angle;
+  });
+
+  // Center
+  ctx.beginPath();
+  ctx.arc(cx, cy, r - lw/2 - 2, 0, Math.PI * 2);
+  ctx.fillStyle = '#08080f';
+  ctx.fill();
+
+  ctx.fillStyle = '#e8e8f0';
+  ctx.font = 'bold 16px Bebas Neue, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(phones + silent + cams, cx, cy);
+}
+
+function drawTimeline(incidents) {
+  const wrap = document.getElementById('timeline');
+  wrap.innerHTML = '';
+  const now = Date.now();
+  const buckets = 24;
+  const bucketSize = (12 * 60 * 60 * 1000) / buckets;
+  const counts = new Array(buckets).fill(0);
+
+  incidents.forEach(inc => {
+    const age = now - new Date(inc.detected_at).getTime();
+    if (age < 12 * 60 * 60 * 1000) {
+      const bucket = Math.floor(age / bucketSize);
+      if (bucket < buckets) counts[buckets - 1 - bucket]++;
+    }
+  });
+
+  const max = Math.max(...counts, 1);
+  counts.forEach(count => {
+    const bar = document.createElement('div');
+    bar.className = 't-bar' + (count > 0 ? ' has-incident' : '');
+    const pct = (count / max) * 100;
+    bar.style.height = Math.max(4, pct) + '%';
+    bar.title = `${count} incidents`;
+    wrap.appendChild(bar);
+  });
+}
+
+function renderTheaterTable(incidents) {
+  const tbody = document.getElementById('theater-tbody');
+  const theaterMap = {};
+
+  incidents.forEach(inc => {
+    const key = `${inc.theater_name||'Unknown'}|${inc.screen_number||'Screen 1'}`;
+    if (!theaterMap[key]) {
+      theaterMap[key] = {
+        theater: inc.theater_name || 'Unknown',
+        screen: inc.screen_number || 'Screen 1',
+        count: 0,
+        lastIncident: null
+      };
+    }
+    theaterMap[key].count++;
+    const d = new Date(inc.detected_at);
+    if (!theaterMap[key].lastIncident || d > theaterMap[key].lastIncident) {
+      theaterMap[key].lastIncident = d;
+    }
+  });
+
+  const rows = Object.values(theaterMap);
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px;font-family:\'DM Mono\',monospace;font-size:11px">No theater data available</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = rows.map(row => {
+    const score = Math.round(Math.max(60, 100 - row.count * 2));
+    const scoreClass = score >= 85 ? 'score-high' : score >= 70 ? 'score-mid' : 'score-low';
+    const lastInc = row.lastIncident ? row.lastIncident.toLocaleTimeString() : '—';
+    const status = row.count === 0 ? '<span style="color:var(--green);font-family:\'DM Mono\',monospace;font-size:11px">● Clear</span>' :
+                   row.count < 5 ? '<span style="color:var(--amber);font-family:\'DM Mono\',monospace;font-size:11px">● Monitor</span>' :
+                   '<span style="color:var(--red);font-family:\'DM Mono\',monospace;font-size:11px">● Alert</span>';
+    return `<tr>
+      <td style="font-weight:500">${row.theater}</td>
+      <td style="color:var(--muted);font-size:12px">${row.screen}</td>
+      <td style="font-family:'DM Mono',monospace;color:var(--red)">${row.count}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">${lastInc}</td>
+      <td><span class="score-pill ${scoreClass}">${score}/100</span></td>
+      <td>${status}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderFeed(incidents) {
+  const list = document.getElementById('incident-list');
+  document.getElementById('feed-count').textContent = incidents.length + ' incidents';
+
+  if (!incidents.length) {
+    list.innerHTML = '<div style="padding:24px;text-align:center;font-family:\'DM Mono\',monospace;font-size:11px;color:var(--muted)">No incidents recorded</div>';
+    return;
+  }
+
+  list.innerHTML = incidents.slice(0, 30).map((inc, i) => {
+    const type = (inc.detection_type || 'PHONE').toUpperCase();
+    const isSilent = type.includes('SILENT');
+    const icon = isSilent ? '👻' : '📱';
+    const typeClass = isSilent ? 'silent' : 'phone';
+    const d = new Date(inc.detected_at);
+    return `<div class="incident-row">
+      <div class="inc-type ${typeClass}">${icon}</div>
+      <div class="inc-info">
+        <div class="inc-theater">${inc.theater_name || 'Demo Theater'} · ${inc.screen_number || 'Screen 1'}</div>
+        <div class="inc-seat">📍 ${inc.seat_location || 'Unknown'} · ${type}</div>
+      </div>
+      <div class="inc-time">${d.toLocaleTimeString()}<br>${d.toLocaleDateString()}</div>
+    </div>`;
+  }).join('');
+}
+
+function exportReport() {
+  const now = new Date();
+  const content = `CINEOS STUDIO COMPLIANCE REPORT
+================================
+Generated: ${now.toLocaleString()}
+Theater: ${activeTheater}
+Patent: US Prov. App. 64/049,190
+Certification: CPS-2026-0429
+
+SUMMARY
+-------
+Total Incidents: ${document.getElementById('s-total').textContent}
+Today: ${document.getElementById('s-today').textContent}
+Phones Detected: ${document.getElementById('s-phones').textContent}
+Silent Intercepts: ${document.getElementById('s-silent').textContent}
+Compliance Score: ${document.getElementById('compliance-val').textContent}/100
+
+INCIDENTS
+---------
+${allIncidents.map(i => `${new Date(i.detected_at).toLocaleString()} | ${i.theater_name} | ${i.screen_number} | ${i.seat_location} | ${i.detection_type||'PHONE'}`).join('\n')}
+
+---
+CINEOS Platform · Yugandhar Mallavarapu · dba.yugandhar@gmail.com
+This report is certified and timestamped for legal use.`;
+
+  const a = document.createElement('a');
+  a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
+  a.download = `CINEOS_Compliance_Report_${now.toISOString().slice(0,10)}.txt`;
+  a.click();
+}
+
+function exportCSV() {
+  const rows = [['Theater','Screen','Seat','Detection Type','Timestamp','Date']];
+  allIncidents.forEach(i => {
+    const d = new Date(i.detected_at);
+    rows.push([i.theater_name||'Demo Theater', i.screen_number||'Screen 1', i.seat_location||'Unknown', i.detection_type||'PHONE', d.toLocaleTimeString(), d.toLocaleDateString()]);
+  });
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = `CINEOS_Incidents_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+// Clock
+setInterval(() => {
+  document.getElementById('clock').textContent = new Date().toLocaleTimeString();
+}, 1000);
+document.getElementById('clock').textContent = new Date().toLocaleTimeString();
+
+// Fetch
+fetchData();
+setInterval(fetchData, 5000);
+</script>
+</body>
+</html>

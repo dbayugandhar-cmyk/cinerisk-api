@@ -19,8 +19,8 @@
     --text: #c8ccd8;
     --muted: #445;
     --seat-empty: #111118;
-    --seat-clear: #0d1f0d;
-    --seat-border: #1a2a1a;
+    --seat-clear: #1a3520;
+    --seat-border: #2d4d30;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -216,7 +216,7 @@
   .seat.alert {
     background: var(--red);
     border-color: #ff6666;
-    box-shadow: 0 0 8px rgba(255,42,42,0.6);
+    box-shadow: 0 0 14px rgba(255,42,42,1), 0 0 24px rgba(255,42,42,0.5);
     animation: pulse-seat 1.5s ease-in-out infinite;
   }
 
@@ -227,12 +227,13 @@
   }
 
   .seat.recent {
-    background: var(--red-dim);
-    border-color: var(--red);
+    background: rgba(255,42,42,0.6);
+    border-color: #ff6666;
+    box-shadow: 0 0 14px rgba(255,42,42,1), 0 0 24px rgba(255,42,42,0.5);
   }
 
   @keyframes pulse-seat {
-    0%,100% { box-shadow: 0 0 8px rgba(255,42,42,0.6); }
+    0%,100% { box-shadow: 0 0 14px rgba(255,42,42,1), 0 0 24px rgba(255,42,42,0.5); }
     50% { box-shadow: 0 0 16px rgba(255,42,42,0.9), 0 0 24px rgba(255,42,42,0.3); }
   }
 
@@ -432,6 +433,26 @@
     display: none;
     white-space: nowrap;
   }
+
+  /* VISIBILITY */
+  .stat-label { color: #b8d0f0 !important; }
+  .row-label { color: #d0e8ff !important; font-weight: 700; }
+  .screen-label { color: #90b8d8 !important; letter-spacing: 0.3em; }
+  .incident-theater { color: #c0d4f0 !important; }
+  .incident-time { color: #a0b8d8 !important; }
+  .incident-seat { color: #ff7070 !important; font-weight: 700; }
+  .zone-name { color: #e0f0ff !important; font-weight: 700; }
+  .zone-count { color: #ffffff !important; font-size: 22px !important; font-weight: 800 !important; }
+  .zone.active .zone-count { color: #ff4040 !important; }
+  .legend-item { color: #c0d4f0 !important; }
+  .feed-title { color: #e0f0ff !important; }
+  .feed-count { color: #ff5050 !important; font-weight: 700; }
+  .clock { color: #c0d8f8 !important; }
+  .theater-name { color: #ffffff !important; }
+  .theater-sub { color: #a0b8d8 !important; }
+  .patent { color: #708098 !important; }
+  .stat-val { color: #ff4040; }
+
 </style>
 </head>
 <body>
@@ -505,7 +526,7 @@
     </div>
     <div class="status-bar">
       <div class="status-dot-green"></div>
-      <span>Connected to Supabase · Auto-refresh 3s</span>
+      <span>Connected to Railway PostgreSQL · Auto-refresh 3s</span>
     </div>
   </div>
 </div>
@@ -513,8 +534,7 @@
 <div class="tooltip" id="tooltip"></div>
 
 <script>
-const SUPABASE_URL = 'https://fuaybehxfusfywghuxwp.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1YXliZWh4ZnVzZnl3Z2h1eHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTIzNDgsImV4cCI6MjA5MjcyODM0OH0.mbYxdL8NilgZOT4_vyWGK73h64UVxqCpT5SEzO3Kcks';
+const API = 'https://cinerisk-api-production.up.railway.app';
 
 const ROWS = ['A','B','C','D','E','F','G','H','I','J','K','L'];
 const SEATS_PER_ROW = 20;
@@ -589,8 +609,8 @@ function updateSeats() {
   });
 
   const now = Date.now();
-  const recentCutoff = 5 * 60 * 1000; // 5 min = recent
-  const oldCutoff = 30 * 60 * 1000;   // 30 min = fades
+  const recentCutoff = 24 * 60 * 60 * 1000;
+  const oldCutoff = 7 * 24 * 60 * 60 * 1000;
 
   allIncidents.forEach(incident => {
     const seatId = parseSeat(incident.seat_location);
@@ -621,10 +641,9 @@ function updateFeed(incidents) {
   incidents.forEach((inc, i) => {
     const incDate = new Date(inc.detected_at);
     if (incDate.toDateString() === today) todayCount++;
-    const loc = (inc.seat_location || '').toUpperCase();
-    if (loc.includes('LEFT')) zoneL++;
-    else if (loc.includes('CENTER')) zoneC++;
-    else if (loc.includes('RIGHT')) zoneR++;
+    const zone = (inc.zone || inc.seat_location || '').toUpperCase();
+    if (zone.includes('LEFT')) zoneL++;
+    else if (zone.includes('RIGHT')) zoneR++;
     else zoneC++;
 
     const el = document.createElement('div');
@@ -659,13 +678,11 @@ function updateFeed(incidents) {
 
 async function fetchIncidents() {
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/incidents?select=*&order=detected_at.desc&limit=50`, {
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-    });
+    const res = await fetch(`${API}/theater/incidents?limit=50`);
     const data = await res.json();
-    if (Array.isArray(data)) {
-      allIncidents = data;
-      updateFeed(data);
+    if (data && Array.isArray(data.incidents)) {
+      allIncidents = data.incidents;
+      updateFeed(data.incidents);
       updateSeats();
     }
   } catch(e) {

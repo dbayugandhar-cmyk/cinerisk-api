@@ -213,66 +213,25 @@ async def manual_scan(film_title: str):
 
 @app.get("/theater/threat_briefing")
 async def threat_briefing(days_ahead: int = 60, api_key: str = Header(None, alias="X-API-Key")):
-    """CINEOS Layer 1 — Live threat briefing from TMDB + proprietary CAM patterns"""
+    """CINEOS Layer 1 CTI v2 — Live threat briefing with release gap + franchise signals"""
     verify_api_key(api_key)
     try:
         import sys
         sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        from layer1_pipeline import _primary_genre, _estimate_budget, _risk, _revenue_at_risk, _level, _action, CINEOS_CAM_PATTERNS, TMDB_KEY
-        from datetime import timezone
-        import httpx as _httpx
-        
-        # Fetch directly — avoid asyncio.run() conflict
-        films = []
-        tmdb_key = os.getenv("TMDB_API_KEY", TMDB_KEY)
-        if tmdb_key:
-            async with _httpx.AsyncClient(timeout=15) as _client:
-                for _page in range(1, 4):
-                    _r = await _client.get(
-                        "https://api.themoviedb.org/3/movie/upcoming",
-                        params={"api_key": tmdb_key, "region": "US", "page": _page}
-                    )
-                    if _r.status_code == 200:
-                        films.extend(_r.json().get("results", []))
-        today = __import__('datetime').datetime.now(timezone.utc).date()
-        threats = []
-        
-        for f in films:
-            try:
-                from datetime import datetime
-                release = datetime.strptime(f["release_date"], "%Y-%m-%d").date()
-                days = (release - today).days
-                pop = f.get("popularity", 10)
-                if days < -30 or days > days_ahead or pop < 5.0:
-                    continue
-                gid, gname = _primary_genre(f.get("genre_ids", []))
-                budget = _estimate_budget(pop)
-                risk = _risk(gid, pop, budget, days)
-                rev = _revenue_at_risk(gid, budget, risk)
-                _, avg_plat, avg_leak = CINEOS_CAM_PATTERNS.get(gid, (0.6, 5, 7))
-                threats.append({
-                    "title": f["title"],
-                    "release_date": f["release_date"],
-                    "days_to_release": days,
-                    "genre": gname,
-                    "popularity": round(pop, 1),
-                    "cam_risk_score": risk,
-                    "threat_level": _level(risk),
-                    "revenue_at_risk_m": rev,
-                    "cineos_action": _action(risk, days)
-                })
-            except:
-                pass
-        
-        threats.sort(key=lambda x: x["cam_risk_score"], reverse=True)
+        from layer1_pipeline import full_threat_pipeline
+        threats = await full_threat_pipeline(days_ahead=days_ahead)
+        from datetime import datetime, timezone
         return {
-            "generated_at": __import__('datetime').datetime.now(timezone.utc).isoformat(),
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "model": "CTI v2",
+            "signals": ["TMDB release dates", "Reddit velocity", "CINEOS CAM patterns", "Franchise detection"],
             "total_films": len(threats),
-            "critical": len([t for t in threats if t["threat_level"]=="CRITICAL"]),
-            "high": len([t for t in threats if t["threat_level"]=="HIGH"]),
+            "critical": len([t for t in threats if t["cti_level"] == "CRITICAL"]),
+            "high": len([t for t in threats if t["cti_level"] == "HIGH"]),
             "films": threats,
-            "data_source": "TMDB API + CINEOS Layer 4 empirical CAM patterns",
             "patent": "US Prov. Pat. 64/049,190"
         }
     except Exception as e:
-        raise HTTPException(500, f"Pipeline error: {e}")
+        raise HTTPException(500, f"CTI pipeline error: {e}")
+
+

@@ -227,9 +227,8 @@
   }
 
   .seat.recent {
-    background: rgba(255,42,42,0.5);
+    background: var(--red-dim);
     border-color: var(--red);
-    box-shadow: 0 0 6px rgba(255,42,42,0.5);
   }
 
   @keyframes pulse-seat {
@@ -514,7 +513,8 @@
 <div class="tooltip" id="tooltip"></div>
 
 <script>
-const API = 'https://cinerisk-api-production.up.railway.app';
+const SUPABASE_URL = 'https://fuaybehxfusfywghuxwp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1YXliZWh4ZnVzZnl3Z2h1eHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTIzNDgsImV4cCI6MjA5MjcyODM0OH0.mbYxdL8NilgZOT4_vyWGK73h64UVxqCpT5SEzO3Kcks';
 
 const ROWS = ['A','B','C','D','E','F','G','H','I','J','K','L'];
 const SEATS_PER_ROW = 20;
@@ -589,8 +589,8 @@ function updateSeats() {
   });
 
   const now = Date.now();
-  const recentCutoff = 24 * 60 * 60 * 1000;
-  const oldCutoff = 7 * 24 * 60 * 60 * 1000;
+  const recentCutoff = 5 * 60 * 1000; // 5 min = recent
+  const oldCutoff = 30 * 60 * 1000;   // 30 min = fades
 
   allIncidents.forEach(incident => {
     const seatId = parseSeat(incident.seat_location);
@@ -621,9 +621,10 @@ function updateFeed(incidents) {
   incidents.forEach((inc, i) => {
     const incDate = new Date(inc.detected_at);
     if (incDate.toDateString() === today) todayCount++;
-    const zone = (inc.zone || inc.seat_location || '').toUpperCase();
-    if (zone.includes('LEFT')) zoneL++;
-    else if (zone.includes('RIGHT')) zoneR++;
+    const loc = (inc.seat_location || '').toUpperCase();
+    if (loc.includes('LEFT')) zoneL++;
+    else if (loc.includes('CENTER')) zoneC++;
+    else if (loc.includes('RIGHT')) zoneR++;
     else zoneC++;
 
     const el = document.createElement('div');
@@ -658,11 +659,13 @@ function updateFeed(incidents) {
 
 async function fetchIncidents() {
   try {
-    const res = await fetch(`${API}/theater/incidents?limit=50`);
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/incidents?select=*&order=detected_at.desc&limit=50`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+    });
     const data = await res.json();
-    if (data && Array.isArray(data.incidents)) {
-      allIncidents = data.incidents;
-      updateFeed(data.incidents);
+    if (Array.isArray(data)) {
+      allIncidents = data;
+      updateFeed(data);
       updateSeats();
     }
   } catch(e) {

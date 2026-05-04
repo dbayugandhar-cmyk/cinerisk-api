@@ -310,3 +310,143 @@ class RecordingConfirmation:
             self.evidence[key]["frames"] = max(
                 0, self.evidence[key]["frames"] - 1
             )
+
+
+# ── Glasses False Positive Filter ────────────────────────────────────
+class GlassesFilter:
+    """
+    Filter out eyeglass lens reflections from camera lens detections.
+
+    Key differentiators:
+    1. Glasses come in PAIRS — symmetrical, eye-width apart (55-75mm)
+    2. Glasses reflection is LARGE and DIFFUSE — low brightness ratio
+    3. Glasses are at FACE LEVEL — upper portion of frame
+    4. Glasses move WITH a face — correlated position changes
+    5. Glasses NEVER appear without face landmarks nearby
+
+    Research basis:
+    - Interpupillary distance: 55-75mm adults (avg 63mm)
+    - Eyeglass lens diameter: 35-55mm
+    - Camera lens: 4-8mm (phone), 30-60mm (camcorder)
+
+    Novel: combines geometric + photometric + positional analysis
+    to distinguish glasses from cameras. Existing systems don't do this.
+    """
+
+    # Interpupillary distance in normalized image coords
+    # Assumes 10m theater depth, person at ~5m avg distance
+    EYE_SEPARATION_MIN = 0.025   # normalized (glasses too close = not glasses)
+    EYE_SEPARATION_MAX = 0.12    # normalized (glasses too far = not glasses)
+
+    # Glasses always in upper portion of frame (face level)
+    FACE_ZONE_MAX_Y = 0.65       # below this = definitely not glasses
+
+    # Brightness ratio — glasses are dimmer than camera lenses
+    GLASSES_MAX_RATIO = 5.0      # glasses rarely exceed 5x brightness ratio
+    CAMERA_MIN_RATIO = 6.0       # camera lenses typically exceed 6x
+
+    def is_glasses_pair(self, r1: dict, r2: dict,
+                         frame_width: int, frame_height: int) -> bool:
+        """
+        Check if two reflections are an eyeglass pair.
+        Returns True if they look like glasses (should be filtered).
+        """
+        # Must be at face level
+        y1_norm = r1["y"] / frame_height
+        y2_norm = r2["y"] / frame_height
+        if y1_norm > self.FACE_ZONE_MAX_Y or y2_norm > self.FACE_ZONE_MAX_Y:
+            return False
+
+        # Must be at similar height (glasses are horizontal)
+        y_diff = abs(y1_norm - y2_norm)
+        if y_diff > 0.05:
+            return False
+
+        # Must be separated by interpupillary distance
+        x1_norm = r1["x"] / frame_width
+        x2_norm = r2["x"] / frame_width
+        x_sep = abs(x1_norm - x2_norm)
+        if not (self.EYE_SEPARATION_MIN < x_sep < self.EYE_SEPARATION_MAX):
+            return False
+
+        # Brightness ratio check — glasses are dimmer
+        r1_ratio = r1.get("brightness_ratio", 10)
+        r2_ratio = r2.get("brightness_ratio", 10)
+        avg_ratio = (r1_ratio + r2_ratio) / 2
+        if avg_ratio < self.GLASSES_MAX_RATIO:
+            return True  # Low brightness ratio = likely glasses
+
+        # Area check — glasses lenses are larger than camera lenses
+        r1_area = r1.get("area", 0)
+        r2_area = r2.get("area", 0)
+        avg_area = (r1_area + r2_area) / 2
+        if avg_area > 80 and avg_ratio < 8:
+            return True  # Large diffuse reflection = glasses
+
+        return False
+
+    def filter(self, reflections: list,
+               frame_width: int, frame_height: int) -> list:
+        """
+        Remove glasses reflections from detection list.
+        Returns only camera lens candidates.
+        """
+        if len(reflections) < 2:
+            # Single reflection — check if at face level with low brightness
+            if len(reflections) == 1:
+                r = reflections[0]
+                y_norm = r["y"] / frame_height
+                ratio = r.get("brightness_ratio", 10)
+                area = r.get("area", 0)
+                # Large diffuse reflection at face level = likely single glasses lens
+                if y_norm < 0.5 and ratio < 4.0 and area > 60:
+                    return []  # Filter it out
+            return reflections
+
+        filtered = list(reflections)
+        glasses_indices = set()
+
+        # Check all pairs
+        for i in range(len(reflections)):
+            for j in range(i+1, len(reflections)):
+                if self.is_glasses_pair(
+                    reflections[i], reflections[j],
+                    frame_width, frame_height
+                ):
+                    glasses_indices.add(i)
+                    glasses_indices.add(j)
+
+        filtered = [r for idx, r in enumerate(reflections)
+                   if idx not in glasses_indices]
+
+        if glasses_indices:
+            print(f"[FILTER] Removed {len(glasses_indices)} eyeglass reflections")
+
+        return filtered
+
+
+def is_likely_glasses(reflection: dict,
+                       frame_width: int,
+                       frame_height: int) -> bool:
+    """
+    Quick single-reflection glasses check.
+    Use when you have one reflection and need to decide.
+    """
+    y_norm = reflection["y"] / frame_height
+    ratio = reflection.get("brightness_ratio", 10)
+    area = reflection.get("area", 0)
+    circularity = reflection.get("circularity", 0.5)
+
+    # Glasses characteristics:
+    # - Upper half of frame (face level)
+    # - Lower brightness ratio (diffuse reflection)
+    # - Larger area (bigger lens)
+    # - High circularity (round lens)
+    score = 0
+    if y_norm < 0.45:        score += 2   # face level
+    if ratio < 4.0:          score += 2   # dim reflection
+    if area > 60:            score += 1   # large lens
+    if circularity > 0.75:   score += 1   # round
+
+    return score >= 4  # Need 4+ points to flag as glasses
+

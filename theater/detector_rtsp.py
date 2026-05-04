@@ -1,10 +1,10 @@
 import cv2
 try:
-    from theater.signals_v2 import IRAutofocusDetector, RecordingConfirmation, classify_lens_pattern
+    from theater.signals_v2 import IRAutofocusDetector, RecordingConfirmation, classify_lens_pattern, GlassesFilter
     SIGNALS_V2 = True
 except:
     try:
-        from signals_v2 import IRAutofocusDetector, RecordingConfirmation, classify_lens_pattern
+        from signals_v2 import IRAutofocusDetector, RecordingConfirmation, classify_lens_pattern, GlassesFilter
         SIGNALS_V2 = True
     except:
         SIGNALS_V2 = False
@@ -218,6 +218,7 @@ def run_detector(stream_url: str):
     if SIGNALS_V2:
         ir_af_detector = IRAutofocusDetector()
         recording_confirmation = RecordingConfirmation()
+        glasses_filter = GlassesFilter()
         print("[CINEOS] Signal v2 active — IR AF pulse + device classifier + confirmation")
     
     # Initialize pose detector inside function scope
@@ -254,7 +255,10 @@ def run_detector(stream_url: str):
             if prev_frame is not None:
                 dual_lens = detect_lens_dual_exposure(prev_frame, frame, w, h)
                 raw_lens.extend(dual_lens)
-            confirmed_lens = lens_tracker.update(raw_lens)
+            # Filter out eyeglass reflections before classification
+            if SIGNALS_V2 and confirmed_lens:
+                confirmed_lens = glasses_filter.filter(confirmed_lens, w, h)
+            confirmed_lens_final = lens_tracker.update(raw_lens)
             for lens in confirmed_lens:
                 # Classify device type from lens pattern
                 device_type, dev_conf, dev_desc = "UNKNOWN", 0.5, ""

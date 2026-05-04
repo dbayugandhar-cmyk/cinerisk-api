@@ -1,5 +1,15 @@
 import cv2
 try:
+    from theater.alert_gate import AlertGate
+    ALERT_GATE_AVAILABLE = True
+except:
+    try:
+        from alert_gate import AlertGate
+        ALERT_GATE_AVAILABLE = True
+    except:
+        ALERT_GATE_AVAILABLE = False
+
+try:
     from theater.signals_v2 import IRAutofocusDetector, RecordingConfirmation, classify_lens_pattern, GlassesFilter
     SIGNALS_V2 = True
 except:
@@ -219,6 +229,8 @@ def run_detector(stream_url: str):
         ir_af_detector = IRAutofocusDetector()
         recording_confirmation = RecordingConfirmation()
         glasses_filter = GlassesFilter()
+        alert_gate = AlertGate(window_seconds=3.0, fps=30) if ALERT_GATE_AVAILABLE else None
+        print("[CINEOS] Alert gate active — multi-signal required for alerts")
         print("[CINEOS] Signal v2 active — IR AF pulse + device classifier + confirmation")
     
     # Initialize pose detector inside function scope
@@ -240,6 +252,8 @@ def run_detector(stream_url: str):
 
         frame_count += 1
         h, w = frame.shape[:2]
+        if alert_gate:
+            alert_gate.tick()
         
         # Stage 1 — Adaptive enhancement based on scene brightness
         enhanced, scene_brightness = adaptive_enhance(frame)
@@ -255,10 +269,10 @@ def run_detector(stream_url: str):
             if prev_frame is not None:
                 dual_lens = detect_lens_dual_exposure(prev_frame, frame, w, h)
                 raw_lens.extend(dual_lens)
+            confirmed_lens = lens_tracker.update(raw_lens)
             # Filter out eyeglass reflections before classification
             if SIGNALS_V2 and confirmed_lens:
                 confirmed_lens = glasses_filter.filter(confirmed_lens, w, h)
-            confirmed_lens_final = lens_tracker.update(raw_lens)
             for lens in confirmed_lens:
                 # Classify device type from lens pattern
                 device_type, dev_conf, dev_desc = "UNKNOWN", 0.5, ""
@@ -293,11 +307,11 @@ def run_detector(stream_url: str):
         for glow in glow_detections:
             print(f"[GLOW] Phone screen detected — Zone:{glow['zone']} | "
                   f"Brightness:{glow['brightness']:.0f} | Conf:{glow['confidence']:.0%}")
-            loop.run_until_complete(report_incident(
-                glow["zone"],
-                glow["confidence"],
-                detection_type="PHONE_GLOW"
-            ))
+            if alert_gate:
+                decision = alert_gate.add_signal(glow["zone"], "PHONE_GLOW", glow["confidence"])
+                if decision and decision.should_alert:
+                    print(f"[CINEOS] CONFIRMED {glow['zone']} — {decision.reason}")
+                    loop.run_until_complete(report_incident(glow["zone"], decision.confidence, decision.level))
             if recording_confirmation:
                 recording_confirmation.add_evidence(
                     glow["zone"], "GLOW", glow["confidence"])
@@ -309,11 +323,11 @@ def run_detector(stream_url: str):
             for pulse in af_pulses:
                 print(f"[AF-PULSE] IR autofocus detected — Zone:{pulse['zone']} | "
                       f"Delta:{pulse['intensity_delta']:.0f} | Conf:{pulse['confidence']:.0%}")
-                loop.run_until_complete(report_incident(
-                    pulse["zone"],
-                    pulse["confidence"],
-                    detection_type="IR_AF_PULSE"
-                ))
+                if alert_gate:
+                    decision = alert_gate.add_signal(pulse["zone"], "IR_AF_PULSE", pulse["confidence"])
+                    if decision and decision.should_alert:
+                        print(f"[CINEOS] CONFIRMED {pulse['zone']} — {decision.reason}")
+                        loop.run_until_complete(report_incident(pulse["zone"], decision.confidence, decision.level))
                 if recording_confirmation:
                     recording_confirmation.add_evidence(
                         pulse["zone"], "IR_AF_PULSE", pulse["confidence"])
@@ -335,11 +349,11 @@ def run_detector(stream_url: str):
                 pose_alerts = pose_detector.process_frame(frame)
                 for alert in pose_alerts:
                     print(f"[POSE] {alert.posture} | Zone:{alert.zone} | Conf:{alert.confidence:.0%}")
-                    loop.run_until_complete(report_incident(
-                        alert.zone,
-                        alert.confidence,
-                        detection_type=alert.posture
-                    ))
+                    if alert_gate:
+                        decision = alert_gate.add_signal(alert.zone, alert.posture, alert.confidence)
+                        if decision and decision.should_alert:
+                            print(f"[CINEOS] CONFIRMED {alert.zone} — {decision.reason}")
+                            loop.run_until_complete(report_incident(alert.zone, decision.confidence, decision.level))
             except Exception as e:
                 pass
         total_boxes = len(phone_dets)
@@ -356,12 +370,24 @@ def run_detector(stream_url: str):
                 zone_timers[zone] = zone_timers.get(zone, 0) + 1
                 print(f"[TIMER] {zone} = {zone_timers[zone]}")
                 if zone_timers[zone] >= 5:
-                    print(f"[CINEOS] ALERT {zone} zone — conf {conf:.2f} — {FILM}")
-                    loop.run_until_complete(report_incident(zone, conf))
-                    level, session = loop.run_until_complete(update_session(THEATER, SCREEN, FILM, zone, conf))
-                    if level >= 2:
-                        print(f"[CINEOS] Session count: {session['count']} — Escalation L{level}")
                     zone_timers[zone] = 0
+                    # Alert gate — require multi-signal before firing
+                    if alert_gate:
+                        decision = alert_gate.add_signal(zone, "PHONE", conf)
+                        if decision and decision.should_alert:
+                            print(f"[CINEOS] ALERT {zone} — {decision.level} — conf {decision.confidence:.2f} — {decision.reason}")
+                            loop.run_until_complete(report_incident(zone, decision.confidence, decision.level))
+                            level, session = loop.run_until_complete(update_session(THEATER, SCREEN, FILM, zone, decision.confidence))
+                            if level >= 2:
+                                print(f"[CINEOS] Session count: {session['count']} — Escalation L{level}")
+                        elif decision:
+                            print(f"[GATE] {decision.level} — {decision.reason}")
+                    else:
+                        print(f"[CINEOS] ALERT {zone} zone — conf {conf:.2f} — {FILM}")
+                        loop.run_until_complete(report_incident(zone, conf))
+                        level, session = loop.run_until_complete(update_session(THEATER, SCREEN, FILM, zone, conf))
+                        if level >= 2:
+                            print(f"[CINEOS] Session count: {session['count']} — Escalation L{level}")
 
         # Decay timers for zones not detected this frame
         for z in list(zone_timers.keys()):

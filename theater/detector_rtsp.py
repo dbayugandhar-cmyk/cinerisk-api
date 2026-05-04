@@ -195,6 +195,8 @@ def run_detector(stream_url: str):
     print(f"[CINEOS] Stream open — monitoring {THEATER} {SCREEN} for {FILM}")
     loop = asyncio.new_event_loop()
     frame_count = 0
+    prev_frame = None
+    prev_frame = None
 
     # Initialize lens tracker
     lens_tracker = LensTracker(confirm_frames=5, position_tolerance=20)
@@ -227,7 +229,12 @@ def run_detector(stream_url: str):
         
         # Stage 2 — Lens reflection detection (runs whenever below threshold)
         if night_mode:
+            # Single frame detection
             raw_lens = detect_lens_reflection(frame, w, h)
+            # Dual exposure stability detection (more reliable)
+            if prev_frame is not None:
+                dual_lens = detect_lens_dual_exposure(prev_frame, frame, w, h)
+                raw_lens.extend(dual_lens)
             confirmed_lens = lens_tracker.update(raw_lens)
             for lens in confirmed_lens:
                 print(f"[LENS] Camera lens detected — Zone:{lens['zone']} | "
@@ -257,6 +264,7 @@ def run_detector(stream_url: str):
         detections = results.xyxy[0]  # [x1,y1,x2,y2,conf,class]
         phone_dets = detections[(detections[:, 5] == 67) & (detections[:, 4] >= CONFIDENCE_THRESHOLD)] if len(detections) else detections
 
+        prev_frame = frame.copy()
         # Pose detection — behavioral signal (catches camcorders too)
         if pose_detector:
             try:
@@ -501,4 +509,85 @@ if __name__ == "__main__":
     run_detector(stream)
 
 
+
+
+
+def detect_lens_dual_exposure(frame1, frame2, frame_width, frame_height):
+    """
+    Dual-exposure lens detection.
+    Camera lenses create STABLE bright spots across frames.
+    Eyes, reflections, noise are UNSTABLE — move or disappear.
+    
+    Compare two consecutive frames:
+    - Stable bright spot = camera lens (retro-reflection)
+    - Unstable bright spot = noise, eye blink, random reflection
+    
+    This works without IR illuminator by exploiting temporal stability.
+    """
+    g1 = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY).astype(float)
+    g2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY).astype(float)
+    
+    avg_brightness = g1.mean()
+    if avg_brightness > 90:
+        return []
+    
+    # Find bright spots in both frames
+    thresh = max(180, avg_brightness * 6)
+    _, b1 = cv2.threshold(g1.astype('uint8'), int(thresh), 255, cv2.THRESH_BINARY)
+    _, b2 = cv2.threshold(g2.astype('uint8'), int(thresh), 255, cv2.THRESH_BINARY)
+    
+    # Keep only spots present in BOTH frames (stability filter)
+    stable = cv2.bitwise_and(b1, b2)
+    
+    # Morphological cleanup
+    k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3,3))
+    stable = cv2.morphologyEx(stable, cv2.MORPH_OPEN, k)
+    
+    contours, _ = cv2.findContours(stable, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+    candidates = []
+    for cnt in contours:
+        area = cv2.contourArea(cnt)
+        if area < 1 or area > 200:
+            continue
+        
+        x, y, w, h = cv2.boundingRect(cnt)
+        if y < frame_height * 0.12:
+            continue
+        
+        # Circularity
+        perimeter = cv2.arcLength(cnt, True)
+        if perimeter == 0:
+            continue
+        circularity = 4 * 3.14159 * area / (perimeter ** 2)
+        if circularity < 0.45:
+            continue
+        
+        cx, cy = x + w//2, y + h//2
+        spot = float(g1[cy, cx])
+        
+        # Surrounding brightness
+        r = max(w,h) * 4
+        sx1,sx2 = max(0,cx-r), min(frame_width,cx+r)
+        sy1,sy2 = max(0,cy-r), min(frame_height,cy+r)
+        surround = g1[sy1:sy2, sx1:sx2].mean()
+        ratio = spot / max(surround, 1)
+        
+        if ratio < 2.5:
+            continue
+        
+        zone = "LEFT" if cx/frame_width < 0.33 else "CENTER" if cx/frame_width < 0.66 else "RIGHT"
+        conf = min(0.92, circularity * 0.35 + min(1.0, ratio/15) * 0.65)
+        
+        candidates.append({
+            "zone": zone,
+            "x": cx, "y": cy,
+            "circularity": round(circularity, 3),
+            "brightness_ratio": round(ratio, 1),
+            "confidence": round(conf, 3),
+            "detection_type": "LENS_REFLECTION",
+            "method": "dual_exposure_stability"
+        })
+    
+    return candidates
 

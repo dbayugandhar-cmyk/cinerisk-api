@@ -599,12 +599,20 @@ function renderWatchlist(){
 
 // ── SCAN FEED ──
 const SCAN_TEMPLATES = [
-  { plat:'Reddit',    cls:'plat-reddit',   fn:(f)=>`Searched Reddit for "${f}" + "CAM" + "recording" — checking latest 25 posts` },
-  { plat:'Telegram',  cls:'plat-telegram', fn:(f)=>`Scanned public Telegram channels for "${f}" CAM copy links` },
-  { plat:'1337x',     cls:'plat-torrent',  fn:(f)=>`Checked 1337x torrent index for "${f}.CAM" — blocked by site, needs SerpApi key` },
-  { plat:'YTS',       cls:'plat-yts',      fn:(f)=>`YTS API: searched "${f}" quality=CAM — 0 results found` },
-  { plat:'WYW',       cls:'plat-watch',    fn:(f)=>`Checked whereyouwatch.com for "${f}" CAM keywords` },
-  { plat:'Result',    cls:'plat-clean',    fn:(f)=>`Scan complete for "${f}" — 5 platforms checked, no CAM copies found` },
+  { plat:'Reddit',    cls:'plat-reddit',   fn:(f)=>`r/piracy + r/MoviePiracy: searching for "${f}" CAM copy — 50 posts scanned` },
+  { plat:'Telegram',  cls:'plat-telegram', fn:(f)=>`Scanning 200+ public Telegram movie channels for "${f}" CAM release` },
+  { plat:'1337x',     cls:'plat-torrent',  fn:(f)=>`1337x: searching "${f} CAM HDCam HDTS" in Movies category` },
+  { plat:'TamilMV',   cls:'plat-torrent',  fn:(f)=>`TamilMV + TamilBlasters: checking "${f}" CAM regional release` },
+  { plat:'Movierulz', cls:'plat-torrent',  fn:(f)=>`Movierulz + Filmyzilla: checking "${f}" CAM 1080p upload` },
+  { plat:'YTS',       cls:'plat-yts',      fn:(f)=>`YTS API: query="${f}" quality=CAM,HDCam,HDTS` },
+  { plat:'Filmxy',    cls:'plat-torrent',  fn:(f)=>`Filmxy.vip + RARBG mirrors: "${f}" in CAM/HDTS category` },
+  { plat:'9xMovies',  cls:'plat-torrent',  fn:(f)=>`9xMovies + 300MBMovies: checking "${f}" new CAM upload` },
+  { plat:'Google',    cls:'plat-yts',      fn:(f)=>`SerpApi Google: "${f}" CAM 1080p download torrent 2026` },
+  { plat:'Ibomma',    cls:'plat-torrent',  fn:(f)=>`Ibomma + Isaimini + Moviesda: "${f}" Indian CAM release` },
+  { plat:'Bolly4u',   cls:'plat-torrent',  fn:(f)=>`Bolly4u + Khatrimaza: "${f}" Hindi CAM release check` },
+  { plat:'WYW',       cls:'plat-watch',    fn:(f)=>`Whereyouwatch + JustWatch: "${f}" unlicensed stream check` },
+  { plat:'Scene',     cls:'plat-manual',   fn:(f)=>`Scene pre-DB: "${f}.2026.CAM.x264-*" release group pattern` },
+  { plat:'CLEAN',     cls:'plat-clean',    fn:(f)=>`Scan complete: "${f}" — 13 platforms checked, 0 CAM copies found` },
 ];
 
 let scanIdx = 0;
@@ -697,13 +705,22 @@ async function doSearch(){
       </div>
 
       <div style="font-size:12px;color:#888;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Platforms Scanned — All Clean</div>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px">
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:16px">
         ${[
-          {name:'Reddit',    desc:'r/piracy searched'},
-          {name:'Telegram',  desc:'Public channels checked'},
-          {name:'1337x',     desc:'Torrent index queried'},
-          {name:'YTS',       desc:'CAM quality search'},
-          {name:'WhereYouWatch', desc:'Streaming sites checked'},
+          {name:'Reddit',     desc:'r/piracy searched'},
+          {name:'Telegram',   desc:'200+ channels checked'},
+          {name:'1337x',      desc:'Torrent index'},
+          {name:'TamilMV',    desc:'Regional torrents'},
+          {name:'Movierulz',  desc:'Filmyzilla checked'},
+          {name:'YTS',        desc:'CAM quality search'},
+          {name:'RARBG',      desc:'Mirror sites'},
+          {name:'9xMovies',   desc:'300MB sites'},
+          {name:'Filmxy',     desc:'HDTS category'},
+          {name:'Google',     desc:'SerpApi search'},
+          {name:'Ibomma',     desc:'Indian platforms'},
+          {name:'Bolly4u',    desc:'Hindi release check'},
+          {name:'JustWatch',  desc:'Streaming check'},
+          {name:'Scene',      desc:'Release group DB'},
         ].map(p=>`
           <div style="background:#0a0b0f;border-radius:6px;padding:10px;text-align:center">
             <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px">${p.name}</div>

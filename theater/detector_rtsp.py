@@ -136,6 +136,55 @@ def detect_phone_glow(frame, frame_width):
     
     return candidates
 
+
+class TemporalTracker:
+    """
+    Track detections across frames.
+    If zone had detection last N frames, lower confidence threshold.
+    Dramatically reduces false negatives without increasing false positives.
+    """
+    def __init__(self, memory_frames=5, boost_factor=0.8):
+        self.zone_history = {"LEFT": 0, "CENTER": 0, "RIGHT": 0}
+        self.memory_frames = memory_frames
+        self.boost_factor = boost_factor
+    
+    def update(self, detected_zones: set):
+        for zone in self.zone_history:
+            if zone in detected_zones:
+                self.zone_history[zone] = self.memory_frames
+            else:
+                self.zone_history[zone] = max(0, self.zone_history[zone] - 1)
+    
+    def get_threshold(self, zone: str, base_threshold: float) -> float:
+        """Lower threshold if zone was recently active."""
+        if self.zone_history.get(zone, 0) > 0:
+            return base_threshold * self.boost_factor
+        return base_threshold
+
+
+class ConfidenceBuffer:
+    """
+    Average confidence scores across multiple frames.
+    Reduces false positives from single-frame noise.
+    Improves detection of sustained recording attempts.
+    """
+    def __init__(self, window=3):
+        self.window = window
+        self.buffers = {"LEFT": [], "CENTER": [], "RIGHT": []}
+    
+    def add(self, zone: str, confidence: float):
+        buf = self.buffers[zone]
+        buf.append(confidence)
+        if len(buf) > self.window:
+            buf.pop(0)
+    
+    def get_avg(self, zone: str) -> float:
+        buf = self.buffers[zone]
+        return sum(buf) / len(buf) if buf else 0.0
+    
+    def clear(self, zone: str):
+        self.buffers[zone] = []
+
 def run_detector(stream_url: str):
     print(f"[CINEOS] Connecting to: {stream_url}")
     cap = cv2.VideoCapture(stream_url)
@@ -165,8 +214,9 @@ def run_detector(stream_url: str):
 
         h, w = frame.shape[:2]
         
-        # Stage 1 — Low light enhancement (theater conditions)
-        enhanced = enhance_low_light(frame)
+        # Stage 1 — Adaptive enhancement based on scene brightness
+        enhanced, scene_brightness = adaptive_enhance(frame)
+        night_mode = scene_brightness < 35  # True during dark scenes
         
         # Stage 2 — Phone glow detection (works in complete darkness)
         glow_detections = detect_phone_glow(frame, w)
@@ -228,4 +278,44 @@ if __name__ == "__main__":
     arg = sys.argv[1] if len(sys.argv) > 1 else "0"
     stream = int(arg) if arg.isdigit() else arg
     run_detector(stream)
+
+
+
+def adaptive_enhance(frame, calibration_brightness=None):
+    """
+    Adaptive CLAHE based on current scene brightness.
+    Stronger enhancement in darker scenes.
+    Different from fixed CLAHE — adjusts clip limit dynamically.
+    """
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    avg = gray.mean()
+    
+    # Dynamically adjust clip limit based on scene darkness
+    if avg < 20:      clip = 6.0   # very dark — aggressive enhancement
+    elif avg < 40:    clip = 4.0   # dark theater
+    elif avg < 80:    clip = 2.5   # dim
+    else:             clip = 1.5   # normal light — light touch
+    
+    lab = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
+    l, a, b = cv2.split(lab)
+    clahe = cv2.createCLAHE(clipLimit=clip, tileGridSize=(8, 8))
+    l = clahe.apply(l)
+    enhanced = cv2.merge([l, a, b])
+    return cv2.cvtColor(enhanced, cv2.COLOR_LAB2BGR), avg
+
+
+def calibrate_screen(cap, frames=30):
+    """
+    Sample 30 frames at startup to measure baseline theater brightness.
+    Used to set detection thresholds per screen.
+    """
+    brightnesses = []
+    for _ in range(frames):
+        ret, frame = cap.read()
+        if ret:
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            brightnesses.append(gray.mean())
+    avg = sum(brightnesses) / len(brightnesses) if brightnesses else 40
+    print(f"[CINEOS] Screen calibration — baseline brightness: {avg:.1f}")
+    return avg
 

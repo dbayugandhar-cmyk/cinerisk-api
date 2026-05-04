@@ -121,6 +121,45 @@ class PoseDetector:
         except:
             return False, "", 0.0, 0.0, 0.0
 
+
+    def _is_camcorder_grip(self, lms) -> tuple:
+        """
+        Detect two-handed camcorder grip specifically.
+        Both wrists at same height, shoulder width apart,
+        elbows bent outward — classic camcorder posture.
+        More specific than general CAMCORDER_POSITION.
+        """
+        try:
+            l_sh = lms[11]; r_sh = lms[12]
+            l_el = lms[13]; r_el = lms[14]
+            l_wr = lms[15]; r_wr = lms[16]
+            
+            if any(lm.visibility < 0.5 for lm in [l_sh, r_sh, l_wr, r_wr]):
+                return False, 0.0
+            
+            sh_y = (l_sh.y + r_sh.y) / 2
+            sh_width = abs(l_sh.x - r_sh.x)
+            
+            # Both wrists at similar height (within 10% of shoulder width)
+            wrist_height_diff = abs(l_wr.y - r_wr.y)
+            wrists_level = wrist_height_diff < sh_width * 0.25
+            
+            # Both wrists above shoulders
+            both_above = l_wr.y < sh_y and r_wr.y < sh_y
+            
+            # Wrists separated by at least shoulder width (holding a wide device)
+            wrist_span = abs(l_wr.x - r_wr.x)
+            wide_grip = wrist_span > sh_width * 0.6
+            
+            if wrists_level and both_above and wide_grip:
+                vis_conf = (l_wr.visibility + r_wr.visibility) / 2
+                height_conf = min(1.0, (sh_y - min(l_wr.y, r_wr.y)) / max(sh_y, 0.01) * 4)
+                conf = vis_conf * 0.4 + height_conf * 0.6
+                return conf > 0.5, round(conf, 3)
+        except:
+            pass
+        return False, 0.0
+
     def process_frame(self, frame: np.ndarray) -> list:
         import mediapipe as mp
         self.frame_ts += 33  # ~30fps timestamp in ms

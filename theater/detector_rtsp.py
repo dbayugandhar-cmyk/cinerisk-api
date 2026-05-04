@@ -258,8 +258,8 @@ def run_detector(stream_url: str):
         # Stage 1 — Adaptive enhancement based on scene brightness
         enhanced, scene_brightness = adaptive_enhance(frame)
         night_mode = scene_brightness < 80  # True during theater screening
-        if frame_count % 30 == 0:  # Print every 30 frames
-            print(f"[DEBUG] Scene brightness: {scene_brightness:.1f} | Night mode: {night_mode}")
+        if frame_count % 150 == 0:  # Print every 5 seconds
+            print(f"[CINEOS] Running — brightness:{scene_brightness:.0f} night_mode:{night_mode} frame:{frame_count}")
         
         # Stage 2 — Lens reflection detection (runs whenever below threshold)
         if night_mode:
@@ -357,7 +357,7 @@ def run_detector(stream_url: str):
             except Exception as e:
                 pass
         total_boxes = len(phone_dets)
-        if total_boxes > 0: print(f"[DEBUG] {total_boxes} detection(s) this frame")
+        
 
         detected_zones = set()
         for det in phone_dets:
@@ -368,7 +368,7 @@ def run_detector(stream_url: str):
                 zone = get_zone(x_center, w)
                 detected_zones.add(zone)
                 zone_timers[zone] = zone_timers.get(zone, 0) + 1
-                print(f"[TIMER] {zone} = {zone_timers[zone]}")
+                
                 if zone_timers[zone] >= 5:
                     zone_timers[zone] = 0
                     # Alert gate — require multi-signal before firing

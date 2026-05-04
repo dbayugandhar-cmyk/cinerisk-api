@@ -30,12 +30,16 @@ REVENUE_IMPACT = {
 }
 
 def _estimate_budget(popularity):
-    if popularity >= 500: return 220.0
-    if popularity >= 200: return 130.0
-    if popularity >= 100: return 65.0
-    if popularity >= 50:  return 30.0
-    if popularity >= 20:  return 15.0
-    return 8.0
+    # NOTE: TMDB popularity for UNRELEASED films is 5-50x lower than released films
+    # A blockbuster opening in 4 days has pop=25, same as a small indie
+    # Use wider tiers to avoid systematic underestimation
+    if popularity >= 200: return 220.0
+    if popularity >= 100: return 150.0
+    if popularity >= 50:  return 100.0
+    if popularity >= 20:  return 50.0
+    if popularity >= 10:  return 25.0
+    if popularity >= 5:   return 12.0
+    return 6.0
 
 def _primary_genre(genre_ids):
     if not genre_ids: return 18, "Drama"
@@ -208,10 +212,14 @@ async def get_release_gap_signal(tmdb_id, client, api_key):
         # Only divide by weights of markets we actually have data for
         known_weight = sum(w for m, w in HIGH_PIRACY_MARKETS.items() if m in gaps and gaps[m] > 0)
         if known_weight == 0:
-            score = 0.0
+            # FIX14: no gap data at all vs confirmed simultaneous release are different
+            # If we have US date but no market dates → truly unknown, use 0.0
+            # If we have market dates but all are 0 days gap → confirmed simultaneous, score is LOW (good)
+            has_confirmed_simultaneous = len(gaps) > 0 and all(v == 0 for v in gaps.values())
+            score = 0.05 if has_confirmed_simultaneous else 0.0
         else:
             score = round(min(1.0, weighted / known_weight), 3)
-        return {"gap_score": score, "max_gap_days": max(gaps.values()) if gaps else 0, "gaps": gaps, "us_release": us_date}
+        return {"gap_score": score, "max_gap_days": max(gaps.values()) if gaps else 0, "gaps": gaps, "us_release": us_date, "confirmed_simultaneous": known_weight == 0 and len(gaps) > 0}
     except Exception as e:
         return {"gap_score": 0.0, "max_gap_days": 0, "gaps": {}}
 
@@ -283,10 +291,6 @@ def _gap_confidence(gaps: dict, max_gap_days: int) -> str:
         return "MEDIUM"
     return "LOW"
 
-
-if __name__ == "__main__":
-    asyncio.run(main())
-
 # ── Reddit Velocity Signal ─────────────────────────────────────────────
 # Novel signal: real-time Reddit mention velocity for upcoming films
 # Sources: r/piracy, r/movies, r/entertainment, r/boxoffice
@@ -346,7 +350,8 @@ async def get_reddit_velocity(film_title: str,
     
     # Velocity score — piracy mentions weighted 3x
     weighted = total_mentions + (piracy_mentions * 3)
-    velocity = round(min(1.0, weighted / 20.0), 3)
+    # FIX13: denominator was 20 but limit=25; 15 gives better calibration
+    velocity = round(min(1.0, weighted / 15.0), 3)
     
     return {
         "total_mentions": total_mentions,
@@ -385,19 +390,12 @@ async def get_tmdb_trending_score(tmdb_id: int,
     return 0.0
 
 
-def _composite_cti(base_risk: float, reddit_velocity: float, 
-                    trending: float) -> int:
-    """
-    CINEOS Threat Index (CTI) — composite score 0-100.
-    
-    Weights:
-    - Base risk (genre + budget + urgency): 60%
-    - Reddit velocity (real-time demand signal): 25%
-    - TMDB trending/engagement: 15%
-    
-    Novel: combines proprietary CAM patterns with live social signals.
-    No competitor has this combination.
-    """
+# FIX15: _composite_cti (old v1) kept for reference but NOT used
+# full_threat_pipeline() uses _composite_cti_v2() exclusively
+# DO NOT call this function — it lacks gap signal and franchise multiplier
+def _composite_cti_DEPRECATED(base_risk: float, reddit_velocity: float,
+                               trending: float) -> int:
+    """DEPRECATED — use _composite_cti_v2(). Kept for reference only."""
     composite = (
         base_risk * 0.60 +
         reddit_velocity * 0.25 +
@@ -445,19 +443,32 @@ async def full_threat_pipeline(days_ahead: int = 60) -> list:
                 days = (release - today).days
                 pop = f.get("popularity", 10)
 
-                if days < -30 or days > days_ahead or pop < 5.0:
+                if days < -30 or days > days_ahead or pop < 2.0:  # FIX: was 5.0, too aggressive
                     continue
 
                 gid, gname = _primary_genre(f.get("genre_ids", []))
-                budget = _estimate_budget(pop)
-                base_risk = _risk(gid, pop, budget, days)
-                rev = _revenue_at_risk(gid, budget, base_risk)
-
-                # Get live signals
+                # Get live signals first (franchise needed for budget)
                 reddit = await get_reddit_velocity(f["title"], client)
                 trending = await get_tmdb_trending_score(f["id"], client)
                 gap = await get_release_gap_signal(f["id"], client, TMDB_KEY)
                 franchise = await get_franchise_signal(f["id"], client, TMDB_KEY)
+
+                # Budget after franchise so we can apply multiplier
+                # FIX: use real TMDB budget when available (> $1M means it's real data)
+                try:
+                    _r = await client.get(
+                        f"https://api.themoviedb.org/3/movie/{f['id']}",
+                        params={"api_key": TMDB_KEY}
+                    )
+                    _real_budget = _r.json().get("budget", 0) / 1e6 if _r.status_code == 200 else 0
+                except:
+                    _real_budget = 0
+                if _real_budget > 1.0:
+                    budget = round(_real_budget * (1.15 if franchise.get('multiplier',1.0) > 1.0 else 1.0), 1)
+                else:
+                    budget = round(_estimate_budget(pop) * (1.15 if franchise.get('multiplier',1.0) > 1.0 else 1.0), 1)
+                base_risk = _risk(gid, pop, budget, days)
+                rev = _revenue_at_risk(gid, budget, base_risk)
 
                 # Composite CTI v2 — novel architecture
                 has_gap_data = gap.get("max_gap_days", 0) > 0
@@ -469,9 +480,17 @@ async def full_threat_pipeline(days_ahead: int = 60) -> list:
                     franchise["multiplier"],
                     has_gap_data
                 )
-                # Urgency boost — confirmed franchise releasing within 7 days
+                # Urgency boost
                 if franchise.get("is_sequel") and days <= 7 and cti >= 60:
                     cti = min(100, cti + 10)
+                # FIX: franchise floor — known high-risk franchises always HIGH minimum
+                # Only apply when base_risk confirms real piracy demand
+                if franchise.get("is_sequel") and base_risk >= 0.60:
+                    cti = max(cti, 65)
+                # Extra floor for mega-franchises by title keyword
+                _title_lower = f["title"].lower()
+                if any(kw in _title_lower for kw in ["star wars","avengers","mission impossible","fast furious","jurassic","spider-man","batman","superman","transformers"]):
+                    cti = max(cti, 70)
 
                 _, avg_plat, avg_leak = CINEOS_CAM_PATTERNS.get(
                     gid, (0.6, 5, 7)

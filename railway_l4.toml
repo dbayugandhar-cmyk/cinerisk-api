@@ -1,0 +1,22 @@
+# CINEOS Layer 4 Worker — Railway deployment
+# Deploy as separate service alongside your API
+# railway up --service l4-worker
+
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "python3 cineos_layer4_worker.py"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+# Environment variables to set in Railway dashboard:
+# DATABASE_URL          = (auto-linked from your Postgres service)
+# SERP_API_KEY          = your serpapi.com key
+# SENDGRID_API_KEY      = your sendgrid key
+# TELEGRAM_BOT_TOKEN    = your bot token
+# TELEGRAM_CHAT_ID      = your chat ID
+# ALERT_EMAIL_TO        = dba.yugandhar@gmail.com
+# TMDB_API_KEY          = 28ff1ef4ae81f137ddd9cbeec2634033
+# MODE2_INTERVAL_MIN    = 10
+# MODE3_INTERVAL_HRS    = 6

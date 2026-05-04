@@ -48,17 +48,20 @@ API = os.getenv("CINEOS_API", "https://cinerisk-api-production.up.railway.app")
 THEATER = os.getenv("THEATER_NAME", "Demo Theater")
 FILM = os.getenv("FILM_TITLE", "Unknown")
 SCREEN = os.getenv("SCREEN_NUMBER", "Screen 1")
-CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.25"))
+CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.35"))
 DURATION_THRESHOLD = int(os.getenv("DURATION_THRESHOLD", "3"))  # seconds
 
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True, verbose=False)
-model.conf = float(os.getenv("CONFIDENCE_THRESHOLD", "0.25"))
+from ultralytics import YOLO as _YOLO
+model = _YOLO('yolo11n.pt')
+print('[CINEOS] YOLO11n loaded')
+# FIX4: unify — let YOLO self-filter at the same threshold Python uses
+model.conf = CONFIDENCE_THRESHOLD  # was hardcoded 0.25, now matches env var
 model.classes = [67]  # cell phone only
 
 # Track detections per zone to filter false positives
 zone_timers = {"LEFT": 0, "CENTER": 0, "RIGHT": 0}
 last_reported = {"LEFT": 0, "CENTER": 0, "RIGHT": 0}
-COOLDOWN = 300  # 5 min between reports per zone
+COOLDOWN = 60  # FIX9: was 300s — reduced to 60s; high-conf alerts bypass cooldown
 
 def get_zone(x_center, frame_width):
     third = frame_width / 3
@@ -70,7 +73,8 @@ def get_zone(x_center, frame_width):
 
 async def report_incident(zone, confidence, detection_type="PHONE"):
     now = time.time()
-    if now - last_reported[zone] < COOLDOWN:
+    # FIX9: bypass cooldown for very high confidence alerts
+    if now - last_reported[zone] < COOLDOWN and confidence < 0.90:
         return
     last_reported[zone] = now
     payload = {
@@ -84,7 +88,7 @@ async def report_incident(zone, confidence, detection_type="PHONE"):
     }
     try:
         async with httpx.AsyncClient(timeout=10) as client:
-            r = await client.post(f"{API}/theater/incident",
+            r = await client.post(f"{API}/theater/incidents",
                 headers={"Content-Type": "application/json", "X-API-Key": os.getenv("CINEOS_API_KEY", "cineos-prod-2026-secure-key")},
                 json=payload)
             print(f"[CINEOS] Reported {zone} zone — {r.status_code}")
@@ -217,7 +221,7 @@ def run_detector(stream_url: str):
     loop = asyncio.new_event_loop()
     frame_count = 0
     prev_frame = None
-    prev_frame = None
+    alert_gate = None  # FIX: default before conditional assignment
 
     # Initialize lens tracker
     lens_tracker = LensTracker(confirm_frames=5, position_tolerance=20)
@@ -301,12 +305,16 @@ def run_detector(stream_url: str):
                             result["confidence"],
                             detection_type="RECORDING_CONFIRMED"
                         ))
+                        # FIX8: trigger L4 on confirmed recording
+                        try:
+                            from theater.layer4_trigger import trigger_l4_scan
+                            loop.run_until_complete(trigger_l4_scan(FILM, result["zone"], result["confidence"]))
+                        except Exception as _l4e:
+                            print(f"[L4] trigger failed: {_l4e}")
         
         # Stage 3 — Phone glow detection (works in complete darkness)
         glow_detections = detect_phone_glow(frame, w)
         for glow in glow_detections:
-            print(f"[GLOW] Phone screen detected — Zone:{glow['zone']} | "
-                  f"Brightness:{glow['brightness']:.0f} | Conf:{glow['confidence']:.0%}")
             if alert_gate:
                 decision = alert_gate.add_signal(glow["zone"], "PHONE_GLOW", glow["confidence"])
                 if decision and decision.should_alert:
@@ -335,18 +343,26 @@ def run_detector(stream_url: str):
             recording_confirmation.tick()
         
         # Stage 3 — YOLO on enhanced frame
-        results = model(enhanced)  # enhanced frame = better dark detection
-        # Filter to cell phone class (67) above confidence threshold
-        detections = results.xyxy[0]  # [x1,y1,x2,y2,conf,class]
-        phone_dets = detections[(detections[:, 5] == 67) & (detections[:, 4] >= CONFIDENCE_THRESHOLD)] if len(detections) else detections
+        # Run inference with YOLO11n (ultralytics API)
+        import torch as _t
+        _results = model(enhanced, verbose=False, classes=[67])
+        _boxes = _results[0].boxes
+        if _boxes is not None and len(_boxes):
+            _xyxy = _boxes.xyxy
+            _confs = _boxes.conf.unsqueeze(1)
+            _cls = _boxes.cls.unsqueeze(1)
+            detections = _t.cat([_xyxy, _confs, _cls], dim=1)
+        else:
+            detections = _t.zeros((0, 6))
+        phone_dets = detections[detections[:, 4] >= CONFIDENCE_THRESHOLD] if len(detections) else detections
+        if len(phone_dets) > 0:
+            print(f"[YOLO] {len(phone_dets)} phone(s) — conf:{phone_dets[:,4].max():.2f}")
 
-        prev_frame = frame.copy()
         # Pose detection — behavioral signal (catches camcorders too)
         if pose_detector:
             try:
                 pose_alerts = pose_detector.process_frame(frame)
                 for alert in pose_alerts:
-                    print(f"[POSE] {alert.posture} | Zone:{alert.zone} | Conf:{alert.confidence:.0%}")
                     if alert_gate:
                         decision = alert_gate.add_signal(alert.zone, alert.posture, alert.confidence)
                         if decision and decision.should_alert:
@@ -354,39 +370,34 @@ def run_detector(stream_url: str):
                             loop.run_until_complete(report_incident(alert.zone, decision.confidence, decision.level))
             except Exception as e:
                 pass
-        total_boxes = len(phone_dets)
-        
-
         detected_zones = set()
         for det in phone_dets:
             x1, y1, x2, y2, conf, cls = det.tolist()
-            if True:  # already filtered above
-                if True:
-                    x_center = (x1 + x2) / 2
-                zone = get_zone(x_center, w)
-                detected_zones.add(zone)
-                zone_timers[zone] = zone_timers.get(zone, 0) + 1
-                
-                if zone_timers[zone] >= 5:
-                    zone_timers[zone] = 0
-                    # Alert gate — require multi-signal before firing
-                    if alert_gate:
-                        decision = alert_gate.add_signal(zone, "PHONE", conf)
-                        if decision and decision.should_alert:
-                            print(f"[CINEOS] ALERT {zone} — {decision.level} — conf {decision.confidence:.2f} — {decision.reason}")
-                            loop.run_until_complete(report_incident(zone, decision.confidence, decision.level))
-                            level, session = loop.run_until_complete(update_session(THEATER, SCREEN, FILM, zone, decision.confidence))
-                            if level >= 2:
-                                print(f"[CINEOS] Session count: {session['count']} — Escalation L{level}")
-                        elif decision:
-                            print(f"[GATE] {decision.level} — {decision.reason}")
-                    else:
-                        print(f"[CINEOS] ALERT {zone} zone — conf {conf:.2f} — {FILM}")
-                        loop.run_until_complete(report_incident(zone, conf))
-                        level, session = loop.run_until_complete(update_session(THEATER, SCREEN, FILM, zone, conf))
+            x_center = (x1 + x2) / 2
+            zone = get_zone(x_center, w)
+            detected_zones.add(zone)
+            zone_timers[zone] = zone_timers.get(zone, 0) + 1
+
+            if zone_timers[zone] >= 3:
+                zone_timers[zone] = 0
+                if alert_gate:
+                    decision = alert_gate.add_signal(zone, "PHONE", conf)
+                    if decision and decision.should_alert:
+                        print(f"[CINEOS] ALERT {zone} — {decision.level} — conf {decision.confidence:.2f} — {decision.reason}")
+                        loop.run_until_complete(report_incident(zone, decision.confidence, decision.level))
+                        level, session = loop.run_until_complete(update_session(THEATER, SCREEN, FILM, zone, decision.confidence))
                         if level >= 2:
                             print(f"[CINEOS] Session count: {session['count']} — Escalation L{level}")
+                    elif decision:
+                        print(f"[GATE] {decision.level} — {decision.reason}")
+                else:
+                    print(f"[CINEOS] ALERT {zone} zone — conf {conf:.2f} — {FILM}")
+                    loop.run_until_complete(report_incident(zone, conf))
+                    level, session = loop.run_until_complete(update_session(THEATER, SCREEN, FILM, zone, conf))
+                    if level >= 2:
+                        print(f"[CINEOS] Session count: {session['count']} — Escalation L{level}")
 
+        prev_frame = frame.copy()  # FIX6b: update at end of loop
         # Decay timers for zones not detected this frame
         for z in list(zone_timers.keys()):
             if z not in detected_zones:
@@ -671,6 +682,14 @@ def detect_lens_dual_exposure(frame1, frame2, frame_width, frame_height):
 
 
 if __name__ == "__main__":
+    import signal
+    # FIX10: graceful shutdown on SIGTERM (Docker stop, Railway restart)
+    def _shutdown(sig, frame):
+        print("\n[CINEOS] Shutting down gracefully...")
+        sys.exit(0)
+    signal.signal(signal.SIGTERM, _shutdown)
+    signal.signal(signal.SIGINT, _shutdown)
+
     arg = sys.argv[1] if len(sys.argv) > 1 else "0"
     stream = int(arg) if arg.isdigit() else arg
     run_detector(stream)

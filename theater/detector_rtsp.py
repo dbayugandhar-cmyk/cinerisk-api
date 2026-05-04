@@ -274,12 +274,6 @@ def run_detector(stream_url: str):
             if z not in detected_zones:
                 zone_timers[z] = max(0, zone_timers[z] - 1)
 
-if __name__ == "__main__":
-    arg = sys.argv[1] if len(sys.argv) > 1 else "0"
-    stream = int(arg) if arg.isdigit() else arg
-    run_detector(stream)
-
-
 
 def adaptive_enhance(frame, calibration_brightness=None):
     """
@@ -304,6 +298,7 @@ def adaptive_enhance(frame, calibration_brightness=None):
     return cv2.cvtColor(enhanced, cv2.COLOR_LAB2BGR), avg
 
 
+
 def calibrate_screen(cap, frames=30):
     """
     Sample 30 frames at startup to measure baseline theater brightness.
@@ -318,4 +313,11 @@ def calibrate_screen(cap, frames=30):
     avg = sum(brightnesses) / len(brightnesses) if brightnesses else 40
     print(f"[CINEOS] Screen calibration — baseline brightness: {avg:.1f}")
     return avg
+
+
+if __name__ == "__main__":
+    arg = sys.argv[1] if len(sys.argv) > 1 else "0"
+    stream = int(arg) if arg.isdigit() else arg
+    run_detector(stream)
+
 

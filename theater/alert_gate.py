@@ -142,58 +142,69 @@ class AlertGate:
         for sig, events in self.zone_evidence.get(zone, {}).items():
             max_conf[sig] = max(e["confidence"] for e in events)
 
-        # Rule 1: RECORDING_CONFIRMED or specific device = immediate alert
-        strong = active_signals & STRONG_SIGNALS
-        if strong:
-            best_sig = max(strong, key=lambda s: max_conf.get(s, 0))
+        # ── RULE 1: Already confirmed recording ──────────────────────────
+        if active_signals & CONFIRMED_SIGNALS:
+            best = max(active_signals & CONFIRMED_SIGNALS,
+                      key=lambda s: max_conf.get(s, 0))
             self.last_alert[zone] = self.frame_number
             return AlertDecision(
                 should_alert=True,
-                confidence=max_conf[best_sig],
+                confidence=max_conf[best],
                 level="CRITICAL",
-                reason=f"Strong signal confirmed: {best_sig}",
+                reason=f"Recording confirmed: {best}",
                 signals=list(active_signals)
             )
 
-        # Rule 2: Hidden camera lens = immediate alert (no other signal needed)
+        # ── RULE 2: Hidden camera = immediate critical alert ──────────────
         if "LENS_HIDDEN_CAM" in active_signals:
             self.last_alert[zone] = self.frame_number
             return AlertDecision(
                 should_alert=True,
-                confidence=max_conf.get("LENS_HIDDEN_CAM", 0.8),
+                confidence=max_conf.get("LENS_HIDDEN_CAM", 0.85),
                 level="CRITICAL",
                 reason="Hidden camera lens detected",
                 signals=list(active_signals)
             )
 
-        # Rule 3: Three or more signals = HIGH alert
-        noisy_active = active_signals & NOISY_SIGNALS
-        if len(noisy_active) >= 3:
-            avg_conf = sum(max_conf.get(s, 0) for s in noisy_active) / len(noisy_active)
-            combined_conf = min(0.95, avg_conf * 1.3)
+        # ── RULE 3: Physical device REQUIRED for all other alerts ─────────
+        physical_present = active_signals & PHYSICAL_SIGNALS
+        if not physical_present:
+            # No physical device detected — suppress everything
+            # Pose alone, glow alone, IR pulse alone = never alert
+            return None
+
+        # ── RULE 4: Physical + supporting signal = valid alert ────────────
+        best_physical = max(physical_present, key=lambda s: max_conf.get(s, 0))
+        physical_conf = max_conf[best_physical]
+
+        # Check for supporting signals
+        support_present = active_signals & SUPPORTING_SIGNALS
+        if support_present:
+            best_support = max(support_present, key=lambda s: max_conf.get(s, 0))
+            support_conf = max_conf[best_support]
+            combined = min(0.93, (physical_conf * 0.65 + support_conf * 0.35))
+            if combined > 0.55:
+                self.last_alert[zone] = self.frame_number
+                return AlertDecision(
+                    should_alert=True,
+                    confidence=combined,
+                    level="HIGH",
+                    reason=f"Device detected: {best_physical} + {best_support}",
+                    signals=list(active_signals)
+                )
+
+        # ── RULE 5: Physical signal sustained alone ───────────────────────
+        # YOLO alone needs very high confidence AND sustained detection
+        phys_events = self.zone_evidence[zone].get(best_physical, [])
+        if len(phys_events) >= 15 and physical_conf > 0.80:
             self.last_alert[zone] = self.frame_number
             return AlertDecision(
                 should_alert=True,
-                confidence=combined_conf,
+                confidence=physical_conf,
                 level="HIGH",
-                reason=f"3+ signals: {list(noisy_active)}",
+                reason=f"Device sustained: {best_physical} x{len(phys_events)} frames",
                 signals=list(active_signals)
             )
-
-        # Rule 4: Valid two-signal combination
-        for pair in VALID_PAIRS:
-            if pair.issubset(active_signals):
-                s1, s2 = list(pair)
-                conf = min(0.90, (max_conf.get(s1, 0) + max_conf.get(s2, 0)) / 2 * 1.2)
-                if conf > 0.62:  # Higher threshold — reduce false positives
-                    self.last_alert[zone] = self.frame_number
-                    return AlertDecision(
-                        should_alert=True,
-                        confidence=conf,
-                        level="HIGH",
-                        reason=f"Signal pair: {s1} + {s2}",
-                        signals=list(active_signals)
-                    )
 
         # Rule 5: Single signal alone = suppress silently
         return None

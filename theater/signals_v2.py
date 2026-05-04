@@ -104,10 +104,10 @@ class IRAutofocusDetector:
         self.pulse_tracker = {}  # zone -> pulse count
         self.cooldown = {}       # zone -> cooldown frames
         self.BUFFER_SIZE = 3
-        self.PULSE_THRESHOLD = 25     # brightness delta to count as pulse
+        self.PULSE_THRESHOLD = 40     # raised — reduce LED flicker false positives
         self.MIN_AREA = 1
         self.MAX_AREA = 200           # AF spots are small
-        self.CONFIRM_PULSES = 2       # Need 2 pulses to alert (reduces false positives)
+        self.CONFIRM_PULSES = 3       # Need 3 pulses — more reliable
 
     def add_frame(self, frame: np.ndarray):
         """Add frame to rolling buffer."""

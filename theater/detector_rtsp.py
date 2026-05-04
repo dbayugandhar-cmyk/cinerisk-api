@@ -1,5 +1,16 @@
 import cv2
 try:
+    from theater.signals_v2 import IRAutofocusDetector, RecordingConfirmation, classify_lens_pattern
+    SIGNALS_V2 = True
+except:
+    try:
+        from signals_v2 import IRAutofocusDetector, RecordingConfirmation, classify_lens_pattern
+        SIGNALS_V2 = True
+    except:
+        SIGNALS_V2 = False
+        print("[DETECTOR] signals_v2 not available")
+
+try:
     from theater.pose_detector import PoseDetector
     POSE_AVAILABLE = True
 except:
@@ -200,6 +211,14 @@ def run_detector(stream_url: str):
 
     # Initialize lens tracker
     lens_tracker = LensTracker(confirm_frames=5, position_tolerance=20)
+
+    # Initialize Signal v2 detectors
+    ir_af_detector = None
+    recording_confirmation = None
+    if SIGNALS_V2:
+        ir_af_detector = IRAutofocusDetector()
+        recording_confirmation = RecordingConfirmation()
+        print("[CINEOS] Signal v2 active — IR AF pulse + device classifier + confirmation")
     
     # Initialize pose detector inside function scope
     pose_detector = None
@@ -237,15 +256,33 @@ def run_detector(stream_url: str):
                 raw_lens.extend(dual_lens)
             confirmed_lens = lens_tracker.update(raw_lens)
             for lens in confirmed_lens:
-                print(f"[LENS] Camera lens detected — Zone:{lens['zone']} | "
-                      f"Brightness ratio:{lens['brightness_ratio']}x | "
+                # Classify device type from lens pattern
+                device_type, dev_conf, dev_desc = "UNKNOWN", 0.5, ""
+                if SIGNALS_V2:
+                    device_type, dev_conf, dev_desc = classify_lens_pattern([lens])
+                print(f"[LENS] {device_type} detected — Zone:{lens['zone']} | "
+                      f"Brightness:{lens['brightness_ratio']}x | "
                       f"Circularity:{lens['circularity']:.2f} | "
-                      f"Conf:{lens['confidence']:.0%}")
+                      f"Conf:{lens['confidence']:.0%} | {dev_desc}")
                 loop.run_until_complete(report_incident(
                     lens["zone"],
                     lens["confidence"],
-                    detection_type="LENS_REFLECTION"
+                    detection_type=f"LENS_{device_type}"
                 ))
+                if recording_confirmation:
+                    result = recording_confirmation.add_evidence(
+                        lens["zone"], "LENS", lens["confidence"], device_type)
+                    if result:
+                        print(f"[CONFIRMED] RECORDING CONFIRMED — Zone:{result['zone']} | "
+                              f"Device:{result['device_type']} | "
+                              f"Signals:{result['signals_confirmed']} | "
+                              f"Duration:{result['frames_sustained']} frames | "
+                              f"Conf:{result['confidence']:.0%}")
+                        loop.run_until_complete(report_incident(
+                            result["zone"],
+                            result["confidence"],
+                            detection_type="RECORDING_CONFIRMED"
+                        ))
         
         # Stage 3 — Phone glow detection (works in complete darkness)
         glow_detections = detect_phone_glow(frame, w)
@@ -257,6 +294,29 @@ def run_detector(stream_url: str):
                 glow["confidence"],
                 detection_type="PHONE_GLOW"
             ))
+            if recording_confirmation:
+                recording_confirmation.add_evidence(
+                    glow["zone"], "GLOW", glow["confidence"])
+
+        # Signal 6 — IR Autofocus Pulse Detection
+        if ir_af_detector and night_mode:
+            ir_af_detector.add_frame(frame)
+            af_pulses = ir_af_detector.detect(w, h)
+            for pulse in af_pulses:
+                print(f"[AF-PULSE] IR autofocus detected — Zone:{pulse['zone']} | "
+                      f"Delta:{pulse['intensity_delta']:.0f} | Conf:{pulse['confidence']:.0%}")
+                loop.run_until_complete(report_incident(
+                    pulse["zone"],
+                    pulse["confidence"],
+                    detection_type="IR_AF_PULSE"
+                ))
+                if recording_confirmation:
+                    recording_confirmation.add_evidence(
+                        pulse["zone"], "IR_AF_PULSE", pulse["confidence"])
+
+        # Recording confirmation tick
+        if recording_confirmation:
+            recording_confirmation.tick()
         
         # Stage 3 — YOLO on enhanced frame
         results = model(enhanced)  # enhanced frame = better dark detection
@@ -501,17 +561,6 @@ class LensTracker:
         
         return confirmed
 
-
-
-if __name__ == "__main__":
-    arg = sys.argv[1] if len(sys.argv) > 1 else "0"
-    stream = int(arg) if arg.isdigit() else arg
-    run_detector(stream)
-
-
-
-
-
 def detect_lens_dual_exposure(frame1, frame2, frame_width, frame_height):
     """
     Dual-exposure lens detection.
@@ -590,4 +639,14 @@ def detect_lens_dual_exposure(frame1, frame2, frame_width, frame_height):
         })
     
     return candidates
+
+
+
+if __name__ == "__main__":
+    arg = sys.argv[1] if len(sys.argv) > 1 else "0"
+    stream = int(arg) if arg.isdigit() else arg
+    run_detector(stream)
+
+
+
 

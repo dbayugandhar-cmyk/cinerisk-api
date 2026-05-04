@@ -24,7 +24,7 @@ def ensure_model():
         urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
         print("[POSE] Model downloaded")
 
-DURATION_THRESHOLD = 8
+DURATION_THRESHOLD = 12  # More frames required — reduces quick movement false positives
 CONFIDENCE_THRESHOLD = 0.55
 
 @dataclass
@@ -102,10 +102,33 @@ class PoseDetector:
                 return True, "PHONE_RAISED", round(conf, 3), sh_x, sh_y
 
             # Posture 2 — Both wrists above shoulders (camcorder)
+            # Requires upright posture — excludes reclined/sofa positions
             if l_above_sh and r_above_sh:
-                height = min(1.0, (sh_y - min(l_wr.y, r_wr.y)) / max(sh_y, 0.01) * 5)
-                conf = height * 0.5 + ((l_wr.visibility + r_wr.visibility) / 2) * 0.5
-                return True, "CAMCORDER_POSITION", round(conf, 3), sh_x, sh_y
+                height_above = sh_y - min(l_wr.y, r_wr.y)
+                # Must be meaningfully above shoulder
+                if height_above > sh_y * 0.08:
+                    # Check upright — hips must be below shoulders
+                    # Reclined person: hips at same level as shoulders
+                    # Upright person: hips clearly lower than shoulders
+                    try:
+                        l_hip = lms[23]
+                        r_hip = lms[24]
+                        hip_y = (l_hip.y + r_hip.y) / 2
+                        hip_vis = (l_hip.visibility + r_hip.visibility) / 2
+                        # If hips visible and not clearly below shoulders = reclined
+                        if hip_vis > 0.4 and hip_y < sh_y * 1.12:
+                            pass  # Reclined posture — skip
+                        else:
+                            # Wrists close together (holding device)
+                            wrist_spread = abs(l_wr.x - r_wr.x)
+                            sh_width = abs(lms[11].x - lms[12].x)
+                            if wrist_spread < sh_width * 1.4:
+                                height = min(1.0, height_above / max(sh_y, 0.01) * 5)
+                                conf = height * 0.5 + ((l_wr.visibility + r_wr.visibility) / 2) * 0.5
+                                if conf > 0.65:
+                                    return True, "CAMCORDER_POSITION", round(conf, 3), sh_x, sh_y
+                    except:
+                        pass
 
             # Posture 3 — One wrist significantly above shoulder
             l_sig = l_wr.y < sh_y * 0.85

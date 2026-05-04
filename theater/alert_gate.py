@@ -55,7 +55,7 @@ VALID_PAIRS = {
     frozenset({"PHONE", "PHONE_RAISED"}),
     frozenset({"PHONE", "CAMCORDER_POSITION"}),
     frozenset({"PHONE", "PHONE_GLOW"}),
-    frozenset({"PHONE", "IR_AF_PULSE"}),
+    # frozenset({"PHONE", "IR_AF_PULSE"}),  # Removed — screen refresh creates false IR pulses
     frozenset({"PHONE", "LENS_REFLECTION"}),
     frozenset({"PHONE_RAISED", "IR_AF_PULSE"}),
     frozenset({"PHONE_RAISED", "PHONE_GLOW"}),
@@ -185,7 +185,7 @@ class AlertGate:
             if pair.issubset(active_signals):
                 s1, s2 = list(pair)
                 conf = min(0.90, (max_conf.get(s1, 0) + max_conf.get(s2, 0)) / 2 * 1.2)
-                if conf > 0.45:  # Minimum confidence for pair alert
+                if conf > 0.62:  # Higher threshold — reduce false positives
                     self.last_alert[zone] = self.frame_number
                     return AlertDecision(
                         should_alert=True,
@@ -195,15 +195,8 @@ class AlertGate:
                         signals=list(active_signals)
                     )
 
-        # Rule 5: Single signal alone = suppress, log silently
-        if active_signals:
-            return AlertDecision(
-                should_alert=False,
-                confidence=0.0,
-                level="SUPPRESSED",
-                reason=f"Single signal only: {list(active_signals)[0]} — waiting for corroboration",
-                signals=list(active_signals)
-            )
+        # Rule 5: Single signal alone = suppress silently
+        return None
 
         return None
 

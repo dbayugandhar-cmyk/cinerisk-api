@@ -321,8 +321,6 @@ def run_detector(stream_url: str):
             ir_af_detector.add_frame(frame)
             af_pulses = ir_af_detector.detect(w, h)
             for pulse in af_pulses:
-                print(f"[AF-PULSE] IR autofocus detected — Zone:{pulse['zone']} | "
-                      f"Delta:{pulse['intensity_delta']:.0f} | Conf:{pulse['confidence']:.0%}")
                 if alert_gate:
                     decision = alert_gate.add_signal(pulse["zone"], "IR_AF_PULSE", pulse["confidence"])
                     if decision and decision.should_alert:

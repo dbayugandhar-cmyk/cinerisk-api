@@ -104,10 +104,10 @@ class IRAutofocusDetector:
         self.pulse_tracker = {}  # zone -> pulse count
         self.cooldown = {}       # zone -> cooldown frames
         self.BUFFER_SIZE = 3
-        self.PULSE_THRESHOLD = 40     # raised — reduce LED flicker false positives
+        self.PULSE_THRESHOLD = 60     # high threshold — only real AF pulses
         self.MIN_AREA = 1
         self.MAX_AREA = 200           # AF spots are small
-        self.CONFIRM_PULSES = 3       # Need 3 pulses — more reliable
+        self.CONFIRM_PULSES = 4       # Need 4 pulses — very conservative
 
     def add_frame(self, frame: np.ndarray):
         """Add frame to rolling buffer."""
@@ -128,7 +128,7 @@ class IRAutofocusDetector:
 
         # Scene must be dark for AF pulse detection to work
         avg_brightness = g2.mean()
-        if avg_brightness > 85:
+        if avg_brightness > 50:  # Only in genuinely dark environments
             return []
 
         # Temporal flash = bright in middle frame vs both neighbors

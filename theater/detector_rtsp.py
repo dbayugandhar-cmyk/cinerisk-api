@@ -194,7 +194,11 @@ def run_detector(stream_url: str):
 
     print(f"[CINEOS] Stream open — monitoring {THEATER} {SCREEN} for {FILM}")
     loop = asyncio.new_event_loop()
+    frame_count = 0
 
+    # Initialize lens tracker
+    lens_tracker = LensTracker(confirm_frames=5, position_tolerance=20)
+    
     # Initialize pose detector inside function scope
     pose_detector = None
     if POSE_AVAILABLE:
@@ -212,13 +216,31 @@ def run_detector(stream_url: str):
             cap = cv2.VideoCapture(stream_url)
             continue
 
+        frame_count += 1
         h, w = frame.shape[:2]
         
         # Stage 1 — Adaptive enhancement based on scene brightness
         enhanced, scene_brightness = adaptive_enhance(frame)
-        night_mode = scene_brightness < 35  # True during dark scenes
+        night_mode = scene_brightness < 80  # True during theater screening
+        if frame_count % 30 == 0:  # Print every 30 frames
+            print(f"[DEBUG] Scene brightness: {scene_brightness:.1f} | Night mode: {night_mode}")
         
-        # Stage 2 — Phone glow detection (works in complete darkness)
+        # Stage 2 — Lens reflection detection (runs whenever below threshold)
+        if night_mode:
+            raw_lens = detect_lens_reflection(frame, w, h)
+            confirmed_lens = lens_tracker.update(raw_lens)
+            for lens in confirmed_lens:
+                print(f"[LENS] Camera lens detected — Zone:{lens['zone']} | "
+                      f"Brightness ratio:{lens['brightness_ratio']}x | "
+                      f"Circularity:{lens['circularity']:.2f} | "
+                      f"Conf:{lens['confidence']:.0%}")
+                loop.run_until_complete(report_incident(
+                    lens["zone"],
+                    lens["confidence"],
+                    detection_type="LENS_REFLECTION"
+                ))
+        
+        # Stage 3 — Phone glow detection (works in complete darkness)
         glow_detections = detect_phone_glow(frame, w)
         for glow in glow_detections:
             print(f"[GLOW] Phone screen detected — Zone:{glow['zone']} | "
@@ -315,9 +337,168 @@ def calibrate_screen(cap, frames=30):
     return avg
 
 
+def detect_lens_reflection(frame, frame_width, frame_height):
+    """
+    CINEOS Lens Reflection Detector — Novel Signal
+    ================================================
+    Detects camera/phone lenses by their retro-reflective signature.
+    
+    Physics: Camera lenses reflect incoming light in a tight, bright beam
+    back toward the light source (movie screen + CCTV camera).
+    Human eyes scatter light diffusely — much dimmer, larger, irregular.
+    
+    A camera lens in a dark theater appears as:
+    - Very bright (10-100x brighter than eye reflections)
+    - Very small (tight focused beam, 2-8 pixels)
+    - Circular or near-circular shape
+    - Stable across frames (doesn't flicker like eyes)
+    
+    Research basis: Seets et al. 2024 (Optica Publishing)
+    "Watching the watchers: camera identification via retro-reflections"
+    
+    US Prov. Pat. 64/049,190
+    """
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    avg_brightness = gray.mean()
+    
+    # Only effective in dark environments — theater during screening
+    if avg_brightness > 90:
+        return []
+    
+    # Step 1: Find very bright spots against dark background
+    # Camera lens reflections are significantly brighter than surroundings
+    threshold = max(200, int(avg_brightness * 8))
+    _, bright_mask = cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY)
+    
+    # Step 2: Morphological cleanup — remove noise, keep tight spots
+    kernel_small = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2, 2))
+    kernel_medium = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (4, 4))
+    bright_mask = cv2.morphologyEx(bright_mask, cv2.MORPH_OPEN, kernel_small)
+    bright_mask = cv2.morphologyEx(bright_mask, cv2.MORPH_CLOSE, kernel_medium)
+    
+    # Step 3: Find contours of bright spots
+    contours, _ = cv2.findContours(
+        bright_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+    )
+    
+    lens_candidates = []
+    
+    for cnt in contours:
+        area = cv2.contourArea(cnt)
+        if area < 2 or area > 300:
+            continue
+        
+        x, y, w, h = cv2.boundingRect(cnt)
+        
+        # Skip top 15% of frame — likely screen reflection not audience
+        if y < frame_height * 0.15:
+            continue
+        
+        # Circularity check — lens reflections are near-circular
+        perimeter = cv2.arcLength(cnt, True)
+        if perimeter == 0:
+            continue
+        circularity = 4 * 3.14159 * area / (perimeter * perimeter)
+        
+        # Camera lens: circularity 0.6-1.0
+        # Random noise: low circularity
+        if circularity < 0.5:
+            continue
+        
+        # Intensity check — lens reflection is much brighter than surroundings
+        cx, cy = x + w//2, y + h//2
+        spot_brightness = float(gray[cy, cx])
+        
+        # Sample surrounding area brightness (exclude the spot itself)
+        r = max(w, h) * 3
+        x1 = max(0, cx - r); x2 = min(frame_width, cx + r)
+        y1 = max(0, cy - r); y2 = min(frame_height, cy + r)
+        surround = gray[y1:y2, x1:x2].mean()
+        
+        # Lens reflection must be significantly brighter than surroundings
+        brightness_ratio = spot_brightness / max(surround, 1)
+        # In very dark scenes (brightness < 10) even ratio of 2x is significant
+        min_ratio = 2.0 if avg_brightness < 10 else 4.0
+        if brightness_ratio < min_ratio:
+            continue
+        
+        # Zone detection
+        x_norm = cx / frame_width
+        zone = "LEFT" if x_norm < 0.33 else "CENTER" if x_norm < 0.66 else "RIGHT"
+        
+        # Confidence based on circularity + brightness ratio
+        confidence = min(0.95, (circularity * 0.4 + min(1.0, brightness_ratio / 20) * 0.6))
+        
+        lens_candidates.append({
+            "zone": zone,
+            "x": cx, "y": cy,
+            "x_norm": x_norm,
+            "y_norm": cy / frame_height,
+            "area": area,
+            "circularity": round(circularity, 3),
+            "brightness_ratio": round(brightness_ratio, 1),
+            "spot_brightness": round(spot_brightness, 1),
+            "confidence": round(confidence, 3),
+            "detection_type": "LENS_REFLECTION"
+        })
+    
+    return lens_candidates
+
+
+
+class LensTracker:
+    """
+    Track lens reflections across frames.
+    A real camera lens stays in the same position across frames.
+    Random noise moves or disappears.
+    Require detection in N consecutive frames before alerting.
+    """
+    def __init__(self, confirm_frames=8, position_tolerance=15):
+        self.candidates = {}  # key: grid_cell -> frame_count
+        self.confirm_frames = confirm_frames
+        self.tolerance = position_tolerance
+        self.cooldown = {}
+    
+    def _grid_key(self, x, y):
+        """Quantize position to grid cells to handle slight movement."""
+        gx = x // self.tolerance
+        gy = y // self.tolerance
+        return f"{gx}_{gy}"
+    
+    def update(self, detections: list) -> list:
+        """Returns confirmed lens detections after N frames."""
+        confirmed = []
+        current_keys = set()
+        
+        for det in detections:
+            key = self._grid_key(det["x"], det["y"])
+            current_keys.add(key)
+            self.candidates[key] = self.candidates.get(key, 0) + 1
+            
+            # Check cooldown
+            if self.cooldown.get(key, 0) > 0:
+                self.cooldown[key] -= 1
+                continue
+            
+            # Confirmed after N consecutive frames
+            if self.candidates[key] >= self.confirm_frames:
+                confirmed.append(det)
+                self.cooldown[key] = 90  # 3 second cooldown at 30fps
+                self.candidates[key] = 0
+        
+        # Decay absent candidates
+        for key in list(self.candidates.keys()):
+            if key not in current_keys:
+                self.candidates[key] = max(0, self.candidates[key] - 2)
+        
+        return confirmed
+
+
+
 if __name__ == "__main__":
     arg = sys.argv[1] if len(sys.argv) > 1 else "0"
     stream = int(arg) if arg.isdigit() else arg
     run_detector(stream)
+
 
 

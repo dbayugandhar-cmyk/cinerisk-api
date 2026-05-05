@@ -234,6 +234,7 @@
   .tab-film.active { color: var(--accent); border-bottom-color: var(--accent); }
   .tab-india.active { color: var(--accent4); border-bottom-color: var(--accent4); }
   .tab-gaming.active { color: var(--accent3); border-bottom-color: var(--accent3); }
+  .tab-manga.active { color: #ff66cc; border-bottom-color: #ff66cc; }
 
   /* Panel */
   .panel { display: none; }
@@ -607,6 +608,7 @@
     <button class="tab tab-film active" onclick="switchTab('film')">🎬 Film Monitor</button>
     <button class="tab tab-india" onclick="switchTab('india')">🎥 India Cinema</button>
     <button class="tab tab-gaming" onclick="switchTab('gaming')">🎮 Gaming</button>
+    <button class="tab tab-manga" onclick="switchTab('manga')">📚 Manga & Publishing</button>
   </div>
 
   <!-- FILM PANEL -->
@@ -724,6 +726,81 @@
         <div class="platform-chip">SkymoviesHD</div>
         <div class="platform-chip">Filmysplit</div>
         <div class="platform-chip">MalayalamTorrents</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANGA PANEL -->
+  <div class="panel" id="panel-manga">
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:#ff66cc">25+</div>
+        <div class="mini-stat-label">Platforms</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent2)" id="mangaHits">—</div>
+        <div class="mini-stat-label">Hits Found</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:#ff66cc">$29</div>
+        <div class="mini-stat-label">Per Month</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent4)">66B</div>
+        <div class="mini-stat-label">Piracy Visits/Year</div>
+      </div>
+    </div>
+
+    <div class="search-section">
+      <div class="search-title" style="color:#ff66cc">⚡ Scan Any Manga, Webtoon, or Ebook</div>
+      <div class="search-row">
+        <input class="search-input" id="mangaInput" type="text"
+               placeholder="e.g. One Piece, Naruto, Attack on Titan..."
+               onkeydown="if(event.key==='Enter')scanManga()">
+        <select id="mangaType" style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:0.75rem;color:var(--text);font-family:var(--mono);font-size:0.75rem;outline:none">
+          <option value="manga">Manga</option>
+          <option value="webtoon">Webtoon</option>
+          <option value="ebook">Ebook</option>
+          <option value="comic">Comic</option>
+        </select>
+        <button class="btn" style="background:#ff66cc;color:#000;font-weight:700" onclick="scanManga()">Scan</button>
+        <button class="btn btn-secondary" onclick="clearManga()">Clear</button>
+      </div>
+    </div>
+
+    <div class="results-box" id="mangaResults">
+      <div class="results-header">
+        <span class="results-title">Manga & Publishing Scan</span>
+        <span class="verdict-badge verdict-scanning" id="mangaVerdict">READY</span>
+      </div>
+      <div class="results-body" id="mangaResultsBody">
+        <div class="placeholder-text">Scans MangaDex, MangaFire, LibGen, NYAA, GetComics, Toonily and 20+ more platforms</div>
+      </div>
+    </div>
+
+    <div class="search-section">
+      <div class="search-title">📚 Platforms Monitored</div>
+      <div class="platform-grid">
+        <div class="platform-chip">MangaDex</div>
+        <div class="platform-chip">MangaFire</div>
+        <div class="platform-chip">MangaReader</div>
+        <div class="platform-chip">Manganelo</div>
+        <div class="platform-chip">MangaKakalot</div>
+        <div class="platform-chip">MangaPark</div>
+        <div class="platform-chip">MangaOwl</div>
+        <div class="platform-chip">MangaGo</div>
+        <div class="platform-chip">Toonily</div>
+        <div class="platform-chip">AsuraScans</div>
+        <div class="platform-chip">ReaperScans</div>
+        <div class="platform-chip">LibGen</div>
+        <div class="platform-chip">ZLibrary</div>
+        <div class="platform-chip">GetComics</div>
+        <div class="platform-chip">ReadComics</div>
+        <div class="platform-chip">NYAA</div>
+        <div class="platform-chip">Internet Archive</div>
+        <div class="platform-chip">MangaFox</div>
+        <div class="platform-chip">Readmng</div>
+        <div class="platform-chip">PDFDrive</div>
       </div>
     </div>
   </div>
@@ -1046,6 +1123,62 @@ before filing DMCA notices.
 US Provisional Patent 64/049,190 | dba.yugandhar@gmail.com`;
   navigator.clipboard.writeText(report);
   alert('DMCA report copied to clipboard');
+}
+
+// Manga scan
+async function scanManga() {
+  const title = document.getElementById('mangaInput').value.trim();
+  const type = document.getElementById('mangaType').value;
+  if (!title) return;
+
+  const body = document.getElementById('mangaResultsBody');
+  const verdict = document.getElementById('mangaVerdict');
+
+  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.textContent = 'SCANNING';
+  body.innerHTML = `<div class="scanning-text">Scanning 25+ platforms for "${title}" <span class="dot-anim"></span></div>`;
+
+  try {
+    const r = await fetch(`${API}/theater/gold_scan`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({film_title: title})
+    });
+    const d = await r.json();
+
+    document.getElementById('mangaHits').textContent = d.hits_found || 0;
+    const isClean = d.verdict && d.verdict.includes('CLEAN');
+    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
+    verdict.textContent = isClean ? 'CLEAN' : 'PIRACY DETECTED';
+
+    if (!d.hits || d.hits.length === 0) {
+      body.innerHTML = `<div style="text-align:center;padding:2rem">
+        <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
+        <div style="color:var(--text2);font-size:0.85rem">"${title}" — No piracy detected on publishing platforms</div>
+      </div>`;
+    } else {
+      body.innerHTML = d.hits.map(h => `
+        <div class="hit-card" style="border-color:rgba(255,102,204,0.3);background:rgba(255,102,204,0.05)">
+          <div class="hit-platform" style="color:#ff66cc">${h.platform}</div>
+          <div>
+            <div class="hit-detail">${h.detail || 'Piracy detected'}</div>
+            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
+          </div>
+          <div class="hit-quality" style="background:rgba(255,102,204,0.15);color:#ff66cc">${type.toUpperCase()}</div>
+        </div>`).join('');
+    }
+  } catch(e) {
+    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
+  }
+}
+
+function clearManga() {
+  document.getElementById('mangaInput').value = '';
+  document.getElementById('mangaResultsBody').innerHTML =
+    '<div class="placeholder-text">Scans MangaDex, MangaFire, LibGen, NYAA, GetComics, Toonily and 20+ more platforms</div>';
+  document.getElementById('mangaVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('mangaVerdict').textContent = 'READY';
+  document.getElementById('mangaHits').textContent = '—';
 }
 
 // Init

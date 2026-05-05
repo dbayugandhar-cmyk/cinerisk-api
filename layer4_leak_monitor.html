@@ -647,7 +647,7 @@ async function doSearch(){
 
   const panel = document.getElementById('searchResult');
   panel.className = 'search-result show';
-  panel.innerHTML = `<div style="color:#888;font-size:13px">Scanning all platforms for "<strong style="color:#fff">${q}</strong>"...</div>`;
+  panel.innerHTML = `<div style="color:#888;font-size:13px;padding:10px 0">Scanning all platforms for "<strong style="color:#fff">${q}</strong>"... <span style="color:#555">(takes 15-20 seconds)</span></div>`;
 
   // Add scan lines for this film
   addScanLine('MANUAL', 'plat-manual', `Manual scan started for "${q}"`);
@@ -662,7 +662,7 @@ async function doSearch(){
   // Check watchlist
   const wl = WATCHLIST.find(f=>f.title.toLowerCase().includes(q.toLowerCase()));
 
-  // Call REAL gold scan API
+  // Call REAL gold scan API — wait for full response before showing results
   let scanData = null;
   let goldHits = [];
   let goldPlatforms = [];
@@ -682,7 +682,7 @@ async function doSearch(){
   } catch(e){ console.warn('Gold scan error:', e); }
 
 
-  setTimeout(()=>{
+  (() => {
     const ctiColor = wl ? wl.color : '#aaa';
     const verdictColor = goldVerdict==='CRITICAL'?'#ef5350':goldVerdict==='HIGH'?'#f0a500':goldVerdict==='MEDIUM'?'#4fc3f7':goldVerdict==='LOW'?'#ffb74d':'#26c6a8';
 
@@ -768,7 +768,7 @@ async function doSearch(){
         <button class="btn btn-email" onclick="prefillEmail('${q.replace(/'/g,"\'")}')">Send Studio Report for This Film</button>
         <button class="btn btn-clear" onclick="clearSearch()">Close Results</button>
       </div>`;
-  }, 20000);
+  })();
 }
 
 function clearSearch(){

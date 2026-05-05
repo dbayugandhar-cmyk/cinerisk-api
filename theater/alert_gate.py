@@ -69,12 +69,12 @@ class AlertGate:
     Pose alone, glow alone, IR pulse alone = never alert.
     """
 
-    def __init__(self, window_seconds=3.0, fps=30):
+    def __init__(self, window_seconds=8.0, fps=30):
         self.window_frames = int(window_seconds * fps)
         self.zone_evidence = {}
         self.frame_number = 0
         self.last_alert = {}
-        self.alert_cooldown = int(5.0 * fps)
+        self.alert_cooldown = int(10.0 * fps)
 
     def add_signal(self, zone: str, signal_type: str,
                    confidence: float) -> Optional[AlertDecision]:

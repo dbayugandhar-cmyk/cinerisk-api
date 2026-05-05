@@ -88,7 +88,7 @@ async def report_incident(zone, confidence, detection_type="PHONE"):
     }
     try:
         async with httpx.AsyncClient(timeout=10) as client:
-            r = await client.post(f"{API}/theater/incidents",
+            r = await client.post(f"{API}/theater/incident",
                 headers={"Content-Type": "application/json", "X-API-Key": os.getenv("CINEOS_API_KEY", "cineos-prod-2026-secure-key")},
                 json=payload)
             print(f"[CINEOS] Reported {zone} zone — {r.status_code}")

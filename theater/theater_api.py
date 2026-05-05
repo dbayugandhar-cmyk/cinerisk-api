@@ -366,7 +366,7 @@ async def gold_scan(request: dict):
                             break
                 results.append({"platform": "Reddit", "status": "SCANNED"})
             except Exception as e:
-                results.append({"platform": "Reddit", "status": "ERROR", "detail": str(e)[:50]})
+                results.append({"platform": "Reddit", "status": "UNAVAILABLE", "detail": str(e)[:50]})
         else:
             results.append({"platform": "Reddit", "status": "BLOCKED"})
 

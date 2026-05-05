@@ -578,7 +578,9 @@ async def scan_archive_org(film: str, client: httpx.AsyncClient) -> PlatformResu
                 title = doc.get("title", "").lower()
                 desc = doc.get("description", "").lower()
                 if sum(1 for w in fw if w in title) >= min(2, len(fw)):
-                    if contains_cam(f"{title} {desc}"):
+                    reject = ["esport","gameplay","tournament","vs ","versus","2022","2021","2020","game recording"]
+                    is_game = any(k in f"{title} {desc}" for k in reject)
+                    if contains_cam(f"{title} {desc}") and not is_game:
                         iid = doc.get("identifier", "")
                         return PlatformResult("Internet Archive", "streaming", "HIT",
                             url=f"https://archive.org/details/{iid}",
@@ -648,12 +650,24 @@ async def scan_whereyouwatch_new(film: str, client: httpx.AsyncClient) -> Platfo
         if r.status_code == 200:
             body = r.text.lower()
             fw = [w for w in film.lower().split() if len(w) > 2]
-            if sum(1 for w in fw if w in body) >= min(2, len(fw)):
-                slug = re.sub(r'[^a-z0-9]+', '-', film.lower()).strip('-')
-                return PlatformResult("WhereYouWatch Feed", "streaming", "HIT",
-                    url=f"https://whereyouwatch.com/movies/{slug}/",
-                    detail=f"{film} appearing on WhereYouWatch homepage feed",
-                    quality="CAM")
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            slug = re.sub(r'[^a-z0-9]+', '-', film.lower()).strip('-')
+            film_url = f"https://whereyouwatch.com/movies/{slug}/"
+            # Verify film has its own WYW page with actual piracy
+            try:
+                fr = await client.get(film_url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
+                if fr.status_code == 200:
+                    fb = fr.text.lower()
+                    confirmed = ("yes. reports of pirated" in fb or
+                                 "source: camera" in fb or
+                                 "format: torrent" in fb)
+                    if confirmed:
+                        return PlatformResult("WhereYouWatch Feed", "streaming", "HIT",
+                            url=film_url,
+                            detail=f"{film} confirmed on WhereYouWatch",
+                            quality="CAM")
+            except Exception:
+                pass
         return PlatformResult("WhereYouWatch Feed", "streaming", "SCANNED")
     except Exception as e:
         return PlatformResult("WhereYouWatch Feed", "streaming", "ERROR", detail=str(e)[:50])
@@ -853,7 +867,23 @@ async def scan_ddg_free(film: str, client: httpx.AsyncClient) -> PlatformResult:
             is_piracy = any(d in combined for d in piracy_domains)
             is_cam = contains_cam(combined)
             
-            if film_ok and (is_piracy or is_cam):
+            # Require film name in URL path — reject generic torrent articles
+            film_in_url = sum(1 for w in fw if w in url.lower()) >= min(1, len(fw))
+            film_in_title = sum(1 for w in fw if w in title.lower()) >= min(1, len(fw))
+            generic = any(x in url.lower() for x in [
+                "best-torrent","top-torrent","torrent-sites","privacysavvy",
+                "vpnmentor","techradar","tomsguide","how-to","best-vpn"
+            ])
+            # For piracy domains: film MUST be in URL (not just title)
+            # Titles and URLs are mismatched in DDG — URL is the truth
+            # For CAM keywords: film must be in title at minimum
+            is_generic_search = ("/search/" in url.lower() or
+                                  url.rstrip("/").split("/")[-1] in
+                                  ["", "torrents", "movies", "films",
+                                   "download", "telesync", "camrip"])
+            if (film_ok and not generic and not is_generic_search and
+                    (is_piracy or is_cam) and
+                    (film_in_url or (film_in_title and is_cam))):
                 return PlatformResult("DuckDuckGo", "search", "HIT",
                     url=url,
                     detail=f"{title[:80]}",

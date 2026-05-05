@@ -236,6 +236,7 @@
   .tab-gaming.active { color: var(--accent3); border-bottom-color: var(--accent3); }
   .tab-manga.active { color: #ff66cc; border-bottom-color: #ff66cc; }
   .tab-music.active { color: #ffcc00; border-bottom-color: #ffcc00; }
+  .tab-sports.active { color: #ff6600; border-bottom-color: #ff6600; }
 
   /* Panel */
   .panel { display: none; }
@@ -611,6 +612,7 @@
     <button class="tab tab-gaming" onclick="switchTab('gaming')">🎮 Gaming</button>
     <button class="tab tab-manga" onclick="switchTab('manga')">📚 Manga & Publishing</button>
     <button class="tab tab-music" onclick="switchTab('music')">🎵 Music</button>
+    <button class="tab tab-sports" onclick="switchTab('sports')">🏆 Sports</button>
   </div>
 
   <!-- FILM PANEL -->
@@ -874,6 +876,70 @@
     </div>
   </div>
 </main>
+
+  <!-- SPORTS PANEL -->
+  <div class="panel" id="panel-sports">
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:#ff6600">25+</div>
+        <div class="mini-stat-label">Platforms</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent2)" id="sportsHits">—</div>
+        <div class="mini-stat-label">Streams Found</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:#ff6600">$299</div>
+        <div class="mini-stat-label">Per Month</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent4)">$4.5B</div>
+        <div class="mini-stat-label">Lost to Piracy/Year</div>
+      </div>
+    </div>
+    <div class="search-section">
+      <div class="search-title" style="color:#ff6600">⚡ Scan Any Sports Event</div>
+      <div class="search-row">
+        <input class="search-input" id="sportsInput" type="text"
+               placeholder="e.g. IPL 2025 Final, Premier League, UFC 300..."
+               onkeydown="if(event.key==='Enter')scanSports()">
+        <button class="btn" style="background:#ff6600;color:#fff;font-weight:700" onclick="scanSports()">Scan</button>
+        <button class="btn btn-secondary" onclick="clearSports()">Clear</button>
+      </div>
+    </div>
+    <div class="results-box" id="sportsResults">
+      <div class="results-header">
+        <span class="results-title">Sports Stream Detection</span>
+        <span class="verdict-badge verdict-scanning" id="sportsVerdict">READY</span>
+      </div>
+      <div class="results-body" id="sportsResultsBody">
+        <div class="placeholder-text">Detects illegal streams on VIPBox, CrackStreams, Reddit, Telegram, LiveTV and 20+ more</div>
+      </div>
+    </div>
+    <div class="search-section">
+      <div class="search-title">🏆 Platforms Monitored</div>
+      <div class="platform-grid">
+        <div class="platform-chip">CrackStreams</div>
+        <div class="platform-chip">BuffStream</div>
+        <div class="platform-chip">Sportsurge</div>
+        <div class="platform-chip">VIPBox</div>
+        <div class="platform-chip">HesGoal</div>
+        <div class="platform-chip">LiveTV</div>
+        <div class="platform-chip">StreamEast</div>
+        <div class="platform-chip">CricHD</div>
+        <div class="platform-chip">CricTime</div>
+        <div class="platform-chip">SmartCric</div>
+        <div class="platform-chip">FirstRowSports</div>
+        <div class="platform-chip">Reddit Streams</div>
+        <div class="platform-chip">Telegram Sports</div>
+        <div class="platform-chip">Ronaldo7</div>
+        <div class="platform-chip">StrikeOut</div>
+        <div class="platform-chip">CricFree</div>
+        <div class="platform-chip">IPTV Cat</div>
+        <div class="platform-chip">1337x Sports</div>
+      </div>
+    </div>
+  </div>
 
   <!-- MUSIC PANEL -->
   <div class="panel" id="panel-music">
@@ -1249,6 +1315,55 @@ function clearManga() {
   document.getElementById('mangaVerdict').className = 'verdict-badge verdict-scanning';
   document.getElementById('mangaVerdict').textContent = 'READY';
   document.getElementById('mangaHits').textContent = '—';
+}
+
+// Sports scan
+async function scanSports() {
+  const event = document.getElementById('sportsInput').value.trim();
+  if (!event) return;
+  const body = document.getElementById('sportsResultsBody');
+  const verdict = document.getElementById('sportsVerdict');
+  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.textContent = 'SCANNING';
+  body.innerHTML = `<div class="scanning-text">Scanning 25+ platforms for "${event}" <span class="dot-anim"></span></div>`;
+  try {
+    const r = await fetch(`${API}/theater/gold_scan`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({film_title: event})
+    });
+    const d = await r.json();
+    document.getElementById('sportsHits').textContent = d.hits_found || 0;
+    const isClean = d.verdict && d.verdict.includes('CLEAN');
+    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
+    verdict.textContent = isClean ? 'CLEAN' : 'STREAM DETECTED';
+    if (!d.hits || d.hits.length === 0) {
+      body.innerHTML = `<div style="text-align:center;padding:2rem">
+        <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
+        <div style="color:var(--text2);font-size:0.85rem">"${event}" — No illegal streams detected</div>
+      </div>`;
+    } else {
+      body.innerHTML = d.hits.map(h => `
+        <div class="hit-card" style="border-color:rgba(255,102,0,0.3);background:rgba(255,102,0,0.05)">
+          <div class="hit-platform" style="color:#ff6600">${h.platform}</div>
+          <div>
+            <div class="hit-detail">${h.detail || 'Illegal stream detected'}</div>
+            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
+          </div>
+          <div class="hit-quality" style="background:rgba(255,102,0,0.15);color:#ff6600">LIVE</div>
+        </div>`).join('');
+    }
+  } catch(e) {
+    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
+  }
+}
+function clearSports() {
+  document.getElementById('sportsInput').value = '';
+  document.getElementById('sportsResultsBody').innerHTML =
+    '<div class="placeholder-text">Detects illegal streams on VIPBox, CrackStreams, Reddit, Telegram, LiveTV and 20+ more</div>';
+  document.getElementById('sportsVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('sportsVerdict').textContent = 'READY';
+  document.getElementById('sportsHits').textContent = '—';
 }
 
 // Music scan

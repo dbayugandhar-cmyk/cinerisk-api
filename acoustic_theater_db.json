@@ -1,0 +1,122 @@
+[
+  {
+    "theater_id": "amcbur01",
+    "theater_name": "AMC Burbank 16",
+    "screen_number": "Screen 3",
+    "city": "Burbank, CA",
+    "fingerprint": {
+      "fingerprint_hash": "a1b2c3d4e5f6g7h8",
+      "hvac_frequency": 120.3,
+      "room_resonance": [
+        340.2,
+        520.8,
+        890.1,
+        1240.5,
+        1680.3
+      ],
+      "reverb_time": 0.42,
+      "audience_density": 0.031,
+      "speaker_pattern": [
+        2100,
+        2150,
+        2080,
+        2200,
+        2120,
+        2090,
+        2180,
+        2110,
+        2160,
+        2095
+      ],
+      "noise_floor": -48.2,
+      "sample_duration": 60.0,
+      "confidence": 0.95,
+      "metadata": {
+        "capacity": 280,
+        "dolby": "Atmos"
+      }
+    },
+    "recorded_at": "2026-01-15T19:30:00Z",
+    "sample_count": 1
+  },
+  {
+    "theater_id": "regalny02",
+    "theater_name": "Regal Union Square",
+    "screen_number": "Screen 7",
+    "city": "New York, NY",
+    "fingerprint": {
+      "fingerprint_hash": "b2c3d4e5f6g7h8i9",
+      "hvac_frequency": 180.7,
+      "room_resonance": [
+        280.4,
+        460.9,
+        720.3,
+        1100.8,
+        1520.2
+      ],
+      "reverb_time": 0.68,
+      "audience_density": 0.028,
+      "speaker_pattern": [
+        1980,
+        2020,
+        1960,
+        2050,
+        2010,
+        1990,
+        2040,
+        2000,
+        2030,
+        1970
+      ],
+      "noise_floor": -52.1,
+      "sample_duration": 60.0,
+      "confidence": 0.93,
+      "metadata": {
+        "capacity": 340,
+        "dolby": "Digital"
+      }
+    },
+    "recorded_at": "2026-01-20T14:00:00Z",
+    "sample_count": 1
+  },
+  {
+    "theater_id": "cinedemo",
+    "theater_name": "CINEOS Demo Theater",
+    "screen_number": "Screen 1",
+    "city": "Apex, NC",
+    "fingerprint": {
+      "fingerprint_hash": "c3d4e5f6g7h8i9j0",
+      "hvac_frequency": 60.2,
+      "room_resonance": [
+        420.1,
+        680.5,
+        950.8,
+        1380.2,
+        1820.6
+      ],
+      "reverb_time": 0.31,
+      "audience_density": 0.042,
+      "speaker_pattern": [
+        2250,
+        2280,
+        2220,
+        2300,
+        2260,
+        2240,
+        2290,
+        2270,
+        2310,
+        2230
+      ],
+      "noise_floor": -45.8,
+      "sample_duration": 60.0,
+      "confidence": 0.92,
+      "metadata": {
+        "capacity": 120,
+        "dolby": "Digital"
+      }
+    },
+    "recorded_at": "2026-05-05T00:00:00Z",
+    "sample_count": 1
+  }
+]

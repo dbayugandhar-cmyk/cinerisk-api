@@ -535,97 +535,109 @@ async def full_scan(film: str) -> ScanReport:
 
 # ── STUDIO REPORT GENERATOR ───────────────────────────────────────
 
-def generate_report(report: ScanReport, studio_email: str = "") -> str:
+def generate_report(report, studio_email="", rights_holder="", authorized_by="Yugandhar Mallavarapu, CINEOS"):
+    from datetime import datetime, timezone
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    owner = rights_holder or (studio_email.split("@")[1].split(".")[0].title() + " Pictures" if studio_email else "The Copyright Owner")
+    urls_section = ""
+    if report.hits:
+        for i, h in enumerate(report.hits, 1):
+            urls_section += f"\n  {i}. Platform : {h.name}\n"
+            urls_section += f"     URL      : {h.url}\n"
+            if h.detail: urls_section += f"     Detail   : {h.detail}\n"
+            if h.quality: urls_section += f"     Quality  : {h.quality} (unauthorized CAM)\n"
+            if h.release_name: urls_section += f"     Release  : {h.release_name}\n"
+    else:
+        urls_section = "  No infringing URLs detected in this scan."
     inc_section = ""
     if report.theater_incidents:
-        lines = []
+        inc_section = "  CINEOS physical detection recorded:\n"
         for i in report.theater_incidents[:5]:
             conf = int((i.get("confidence", 0)) * 100)
-            dt = i.get("detected_at", "")[:19].replace("T", " ")
-            lines.append(
-                f"  • {i.get('detection_type','—')} | {i.get('zone','—')} zone | "
-                f"{conf}% confidence | {dt} UTC | "
-                f"Theater: {i.get('theater_name','—')} {i.get('screen_number','—')}"
-            )
-        inc_section = "\n".join(lines)
+            dt = str(i.get("detected_at", ""))[:19].replace("T", " ")
+            inc_section += f"  • {i.get('detection_type','—')} | {i.get('zone','—')} zone | {conf}% confidence | {dt} UTC\n"
+            inc_section += f"    Theater: {i.get('theater_name','—')} {i.get('screen_number','—')}\n"
+        inc_section += "  NOTE: Forensic watermark decode can identify exact seat. Contact CINEOS.\n"
     else:
-        inc_section = "  No theater incidents found in CINEOS database for this film."
-
-    hits_section = ""
+        inc_section = "  No physical theater detection incidents found."
     if report.hits:
-        for h in report.hits:
-            hits_section += f"\n  [{h.category.upper()}] {h.name}\n"
-            hits_section += f"  Quality: {h.quality or 'Unknown'}\n"
-            if h.url:
-                hits_section += f"  URL: {h.url}\n"
-            if h.detail:
-                hits_section += f"  Detail: {h.detail}\n"
-            if h.release_name:
-                hits_section += f"  Release: {h.release_name}\n"
+        dmca_targets = "".join(f"\n  • {h.url}" for h in report.hits)
+        actions = f"  STEP 1: File DMCA takedown to:{dmca_targets}\n  STEP 2: Google delisting: https://www.google.com/webmasters/tools/dmca-notice\n  STEP 3: Contact CINEOS for seat attribution evidence if theater incident exists."
     else:
-        hits_section = "  No CAM copies detected."
+        actions = "  No action required. Monitoring continues every 10 minutes."
+    sep = "=" * 72
+    line = "-" * 72
+    return f"""
+{sep}
+  CINEOS ANTI-PIRACY EVIDENCE REPORT
+  Notice of Claimed Infringement per 17 U.S.C. § 512(c)(3)
+{sep}
 
-    r = f"""
-{'='*70}
-  CINEOS GOLD STANDARD ANTI-PIRACY REPORT
-  US Provisional Patent 64/049,190
-{'='*70}
+REPORT DETAILS
+  Film Title      : {report.film_title}
+  Report Date     : {now}
+  Report ID       : CINEOS-{now[:10]}-{len(report.film_title)}
+  Prepared by     : CINEOS Anti-Piracy Platform
+  Authorized by   : {authorized_by}
+  Submitted to    : {studio_email or "Studio Anti-Piracy Team"}
+  Rights Holder   : {owner}
+  Patent          : US Provisional Patent 64/049,190
 
-  Film Title    : {report.film_title}
-  Scan Time     : {report.scan_time}
-  Prepared for  : {studio_email or 'Studio Anti-Piracy Team'}
-  Prepared by   : CINEOS Anti-Piracy Platform
-  Report Type   : CAM Copy Detection + Theater Attribution
-
-{'='*70}
+{sep}
   VERDICT: {report.verdict}
   Evidence Level: {report.evidence_level}
-{'='*70}
+{sep}
 
-SCAN SUMMARY
-  Total sources scanned : {report.total_sources}
-  CAM copies found      : {len(report.hits)}
-  Sources clean         : {len(report.clean)}
-  Sources blocked       : {len(report.blocked)}
-  Theater incidents DB  : {len(report.theater_incidents)}
+SECTION 1 — COPYRIGHTED WORK  [17 U.S.C. § 512(c)(3)(A)(ii)]
+{line}
+  Title    : {report.film_title}
+  Type     : Theatrical motion picture
+  Owner    : {owner}
+  Infringement: Unauthorized theatrical recording (CAM) and distribution
 
-SOURCES CHECKED
-  Tier 1 — Scene Release DBs   : PreDB.ovh, PreDB.net
-  Tier 2 — Google Deep Search  : SerpApi × 2 queries
-  Tier 3 — Torrent Indexes     : YTS, 1337x, TPB, TorrentGalaxy, NYAA
-  Tier 4 — Regional Sites      : Movierulz, TamilMV, Filmyzilla, 9xMovies,
-                                  Ibomma, Bolly4u, Isaimini, Filmxy
-  Tier 5 — Social/Messaging    : Reddit, Telegram public channels, WhereYouWatch
-  Tier 6 — Theater Database    : CINEOS Railway DB cross-reference
+SECTION 2 — INFRINGING MATERIAL AND URLS  [17 U.S.C. § 512(c)(3)(A)(iii)]
+{line}
+  Sources scanned : {report.total_sources}
+  CAM copies found: {len(report.hits)}
+{urls_section}
 
-ONLINE CAM COPY FINDINGS
-{hits_section}
-
-THEATER INCIDENT CROSS-REFERENCE
+SECTION 3 — THEATER DETECTION EVIDENCE  [US Prov. Pat. 64/049,190]
+{line}
 {inc_section}
 
-{'WATERMARK ATTRIBUTION' if report.theater_incidents else ''}
-{'''  Forensic watermark decode required to complete seat-level attribution.
-  Contact CINEOS for full evidence package including:
-  - Seat row and number
-  - Device type and lens aperture (mm)
-  - Recording duration (seconds)
-  - IR autofocus pulse confirmation
-  - Evidence PDF for prosecution''' if report.theater_incidents else ''}
+SECTION 4 — CONTACT INFORMATION  [17 U.S.C. § 512(c)(3)(A)(iv)]
+{line}
+  Name    : {authorized_by}
+  Org     : CINEOS Anti-Piracy Platform
+  Email   : dba.yugandhar@gmail.com
+
+SECTION 5 — GOOD FAITH BELIEF  [17 U.S.C. § 512(c)(3)(A)(v)]
+{line}
+  I have a good faith belief that the use of the copyrighted material
+  described above is not authorized by the copyright owner, its agent,
+  or the law. The material constitutes an unauthorized theatrical
+  recording made and distributed without license or authorization.
+
+SECTION 6 — DECLARATION UNDER PENALTY OF PERJURY  [17 U.S.C. § 512(c)(3)(A)(vi)]
+{line}
+  The information in this notification is accurate, and under penalty
+  of perjury, I am authorized to act on behalf of the copyright owner.
+
+  Electronic Signature : /s/ {authorized_by}
+  Date                 : {now}
+  Capacity             : Authorized Anti-Piracy Agent
 
 RECOMMENDED ACTIONS
-{'  1. URGENT: Issue DMCA takedowns to all platforms listed above' if report.hits else '  1. No immediate action required — film is clean'}
-{'  2. File Google Search delisting request for indexed links' if report.hits else '  2. Continue monitoring — next scan in 10 minutes'}
-{'  3. Contact CINEOS for seat-level prosecution evidence package' if report.theater_incidents else '  3. Deploy CINEOS to theater screens for real-time monitoring'}
-  4. CINEOS Layer 4 will continue scanning every 10 minutes
+{line}
+{actions}
 
-{'='*70}
+{sep}
   CINEOS — The only system that identifies the seat, not just the screen.
-  For full evidence packages contact: dba.yugandhar@gmail.com
-  US Prov. Pat. 64/049,190 | cinerisk-api-production.up.railway.app
-{'='*70}
+  For prosecution evidence: dba.yugandhar@gmail.com
+  US Provisional Patent 64/049,190
+{sep}
 """
-    return r
+
 
 
 # ── SEND REPORT VIA SENDGRID ──────────────────────────────────────

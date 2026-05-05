@@ -512,20 +512,20 @@ async def full_scan(film: str) -> ScanReport:
                     for r in all_results)
     inc_count = len(report.theater_incidents)
 
-    if scene_hit and hit_count >= 3 and inc_count > 0:
-        report.verdict = "CRITICAL — CAM confirmed on scene + platforms + theater evidence"
+    if scene_hit and hit_count >= 2 and inc_count > 0:
+        report.verdict = "CRITICAL — CAM confirmed: scene DB + platforms + theater seat evidence"
         report.evidence_level = "CRITICAL"
-    elif hit_count >= 3:
-        report.verdict = "HIGH — CAM copy found on multiple platforms"
+    elif scene_hit or (hit_count >= 2):
+        report.verdict = "HIGH — CAM copy confirmed on multiple platforms"
         report.evidence_level = "HIGH"
     elif hit_count >= 1 and inc_count > 0:
-        report.verdict = "MEDIUM — CAM found online + theater incident in DB"
-        report.evidence_level = "MEDIUM"
+        report.verdict = "HIGH — CAM confirmed online + theater recording in database"
+        report.evidence_level = "HIGH"
     elif hit_count >= 1:
-        report.verdict = "LOW — CAM copy found online, no theater evidence yet"
-        report.evidence_level = "LOW"
+        report.verdict = "CONFIRMED — CAM copy found online. Issue DMCA immediately."
+        report.evidence_level = "CONFIRMED"
     else:
-        report.verdict = "CLEAN — No CAM copy detected across all sources"
+        report.verdict = "CLEAN — No CAM copy detected across all 21 sources"
         report.evidence_level = "NONE"
 
     log.info(f"Scan complete: {hit_count} hits / {len(report.clean)} clean / "

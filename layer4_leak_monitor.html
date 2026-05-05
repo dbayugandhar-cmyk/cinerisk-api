@@ -642,8 +642,9 @@ function runFeed(){
 
 // ── SEARCH ──
 async function doSearch(){
-  const q = document.getElementById('searchInput').value.trim();
-  if(!q){ alert('Please type a film title to search.'); return; }
+  const raw = document.getElementById('searchInput').value.trim();
+  const q = raw.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.substr(1).toLowerCase());
+  document.getElementById('searchInput').value = q;
 
   const panel = document.getElementById('searchResult');
   panel.className = 'search-result show';

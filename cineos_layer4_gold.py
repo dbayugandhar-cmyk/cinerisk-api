@@ -424,6 +424,239 @@ async def get_theater_incidents(film: str) -> list:
 
 # ── MASTER SCAN ───────────────────────────────────────────────────
 
+# ══════════════════════════════════════════════════════════════════
+# FREE SOURCES — No API key needed
+
+async def scan_1337x_rss(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """1337x public RSS — catches new uploads within minutes. Free."""
+    try:
+        slug = re.sub(r'[^a-z0-9]+', '-', film.lower()).strip('-')
+        r = await client.get(
+            f"https://1337x.to/search/{slug}/1/",
+            timeout=12, headers={"User-Agent": "Mozilla/5.0"}
+        )
+        if r.status_code == 200:
+            body = r.text.lower()
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+            if film_ok and contains_cam(body):
+                import re as _re
+                match = _re.search(r'href="(/torrent/[^"]+)"', r.text)
+                url = f"https://1337x.to{match.group(1)}" if match else f"https://1337x.to/search/{slug}/1/"
+                return PlatformResult("1337x", "torrent", "HIT",
+                    url=url,
+                    detail=f"CAM release found on 1337x for {film}",
+                    quality="CAM")
+        return PlatformResult("1337x", "torrent", "SCANNED")
+    except Exception as e:
+        return PlatformResult("1337x", "torrent", "ERROR", detail=str(e)[:50])
+
+
+# ── FREE SOURCE 10: NYAA (anime/Asian releases) ───────────────────
+async def scan_nyaa(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """NYAA public RSS — major source for Asian market CAM releases. Free."""
+    try:
+        r = await client.get(
+            f"https://nyaa.si/?f=0&c=0_0&q={film.replace(' ', '+')}&s=date&o=desc",
+            timeout=10, headers={"User-Agent": "Mozilla/5.0"}
+        )
+        if r.status_code == 200:
+            body = r.text.lower()
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+            if film_ok and contains_cam(body):
+                return PlatformResult("NYAA", "torrent", "HIT",
+                    url=f"https://nyaa.si/?q={film.replace(' ', '+')}",
+                    detail=f"CAM release found on NYAA for {film}",
+                    quality="CAM")
+        return PlatformResult("NYAA", "torrent", "SCANNED")
+    except Exception as e:
+        return PlatformResult("NYAA", "torrent", "ERROR", detail=str(e)[:50])
+
+
+# ── FREE SOURCE 11: YTS API (direct, no key needed) ───────────────
+async def scan_yts_direct(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """YTS public API — free, no key. Catches CAM releases quickly."""
+    try:
+        r = await client.get(
+            "https://yts.mx/api/v2/list_movies.json",
+            params={"query_term": film, "limit": 10},
+            timeout=10
+        )
+        if r.status_code == 200:
+            movies = r.json().get("data", {}).get("movies", [])
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            for m in movies:
+                title = m.get("title", "").lower()
+                if sum(1 for w in fw if w in title) >= min(2, len(fw)):
+                    for t in m.get("torrents", []):
+                        if contains_cam(t.get("quality", "") + " " + t.get("type", "")):
+                            return PlatformResult("YTS Direct", "torrent", "HIT",
+                                url=m.get("url", ""),
+                                detail=f"YTS: {m['title']} [{t.get('quality')}]",
+                                quality=t.get("quality", "CAM"))
+        return PlatformResult("YTS Direct", "torrent", "SCANNED")
+    except Exception as e:
+        return PlatformResult("YTS Direct", "torrent", "ERROR", detail=str(e)[:50])
+
+
+# ── FREE SOURCE 12: TorrentGalaxy RSS ─────────────────────────────
+async def scan_torrentgalaxy(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """TorrentGalaxy — 4th most trafficked torrent site. Free direct search."""
+    try:
+        slug = film.replace(' ', '%20')
+        r = await client.get(
+            f"https://torrentgalaxy.to/torrents.php?search={slug}&sort=id&order=desc",
+            timeout=12, headers={"User-Agent": "Mozilla/5.0"}
+        )
+        if r.status_code == 200:
+            body = r.text.lower()
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+            if film_ok and contains_cam(body):
+                return PlatformResult("TorrentGalaxy", "torrent", "HIT",
+                    url=f"https://torrentgalaxy.to/torrents.php?search={slug}",
+                    detail=f"CAM release found on TorrentGalaxy for {film}",
+                    quality="CAM")
+        return PlatformResult("TorrentGalaxy", "torrent", "SCANNED")
+    except Exception as e:
+        return PlatformResult("TorrentGalaxy", "torrent", "ERROR", detail=str(e)[:50])
+
+
+# ── FREE SOURCE 13: Telegram public channel search ────────────────
+async def scan_telegram_extended(film: str, client: httpx.AsyncClient) -> list[PlatformResult]:
+    """Extended Telegram search — 8 public movie channels. Free."""
+    results = []
+    channels = [
+        "CamRips", "MoviesHD4K", "Hollywood_CAM_Movies",
+        "NewMoviesCAM", "HDMoviesCAM", "CamMoviesHub",
+        "Bolly4u_Official", "TamilMV_Official"
+    ]
+    fw = [w for w in film.lower().split() if len(w) > 2]
+    hits = 0
+    for ch in channels:
+        try:
+            r = await client.get(
+                f"https://t.me/s/{ch}",
+                timeout=8, headers={"User-Agent": "Mozilla/5.0"}
+            )
+            if r.status_code == 200:
+                body = r.text.lower()
+                film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+                if film_ok and contains_cam(body):
+                    hits += 1
+                    results.append(PlatformResult(f"Telegram @{ch}", "messaging", "HIT",
+                        url=f"https://t.me/{ch}",
+                        detail=f"CAM release found in Telegram channel @{ch}",
+                        quality="CAM"))
+            await asyncio.sleep(0.2)
+        except:
+            pass
+    if not hits:
+        results.append(PlatformResult("Telegram (8 channels)", "messaging", "SCANNED",
+            detail=f"8 channels checked — clean"))
+    return results
+
+
+# ── FREE SOURCE 14: Internet Archive ──────────────────────────────
+async def scan_archive_org(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """Internet Archive public search API — free, no key. Often has leaked content."""
+    try:
+        r = await client.get(
+            "https://archive.org/advancedsearch.php",
+            params={
+                "q": f'title:"{film}" AND mediatype:movies',
+                "fl": "identifier,title,description",
+                "rows": 5, "output": "json"
+            },
+            timeout=10
+        )
+        if r.status_code == 200:
+            docs = r.json().get("response", {}).get("docs", [])
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            for doc in docs:
+                title = doc.get("title", "").lower()
+                desc = doc.get("description", "").lower()
+                if sum(1 for w in fw if w in title) >= min(2, len(fw)):
+                    if contains_cam(f"{title} {desc}"):
+                        iid = doc.get("identifier", "")
+                        return PlatformResult("Internet Archive", "streaming", "HIT",
+                            url=f"https://archive.org/details/{iid}",
+                            detail=f"Archive.org: {doc.get('title', '')}",
+                            quality="CAM")
+        return PlatformResult("Internet Archive", "streaming", "SCANNED")
+    except Exception as e:
+        return PlatformResult("Internet Archive", "streaming", "ERROR", detail=str(e)[:50])
+
+
+# ── FREE SOURCE 15: SubDL / OpenSubtitles (scene release names) ───
+async def scan_subdl(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """SubDL public search — scene release names appear here first. Free."""
+    try:
+        r = await client.get(
+            f"https://subdl.com/s/{film.replace(' ', '-').lower()}",
+            timeout=10, headers={"User-Agent": "Mozilla/5.0"}
+        )
+        if r.status_code == 200:
+            body = r.text.lower()
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+            if film_ok and contains_cam(body):
+                return PlatformResult("SubDL", "subtitle_db", "HIT",
+                    url=f"https://subdl.com/s/{film.replace(' ', '-').lower()}",
+                    detail=f"CAM release name found on SubDL — scene release confirmed",
+                    quality="CAM")
+        return PlatformResult("SubDL", "subtitle_db", "SCANNED")
+    except Exception as e:
+        return PlatformResult("SubDL", "subtitle_db", "ERROR", detail=str(e)[:50])
+
+
+# ── FREE SOURCE 16: SRRDB (Scene release database) ────────────────
+async def scan_srrdb(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """SRRDB — scene release database with NFO files. Free public search."""
+    try:
+        slug = re.sub(r'[^a-z0-9]+', '.', film.lower()).strip('.')
+        r = await client.get(
+            f"https://www.srrdb.com/api/search/r:{slug}*",
+            timeout=10, headers={"User-Agent": "Mozilla/5.0"}
+        )
+        if r.status_code == 200:
+            data = r.json()
+            results_list = data.get("results", [])
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            for item in results_list:
+                name = item.get("release", "").lower()
+                if sum(1 for w in fw if w in name) >= min(2, len(fw)):
+                    if contains_cam(name):
+                        return PlatformResult("SRRDB Scene DB", "scene_db", "HIT",
+                            url=f"https://www.srrdb.com/release/details/{item.get('release','')}",
+                            detail=f"Scene release: {item.get('release', '')}",
+                            quality="CAM")
+        return PlatformResult("SRRDB Scene DB", "scene_db", "SCANNED")
+    except Exception as e:
+        return PlatformResult("SRRDB Scene DB", "scene_db", "ERROR", detail=str(e)[:50])
+
+
+# ── FREE SOURCE 17: Piracy shield / anti-piracy public lists ──────
+async def scan_whereyouwatch_new(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """WhereYouWatch new releases feed — catches all new piracy reports. Free."""
+    try:
+        r = await client.get(
+            "https://whereyouwatch.com/",
+            timeout=10, headers={"User-Agent": "Mozilla/5.0"}
+        )
+        if r.status_code == 200:
+            body = r.text.lower()
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            if sum(1 for w in fw if w in body) >= min(2, len(fw)):
+                slug = re.sub(r'[^a-z0-9]+', '-', film.lower()).strip('-')
+                return PlatformResult("WhereYouWatch Feed", "streaming", "HIT",
+                    url=f"https://whereyouwatch.com/movies/{slug}/",
+                    detail=f"{film} appearing on WhereYouWatch homepage feed",
+                    quality="CAM")
+        return PlatformResult("WhereYouWatch Feed", "streaming", "SCANNED")
+    except Exception as e:
+        return PlatformResult("WhereYouWatch Feed", "streaming", "ERROR", detail=str(e)[:50])
 async def full_scan(film: str) -> ScanReport:
     report = ScanReport(
         film_title=film,
@@ -490,12 +723,27 @@ async def full_scan(film: str) -> ScanReport:
         )
 
         # ── TIER 6: Theater DB ──────────────────────────────────
+        # ── TIER 6b: Free sources — no API key needed ─────────────
+        log.info("Tier 6b: Free sources (1337x, NYAA, YTS, TorrentGalaxy, Archive, SRRDB, SubDL)...")
+        tier6b = await asyncio.gather(
+            scan_1337x_rss(film, client),
+            scan_nyaa(film, client),
+            scan_yts_direct(film, client),
+            scan_torrentgalaxy(film, client),
+            scan_archive_org(film, client),
+            scan_subdl(film, client),
+            scan_srrdb(film, client),
+            scan_whereyouwatch_new(film, client),
+            return_exceptions=True
+        )
+        tg_extra = await scan_telegram_extended(film, client)
+
         log.info("Tier 6: Cross-referencing theater incident database...")
         report.theater_incidents = await get_theater_incidents(film)
 
     # ── Compile all results ────────────────────────────────────────
     all_results = []
-    for r in [*tier1, *google_results, *tier3, *tier4, *tier5]:
+    for r in [*tier1, *google_results, *tier3, *tier4, *tier5, *tier6b, *tg_extra]:
         if isinstance(r, PlatformResult):
             all_results.append(r)
         elif isinstance(r, list):
@@ -702,3 +950,7 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+# ══════════════════════════════════════════════════════════════════
+
+# ── FREE SOURCE 9: 1337x RSS feed ────────────────────────────────

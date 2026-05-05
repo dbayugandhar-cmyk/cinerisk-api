@@ -263,11 +263,11 @@ async def gold_scan(request: dict):
         hits = []
         for r in report.hits:
             hits.append({
-                "platform": r.platform,
-                "category": getattr(r, "category", "Search"),
-                "quality": getattr(r, "quality", "CAM") or "CAM",
-                "url": getattr(r, "url", "") or "",
-                "detail": getattr(r, "detail", "") or "",
+                "platform": r.name,
+                "category": r.category,
+                "quality": r.quality or "CAM",
+                "url": r.url or "",
+                "detail": r.detail or "",
                 "severity": "HIGH"
             })
         

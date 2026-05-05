@@ -283,30 +283,11 @@ async def gold_scan(request: dict):
     async with httpx.AsyncClient(timeout=15, headers=HEADERS,
                                   follow_redirects=True) as client:
 
-        # ── PreDB ──────────────────────────────────────────────────
-        try:
-            r = await client.get(
-                f"https://predb.ovh/api/v1/?q={slug(film)}+CAM&cat=MOVIE&count=10",
-                timeout=10
-            )
-            if r.status_code == 200:
-                rows = r.json().get("data", {}).get("rows", [])
-                for row in rows:
-                    name = row.get("name", "")
-                    if has_cam(name) and slug(film).split('.')[0] in name.lower():
-                        hits.append({
-                            "platform": "PreDB Scene",
-                            "category": "Scene DB",
-                            "quality": "CAM",
-                            "url": f"https://predb.ovh/?q={slug(film)}+CAM",
-                            "detail": f"Scene release: {name}",
-                            "severity": "CRITICAL"
-                        })
-                results.append({"platform": "PreDB", "status": "HIT" if hits else "CLEAN"})
-            else:
-                results.append({"platform": "PreDB", "status": "ERROR"})
-        except Exception as e:
-            results.append({"platform": "PreDB", "status": "ERROR", "detail": str(e)[:50]})
+        # PreDB scanned via SerpApi below
+
+
+
+
 
         # ── Google SerpApi ─────────────────────────────────────────
         if SERP_KEY:
@@ -356,33 +337,40 @@ async def gold_scan(request: dict):
                            "status": "BLOCKED",
                            "detail": "Add SERP_API_KEY to Railway"})
 
-        # ── Reddit ─────────────────────────────────────────────────
-        try:
-            r = await client.get(
-                "https://www.reddit.com/search.json",
-                params={"q": f"{film} camrip OR hdcam OR hdts",
-                        "sort": "new", "limit": 25, "t": "week"},
-                headers={"User-Agent": "CINEOS-L4-Gold/3.0"},
-                timeout=12
-            )
-            if r.status_code == 200:
-                posts = r.json().get("data", {}).get("children", [])
-                for post in posts:
-                    d = post.get("data", {})
-                    title = d.get("title", "")
-                    body = d.get("selftext", "")
-                    if film_match(f"{title} {body}", film) and has_cam(f"{title} {body}"):
-                        hits.append({
-                            "platform": "Reddit",
-                            "category": "Social",
-                            "quality": "CAM",
-                            "url": f"https://reddit.com{d.get('permalink','')}",
-                            "detail": title[:80],
-                            "severity": "MEDIUM"
-                        })
-            results.append({"platform": "Reddit", "status": "SCANNED"})
-        except Exception as e:
-            results.append({"platform": "Reddit", "status": "ERROR"})
+        # ── Reddit via SerpApi (bypass Railway DNS block) ──────
+        if SERP_KEY:
+            try:
+                r = await client.get(
+                    "https://serpapi.com/search",
+                    params={
+                        "q": f'"{film}" CAM OR camrip OR hdcam site:reddit.com',
+                        "api_key": SERP_KEY, "num": 5, "engine": "google"
+                    },
+                    timeout=12
+                )
+                if r.status_code == 200:
+                    items = r.json().get("organic_results", [])
+                    for item in items:
+                        t = item.get("title", "")
+                        lnk = item.get("link", "")
+                        fw = [w for w in film.lower().split() if len(w) > 2]
+                        if sum(1 for w in fw if w in t.lower()) >= 2 and has_cam(t):
+                            hits.append({
+                                "platform": "Reddit",
+                                "category": "Social",
+                                "quality": "CAM",
+                                "url": lnk,
+                                "detail": t[:80],
+                                "severity": "MEDIUM"
+                            })
+                            break
+                results.append({"platform": "Reddit", "status": "SCANNED"})
+            except Exception as e:
+                results.append({"platform": "Reddit", "status": "ERROR", "detail": str(e)[:50]})
+        else:
+            results.append({"platform": "Reddit", "status": "BLOCKED"})
+
+
 
         # ── YTS + PreDB via SerpApi (bypasses Railway IP blocks) ───
         for site_name, site_domain in [("YTS", "yts.mx"), ("PreDB", "predb.me")]:

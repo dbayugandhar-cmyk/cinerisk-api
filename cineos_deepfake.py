@@ -120,22 +120,72 @@ class ImageDeepfakeDetector:
         self._load_model()
 
     def _load_model(self):
-        """Load pre-trained deepfake detection model."""
+        """Load real deepfake detection model from HuggingFace."""
         if not TRANSFORMERS_AVAILABLE:
             return
         try:
-            # Use a lightweight ViT-based image classifier
-            # In production: fine-tuned on FaceForensics++ dataset
-            log.info("Loading image analysis model...")
+            log.info("Loading deepfake detection model (ViT trained on deepfake dataset)...")
+            # Real deepfake detection model — 92% accuracy
+            # Trained on real vs deepfake image dataset
             self.model = pipeline(
                 "image-classification",
-                model="microsoft/resnet-50",
+                model="prithivMLmods/Deep-Fake-Detector-v2-Model",
                 device=-1  # CPU
             )
-            log.info("Image model loaded")
+            log.info("Deepfake model loaded — 92% accuracy ViT")
         except Exception as e:
-            log.warning(f"Could not load image model: {e}")
-            self.model = None
+            log.warning(f"Could not load deepfake model, falling back: {e}")
+            try:
+                self.model = pipeline(
+                    "image-classification", 
+                    model="prithivMLmods/Deep-Fake-Detector-Model",
+                    device=-1
+                )
+                log.info("Fallback deepfake model loaded")
+            except Exception as e2:
+                log.warning(f"Both models failed: {e2}")
+                self.model = None
+
+    def analyze_with_neural_model(self, image_path: str) -> DeepfakeSignal:
+        """
+        Primary detection using pretrained ViT deepfake detector.
+        92% accuracy — trained on real vs deepfake dataset.
+        This is the most reliable signal.
+        """
+        if self.model is None:
+            return DeepfakeSignal("neural_model", 0.5, 0.3,
+                                  "Model not loaded")
+        try:
+            from PIL import Image
+            img = Image.open(image_path).convert("RGB")
+            results = self.model(img)
+            
+            fake_score = 0.5
+            detail = ""
+            
+            for r in results:
+                label = r["label"].lower()
+                score = r["score"]
+                
+                # Handle different model label formats
+                if any(w in label for w in ["fake", "deepfake", "artificial", "generated"]):
+                    fake_score = score
+                    detail = f"Model: {r['label']} ({score*100:.1f}%)"
+                    break
+                elif any(w in label for w in ["real", "authentic", "genuine", "realism"]):
+                    fake_score = 1.0 - score
+                    detail = f"Model: {r['label']} ({score*100:.1f}%) → fake={fake_score*100:.1f}%"
+                    break
+            
+            if not detail and results:
+                detail = f"Top: {results[0]['label']} ({results[0]['score']*100:.1f}%)"
+            
+            log.info(f"Neural model result: {detail}")
+            return DeepfakeSignal("neural_model", fake_score, 0.92, detail)
+            
+        except Exception as e:
+            log.warning(f"Neural model analysis failed: {e}")
+            return DeepfakeSignal("neural_model", 0.5, 0.3, str(e)[:60])
 
     def analyze_frequency_domain(self, image_path: str) -> DeepfakeSignal:
         """
@@ -369,18 +419,20 @@ class ImageDeepfakeDetector:
         start = time.time()
 
         signals = [
+            self.analyze_with_neural_model(image_path),
             self.analyze_frequency_domain(image_path),
             self.analyze_noise_patterns(image_path),
             self.analyze_metadata(image_path),
             self.analyze_face_consistency(image_path),
         ]
 
-        # Weighted combination
+        # Weighted combination — neural model is primary signal
         weights = {
-            "frequency_analysis": 0.25,
-            "noise_analysis": 0.40,
-            "metadata_analysis": 0.20,
-            "face_consistency": 0.15,
+            "neural_model": 0.60,       # Primary — 92% accuracy pretrained
+            "noise_analysis": 0.20,     # Strong secondary signal
+            "metadata_analysis": 0.10,  # Supporting signal
+            "frequency_analysis": 0.05, # Weak signal
+            "face_consistency": 0.05,   # Supporting signal
         }
 
         total_weight = 0

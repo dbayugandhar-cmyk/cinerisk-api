@@ -264,12 +264,12 @@ async def gold_scan(request: dict):
         "Accept-Language": "en-US,en;q=0.9",
     }
     CAM_STRICT = ["camrip", "hdcam", "hdts", "cam rip", "cam copy",
-                  "camcorder", "theater recording", "cinema recording"]
+                  "camcorder", "theater recording", "cinema recording",
+                  "cam-rip", "source: camera", "cinemacity", "hdcam-rip",
+                  "recorded in cinema", "cam.rip"]
 
     def slug(t):
         return re.sub(r'[^a-z0-9]+', '.', t.lower()).strip('.')
-
-    def has_cam(text):
         t = text.lower()
         return any(k in t for k in CAM_STRICT)
 

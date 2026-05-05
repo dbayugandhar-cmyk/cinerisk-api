@@ -96,14 +96,14 @@ def now_str() -> str:
 CAM_KEYWORDS = [
     "cam", "camrip", "hdcam", "hdts", "telesync", "ts rip",
     "camcorder", "theater rip", "cinema rip", "hd-cam",
-    "cam-rip", "cam.rip", "hd.cam", "hd.ts"
+    "cam-rip", "cam.rip", "hd.cam", "hd.ts",
+    "source: camera", "cinemacity", "cam rip", "hdcam-rip",
+    "recorded in cinema", "theater recording"
 ]
 
 def contains_cam(text: str) -> bool:
     t = text.lower()
     return any(k in t for k in CAM_KEYWORDS)
-
-def extract_quality(text: str) -> str:
     t = text.upper()
     if "HDCAM" in t: return "HDCam"
     if "HDTS" in t:  return "HDTS"
@@ -222,7 +222,10 @@ async def scan_google_serp(film: str, client: httpx.AsyncClient) -> list[Platfor
                 is_piracy = any(d in link.lower() for d in piracy_domains)
                 is_cam = contains_cam(full_text)
 
-                if is_piracy or is_cam:
+                film_words = [w for w in film.lower().split() if len(w) > 2]
+                film_ok = sum(1 for w in film_words if w in title.lower() or w in snippet.lower()) >= max(2, len(film_words)-1)
+                bad = ["softonic.com","apple.com","play.google.com","amazon.com","wikipedia.org","imdb.com"]
+                if (is_piracy or is_cam) and film_ok and not any(d in link.lower() for d in bad):
                     results.append(PlatformResult(
                         name=f"Google → {link.split('/')[2][:30]}",
                         category="search",
@@ -344,7 +347,10 @@ async def scan_reddit(film: str, client: httpx.AsyncClient) -> PlatformResult:
                 title = d.get("title", "").lower()
                 body = d.get("selftext", "").lower()
                 sub = d.get("subreddit", "").lower()
-                film_match = film.lower()[:6] in title or film.lower()[:6] in body
+                film_words = [w for w in film.lower().split() if len(w) > 2]
+                film_match = sum(1 for w in film_words if w in title or w in body) >= min(2, len(film_words))
+                strict_cam = ["camrip","cam-rip","hdcam","hdts","camcorder","source: camera","cinemacity"]
+                cam_match = any(k in title or k in body for k in strict_cam)
                 cam_match = contains_cam(title) or contains_cam(body)
                 piracy_sub = any(s in sub for s in ["piracy", "moviepiracy", "pirate", "freemovies"])
                 if film_match and (cam_match or piracy_sub):

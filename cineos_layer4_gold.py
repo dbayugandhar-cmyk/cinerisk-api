@@ -814,6 +814,56 @@ async def scan_subtitle_databases(film: str, client: httpx.AsyncClient) -> Platf
     except Exception as e:
         return PlatformResult("OpenSubtitles", "subtitle_db", "ERROR", detail=str(e)[:50])
 
+# ── FREE SOURCE 22: DuckDuckGo — zero quota, no API key ──────────
+async def scan_ddg_free(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """
+    DuckDuckGo search — completely free, no API key, no quota limits.
+    Finds scene releases on TPB, xrel.to, sanet.st that SerpApi misses.
+    """
+    try:
+        from urllib.parse import unquote
+        import re as _re
+        
+        fw = [w for w in film.lower().split() if len(w) > 2]
+        query = f"{film} 2026 telesync torrent download"
+        
+        r = await client.get(
+            "https://html.duckduckgo.com/html/",
+            params={"q": query},
+            timeout=12,
+            headers=HEADERS
+        )
+        if r.status_code != 200:
+            return PlatformResult("DuckDuckGo", "search", "SCANNED")
+        
+        body = r.text
+        urls = [unquote(u) for u in _re.findall(r'uddg=(https?[^&"]+)', body)]
+        titles = _re.findall(r'result__a"[^>]+>([^<]+)</a>', body)
+        
+        piracy_domains = [
+            "tpb","1337x","torrentgalaxy","xrel.to","sanet.st",
+            "torrentclaw","movierulz","tamilmv","filmyzilla",
+            "torrentleech","nyaa","predb","srrdb",
+        ]
+        
+        for i, url in enumerate(urls[:15]):
+            title = titles[i % len(titles)] if titles else ""
+            combined = (url + " " + title).lower()
+            film_ok = sum(1 for w in fw if w in combined) >= min(1, len(fw))
+            is_piracy = any(d in combined for d in piracy_domains)
+            is_cam = contains_cam(combined)
+            
+            if film_ok and (is_piracy or is_cam):
+                return PlatformResult("DuckDuckGo", "search", "HIT",
+                    url=url,
+                    detail=f"{title[:80]}",
+                    quality="CAM/TELESYNC")
+        
+        return PlatformResult("DuckDuckGo", "search", "SCANNED")
+    except Exception as e:
+        return PlatformResult("DuckDuckGo", "search", "ERROR", detail=str(e)[:50])
+
+
 async def full_scan(film: str) -> ScanReport:
     report = ScanReport(
         film_title=film,
@@ -891,6 +941,7 @@ async def full_scan(film: str) -> ScanReport:
             scan_subdl(film, client),
             scan_srrdb(film, client),
             scan_whereyouwatch_new(film, client),
+            scan_ddg_free(film, client),
             scan_movierulz_direct(film, client),
             scan_release_groups(film, client),
             scan_nfo_intelligence(film, client),

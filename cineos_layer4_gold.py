@@ -872,8 +872,17 @@ async def scan_ddg_free(film: str, client: httpx.AsyncClient) -> PlatformResult:
             film_in_title = sum(1 for w in fw if w in title.lower()) >= min(1, len(fw))
             generic = any(x in url.lower() for x in [
                 "best-torrent","top-torrent","torrent-sites","privacysavvy",
-                "vpnmentor","techradar","tomsguide","how-to","best-vpn"
+                "vpnmentor","techradar","tomsguide","how-to","best-vpn",
+                "torrentclaw", "plex.tv", "justwatch", "decider.com",
+                "moviefone", "fandango", "rottentomatoes", "imdb"
             ])
+            # Also reject placeholder torrent pages with no actual content
+            is_placeholder = (
+                "torrentclaw" in url.lower() or
+                "torrent download in hd" in title.lower() and
+                not any(q in title.lower() for q in 
+                       ["telesync","camrip","hdcam","cam rip","1080p ts"])
+            )
             # For piracy domains: film MUST be in URL (not just title)
             # Titles and URLs are mismatched in DDG — URL is the truth
             # For CAM keywords: film must be in title at minimum
@@ -882,6 +891,7 @@ async def scan_ddg_free(film: str, client: httpx.AsyncClient) -> PlatformResult:
                                   ["", "torrents", "movies", "films",
                                    "download", "telesync", "camrip"])
             if (film_ok and not generic and not is_generic_search and
+                    not is_placeholder and
                     (is_piracy or is_cam) and
                     (film_in_url or (film_in_title and is_cam))):
                 return PlatformResult("DuckDuckGo", "search", "HIT",
@@ -893,6 +903,222 @@ async def scan_ddg_free(film: str, client: httpx.AsyncClient) -> PlatformResult:
     except Exception as e:
         return PlatformResult("DuckDuckGo", "search", "ERROR", detail=str(e)[:50])
 
+
+# ══════════════════════════════════════════════════════════════════
+# EXTENDED FREE SOURCES — Coverage expansion
+# ══════════════════════════════════════════════════════════════════
+
+# ── SOURCE 23: Streaming embed sites ─────────────────────────────
+async def scan_streaming_embeds(film: str,
+                                 client: httpx.AsyncClient) -> list[PlatformResult]:
+    """
+    Scan streaming embed piracy sites.
+    Fmovies, Gomovies, 123movies mirrors serve billions of views.
+    """
+    results = []
+    sites = [
+        ("Fmovies",    "fmovies.to"),
+        ("Gomovies",   "gomovies.sx"),
+        ("123movies",  "123movies.ai"),
+        ("Putlocker",  "putlocker.vip"),
+        ("Solarmovie", "solarmovie.pe"),
+        ("Yesmovies",  "yesmovies.ag"),
+        ("Cmovies",    "cmovies.tv"),
+        ("Vumoo",      "vumoo.to"),
+    ]
+    fw = [w for w in film.lower().split() if len(w) > 2]
+
+    for name, domain in sites:
+        try:
+            slug = film.lower().replace(' ', '-')
+            url = f"https://{domain}/movie/{slug}"
+            r = await client.get(url, timeout=8, headers=HEADERS)
+            if r.status_code == 200:
+                body = r.text.lower()
+                film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+                # Must have actual video player — not just a search/placeholder page
+                has_player = any(p in body for p in [
+                    'iframe', 'video src', 'player', 'stream',
+                    'watch now', 'play now', 'hd quality',
+                    'embed', 'jwplayer', 'plyr'
+                ])
+                # Reject if it looks like a search results page
+                is_search_page = any(s in body for s in [
+                    'search results', 'no results', 'not found',
+                    'coming soon', '404', 'page not found'
+                ])
+                if film_ok and has_player and not is_search_page:
+                    results.append(PlatformResult(
+                        name, "streaming_embed", "HIT",
+                        url=url,
+                        detail=f"{film} found on {name} streaming embed site",
+                        quality="Stream"
+                    ))
+            await asyncio.sleep(0.2)
+        except Exception:
+            pass
+
+    if not results:
+        results.append(PlatformResult(
+            "Streaming Embeds (8)", "streaming_embed", "SCANNED",
+            detail="Fmovies, Gomovies, 123movies, Putlocker, Solarmovie checked"
+        ))
+    return results
+
+
+# ── SOURCE 24: Torrent RSS feeds ──────────────────────────────────
+async def scan_rss_feeds(film: str,
+                          client: httpx.AsyncClient) -> list[PlatformResult]:
+    """
+    Monitor RSS feeds from major torrent sites.
+    New CAM releases appear in RSS within minutes.
+    Free, no API key needed.
+    """
+    results = []
+    fw = [w for w in film.lower().split() if len(w) > 2]
+
+    rss_feeds = [
+        ("1337x RSS",       "https://1337x.to/rss.xml"),
+        ("TorrentGalaxy RSS","https://torrentgalaxy.to/rss.xml?magnet=1"),
+        ("NYAA RSS",        "https://nyaa.si/?page=rss&q=&c=0_0&f=0"),
+    ]
+
+    for feed_name, feed_url in rss_feeds:
+        try:
+            r = await client.get(feed_url, timeout=10, headers=HEADERS)
+            if r.status_code == 200:
+                body = r.text.lower()
+                film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+                if film_ok and contains_cam(body):
+                    results.append(PlatformResult(
+                        feed_name, "rss_feed", "HIT",
+                        url=feed_url,
+                        detail=f"CAM release in {feed_name} RSS feed for {film}",
+                        quality="CAM"
+                    ))
+            await asyncio.sleep(0.3)
+        except Exception:
+            pass
+
+    if not results:
+        results.append(PlatformResult(
+            "Torrent RSS Feeds", "rss_feed", "SCANNED",
+            detail="1337x, TorrentGalaxy, NYAA RSS checked"
+        ))
+    return results
+
+
+# ── SOURCE 25: Google News piracy alerts ─────────────────────────
+async def scan_google_news(film: str,
+                            client: httpx.AsyncClient) -> PlatformResult:
+    """
+    Search Google News for piracy reports of this film.
+    News articles often appear before piracy sites are indexed.
+    """
+    if not SERP_API_KEY:
+        return PlatformResult("Google News", "news", "SKIPPED")
+    try:
+        r = await client.get(
+            "https://serpapi.com/search",
+            params={
+                "q": f'"{film}" piracy leaked CAM download',
+                "api_key": SERP_API_KEY,
+                "tbm": "nws",
+                "num": 5,
+                "engine": "google"
+            },
+            timeout=12
+        )
+        if r.status_code == 200:
+            items = r.json().get("news_results", [])
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            for item in items:
+                title = item.get("title", "")
+                link = item.get("link", "")
+                snippet = item.get("snippet", "")
+                full = f"{title} {snippet}".lower()
+                film_ok = sum(1 for w in fw if w in full) >= min(2, len(fw))
+                if film_ok and contains_cam(full):
+                    return PlatformResult("Google News", "news", "HIT",
+                        url=link,
+                        detail=f"News: {title[:70]}",
+                        quality="CAM")
+        return PlatformResult("Google News", "news", "SCANNED")
+    except Exception as e:
+        return PlatformResult("Google News", "news", "ERROR",
+                              detail=str(e)[:50])
+
+
+# ── SOURCE 26: Magnet link aggregators ───────────────────────────
+async def scan_magnet_aggregators(film: str,
+                                   client: httpx.AsyncClient) -> PlatformResult:
+    """
+    Magnet link aggregators index torrents from multiple sources.
+    BTDigg, Snowfl, Btmet aggregate millions of torrents.
+    """
+    try:
+        fw = [w for w in film.lower().split() if len(w) > 2]
+        query = film.replace(' ', '+')
+        r = await client.get(
+            f"https://btdig.com/search?q={query}+cam&order=0",
+            timeout=10, headers=HEADERS
+        )
+        if r.status_code == 200:
+            body = r.text.lower()
+            film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+            if film_ok and contains_cam(body):
+                return PlatformResult("BTDigg", "magnet_aggregator", "HIT",
+                    url=f"https://btdig.com/search?q={query}+cam",
+                    detail=f"Magnet link found on BTDigg for {film}",
+                    quality="CAM")
+        return PlatformResult("BTDigg", "magnet_aggregator", "SCANNED")
+    except Exception as e:
+        return PlatformResult("BTDigg", "magnet_aggregator", "ERROR",
+                              detail=str(e)[:50])
+
+
+# ── SOURCE 27: Scene NFO database extended ───────────────────────
+async def scan_xrel(film: str,
+                     client: httpx.AsyncClient) -> PlatformResult:
+    """
+    xREL.to — comprehensive scene release database.
+    NFO files, release dates, group info for all scene releases.
+    Often indexes CAM releases within hours of release.
+    """
+    try:
+        slug = film.lower().replace(' ', '+')
+        r = await client.get(
+            f"https://www.xrel.to/search.html?xrel_search_query={slug}&xrel_search_what=releases",
+            timeout=10, headers=HEADERS
+        )
+        if r.status_code == 200:
+            body = r.text.lower()
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+            if film_ok and contains_cam(body):
+                # Verify it's the right year — avoid old game/film confusion
+                import datetime
+                current_year = str(datetime.datetime.now().year)
+                prev_year = str(datetime.datetime.now().year - 1)
+                year_ok = (current_year in body or prev_year in body or
+                           len([w for w in film.lower().split() 
+                                if w.isdigit()]) == 0)
+                # Extract actual release names from xREL
+                import re as _xre
+                releases = _xre.findall(
+                    r'class="release[^"]*"[^>]*>([^<]+)', r.text)
+                cam_releases = [rel for rel in releases 
+                               if contains_cam(rel.lower()) and
+                               sum(1 for w in fw if w in rel.lower()) >= min(1, len(fw))]
+                if year_ok and cam_releases:
+                    return PlatformResult("xREL Scene DB", "scene_db", "HIT",
+                        url=f"https://www.xrel.to/search.html?xrel_search_query={slug}",
+                        detail=f"xREL release: {cam_releases[0][:60]}",
+                        quality="CAM")
+        return PlatformResult("xREL Scene DB", "scene_db", "SCANNED")
+    except Exception as e:
+        return PlatformResult("xREL Scene DB", "scene_db", "ERROR",
+                              detail=str(e)[:50])
 
 async def full_scan(film: str) -> ScanReport:
     report = ScanReport(
@@ -976,16 +1202,21 @@ async def full_scan(film: str) -> ScanReport:
             scan_release_groups(film, client),
             scan_nfo_intelligence(film, client),
             scan_subtitle_databases(film, client),
+            scan_google_news(film, client),
+            scan_magnet_aggregators(film, client),
+            scan_xrel(film, client),
             return_exceptions=True
         )
         tg_extra = await scan_telegram_extended(film, client)
+        streaming_results = await scan_streaming_embeds(film, client)
+        rss_results = await scan_rss_feeds(film, client)
 
         log.info("Tier 6: Cross-referencing theater incident database...")
         report.theater_incidents = await get_theater_incidents(film)
 
     # ── Compile all results ────────────────────────────────────────
     all_results = []
-    for r in [*tier1, *google_results, *tier3, *tier4, *tier5, *tier6b, *tg_extra]:
+    for r in [*tier1, *google_results, *tier3, *tier4, *tier5, *tier6b, *tg_extra, *streaming_results, *rss_results]:
         if isinstance(r, PlatformResult):
             all_results.append(r)
         elif isinstance(r, list):
@@ -1115,7 +1346,7 @@ SECTION 6 — DECLARATION UNDER PENALTY OF PERJURY  [17 U.S.C. § 512(c)(3)(A)(v
 
   Electronic Signature : /s/ {authorized_by}
   Date                 : {now}
-  Capacity             : Authorized Anti-Piracy Agent
+  Capacity             : Anti-Piracy Detection Service (Monitoring Only)
 
 RECOMMENDED ACTIONS
 {line}
@@ -1196,3 +1427,4 @@ if __name__ == "__main__":
 # ══════════════════════════════════════════════════════════════════
 
 # ── FREE SOURCE 9: 1337x RSS feed ────────────────────────────────
+

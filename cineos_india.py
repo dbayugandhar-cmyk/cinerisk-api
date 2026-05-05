@@ -485,16 +485,18 @@ SECTION 4 — GOOD FAITH BELIEF
   in violation of the Indian Copyright Act 1957, Section 51
   and the Digital Millennium Copyright Act 17 U.S.C. § 512.
 
-SECTION 5 — DECLARATION UNDER PENALTY OF PERJURY
+SECTION 5 — ACCURACY DECLARATION
 [17 U.S.C. § 512(c)(3)(A)(vi)]
 {"─"*72}
   The information in this notification is accurate, and under
-  penalty of perjury, I am authorized to act on behalf of the
-  copyright owner of an exclusive right that is allegedly infringed.
+  penalty of perjury, the information in this notification is accurate
+  to the best of my knowledge. This report is provided for informational
+  purposes. Rights holders should consult legal counsel before filing
+  DMCA takedown notices.
 
   Electronic Signature : /s/ Yugandhar Mallavarapu, CINEOS
   Date                 : {now}
-  Capacity             : Authorized Anti-Piracy Agent
+  Capacity             : Anti-Piracy Detection Service (Monitoring Only)
 
 RECOMMENDED ACTIONS
 {"─"*72}

@@ -657,6 +657,163 @@ async def scan_whereyouwatch_new(film: str, client: httpx.AsyncClient) -> Platfo
         return PlatformResult("WhereYouWatch Feed", "streaming", "SCANNED")
     except Exception as e:
         return PlatformResult("WhereYouWatch Feed", "streaming", "ERROR", detail=str(e)[:50])
+
+# ── FREE SOURCE 18: Movierulz direct scanner ─────────────────────
+async def scan_movierulz_direct(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """
+    Movierulz direct search — one of the biggest Indian piracy sites.
+    Covers Bollywood, Tollywood, Tamil, Malayalam CAM copies.
+    Free, no API key needed.
+    Novel: direct scan not via Google — catches content before indexing.
+    """
+    try:
+        slug = film.lower().replace(' ', '+')
+        mirrors = [
+            f"https://www.5movierulz.camera/?s={slug}",
+            f"https://www.movierulz.com/?s={slug}",
+        ]
+        fw = [w for w in film.lower().split() if len(w) > 2]
+        
+        for mirror_url in mirrors:
+            try:
+                r = await client.get(mirror_url, timeout=12, headers=HEADERS)
+                if r.status_code == 200:
+                    body = r.text.lower()
+                    film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+                    if film_ok and contains_cam(body):
+                        return PlatformResult("Movierulz Direct", "streaming", "HIT",
+                            url=mirror_url,
+                            detail=f"CAM copy found on Movierulz for {film}",
+                            quality="CAM")
+                await asyncio.sleep(0.5)
+            except:
+                continue
+                
+        return PlatformResult("Movierulz Direct", "streaming", "SCANNED")
+    except Exception as e:
+        return PlatformResult("Movierulz Direct", "streaming", "ERROR", detail=str(e)[:50])
+
+
+# ── FREE SOURCE 19: Release group tracker ────────────────────────
+async def scan_release_groups(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """
+    Novel: Track known CAM release groups directly.
+    CinemaCity, EVO, HDCAM, CAMRip groups have public Telegram channels.
+    Cross-reference their latest releases against watchlist.
+    """
+    known_groups = {
+        "CinemaCity": "https://t.me/s/CinemaCity_Releases",
+        "HDCAM": "https://t.me/s/HDCAMReleases", 
+        "EVO": "https://t.me/s/EVOMovies",
+        "CAMRip": "https://t.me/s/CamRipMovies",
+    }
+    fw = [w for w in film.lower().split() if len(w) > 2]
+    
+    for group_name, url in known_groups.items():
+        try:
+            r = await client.get(url, timeout=8, headers=HEADERS)
+            if r.status_code == 200:
+                body = r.text.lower()
+                film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+                if film_ok and contains_cam(body):
+                    return PlatformResult(f"Release Group: {group_name}", 
+                        "scene_group", "HIT",
+                        url=url,
+                        detail=f"Release group {group_name} posted CAM of {film}",
+                        quality="CAM")
+            await asyncio.sleep(0.2)
+        except:
+            continue
+    
+    return PlatformResult("Release Groups", "scene_group", "SCANNED")
+
+
+# ── FREE SOURCE 20: NFO Intelligence (Novel) ─────────────────────
+async def scan_nfo_intelligence(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """
+    Novel: Parse NFO files from scene releases for theater attribution.
+    SRRDB indexes NFO files publicly. Extract theater clues from metadata.
+    Nobody else does this systematically.
+    """
+    try:
+        slug = re.sub(r'[^a-z0-9]+', '.', film.lower()).strip('.')
+        # Search SRRDB for NFO files
+        r = await client.get(
+            f"https://www.srrdb.com/api/search/r:{slug}*",
+            timeout=10, headers=HEADERS
+        )
+        if r.status_code == 200:
+            results_list = r.json().get("results", [])
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            
+            for item in results_list:
+                release_name = item.get("release", "")
+                if (sum(1 for w in fw if w in release_name.lower()) >= min(2, len(fw))
+                        and contains_cam(release_name.lower())):
+                    
+                    # Try to fetch NFO content
+                    nfo_url = f"https://www.srrdb.com/release/nfo/{release_name}"
+                    try:
+                        nfo_r = await client.get(nfo_url, timeout=8, headers=HEADERS)
+                        nfo_text = nfo_r.text.lower() if nfo_r.status_code == 200 else ""
+                    except:
+                        nfo_text = ""
+                    
+                    # Extract theater clues from NFO
+                    clues = []
+                    if "dolby atmos" in nfo_text: clues.append("Dolby Atmos — premium screen")
+                    if "imax" in nfo_text: clues.append("IMAX screen")
+                    if "line audio" in nfo_text or "external mic" in nfo_text:
+                        clues.append("External audio — insider access likely")
+                    if "center" in nfo_text or "centre" in nfo_text:
+                        clues.append("Center section recording")
+                    if "tripod" in nfo_text: clues.append("Tripod used — premeditated")
+                    
+                    detail = f"Scene release: {release_name}"
+                    if clues:
+                        detail += f" | Theater clues: {', '.join(clues)}"
+                    
+                    return PlatformResult("NFO Intelligence", "scene_db", "HIT",
+                        url=f"https://www.srrdb.com/release/details/{release_name}",
+                        detail=detail,
+                        quality="CAM")
+        
+        return PlatformResult("NFO Intelligence", "scene_db", "SCANNED")
+    except Exception as e:
+        return PlatformResult("NFO Intelligence", "scene_db", "ERROR", detail=str(e)[:50])
+
+
+# ── FREE SOURCE 21: Subtitle timing attack (Novel) ───────────────
+async def scan_subtitle_databases(film: str, client: httpx.AsyncClient) -> PlatformResult:
+    """
+    Novel: Subtitle databases index CAM releases before Google does.
+    When a CAM copy appears, subtitlers upload within hours.
+    OpenSubtitles API is free and shows exactly which release exists.
+    The release name in subtitles reveals CAM quality, group, source.
+    """
+    try:
+        r = await client.get(
+            "https://rest.opensubtitles.org/search/query-" + 
+            film.lower().replace(' ', '%20'),
+            headers={"User-Agent": "CINEOS Anti-Piracy v1.0"},
+            timeout=10
+        )
+        if r.status_code == 200:
+            data = r.json()
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            for sub in data[:10]:
+                movie_name = sub.get("MovieName", "").lower()
+                release = sub.get("MovieReleaseName", "").lower()
+                if (sum(1 for w in fw if w in movie_name) >= min(2, len(fw))
+                        and contains_cam(release)):
+                    return PlatformResult("OpenSubtitles", "subtitle_db", "HIT",
+                        url=f"https://www.opensubtitles.org/en/search/query-{film.replace(' ','+')}",
+                        detail=f"CAM release indexed: {sub.get('MovieReleaseName','')}",
+                        quality="CAM")
+        return PlatformResult("OpenSubtitles", "subtitle_db", "SCANNED")
+    except Exception as e:
+        return PlatformResult("OpenSubtitles", "subtitle_db", "ERROR", detail=str(e)[:50])
+
 async def full_scan(film: str) -> ScanReport:
     report = ScanReport(
         film_title=film,
@@ -734,6 +891,10 @@ async def full_scan(film: str) -> ScanReport:
             scan_subdl(film, client),
             scan_srrdb(film, client),
             scan_whereyouwatch_new(film, client),
+            scan_movierulz_direct(film, client),
+            scan_release_groups(film, client),
+            scan_nfo_intelligence(film, client),
+            scan_subtitle_databases(film, client),
             return_exceptions=True
         )
         tg_extra = await scan_telegram_extended(film, client)

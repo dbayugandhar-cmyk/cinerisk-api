@@ -397,21 +397,21 @@ async def scan_wyw(film: str, client: httpx.AsyncClient) -> PlatformResult:
         r = await client.get(url, timeout=12, headers=HEADERS)
         if r.status_code == 200:
             body = r.text.lower()
-            if contains_cam(body) and sum(
-                w in body for w in film.lower().split() if len(w)>2) >= 2:
+            fw = [w for w in film.lower().split() if len(w) > 2]
+            film_ok = sum(1 for w in fw if w in body) >= min(2, len(fw))
+            actually_available = ("yes. reports of pirated" in body or
+                "source: camera" in body or "format: torrent" in body or
+                "cam-rip" in body or "hdcam" in body)
+            if film_ok and actually_available:
                 return PlatformResult("WhereYouWatch", "streaming", "HIT",
-                    url=url, quality="CAM")
+                    url=url, quality="CAM",
+                    detail=f"Confirmed piracy report on WYW for {film}")
         return PlatformResult("WhereYouWatch", "streaming", "CLEAN")
     except Exception as e:
         return PlatformResult("WhereYouWatch", "streaming", "ERROR", detail=str(e)[:60])
 
-
-# ── SOURCE 8: Theater DB cross-reference ─────────────────────────
-
 async def get_theater_incidents(film: str) -> list:
     try:
-        async with httpx.AsyncClient(timeout=10) as client:
-            r = await client.get(f"{CINEOS_API}/theater/incidents")
             if r.status_code == 200:
                 incidents = r.json().get("incidents", [])
                 return [i for i in incidents

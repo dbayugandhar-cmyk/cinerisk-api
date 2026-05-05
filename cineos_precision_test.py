@@ -206,7 +206,7 @@ async def run():
         print(f"{'='*62}\n")
 
         print("Clean up test incidents:")
-        print('  DATABASE_URL="postgresql://postgres:REDACTED@tramway.proxy.rlwy.net:27075/railway" python3 -c "import asyncio,asyncpg,os; asyncio.run((lambda: asyncpg.connect(os.environ[\'DATABASE_URL\']).__aiter__())()); "')
+        print('  DATABASE_URL="${DATABASE_URL}" python3 -c "import asyncio,asyncpg,os; asyncio.run((lambda: asyncpg.connect(os.environ[\'DATABASE_URL\']).__aiter__())()); "')
         print('  (or run: python3 db_migrate.py to see cleanup command)')
 
 asyncio.run(run())

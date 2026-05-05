@@ -6,7 +6,7 @@
 cd "$(dirname "$0")"
 
 export TMDB_API_KEY="28ff1ef4ae81f137ddd9cbeec2634033"
-export DATABASE_URL="postgresql://postgres:REDACTED@tramway.proxy.rlwy.net:27075/railway"
+export DATABASE_URL="${DATABASE_URL}"
 export CINEOS_API="https://cinerisk-api-production.up.railway.app"
 export CONFIDENCE_THRESHOLD="0.35"
 export DURATION_THRESHOLD="3"
@@ -59,7 +59,7 @@ python3 theater/detector_rtsp.py 0
 
 # Start Layer 4 background worker in background
 echo "[L4] Starting background scanner..."
-DATABASE_URL="postgresql://postgres:REDACTED@tramway.proxy.rlwy.net:27075/railway" \
+DATABASE_URL="${DATABASE_URL}" \
 TMDB_API_KEY="28ff1ef4ae81f137ddd9cbeec2634033" \
 python3 cineos_layer4_worker.py --no-api > /tmp/cineos_l4.log 2>&1 &
 echo "[L4] Worker PID: $! — logs at /tmp/cineos_l4.log"

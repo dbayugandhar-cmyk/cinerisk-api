@@ -22,7 +22,7 @@ from datetime import datetime, timezone, timedelta
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://postgres:REDACTED@tramway.proxy.rlwy.net:27075/railway"
+    "${DATABASE_URL}"
 )
 
 # ── SQL schema ────────────────────────────────────────────────────

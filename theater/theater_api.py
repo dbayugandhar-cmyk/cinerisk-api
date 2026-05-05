@@ -434,6 +434,28 @@ async def gold_scan(request: dict):
         results.append({"platform": "Telegram", "status": "SCANNED",
                         "channels_checked": 2})
 
+        # ── WhereYouWatch ──────────────────────────────────────────
+        try:
+            wyw_slug = re.sub(r"[^a-z0-9]+", "-", film.lower()).strip("-")
+            wyw_url = f"https://whereyouwatch.com/movies/{wyw_slug}/"
+            r = await client.get(wyw_url, timeout=12)
+            if r.status_code == 200:
+                body = r.text.lower()
+                film_words = [w for w in film.lower().split() if len(w) > 2]
+                film_ok = sum(1 for w in film_words if w in body) >= min(2, len(film_words))
+                if film_ok and any(k in body for k in CAM_STRICT):
+                    hits.append({
+                        "platform": "WhereYouWatch",
+                        "category": "Streaming",
+                        "quality": "CAM",
+                        "url": wyw_url,
+                        "detail": f"CAM report found on WhereYouWatch for {film}",
+                        "severity": "HIGH"
+                    })
+            results.append({"platform": "WhereYouWatch", "status": "SCANNED"})
+        except Exception as e:
+            results.append({"platform": "WhereYouWatch", "status": "ERROR", "detail": str(e)[:50]})
+
         # ── Regional sites via SerpApi ─────────────────────────────
         regional = [
             ("Movierulz", "movierulz.com"),

@@ -675,16 +675,19 @@ async function doSearch(){
     });
     if(r.ok) {
       scanData = await r.json();
+      console.log('GOLD SCAN RESPONSE:', JSON.stringify(scanData).slice(0,500));
       goldHits = scanData.hits || [];
       goldPlatforms = scanData.platforms || [];
       goldVerdict = scanData.verdict || 'CLEAN';
+      console.log('goldVerdict:', goldVerdict, 'goldHits:', goldHits.length);
     }
   } catch(e){ console.warn('Gold scan error:', e); }
 
 
+  // Render results now — API call already completed above
   (() => {
     const ctiColor = wl ? wl.color : '#aaa';
-    const verdictColor = goldVerdict==='CRITICAL'?'#ef5350':goldVerdict==='HIGH'?'#f0a500':goldVerdict==='MEDIUM'?'#4fc3f7':goldVerdict==='LOW'?'#ffb74d':'#26c6a8';
+    const verdictColor = goldVerdict==='CRITICAL'?'#ef5350':goldVerdict==='HIGH'?'#f0a500':goldVerdict==='CONFIRMED'?'#ef5350':goldVerdict==='MEDIUM'?'#4fc3f7':goldVerdict==='LOW'?'#ffb74d':'#26c6a8';
 
     const hitsSection = goldHits.length > 0 ? `
       <div style="font-size:12px;color:#ef5350;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em">

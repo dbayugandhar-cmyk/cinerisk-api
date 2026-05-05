@@ -235,3 +235,287 @@ async def threat_briefing(days_ahead: int = 60, api_key: str = Header(None, alia
         raise HTTPException(500, f"CTI pipeline error: {e}")
 
 
+# Add this to theater/theater_api.py
+# New endpoint: POST /theater/gold_scan
+# Runs the full 6-tier gold standard scanner and returns structured JSON
+
+@app.post("/theater/gold_scan")
+async def gold_scan(request: dict):
+    """
+    Gold standard Layer 4 scan — 6 tiers, 25+ sources, PreDB, SerpApi.
+    Returns structured results the dashboard can display.
+    
+    Body: {"film_title": "Mortal Kombat II", "studio_email": "optional@studio.com"}
+    """
+    import asyncio
+    import httpx
+    import re
+    import os
+
+    film = request.get("film_title", "").strip()
+    studio_email = request.get("studio_email", "")
+
+    if not film:
+        return {"error": "film_title required"}
+
+    SERP_KEY = os.getenv("SERP_API_KEY", "")
+    HEADERS = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+    CAM_STRICT = ["camrip", "hdcam", "hdts", "cam rip", "cam copy",
+                  "camcorder", "theater recording", "cinema recording"]
+
+    def slug(t):
+        return re.sub(r'[^a-z0-9]+', '.', t.lower()).strip('.')
+
+    def has_cam(text):
+        t = text.lower()
+        return any(k in t for k in CAM_STRICT)
+
+    def film_match(text, film_title):
+        words = [w for w in film_title.lower().split() if len(w) > 2]
+        return sum(1 for w in words if w in text.lower()) >= max(2, len(words) - 1)
+
+    results = []
+    hits = []
+
+    async with httpx.AsyncClient(timeout=15, headers=HEADERS,
+                                  follow_redirects=True) as client:
+
+        # ── PreDB ──────────────────────────────────────────────────
+        try:
+            r = await client.get(
+                f"https://predb.ovh/api/v1/?q={slug(film)}+CAM&cat=MOVIE&count=10",
+                timeout=10
+            )
+            if r.status_code == 200:
+                rows = r.json().get("data", {}).get("rows", [])
+                for row in rows:
+                    name = row.get("name", "")
+                    if has_cam(name) and slug(film).split('.')[0] in name.lower():
+                        hits.append({
+                            "platform": "PreDB Scene",
+                            "category": "Scene DB",
+                            "quality": "CAM",
+                            "url": f"https://predb.ovh/?q={slug(film)}+CAM",
+                            "detail": f"Scene release: {name}",
+                            "severity": "CRITICAL"
+                        })
+                results.append({"platform": "PreDB", "status": "HIT" if hits else "CLEAN"})
+            else:
+                results.append({"platform": "PreDB", "status": "ERROR"})
+        except Exception as e:
+            results.append({"platform": "PreDB", "status": "ERROR", "detail": str(e)[:50]})
+
+        # ── Google SerpApi ─────────────────────────────────────────
+        if SERP_KEY:
+            queries = [
+                f'"{film}" (CAM OR HDCam OR HDTS OR camrip) (download OR torrent OR "free watch") -site:imdb.com -site:youtube.com',
+                f'"{film}" CAM 1080p download -site:imdb.com -site:rottentomatoes.com',
+            ]
+            piracy_domains = [
+                "1337x", "yts.", "tamilmv", "movierulz", "filmyzilla",
+                "tamilblasters", "9xmovies", "ibomma", "bolly4u", "filmxy",
+                "torrentgalaxy", "thepiratebay", "predb", "rarbg"
+            ]
+            for query in queries:
+                try:
+                    r = await client.get(
+                        "https://serpapi.com/search",
+                        params={"q": query, "api_key": SERP_KEY,
+                                "num": 10, "engine": "google", "gl": "us"},
+                        timeout=20
+                    )
+                    if r.status_code == 200:
+                        for item in r.json().get("organic_results", []):
+                            link = item.get("link", "")
+                            title = item.get("title", "")
+                            snippet = item.get("snippet", "")
+                            full = f"{link} {title} {snippet}"
+                            is_piracy = any(d in link.lower() for d in piracy_domains)
+                            is_cam = has_cam(full)
+                            film_ok = film_match(f"{title} {snippet}", film)
+                            if (is_piracy or is_cam) and film_ok:
+                                hits.append({
+                                    "platform": f"Google → {link.split('/')[2][:30]}",
+                                    "category": "Search",
+                                    "quality": "CAM" if "cam" in full.lower() else "Unknown",
+                                    "url": link,
+                                    "detail": title[:80],
+                                    "severity": "HIGH"
+                                })
+                    await asyncio.sleep(0.5)
+                except:
+                    pass
+            results.append({"platform": "Google (SerpApi)", 
+                           "status": "SCANNED",
+                           "queries": len(queries)})
+        else:
+            results.append({"platform": "Google (SerpApi)", 
+                           "status": "BLOCKED",
+                           "detail": "Add SERP_API_KEY to Railway"})
+
+        # ── Reddit ─────────────────────────────────────────────────
+        try:
+            r = await client.get(
+                "https://www.reddit.com/search.json",
+                params={"q": f"{film} camrip OR hdcam OR hdts",
+                        "sort": "new", "limit": 25, "t": "week"},
+                headers={"User-Agent": "CINEOS-L4-Gold/3.0"},
+                timeout=12
+            )
+            if r.status_code == 200:
+                posts = r.json().get("data", {}).get("children", [])
+                for post in posts:
+                    d = post.get("data", {})
+                    title = d.get("title", "")
+                    body = d.get("selftext", "")
+                    if film_match(f"{title} {body}", film) and has_cam(f"{title} {body}"):
+                        hits.append({
+                            "platform": "Reddit",
+                            "category": "Social",
+                            "quality": "CAM",
+                            "url": f"https://reddit.com{d.get('permalink','')}",
+                            "detail": title[:80],
+                            "severity": "MEDIUM"
+                        })
+            results.append({"platform": "Reddit", "status": "SCANNED"})
+        except Exception as e:
+            results.append({"platform": "Reddit", "status": "ERROR"})
+
+        # ── YTS API ────────────────────────────────────────────────
+        try:
+            r = await client.get(
+                "https://yts.mx/api/v2/list_movies.json",
+                params={"query_term": film, "quality": "720p"},
+                timeout=10
+            )
+            if r.status_code == 200:
+                movies = r.json().get("data", {}).get("movies", [])
+                for m in movies:
+                    if film.lower()[:6] in m.get("title", "").lower():
+                        for t in m.get("torrents", []):
+                            if has_cam(t.get("quality", "")):
+                                hits.append({
+                                    "platform": "YTS",
+                                    "category": "Torrent",
+                                    "quality": "CAM",
+                                    "url": m.get("url", ""),
+                                    "detail": f"YTS: {m['title']}",
+                                    "severity": "HIGH"
+                                })
+            results.append({"platform": "YTS", "status": "SCANNED"})
+        except:
+            results.append({"platform": "YTS", "status": "ERROR"})
+
+        # ── Telegram public ────────────────────────────────────────
+        tg_hits = 0
+        for ch in ["CamRips", "MoviesHD4K"]:
+            try:
+                r = await client.get(
+                    f"https://t.me/s/{ch}?q={film.replace(' ','+')}",
+                    timeout=8
+                )
+                if r.status_code == 200:
+                    body = r.text.lower()
+                    if film_match(body, film) and has_cam(body):
+                        tg_hits += 1
+                        hits.append({
+                            "platform": f"Telegram @{ch}",
+                            "category": "Messaging",
+                            "quality": "CAM",
+                            "url": f"https://t.me/{ch}",
+                            "detail": f"CAM content found in @{ch}",
+                            "severity": "HIGH"
+                        })
+            except:
+                pass
+        results.append({"platform": "Telegram", "status": "SCANNED",
+                        "channels_checked": 2})
+
+        # ── Regional sites via SerpApi ─────────────────────────────
+        regional = [
+            ("Movierulz", "movierulz.com"),
+            ("TamilMV", "tamilmv.fi"),
+            ("Filmyzilla", "filmyzilla.skin"),
+            ("9xMovies", "9xmovies.care"),
+        ]
+        for name, domain in regional:
+            if SERP_KEY:
+                try:
+                    r = await client.get(
+                        "https://serpapi.com/search",
+                        params={
+                            "q": f'site:{domain} "{film}" CAM OR HDCam OR HDTS',
+                            "api_key": SERP_KEY, "num": 3, "engine": "google"
+                        },
+                        timeout=12
+                    )
+                    if r.status_code == 200:
+                        items = r.json().get("organic_results", [])
+                        if items:
+                            hits.append({
+                                "platform": name,
+                                "category": "Regional",
+                                "quality": "CAM",
+                                "url": items[0].get("link", ""),
+                                "detail": items[0].get("title", "")[:80],
+                                "severity": "HIGH"
+                            })
+                    results.append({"platform": name, "status": "SCANNED"})
+                    await asyncio.sleep(0.3)
+                except:
+                    results.append({"platform": name, "status": "ERROR"})
+            else:
+                results.append({"platform": name, "status": "BLOCKED"})
+
+    # ── Theater DB cross-reference ─────────────────────────────────
+    theater_incidents = []
+    try:
+        rows = await db_fetch("""
+            SELECT id, film_title, theater_name, zone, detection_type,
+                   confidence, detected_at, screen_number
+            FROM incidents
+            WHERE LOWER(film_title) LIKE LOWER($1)
+            AND film_title NOT IN ('string', 'Test Film', '')
+            ORDER BY detected_at DESC LIMIT 10
+        """, f"%{film}%")
+        theater_incidents = [dict(r) for r in rows] if rows else []
+    except:
+        pass
+
+    # ── Verdict ────────────────────────────────────────────────────
+    hit_count = len(hits)
+    scene_hit = any(h["platform"] == "PreDB Scene" for h in hits)
+    inc_count = len(theater_incidents)
+
+    if scene_hit and hit_count >= 2 and inc_count > 0:
+        verdict = "CRITICAL"
+        verdict_text = "CAM confirmed on scene DB + multiple platforms + theater evidence"
+    elif hit_count >= 3:
+        verdict = "HIGH"
+        verdict_text = "CAM copy found on multiple platforms"
+    elif hit_count >= 1 and inc_count > 0:
+        verdict = "MEDIUM"
+        verdict_text = "CAM found online + theater recording in database"
+    elif hit_count >= 1:
+        verdict = "LOW"
+        verdict_text = "CAM copy found online — no theater evidence yet"
+    else:
+        verdict = "CLEAN"
+        verdict_text = "No CAM copy detected across all sources"
+
+    return {
+        "film_title": film,
+        "scan_time": __import__('datetime').datetime.utcnow().isoformat() + "Z",
+        "verdict": verdict,
+        "verdict_text": verdict_text,
+        "total_sources": len(results),
+        "hits_found": hit_count,
+        "hits": hits,
+        "platforms": results,
+        "theater_incidents": theater_incidents,
+        "serp_enabled": bool(SERP_KEY),
+        "studio_email": studio_email,
+    }

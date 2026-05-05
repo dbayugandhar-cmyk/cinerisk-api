@@ -769,7 +769,7 @@ async def run_test(film_title: str = "Mortal Kombat II"):
             ("yts",           scan_yts(film_title, client)),
         ]
         if SERP_API_KEY:
-            tests.append(("serpapi", scan_serp(film_title, client)))
+            tests.append(("whereyouwatch", scan_whereyouwatch(film_title, client)))
 
         results = await asyncio.gather(*[t[1] for t in tests], return_exceptions=True)
 

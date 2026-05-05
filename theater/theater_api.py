@@ -384,30 +384,39 @@ async def gold_scan(request: dict):
         except Exception as e:
             results.append({"platform": "Reddit", "status": "ERROR"})
 
-        # ── YTS API ────────────────────────────────────────────────
-        try:
-            r = await client.get(
-                "https://yts.mx/api/v2/list_movies.json",
-                params={"query_term": film, "quality": "720p"},
-                timeout=10
-            )
-            if r.status_code == 200:
-                movies = r.json().get("data", {}).get("movies", [])
-                for m in movies:
-                    if film.lower()[:6] in m.get("title", "").lower():
-                        for t in m.get("torrents", []):
-                            if has_cam(t.get("quality", "")):
+        # ── YTS + PreDB via SerpApi (bypasses Railway IP blocks) ───
+        for site_name, site_domain in [("YTS", "yts.mx"), ("PreDB", "predb.me")]:
+            if SERP_KEY:
+                try:
+                    r = await client.get(
+                        "https://serpapi.com/search",
+                        params={
+                            "q": f'site:{site_domain} "{film}" CAM OR HDCam OR HDTS',
+                            "api_key": SERP_KEY, "num": 3, "engine": "google"
+                        },
+                        timeout=12
+                    )
+                    if r.status_code == 200:
+                        items = r.json().get("organic_results", [])
+                        if items:
+                            t = items[0].get("title", "")
+                            lnk = items[0].get("link", "")
+                            fw = [w for w in film.lower().split() if len(w) > 2]
+                            if sum(1 for w in fw if w in t.lower()) >= 2 and has_cam(t):
                                 hits.append({
-                                    "platform": "YTS",
-                                    "category": "Torrent",
+                                    "platform": site_name,
+                                    "category": "Torrent" if site_name=="YTS" else "Scene DB",
                                     "quality": "CAM",
-                                    "url": m.get("url", ""),
-                                    "detail": f"YTS: {m['title']}",
+                                    "url": lnk,
+                                    "detail": t[:80],
                                     "severity": "HIGH"
                                 })
-            results.append({"platform": "YTS", "status": "SCANNED"})
-        except:
-            results.append({"platform": "YTS", "status": "ERROR"})
+                    results.append({"platform": site_name, "status": "SCANNED"})
+                    await asyncio.sleep(0.3)
+                except Exception as e:
+                    results.append({"platform": site_name, "status": "ERROR", "detail": str(e)[:50]})
+            else:
+                results.append({"platform": site_name, "status": "BLOCKED"})
 
         # ── Telegram public ────────────────────────────────────────
         tg_hits = 0

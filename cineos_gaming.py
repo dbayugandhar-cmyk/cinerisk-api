@@ -153,8 +153,18 @@ async def scan_ddg_gaming(game: str,
                                "kotaku", "polygon", "eurogamer", "gamespot",
                                "wikipedia", "twitter", "facebook", "instagram"]
                 is_legit = any(s in url.lower() for s in legit_sites)
-                
-                if game_ok and actual_crack and not is_legit:
+
+                # Critical: game name must appear in title OR URL path
+                # Not just on homepage of crack site
+                game_in_title = sum(1 for w in gw if w in title.lower()) >= min(1, len(gw))
+                game_in_url = sum(1 for w in gw if w in url.lower()) >= min(1, len(gw))
+                game_specific = game_in_title or game_in_url
+
+                # Reject homepage URLs with no game-specific path
+                is_homepage = url.rstrip('/').count('/') <= 2
+
+                if (game_ok and actual_crack and not is_legit
+                        and game_specific and not is_homepage):
                     if not any(r.url == url for r in results):
                         group = detect_crack_group(combined)
                         results.append(GameResult(

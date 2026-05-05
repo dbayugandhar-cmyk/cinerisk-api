@@ -492,19 +492,19 @@ async def gold_scan(request: dict):
 
     if scene_hit and hit_count >= 2 and inc_count > 0:
         verdict = "CRITICAL"
-        verdict_text = "CAM confirmed on scene DB + multiple platforms + theater evidence"
-    elif hit_count >= 3:
+        verdict_text = "CAM confirmed: scene DB + platforms + theater seat evidence"
+    elif scene_hit or hit_count >= 2:
         verdict = "HIGH"
-        verdict_text = "CAM copy found on multiple platforms"
+        verdict_text = "CAM copy confirmed on multiple platforms"
     elif hit_count >= 1 and inc_count > 0:
-        verdict = "MEDIUM"
-        verdict_text = "CAM found online + theater recording in database"
+        verdict = "HIGH"
+        verdict_text = "CAM confirmed online + theater recording in database"
     elif hit_count >= 1:
-        verdict = "LOW"
-        verdict_text = "CAM copy found online — no theater evidence yet"
+        verdict = "CONFIRMED"
+        verdict_text = "CAM copy found online. Issue DMCA immediately."
     else:
         verdict = "CLEAN"
-        verdict_text = "No CAM copy detected across all sources"
+        verdict_text = "No CAM copy detected across all 21 sources"
 
     return {
         "film_title": film,

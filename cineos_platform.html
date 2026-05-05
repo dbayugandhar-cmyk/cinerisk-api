@@ -235,6 +235,7 @@
   .tab-india.active { color: var(--accent4); border-bottom-color: var(--accent4); }
   .tab-gaming.active { color: var(--accent3); border-bottom-color: var(--accent3); }
   .tab-manga.active { color: #ff66cc; border-bottom-color: #ff66cc; }
+  .tab-music.active { color: #ffcc00; border-bottom-color: #ffcc00; }
 
   /* Panel */
   .panel { display: none; }
@@ -609,6 +610,7 @@
     <button class="tab tab-india" onclick="switchTab('india')">🎥 India Cinema</button>
     <button class="tab tab-gaming" onclick="switchTab('gaming')">🎮 Gaming</button>
     <button class="tab tab-manga" onclick="switchTab('manga')">📚 Manga & Publishing</button>
+    <button class="tab tab-music" onclick="switchTab('music')">🎵 Music</button>
   </div>
 
   <!-- FILM PANEL -->
@@ -872,6 +874,74 @@
     </div>
   </div>
 </main>
+
+  <!-- MUSIC PANEL -->
+  <div class="panel" id="panel-music">
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:#ffcc00">28+</div>
+        <div class="mini-stat-label">Platforms</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent2)" id="musicHits">—</div>
+        <div class="mini-stat-label">Hits Found</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:#ffcc00">$19</div>
+        <div class="mini-stat-label">Per Month</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent4)">13.9B</div>
+        <div class="mini-stat-label">Piracy Visits/Year</div>
+      </div>
+    </div>
+    <div class="search-section">
+      <div class="search-title" style="color:#ffcc00">⚡ Scan Any Song or Album</div>
+      <div class="search-row">
+        <input class="search-input" id="musicTitle" type="text"
+               placeholder="Song/Album title e.g. Blinding Lights..."
+               onkeydown="if(event.key==='Enter')scanMusic()">
+        <input class="search-input" id="musicArtist" type="text"
+               placeholder="Artist name e.g. The Weeknd..."
+               style="max-width:250px"
+               onkeydown="if(event.key==='Enter')scanMusic()">
+        <button class="btn" style="background:#ffcc00;color:#000;font-weight:700" onclick="scanMusic()">Scan</button>
+        <button class="btn btn-secondary" onclick="clearMusic()">Clear</button>
+      </div>
+    </div>
+    <div class="results-box" id="musicResults">
+      <div class="results-header">
+        <span class="results-title">Music Scan Results</span>
+        <span class="verdict-badge verdict-scanning" id="musicVerdict">READY</span>
+      </div>
+      <div class="results-body" id="musicResultsBody">
+        <div class="placeholder-text">Scans RuTracker, VK Music, MP3Juices, Telegram, NYAA and 23+ more platforms</div>
+      </div>
+    </div>
+    <div class="search-section">
+      <div class="search-title">🎵 Platforms Monitored</div>
+      <div class="platform-grid">
+        <div class="platform-chip">RuTracker</div>
+        <div class="platform-chip">VK Music</div>
+        <div class="platform-chip">MP3Juices</div>
+        <div class="platform-chip">MP3Skull</div>
+        <div class="platform-chip">Y2Mate</div>
+        <div class="platform-chip">NYAA Music</div>
+        <div class="platform-chip">1337x Music</div>
+        <div class="platform-chip">Telegram</div>
+        <div class="platform-chip">Zaycev.net</div>
+        <div class="platform-chip">SongsPK</div>
+        <div class="platform-chip">DJPunjab</div>
+        <div class="platform-chip">PagalWorld</div>
+        <div class="platform-chip">MrJatt</div>
+        <div class="platform-chip">TorrentGalaxy</div>
+        <div class="platform-chip">Internet Archive</div>
+        <div class="platform-chip">FreeMP3Cloud</div>
+        <div class="platform-chip">BeeMP3</div>
+        <div class="platform-chip">MP3Clan</div>
+      </div>
+    </div>
+  </div>
 
 <footer>
   <div class="footer-left">
@@ -1179,6 +1249,62 @@ function clearManga() {
   document.getElementById('mangaVerdict').className = 'verdict-badge verdict-scanning';
   document.getElementById('mangaVerdict').textContent = 'READY';
   document.getElementById('mangaHits').textContent = '—';
+}
+
+// Music scan
+async function scanMusic() {
+  const title = document.getElementById('musicTitle').value.trim();
+  const artist = document.getElementById('musicArtist').value.trim();
+  if (!title) return;
+
+  const body = document.getElementById('musicResultsBody');
+  const verdict = document.getElementById('musicVerdict');
+
+  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.textContent = 'SCANNING';
+  body.innerHTML = `<div class="scanning-text">Scanning 28+ platforms for "${artist} - ${title}" <span class="dot-anim"></span></div>`;
+
+  try {
+    const r = await fetch(`${API}/theater/gold_scan`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({film_title: `${artist} ${title}`})
+    });
+    const d = await r.json();
+    document.getElementById('musicHits').textContent = d.hits_found || 0;
+    const isClean = d.verdict && d.verdict.includes('CLEAN');
+    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
+    verdict.textContent = isClean ? 'CLEAN' : 'PIRACY DETECTED';
+
+    if (!d.hits || d.hits.length === 0) {
+      body.innerHTML = `<div style="text-align:center;padding:2rem">
+        <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
+        <div style="color:var(--text2);font-size:0.85rem">"${title}" — No piracy detected on music platforms</div>
+      </div>`;
+    } else {
+      body.innerHTML = d.hits.map(h => `
+        <div class="hit-card" style="border-color:rgba(255,204,0,0.3);background:rgba(255,204,0,0.05)">
+          <div class="hit-platform" style="color:#ffcc00">${h.platform}</div>
+          <div>
+            <div class="hit-detail">${h.detail || 'Piracy detected'}</div>
+            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
+          </div>
+          <div class="hit-quality" style="background:rgba(255,204,0,0.15);color:#ffcc00">MP3</div>
+        </div>`).join('');
+    }
+  } catch(e) {
+    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
+  }
+}
+
+function clearMusic() {
+  document.getElementById('musicTitle').value = '';
+  document.getElementById('musicArtist').value = '';
+  document.getElementById('musicResultsBody').innerHTML =
+    '<div class="placeholder-text">Scans RuTracker, VK Music, MP3Juices, Telegram, NYAA and 23+ more platforms</div>';
+  document.getElementById('musicVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('musicVerdict').textContent = 'READY';
+  document.getElementById('musicHits').textContent = '—';
 }
 
 // Init

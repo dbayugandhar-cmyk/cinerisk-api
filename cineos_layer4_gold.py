@@ -98,7 +98,7 @@ CAM_KEYWORDS = [
     "camcorder", "theater rip", "cinema rip", "hd-cam",
     "cam-rip", "cam.rip", "hd.cam", "hd.ts",
     "source: camera", "cinemacity", "cam rip", "hdcam-rip",
-    "recorded in cinema", "theater recording"
+    "recorded in cinema", "theater recording", "line audio", "cam with line", "source: camera"
 ]
 
 def contains_cam(text: str) -> bool:

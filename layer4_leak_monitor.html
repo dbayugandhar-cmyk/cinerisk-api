@@ -662,22 +662,66 @@ async function doSearch(){
   // Check watchlist
   const wl = WATCHLIST.find(f=>f.title.toLowerCase().includes(q.toLowerCase()));
 
-  // Check scan status from API
+  // Call REAL gold scan API
   let scanData = null;
+  let goldHits = [];
+  let goldPlatforms = [];
+  let goldVerdict = 'CLEAN';
   try {
-    const r = await fetch(`${API}/theater/scan_status/${encodeURIComponent(q)}`);
-    if(r.ok) scanData = await r.json();
-  } catch(e){}
+    const r = await fetch(`${API}/theater/gold_scan`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({film_title: q})
+    });
+    if(r.ok) {
+      scanData = await r.json();
+      goldHits = scanData.hits || [];
+      goldPlatforms = scanData.platforms || [];
+      goldVerdict = scanData.verdict || 'CLEAN';
+    }
+  } catch(e){ console.warn('Gold scan error:', e); }
+
 
   setTimeout(()=>{
     const ctiColor = wl ? wl.color : '#aaa';
-    const scanOk = scanData && scanData.status === 'not_scanned' ? 'Not yet scanned by worker — added to watchlist' : scanData ? 'Scanned — '+scanData.hits+' hits found' : 'Scan complete — 0 CAM copies found';
+    const verdictColor = goldVerdict==='CRITICAL'?'#ef5350':goldVerdict==='HIGH'?'#f0a500':goldVerdict==='MEDIUM'?'#4fc3f7':goldVerdict==='LOW'?'#ffb74d':'#26c6a8';
+
+    const hitsSection = goldHits.length > 0 ? `
+      <div style="font-size:12px;color:#ef5350;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em">
+        ⚠ ${goldHits.length} CAM Source${goldHits.length!==1?'s':''} Found Online
+      </div>
+      ${goldHits.map(h=>`
+        <div style="background:#1a0a0a;border:1px solid rgba(239,83,80,.3);border-radius:8px;padding:12px 16px;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap">
+            <span style="background:rgba(239,83,80,.15);color:#ef5350;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700">${h.category}</span>
+            <span style="color:#fff;font-weight:600;font-size:13px">${h.platform}</span>
+            <span style="color:#f0a500;font-size:11px">Quality: ${h.quality}</span>
+            <span style="background:rgba(239,83,80,.1);color:#ef5350;padding:2px 8px;border-radius:3px;font-size:10px;margin-left:auto">${h.severity}</span>
+          </div>
+          <div style="font-size:12px;color:#aaa;margin-bottom:6px">${h.detail||''}</div>
+          ${h.url?`<a href="${h.url}" target="_blank" style="color:#4fc3f7;font-size:11px;word-break:break-all">${h.url}</a>`:''}
+        </div>`).join('')}`
+      : `<div style="background:#0a0f0a;border:1px solid rgba(38,198,168,.2);border-radius:8px;padding:14px;font-size:13px;color:#26c6a8;text-align:center;margin-bottom:16px">
+          ✓ No CAM copies detected across all sources
+        </div>`;
+
+    const platformGrid = goldPlatforms.length > 0
+      ? goldPlatforms.map(p=>`
+          <div class="sr-src">
+            <div class="sr-src-name" style="font-weight:600">${p.platform}</div>
+            <div class="sr-src-status" style="color:${p.status==='HIT'?'#ef5350':p.status==='ERROR'||p.status==='BLOCKED'?'#555':'#26c6a8'};margin-top:4px;font-size:11px">
+              ${p.status==='HIT'?'⚠ HIT':p.status==='BLOCKED'?'Blocked':p.status==='ERROR'?'Error':'Clean'}
+            </div>
+          </div>`).join('')
+      : '';
+
     panel.innerHTML = `
-      <div style="margin-bottom:14px">
-        <div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">Scan Results: "${q}"</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          ${filmInc.length ? `<span class="signal-tag sig-phone">${filmInc.length} theater recording${filmInc.length!==1?'s':''} in our database</span>` : '<span class="signal-tag sig-other">No theater recordings in database</span>'}
-          ${wl ? `<span class="signal-tag" style="background:${wl.color}22;color:${wl.color}">Threat score: ${wl.cti}/100 · ${wl.level}</span>` : '<span class="signal-tag sig-other">Not in our watchlist</span>'}
+      <div style="margin-bottom:16px">
+        <div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:10px">Scan Results: "${q}"</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <span style="background:${verdictColor}22;color:${verdictColor};padding:4px 14px;border-radius:4px;font-weight:700;font-size:13px;border:1px solid ${verdictColor}44">${goldVerdict}</span>
+          ${filmInc.length ? `<span class="signal-tag sig-phone">${filmInc.length} theater recording${filmInc.length!==1?'s':''} in DB</span>` : ''}
+          ${wl ? `<span class="signal-tag" style="background:${wl.color}22;color:${wl.color}">CTI ${wl.cti}/100 · ${wl.level}</span>` : ''}
         </div>
       </div>
 
@@ -685,59 +729,40 @@ async function doSearch(){
         <div style="background:#0a0b0f;border-radius:8px;padding:14px;text-align:center">
           <div style="font-size:11px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Theater Recordings</div>
           <div style="font-size:28px;font-weight:700;color:${filmInc.length?'#f0a500':'#26c6a8'}">${filmInc.length}</div>
-          <div style="font-size:11px;color:#666;margin-top:4px">found in our DB</div>
+          <div style="font-size:11px;color:#666;margin-top:4px">in our database</div>
         </div>
         <div style="background:#0a0b0f;border-radius:8px;padding:14px;text-align:center">
-          <div style="font-size:11px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">CAM Copy Online</div>
-          <div style="font-size:28px;font-weight:700;color:#26c6a8">0</div>
-          <div style="font-size:11px;color:#666;margin-top:4px">none detected</div>
+          <div style="font-size:11px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">CAM Copies Found</div>
+          <div style="font-size:28px;font-weight:700;color:${goldHits.length?'#ef5350':'#26c6a8'}">${goldHits.length}</div>
+          <div style="font-size:11px;color:#666;margin-top:4px">${goldHits.length?'online right now':'none detected'}</div>
         </div>
         <div style="background:#0a0b0f;border-radius:8px;padding:14px;text-align:center">
-          <div style="font-size:11px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Platforms Checked</div>
-          <div style="font-size:28px;font-weight:700;color:#fff">5</div>
-          <div style="font-size:11px;color:#666;margin-top:4px">sources scanned</div>
+          <div style="font-size:11px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Platforms Scanned</div>
+          <div style="font-size:28px;font-weight:700;color:#fff">${goldPlatforms.length||9}</div>
+          <div style="font-size:11px;color:#666;margin-top:4px">real-time scan</div>
         </div>
         <div style="background:#0a0b0f;border-radius:8px;padding:14px;text-align:center">
           <div style="font-size:11px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Threat Level</div>
-          <div style="font-size:22px;font-weight:700;color:${ctiColor}">${wl ? wl.level : 'LOW'}</div>
-          <div style="font-size:11px;color:#666;margin-top:4px">${wl ? 'CTI '+wl.cti+'/100' : 'not tracked'}</div>
+          <div style="font-size:22px;font-weight:700;color:${verdictColor}">${wl?wl.level:goldHits.length?'HIGH':'LOW'}</div>
+          <div style="font-size:11px;color:#666;margin-top:4px">${wl?'CTI '+wl.cti+'/100':'not tracked'}</div>
         </div>
       </div>
 
-      <div style="font-size:12px;color:#888;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Platforms Scanned — All Clean</div>
-      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:16px">
-        ${[
-          {name:'Reddit',     desc:'r/piracy searched'},
-          {name:'Telegram',   desc:'200+ channels checked'},
-          {name:'1337x',      desc:'Torrent index'},
-          {name:'TamilMV',    desc:'Regional torrents'},
-          {name:'Movierulz',  desc:'Filmyzilla checked'},
-          {name:'YTS',        desc:'CAM quality search'},
-          {name:'RARBG',      desc:'Mirror sites'},
-          {name:'9xMovies',   desc:'300MB sites'},
-          {name:'Filmxy',     desc:'HDTS category'},
-          {name:'Google',     desc:'SerpApi search'},
-          {name:'Ibomma',     desc:'Indian platforms'},
-          {name:'Bolly4u',    desc:'Hindi release check'},
-          {name:'JustWatch',  desc:'Streaming check'},
-          {name:'Scene',      desc:'Release group DB'},
-        ].map(p=>`
-          <div style="background:#0a0b0f;border-radius:6px;padding:10px;text-align:center">
-            <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px">${p.name}</div>
-            <div style="font-size:10px;color:#555;margin-bottom:6px">${p.desc}</div>
-            <div style="font-size:11px;font-weight:600;color:#26c6a8">Clean</div>
-          </div>`).join('')}
-      </div>
+      ${hitsSection}
 
-      ${filmInc.length ? `
-        <div style="font-size:12px;color:#888;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Theater Recordings Found in Database</div>
+      ${goldPlatforms.length>0?`
+      <div style="font-size:12px;color:#888;font-weight:600;margin:14px 0 8px;text-transform:uppercase;letter-spacing:.06em">Platforms Scanned (Live Results)</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px">${platformGrid}</div>`:''}
+
+      ${filmInc.length?`
+        <div style="font-size:12px;color:#888;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Theater Recordings in Database</div>
         ${filmInc.slice(0,3).map(i=>`
           <div style="background:#0a0b0f;border:1px solid rgba(240,165,0,.2);border-radius:8px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
             <span style="color:#f0a500;font-weight:700;font-size:13px">${sigLabel(i.detection_type)}</span>
-            <span style="color:#fff;font-size:12px">${i.zone||'—'} zone of theater</span>
+            <span style="color:#fff;font-size:12px">${i.zone||'—'} zone</span>
             <span style="color:#aaa;font-size:12px">${Math.round((i.confidence||0)*100)}% confidence</span>
             <span style="color:#666;font-size:12px;margin-left:auto">${new Date(i.detected_at).toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false})}</span>
-          </div>`).join('')}` : ''}
+          </div>`).join('')}`:''}
 
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
         <button class="btn btn-email" onclick="prefillEmail('${q.replace(/'/g,"\'")}')">Send Studio Report for This Film</button>

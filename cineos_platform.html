@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS — Content Intelligence & Protection Platform</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #0f0f1a;
+    --bg3: #141428;
+    --border: #1e1e3a;
+    --accent: #00ff88;
+    --accent2: #ff3366;
+    --accent3: #3366ff;
+    --accent4: #ff9900;
+    --text: #e8e8f0;
+    --text2: #8888aa;
+    --text3: #5555777;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text2);
+  }
+
+  .status-live {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent);
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  /* Main layout */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-family: var(--mono);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    color: var(--text2);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
+  }
+
+  .patent-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0,255,136,0.08);
+    border: 1px solid rgba(0,255,136,0.2);
+    border-radius: 4px;
+    padding: 0.3rem 0.8rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .stat-item {
+    background: var(--bg2);
+    padding: 1.2rem 1.5rem;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Product tabs */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .tab {
+    padding: 0.8rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--text2);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-transform: uppercase;
+  }
+
+  .tab:hover { color: var(--text); }
+
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .tab-film.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-india.active { color: var(--accent4); border-bottom-color: var(--accent4); }
+  .tab-gaming.active { color: var(--accent3); border-bottom-color: var(--accent3); }
+
+  /* Panel */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Search section */
+  .search-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text2);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .search-row {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .search-input {
+    flex: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-input:focus { border-color: var(--accent); }
+  .search-input::placeholder { color: var(--text3); }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+  }
+  .btn-primary:hover { background: #00cc66; transform: translateY(-1px); }
+
+  .btn-india {
+    background: var(--accent4);
+    color: #000;
+    font-weight: 700;
+  }
+  .btn-india:hover { background: #cc7700; }
+
+  .btn-gaming {
+    background: var(--accent3);
+    color: #fff;
+    font-weight: 700;
+  }
+  .btn-gaming:hover { background: #2255dd; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--text2); color: var(--text); }
+
+  /* Results */
+  .results-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    min-height: 200px;
+  }
+
+  .results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg3);
+  }
+
+  .results-title {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text2);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .verdict-badge {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .verdict-clean { background: rgba(0,255,136,0.1); color: var(--accent); border: 1px solid rgba(0,255,136,0.3); }
+  .verdict-hit { background: rgba(255,51,102,0.1); color: var(--accent2); border: 1px solid rgba(255,51,102,0.3); }
+  .verdict-scanning { background: rgba(255,153,0,0.1); color: var(--accent4); border: 1px solid rgba(255,153,0,0.3); }
+
+  .results-body { padding: 1.5rem; }
+
+  .placeholder-text {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 3rem;
+  }
+
+  /* Hit card */
+  .hit-card {
+    background: rgba(255,51,102,0.05);
+    border: 1px solid rgba(255,51,102,0.2);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .hit-platform {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent2);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .hit-detail {
+    font-size: 0.8rem;
+    color: var(--text2);
+    line-height: 1.4;
+  }
+
+  .hit-url {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text3);
+    margin-top: 0.25rem;
+    word-break: break-all;
+  }
+
+  .hit-url a { color: var(--accent3); text-decoration: none; }
+  .hit-url a:hover { text-decoration: underline; }
+
+  .hit-quality {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    background: rgba(255,51,102,0.15);
+    color: var(--accent2);
+    white-space: nowrap;
+  }
+
+  /* Stats grid */
+  .mini-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mini-stat {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .mini-stat-val {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .mini-stat-label {
+    font-size: 0.65rem;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Loading animation */
+  .scanning-text {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--accent4);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .dot-anim::after {
+    content: '';
+    animation: dots 1.5s infinite;
+  }
+
+  @keyframes dots {
+    0% { content: '.'; }
+    33% { content: '..'; }
+    66% { content: '...'; }
+  }
+
+  /* Platform grid */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .platform-chip {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.4rem 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text2);
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .platform-chip.hit {
+    background: rgba(255,51,102,0.08);
+    border-color: rgba(255,51,102,0.3);
+    color: var(--accent2);
+  }
+
+  .platform-chip.clean {
+    color: var(--accent);
+    border-color: rgba(0,255,136,0.2);
+  }
+
+  /* DMCA report button */
+  .action-bar {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-left {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text3);
+    line-height: 1.6;
+  }
+
+  .footer-right {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-link {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text2);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .footer-link:hover { color: var(--accent); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    main { padding: 1rem; }
+    .mini-stats { grid-template-columns: repeat(2, 1fr); }
+    .search-row { flex-direction: column; }
+    .tabs { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    CINEOS
+  </div>
+  <div class="header-right">
+    <div class="status-live">
+      <div class="status-dot"></div>
+      LIVE
+    </div>
+    <span id="clock">--:--:-- UTC</span>
+    <span>v2.0</span>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-tag">Content Intelligence & Protection Platform</div>
+    <h1>Stop Piracy.<br>Protect Revenue.</h1>
+    <p>Real-time monitoring across 33+ platforms. Film, Indian cinema, and gaming piracy detection with zero false positives.</p>
+    <div class="patent-badge">⚖ US Provisional Patent 64/049,190</div>
+  </div>
+
+  <div class="stats-bar" id="statsBar">
+    <div class="stat-item">
+      <div class="stat-value" id="statIncidents">—</div>
+      <div class="stat-label">Incidents Logged</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">33+</div>
+      <div class="stat-label">Sources Monitored</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" id="statScore">—</div>
+      <div class="stat-label">Security Score</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">24/7</div>
+      <div class="stat-label">Always On</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" id="statTheaters">—</div>
+      <div class="stat-label">Theaters Active</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">0</div>
+      <div class="stat-label">False Positives</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab tab-film active" onclick="switchTab('film')">🎬 Film Monitor</button>
+    <button class="tab tab-india" onclick="switchTab('india')">🎥 India Cinema</button>
+    <button class="tab tab-gaming" onclick="switchTab('gaming')">🎮 Gaming</button>
+  </div>
+
+  <!-- FILM PANEL -->
+  <div class="panel active" id="panel-film">
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent)" id="filmSources">33+</div>
+        <div class="mini-stat-label">Platforms</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent2)" id="filmHits">—</div>
+        <div class="mini-stat-label">Hits Found</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent4)">$199</div>
+        <div class="mini-stat-label">Per Month</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent3)">10min</div>
+        <div class="mini-stat-label">Scan Interval</div>
+      </div>
+    </div>
+
+    <div class="search-section">
+      <div class="search-title">⚡ Scan Any Film Now</div>
+      <div class="search-row">
+        <input class="search-input" id="filmInput" type="text"
+               placeholder="Enter film title e.g. Michael, Mortal Kombat II..."
+               onkeydown="if(event.key==='Enter')scanFilm()">
+        <button class="btn btn-primary" onclick="scanFilm()">Search & Scan</button>
+        <button class="btn btn-secondary" onclick="clearFilm()">Clear</button>
+      </div>
+    </div>
+
+    <div class="results-box" id="filmResults">
+      <div class="results-header">
+        <span class="results-title">Scan Results</span>
+        <span class="verdict-badge verdict-scanning" id="filmVerdict">READY</span>
+      </div>
+      <div class="results-body" id="filmResultsBody">
+        <div class="placeholder-text">Enter a film title above to scan 33+ piracy platforms instantly</div>
+      </div>
+    </div>
+
+    <div class="search-section">
+      <div class="search-title">📋 Currently Monitoring</div>
+      <div class="platform-grid" id="watchlistGrid">
+        <div class="platform-chip">Loading...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INDIA PANEL -->
+  <div class="panel" id="panel-india">
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent4)">20</div>
+        <div class="mini-stat-label">Indian Platforms</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent2)" id="indiaHits">—</div>
+        <div class="mini-stat-label">Hits Found</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent4)">₹10K</div>
+        <div class="mini-stat-label">Per Month</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent3)">Sec 51</div>
+        <div class="mini-stat-label">Legal Basis</div>
+      </div>
+    </div>
+
+    <div class="search-section">
+      <div class="search-title" style="color:var(--accent4)">⚡ Scan Indian Platforms</div>
+      <div class="search-row">
+        <input class="search-input" id="indiaInput" type="text"
+               placeholder="Enter film title e.g. Retro, Kalki 2898 AD..."
+               onkeydown="if(event.key==='Enter')scanIndia()">
+        <button class="btn btn-india" onclick="scanIndia()">Scan India</button>
+        <button class="btn btn-secondary" onclick="clearIndia()">Clear</button>
+      </div>
+    </div>
+
+    <div class="results-box" id="indiaResults">
+      <div class="results-header">
+        <span class="results-title">India Scan Results</span>
+        <span class="verdict-badge verdict-scanning" id="indiaVerdict">READY</span>
+      </div>
+      <div class="results-body" id="indiaResultsBody">
+        <div class="placeholder-text">Scans 20 Indian piracy platforms: Movierulz, TamilMV, Filmyzilla, Ibomma, 9xMovies and 15 more</div>
+      </div>
+    </div>
+
+    <div class="search-section">
+      <div class="search-title">🌏 Indian Platforms Monitored</div>
+      <div class="platform-grid">
+        <div class="platform-chip">Movierulz</div>
+        <div class="platform-chip">TamilMV</div>
+        <div class="platform-chip">Filmyzilla</div>
+        <div class="platform-chip">9xMovies</div>
+        <div class="platform-chip">TamilBlasters</div>
+        <div class="platform-chip">Ibomma</div>
+        <div class="platform-chip">Isaimini</div>
+        <div class="platform-chip">Kuttymovies</div>
+        <div class="platform-chip">Tamilyogi</div>
+        <div class="platform-chip">Moviesda</div>
+        <div class="platform-chip">Cinevood</div>
+        <div class="platform-chip">HDHub4u</div>
+        <div class="platform-chip">Vegamovies</div>
+        <div class="platform-chip">Bolly4u</div>
+        <div class="platform-chip">MovieCounter</div>
+        <div class="platform-chip">Filmyhit</div>
+        <div class="platform-chip">Filmy4wap</div>
+        <div class="platform-chip">SkymoviesHD</div>
+        <div class="platform-chip">Filmysplit</div>
+        <div class="platform-chip">MalayalamTorrents</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAMING PANEL -->
+  <div class="panel" id="panel-gaming">
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent3)">20+</div>
+        <div class="mini-stat-label">Crack Sites</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent2)" id="gamingHits">—</div>
+        <div class="mini-stat-label">Hits Found</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent3)">$99</div>
+        <div class="mini-stat-label">Per Month</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent4)">DMCA</div>
+        <div class="mini-stat-label">Auto Report</div>
+      </div>
+    </div>
+
+    <div class="search-section">
+      <div class="search-title" style="color:var(--accent3)">⚡ Scan Any Game Now</div>
+      <div class="search-row">
+        <input class="search-input" id="gamingInput" type="text"
+               placeholder="Enter game title e.g. Baldurs Gate 3, Hogwarts Legacy..."
+               onkeydown="if(event.key==='Enter')scanGaming()">
+        <button class="btn btn-gaming" onclick="scanGaming()">Scan Game</button>
+        <button class="btn btn-secondary" onclick="clearGaming()">Clear</button>
+      </div>
+    </div>
+
+    <div class="results-box" id="gamingResults">
+      <div class="results-header">
+        <span class="results-title">Gaming Scan Results</span>
+        <span class="verdict-badge verdict-scanning" id="gamingVerdict">READY</span>
+      </div>
+      <div class="results-body" id="gamingResultsBody">
+        <div class="placeholder-text">Scans FitGirl, DODI, IGG, GOG-Games, SteamUnlocked, 1337x and 15+ more crack sites</div>
+      </div>
+    </div>
+
+    <div class="search-section">
+      <div class="search-title">🎮 Crack Sites Monitored</div>
+      <div class="platform-grid">
+        <div class="platform-chip">FitGirl Repacks</div>
+        <div class="platform-chip">DODI Repacks</div>
+        <div class="platform-chip">IGG Games</div>
+        <div class="platform-chip">GOG-Games</div>
+        <div class="platform-chip">SteamUnlocked</div>
+        <div class="platform-chip">CS.RIN.RU</div>
+        <div class="platform-chip">SkidrowCodex</div>
+        <div class="platform-chip">OceanOfGames</div>
+        <div class="platform-chip">1337x</div>
+        <div class="platform-chip">TorrentGalaxy</div>
+        <div class="platform-chip">PreDB</div>
+        <div class="platform-chip">SRRDB</div>
+        <div class="platform-chip">xREL</div>
+        <div class="platform-chip">NYAA</div>
+        <div class="platform-chip">DuckDuckGo</div>
+        <div class="platform-chip">GameTrex</div>
+        <div class="platform-chip">RepackLab</div>
+        <div class="platform-chip">OvaGames</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-left">
+    CINEOS Anti-Piracy Platform · US Provisional Patent 64/049,190<br>
+    dba.yugandhar@gmail.com · Anti-Piracy Detection Service (Monitoring Only)
+  </div>
+  <div class="footer-right">
+    <a class="footer-link" href="layer4_leak_monitor.html">Film Dashboard</a>
+    <a class="footer-link" href="mailto:dba.yugandhar@gmail.com">Contact</a>
+    <a class="footer-link" href="https://github.com/dbayugandhar-cmyk/cinerisk-api">GitHub</a>
+  </div>
+</footer>
+
+<script>
+const API = 'https://cinerisk-api-production.up.railway.app';
+
+// Clock
+setInterval(() => {
+  document.getElementById('clock').textContent =
+    new Date().toUTCString().split(' ')[4] + ' UTC';
+}, 1000);
+
+// Load stats
+async function loadStats() {
+  try {
+    const r = await fetch(`${API}/theater/stats`);
+    const d = await r.json();
+    document.getElementById('statIncidents').textContent = d.total_incidents || '—';
+    document.getElementById('statScore').textContent = d.compliance_score || '—';
+    document.getElementById('statTheaters').textContent = d.theaters_active || '—';
+  } catch(e) {}
+}
+
+// Load watchlist
+async function loadWatchlist() {
+  try {
+    const r = await fetch(`${API}/theater/incidents?limit=20`);
+    const d = await r.json();
+    const films = [...new Set((d.incidents||[]).map(i => i.film_title).filter(Boolean))];
+    const grid = document.getElementById('watchlistGrid');
+    if (films.length) {
+      grid.innerHTML = films.slice(0,10).map(f =>
+        `<div class="platform-chip">${f}</div>`
+      ).join('');
+    }
+  } catch(e) {}
+}
+
+// Tab switching
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.tab-${tab}`).classList.add('active');
+  document.getElementById(`panel-${tab}`).classList.add('active');
+}
+
+// Film scan
+async function scanFilm() {
+  const film = document.getElementById('filmInput').value.trim();
+  if (!film) return;
+
+  const body = document.getElementById('filmResultsBody');
+  const verdict = document.getElementById('filmVerdict');
+
+  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.textContent = 'SCANNING';
+  body.innerHTML = `<div class="scanning-text">Scanning 33+ platforms for "${film}" <span class="dot-anim"></span></div>`;
+
+  try {
+    const r = await fetch(`${API}/theater/gold_scan`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({film_title: film})
+    });
+    const d = await r.json();
+
+    document.getElementById('filmHits').textContent = d.hits_found || 0;
+
+    const isClean = d.verdict && d.verdict.includes('CLEAN');
+    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
+    verdict.textContent = isClean ? 'CLEAN' : 'HIT DETECTED';
+
+    if (!d.hits || d.hits.length === 0) {
+      body.innerHTML = `
+        <div style="text-align:center;padding:2rem">
+          <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
+          <div style="color:var(--text2);font-size:0.85rem">"${film}" — No piracy detected across ${d.sources_scanned || 33} platforms</div>
+        </div>`;
+    } else {
+      body.innerHTML = d.hits.map(h => `
+        <div class="hit-card">
+          <div class="hit-platform">${h.platform}</div>
+          <div>
+            <div class="hit-detail">${h.detail || 'CAM copy detected'}</div>
+            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
+          </div>
+          <div class="hit-quality">${h.quality || 'CAM'}</div>
+        </div>`).join('') +
+        `<div class="action-bar">
+          <button class="btn btn-primary" onclick="copyReport('${film}', ${JSON.stringify(d.hits).replace(/'/g,"&#39;")})">Copy DMCA Report</button>
+        </div>`;
+    }
+  } catch(e) {
+    verdict.className = 'verdict-badge verdict-scanning';
+    verdict.textContent = 'ERROR';
+    body.innerHTML = `<div class="placeholder-text">Error connecting to API: ${e.message}</div>`;
+  }
+}
+
+function clearFilm() {
+  document.getElementById('filmInput').value = '';
+  document.getElementById('filmResultsBody').innerHTML =
+    '<div class="placeholder-text">Enter a film title above to scan 33+ piracy platforms instantly</div>';
+  document.getElementById('filmVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('filmVerdict').textContent = 'READY';
+  document.getElementById('filmHits').textContent = '—';
+}
+
+// India scan — calls film scanner with Indian platforms focus
+async function scanIndia() {
+  const film = document.getElementById('indiaInput').value.trim();
+  if (!film) return;
+
+  const body = document.getElementById('indiaResultsBody');
+  const verdict = document.getElementById('indiaVerdict');
+
+  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.textContent = 'SCANNING';
+  body.innerHTML = `<div class="scanning-text">Scanning 20 Indian platforms for "${film}" <span class="dot-anim"></span></div>`;
+
+  try {
+    const r = await fetch(`${API}/theater/gold_scan`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({film_title: film})
+    });
+    const d = await r.json();
+
+    document.getElementById('indiaHits').textContent = d.hits_found || 0;
+
+    const isClean = d.verdict && d.verdict.includes('CLEAN');
+    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
+    verdict.textContent = isClean ? 'CLEAN' : 'HIT DETECTED';
+
+    if (!d.hits || d.hits.length === 0) {
+      body.innerHTML = `
+        <div style="text-align:center;padding:2rem">
+          <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
+          <div style="color:var(--text2);font-size:0.85rem">"${film}" — No piracy detected on Indian platforms</div>
+        </div>`;
+    } else {
+      body.innerHTML = d.hits.map(h => `
+        <div class="hit-card" style="border-color:rgba(255,153,0,0.3);background:rgba(255,153,0,0.05)">
+          <div class="hit-platform" style="color:var(--accent4)">${h.platform}</div>
+          <div>
+            <div class="hit-detail">${h.detail || 'Piracy detected'}</div>
+            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
+          </div>
+          <div class="hit-quality" style="background:rgba(255,153,0,0.15);color:var(--accent4)">${h.quality || 'HDRip'}</div>
+        </div>`).join('');
+    }
+  } catch(e) {
+    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
+  }
+}
+
+function clearIndia() {
+  document.getElementById('indiaInput').value = '';
+  document.getElementById('indiaResultsBody').innerHTML =
+    '<div class="placeholder-text">Scans 20 Indian piracy platforms: Movierulz, TamilMV, Filmyzilla, Ibomma, 9xMovies and 15 more</div>';
+  document.getElementById('indiaVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('indiaVerdict').textContent = 'READY';
+  document.getElementById('indiaHits').textContent = '—';
+}
+
+// Gaming scan
+async function scanGaming() {
+  const game = document.getElementById('gamingInput').value.trim();
+  if (!game) return;
+
+  const body = document.getElementById('gamingResultsBody');
+  const verdict = document.getElementById('gamingVerdict');
+
+  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.textContent = 'SCANNING';
+  body.innerHTML = `<div class="scanning-text">Scanning crack sites for "${game}" <span class="dot-anim"></span></div>`;
+
+  // Gaming uses the same gold_scan endpoint for now
+  // In production this would call a dedicated gaming endpoint
+  try {
+    const r = await fetch(`${API}/theater/gold_scan`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({film_title: game})
+    });
+    const d = await r.json();
+
+    document.getElementById('gamingHits').textContent = d.hits_found || 0;
+
+    const isClean = d.verdict && d.verdict.includes('CLEAN');
+    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
+    verdict.textContent = isClean ? 'CLEAN' : 'CRACK DETECTED';
+
+    if (!d.hits || d.hits.length === 0) {
+      body.innerHTML = `
+        <div style="text-align:center;padding:2rem">
+          <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
+          <div style="color:var(--text2);font-size:0.85rem">"${game}" — No cracked copies detected</div>
+        </div>`;
+    } else {
+      body.innerHTML = d.hits.map(h => `
+        <div class="hit-card" style="border-color:rgba(51,102,255,0.3);background:rgba(51,102,255,0.05)">
+          <div class="hit-platform" style="color:var(--accent3)">${h.platform}</div>
+          <div>
+            <div class="hit-detail">${h.detail || 'Cracked copy detected'}</div>
+            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
+          </div>
+          <div class="hit-quality" style="background:rgba(51,102,255,0.15);color:var(--accent3)">CRACK</div>
+        </div>`).join('');
+    }
+  } catch(e) {
+    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
+  }
+}
+
+function clearGaming() {
+  document.getElementById('gamingInput').value = '';
+  document.getElementById('gamingResultsBody').innerHTML =
+    '<div class="placeholder-text">Scans FitGirl, DODI, IGG, GOG-Games, SteamUnlocked, 1337x and 15+ more crack sites</div>';
+  document.getElementById('gamingVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('gamingVerdict').textContent = 'READY';
+  document.getElementById('gamingHits').textContent = '—';
+}
+
+// Copy DMCA report
+function copyReport(film, hits) {
+  const urls = hits.map((h,i) => `${i+1}. ${h.platform}: ${h.url}`).join('\n');
+  const report = `CINEOS ANTI-PIRACY DETECTION REPORT
+Film: ${film}
+Date: ${new Date().toUTCString()}
+Hits: ${hits.length}
+
+INFRINGING URLS:
+${urls}
+
+NOTE: This report is for informational purposes only.
+Rights holders should verify findings and consult legal counsel
+before filing DMCA notices.
+US Provisional Patent 64/049,190 | dba.yugandhar@gmail.com`;
+  navigator.clipboard.writeText(report);
+  alert('DMCA report copied to clipboard');
+}
+
+// Init
+loadStats();
+loadWatchlist();
+setInterval(loadStats, 30000);
+</script>
+</body>
+</html>

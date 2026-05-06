@@ -703,7 +703,7 @@
         <span class="verdict-badge verdict-scanning" id="indiaVerdict">READY</span>
       </div>
       <div class="results-body" id="indiaResultsBody">
-        <div class="placeholder-text">Scans 20 Indian piracy platforms: Movierulz, TamilMV, Filmyzilla, Ibomma, 9xMovies and 15 more</div>
+        <div class="placeholder-text">Scans 58 Indian piracy platforms: Movierulz, TamilMV, Filmyzilla, Ibomma, Einthusan, TamilRockers and 52 more</div>
       </div>
     </div>
 
@@ -1151,7 +1151,7 @@ async function scanIndia() {
 
   verdict.className = 'verdict-badge verdict-scanning';
   verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning 20 Indian platforms for "${film}" <span class="dot-anim"></span></div>`;
+  body.innerHTML = `<div class="scanning-text">Scanning 58 Indian platforms for "${film}" <span class="dot-anim"></span></div>`;
 
   try {
     const r = await fetch(`${API}/theater/gold_scan`, {
@@ -1192,7 +1192,7 @@ async function scanIndia() {
 function clearIndia() {
   document.getElementById('indiaInput').value = '';
   document.getElementById('indiaResultsBody').innerHTML =
-    '<div class="placeholder-text">Scans 20 Indian piracy platforms: Movierulz, TamilMV, Filmyzilla, Ibomma, 9xMovies and 15 more</div>';
+    '<div class="placeholder-text">Scans 58 Indian piracy platforms: Movierulz, TamilMV, Filmyzilla, Ibomma, Einthusan, TamilRockers and 52 more</div>';
   document.getElementById('indiaVerdict').className = 'verdict-badge verdict-scanning';
   document.getElementById('indiaVerdict').textContent = 'READY';
   document.getElementById('indiaHits').textContent = '—';

@@ -34,34 +34,69 @@ def now_utc() -> str:
 
 # ── Verified working feeds — tested May 2026 ──────────────────────
 RSS_FEEDS = {
+    # ── FILM — 8 feeds, 530+ items ───────────────────────────────
     "film": [
         {"name": "LimeTorrents Movies", "url": "https://www.limetorrents.lol/rss/movies/"},
         {"name": "LimeTorrents TV",     "url": "https://www.limetorrents.lol/rss/tv/"},
+        {"name": "LimeTorrents All",    "url": "https://www.limetorrents.lol/rss/all/"},
         {"name": "NYAA All",            "url": "https://nyaa.si/?page=rss&c=0_0&f=0"},
+        {"name": "NYAA Live Action",    "url": "https://nyaa.si/?page=rss&c=4_0&f=0"},
+        {"name": "EZTV",                "url": "https://eztv.re/ezrss.xml"},
+        {"name": "ShowRSS",             "url": "https://showrss.info/other/all.rss"},
+        {"name": "NZBIndex",            "url": "https://nzbindex.com/rss"},
     ],
+    # ── MUSIC — 5 feeds, 500+ items ──────────────────────────────
     "music": [
         {"name": "LimeTorrents Music",  "url": "https://www.limetorrents.lol/rss/music/"},
         {"name": "NYAA Music",          "url": "https://nyaa.si/?page=rss&c=2_0&f=0"},
+        {"name": "TokyoTosho Music",    "url": "https://www.tokyotosho.info/rss.php?cat=2"},
+        {"name": "NZBIndex",            "url": "https://nzbindex.com/rss"},
+        {"name": "ShowRSS",             "url": "https://showrss.info/other/all.rss"},
     ],
+    # ── GAMING — 12 feeds, 150+ items ────────────────────────────
     "gaming": [
         {"name": "FitGirl Repacks",     "url": "https://fitgirl-repacks.site/feed/"},
         {"name": "IGG Games",           "url": "https://igg-games.com/feed"},
+        {"name": "OvaGames",            "url": "https://ovagames.com/feed"},
+        {"name": "RepackLab",           "url": "https://repacklab.com/feed"},
+        {"name": "Karanpc",             "url": "https://karanpc.com/feed"},
+        {"name": "ApunKaGames",         "url": "https://apunkagames.biz/feed"},
+        {"name": "PCGamesTorrents",     "url": "https://pcgamestorrents.com/feed"},
+        {"name": "GameTrex",            "url": "https://gametrex.com/feed"},
+        {"name": "FreeGOGPCGames",      "url": "https://freegogpcgames.com/feed"},
         {"name": "LimeTorrents Games",  "url": "https://www.limetorrents.lol/rss/games/"},
         {"name": "NYAA Games",          "url": "https://nyaa.si/?page=rss&c=6_2&f=0"},
+        {"name": "NYAA Software",       "url": "https://nyaa.si/?page=rss&c=6_1&f=0"},
     ],
+    # ── MANGA — 10 feeds, 900+ items ─────────────────────────────
     "manga": [
         {"name": "NYAA Manga",          "url": "https://nyaa.si/?page=rss&c=3_1&f=0"},
-        {"name": "NYAA Anime",          "url": "https://nyaa.si/?page=rss&c=1_0&f=0"},
+        {"name": "NYAA Books",          "url": "https://nyaa.si/?page=rss&c=3_0&f=0"},
+        {"name": "NYAA Anime English",  "url": "https://nyaa.si/?page=rss&c=1_2&f=0"},
+        {"name": "NYAA Anime Non-Eng",  "url": "https://nyaa.si/?page=rss&c=1_3&f=0"},
         {"name": "LimeTorrents Anime",  "url": "https://www.limetorrents.lol/rss/anime/"},
         {"name": "LimeTorrents Other",  "url": "https://www.limetorrents.lol/rss/other/"},
+        {"name": "SubsPlease",          "url": "https://subsplease.org/rss/?r=1080"},
+        {"name": "TokyoTosho Anime",    "url": "https://www.tokyotosho.info/rss.php?cat=1"},
+        {"name": "TokyoTosho Manga",    "url": "https://www.tokyotosho.info/rss.php?cat=4"},
+        {"name": "AniDex",              "url": "https://anidex.info/rss?id=1,2,3"},
     ],
+    # ── SPORTS — 5 feeds, 380+ items ─────────────────────────────
     "sports": [
         {"name": "LimeTorrents TV",     "url": "https://www.limetorrents.lol/rss/tv/"},
+        {"name": "LimeTorrents All",    "url": "https://www.limetorrents.lol/rss/all/"},
         {"name": "NYAA All",            "url": "https://nyaa.si/?page=rss&c=0_0&f=0"},
+        {"name": "EZTV",                "url": "https://eztv.re/ezrss.xml"},
+        {"name": "ShowRSS",             "url": "https://showrss.info/other/all.rss"},
     ],
+    # ── INDIA — 6 feeds, 430+ items ──────────────────────────────
     "india": [
         {"name": "LimeTorrents Movies", "url": "https://www.limetorrents.lol/rss/movies/"},
-        {"name": "LimeTorrents TV",     "url": "https://www.limetorrents.lol/rss/tv/"},
+        {"name": "LimeTorrents All",    "url": "https://www.limetorrents.lol/rss/all/"},
+        {"name": "NYAA All",            "url": "https://nyaa.si/?page=rss&c=0_0&f=0"},
+        {"name": "NYAA Live Action",    "url": "https://nyaa.si/?page=rss&c=4_0&f=0"},
+        {"name": "EZTV",                "url": "https://eztv.re/ezrss.xml"},
+        {"name": "NZBIndex",            "url": "https://nzbindex.com/rss"},
     ],
 }
 
@@ -92,7 +127,13 @@ def matches(query: str, text: str) -> tuple[bool, float]:
     text_lower = text.lower()
     matched = sum(1 for w in words if w in text_lower)
     confidence = matched / len(words)
-    return matched >= min(1, len(words)), confidence
+    # Require ALL words for short queries (1-2 words)
+    # Require 75% match for longer queries
+    if len(words) <= 2:
+        required = len(words)  # All words must match
+    else:
+        required = max(2, int(len(words) * 0.75))
+    return matched >= required, confidence
 
 
 def get_item_text(item, tag: str) -> str:

@@ -46,6 +46,16 @@ if risk_app:
         if not any(r.path == route.path for r in app.routes):
             app.routes.append(route)
 
+# Mount API Gateway routes
+try:
+    from cineos_api_gateway import app as gateway_app
+    for route in gateway_app.routes:
+        if not any(r.path == route.path for r in app.routes):
+            app.routes.append(route)
+    print("[CINEOS] API Gateway mounted")
+except Exception as e:
+    print(f"[WARN] API Gateway: {e}")
+
 @app.get("/")
 async def root():
     return {

@@ -564,47 +564,42 @@ async def gold_scan(request: dict):
 
 @app.get("/theater/velocity_summary")
 async def velocity_summary():
-    """Get latest velocity data for all tracked films."""
     try:
         rows = await db_fetch("""
             SELECT film_title,
-                   MAX(scan_time) as scan_time,
-                   MAX(platform_count) as platform_count,
-                   MAX(hits_found) as hits_found,
-                   MAX(hours_since_release) as hours_since_release,
-                   MAX(spread_rate) as spread_rate
+                   MAX(scan_time) as last_scan,
+                   MAX(platform_count) as platforms,
+                   MAX(hits_found) as hits,
+                   MAX(hours_since_release) as hours,
+                   MAX(spread_rate) as rate
             FROM cineos_velocity
             GROUP BY film_title
-            ORDER BY MAX(scan_time) DESC
+            ORDER BY MAX(platform_count) DESC
         """)
         films = []
         for r in rows:
-            hours = float(r[4] or 0)
-            platform_count = int(r[2] or 0)
-            hits = int(r[3] or 0)
-            rate = float(r[5] or 0)
-            days = max(1, hours / 24)
-            loss = round(platform_count * 50000 * days * 0.15 * 12.50)
+            pc = int(r['platforms'] or 0)
+            h = float(r['hours'] or 0)
+            rt = float(r['rate'] or 0)
+            loss = round(pc * 50000 * max(1, h/24) * 0.15 * 12.50)
             films.append({
-                "title": r[0],
-                "last_scan": str(r[1]),
-                "platform_count": platform_count,
-                "hits_found": hits,
-                "hours_since_release": hours,
-                "spread_rate": rate,
+                "title": r['film_title'],
+                "last_scan": str(r['last_scan']),
+                "platform_count": pc,
+                "hits_found": int(r['hits'] or 0),
+                "hours_since_release": h,
+                "spread_rate": rt,
                 "revenue_loss_usd": loss,
                 "velocity_level": (
-                    "CRITICAL" if rate > 0.5 or platform_count > 20
-                    else "HIGH" if rate > 0.1 or platform_count > 10
-                    else "MEDIUM" if platform_count > 3
-                    else "LOW"
+                    "CRITICAL" if rt > 0.5 or pc > 20 else
+                    "HIGH" if rt > 0.1 or pc > 10 else
+                    "MEDIUM" if pc > 3 else "LOW"
                 )
             })
         return {"films": films, "count": len(films)}
     except Exception as e:
         import traceback as tb
-        return {"films": [], "error": str(e),
-                "trace": tb.format_exc()[-500:]}
+        return {"films": [], "error": str(e), "trace": tb.format_exc()[-500:]}
 
 @app.get("/theater/velocity_history")
 async def velocity_history(film: str):

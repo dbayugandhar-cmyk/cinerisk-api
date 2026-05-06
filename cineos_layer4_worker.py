@@ -47,6 +47,7 @@ import argparse
 from datetime import datetime, timezone, timedelta
 from dataclasses import dataclass, field, asdict
 from typing import Optional
+from cineos_email_alerts import send_piracy_alert, send_daily_summary
 
 logging.basicConfig(
     level=logging.INFO,
@@ -510,41 +511,15 @@ async def send_telegram_alert(result: ScanResult):
 
 
 async def send_email_alert(result: ScanResult):
-    """Send email alert via SendGrid."""
-    if not SENDGRID_API_KEY:
-        return
-    body = f"""
-CINEOS LAYER 4 ALERT — CAM COPY FOUND
-======================================
-Film:        {result.film_title}
-Mode:        {result.mode}
-Scan time:   {result.scan_time[:19]} UTC
-Gap:         {result.gap_minutes} minutes since detection
-Platforms:   {', '.join(result.platforms)}
-First URL:   {result.first_url or 'N/A'}
-Reddit hits: {result.reddit_hits}
-Telegram:    {result.telegram_hits}
-Incident:    {result.incident_id or 'N/A'}
-
-Action: Stage DMCA filing. Cross-reference lens_incidents for seat attribution.
-CINEOS — US Prov. Pat. 64/049,190
-"""
-    try:
-        async with httpx.AsyncClient(timeout=10) as client:
-            r = await client.post(
-                "https://api.sendgrid.com/v3/mail/send",
-                headers={"Authorization": f"Bearer {SENDGRID_API_KEY}",
-                         "Content-Type": "application/json"},
-                json={
-                    "personalizations": [{"to": [{"email": ALERT_EMAIL_TO}]}],
-                    "from": {"email": ALERT_EMAIL_FROM, "name": "CINEOS L4"},
-                    "subject": f"[CINEOS] CAM found — {result.film_title} — {result.gap_minutes}min gap",
-                    "content": [{"type": "text/plain", "value": body}],
-                }
-            )
-            log.info(f"Email {'sent' if r.status_code == 202 else f'error {r.status_code}'}")
-    except Exception as e:
-        log.error(f"Email failed: {e}")
+    """Send email alert via SendGrid — uses cineos_email_alerts module."""
+    platform = result.platforms[0] if result.platforms else "Unknown"
+    send_piracy_alert(
+        film     = result.film_title,
+        platform = platform,
+        url      = result.first_url or "",
+        verdict  = "CONFIRMED" if result.hits_found > 0 else "HIGH",
+        quality  = "CAM",
+    )
 
 
 async def handle_leak_found(result: ScanResult):

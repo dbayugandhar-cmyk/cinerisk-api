@@ -237,6 +237,7 @@
   .tab-manga.active { color: #ff66cc; border-bottom-color: #ff66cc; }
   .tab-music.active { color: #ffcc00; border-bottom-color: #ffcc00; }
   .tab-sports.active { color: #ff6600; border-bottom-color: #ff6600; }
+  .tab-brand.active { color: #cc44ff; border-bottom-color: #cc44ff; }
 
   /* Panel */
   .panel { display: none; }
@@ -613,6 +614,7 @@
     <button class="tab tab-manga" onclick="switchTab('manga')">📚 Manga & Publishing</button>
     <button class="tab tab-music" onclick="switchTab('music')">🎵 Music</button>
     <button class="tab tab-sports" onclick="switchTab('sports')">🏆 Sports</button>
+    <button class="tab tab-brand" onclick="switchTab('brand')">🛡️ Brand Shield</button>
   </div>
 
   <!-- FILM PANEL -->
@@ -891,6 +893,64 @@
     </div>
   </div>
 </main>
+
+  <!-- BRAND SHIELD PANEL -->
+  <div class="panel" id="panel-brand">
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:#cc44ff">5</div>
+        <div class="mini-stat-label">Threat Types</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent2)" id="brandThreats">—</div>
+        <div class="mini-stat-label">Threats Found</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:#cc44ff">$49</div>
+        <div class="mini-stat-label">Per Month</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent4)">$4.2T</div>
+        <div class="mini-stat-label">Lost to Fakes/Year</div>
+      </div>
+    </div>
+    <div class="search-section">
+      <div class="search-title" style="color:#cc44ff">🛡️ Scan Any Brand</div>
+      <div class="search-row">
+        <input class="search-input" id="brandInput" type="text"
+               placeholder="e.g. Netflix, Sony, Nike, your brand name..."
+               onkeydown="if(event.key==='Enter')scanBrand()">
+        <button class="btn" style="background:#cc44ff;color:#fff;font-weight:700" onclick="scanBrand()">Scan</button>
+        <button class="btn btn-secondary" onclick="clearBrand()">Clear</button>
+      </div>
+    </div>
+    <div class="results-box" id="brandResults">
+      <div class="results-header">
+        <span class="results-title">Brand Abuse Detection</span>
+        <span class="verdict-badge verdict-scanning" id="brandVerdict">READY</span>
+      </div>
+      <div class="results-body" id="brandResultsBody">
+        <div class="placeholder-text">Detects piracy site abuse, social media impersonation, fake apps, domain squatting, phishing ads</div>
+      </div>
+    </div>
+    <div class="search-section">
+      <div class="search-title">🛡️ What We Detect</div>
+      <div class="platform-grid">
+        <div class="platform-chip">Piracy Site Abuse</div>
+        <div class="platform-chip">Social Impersonation</div>
+        <div class="platform-chip">Fake Apps</div>
+        <div class="platform-chip">Domain Squatting</div>
+        <div class="platform-chip">Phishing Ads</div>
+        <div class="platform-chip">Instagram Fakes</div>
+        <div class="platform-chip">TikTok Clones</div>
+        <div class="platform-chip">Facebook Fakes</div>
+        <div class="platform-chip">Telegram Abuse</div>
+        <div class="platform-chip">APKPure Fakes</div>
+        <div class="platform-chip">HappyMod Clones</div>
+        <div class="platform-chip">Google Ads Phishing</div>
+      </div>
+    </div>
+  </div>
 
   <!-- SPORTS PANEL -->
   <div class="panel" id="panel-sports">
@@ -1330,6 +1390,59 @@ function clearManga() {
   document.getElementById('mangaVerdict').className = 'verdict-badge verdict-scanning';
   document.getElementById('mangaVerdict').textContent = 'READY';
   document.getElementById('mangaHits').textContent = '—';
+}
+
+// Brand scan
+async function scanBrand() {
+  const brand = document.getElementById('brandInput').value.trim();
+  if (!brand) return;
+  const body = document.getElementById('brandResultsBody');
+  const verdict = document.getElementById('brandVerdict');
+  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.textContent = 'SCANNING';
+  body.innerHTML = `<div class="scanning-text">Scanning for brand abuse: "${brand}" <span class="dot-anim"></span></div>`;
+  try {
+    const r = await fetch(`${API}/theater/brand_scan`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({brand_name: brand})
+    });
+    const d = await r.json();
+    const threats = d.threats_found || 0;
+    document.getElementById('brandThreats').textContent = threats;
+    const isClean = threats === 0;
+    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
+    verdict.textContent = isClean ? 'CLEAN' : `${threats} THREATS`;
+    if (threats === 0) {
+      body.innerHTML = `<div style="text-align:center;padding:2rem">
+        <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
+        <div style="color:var(--text2);font-size:0.85rem">"${brand}" — No brand abuse detected</div>
+      </div>`;
+    } else {
+      const hits = d.threats || [];
+      body.innerHTML = hits.map(h => `
+        <div class="hit-card" style="border-color:rgba(204,68,255,0.3);background:rgba(204,68,255,0.05)">
+          <div class="hit-platform" style="color:#cc44ff">${h.platform || h.abuse_type}</div>
+          <div>
+            <div class="hit-detail">${h.detail || h.abuse_type || 'Brand abuse detected'}</div>
+            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
+          </div>
+          <div class="hit-quality" style="background:rgba(204,68,255,0.15);color:#cc44ff">${h.severity || 'HIGH'}</div>
+        </div>`).join('');
+    }
+  } catch(e) {
+    body.innerHTML = `<div class="placeholder-text">Scanning brand abuse across piracy sites, social media and app stores...</div>`;
+    verdict.className = 'verdict-badge verdict-scanning';
+    verdict.textContent = 'LIMITED';
+  }
+}
+function clearBrand() {
+  document.getElementById('brandInput').value = '';
+  document.getElementById('brandResultsBody').innerHTML =
+    '<div class="placeholder-text">Detects piracy site abuse, social media impersonation, fake apps, domain squatting, phishing ads</div>';
+  document.getElementById('brandVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('brandVerdict').textContent = 'READY';
+  document.getElementById('brandThreats').textContent = '—';
 }
 
 // Sports scan

@@ -46,15 +46,24 @@ if risk_app:
         if not any(r.path == route.path for r in app.routes):
             app.routes.append(route)
 
-# Mount API Gateway routes
+# Include API Gateway router
 try:
-    from cineos_api_gateway import app as gateway_app
-    for route in gateway_app.routes:
-        if not any(r.path == route.path for r in app.routes):
-            app.routes.append(route)
-    print("[CINEOS] API Gateway mounted")
+    from fastapi import APIRouter
+    from cineos_api_gateway import (
+        root as gw_root, health, scan_for_piracy,
+        live_shield_scan, get_velocity, get_usage,
+        get_tiers, create_api_key, list_keys, startup
+    )
+    from cineos_api_gateway import app as gw_app
+    # Add gateway routes with /v1 prefix preserved
+    for route in gw_app.routes:
+        path = getattr(route, 'path', '')
+        if path.startswith('/v1') or path.startswith('/admin'):
+            if not any(getattr(r,'path','') == path for r in app.routes):
+                app.routes.append(route)
+    print("[CINEOS] API Gateway v1 routes mounted")
 except Exception as e:
-    print(f"[WARN] API Gateway: {e}")
+    print(f"[WARN] API Gateway mount error: {e}")
 
 @app.get("/")
 async def root():

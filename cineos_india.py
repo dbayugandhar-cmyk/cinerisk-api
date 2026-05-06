@@ -169,7 +169,6 @@ INDIAN_PLATFORMS = [
     {"name": "NYAA India",        "domain": "nyaa.si",               "lang": "Pan-India",    "p": 2},
     {"name": "TorrentGalaxy",     "domain": "torrentgalaxy.to",      "lang": "Pan-India",    "p": 2},
     # Direct download
-    {"name": "Archive.org",       "domain": "archive.org",           "lang": "Pan-India",    "p": 2},
 ]
 
 

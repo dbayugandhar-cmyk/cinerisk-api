@@ -574,7 +574,7 @@
   <div class="hero">
     <div class="hero-tag">Content Intelligence & Protection Platform</div>
     <h1>Stop Piracy.<br>Protect Revenue.</h1>
-    <p>Real-time monitoring across 33+ platforms. Film, Indian cinema, and gaming piracy detection with zero false positives.</p>
+    <p>Real-time monitoring across 1000+ sources. Film, Indian cinema, and gaming piracy detection with zero false positives.</p>
     <div class="patent-badge">⚖ US Provisional Patent 64/049,190</div>
   </div>
 
@@ -584,7 +584,7 @@
       <div class="stat-label">Incidents Logged</div>
     </div>
     <div class="stat-item">
-      <div class="stat-value">33+</div>
+      <div class="stat-value">1000+</div>
       <div class="stat-label">Sources Monitored</div>
     </div>
     <div class="stat-item">
@@ -619,7 +619,7 @@
   <div class="panel active" id="panel-film">
     <div class="mini-stats">
       <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent)" id="filmSources">33+</div>
+        <div class="mini-stat-val" style="color:var(--accent)" id="filmSources">111</div>
         <div class="mini-stat-label">Platforms</div>
       </div>
       <div class="mini-stat">
@@ -653,7 +653,7 @@
         <span class="verdict-badge verdict-scanning" id="filmVerdict">READY</span>
       </div>
       <div class="results-body" id="filmResultsBody">
-        <div class="placeholder-text">Enter a film title above to scan 33+ piracy platforms instantly</div>
+        <div class="placeholder-text">Enter a film title above to scan 111 piracy platforms instantly</div>
       </div>
     </div>
 
@@ -1089,7 +1089,7 @@ async function scanFilm() {
 
   verdict.className = 'verdict-badge verdict-scanning';
   verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning 33+ platforms for "${film}" <span class="dot-anim"></span></div>`;
+  body.innerHTML = `<div class="scanning-text">Scanning 111 platforms for "${film}" <span class="dot-anim"></span></div>`;
 
   try {
     const r = await fetch(`${API}/theater/gold_scan`, {
@@ -1135,7 +1135,7 @@ async function scanFilm() {
 function clearFilm() {
   document.getElementById('filmInput').value = '';
   document.getElementById('filmResultsBody').innerHTML =
-    '<div class="placeholder-text">Enter a film title above to scan 33+ piracy platforms instantly</div>';
+    '<div class="placeholder-text">Enter a film title above to scan 111 piracy platforms instantly</div>';
   document.getElementById('filmVerdict').className = 'verdict-badge verdict-scanning';
   document.getElementById('filmVerdict').textContent = 'READY';
   document.getElementById('filmHits').textContent = '—';

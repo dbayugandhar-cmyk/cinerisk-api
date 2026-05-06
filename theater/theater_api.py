@@ -655,3 +655,43 @@ async def gold_scan(request: dict):
         return {"film_title": film_title, "verdict": "ERROR",
                 "hits_found": 0, "hits": [], "error": str(e)}
 
+
+
+@app.post("/theater/brand_scan")
+async def brand_scan(request: dict):
+    """Scan for brand abuse across piracy sites and social media."""
+    brand_name = request.get("brand_name", "")
+    if not brand_name:
+        return {"error": "brand_name required"}
+    try:
+        import subprocess, json as _json, os
+        env = os.environ.copy()
+        result = subprocess.run(
+            ["python3", "cineos_content_brand.py",
+             "--brand", brand_name, "--type", "general"],
+            capture_output=True, text=True, timeout=120,
+            cwd="/app", env=env
+        )
+        if result.stdout:
+            lines_out = result.stdout.split("\n")
+            threats = []
+            threats_found = 0
+            for line in lines_out:
+                if "Threats found" in line:
+                    try:
+                        threats_found = int(line.split(":")[-1].strip())
+                    except:
+                        pass
+                if "VERDICT" in line:
+                    verdict = line.split(":")[-1].strip()
+            return {
+                "brand": brand_name,
+                "threats_found": threats_found,
+                "threats": threats,
+                "verdict": "CONFIRMED" if threats_found > 0 else "CLEAN"
+            }
+        return {"brand": brand_name, "threats_found": 0,
+                "threats": [], "verdict": "CLEAN"}
+    except Exception as e:
+        return {"brand": brand_name, "threats_found": 0,
+                "threats": [], "error": str(e)}

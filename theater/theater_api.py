@@ -566,6 +566,7 @@ async def gold_scan(request: dict):
 async def velocity_summary():
     """Get latest velocity data for all tracked films."""
     try:
+        import traceback
         rows = await db_fetch("""
             SELECT DISTINCT ON (film_title)
                 film_title, scan_time, platform_count,
@@ -600,7 +601,8 @@ async def velocity_summary():
             })
         return {"films": films, "count": len(films)}
     except Exception as e:
-        return {"films": [], "error": str(e)}
+        import traceback
+        return {"films": [], "error": str(e), "trace": traceback.format_exc()[-200:]}
 
 
 @app.get("/theater/velocity_history")

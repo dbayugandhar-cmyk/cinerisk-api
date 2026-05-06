@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS — Stop Piracy. Protect Revenue.</title>
+<meta name="description" content="Real-time piracy detection for film, music, gaming, manga and sports. Starting at $19/month. US Provisional Patent 64/049,190.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #080810;
+  --bg2: #0d0d1a;
+  --bg3: #12121f;
+  --border: #1a1a2e;
+  --accent: #00ff88;
+  --accent2: #ff3366;
+  --accent3: #3366ff;
+  --accent4: #ff9900;
+  --text: #eeeef5;
+  --text2: #8888aa;
+  --text3: #44445a;
+  --mono: 'Space Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(8,8,16,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav-dot {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.3; transform:scale(0.7); }
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--text2);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-link:hover { color: var(--accent); }
+
+.nav-cta {
+  background: var(--accent);
+  color: #000;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.nav-cta:hover { background: #00cc66; transform: translateY(-1px); }
+
+/* Sections */
+section {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+}
+
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-tag::before, .hero-tag::after {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.4;
+}
+
+.hero h1 {
+  font-family: var(--mono);
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #fff 0%, var(--accent) 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.15rem;
+  color: var(--text2);
+  max-width: 580px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #000;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.9rem 2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover { background: #00cc66; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,255,136,0.3); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  padding: 0.9rem 2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+.hero-badges {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.badge-green { background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.2); color: var(--accent); }
+.badge-blue { background: rgba(51,102,255,0.08); border: 1px solid rgba(51,102,255,0.2); color: var(--accent3); }
+.badge-orange { background: rgba(255,153,0,0.08); border: 1px solid rgba(255,153,0,0.2); color: var(--accent4); }
+
+/* Live proof */
+.live-proof {
+  background: var(--bg2);
+  border: 1px solid rgba(255,51,102,0.2);
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  max-width: 700px;
+  margin: 3rem auto 0;
+  text-align: left;
+}
+
+.proof-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.proof-dot {
+  width: 8px; height: 8px;
+  background: var(--accent2);
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+}
+
+.proof-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.proof-item:last-child { border-bottom: none; }
+
+.proof-film {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text);
+  min-width: 200px;
+}
+
+.proof-detail {
+  font-size: 0.8rem;
+  color: var(--text2);
+  flex: 1;
+}
+
+.proof-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.tag-red { background: rgba(255,51,102,0.15); color: var(--accent2); }
+.tag-orange { background: rgba(255,153,0,0.15); color: var(--accent4); }
+.tag-blue { background: rgba(51,102,255,0.15); color: var(--accent3); }
+
+/* Stats */
+.stats {
+  padding: 5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.stat {
+  background: var(--bg2);
+  padding: 2rem;
+  text-align: center;
+}
+
+.stat-val {
+  font-family: var(--mono);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Products */
+.products {
+  padding: 5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: var(--mono);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.section-sub {
+  color: var(--text2);
+  font-size: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.product-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.product-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,255,136,0.08);
+}
+
+.product-emoji { font-size: 2rem; margin-bottom: 1rem; }
+
+.product-name {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.product-desc {
+  font-size: 0.85rem;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.product-price {
+  font-family: var(--mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.product-price span {
+  font-size: 0.7rem;
+  color: var(--text2);
+  font-weight: 400;
+}
+
+.product-sources {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text3);
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* How it works */
+.how {
+  padding: 5rem 2rem;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.how-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.step {
+  text-align: center;
+}
+
+.step-num {
+  font-family: var(--mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.step-title {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.step-desc {
+  font-size: 0.85rem;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+/* Pricing */
+.pricing {
+  padding: 5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.price-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.price-card.featured {
+  border-color: var(--accent);
+  background: rgba(0,255,136,0.03);
+}
+
+.price-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,255,136,0.08);
+}
+
+.price-name {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.price-amount {
+  font-family: var(--mono);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.price-period {
+  font-size: 0.8rem;
+  color: var(--text2);
+  margin-bottom: 1.5rem;
+}
+
+.price-features {
+  list-style: none;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.price-features li {
+  font-size: 0.85rem;
+  color: var(--text2);
+  padding: 0.4rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.price-features li::before {
+  content: '✓';
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.price-btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.price-btn-primary {
+  background: var(--accent);
+  color: #000;
+}
+
+.price-btn-primary:hover { background: #00cc66; }
+
+.price-btn-secondary {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border);
+}
+
+.price-btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* CTA section */
+.cta-section {
+  padding: 6rem 2rem;
+  text-align: center;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+
+.cta-title {
+  font-family: var(--mono);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta-sub {
+  color: var(--text2);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+/* Contact form */
+.contact-form {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-input {
+  flex: 1;
+  min-width: 200px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus { border-color: var(--accent); }
+.form-input::placeholder { color: var(--text3); }
+
+/* Footer */
+footer {
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-left {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text3);
+  line-height: 1.8;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-link {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text2);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.footer-link:hover { color: var(--accent); }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hero h1 { font-size: 2.5rem; }
+  .products-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-dot"></div>
+    CINEOS
+  </div>
+  <div class="nav-links">
+    <a class="nav-link" href="#products">Products</a>
+    <a class="nav-link" href="#how">How it works</a>
+    <a class="nav-link" href="#pricing">Pricing</a>
+    <a class="nav-link" href="cineos_platform.html">Live Demo</a>
+    <a class="nav-cta" href="mailto:dba.yugandhar@gmail.com">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Content Intelligence & Protection Platform</div>
+  <h1>Stop Piracy.<br>Protect Revenue.</h1>
+  <p class="hero-sub">Real-time piracy detection across film, Indian cinema, gaming, manga, music, and sports. Starting at $19/month. Zero false positives.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="cineos_platform.html">Live Demo →</a>
+    <a class="btn-secondary" href="mailto:dba.yugandhar@gmail.com">Get Started</a>
+  </div>
+  <div class="hero-badges">
+    <span class="badge badge-green">⚖ US Prov. Patent 64/049,190</span>
+    <span class="badge badge-blue">33+ Sources Monitored</span>
+    <span class="badge badge-orange">Zero False Positives</span>
+  </div>
+
+  <!-- Live proof -->
+  <div class="live-proof">
+    <div class="proof-header">
+      <div class="proof-dot"></div>
+      Live Detections — Real Results
+    </div>
+    <div class="proof-item">
+      <div class="proof-film">Michael (2026)</div>
+      <div class="proof-detail">CAM copy with line audio detected on TorrentLeech — 4 days after release</div>
+      <span class="proof-tag tag-red">CAM</span>
+    </div>
+    <div class="proof-item">
+      <div class="proof-film">Retro (2025)</div>
+      <div class="proof-detail">HDRip found on Movierulz in Hindi, Telugu, Tamil simultaneously</div>
+      <span class="proof-tag tag-orange">HDRip</span>
+    </div>
+    <div class="proof-item">
+      <div class="proof-film">One Piece (Manga)</div>
+      <div class="proof-detail">11 piracy platforms confirmed — MangaDex, MangaFire, NYAA</div>
+      <span class="proof-tag tag-blue">Manga</span>
+    </div>
+    <div class="proof-item">
+      <div class="proof-film">Baldur's Gate 3</div>
+      <div class="proof-detail">FitGirl, DODI, IGG crack sites confirmed</div>
+      <span class="proof-tag tag-blue">Gaming</span>
+    </div>
+    <div class="proof-item">
+      <div class="proof-film">Premier League</div>
+      <div class="proof-detail">10 illegal streams detected — VIPBox, LiveTV, Telegram</div>
+      <span class="proof-tag tag-red">Sports</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-val">33+</div>
+      <div class="stat-label">Sources Monitored</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">$0</div>
+      <div class="stat-label">False Positives</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">7</div>
+      <div class="stat-label">Product Categories</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">24/7</div>
+      <div class="stat-label">Always Monitoring</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">$19</div>
+      <div class="stat-label">Starting Price</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">10min</div>
+      <div class="stat-label">Scan Interval</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="section-header">
+    <div class="section-tag">What We Protect</div>
+    <h2 class="section-title">7 Products. One Platform.</h2>
+    <p class="section-sub">From Hollywood blockbusters to indie manga creators — affordable protection for every content type.</p>
+  </div>
+  <div class="products-grid">
+    <a class="product-card" href="cineos_platform.html">
+      <div class="product-emoji">🎬</div>
+      <div class="product-name">Film Monitor</div>
+      <div class="product-desc">Real-time CAM copy detection across 33+ platforms. WhereYouWatch, TorrentLeech, NYAA, OpenSubtitles and more.</div>
+      <div class="product-price">$199 <span>/month per title</span></div>
+      <div class="product-sources">33+ sources • DMCA reports • 10min scans</div>
+    </a>
+    <a class="product-card" href="cineos_platform.html#india">
+      <div class="product-emoji">🎥</div>
+      <div class="product-name">India Cinema</div>
+      <div class="product-desc">20 Indian piracy platforms monitored. Movierulz, TamilMV, Filmyzilla, Ibomma and 16 more. Indian Copyright Act Section 51.</div>
+      <div class="product-price">₹10,000 <span>/month per title</span></div>
+      <div class="product-sources">20 platforms • Hindi/Tamil/Telugu/Malayalam</div>
+    </a>
+    <a class="product-card" href="cineos_platform.html">
+      <div class="product-emoji">🎮</div>
+      <div class="product-name">Gaming</div>
+      <div class="product-desc">Crack detection on FitGirl, DODI, IGG, GOG-Games, SteamUnlocked and 15+ crack sites. Crack group identification.</div>
+      <div class="product-price">$99 <span>/month per game</span></div>
+      <div class="product-sources">20+ crack sites • Group detection • DMCA</div>
+    </a>
+    <a class="product-card" href="cineos_platform.html">
+      <div class="product-emoji">📚</div>
+      <div class="product-name">Manga & Publishing</div>
+      <div class="product-desc">25 platforms monitored. MangaDex, MangaFire, LibGen, NYAA, GetComics. Covers manga, webtoon, ebook, comics.</div>
+      <div class="product-price">$29 <span>/month per title</span></div>
+      <div class="product-sources">25 platforms • Manga/Webtoon/Ebook/Comics</div>
+    </a>
+    <a class="product-card" href="cineos_platform.html">
+      <div class="product-emoji">🎵</div>
+      <div class="product-name">Music</div>
+      <div class="product-desc">28 platforms including RuTracker, VK Music, MP3Juices, Telegram channels. MP3, FLAC, ZIP album detection.</div>
+      <div class="product-price">$19 <span>/month per artist</span></div>
+      <div class="product-sources">28 platforms • MP3/FLAC • Telegram</div>
+    </a>
+    <a class="product-card" href="cineos_platform.html">
+      <div class="product-emoji">🏆</div>
+      <div class="product-name">Sports</div>
+      <div class="product-desc">Illegal stream detection across 25 platforms. CrackStreams, VIPBox, Reddit, Telegram. IPL, Premier League, NFL, UFC.</div>
+      <div class="product-price">$299 <span>/month per league</span></div>
+      <div class="product-sources">25 platforms • Live streams • IPTV</div>
+    </a>
+    <a class="product-card" href="mailto:dba.yugandhar@gmail.com">
+      <div class="product-emoji">🎤</div>
+      <div class="product-name">Voice Clone Detection</div>
+      <div class="product-desc">8 acoustic signals detect AI-cloned voices. ElevenLabs, VALL-E, RVC detection. Legal evidence reports for courts.</div>
+      <div class="product-price">$499 <span>/report</span></div>
+      <div class="product-sources">8 signals • Court-grade • Chain of custody</div>
+    </a>
+    <a class="product-card" href="mailto:dba.yugandhar@gmail.com">
+      <div class="product-emoji">🏛️</div>
+      <div class="product-name">Acoustic Theater Attribution</div>
+      <div class="product-desc">Novel: Identify which theater and screen a CAM copy was recorded in using HVAC frequency fingerprinting. Patent-pending.</div>
+      <div class="product-price">$999 <span>/attribution</span></div>
+      <div class="product-sources">US Prov. Patent 64/049,190 • Novel</div>
+    </a>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="section-header">
+      <div class="section-tag">How It Works</div>
+      <h2 class="section-title">Detection in Minutes</h2>
+      <p class="section-sub">From submission to evidence report — fully automated.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Submit Title</div>
+        <div class="step-desc">Enter your film, game, manga, or artist name. We handle the rest automatically.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Scan 33+ Sources</div>
+        <div class="step-desc">Our platform simultaneously scans piracy sites, torrent trackers, Telegram channels, and streaming embeds.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Verify Results</div>
+        <div class="step-desc">Zero false positive guarantee. Every hit is verified before alerting you.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">DMCA Report</div>
+        <div class="step-desc">One-click legally compliant DMCA notice generation with all 6 statutory elements per 17 U.S.C. § 512(c)(3).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-header">
+    <div class="section-tag">Pricing</div>
+    <h2 class="section-title">Affordable for Everyone</h2>
+    <p class="section-sub">Enterprise protection at indie prices. No contracts. Cancel anytime.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Creator</div>
+      <div class="price-amount">$19</div>
+      <div class="price-period">per month</div>
+      <ul class="price-features">
+        <li>Music piracy monitoring</li>
+        <li>28 platforms scanned</li>
+        <li>Weekly reports</li>
+        <li>DMCA report generation</li>
+        <li>Email alerts</li>
+      </ul>
+      <a class="price-btn price-btn-secondary" href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Creator Plan">Get Started</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-name">Professional</div>
+      <div class="price-amount">$99</div>
+      <div class="price-period">per month</div>
+      <ul class="price-features">
+        <li>Film + Gaming monitoring</li>
+        <li>33+ platforms scanned</li>
+        <li>Real-time alerts</li>
+        <li>DMCA reports</li>
+        <li>Priority support</li>
+        <li>API access</li>
+      </ul>
+      <a class="price-btn price-btn-primary" href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Professional Plan">Get Started</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Studio</div>
+      <div class="price-amount">$299</div>
+      <div class="price-period">per month</div>
+      <ul class="price-features">
+        <li>All 7 product categories</li>
+        <li>Unlimited titles</li>
+        <li>India + Sports coverage</li>
+        <li>Voice clone detection</li>
+        <li>Theater attribution</li>
+        <li>Dedicated support</li>
+      </ul>
+      <a class="price-btn price-btn-secondary" href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Studio Plan">Get Started</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Enterprise</div>
+      <div class="price-amount">Custom</div>
+      <div class="price-period">contact us</div>
+      <ul class="price-features">
+        <li>White-label solution</li>
+        <li>API integration</li>
+        <li>Custom scan intervals</li>
+        <li>Legal team support</li>
+        <li>SLA guarantee</li>
+        <li>On-premise option</li>
+      </ul>
+      <a class="price-btn price-btn-secondary" href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Enterprise">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-title">Ready to protect your content?</h2>
+  <p class="cta-sub">Join the platform that found Michael (2026) CAM copy within 4 days of release.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="cineos_platform.html">Try Live Demo</a>
+    <a class="btn-secondary" href="mailto:dba.yugandhar@gmail.com">Contact Us</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    CINEOS — Content Intelligence & Protection Platform<br>
+    US Provisional Patent 64/049,190 · dba.yugandhar@gmail.com<br>
+    Anti-Piracy Detection Service (Monitoring Only)
+  </div>
+  <div class="footer-links">
+    <a class="footer-link" href="cineos_platform.html">Platform</a>
+    <a class="footer-link" href="layer4_leak_monitor.html">Film Dashboard</a>
+    <a class="footer-link" href="mailto:dba.yugandhar@gmail.com">Contact</a>
+    <a class="footer-link" href="https://github.com/dbayugandhar-cmyk/cinerisk-api">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>

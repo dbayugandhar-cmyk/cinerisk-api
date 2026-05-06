@@ -560,3 +560,100 @@ async def gold_scan(request: dict):
         "serp_enabled": bool(SERP_KEY),
         "studio_email": studio_email,
     }
+
+
+@app.get("/theater/velocity_summary")
+async def velocity_summary():
+    """Get latest velocity data for all tracked films."""
+    try:
+        rows = await db_fetch("""
+            SELECT DISTINCT ON (film_title)
+                film_title, scan_time, platform_count,
+                hits_found, hours_since_release, spread_rate,
+                platforms
+            FROM cineos_velocity
+            ORDER BY film_title, scan_time DESC
+        """)
+        films = []
+        for r in rows:
+            platforms = r[6] or []
+            hours = float(r[4] or 0)
+            platform_count = r[2] or 0
+            daily_dl = platform_count * 50000
+            days = max(1, hours / 24)
+            loss = daily_dl * days * 0.15 * 12.50
+            films.append({
+                "title": r[0],
+                "last_scan": str(r[1]),
+                "platform_count": platform_count,
+                "hits_found": r[3] or 0,
+                "hours_since_release": hours,
+                "spread_rate": float(r[5] or 0),
+                "platforms": platforms,
+                "revenue_loss_usd": round(loss),
+                "velocity_level": (
+                    "CRITICAL" if float(r[5] or 0) > 0.5 or platform_count > 20
+                    else "HIGH" if float(r[5] or 0) > 0.1 or platform_count > 10
+                    else "MEDIUM" if platform_count > 3
+                    else "LOW"
+                )
+            })
+        return {"films": films, "count": len(films)}
+    except Exception as e:
+        return {"films": [], "error": str(e)}
+
+
+@app.get("/theater/velocity_history")
+async def velocity_history(film: str):
+    """Get historical velocity data for a specific film."""
+    try:
+        rows = await db_fetch("""
+            SELECT scan_time, platform_count, hits_found,
+                   hours_since_release, spread_rate
+            FROM cineos_velocity
+            WHERE film_title = $1
+            ORDER BY scan_time ASC
+        """, film)
+        history = [{
+            "scan_time": str(r[0]),
+            "platform_count": r[1] or 0,
+            "hits_found": r[2] or 0,
+            "hours_since_release": float(r[3] or 0),
+            "spread_rate": float(r[4] or 0)
+        } for r in rows]
+        return {"film": film, "history": history, "scans": len(history)}
+    except Exception as e:
+        return {"film": film, "history": [], "error": str(e)}
+
+
+@app.post("/theater/gold_scan")
+async def gold_scan(request: dict):
+    """Run real-time scan for a film title."""
+    film_title = request.get("film_title", "")
+    if not film_title:
+        return {"error": "film_title required"}
+    try:
+        import subprocess, json as _json, os
+        env = os.environ.copy()
+        result = subprocess.run(
+            ["python3", "cineos_layer4_gold.py",
+             "--film", film_title, "--json"],
+            capture_output=True, text=True, timeout=120,
+            cwd="/app", env=env
+        )
+        if result.stdout:
+            try:
+                return _json.loads(result.stdout)
+            except Exception:
+                pass
+        return {
+            "film_title": film_title,
+            "verdict": "SCAN_ERROR",
+            "hits_found": 0,
+            "hits": [],
+            "error": result.stderr[:200] if result.stderr else "Unknown error"
+        }
+    except Exception as e:
+        return {"film_title": film_title, "verdict": "ERROR",
+                "hits_found": 0, "hits": [], "error": str(e)}
+

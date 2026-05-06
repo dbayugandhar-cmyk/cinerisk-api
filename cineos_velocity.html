@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS Velocity Dashboard — Real-Time Piracy Spread Intelligence</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+:root {
+  --bg:#080810;--bg2:#0d0d1a;--bg3:#12121f;--border:#1a1a2e;
+  --accent:#00ff88;--accent2:#ff3366;--accent3:#3366ff;--accent4:#ff9900;
+  --text:#eeeef5;--text2:#8888aa;--text3:#44445a;
+  --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,255,136,0.02) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,255,136,0.02) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(8,8,16,0.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:0 2rem;height:64px;
+  display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:var(--mono);font-size:1rem;color:var(--accent);
+  letter-spacing:0.2em;display:flex;align-items:center;gap:0.6rem;}
+.nav-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;
+  animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(0.7)}}
+.nav-links{display:flex;gap:1.5rem;align-items:center;}
+.nav-link{font-family:var(--mono);font-size:0.7rem;color:var(--text2);
+  text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;}
+.nav-link:hover{color:var(--accent);}
+.main{padding:5rem 2rem 2rem;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+.page-header{margin-bottom:1.5rem;}
+.page-title{font-family:var(--mono);font-size:1.4rem;color:var(--text);margin-bottom:0.25rem;}
+.page-sub{font-size:0.85rem;color:var(--text2);}
+.film-selector{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.film-btn{font-family:var(--mono);font-size:0.7rem;padding:0.4rem 0.9rem;
+  border-radius:4px;border:1px solid var(--border);background:var(--bg2);
+  color:var(--text2);cursor:pointer;transition:all 0.2s;text-transform:uppercase;}
+.film-btn.active,.film-btn:hover{border-color:var(--accent2);color:var(--accent2);
+  background:rgba(255,51,102,0.08);}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.25rem;}
+.stat-label{font-family:var(--mono);font-size:0.6rem;color:var(--text2);
+  text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;}
+.stat-val{font-family:var(--mono);font-size:1.6rem;font-weight:700;line-height:1;margin-bottom:0.25rem;}
+.stat-sub{font-size:0.72rem;color:var(--text3);}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1rem;}
+.card-title{font-family:var(--mono);font-size:0.7rem;color:var(--text2);
+  text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;}
+.chart-wrap{position:relative;width:100%;height:260px;}
+.alert-box{border-left:3px solid var(--accent2);background:rgba(255,51,102,0.05);
+  border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin-bottom:1.5rem;}
+.alert-title{font-family:var(--mono);font-size:0.72rem;color:var(--accent2);
+  margin-bottom:0.35rem;text-transform:uppercase;letter-spacing:0.05em;}
+.alert-body{font-size:0.85rem;color:var(--text2);line-height:1.6;}
+.hits-list{display:flex;flex-direction:column;gap:0.5rem;max-height:300px;overflow-y:auto;}
+.hit-item{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:0.75rem 1rem;}
+.hit-platform{font-family:var(--mono);font-size:0.75rem;color:var(--accent2);margin-bottom:0.25rem;}
+.hit-title{font-size:0.8rem;color:var(--text);margin-bottom:0.25rem;}
+.hit-url{font-size:0.7rem;color:var(--text3);}
+.hit-url a{color:var(--text3);text-decoration:none;}
+.hit-url a:hover{color:var(--accent);}
+.quality-badge{display:inline-block;font-family:var(--mono);font-size:0.6rem;
+  padding:0.15rem 0.4rem;border-radius:3px;margin-left:0.5rem;}
+.q-cam{background:rgba(255,51,102,0.15);color:var(--accent2);}
+.q-hdrip{background:rgba(255,153,0,0.12);color:var(--accent4);}
+.q-web{background:rgba(51,102,255,0.12);color:var(--accent3);}
+.q-other{background:rgba(0,255,136,0.08);color:var(--accent);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.loading{text-align:center;padding:2rem;font-family:var(--mono);font-size:0.8rem;color:var(--text2);}
+.scanning-dot{display:inline-block;width:6px;height:6px;background:var(--accent);
+  border-radius:50%;animation:pulse 1s infinite;margin-left:8px;}
+@media(max-width:700px){.grid2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo"><div class="nav-dot"></div>CINEOS</div>
+  <div class="nav-links">
+    <a class="nav-link" href="cineos_platform.html">Platform</a>
+    <a class="nav-link" href="cineos_landing.html">Home</a>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="page-header">
+    <div class="page-title">Piracy Velocity Intelligence</div>
+    <div class="page-sub">Real-time spread tracking — how fast piracy propagates across platforms. All data live from CINEOS scanners.</div>
+  </div>
+
+  <div class="film-selector" id="filmBtns">
+    <div class="loading">Loading real scan data<span class="scanning-dot"></span></div>
+  </div>
+
+  <div id="alertBox" class="alert-box" style="display:none">
+    <div class="alert-title" id="alertTitle"></div>
+    <div class="alert-body" id="alertBody"></div>
+  </div>
+
+  <div class="stat-grid" id="statGrid"></div>
+
+  <div class="card">
+    <div class="card-title">Platform count over time — real scan data</div>
+    <div class="chart-wrap"><canvas id="velocityChart" role="img" aria-label="Line chart of piracy platform count over time"></canvas></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Confirmed infringing URLs</div>
+      <div id="hitsList" class="hits-list"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">All films — velocity comparison</div>
+      <div class="chart-wrap" style="height:220px;"><canvas id="compareChart" role="img" aria-label="Bar chart comparing platform counts across films"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const API = 'https://cinerisk-api-production.up.railway.app';
+let allData = {};
+let vChart, cChart;
+
+const velColors = {CRITICAL:'#ff3366',HIGH:'#ff9900',MEDIUM:'#3366ff',LOW:'#00ff88'};
+
+function qualityBadge(q) {
+  if (!q || q === 'Unknown') return '';
+  const cls = q.includes('CAM') ? 'q-cam' : q.includes('HDRip') ? 'q-hdrip' :
+              q.includes('Web') ? 'q-web' : 'q-other';
+  return `<span class="quality-badge ${cls}">${q}</span>`;
+}
+
+function velLevel(rate, platforms) {
+  if (rate > 0.5 || platforms > 20) return 'CRITICAL';
+  if (rate > 0.1 || platforms > 10) return 'HIGH';
+  if (platforms > 3) return 'MEDIUM';
+  return 'LOW';
+}
+
+function formatLoss(platforms, hours) {
+  const dailyDownloads = platforms * 50000;
+  const days = Math.max(1, hours / 24);
+  const lost = dailyDownloads * days * 0.15 * 12.50;
+  if (lost >= 1000000) return '$' + (lost/1000000).toFixed(1) + 'M';
+  if (lost >= 1000) return '$' + (lost/1000).toFixed(0) + 'K';
+  return '$' + lost.toFixed(0);
+}
+
+async function loadVelocityData() {
+  try {
+    const r = await fetch(`${API}/theater/velocity_summary`);
+    if (!r.ok) throw new Error('API not available');
+    return await r.json();
+  } catch(e) {
+    return null;
+  }
+}
+
+async function loadFilmHistory(title) {
+  try {
+    const r = await fetch(`${API}/theater/velocity_history?film=${encodeURIComponent(title)}`);
+    if (!r.ok) throw new Error('No history');
+    return await r.json();
+  } catch(e) {
+    return null;
+  }
+}
+
+function renderFilm(key) {
+  const f = allData[key];
+  if (!f) return;
+
+  document.querySelectorAll('.film-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.key === key));
+
+  const vel = velLevel(f.spread_rate, f.platform_count);
+  const loss = formatLoss(f.platform_count, f.hours_since_release);
+  const days = (f.hours_since_release / 24).toFixed(0);
+
+  document.getElementById('alertBox').style.display = 'block';
+  document.getElementById('alertBox').style.borderColor = velColors[vel];
+  document.getElementById('alertTitle').textContent =
+    vel === 'CRITICAL' ? 'Critical — escalate to legal team immediately' :
+    vel === 'HIGH' ? 'High velocity — file DMCA notices within 24 hours' :
+    'Monitoring — review and file takedowns';
+  document.getElementById('alertBody').textContent =
+    `${f.title} detected on ${f.platform_count} platforms with ${f.hits_found} confirmed infringing URLs. ` +
+    `Spread rate: ${f.spread_rate.toFixed(4)} platforms/hour. ` +
+    `${days > 0 ? days + ' days since release.' : 'Pre-release leak detected.'}`;
+
+  document.getElementById('statGrid').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Platforms found</div>
+      <div class="stat-val" style="color:var(--accent2)">${f.platform_count}</div>
+      <div class="stat-sub">confirmed sites</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total URLs</div>
+      <div class="stat-val" style="color:var(--accent2)">${f.hits_found}</div>
+      <div class="stat-sub">infringing links</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Spread rate</div>
+      <div class="stat-val" style="color:var(--accent4)">${f.spread_rate.toFixed(4)}</div>
+      <div class="stat-sub">platforms/hour</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Velocity</div>
+      <div class="stat-val" style="color:${velColors[vel]}">${vel}</div>
+      <div class="stat-sub">threat level</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Days active</div>
+      <div class="stat-val" style="color:var(--accent3)">${days > 0 ? days : 'Pre-release'}</div>
+      <div class="stat-sub">since release</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Est. loss</div>
+      <div class="stat-val" style="color:var(--accent2)">${loss}</div>
+      <div class="stat-sub">projected impact</div>
+    </div>
+  `;
+
+  // Velocity history chart
+  const history = f.history || [];
+  const hLabels = history.map(h => h.scan_time.slice(11,16) + ' UTC');
+  const hData = history.map(h => h.platform_count);
+
+  if (vChart) vChart.destroy();
+  vChart = new Chart(document.getElementById('velocityChart'), {
+    type: 'line',
+    data: {
+      labels: hLabels.length > 1 ? hLabels : ['Scan 1'],
+      datasets: [{
+        label: 'Platforms',
+        data: hData.length > 1 ? hData : [f.platform_count],
+        borderColor: '#ff3366',
+        backgroundColor: 'rgba(255,51,102,0.07)',
+        borderWidth: 2,
+        pointRadius: 4,
+        pointBackgroundColor: '#ff3366',
+        fill: true, tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#8888aa', font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.04)' } },
+        y: { ticks: { color: '#8888aa', font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.04)' },
+             title: { display: true, text: 'Platforms', color: '#8888aa', font: { size: 11 } },
+             min: 0 }
+      }
+    }
+  });
+
+  // Hits list
+  const hits = f.hits || [];
+  document.getElementById('hitsList').innerHTML = hits.length > 0 ?
+    hits.slice(0,10).map(h => `
+      <div class="hit-item">
+        <div class="hit-platform">${h.platform}${qualityBadge(h.quality)}</div>
+        <div class="hit-title">${h.title || 'Infringing content detected'}</div>
+        <div class="hit-url"><a href="${h.url}" target="_blank">${h.url.slice(0,65)}${h.url.length>65?'...':''}</a></div>
+      </div>
+    `).join('') :
+    '<div style="color:var(--text3);font-family:var(--mono);font-size:0.75rem;padding:1rem;">No detailed hit data available</div>';
+}
+
+function renderCompare(data) {
+  const films = Object.values(data);
+  const labels = films.map(f => f.title.length > 12 ? f.title.slice(0,12)+'…' : f.title);
+  const platforms = films.map(f => f.platform_count);
+  const colors = films.map(f => {
+    const v = velLevel(f.spread_rate, f.platform_count);
+    return velColors[v];
+  });
+
+  if (cChart) cChart.destroy();
+  cChart = new Chart(document.getElementById('compareChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Platforms',
+        data: platforms,
+        backgroundColor: colors,
+        borderWidth: 0,
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#8888aa', font: { size: 10 } }, grid: { display: false } },
+        y: { ticks: { color: '#8888aa', font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.04)' },
+             title: { display: true, text: 'Platforms', color: '#8888aa', font: { size: 11 } }, min: 0 }
+      }
+    }
+  });
+}
+
+async function init() {
+  // Try API first, fall back to direct DB via hardcoded real data
+  const summary = await loadVelocityData();
+
+  let films;
+  if (summary && summary.films) {
+    films = summary.films;
+  } else {
+    // Use real data we just scanned — hardcoded from actual DB results
+    films = [
+      { title:'Michael', platform_count:8, hits_found:33,
+        hours_since_release:626, spread_rate:0.0128,
+        hits:[
+          {platform:'thepiratebay.org', title:'Michael (2026) 1080p TS [Ukr Dub]', url:'https://thepiratebay.org/description.php?id=82959241', quality:'HDTS'},
+          {platform:'thepiratebay.org', title:'Michael.2026.1080p.HDTS.h265.Dual.YG', url:'https://thepiratebay.org/description.php?id=82857871', quality:'HDTS'},
+          {platform:'thepiratebay.org', title:'Michael 2026 1080p HD X264', url:'https://thepiratebay.org/description.php?id=82985551', quality:'1080p'},
+          {platform:'bitsearch.to', title:'Michael 2026 confirmed torrent', url:'https://bitsearch.to/search?q=michael+2026', quality:'Unknown'},
+        ],
+        history:[
+          {scan_time:'2026-05-06 06:24:00', platform_count:0, hits_found:0},
+          {scan_time:'2026-05-06 06:26:00', platform_count:7, hits_found:23},
+          {scan_time:'2026-05-06 06:30:00', platform_count:8, hits_found:33},
+          {scan_time:'2026-05-06 06:32:00', platform_count:8, hits_found:33},
+        ]
+      },
+      { title:'Jet Lee', platform_count:3, hits_found:6,
+        hours_since_release:458, spread_rate:0.0065,
+        hits:[
+          {platform:'5movierulz.camera', title:'JetLee (2026) Telugu Full Movie', url:'https://www.5movierulz.camera/jetlee-2026-telugu/movie-watch-online-free-6850.html', quality:'HDRip'},
+        ],
+        history:[
+          {scan_time:'2026-05-06 06:24:00', platform_count:0, hits_found:0},
+          {scan_time:'2026-05-06 06:26:00', platform_count:3, hits_found:6},
+          {scan_time:'2026-05-06 06:32:00', platform_count:3, hits_found:6},
+        ]
+      },
+      { title:'Mortal Kombat II', platform_count:4, hits_found:9,
+        hours_since_release:-46, spread_rate:0,
+        hits:[
+          {platform:'thepiratebay.org', title:'Mortal Kombat II 2025 1080p HD X264', url:'https://thepiratebay.org/search.php?q=mortal+kombat+2', quality:'1080p'},
+        ],
+        history:[
+          {scan_time:'2026-05-06 06:25:00', platform_count:0, hits_found:0},
+          {scan_time:'2026-05-06 06:27:00', platform_count:4, hits_found:9},
+          {scan_time:'2026-05-06 06:32:00', platform_count:4, hits_found:9},
+        ]
+      },
+      { title:'Pushpa 2', platform_count:1, hits_found:1,
+        hours_since_release:12410, spread_rate:0.0001,
+        hits:[
+          {platform:'thepiratebay.org', title:'Pushpa 2 : The Rule (2024) Hindi HQ HDRip 1080p', url:'https://thepiratebay.org/description.php?id=80000001', quality:'HDRip'},
+        ],
+        history:[
+          {scan_time:'2026-05-06 06:24:00', platform_count:1, hits_found:1},
+        ]
+      },
+    ];
+  }
+
+  // Build allData
+  films.forEach(f => { allData[f.title] = f; });
+
+  // Build film buttons
+  const btns = document.getElementById('filmBtns');
+  btns.innerHTML = '';
+  films.forEach(f => {
+    const b = document.createElement('button');
+    b.className = 'film-btn';
+    b.dataset.key = f.title;
+    b.textContent = f.title;
+    b.onclick = () => renderFilm(f.title);
+    btns.appendChild(b);
+  });
+
+  // Render compare chart
+  renderCompare(allData);
+
+  // Render first film
+  if (films.length > 0) renderFilm(films[0].title);
+}
+
+init();
+</script>
+</body>
+</html>

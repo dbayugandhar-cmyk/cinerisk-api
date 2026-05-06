@@ -13,7 +13,7 @@ import urllib.parse
 logger = logging.getLogger(__name__)
 
 SENDGRID_API_KEY  = os.environ.get("SENDGRID_API_KEY")
-FROM_EMAIL        = "alerts@cineos.io"
+FROM_EMAIL        = "dba.yugandhar@gmail.com"
 FROM_NAME         = "CINEOS Anti-Piracy"
 TO_EMAIL          = "dba.yugandhar@gmail.com"
 DASHBOARD_URL     = "https://dbayugandhar-cmyk.github.io/cinerisk-api/cineos_platform.html"

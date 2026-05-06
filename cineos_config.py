@@ -407,3 +407,530 @@ SECTION 6 — ELECTRONIC SIGNATURE
 print("CINEOS config loaded — production ready")
 print(f"SerpApi: {'configured' if SERP_API_KEY else 'MISSING'}")
 print(f"API endpoint: {CINEOS_API}")
+
+# ══════════════════════════════════════════════════════════════════
+# EXPANDED SITE LISTS — 100+ per category
+# For use with SerpApi site: operator batch scanning
+# ══════════════════════════════════════════════════════════════════
+
+FILM_PIRACY_SITES_100 = [
+    # Major torrent sites
+    "1337x.to", "yts.mx", "yts.am", "rarbg.to", "rarbg.is",
+    "thepiratebay.org", "tpb.party", "torrentgalaxy.to",
+    "torrentleech.org", "iptorrents.com", "limetorrents.lol",
+    "torrentz2.eu", "torlock.com", "magnetdl.com",
+    "zooqle.to", "bitsearch.to", "torrentfunk.com",
+    "kickasstorrents.to", "katcr.co", "bt4g.com",
+    # Scene/NFO databases
+    "predb.me", "predb.ovh", "xrel.to", "srrdb.com",
+    "nzbindex.com", "nzbplanet.net", "nzbfinder.ws",
+    # Streaming piracy
+    "fmovies.to", "gomovies.sx", "123movies.ai",
+    "putlocker.vip", "solarmovie.pe", "yesmovies.ag",
+    "cmovies.tv", "vumoo.to", "popcorntime.app",
+    "streamlord.com", "soap2day.to", "lookmovie.ag",
+    "flixhq.to", "myflixer.to", "cineb.net",
+    "hdtoday.cc", "flixtorr.to", "moviesjoy.plus",
+    "bflix.gg", "nunflix.org", "pressplay.top",
+    # Direct download
+    "archive.org", "rapidgator.net", "nitroflare.com",
+    "uptobox.com", "1fichier.com", "katfile.com",
+    "filefox.cc", "ddownload.com", "drop.download",
+    # Indian piracy
+    "movierulz.com", "5movierulz.camera", "tamilmv.fi",
+    "filmyzilla.com", "9xmovies.cool", "tamilblasters.life",
+    "ibomma.com", "isaimini.com", "kuttymovies.com",
+    "tamilyogi.wiki", "moviesda.com", "cinevood.com",
+    "hdhub4u.com", "vegamovies.in", "bolly4u.trade",
+    "filmyhit.com", "skymovies.mov", "filmysplit.com",
+    "moviecounter.app", "filmy4wap.com", "mlwbd.com",
+    "movierulz.plz", "tamilrockers.ws", "isaidub.com",
+    "khatrimaza.com", "mp4moviez.com", "worldfree4u.com",
+    "7starhd.com", "downloadhub.city", "rdxhd.com",
+    # OpenSubtitles/tracking
+    "opensubtitles.org", "subscene.com", "yifysubtitles.org",
+    # Telegram/Social
+    "t.me", "telegram.me",
+    # WhereYouWatch/tracking
+    "whereyouwatch.com", "watchsomuch.to",
+    # P2P/Magnet
+    "btdig.com", "snowfl.com", "btmet.com",
+    "torrentdownload.ch", "torrentproject.se",
+    # Additional streaming
+    "m4ufree.tv", "azmovies.net", "gostream.site",
+    "iosmovies.org", "watch32.app", "c1ne.co",
+    "moviesmod.com", "extramovies.casa", "o2tvseries.com",
+    "tvseries.to", "hdeuropix.com", "streamm4u.club",
+]
+
+GAMING_PIRACY_SITES_100 = [
+    # Repack sites
+    "fitgirl-repacks.site", "fitgirl-repacks.net",
+    "dodi-repacks.site", "dodi-repacks.com",
+    "gog-games.to", "gog-games.com",
+    "cs.rin.ru", "skidrowreloaded.com",
+    "skidrowcodex.net", "oceanofgames.com",
+    "igg-games.com", "steamunlocked.net",
+    "gamesrepacks.com", "repack-games.com",
+    "pcgamestorrents.com", "gametrex.com",
+    "freegogpcgames.com", "ovagames.com",
+    "repacklab.com", "crackwatch.com",
+    "codex-games.com", "empress-games.com",
+    "rg-mechanics.org", "masquerade-repacks.com",
+    "kaoskrew.org", "darksiderg.com",
+    "xatab-repacks.com", "seyter-repacks.com",
+    "corepack.io", "onlinefix.me",
+    # Torrent sites gaming category
+    "1337x.to", "torrentgalaxy.to", "rarbg.to",
+    "limetorrents.lol", "nyaa.si", "rutracker.org",
+    "kat.cr", "zooqle.to", "bitsearch.to",
+    "torrentfunk.com", "bt4g.com", "magnetdl.com",
+    # Scene databases
+    "predb.me", "xrel.to", "srrdb.com", "predb.ovh",
+    # Direct download gaming
+    "archive.org", "rapidgator.net", "nitroflare.com",
+    "uptobox.com", "1fichier.com",
+    # Gaming specific
+    "myabandonware.com", "old-games.com",
+    "abandonia.com", "classicdosgames.com",
+    # APK/Mobile piracy
+    "apkpure.com", "apkmirror.com", "happymod.com",
+    "an1.com", "apkdone.com", "revdl.com",
+    "rexdl.com", "androeed.ru", "apknite.com",
+    # DRM bypass sites
+    "crack-status.com", "crackwatch.com",
+    "gamestatus.info", "iscracked.net",
+    # Additional repack sites
+    "karanpc.com", "apunkagames.com", "ocean-of-games.com",
+    "fullgamepc.com", "pcgames-download.com",
+    "torrentpc.org", "gamepciso.com",
+    "skidrow-games.com", "repack.info",
+    "gamesdbase.com", "gload.cc",
+]
+
+MANGA_PIRACY_SITES_100 = [
+    # Scan sites
+    "mangadex.org", "mangareader.to", "mangafire.to",
+    "mangakakalot.com", "manganelo.com", "mangapark.net",
+    "mangaowl.net", "mangago.me", "readmng.com",
+    "fanfox.net", "mangahere.cc", "mangapanda.com",
+    "kissmanga.org", "mangafreak.net", "mangahub.io",
+    "mangafast.net", "mangaclash.com", "mangastream.net",
+    "readmanganato.com", "toonily.com", "manhwafreak.com",
+    "isekaiscan.com", "reaperscans.com", "asurascans.com",
+    "flamescans.org", "nitroscans.com", "aquamanga.com",
+    "kunmanga.com", "bato.to", "webtoon.xyz",
+    "manhuascan.com", "manhuafast.com", "manhuaplus.com",
+    "manhwatop.com", "manhwakool.com", "1stkissmanga.com",
+    # Ebook piracy
+    "libgen.is", "libgen.rs", "libgen.st",
+    "z-lib.org", "zlibrary.to", "b-ok.cc",
+    "pdfdrive.com", "free-ebooks.net", "manybooks.net",
+    "epublibre.org", "epubbooks.net", "getfreeebooks.com",
+    "booksc.org", "sci-hub.se", "sci-hub.st",
+    # Comic piracy
+    "getcomics.org", "readcomiconline.li",
+    "comicextra.com", "viewcomic.com", "readallcomics.com",
+    "comicbookplus.com", "digitalcomicmuseum.com",
+    "readcomicsonline.ru", "comix-load.com",
+    # Torrent manga
+    "nyaa.si", "bakabt.me", "animebytes.tv",
+    "anidex.info", "tokyotosho.info",
+    "mangaeden.com", "mangacow.com",
+    # Light novel
+    "novelupdates.com", "royalroad.com", "wuxiaworld.com",
+    "lightnovelworld.com", "novelfull.com", "readlightnovel.me",
+    "mtlnation.com", "webnovel.com", "scribblehub.com",
+    # Raw manga
+    "manga1001.top", "rawkuma.com", "mangabuddy.com",
+    "klmanga.com", "manga-zip.net", "dl-raw.net",
+]
+
+MUSIC_PIRACY_SITES_100 = [
+    # MP3 download sites
+    "mp3juices.cc", "mp3skull.com", "mp3clan.com",
+    "freemp3cloud.com", "beemp3.com", "mp3download.to",
+    "freemp3.fm", "mp3raid.com", "mp3skull.cc",
+    "waptrick.com", "mdundo.com", "mp3paw.com",
+    "mp3fusion.net", "fakaza.com", "zamusic.org",
+    "hitxgh.com", "ghanamotion.com", "tooxclusive.com",
+    "naijaloaded.com.ng", "naijapals.com",
+    # Indian music piracy
+    "pagalworld.com", "djpunjab.com", "mrjatt.in",
+    "songspk.name", "downloadming.uno", "djjohal.com",
+    "djmaza.info", "bestwap.in", "raagsong.com",
+    "gaana.link", "hungama.link", "saavnpro.com",
+    "wynk.link", "jiosaavn.link", "bollywood.link",
+    # Russian music sites
+    "rutracker.org", "zaycev.net", "prostopleer.com",
+    "pleer.net", "mp3base.ru", "muzmo.ru",
+    "realmusic.ru", "zvuki.ru", "muspy.com",
+    # YouTube rip sites
+    "y2mate.com", "ytmp3.cc", "convertmp3.io",
+    "yt1s.com", "flvto.biz", "2conv.com",
+    "onlinevideoconverter.com", "mp3ify.com",
+    "notube.net", "savefrom.net", "clipconverter.cc",
+    # Torrent music
+    "1337x.to", "rutracker.org", "nyaa.si",
+    "torrentgalaxy.to", "limetorrents.lol",
+    "bakabt.me", "what.cd", "redacted.ch",
+    "orpheus.network", "dicmusic.club",
+    # Archive/sharing
+    "archive.org", "soundcloud.com",
+    # Album download
+    "free-mp3-download.net", "allmp3.com",
+    "downloadalbums.club", "musicpleer.audio",
+    "mp3va.com", "musicmp3.com", "audiomack.link",
+    # Telegram music channels
+    "t.me",
+    # VK
+    "vk.com",
+]
+
+SPORTS_PIRACY_SITES_100 = [
+    # Illegal streaming sites
+    "crackstreams.com", "crackstreams.live",
+    "buffstream.io", "buffstreams.app",
+    "sportsurge.net", "sportsurge.app",
+    "hesgoal.com", "hesgoal.live",
+    "vipbox.lc", "vipbox.tv", "viprow.me",
+    "sportlemon.tv", "firstrowsports.eu",
+    "livetv.sx", "livetv.ru",
+    "ronaldo7.net", "wiziwig.tv",
+    "laola1.tv", "laola1.at",
+    "strikeout.nu", "streameast.live",
+    "sportsbay.org", "sportp2p.com",
+    "streamhunter.eu", "atdhe.net",
+    "fromhot.com", "batman-stream.com",
+    "myp2p.eu", "vipleague.lc",
+    "rojadirecta.me", "rojadirecta.es",
+    "tarjetarojaonline.sx", "peliculasyonkis.com",
+    # Cricket streaming
+    "cricfree.sc", "crictime.com", "smartcric.com",
+    "webcric.com", "crichd.com", "cricwick.net",
+    "willow.tv.link", "hotstar.link",
+    "star.link", "sonyliv.link",
+    # Football streaming
+    "footybite.cc", "footybite.to",
+    "soccerstreams.net", "nflbite.com",
+    "nbabite.com", "mlbbite.com",
+    "nhllive.net", "boxingstreams.cc",
+    "mmastreams.me", "ufcstreams.me",
+    # IPTV
+    "iptvcat.com", "freefreeiptv.com",
+    "freeiptvlist.tk", "iptvsource.com",
+    "iptv-org.github.io", "iptvleak.com",
+    # Torrent sports
+    "1337x.to", "torrentgalaxy.to",
+    "limetorrents.lol", "nyaa.si",
+    # Reddit
+    "reddit.com",
+    # Telegram sports
+    "t.me",
+    # P2P sports
+    "acestream.net", "sopcast.com",
+    "channelsurfer.live", "streamtp.com",
+    "sportstream.live", "streamwoop.com",
+    "sportsstream24.com", "livesport.ws",
+    "streamonsport.com", "sport365.live",
+    "livescore.cric", "sportsmax.tv.link",
+]
+
+print("Expanded site lists loaded:")
+print(f"  Film:   {len(FILM_PIRACY_SITES_100)} sites")
+print(f"  Gaming: {len(GAMING_PIRACY_SITES_100)} sites")
+print(f"  Manga:  {len(MANGA_PIRACY_SITES_100)} sites")
+print(f"  Music:  {len(MUSIC_PIRACY_SITES_100)} sites")
+print(f"  Sports: {len(SPORTS_PIRACY_SITES_100)} sites")
+
+# ══════════════════════════════════════════════════════════════════
+# EXPANDED SITE LISTS — 100+ per category
+# For use with SerpApi site: operator batch scanning
+# ══════════════════════════════════════════════════════════════════
+
+FILM_PIRACY_SITES_100 = [
+    # Major torrent sites
+    "1337x.to", "yts.mx", "yts.am", "rarbg.to", "rarbg.is",
+    "thepiratebay.org", "tpb.party", "torrentgalaxy.to",
+    "torrentleech.org", "iptorrents.com", "limetorrents.lol",
+    "torrentz2.eu", "torlock.com", "magnetdl.com",
+    "zooqle.to", "bitsearch.to", "torrentfunk.com",
+    "kickasstorrents.to", "katcr.co", "bt4g.com",
+    # Scene/NFO databases
+    "predb.me", "predb.ovh", "xrel.to", "srrdb.com",
+    "nzbindex.com", "nzbplanet.net", "nzbfinder.ws",
+    # Streaming piracy
+    "fmovies.to", "gomovies.sx", "123movies.ai",
+    "putlocker.vip", "solarmovie.pe", "yesmovies.ag",
+    "cmovies.tv", "vumoo.to", "popcorntime.app",
+    "streamlord.com", "soap2day.to", "lookmovie.ag",
+    "flixhq.to", "myflixer.to", "cineb.net",
+    "hdtoday.cc", "flixtorr.to", "moviesjoy.plus",
+    "bflix.gg", "nunflix.org", "pressplay.top",
+    # Direct download
+    "archive.org", "rapidgator.net", "nitroflare.com",
+    "uptobox.com", "1fichier.com", "katfile.com",
+    "filefox.cc", "ddownload.com", "drop.download",
+    # Indian piracy
+    "movierulz.com", "5movierulz.camera", "tamilmv.fi",
+    "filmyzilla.com", "9xmovies.cool", "tamilblasters.life",
+    "ibomma.com", "isaimini.com", "kuttymovies.com",
+    "tamilyogi.wiki", "moviesda.com", "cinevood.com",
+    "hdhub4u.com", "vegamovies.in", "bolly4u.trade",
+    "filmyhit.com", "skymovies.mov", "filmysplit.com",
+    "moviecounter.app", "filmy4wap.com", "mlwbd.com",
+    "movierulz.plz", "tamilrockers.ws", "isaidub.com",
+    "khatrimaza.com", "mp4moviez.com", "worldfree4u.com",
+    "7starhd.com", "downloadhub.city", "rdxhd.com",
+    # OpenSubtitles/tracking
+    "opensubtitles.org", "subscene.com", "yifysubtitles.org",
+    # Telegram/Social
+    "t.me", "telegram.me",
+    # WhereYouWatch/tracking
+    "whereyouwatch.com", "watchsomuch.to",
+    # P2P/Magnet
+    "btdig.com", "snowfl.com", "btmet.com",
+    "torrentdownload.ch", "torrentproject.se",
+    # Additional streaming
+    "m4ufree.tv", "azmovies.net", "gostream.site",
+    "iosmovies.org", "watch32.app", "c1ne.co",
+    "moviesmod.com", "extramovies.casa", "o2tvseries.com",
+    "tvseries.to", "hdeuropix.com", "streamm4u.club",
+]
+
+GAMING_PIRACY_SITES_100 = [
+    # Repack sites
+    "fitgirl-repacks.site", "fitgirl-repacks.net",
+    "dodi-repacks.site", "dodi-repacks.com",
+    "gog-games.to", "gog-games.com",
+    "cs.rin.ru", "skidrowreloaded.com",
+    "skidrowcodex.net", "oceanofgames.com",
+    "igg-games.com", "steamunlocked.net",
+    "gamesrepacks.com", "repack-games.com",
+    "pcgamestorrents.com", "gametrex.com",
+    "freegogpcgames.com", "ovagames.com",
+    "repacklab.com", "crackwatch.com",
+    "codex-games.com", "empress-games.com",
+    "rg-mechanics.org", "masquerade-repacks.com",
+    "kaoskrew.org", "darksiderg.com",
+    "xatab-repacks.com", "seyter-repacks.com",
+    "corepack.io", "onlinefix.me",
+    # Torrent sites gaming category
+    "1337x.to", "torrentgalaxy.to", "rarbg.to",
+    "limetorrents.lol", "nyaa.si", "rutracker.org",
+    "kat.cr", "zooqle.to", "bitsearch.to",
+    "torrentfunk.com", "bt4g.com", "magnetdl.com",
+    # Scene databases
+    "predb.me", "xrel.to", "srrdb.com", "predb.ovh",
+    # Direct download gaming
+    "archive.org", "rapidgator.net", "nitroflare.com",
+    "uptobox.com", "1fichier.com",
+    # Gaming specific
+    "myabandonware.com", "old-games.com",
+    "abandonia.com", "classicdosgames.com",
+    # APK/Mobile piracy
+    "apkpure.com", "apkmirror.com", "happymod.com",
+    "an1.com", "apkdone.com", "revdl.com",
+    "rexdl.com", "androeed.ru", "apknite.com",
+    # DRM bypass sites
+    "crack-status.com", "crackwatch.com",
+    "gamestatus.info", "iscracked.net",
+    # Additional repack sites
+    "karanpc.com", "apunkagames.com", "ocean-of-games.com",
+    "fullgamepc.com", "pcgames-download.com",
+    "torrentpc.org", "gamepciso.com",
+    "skidrow-games.com", "repack.info",
+    "gamesdbase.com", "gload.cc",
+]
+
+MANGA_PIRACY_SITES_100 = [
+    # Scan sites
+    "mangadex.org", "mangareader.to", "mangafire.to",
+    "mangakakalot.com", "manganelo.com", "mangapark.net",
+    "mangaowl.net", "mangago.me", "readmng.com",
+    "fanfox.net", "mangahere.cc", "mangapanda.com",
+    "kissmanga.org", "mangafreak.net", "mangahub.io",
+    "mangafast.net", "mangaclash.com", "mangastream.net",
+    "readmanganato.com", "toonily.com", "manhwafreak.com",
+    "isekaiscan.com", "reaperscans.com", "asurascans.com",
+    "flamescans.org", "nitroscans.com", "aquamanga.com",
+    "kunmanga.com", "bato.to", "webtoon.xyz",
+    "manhuascan.com", "manhuafast.com", "manhuaplus.com",
+    "manhwatop.com", "manhwakool.com", "1stkissmanga.com",
+    # Ebook piracy
+    "libgen.is", "libgen.rs", "libgen.st",
+    "z-lib.org", "zlibrary.to", "b-ok.cc",
+    "pdfdrive.com", "free-ebooks.net", "manybooks.net",
+    "epublibre.org", "epubbooks.net", "getfreeebooks.com",
+    "booksc.org", "sci-hub.se", "sci-hub.st",
+    # Comic piracy
+    "getcomics.org", "readcomiconline.li",
+    "comicextra.com", "viewcomic.com", "readallcomics.com",
+    "comicbookplus.com", "digitalcomicmuseum.com",
+    "readcomicsonline.ru", "comix-load.com",
+    # Torrent manga
+    "nyaa.si", "bakabt.me", "animebytes.tv",
+    "anidex.info", "tokyotosho.info",
+    "mangaeden.com", "mangacow.com",
+    # Light novel
+    "novelupdates.com", "royalroad.com", "wuxiaworld.com",
+    "lightnovelworld.com", "novelfull.com", "readlightnovel.me",
+    "mtlnation.com", "webnovel.com", "scribblehub.com",
+    # Raw manga
+    "manga1001.top", "rawkuma.com", "mangabuddy.com",
+    "klmanga.com", "manga-zip.net", "dl-raw.net",
+]
+
+MUSIC_PIRACY_SITES_100 = [
+    # MP3 download sites
+    "mp3juices.cc", "mp3skull.com", "mp3clan.com",
+    "freemp3cloud.com", "beemp3.com", "mp3download.to",
+    "freemp3.fm", "mp3raid.com", "mp3skull.cc",
+    "waptrick.com", "mdundo.com", "mp3paw.com",
+    "mp3fusion.net", "fakaza.com", "zamusic.org",
+    "hitxgh.com", "ghanamotion.com", "tooxclusive.com",
+    "naijaloaded.com.ng", "naijapals.com",
+    # Indian music piracy
+    "pagalworld.com", "djpunjab.com", "mrjatt.in",
+    "songspk.name", "downloadming.uno", "djjohal.com",
+    "djmaza.info", "bestwap.in", "raagsong.com",
+    "gaana.link", "hungama.link", "saavnpro.com",
+    "wynk.link", "jiosaavn.link", "bollywood.link",
+    # Russian music sites
+    "rutracker.org", "zaycev.net", "prostopleer.com",
+    "pleer.net", "mp3base.ru", "muzmo.ru",
+    "realmusic.ru", "zvuki.ru", "muspy.com",
+    # YouTube rip sites
+    "y2mate.com", "ytmp3.cc", "convertmp3.io",
+    "yt1s.com", "flvto.biz", "2conv.com",
+    "onlinevideoconverter.com", "mp3ify.com",
+    "notube.net", "savefrom.net", "clipconverter.cc",
+    # Torrent music
+    "1337x.to", "rutracker.org", "nyaa.si",
+    "torrentgalaxy.to", "limetorrents.lol",
+    "bakabt.me", "what.cd", "redacted.ch",
+    "orpheus.network", "dicmusic.club",
+    # Archive/sharing
+    "archive.org", "soundcloud.com",
+    # Album download
+    "free-mp3-download.net", "allmp3.com",
+    "downloadalbums.club", "musicpleer.audio",
+    "mp3va.com", "musicmp3.com", "audiomack.link",
+    # Telegram music channels
+    "t.me",
+    # VK
+    "vk.com",
+]
+
+SPORTS_PIRACY_SITES_100 = [
+    # Illegal streaming sites
+    "crackstreams.com", "crackstreams.live",
+    "buffstream.io", "buffstreams.app",
+    "sportsurge.net", "sportsurge.app",
+    "hesgoal.com", "hesgoal.live",
+    "vipbox.lc", "vipbox.tv", "viprow.me",
+    "sportlemon.tv", "firstrowsports.eu",
+    "livetv.sx", "livetv.ru",
+    "ronaldo7.net", "wiziwig.tv",
+    "laola1.tv", "laola1.at",
+    "strikeout.nu", "streameast.live",
+    "sportsbay.org", "sportp2p.com",
+    "streamhunter.eu", "atdhe.net",
+    "fromhot.com", "batman-stream.com",
+    "myp2p.eu", "vipleague.lc",
+    "rojadirecta.me", "rojadirecta.es",
+    "tarjetarojaonline.sx", "peliculasyonkis.com",
+    # Cricket streaming
+    "cricfree.sc", "crictime.com", "smartcric.com",
+    "webcric.com", "crichd.com", "cricwick.net",
+    "willow.tv.link", "hotstar.link",
+    "star.link", "sonyliv.link",
+    # Football streaming
+    "footybite.cc", "footybite.to",
+    "soccerstreams.net", "nflbite.com",
+    "nbabite.com", "mlbbite.com",
+    "nhllive.net", "boxingstreams.cc",
+    "mmastreams.me", "ufcstreams.me",
+    # IPTV
+    "iptvcat.com", "freefreeiptv.com",
+    "freeiptvlist.tk", "iptvsource.com",
+    "iptv-org.github.io", "iptvleak.com",
+    # Torrent sports
+    "1337x.to", "torrentgalaxy.to",
+    "limetorrents.lol", "nyaa.si",
+    # Reddit
+    "reddit.com",
+    # Telegram sports
+    "t.me",
+    # P2P sports
+    "acestream.net", "sopcast.com",
+    "channelsurfer.live", "streamtp.com",
+    "sportstream.live", "streamwoop.com",
+    "sportsstream24.com", "livesport.ws",
+    "streamonsport.com", "sport365.live",
+    "livescore.cric", "sportsmax.tv.link",
+]
+
+print("Expanded site lists loaded:")
+print(f"  Film:   {len(FILM_PIRACY_SITES_100)} sites")
+print(f"  Gaming: {len(GAMING_PIRACY_SITES_100)} sites")
+print(f"  Manga:  {len(MANGA_PIRACY_SITES_100)} sites")
+print(f"  Music:  {len(MUSIC_PIRACY_SITES_100)} sites")
+print(f"  Sports: {len(SPORTS_PIRACY_SITES_100)} sites")
+
+
+async def batch_serp_scan(
+    title: str,
+    sites: list[str],
+    client,
+    batch_size: int = 10
+) -> list[dict]:
+    """
+    Scan 100+ sites via SerpApi using OR operator.
+    Batches sites into groups of 10 for efficient querying.
+    1 SerpApi search = 10 sites checked simultaneously.
+    100 sites = only 10 SerpApi searches instead of 100.
+    """
+    if not SERP_API_KEY:
+        return []
+
+    all_hits = []
+    # Group sites into batches
+    batches = [sites[i:i+batch_size]
+               for i in range(0, len(sites), batch_size)]
+
+    for batch in batches:
+        # Build site: OR query
+        site_query = " OR ".join(f"site:{s}" for s in batch)
+        query = f'"{title}" ({site_query})'
+
+        try:
+            r = await client.get(
+                "https://serpapi.com/search",
+                params={
+                    "q": query,
+                    "api_key": SERP_API_KEY,
+                    "num": 10,
+                    "engine": "google",
+                },
+                timeout=15
+            )
+            if r.status_code == 200:
+                items = r.json().get("organic_results", [])
+                for item in items:
+                    link = item.get("link", "")
+                    t = item.get("title", "")
+                    snippet = item.get("snippet", "")
+                    # Verify title match
+                    if film_matches(title, f"{t} {snippet}"):
+                        all_hits.append({
+                            "platform": link.split('/')[2][:30],
+                            "url": link,
+                            "title": t[:80],
+                            "snippet": snippet[:100],
+                        })
+            await asyncio.sleep(0.3)
+        except Exception as e:
+            logging.warning(f"Batch serp error: {e}")
+
+    return all_hits

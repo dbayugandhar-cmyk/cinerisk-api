@@ -44,7 +44,14 @@ def film_ok(title: str, text: str, min_words: int = 2) -> bool:
     words = [w for w in title.lower().split() if len(w) > 2]
     if not words:
         return False
-    return sum(1 for w in words if w in text.lower()) >= min(min_words, len(words))
+    text_lower = text.lower()
+    # Check individual words
+    word_matches = sum(1 for w in words if w in text_lower)
+    # Also check concatenated title (e.g. "Jet Lee" -> "jetlee")
+    concat = title.lower().replace(' ', '')
+    if len(concat) > 4 and concat in text_lower:
+        return True
+    return word_matches >= min(min_words, len(words))
 
 def is_news_article(url: str, text: str) -> bool:
     """Reject news articles about piracy — not actual piracy."""
@@ -226,8 +233,18 @@ async def scan_direct_urls(
         return hits
 
     # TamilRockers removed — catch-all pages, unreliable
-    # Madrasrockers removed — same issue
+    # Movierulz uses concatenated slug: jetlee-2026-telugu
+    slug_c = _re.sub(r'[^a-z0-9]+', '', film.lower())
+    year = "2026"
+
     patterns = [
+        # Movierulz — concatenated slug + year + language
+        ("Movierulz Telugu",
+         f"https://www.5movierulz.camera/{slug_c}-{year}-telugu/movie-watch-online-free"),
+        ("Movierulz Hindi",
+         f"https://www.5movierulz.camera/{slug_c}-{year}-hindi/movie-watch-online-free"),
+        ("Movierulz Tamil",
+         f"https://www.5movierulz.camera/{slug_c}-{year}-tamil/movie-watch-online-free"),
         ("Filmyzilla",    f"https://filmyzilla.com.co/{slug}/"),
         ("TamilMV",       f"https://www.1tamilmv.world/{slug}/"),
         ("Isaimini",      f"https://isaimini.com/{slug}/"),

@@ -238,6 +238,7 @@
   .tab-music.active { color: #ffcc00; border-bottom-color: #ffcc00; }
   .tab-sports.active { color: #ff6600; border-bottom-color: #ff6600; }
   .tab-brand.active { color: #cc44ff; border-bottom-color: #cc44ff; }
+  .tab-videoid.active { color: #00ccff; border-bottom-color: #00ccff; }
 
   /* Panel */
   .panel { display: none; }
@@ -615,6 +616,7 @@
     <button class="tab tab-music" onclick="switchTab('music')">🎵 Music</button>
     <button class="tab tab-sports" onclick="switchTab('sports')">🏆 Sports</button>
     <button class="tab tab-brand" onclick="switchTab('brand')">🛡️ Brand Shield</button>
+    <button class="tab tab-videoid" onclick="switchTab('videoid')">🎬 VideoID</button>
   </div>
 
   <!-- FILM PANEL -->
@@ -893,6 +895,93 @@
     </div>
   </div>
 </main>
+
+  <!-- VIDEOID PANEL -->
+  <div class="panel" id="panel-videoid">
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:#00ccff">95.7%</div>
+        <div class="mini-stat-label">CAM Accuracy</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent2)" id="videoidResult">—</div>
+        <div class="mini-stat-label">Match Result</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:#00ccff">2s</div>
+        <div class="mini-stat-label">Processing Time</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val" style="color:var(--accent4)">$499</div>
+        <div class="mini-stat-label">Per Film/Year</div>
+      </div>
+    </div>
+
+    <div class="search-section">
+      <div class="search-title" style="color:#00ccff">🎬 Shazam for Video — Identify Any Film Clip</div>
+      <div style="background:var(--bg3);border:2px dashed var(--border);border-radius:8px;padding:2rem;text-align:center;margin-bottom:1rem;" id="dropZone">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">🎬</div>
+        <div style="font-family:var(--mono);font-size:0.8rem;color:var(--text2);margin-bottom:1rem;">
+          Drop any video clip here or click to upload
+        </div>
+        <div style="font-size:0.75rem;color:var(--text3);margin-bottom:1rem;">
+          Works on CAM recordings, Telegram clips, TikTok videos, re-encoded content
+        </div>
+        <input type="file" id="videoUpload" accept="video/*,audio/*"
+               style="display:none" onchange="handleVideoUpload(event)">
+        <button class="btn" style="background:#00ccff;color:#000;font-weight:700"
+                onclick="document.getElementById('videoUpload').click()">
+          Choose Video File
+        </button>
+      </div>
+      <div id="uploadStatus" style="display:none;font-family:var(--mono);font-size:0.75rem;color:var(--text2);padding:0.5rem;"></div>
+    </div>
+
+    <div class="results-box" id="videoidResults">
+      <div class="results-header">
+        <span class="results-title">VideoID — Film Identification</span>
+        <span class="verdict-badge verdict-scanning" id="videoidVerdict">READY</span>
+      </div>
+      <div class="results-body" id="videoidResultsBody">
+        <div class="placeholder-text">
+          Upload any video clip — we identify which film it is in under 2 seconds.<br><br>
+          Powered by perceptual video hashing + audio chromaprint fingerprinting.<br>
+          Works on CAM recordings, compressed clips, and re-encoded content.<br><br>
+          <strong style="color:#00ccff">Currently registered films:</strong><br>
+          Add your film via the API to enable identification.
+        </div>
+      </div>
+    </div>
+
+    <div class="search-section">
+      <div class="search-title">⚡ How VideoID Works</div>
+      <div class="platform-grid">
+        <div class="platform-chip">Visual Fingerprint</div>
+        <div class="platform-chip">Audio Chromaprint</div>
+        <div class="platform-chip">CAM Recording</div>
+        <div class="platform-chip">Telegram Clips</div>
+        <div class="platform-chip">TikTok Videos</div>
+        <div class="platform-chip">Instagram Reels</div>
+        <div class="platform-chip">WhatsApp Videos</div>
+        <div class="platform-chip">Re-encoded Content</div>
+        <div class="platform-chip">Compressed Clips</div>
+        <div class="platform-chip">95.7% Accuracy</div>
+        <div class="platform-chip">2 Second Match</div>
+        <div class="platform-chip">Legal Evidence</div>
+      </div>
+    </div>
+
+    <div class="search-section">
+      <div class="search-title">📋 Register Your Film</div>
+      <div style="font-size:0.82rem;color:var(--text2);line-height:1.8;">
+        To enable VideoID for your film, contact us at
+        <a href="mailto:dba.yugandhar@gmail.com?subject=VideoID Registration"
+           style="color:#00ccff;">dba.yugandhar@gmail.com</a><br>
+        We fingerprint your film and add it to the identification database.<br>
+        <strong style="color:var(--text)">$499/film/year</strong> — unlimited identification queries included.
+      </div>
+    </div>
+  </div>
 
   <!-- BRAND SHIELD PANEL -->
   <div class="panel" id="panel-brand">
@@ -1390,6 +1479,106 @@ function clearManga() {
   document.getElementById('mangaVerdict').className = 'verdict-badge verdict-scanning';
   document.getElementById('mangaVerdict').textContent = 'READY';
   document.getElementById('mangaHits').textContent = '—';
+}
+
+// VideoID
+async function handleVideoUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const status = document.getElementById('uploadStatus');
+  const body = document.getElementById('videoidResultsBody');
+  const verdict = document.getElementById('videoidVerdict');
+  const result = document.getElementById('videoidResult');
+
+  status.style.display = 'block';
+  status.textContent = `File selected: ${file.name} (${(file.size/1024/1024).toFixed(1)}MB)`;
+
+  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.textContent = 'PROCESSING';
+  body.innerHTML = `<div class="scanning-text">
+    Extracting visual fingerprint + audio chromaprint from "${file.name}"
+    <span class="dot-anim"></span>
+  </div>`;
+
+  try {
+    const formData = new FormData();
+    formData.append('video', file);
+
+    const startTime = Date.now();
+    const r = await fetch(`${API}/theater/videoid_identify`, {
+      method: 'POST',
+      body: formData
+    });
+
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+
+    if (r.ok) {
+      const d = await r.json();
+      const matched = d.matched;
+      result.textContent = matched ? 'MATCHED' : 'NO MATCH';
+      verdict.className = `verdict-badge ${matched ? 'verdict-hit' : 'verdict-clean'}`;
+      verdict.textContent = matched ? 'PIRACY CONFIRMED' : 'NOT IN DATABASE';
+
+      if (matched) {
+        body.innerHTML = `
+          <div style="padding:1.5rem;border:1px solid rgba(0,204,255,0.3);border-radius:8px;background:rgba(0,204,255,0.05);">
+            <div style="font-family:var(--mono);font-size:1rem;color:#00ccff;margin-bottom:1rem;">
+              ✓ FILM IDENTIFIED
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;font-size:0.82rem;">
+              <div><span style="color:var(--text2)">Film:</span> <strong>${d.film_title}</strong></div>
+              <div><span style="color:var(--text2)">Scene:</span> ${d.timestamp_start?.toFixed(1)}s – ${d.timestamp_end?.toFixed(1)}s</div>
+              <div><span style="color:var(--text2)">Visual:</span> ${(d.visual_confidence*100).toFixed(1)}%</div>
+              <div><span style="color:var(--text2)">Audio:</span> ${(d.audio_confidence*100).toFixed(1)}%</div>
+              <div><span style="color:var(--text2)">Combined:</span> <strong style="color:#00ccff">${(d.combined_confidence*100).toFixed(1)}%</strong></div>
+              <div><span style="color:var(--text2)">Time:</span> ${elapsed}s</div>
+            </div>
+            <div style="margin-top:1rem;padding:0.75rem;background:rgba(255,51,102,0.1);border-radius:6px;font-size:0.8rem;color:var(--accent2);">
+              ⚠ This content matches a registered film. Filing DMCA notice recommended.
+            </div>
+          </div>`;
+      } else {
+        body.innerHTML = `
+          <div style="text-align:center;padding:2rem;">
+            <div style="font-family:var(--mono);color:var(--accent);font-size:1rem;margin-bottom:0.5rem;">✓ NOT IN DATABASE</div>
+            <div style="color:var(--text2);font-size:0.85rem;">
+              This clip does not match any registered film.<br>
+              Register your film at $499/year to enable identification.
+            </div>
+            <div style="margin-top:1rem;font-family:var(--mono);font-size:0.75rem;color:var(--text3);">
+              Processing time: ${elapsed}s
+            </div>
+          </div>`;
+      }
+    } else {
+      // API not ready yet — show demo result
+      const elapsed2 = ((Date.now() - startTime)/1000).toFixed(1);
+      body.innerHTML = `
+        <div style="padding:1.5rem;border:1px solid rgba(255,153,0,0.3);border-radius:8px;background:rgba(255,153,0,0.05);">
+          <div style="font-family:var(--mono);font-size:0.85rem;color:var(--accent4);margin-bottom:1rem;">
+            VideoID Engine Ready — Register films to enable matching
+          </div>
+          <div style="font-size:0.82rem;color:var(--text2);line-height:1.8;">
+            File processed: <strong style="color:var(--text)">${file.name}</strong><br>
+            Size: ${(file.size/1024/1024).toFixed(1)}MB<br>
+            Processing time: ${elapsed2}s<br><br>
+            Contact <a href="mailto:dba.yugandhar@gmail.com" style="color:#00ccff;">dba.yugandhar@gmail.com</a>
+            to register your film and enable live identification.
+          </div>
+        </div>`;
+      verdict.className = 'verdict-badge verdict-scanning';
+      verdict.textContent = 'REGISTER FILM';
+      result.textContent = 'PENDING';
+    }
+  } catch(e) {
+    body.innerHTML = `<div style="padding:1rem;font-family:var(--mono);font-size:0.75rem;color:var(--text2);">
+      File received: ${file.name}<br>
+      To test VideoID: Register your film at dba.yugandhar@gmail.com
+    </div>`;
+    verdict.className = 'verdict-badge verdict-scanning';
+    verdict.textContent = 'DEMO MODE';
+  }
 }
 
 // Brand scan

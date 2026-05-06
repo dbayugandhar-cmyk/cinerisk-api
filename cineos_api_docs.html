@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS API — Developer Documentation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root {
+  --bg:#080810;--bg2:#0d0d1a;--bg3:#12121f;--border:#1a1a2e;
+  --accent:#00ff88;--accent2:#ff3366;--accent3:#3366ff;--accent4:#ff9900;
+  --text:#eeeef5;--text2:#8888aa;--text3:#44445a;
+  --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,255,136,0.02) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,255,136,0.02) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(8,8,16,0.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:0 2rem;height:64px;
+  display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:var(--mono);font-size:1rem;color:var(--accent);letter-spacing:0.2em;display:flex;align-items:center;gap:0.6rem;}
+.nav-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.nav-links{display:flex;gap:1.5rem;}
+.nav-link{font-family:var(--mono);font-size:0.7rem;color:var(--text2);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;}
+.nav-link:hover{color:var(--accent);}
+.layout{display:grid;grid-template-columns:240px 1fr;gap:0;min-height:100vh;padding-top:64px;}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:2rem 1.5rem;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto;}
+.sidebar-title{font-family:var(--mono);font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1rem;margin-top:1.5rem;}
+.sidebar-title:first-child{margin-top:0;}
+.sidebar-link{display:block;font-family:var(--mono);font-size:0.72rem;color:var(--text2);text-decoration:none;padding:0.3rem 0;letter-spacing:0.03em;transition:color 0.2s;}
+.sidebar-link:hover{color:var(--accent);}
+.sidebar-link.active{color:var(--accent);}
+.content{padding:3rem 2rem;max-width:800px;position:relative;z-index:1;}
+h1{font-family:var(--mono);font-size:1.8rem;font-weight:700;margin-bottom:0.5rem;color:var(--text);}
+h2{font-family:var(--mono);font-size:1.1rem;font-weight:700;margin:2.5rem 0 1rem;color:var(--text);padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+h3{font-family:var(--mono);font-size:0.85rem;font-weight:700;margin:1.5rem 0 0.5rem;color:var(--accent);}
+p{color:var(--text2);margin-bottom:1rem;font-size:0.9rem;}
+.hero-sub{font-size:1rem;color:var(--text2);margin-bottom:2rem;}
+.badge{display:inline-block;font-family:var(--mono);font-size:0.6rem;padding:0.2rem 0.6rem;border-radius:3px;letter-spacing:0.08em;text-transform:uppercase;margin-right:0.5rem;}
+.badge-get{background:rgba(0,255,136,0.1);color:var(--accent);}
+.badge-post{background:rgba(255,153,0,0.1);color:var(--accent4);}
+.badge-del{background:rgba(255,51,102,0.1);color:var(--accent2);}
+.endpoint{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin-bottom:1rem;}
+.endpoint-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;}
+.endpoint-path{font-family:var(--mono);font-size:0.85rem;color:var(--text);}
+.endpoint-desc{font-size:0.82rem;color:var(--text2);margin-bottom:0.75rem;}
+pre{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:1rem;overflow-x:auto;font-family:var(--mono);font-size:0.75rem;line-height:1.6;color:var(--text2);margin-bottom:1rem;}
+.key-green{color:var(--accent);}
+.key-orange{color:var(--accent4);}
+.key-blue{color:var(--accent3);}
+.key-red{color:var(--accent2);}
+.tier-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem;}
+.tier-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.25rem;text-align:center;}
+.tier-card.featured{border-color:var(--accent);}
+.tier-name{font-family:var(--mono);font-size:0.65rem;color:var(--text2);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;}
+.tier-price{font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--text);margin-bottom:0.25rem;}
+.tier-queries{font-size:0.78rem;color:var(--text3);}
+.cta-box{background:var(--bg2);border:1px solid var(--accent);border-radius:8px;padding:1.5rem;margin:2rem 0;text-align:center;}
+.btn{display:inline-block;background:var(--accent);color:#000;font-family:var(--mono);font-size:0.75rem;font-weight:700;padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;}
+.btn:hover{background:#00cc66;}
+.try-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin:1.5rem 0;}
+.try-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:0.6rem 1rem;color:var(--text);font-family:var(--mono);font-size:0.78rem;outline:none;margin-bottom:0.75rem;}
+.try-input:focus{border-color:var(--accent);}
+.try-btn{background:var(--accent);color:#000;font-family:var(--mono);font-size:0.72rem;font-weight:700;padding:0.6rem 1.2rem;border-radius:6px;border:none;cursor:pointer;text-transform:uppercase;}
+.try-result{margin-top:1rem;font-family:var(--mono);font-size:0.72rem;color:var(--text2);}
+@media(max-width:768px){.layout{grid-template-columns:1fr;}.sidebar{display:none;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo"><div class="nav-dot"></div>CINEOS API</div>
+  <div class="nav-links">
+    <a class="nav-link" href="cineos_landing.html">Home</a>
+    <a class="nav-link" href="cineos_platform.html">Platform</a>
+    <a class="nav-link" href="mailto:dba.yugandhar@gmail.com">Get API Key</a>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="sidebar-title">Getting Started</div>
+    <a class="sidebar-link" href="#intro">Introduction</a>
+    <a class="sidebar-link" href="#auth">Authentication</a>
+    <a class="sidebar-link" href="#pricing">Pricing</a>
+    <div class="sidebar-title">Endpoints</div>
+    <a class="sidebar-link" href="#scan">POST /v1/scan</a>
+    <a class="sidebar-link" href="#live-shield">POST /v1/live_shield</a>
+    <a class="sidebar-link" href="#velocity">GET /v1/velocity</a>
+    <a class="sidebar-link" href="#usage">GET /v1/usage</a>
+    <div class="sidebar-title">Resources</div>
+    <a class="sidebar-link" href="#errors">Error Codes</a>
+    <a class="sidebar-link" href="#limits">Rate Limits</a>
+    <a class="sidebar-link" href="#try">Try It Live</a>
+  </div>
+
+  <div class="content">
+    <h1>CINEOS Intelligence API</h1>
+    <p class="hero-sub">Real-time piracy detection for film, gaming, sports and India cinema. Detect piracy in under 500ms across 1000+ sources.</p>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:2rem;font-family:var(--mono);font-size:0.78rem;">
+      <span style="color:var(--text3);">Base URL:</span>
+      <span style="color:var(--accent);margin-left:0.5rem;">https://cinerisk-api-production.up.railway.app</span>
+    </div>
+
+    <h2 id="intro">Introduction</h2>
+    <p>The CINEOS API gives you programmatic access to real-time piracy intelligence. Scan any film, game, or sports event across 1000+ piracy sources with a single API call.</p>
+    <p>Every response includes the verdict, infringing URLs, platform names, and usage metadata. All endpoints return JSON.</p>
+
+    <h2 id="auth">Authentication</h2>
+    <p>All API requests require an API key passed in the <code style="font-family:var(--mono);color:var(--accent);font-size:0.82rem;">X-API-Key</code> header.</p>
+    <pre><span class="key-green">curl</span> -X POST https://cinerisk-api-production.up.railway.app/v1/scan \
+  <span class="key-orange">-H</span> <span class="key-blue">"X-API-Key: ck_your_api_key_here"</span> \
+  <span class="key-orange">-H</span> <span class="key-blue">"Content-Type: application/json"</span> \
+  <span class="key-orange">-d</span> <span class="key-blue">'{"title":"Jet Lee","category":"film"}'</span></pre>
+    <p>To get an API key, email <a href="mailto:dba.yugandhar@gmail.com" style="color:var(--accent);">dba.yugandhar@gmail.com</a> or use the form below.</p>
+
+    <h2 id="pricing">Pricing</h2>
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="tier-name">Starter</div>
+        <div class="tier-price">$49</div>
+        <div class="tier-queries">500 queries/month</div>
+      </div>
+      <div class="tier-card featured">
+        <div class="tier-name">Pro</div>
+        <div class="tier-price">$499</div>
+        <div class="tier-queries">5,000 queries/month</div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Studio</div>
+        <div class="tier-price">$999</div>
+        <div class="tier-queries">20,000 queries/month</div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Enterprise</div>
+        <div class="tier-price">Custom</div>
+        <div class="tier-queries">Unlimited queries</div>
+      </div>
+    </div>
+
+    <h2 id="scan">POST /v1/scan</h2>
+    <p>Scan for piracy across 1000+ sources. Returns verdict, infringing URLs, and platform list.</p>
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="badge badge-post">POST</span>
+        <span class="endpoint-path">/v1/scan</span>
+      </div>
+      <h3>Request Body</h3>
+      <pre>{
+  <span class="key-green">"title"</span>: <span class="key-blue">"Jet Lee"</span>,        <span class="key-orange">// required — film/game/event name</span>
+  <span class="key-green">"category"</span>: <span class="key-blue">"film"</span>,    <span class="key-orange">// film | india | gaming | sports</span>
+  <span class="key-green">"language"</span>: <span class="key-blue">"telugu"</span>   <span class="key-orange">// optional — any | hindi | telugu | tamil</span>
+}</pre>
+      <h3>Response</h3>
+      <pre>{
+  <span class="key-green">"success"</span>: true,
+  <span class="key-green">"data"</span>: {
+    <span class="key-green">"title"</span>: <span class="key-blue">"Jet Lee"</span>,
+    <span class="key-green">"verdict"</span>: <span class="key-red">"CONFIRMED"</span>,
+    <span class="key-green">"hits_found"</span>: 3,
+    <span class="key-green">"platforms"</span>: [<span class="key-blue">"5movierulz.camera"</span>, <span class="key-blue">"thepiratebay.org"</span>],
+    <span class="key-green">"hits"</span>: [{
+      <span class="key-green">"platform"</span>: <span class="key-blue">"5movierulz.camera"</span>,
+      <span class="key-green">"url"</span>: <span class="key-blue">"https://www.5movierulz.camera/jetlee-2026-telugu/..."</span>,
+      <span class="key-green">"title"</span>: <span class="key-blue">"JetLee (2026) Telugu Full Movie Watch Online"</span>
+    }]
+  },
+  <span class="key-green">"meta"</span>: {
+    <span class="key-green">"response_time_ms"</span>: 323,
+    <span class="key-green">"queries_used"</span>: 1,
+    <span class="key-green">"queries_remaining"</span>: 4999,
+    <span class="key-green">"tier"</span>: <span class="key-blue">"pro"</span>
+  }
+}</pre>
+    </div>
+
+    <h2 id="live-shield">POST /v1/live_shield</h2>
+    <p>Scan Telegram channels for illegal sports streams. Detects IPL, cricket, Premier League streams with language detection.</p>
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="badge badge-post">POST</span>
+        <span class="endpoint-path">/v1/live_shield</span>
+      </div>
+      <pre>{
+  <span class="key-green">"event_name"</span>: <span class="key-blue">"IPL 2026"</span>
+}</pre>
+      <h3>Response</h3>
+      <pre>{
+  <span class="key-green">"data"</span>: {
+    <span class="key-green">"streams_found"</span>: 7,
+    <span class="key-green">"critical"</span>: 3,
+    <span class="key-green">"streams"</span>: [{
+      <span class="key-green">"channel"</span>: <span class="key-blue">"RealCricPoint"</span>,
+      <span class="key-green">"channel_url"</span>: <span class="key-blue">"https://t.me/RealCricPoint"</span>,
+      <span class="key-green">"language"</span>: <span class="key-blue">"Tamil"</span>,
+      <span class="key-green">"subscriber_count"</span>: 95500,
+      <span class="key-green">"is_betting"</span>: false,
+      <span class="key-green">"severity"</span>: <span class="key-orange">"HIGH"</span>
+    }]
+  }
+}</pre>
+    </div>
+
+    <h2 id="velocity">GET /v1/velocity/{title}</h2>
+    <p>Get piracy spread velocity data — how fast a film is spreading across platforms over time.</p>
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="badge badge-get">GET</span>
+        <span class="endpoint-path">/v1/velocity/{title}</span>
+      </div>
+      <pre><span class="key-green">curl</span> https://cinerisk-api-production.up.railway.app/v1/velocity/Michael \
+  <span class="key-orange">-H</span> <span class="key-blue">"X-API-Key: ck_your_key"</span></pre>
+    </div>
+
+    <h2 id="usage">GET /v1/usage</h2>
+    <p>Get your API usage statistics — queries used, remaining, and recent call history.</p>
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="badge badge-get">GET</span>
+        <span class="endpoint-path">/v1/usage</span>
+      </div>
+    </div>
+
+    <h2 id="errors">Error Codes</h2>
+    <pre><span class="key-orange">401</span> Unauthorized     — Missing or invalid API key
+<span class="key-orange">429</span> Too Many Requests — Rate limit or monthly quota exceeded
+<span class="key-orange">400</span> Bad Request       — Invalid parameters
+<span class="key-orange">503</span> Service Unavailable — Database temporarily unavailable</pre>
+
+    <h2 id="limits">Rate Limits</h2>
+    <pre>Starter    10 requests/minute
+Pro        30 requests/minute
+Studio     60 requests/minute
+Enterprise 200 requests/minute</pre>
+
+    <h2 id="try">Try It Live</h2>
+    <div class="try-box">
+      <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text2);margin-bottom:1rem;">
+        Test the API without an API key (free tier — 10 queries):
+      </div>
+      <input class="try-input" id="tryTitle" placeholder="Enter film title e.g. Jet Lee, Michael, Pushpa 2">
+      <select id="tryCategory" style="width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:0.6rem 1rem;color:var(--text);font-family:var(--mono);font-size:0.78rem;outline:none;margin-bottom:0.75rem;">
+        <option value="film">Film</option>
+        <option value="india">India Cinema</option>
+        <option value="gaming">Gaming</option>
+        <option value="sports">Sports</option>
+      </select>
+      <input class="try-input" id="tryKey" placeholder="Your API key (optional — get one free)">
+      <button class="try-btn" onclick="tryApi()">Run Query</button>
+      <div class="try-result" id="tryResult"></div>
+    </div>
+
+    <div class="cta-box">
+      <div style="font-family:var(--mono);font-size:1rem;color:var(--text);margin-bottom:0.5rem;">Ready to integrate?</div>
+      <p style="margin-bottom:1rem;">Get your API key and start detecting piracy in minutes.</p>
+      <a class="btn" href="mailto:dba.yugandhar@gmail.com?subject=CINEOS API Key Request">Get API Key →</a>
+    </div>
+
+    <div style="font-family:var(--mono);font-size:0.65rem;color:var(--text3);margin-top:3rem;padding-top:1rem;border-top:1px solid var(--border);">
+      CINEOS Intelligence API v1.0 · US Prov. Pat. 64/049,190 · dba.yugandhar@gmail.com
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'https://cinerisk-api-production.up.railway.app';
+
+async function tryApi() {
+  const title = document.getElementById('tryTitle').value.trim();
+  const category = document.getElementById('tryCategory').value;
+  const key = document.getElementById('tryKey').value.trim();
+  const result = document.getElementById('tryResult');
+
+  if (!title) {
+    result.innerHTML = '<span style="color:var(--accent2)">Enter a title to scan</span>';
+    return;
+  }
+
+  result.innerHTML = '<span style="color:var(--text3)">Scanning...</span>';
+
+  try {
+    const headers = {'Content-Type': 'application/json'};
+    if (key) headers['X-API-Key'] = key;
+
+    const r = await fetch(`${API}/v1/scan`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({title, category})
+    });
+
+    const d = await r.json();
+    if (r.ok) {
+      const verdict = d.data.verdict;
+      const color = verdict === 'CONFIRMED' ? 'var(--accent2)' : 'var(--accent)';
+      result.innerHTML = `<pre style="margin-top:0.5rem">${JSON.stringify(d, null, 2)
+        .replace(/"CONFIRMED"/g, '<span style="color:var(--accent2)">"CONFIRMED"</span>')
+        .replace(/"CLEAN"/g, '<span style="color:var(--accent)">"CLEAN"</span>')
+      }</pre>`;
+    } else {
+      result.innerHTML = `<pre style="color:var(--accent2)">${JSON.stringify(d, null, 2)}</pre>`;
+    }
+  } catch(e) {
+    result.innerHTML = `<span style="color:var(--accent2)">Error: ${e.message}</span>`;
+  }
+}
+</script>
+</body>
+</html>

@@ -566,44 +566,45 @@ async def gold_scan(request: dict):
 async def velocity_summary():
     """Get latest velocity data for all tracked films."""
     try:
-        import traceback
         rows = await db_fetch("""
-            SELECT DISTINCT ON (film_title)
-                film_title, scan_time, platform_count,
-                hits_found, hours_since_release, spread_rate,
-                platforms
+            SELECT film_title,
+                   MAX(scan_time) as scan_time,
+                   MAX(platform_count) as platform_count,
+                   MAX(hits_found) as hits_found,
+                   MAX(hours_since_release) as hours_since_release,
+                   MAX(spread_rate) as spread_rate
             FROM cineos_velocity
-            ORDER BY film_title, scan_time DESC
+            GROUP BY film_title
+            ORDER BY MAX(scan_time) DESC
         """)
         films = []
         for r in rows:
-            platforms = r[6] or []
             hours = float(r[4] or 0)
-            platform_count = r[2] or 0
-            daily_dl = platform_count * 50000
+            platform_count = int(r[2] or 0)
+            hits = int(r[3] or 0)
+            rate = float(r[5] or 0)
             days = max(1, hours / 24)
-            loss = daily_dl * days * 0.15 * 12.50
+            loss = round(platform_count * 50000 * days * 0.15 * 12.50)
             films.append({
                 "title": r[0],
                 "last_scan": str(r[1]),
                 "platform_count": platform_count,
-                "hits_found": r[3] or 0,
+                "hits_found": hits,
                 "hours_since_release": hours,
-                "spread_rate": float(r[5] or 0),
-                "platforms": platforms,
-                "revenue_loss_usd": round(loss),
+                "spread_rate": rate,
+                "revenue_loss_usd": loss,
                 "velocity_level": (
-                    "CRITICAL" if float(r[5] or 0) > 0.5 or platform_count > 20
-                    else "HIGH" if float(r[5] or 0) > 0.1 or platform_count > 10
+                    "CRITICAL" if rate > 0.5 or platform_count > 20
+                    else "HIGH" if rate > 0.1 or platform_count > 10
                     else "MEDIUM" if platform_count > 3
                     else "LOW"
                 )
             })
         return {"films": films, "count": len(films)}
     except Exception as e:
-        import traceback
-        return {"films": [], "error": str(e), "trace": traceback.format_exc()[-200:]}
-
+        import traceback as tb
+        return {"films": [], "error": str(e),
+                "trace": tb.format_exc()[-500:]}
 
 @app.get("/theater/velocity_history")
 async def velocity_history(film: str):

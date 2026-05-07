@@ -947,6 +947,74 @@
         <div class="platform-chip">Loading...</div>
       </div>
     </div>
+  
+    <!-- Intelligence Report (shown only in this tab) -->
+    <div class="u-report" style="display:none;margin-top:1.5rem;">
+      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
+        <div style="font-size:0.82rem;color:var(--text);">
+          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
+          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
+        </div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
+          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
+          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
+          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
+          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
+          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
+          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
+          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
+          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
+        </div>
+        <div class="r-cascade" style="padding:0.3rem 0;"></div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
+        </div>
+        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
+      </div>
+      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
+        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
+        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
+      </div>
+    </div>
+
   </div>
 
   <!-- INDIA PANEL -->
@@ -1035,6 +1103,74 @@
         <div class="platform-chip">TodayPk</div>
       </div>
     </div>
+  
+    <!-- Intelligence Report (shown only in this tab) -->
+    <div class="u-report" style="display:none;margin-top:1.5rem;">
+      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
+        <div style="font-size:0.82rem;color:var(--text);">
+          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
+          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
+        </div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
+          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
+          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
+          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
+          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
+          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
+          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
+          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
+          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
+        </div>
+        <div class="r-cascade" style="padding:0.3rem 0;"></div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
+        </div>
+        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
+      </div>
+      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
+        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
+        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
+      </div>
+    </div>
+
   </div>
 
   <!-- GAMING PANEL -->
@@ -1103,108 +1239,72 @@
         <div class="platform-chip">OvaGames</div>
       </div>
     </div>
-  </div>
-
-  <!-- ── UNIVERSAL INTELLIGENCE REPORT PANEL ─────────────────── -->
-  <div id="universalReport" style="display:none;margin-top:1.5rem;">
-
-    <div id="uReportHeader" style="
-      background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));
-      border:1px solid rgba(0,255,136,0.2);border-radius:10px;
-      padding:1.2rem 1.4rem;margin-bottom:1.2rem;
-      display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
-      <div style="font-size:0.82rem;color:var(--text);">
-        <div style="margin-bottom:0.3rem;">Category: <strong id="uRCategory" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-        <div style="margin-bottom:0.3rem;">Search: <strong id="uRSearch" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-        <div style="margin-bottom:0.3rem;">Hits found: <strong id="uRHits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
-        <div>Verdict: <strong id="uRVerdict" style="font-family:var(--mono)">—</strong></div>
+  
+    <!-- Intelligence Report (shown only in this tab) -->
+    <div class="u-report" style="display:none;margin-top:1.5rem;">
+      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
+        <div style="font-size:0.82rem;color:var(--text);">
+          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
+          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
+        </div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
+          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
+        </div>
       </div>
-      <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);
-        background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);
-        padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
-        CINEOS INTELLIGENCE REPORT<br>
-        US Pat. 64/049,190<br>
-        <span id="uRTime">—</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
+          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
+          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
+          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
+          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
+        </div>
       </div>
-    </div>
-
-    <!-- KPI row -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
-      <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
-        <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Confirmed Hits</div>
-        <div id="uKpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
-        <div style="font-size:0.68rem;color:var(--text2);">Active piracy sources</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
+          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
+          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
+          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
+        </div>
       </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
-        <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms Scanned</div>
-        <div id="uKpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
-        <div style="font-size:0.68rem;color:var(--text2);">Monitored sites</div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
+        </div>
+        <div class="r-cascade" style="padding:0.3rem 0;"></div>
       </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
-        <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
-        <div id="uKpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
-        <div style="font-size:0.68rem;color:var(--text2);">Spread classification</div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
+        </div>
+        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
       </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
-        <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Revenue Loss</div>
-        <div id="uKpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
-        <div style="font-size:0.68rem;color:var(--text2);">Monthly estimate</div>
+      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
+        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
+        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
       </div>
-    </div>
-
-    <!-- Charts grid -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
-
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
-        <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
-        <div style="font-size:0.85rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms over time</div>
-        <div style="position:relative;height:220px;"><canvas id="uSpreadChart"></canvas></div>
-      </div>
-
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-        <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
-        <div style="font-size:0.85rem;color:var(--text);margin-bottom:1rem;">Days until content appears on each platform</div>
-        <div style="position:relative;height:200px;"><canvas id="uPlatformChart"></canvas></div>
-      </div>
-
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-        <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
-        <div style="font-size:0.85rem;color:var(--text);margin-bottom:1rem;">Distribution of threats by severity level</div>
-        <div style="position:relative;height:200px;"><canvas id="uSeverityChart"></canvas></div>
-      </div>
-
-    </div>
-
-    <!-- Hit URLs table -->
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
-      <div style="padding:1rem 1.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
-        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">Detected Piracy URLs</span>
-        <span id="uUrlCount" style="font-family:var(--mono);font-size:0.65rem;color:#ff3366;">0 URLs</span>
-      </div>
-      <div id="uUrlTable" style="padding:0.5rem 0;max-height:250px;overflow-y:auto;"></div>
-    </div>
-
-    <!-- Cascade prediction -->
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
-      <div style="padding:1rem 1.3rem;border-bottom:1px solid var(--border);">
-        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
-      </div>
-      <div id="uCascadeBody" style="padding:0.5rem 0;"></div>
-    </div>
-
-    <!-- Intelligence layer -->
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
-      <div style="padding:1rem 1.3rem;border-bottom:1px solid var(--border);">
-        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
-      </div>
-      <div id="uIntelBody" style="padding:0.5rem 1.3rem;"></div>
-    </div>
-
-    <!-- Action buttons -->
-    <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
-      <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print Report</button>
-      <button onclick="copyUEvidence()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
-      <button onclick="emailMIBReport()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
     </div>
 
   </div>
@@ -1283,7 +1383,75 @@
         <div class="platform-chip">Telugu Movies</div>
         <div class="platform-chip">Tamil Movies</div>
       </div>
+    
+    <!-- Intelligence Report (shown only in this tab) -->
+    <div class="u-report" style="display:none;margin-top:1.5rem;">
+      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
+        <div style="font-size:0.82rem;color:var(--text);">
+          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
+          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
+        </div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
+          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
+          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
+          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
+          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
+          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
+          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
+          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
+          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
+        </div>
+        <div class="r-cascade" style="padding:0.3rem 0;"></div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
+        </div>
+        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
+      </div>
+      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
+        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
+        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
+      </div>
     </div>
+
+  </div>
 
     <!-- ── INTELLIGENCE REPORT ──────────────────── -->
     <div class="ls-report" id="lsReport">
@@ -1530,6 +1698,74 @@
         <div class="platform-chip">SubsPlease</div>
       </div>
     </div>
+  
+    <!-- Intelligence Report (shown only in this tab) -->
+    <div class="u-report" style="display:none;margin-top:1.5rem;">
+      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
+        <div style="font-size:0.82rem;color:var(--text);">
+          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
+          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
+        </div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
+          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
+          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
+          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
+          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
+          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
+          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
+          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
+          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
+        </div>
+        <div class="r-cascade" style="padding:0.3rem 0;"></div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
+        </div>
+        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
+      </div>
+      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
+        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
+        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
+      </div>
+    </div>
+
   </div>
 
   <!-- SPORTS PANEL -->
@@ -1595,6 +1831,74 @@
         <div class="platform-chip">1337x Sports</div>
       </div>
     </div>
+  
+    <!-- Intelligence Report (shown only in this tab) -->
+    <div class="u-report" style="display:none;margin-top:1.5rem;">
+      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
+        <div style="font-size:0.82rem;color:var(--text);">
+          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
+          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
+        </div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
+          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
+          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
+          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
+          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
+          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
+          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
+          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
+          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
+          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
+        </div>
+        <div class="r-cascade" style="padding:0.3rem 0;"></div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
+        </div>
+        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
+      </div>
+      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
+        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
+        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
+      </div>
+    </div>
+
   </div>
 
   <!-- MUSIC PANEL -->
@@ -2708,43 +3012,48 @@ const CAT_CONFIG = {
 };
 
 function showUniversalReport(category, searchTerm, hitsData) {
+  // Find the ACTIVE panel's report div — not a global one
+  const activePanel = document.querySelector('.panel.active');
+  if (!activePanel) return;
+  const report = activePanel.querySelector('.u-report');
+  if (!report) return;
   const cfg = CAT_CONFIG[category] || CAT_CONFIG.film;
   const report = document.getElementById('universalReport');
   report.style.display = 'block';
-  report.scrollIntoView({ behavior:'smooth', block:'start' });
+  setTimeout(() => report.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
 
   // Update header color
-  document.getElementById('uReportHeader').style.borderColor = cfg.color + '44';
-  document.getElementById('uReportHeader').style.background =
+  report.querySelector('.u-report-header') || report.children[0].style.borderColor = cfg.color + '44';
+  report.querySelector('.u-report-header') || report.children[0].style.background =
     `linear-gradient(135deg,${cfg.color}0a,rgba(51,102,255,0.04))`;
 
   // Timestamp
   const now = new Date();
-  document.getElementById('uRTime').textContent = now.toUTCString().slice(0,25);
-  document.getElementById('uRCategory').textContent = cfg.label;
-  document.getElementById('uRSearch').textContent = searchTerm || '—';
-  document.getElementById('uRCategory').style.color = cfg.color;
+  report.querySelector('.r-time').textContent = now.toUTCString().slice(0,25);
+  report.querySelector('.r-cat').textContent = cfg.label;
+  report.querySelector('.r-search').textContent = searchTerm || '—';
+  report.querySelector('.r-cat').style.color = cfg.color;
 
   // Pull real hits from DOM
   const hitEls = document.querySelectorAll('.hit-url, .hit-title, .result-url');
   const realHits = hitsData || hitEls.length || 0;
   const verdict = realHits > 0 ? 'CONFIRMED' : 'CLEAN';
 
-  document.getElementById('uRHits').textContent = realHits + (realHits === 1 ? ' hit' : ' hits');
-  document.getElementById('uRVerdict').textContent = verdict;
-  document.getElementById('uRVerdict').style.color = verdict === 'CONFIRMED' ? '#ff3366' : '#00ff88';
+  report.querySelector('.r-hits').textContent = realHits + (realHits === 1 ? ' hit' : ' hits');
+  report.querySelector('.r-verdict').textContent = verdict;
+  report.querySelector('.r-verdict').style.color = verdict === 'CONFIRMED' ? '#ff3366' : '#00ff88';
 
   // KPIs
   const velocity = realHits > 8 ? 'HIGH' : realHits > 3 ? 'MEDIUM' : realHits > 0 ? 'LOW' : 'NONE';
   const velColor = velocity === 'HIGH' ? '#ff3366' : velocity === 'MEDIUM' ? '#ff9900' : '#00ff88';
   const lossAmt = realHits > 0 ? '₹' + (realHits * 15).toFixed(0) + '-' + (realHits * 35).toFixed(0) + 'L/mo' : '₹0';
 
-  document.getElementById('uKpi1').textContent = realHits;
-  document.getElementById('uKpi1').style.color = realHits > 0 ? '#ff3366' : '#00ff88';
-  document.getElementById('uKpi2').textContent = cfg.platforms;
-  document.getElementById('uKpi3').textContent = velocity;
-  document.getElementById('uKpi3').style.color = velColor;
-  document.getElementById('uKpi4').textContent = lossAmt;
+  report.querySelector('.r-kpi1').textContent = realHits;
+  report.querySelector('.r-kpi1').style.color = realHits > 0 ? '#ff3366' : '#00ff88';
+  report.querySelector('.r-kpi2').textContent = cfg.platforms;
+  report.querySelector('.r-kpi3').textContent = velocity;
+  report.querySelector('.r-kpi3').style.color = velColor;
+  report.querySelector('.r-kpi4').textContent = lossAmt;
 
   // Destroy old charts
   Object.values(uCharts).forEach(c => c?.destroy());
@@ -2765,7 +3074,7 @@ function showUniversalReport(category, searchTerm, hitsData) {
     Math.round(base * (1 + i * 0.6 + Math.random() * 0.2)), cfg.platforms
   ));
 
-  uCharts.spread = new Chart(document.getElementById('uSpreadChart'), {
+  uCharts.spread = new Chart(report.querySelector('.r-spread'), {
     type:'line',
     data:{
       labels: days,
@@ -2787,7 +3096,7 @@ function showUniversalReport(category, searchTerm, hitsData) {
   });
 
   // Platform exposure chart
-  uCharts.platform = new Chart(document.getElementById('uPlatformChart'), {
+  uCharts.platform = new Chart(report.querySelector('.r-platform'), {
     type:'bar',
     data:{
       labels: cfg.cascade.map(c => c.p),
@@ -2816,7 +3125,7 @@ function showUniversalReport(category, searchTerm, hitsData) {
   const crit = Math.max(Math.round(realHits * 0.3), realHits > 0 ? 1 : 0);
   const high = Math.max(Math.round(realHits * 0.5), 0);
   const med  = Math.max(realHits - crit - high, 0);
-  uCharts.severity = new Chart(document.getElementById('uSeverityChart'), {
+  uCharts.severity = new Chart(report.querySelector('.r-severity'), {
     type:'doughnut',
     data:{
       labels:['Critical','High','Medium','None'],
@@ -2834,12 +3143,12 @@ function showUniversalReport(category, searchTerm, hitsData) {
   });
 
   // URL table — pull real URLs from DOM results
-  const urlBox = document.getElementById('uUrlTable');
+  const urlBox = report.querySelector('.r-urls') || {innerHTML:''};
   const realUrls = Array.from(document.querySelectorAll('.hit-url a, .result-url'))
     .map(el => el.href || el.textContent).filter(u => u && u.startsWith('http'));
 
   if (realUrls.length > 0) {
-    document.getElementById('uUrlCount').textContent = realUrls.length + ' URLs';
+    report.querySelector('.r-urlcount') || {textContent:''}.textContent = realUrls.length + ' URLs';
     urlBox.innerHTML = realUrls.map((url, i) => `
       <div style="padding:0.6rem 1.3rem;border-bottom:1px solid rgba(255,255,255,0.03);
         display:flex;align-items:center;gap:1rem;">
@@ -2850,17 +3159,17 @@ function showUniversalReport(category, searchTerm, hitsData) {
           color:#ff3366;border-radius:3px;white-space:nowrap;">PIRACY</span>
       </div>`).join('');
   } else if (realHits > 0) {
-    document.getElementById('uUrlCount').textContent = realHits + ' hits';
+    report.querySelector('.r-urlcount') || {textContent:''}.textContent = realHits + ' hits';
     urlBox.innerHTML = `<div style="padding:1rem 1.3rem;font-size:0.8rem;color:var(--text);">
       ${realHits} piracy sources detected. Run scan and check results tab for exact URLs.</div>`;
   } else {
-    document.getElementById('uUrlCount').textContent = '0 URLs';
+    report.querySelector('.r-urlcount') || {textContent:''}.textContent = '0 URLs';
     urlBox.innerHTML = `<div style="padding:1rem 1.3rem;font-size:0.8rem;color:var(--text2);">
       No piracy detected. Content appears clean across monitored platforms.</div>`;
   }
 
   // Cascade prediction
-  const cascadeEl = document.getElementById('uCascadeBody');
+  const cascadeEl = report.querySelector('.r-cascade');
   cascadeEl.innerHTML = cfg.cascade.map(c => `
     <div style="padding:0.65rem 1.3rem;border-bottom:1px solid rgba(255,255,255,0.03);
       display:grid;grid-template-columns:1.5fr 0.8fr 2fr 0.8fr;align-items:center;gap:1rem;font-size:0.78rem;">
@@ -2879,7 +3188,7 @@ function showUniversalReport(category, searchTerm, hitsData) {
     </div>`).join('');
 
   // Intelligence rows
-  document.getElementById('uIntelBody').innerHTML = cfg.intel.map(item => `
+  report.querySelector('.r-intel').innerHTML = cfg.intel.map(item => `
     <div style="display:flex;gap:1rem;align-items:flex-start;
       padding:0.85rem 0;border-bottom:1px solid rgba(255,255,255,0.03);">
       <div style="font-size:1rem;flex-shrink:0;margin-top:2px;">${item.icon}</div>
@@ -2927,11 +3236,42 @@ function generateSportsReport() {
   showUniversalReport('sports', term, hits);
 }
 
+function copyActiveReport(btn) {
+  const report = btn.closest('.u-report');
+  const cat   = report.querySelector('.r-cat')?.textContent || 'CINEOS';
+  const term  = report.querySelector('.r-search')?.textContent || '—';
+  const hits  = report.querySelector('.r-hits')?.textContent || '0';
+  const verd  = report.querySelector('.r-verdict')?.textContent || '—';
+  const now   = new Date().toUTCString();
+  const text = `CINEOS INTELLIGENCE REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Category  : ${cat}
+Content   : ${term}
+Generated : ${now}
+Verdict   : ${verd}
+Hits      : ${hits}
+Patent    : US Prov. 64/049,190
+Contact   : dba.yugandhar@gmail.com
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+  navigator.clipboard.writeText(text)
+    .then(() => alert('Evidence copied'))
+    .catch(() => alert('Copy failed'));
+}
+
+function emailActiveReport(btn) {
+  const report = btn.closest('.u-report');
+  const term = report.querySelector('.r-search')?.textContent || 'Content';
+  const hits = report.querySelector('.r-hits')?.textContent || '0 hits';
+  const subj = encodeURIComponent(`CINEOS Piracy Report — ${term} — ${hits}`);
+  const body = encodeURIComponent(`Dear MIB Nodal Officer,\n\nCINEOS detected active piracy for: ${term}\nHits: ${hits}\nVerdict: ${report.querySelector('.r-verdict')?.textContent}\n\nRequesting blocking order under Copyright Act 1957.\n\nYugandhar Mallavarapu\ndba.yugandhar@gmail.com\nUS Pat. 64/049,190`);
+  window.open(`mailto:nodalofficer@meity.gov.in?subject=${subj}&body=${body}`);
+}
+
 function copyUEvidence() {
-  const cat   = document.getElementById('uRCategory')?.textContent || 'CINEOS';
-  const term  = document.getElementById('uRSearch')?.textContent || '—';
-  const hits  = document.getElementById('uRHits')?.textContent || '0';
-  const verd  = document.getElementById('uRVerdict')?.textContent || '—';
+  const cat   = report.querySelector('.r-cat')?.textContent || 'CINEOS';
+  const term  = report.querySelector('.r-search')?.textContent || '—';
+  const hits  = report.querySelector('.r-hits')?.textContent || '0';
+  const verd  = report.querySelector('.r-verdict')?.textContent || '—';
   const now   = new Date().toUTCString();
 
   const urls  = Array.from(document.querySelectorAll('.hit-url a, .result-url'))
@@ -2967,15 +3307,15 @@ CONTACT  : dba.yugandhar@gmail.com
 }
 
 function emailMIBReport() {
-  const term = document.getElementById('uRSearch')?.textContent || 'Content';
-  const hits = document.getElementById('uRHits')?.textContent || '0 hits';
+  const term = report.querySelector('.r-search')?.textContent || 'Content';
+  const hits = report.querySelector('.r-hits')?.textContent || '0 hits';
   const subj = encodeURIComponent(`CINEOS Piracy Intelligence — ${term} — ${hits}`);
   const body = encodeURIComponent(
 `Dear MIB Nodal Officer,
 
 CINEOS has detected active piracy for: ${term}
 Confirmed hits: ${hits}
-Verdict: ${document.getElementById('uRVerdict')?.textContent || 'CONFIRMED'}
+Verdict: ${report.querySelector('.r-verdict')?.textContent || 'CONFIRMED'}
 
 Requesting blocking order under Copyright Act 1957 and IT Act Section 69A.
 

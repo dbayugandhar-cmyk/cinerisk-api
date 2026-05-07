@@ -90,6 +90,35 @@ BETTING_SIGNALS = [
 # Known Telegram channel patterns — India OTT + Sports piracy
 # Expanded to cover all major Indian OTT platforms and sports
 
+# ── Auto-save discovered channels ────────────────────
+import json as _json
+DISCOVERED_CHANNELS_FILE = "cineos_discovered_channels.json"
+
+def load_discovered_channels():
+    """Load previously auto-saved channels from disk."""
+    try:
+        with open(DISCOVERED_CHANNELS_FILE) as f:
+            data = _json.load(f)
+            return set(data.get("channels", []))
+    except:
+        return set()
+
+def save_discovered_channels(channels: set):
+    """Persist newly discovered channels to disk."""
+    try:
+        existing = load_discovered_channels()
+        merged = existing | channels
+        with open(DISCOVERED_CHANNELS_FILE, "w") as f:
+            _json.dump({
+                "channels": sorted(list(merged)),
+                "total": len(merged),
+                "last_updated": __import__("datetime").datetime.utcnow().isoformat()
+            }, f, indent=2)
+        return len(merged) - len(existing)  # new additions
+    except Exception as e:
+        log.warning(f"Could not save channels: {e}")
+        return 0
+
 CRICKET_CHANNEL_PATTERNS = [
 
     # ── IPL / Cricket live streams ────────────────────────
@@ -376,7 +405,10 @@ async def run_live_scan(
     log.info(f"Live Shield scan: {event_name}")
     start_time = datetime.now()
 
-    all_channels = list(CRICKET_CHANNEL_PATTERNS)
+    # Load base + previously discovered channels
+    _discovered = load_discovered_channels()
+    all_channels = list(set(CRICKET_CHANNEL_PATTERNS) | _discovered)
+    log.info(f"Channel list: {len(CRICKET_CHANNEL_PATTERNS)} base + {len(_discovered)} discovered = {len(all_channels)} total")
     streams_found = []
 
     async with httpx.AsyncClient(
@@ -407,6 +439,10 @@ async def run_live_scan(
                          if c not in all_channels]
             if new_unique:
                 log.info(f"Found {len(new_unique)} new channels to scan")
+                # Auto-save newly discovered channels permanently
+                added = save_discovered_channels(set(new_unique))
+                if added > 0:
+                    log.info(f"Auto-saved {added} new channels to discovery list")
                 new_tasks = [scan_channel(ch, client)
                             for ch in new_unique[:20]]
                 new_results = await asyncio.gather(
@@ -703,8 +739,6 @@ if __name__ == "__main__":
                     help="Continuous live monitoring mode")
     ap.add_argument("--interval", type=int, default=60,
                     help="Scan interval in seconds (default: 60)")
-    ap.add_argument("--webhook", type=str, default="",
-                    help="Webhook URL for real-time alerts")
     ap.add_argument("--threshold", type=int, default=1,
                     help="Alert threshold (min new streams)")
     args = ap.parse_args()

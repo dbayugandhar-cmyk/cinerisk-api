@@ -566,6 +566,20 @@ async def live_shield_scan(
         import httpx as _httpx
 
         CHANNELS = [
+            # ── OTT channels FIRST — scanned before timeout ──
+            "NetflixFree", "NetflixLeaks", "NetflixTamil", "NetflixTelugu",
+            "NetflixIndia", "NetflixHD", "NetflixWebSeries", "NetflixSeriesFree",
+            "HotstarFree", "HotstarLeaks", "JioHotstarFree", "JioHotstarLeaks",
+            "HotstarWebSeries", "HotstarOTT", "HotstarMovies", "DisneyHotstar",
+            "JioCinemaFree", "AmazonPrimeFree", "AmazonPrimeLeaks", "PrimeVideoFree",
+            "PrimeVideoIndia", "PrimeTamil", "PrimeTelugu", "PrimeMoviesHindi",
+            "ZEE5Free", "ZEE5Hindi", "ZEE5Leaks", "Zee5Series", "Zee5Movies",
+            "Zee5Tamil", "Zee5Telugu", "ZeeMoviesFree",
+            "SonyLIVFree", "SonyLIVLeaks", "SonyLivHD", "SonyLivMovies",
+            "SonyLivSeries", "SonyLivTelugu",
+            "AHAFree", "AHALeaks", "AHAMovies", "AHATelugu", "AHAWebSeries",
+            "AHAOTTFree", "AHAOriginals", "TeluguOTTFree",
+            # ── Cricket / Sports ──────────────────────────────
             "CricketStreamsLive", "IPLstreams", "SportsFreeStreams", "CricketLiveStream", "IPLLive2025", "IPLLive2026",
             "CricketFreeStream", "LiveCricket", "T20Live", "IPLMatchLive", "CricketMatch", "FreeCricketStream",
             "IPL_L", "RealCricPoint", "LiveCricketMatchLink", "CricketLive24", "IPLStreamFree", "CricHDLive",

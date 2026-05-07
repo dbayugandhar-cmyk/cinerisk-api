@@ -82,8 +82,10 @@ def is_category_page(url: str) -> bool:
         "/bollywood/", "/hollywood/", "/telugu/page/",
         "/?s=", "/search/", "/index.php",
         "/latest-movies/", "/new-movies/",
-        "/user/", "?s=", "?c=", "?q=",  # NYAA search/user pages
+        "/user/", "?s=", "?c=", "?q=",
         "/genre/", "/actor/", "/director/",
+        "/singer-", "/music/", "/songs-", "/album-", "/lyrics-",
+        "songs-", "-songs/", "/series/", "/season-",
     ]
     u = url.lower().rstrip('/')
     for p in category_patterns:
@@ -107,70 +109,122 @@ def has_piracy_signal(text: str) -> bool:
 
 # ── 75+ Indian piracy platforms ───────────────────────────────────
 INDIAN_PLATFORMS = [
-    # Priority 1 — Most active Telugu/Tamil platforms
-    {"name": "Movierulz",         "domain": "5movierulz.camera",    "lang": "Pan-India",    "p": 1},
-    {"name": "TamilMV",           "domain": "1tamilmv.world",        "lang": "Tamil",        "p": 1},
-    {"name": "Ibomma",            "domain": "ibomma.com",            "lang": "Telugu",       "p": 1},
-    {"name": "TamilBlasters",     "domain": "tamilblasters.life",    "lang": "Tamil",        "p": 1},
-    {"name": "Filmyzilla",        "domain": "filmyzilla.com.co",     "lang": "Hindi",        "p": 1},
-    {"name": "9xMovies",          "domain": "9xmovies.cool",         "lang": "Hindi",        "p": 1},
-    {"name": "TamilRockers",      "domain": "tamilrockers.ws",       "lang": "Tamil",        "p": 1},
-    {"name": "Isaimini",          "domain": "isaimini.com",          "lang": "Tamil",        "p": 1},
-    {"name": "Kuttymovies",       "domain": "kuttymovies.com",       "lang": "Tamil",        "p": 1},
-    {"name": "Moviesda",          "domain": "moviesda.com",          "lang": "Tamil",        "p": 1},
-    # Priority 2 — Major Hindi piracy
-    {"name": "Filmyhit",          "domain": "filmyhit.com.co",       "lang": "Hindi/Punjabi","p": 2},
-    {"name": "Filmy4wap",         "domain": "filmy4wap.com",         "lang": "Hindi",        "p": 2},
-    {"name": "WorldFree4u",       "domain": "worldfree4u.mom",       "lang": "Hindi",        "p": 2},
-    {"name": "Khatrimaza",        "domain": "khatrimaza.com",        "lang": "Hindi",        "p": 2},
-    {"name": "Mp4moviez",         "domain": "mp4moviez.com",         "lang": "Pan-India",    "p": 2},
-    {"name": "7StarHD",           "domain": "7starhd.art",           "lang": "Hindi",        "p": 2},
-    {"name": "DownloadHub",       "domain": "downloadhub.city",      "lang": "Hindi",        "p": 2},
-    {"name": "RdxHD",             "domain": "rdxhd.com",             "lang": "Hindi/Punjabi","p": 2},
-    {"name": "HDHub4u",           "domain": "hdhub4u.com",           "lang": "Pan-India",    "p": 2},
-    {"name": "Vegamovies",        "domain": "vegamovies.in",         "lang": "Pan-India",    "p": 2},
-    # Priority 2 — Telugu specific
-    {"name": "Cinevood",          "domain": "cinevood.com",          "lang": "Malayalam",    "p": 2},
-    {"name": "Bolly4u",           "domain": "bolly4u.trade",         "lang": "Hindi",        "p": 2},
-    {"name": "Moviecounter",      "domain": "moviecounter.app",      "lang": "Hindi",        "p": 2},
-    {"name": "SkymoviesHD",       "domain": "skymovieshd.mov",       "lang": "Pan-India",    "p": 2},
-    {"name": "Filmysplit",        "domain": "filmysplit.com",        "lang": "Pan-India",    "p": 2},
-    {"name": "MalayalamTorrents", "domain": "mlwbd.com",             "lang": "Malayalam",    "p": 2},
-    {"name": "Isaidub",           "domain": "isaidub.com",           "lang": "Tamil",        "p": 2},
-    {"name": "Tamilyogi",         "domain": "tamilyogi.wiki",        "lang": "Tamil",        "p": 2},
-    # Priority 3 — Additional platforms
-    {"name": "Extramovies",       "domain": "extramovies.casa",      "lang": "Hindi",        "p": 3},
-    {"name": "O2TVSeries",        "domain": "o2tvseries.com",        "lang": "Pan-India",    "p": 3},
-    {"name": "Moviesmod",         "domain": "moviesmod.com",         "lang": "Hindi",        "p": 3},
-    {"name": "Katmoviesx",        "domain": "katmoviesx.com",        "lang": "Pan-India",    "p": 3},
-    {"name": "Mkvcage",           "domain": "mkvcage.com",           "lang": "Hindi",        "p": 3},
-    {"name": "Jalshamoviez",      "domain": "jalshamoviez.ac",       "lang": "Hindi/Bengali","p": 3},
-    {"name": "AFilmywap",         "domain": "afilmywap.com",         "lang": "Hindi",        "p": 3},
-    {"name": "Filmywap",          "domain": "filmywap.com",          "lang": "Hindi",        "p": 3},
-    {"name": "Coolmoviez",        "domain": "coolmoviez.com",        "lang": "Pan-India",    "p": 3},
-    {"name": "Movierulz2",        "domain": "movierulz.plz",         "lang": "Pan-India",    "p": 3},
-    {"name": "TodayPk",           "domain": "todaypk.chat",          "lang": "Pan-India",    "p": 3},
-    {"name": "Djpunjab Movies",   "domain": "djpunjab.com",          "lang": "Punjabi",      "p": 3},
-    {"name": "PagalMovies",       "domain": "pagalmovies.com",       "lang": "Hindi",        "p": 3},
-    {"name": "FilmyZilla2",       "domain": "filmyzilla2.com",       "lang": "Hindi",        "p": 3},
-    {"name": "9xMovies2",         "domain": "9xmovies.pink",         "lang": "Hindi",        "p": 3},
-    # Telugu/Tamil specific streaming piracy
-    {"name": "Movierulz Telugu",  "domain": "movierulz.com",         "lang": "Telugu",       "p": 2},
-    {"name": "TollyStream",       "domain": "tollystream.com",       "lang": "Telugu",       "p": 3},
-    {"name": "TamilGun",          "domain": "tamilgun.com",          "lang": "Tamil",        "p": 2},
-    {"name": "TamilPrint",        "domain": "tamilprint.com",        "lang": "Tamil",        "p": 2},
-    {"name": "TamilPrint2",       "domain": "tamilprint2.com",       "lang": "Tamil",        "p": 3},
-    {"name": "Madrasrockers",     "domain": "madrasrockers.com",     "lang": "Tamil",        "p": 2},
-    {"name": "Tamilrasigan",      "domain": "tamilrasigan.com",      "lang": "Tamil",        "p": 3},
-    # OTT leak sites
-    {"name": "NetflixLeak",       "domain": "netflixleak.com",       "lang": "Pan-India",    "p": 3},
-    {"name": "PrimeVideoLeak",    "domain": "primevideoleak.com",    "lang": "Pan-India",    "p": 3},
-    # Torrent sites with Indian content
-    {"name": "1337x India",       "domain": "1337x.to",              "lang": "Pan-India",    "p": 2},
-    {"name": "NYAA India",        "domain": "nyaa.si",               "lang": "Pan-India",    "p": 2},
-    {"name": "TorrentGalaxy",     "domain": "torrentgalaxy.to",      "lang": "Pan-India",    "p": 2},
-    # Direct download
+    # ── Priority 1 — Telugu primary ────────────────────────────
+    {"name":"Movierulz",       "domain":"5movierulz.markets",   "lang":"Telugu",   "p":1},
+    {"name":"Movierulz2",      "domain":"movierulz.markets",        "lang":"Telugu",   "p":1},
+    {"name":"Movierulz3",      "domain":"5movierulz.one",        "lang":"Telugu",   "p":1},
+    {"name":"Movierulz4",      "domain":"3movierulz.markets",       "lang":"Telugu",   "p":1},
+    {"name":"iBomma",          "domain":"ibommamoviess.com",           "lang":"Telugu",   "p":1},
+    {"name":"iBomma2",         "domain":"ibomma.one",            "lang":"Telugu",   "p":1},
+    {"name":"TollyStream",     "domain":"tollystream.com",      "lang":"Telugu",   "p":1},
+    {"name":"Cinevood",        "domain":"cinevood.com",         "lang":"Telugu",   "p":1},
+    # teluguwap removed — music site not film piracy
+    {"name":"OFilmywap",       "domain":"ofilmywap.com",        "lang":"Telugu",   "p":1},
+    {"name":"Todaypk",         "domain":"todaypk.chat",         "lang":"Telugu",   "p":1},
+    {"name":"Movierulz5",      "domain":"movierulz5.com",       "lang":"Telugu",   "p":1},
+
+    # ── Priority 1 — Tamil primary ─────────────────────────────
+    {"name":"TamilMV",         "domain":"1tamilmv.world",       "lang":"Tamil",    "p":1},
+    {"name":"TamilMV2",        "domain":"tamilmv.wiki",         "lang":"Tamil",    "p":1},
+    {"name":"TamilRockers",    "domain":"tamilrockers.ws",      "lang":"Tamil",    "p":1},
+    {"name":"TamilBlasters",   "domain":"tamilblasters.life",   "lang":"Tamil",    "p":1},
+    {"name":"TamilBlasters2",  "domain":"tamilblasters.ws",     "lang":"Tamil",    "p":1},
+    {"name":"Isaimini",        "domain":"isaimini.com",         "lang":"Tamil",    "p":1},
+    {"name":"Isaimini2",       "domain":"isaimini.io",          "lang":"Tamil",    "p":1},
+    {"name":"TamilGun",        "domain":"tamilgun.com",         "lang":"Tamil",    "p":1},
+    {"name":"TamilYogi",       "domain":"tamilyogi.wiki",       "lang":"Tamil",    "p":1},
+    {"name":"Kuttymovies",     "domain":"kuttymovies.com",      "lang":"Tamil",    "p":1},
+    {"name":"Kuttymovies2",    "domain":"kuttymovies4u.com",    "lang":"Tamil",    "p":1},
+    {"name":"Moviesda",        "domain":"moviesda.com",         "lang":"Tamil",    "p":1},
+    {"name":"Moviesda2",       "domain":"moviesda.io",          "lang":"Tamil",    "p":1},
+    {"name":"TamilPrint",      "domain":"tamilprint.com",       "lang":"Tamil",    "p":1},
+    {"name":"TamilPrint2",     "domain":"tamilprint2.com",      "lang":"Tamil",    "p":1},
+    {"name":"Madrasrockers",   "domain":"madrasrockers.com",    "lang":"Tamil",    "p":1},
+    {"name":"Isaidub",         "domain":"isaidub.com",          "lang":"Tamil",    "p":1},
+    {"name":"TamilRasigan",    "domain":"tamilrasigan.com",     "lang":"Tamil",    "p":1},
+    {"name":"Tamilrockers2",   "domain":"tamilrockers.cx",      "lang":"Tamil",    "p":1},
+
+    # ── Priority 1 — Hindi primary ─────────────────────────────
+    {"name":"Filmyzilla",      "domain":"filmyzilla.com.co",    "lang":"Hindi",    "p":1},
+    {"name":"Filmyzilla2",     "domain":"filmyzilla2.com",      "lang":"Hindi",    "p":1},
+    {"name":"Filmyzilla3",     "domain":"filmyzilla.pg.in",     "lang":"Hindi",    "p":1},
+    {"name":"9xMovies",        "domain":"9xmovies.cool",        "lang":"Hindi",    "p":1},
+    {"name":"9xMovies2",       "domain":"9xmovies.pink",        "lang":"Hindi",    "p":1},
+    {"name":"9xMovies3",       "domain":"9xmovies.show",        "lang":"Hindi",    "p":1},
+    {"name":"Mp4moviez",       "domain":"mp4moviez.com",        "lang":"Hindi",    "p":1},
+    {"name":"Mp4moviez2",      "domain":"mp4moviez.in",         "lang":"Hindi",    "p":1},
+    {"name":"Vegamovies",      "domain":"vegamovies.in",        "lang":"Hindi",    "p":1},
+    {"name":"Vegamovies2",     "domain":"vegamovies.nl",        "lang":"Hindi",    "p":1},
+    {"name":"HDHub4u",         "domain":"hdhub4u.com",          "lang":"Hindi",    "p":1},
+    {"name":"HDHub4u2",        "domain":"hdhub4u.skin",         "lang":"Hindi",    "p":1},
+    {"name":"Bolly4u",         "domain":"bolly4u.trade",        "lang":"Hindi",    "p":1},
+    {"name":"Bolly4u2",        "domain":"bolly4u.top",          "lang":"Hindi",    "p":1},
+
+    # ── Priority 2 — Pan-India ─────────────────────────────────
+    {"name":"Filmyhit",        "domain":"filmyhit.com.co",      "lang":"Pan-India","p":2},
+    {"name":"Filmy4wap",       "domain":"filmy4wap.com",        "lang":"Pan-India","p":2},
+    {"name":"Filmy4wap2",      "domain":"filmy4wap.lol",        "lang":"Pan-India","p":2},
+    {"name":"WorldFree4u",     "domain":"worldfree4u.mom",      "lang":"Pan-India","p":2},
+    {"name":"WorldFree4u2",    "domain":"worldfree4u.trade",    "lang":"Pan-India","p":2},
+    {"name":"Khatrimaza",      "domain":"khatrimaza.com",       "lang":"Pan-India","p":2},
+    {"name":"Khatrimaza2",     "domain":"khatrimaza.mov",       "lang":"Pan-India","p":2},
+    {"name":"7StarHD",         "domain":"7starhd.art",          "lang":"Pan-India","p":2},
+    {"name":"7StarHD2",        "domain":"7starhd.show",         "lang":"Pan-India","p":2},
+    {"name":"SkymoviesHD",     "domain":"skymovieshd.mov",      "lang":"Pan-India","p":2},
+    {"name":"SkymoviesHD2",    "domain":"skymovieshd.pink",     "lang":"Pan-India","p":2},
+    {"name":"DownloadHub",     "domain":"downloadhub.city",     "lang":"Pan-India","p":2},
+    {"name":"DownloadHub2",    "domain":"downloadhub.skin",     "lang":"Pan-India","p":2},
+    {"name":"RdxHD",           "domain":"rdxhd.com",            "lang":"Pan-India","p":2},
+    {"name":"Moviesmod",       "domain":"moviesmod.com",        "lang":"Pan-India","p":2},
+    {"name":"Moviesmod2",      "domain":"moviesmod.pe",         "lang":"Pan-India","p":2},
+    {"name":"Katmoviesx",      "domain":"katmoviesx.com",       "lang":"Pan-India","p":2},
+    {"name":"Katmoviesx2",     "domain":"katmoviesx.io",        "lang":"Pan-India","p":2},
+    {"name":"Mkvcage",         "domain":"mkvcage.com",          "lang":"Pan-India","p":2},
+    {"name":"Moviecounter",    "domain":"moviecounter.app",     "lang":"Pan-India","p":2},
+    {"name":"Extramovies",     "domain":"extramovies.casa",     "lang":"Pan-India","p":2},
+    {"name":"O2TVSeries",      "domain":"o2tvseries.com",       "lang":"Pan-India","p":2},
+    {"name":"Jalshamoviez",    "domain":"jalshamoviez.ac",      "lang":"Pan-India","p":2},
+    {"name":"Jalshamoviez2",   "domain":"jalshamoviez.bid",     "lang":"Pan-India","p":2},
+    {"name":"Filmysplit",      "domain":"filmysplit.com",        "lang":"Pan-India","p":2},
+    {"name":"AFilmywap",       "domain":"afilmywap.com",        "lang":"Pan-India","p":2},
+    {"name":"Filmywap",        "domain":"filmywap.com",         "lang":"Pan-India","p":2},
+    {"name":"Coolmoviez",      "domain":"coolmoviez.com",       "lang":"Pan-India","p":2},
+    {"name":"Djpunjab",        "domain":"djpunjab.com",         "lang":"Pan-India","p":2},
+    {"name":"PagalMovies",     "domain":"pagalmovies.com",      "lang":"Pan-India","p":2},
+    {"name":"MkvMoviesPoint",  "domain":"mkvmoviespoint.life",  "lang":"Pan-India","p":2},
+    {"name":"DesireMovies",    "domain":"desiremovies.beauty",  "lang":"Pan-India","p":2},
+    {"name":"Moviehax",        "domain":"moviehax.com",         "lang":"Pan-India","p":2},
+    {"name":"Moviesroot",      "domain":"moviesroot.com",       "lang":"Pan-India","p":2},
+    {"name":"YoMovies",        "domain":"yomovies.cool",        "lang":"Pan-India","p":2},
+    {"name":"GoMovies",        "domain":"gomovies.sx",          "lang":"Pan-India","p":2},
+    {"name":"123Movies",       "domain":"123movies.gd",         "lang":"Pan-India","p":2},
+    {"name":"9xTamil",         "domain":"9xtamil.com",          "lang":"Tamil",    "p":2},
+    {"name":"Tamilrockers3",   "domain":"tamilrockers.net",     "lang":"Tamil",    "p":2},
+
+    # ── Priority 2 — Malayalam ─────────────────────────────────
+    {"name":"MalayalamTorrents","domain":"mlwbd.com",           "lang":"Malayalam","p":2},
+    {"name":"Cinemavilla",     "domain":"cinemavilla.com.co",   "lang":"Malayalam","p":2},
+    {"name":"Tamilmv3",        "domain":"tamilmv.app",          "lang":"Malayalam","p":2},
+
+    # ── Priority 3 — Torrent/Global ────────────────────────────
+    {"name":"1337x",           "domain":"1337x.to",             "lang":"Pan-India","p":3},
+    {"name":"TorrentGalaxy",   "domain":"torrentgalaxy.to",     "lang":"Pan-India","p":3},
+    {"name":"NetflixLeak",     "domain":"netflixleak.com",      "lang":"Pan-India","p":3},
+    {"name":"PrimeVideoLeak",  "domain":"primevideoleak.com",   "lang":"Pan-India","p":3},
+    {"name":"Moviesflix",      "domain":"moviesflix.com.co",    "lang":"Pan-India","p":3},
+    {"name":"Moviesflix2",     "domain":"moviesflix.in",        "lang":"Pan-India","p":3},
+    {"name":"Hdhub",           "domain":"hdhub.life",           "lang":"Pan-India","p":3},
+    {"name":"FilmyZap",        "domain":"filmyzap.com",         "lang":"Hindi",    "p":3},
+    {"name":"Bollyshare",      "domain":"bollyshare.com",       "lang":"Hindi",    "p":3},
+    {"name":"Hdmovie2",        "domain":"hdmovie2.com",         "lang":"Pan-India","p":3},
+    {"name":"Moviesbaba",      "domain":"moviesbaba.net",       "lang":"Pan-India","p":3},
+    {"name":"Uwatchfree",      "domain":"uwatchfree.com",       "lang":"Pan-India","p":3},
+    {"name":"Tamilplay",       "domain":"tamilplay.com",        "lang":"Tamil",    "p":3},
+    {"name":"Tamilplay2",      "domain":"tamilplay.net",        "lang":"Tamil",    "p":3},
+    {"name":"Isaimovies",      "domain":"isaimovies.com",       "lang":"Tamil",    "p":3},
+    {"name":"Tamilanda",       "domain":"tamilanda.com",        "lang":"Tamil",    "p":3},
 ]
+
 
 
 @dataclass
@@ -190,11 +244,11 @@ DIRECT_URL_PATTERNS = [
     # Pattern: (site, url_template, verify_keywords)
     ("TamilRockers",    "https://www.tamilrockers.ws/{slug}/",
      ["download", "watch", "hdrip", "720p", "1080p"]),
-    ("Movierulz",       "https://www.5movierulz.camera/{slug}-telugu/",
+    ("Movierulz",       "https://www.5movierulz.markets/{slug}-telugu/",
      ["watch online", "free", "hdrip", "full movie"]),
-    ("Movierulz2",      "https://www.5movierulz.camera/{slug}-hindi/",
+    ("Movierulz2",      "https://www.5movierulz.markets/{slug}-hindi/",
      ["watch online", "free", "hdrip", "full movie"]),
-    ("Movierulz3",      "https://www.5movierulz.camera/{slug}-tamil/",
+    ("Movierulz3",      "https://www.5movierulz.markets/{slug}-tamil/",
      ["watch online", "free", "hdrip", "full movie"]),
     ("Filmyzilla",      "https://filmyzilla.com.co/{slug}/",
      ["download", "hdrip", "720p", "hindi"]),
@@ -247,11 +301,11 @@ async def scan_direct_urls(
     patterns = [
         # Movierulz — concatenated slug + year + language
         ("Movierulz Telugu",
-         f"https://www.5movierulz.camera/{slug_c}-{year}-telugu/movie-watch-online-free"),
+         f"https://www.5movierulz.markets/{slug_c}-{year}-telugu/movie-watch-online-free"),
         ("Movierulz Hindi",
-         f"https://www.5movierulz.camera/{slug_c}-{year}-hindi/movie-watch-online-free"),
+         f"https://www.5movierulz.markets/{slug_c}-{year}-hindi/movie-watch-online-free"),
         ("Movierulz Tamil",
-         f"https://www.5movierulz.camera/{slug_c}-{year}-tamil/movie-watch-online-free"),
+         f"https://www.5movierulz.markets/{slug_c}-{year}-tamil/movie-watch-online-free"),
         ("Filmyzilla",    f"https://filmyzilla.com.co/{slug}/"),
         ("TamilMV",       f"https://www.1tamilmv.world/{slug}/"),
         ("Isaimini",      f"https://isaimini.com/{slug}/"),
@@ -337,67 +391,6 @@ async def scan_direct_urls(
     return hits
 
 
-async def scan_platform(
-    platform: dict,
-    film: str,
-    client: httpx.AsyncClient
-) -> IndiaHit | None:
-    """Scan single platform via SerpApi with strict false positive prevention."""
-    if not SERP_KEY:
-        return None
-    try:
-        query = f'site:{platform["domain"]} "{film}" download'
-        r = await client.get(
-            "https://serpapi.com/search",
-            params={"q": query, "api_key": SERP_KEY,
-                    "num": 3, "engine": "google"},
-            timeout=12
-        )
-        if r.status_code != 200:
-            return None
-
-        for item in r.json().get("organic_results", []):
-            link = item.get("link", "")
-            title = item.get("title", "")
-            snippet = item.get("snippet", "")
-            full = f"{title} {snippet}"
-
-            # Strict false positive checks
-            if is_news_article(link, full):
-                continue
-            if is_category_page(link):
-                continue
-            if not film_ok(film, full):
-                continue
-            if not has_piracy_signal(full):
-                continue
-
-            # Quality detection
-            f = full.lower()
-            is_cam = any(k in f for k in
-                        ["camrip","cam rip","hdcam","hdts",
-                         "telesync","line audio","source: camera"])
-            quality = ("CAM" if is_cam else
-                      "HDRip" if "hdrip" in f else
-                      "DVDRip" if "dvdrip" in f else
-                      "WebRip" if any(k in f for k in
-                                     ["webrip","web-dl","webdl"]) else
-                      "BluRay" if "bluray" in f else "Unknown")
-
-            return IndiaHit(
-                platform=platform["name"],
-                language=platform["lang"],
-                url=link,
-                quality=quality,
-                detail=title[:80],
-                confidence=0.90 if is_cam else 0.75,
-                severity="CRITICAL" if is_cam else "HIGH",
-                is_cam=is_cam
-            )
-
-    except Exception as e:
-        log.debug(f"{platform['name']}: {e}")
-    return None
 
 
 async def scan_ddg_india(
@@ -472,112 +465,392 @@ async def scan_batch_serp(
     client: httpx.AsyncClient
 ) -> list[IndiaHit]:
     """
-    Batch SerpApi scan — parallel execution.
-    All batches run simultaneously for 3x speed improvement.
+    Hybrid scanner — DDG search + direct URL verification.
+    Strategy:
+    1. DDG search with alternate spellings (fast, finds real URLs)
+    2. Direct URL check for top piracy sites (catches what DDG misses)
+    3. Strict domain whitelist validation — no false positives
     """
-    if not SERP_KEY:
-        return []
+    import re as _re
+    from urllib.parse import quote_plus, urlparse
 
-    domains = [p["domain"] for p in INDIAN_PLATFORMS]
-    batches = [domains[i:i+8] for i in range(0, len(domains), 8)]
-    platform_map = {p["domain"]: p for p in INDIAN_PLATFORMS}
+    film_lower = film.lower().strip()
+    slug  = _re.sub(r"[^a-z0-9]+", "-", film_lower).strip("-")
+    slugs = quote_plus(film_lower)
 
-    async def fetch_batch(batch):
-        site_q = " OR ".join(f"site:{d}" for d in batch)
-        query = f'"{film}" ({site_q})'
-        batch_hits = []
+    # Extended slugs — piracy sites often include subtitle in URL
+    # "Pushpa 2" → also try "pushpa-2-the-rule", "pushpa-2-reloaded"
+    # "Devara" → also try "devara-part-1"
+    slug_variants = [slug]
+    # Common subtitle patterns
+    subtitle_map = {
+        # Pushpa
+        "pushpa-2": [
+            "pushpa-2-the-rule-reloaded",
+            "pushpa-2-the-rule",
+            "pushpa-the-rule-part-2",
+            "pushpa-2-reloaded",
+        ],
+        # Devara
+        "devara":   ["devara-part-1", "devara-2024"],
+        # Kalki
+        "kalki":    ["kalki-2898-ad", "kalki-2898"],
+        "kalki-2898-ad": ["kalki-2898-ad"],
+        # KGF
+        "kgf":      ["kgf-chapter-2", "kgf-2"],
+        # Baahubali
+        "baahubali": ["baahubali-2-the-conclusion", "baahubali-2"],
+        # Common patterns — add subtitle suffixes
+        # These generate extra slug variants for any film
+    }
+    # Also generate common subtitle patterns automatically
+    common_suffixes = [
+        "-the-rule", "-part-1", "-part-2", "-reloaded",
+        "-chapter-2", "-2-the-conclusion", "-extended",
+        "-director-cut", "-special-edition",
+    ]
+    for sfx in common_suffixes:
+        if not slug.endswith(sfx.lstrip("-")):
+            slug_variants.append(slug + sfx)
+    for key, extras in subtitle_map.items():
+        if key in slug:
+            slug_variants.extend(extras)
+    slug_variants = list(dict.fromkeys(slug_variants))[:4]
+
+    # Build alternate spellings — critical for Telugu/Tamil films
+    variants = [film, film.lower().title()]
+    swaps = [
+        ("bh","b"),("bh","bb"),("th","t"),("sh","s"),
+        ("aa","a"),("ee","i"),("oo","u"),("ck","k"),
+        ("ph","f"),("rr","r"),("ll","l"),("nn","n"),
+        (" 2 "," 2: "),(" part 1",""),(" part-1",""),
+    ]
+    for o, n in swaps:
+        if o in film_lower:
+            v = film_lower.replace(o, n).strip().title()
+            if v and v not in variants and v.lower() != film_lower:
+                variants.append(v)
+    # Also add common title variants
+    variants.append(film + " The Rule")
+    variants.append(film + " Part 1")
+    variants.append(film.replace(" 2","").strip())
+    variants = list(dict.fromkeys(variants))[:5]  # unique, max 5
+
+    PIRACY_DOMAINS = {
+        "movierulz",   "ibomma",    "tamilmv",    "tamilrocker",
+        "isaimini",    "kuttymovies","moviesda",   "tamilgun",
+        "tamilyogi",   "tamilblaster","filmyzilla","9xmovies",
+        "vegamovies",  "hdhub4u",   "bolly4u",    "mp4moviez",
+        "rdxhd",       "skymovieshd","khatrimaza", "worldfree4u",
+        "filmy4wap",   "downloadhub","moviesmod",  "katmoviesx",
+        "1337x",       "cinevood",  "tollystream", "moviesdacom",
+        "moviesflix",  "filmyhit",  "jiorocker",  "tamilprint",
+        "madrasrocker","isaidub",   "tamilrasigan","azmovies",
+    }
+
+    LEGAL_DOMAINS = {
+        "youtube.com","youtu.be","netflix.com","amazon.com","primevideo",
+        "hotstar","jiocinema","zee5","sonyliv","aha.video","plex.tv",
+        "ottplay","justwatch","hungama","airtelxstream","mxplayer",
+        "imdb.com","wikipedia","rottentomatoes","moviefone","justdial",
+        "twitter","facebook","instagram","reddit","tumblr","linkedin",
+        "ndtv","thehindu","timesofindia","indiatimes","hindustantimes",
+        "indianexpress","economictimes","timesnownews","thestatesman",
+        "freepressjournal","businesstoday","latestly","filmibeat",
+        "koimoi","pinkvilla","bollywoodhungama","siasat","gulte",
+        "123telugu","greatandhra","cinejosh","tollywood.net","abplive",
+        "zeenews","oneindia","dnaindia","cinemamanishi","asianetnews",
+        "deccanherald","liveindia","thevocalnews","dailymotion","vimeo",
+        "bilibili","archive.org","pastebin","github.com","google.com",
+        "terabox","retroflix","blogspot","wordpress","opensea",
+        "myvi.in","justwatch","thesouthfirst","samayam",
+    }
+
+    PIRACY_SIGNALS = [
+        "download","1080p","720p","480p","hdrip","webrip","bluray",
+        "dvdrip","camrip","mkv","mp4","torrent","dual audio",
+        "hindi dubbed","full movie free","watch online free",
+        "free download","movie download","watch online",
+    ]
+
+    all_hits  = []
+    seen_urls = set()
+
+    def is_legal(url: str) -> bool:
+        dom = urlparse(url).netloc.lstrip("www.").lower()
+        return any(s in dom for s in LEGAL_DOMAINS)
+
+    def is_piracy(url: str) -> bool:
+        dom = urlparse(url).netloc.lstrip("www.").lower()
+        return any(s in dom for s in PIRACY_DOMAINS)
+
+    # ── PART 1: DDG Search with all variants ──────────────────
+    async def ddg_search(query: str, variant: str) -> list:
         try:
             r = await client.get(
                 "https://serpapi.com/search",
                 params={"q": query, "api_key": SERP_KEY,
-                        "num": 10, "engine": "google"},
-                timeout=15
+                        "num": 10, "engine": "duckduckgo"},
+                timeout=12
             )
             if r.status_code != 200:
                 return []
 
-            film_words = [w for w in film.lower().split() if len(w) > 2]
+            hits = []
+            v_low   = variant.lower()
+            v_words = [w for w in v_low.split() if len(w) > 2]
 
             for item in r.json().get("organic_results", []):
-                link = item.get("link", "")
-                title = item.get("title", "")
+                link    = item.get("link", "")
+                title   = item.get("title", "")
                 snippet = item.get("snippet", "")
-                full = f"{title} {snippet}".lower()
+                full    = (title+" "+snippet+" "+link).lower()
 
-                domain = link.split("/")[2] if "/" in link else ""
-                domain = domain.replace("www.", "")  # strip www prefix
-                platform = platform_map.get(domain)
-                if not platform:
-                    for d, p in platform_map.items():
-                        if d in link:
-                            platform = p
-                            domain = d
-                            break
-                if not platform:
-                    continue
+                if link in seen_urls: continue
+                if is_legal(link):   continue
+                if not is_piracy(link): continue
 
-                if is_category_page(link):
-                    continue
-                if is_news_article(link, title):
-                    continue
+                # Film name in title/snippet OR in URL path
+                title_snip = (title+" "+snippet+" "+link).lower()
+                found = any(
+                    v.lower() in title_snip or
+                    slug in link.lower() or
+                    (len([w for w in v.lower().split() if len(w)>2]) >= 2 and
+                     all(w in title_snip for w in [x for x in v.lower().split() if len(x)>2]))
+                    for v in variants
+                )
+                # Also check slug variants in URL
+                if not found:
+                    found = any(sv in link.lower() for sv in slug_variants)
+                if not found: continue
 
-                matched = sum(1 for w in film_words if w in full)
-                if matched < max(1, len(film_words) - 1):
-                    continue
+                # For confirmed piracy domains, relax signal requirement
+                if not any(s in full for s in PIRACY_SIGNALS):
+                    # If it's a known piracy domain and film in URL, accept it
+                    if not (is_piracy(link) and any(sv in link.lower() for sv in slug_variants)):
+                        continue
+                if is_category_page(link): continue
 
-                # Quality detection
-                full_lower = full.lower()
-                quality = ""
-                if "4k" in full_lower or "2160p" in full_lower:
-                    quality = "4K"
-                elif "1080p" in full_lower or "fhd" in full_lower:
-                    quality = "1080p"
-                elif "720p" in full_lower or "hdrip" in full_lower:
-                    quality = "HDRip"
-                elif "480p" in full_lower:
-                    quality = "480p"
-                elif "cam" in full_lower or "camrip" in full_lower:
-                    quality = "CAM"
+                f = full.lower()
+                is_cam = any(k in f for k in ["camrip","hdcam","telesync"])
+                quality = (
+                    "CAM"    if is_cam else
+                    "HDRip"  if "hdrip"  in f else
+                    "WebRip" if any(k in f for k in ["webrip","web-dl"]) else
+                    "BluRay" if "bluray" in f else
+                    "1080p"  if "1080p"  in f else
+                    "720p"   if "720p"   in f else "Unknown"
+                )
 
-                # Language detection
-                lang = "Unknown"
-                if "telugu" in full_lower:
-                    lang = "Telugu"
-                elif "tamil" in full_lower:
-                    lang = "Tamil"
-                elif "hindi" in full_lower:
-                    lang = "Hindi"
-                elif "malayalam" in full_lower:
-                    lang = "Malayalam"
-                elif "kannada" in full_lower:
-                    lang = "Kannada"
-                elif "bengali" in full_lower:
-                    lang = "Bengali"
-
-                is_cam = "cam" in full_lower or "camrip" in full_lower
-
-                batch_hits.append(IndiaHit(
-                    platform=platform["name"],
-                    language=lang,
-                    url=link,
-                    quality=quality,
-                    detail=f"{title[:60]} — {snippet[:40]}",
-                    confidence=0.85,
-                    severity="HIGH",
+                matched = next(
+                    (p for p in INDIAN_PLATFORMS if
+                     p["domain"].split(".")[0].lstrip("0123456789") in
+                     urlparse(link).netloc.lstrip("www.")),
+                    {"name": urlparse(link).netloc.lstrip("www.").split(".")[0].title(),
+                     "lang": "Unknown"}
+                )
+                seen_urls.add(link)
+                hits.append(IndiaHit(
+                    platform=matched["name"],
+                    language=matched.get("lang","Unknown"),
+                    url=link, quality=quality, detail=title[:80],
+                    confidence=0.92 if is_cam else 0.85,
+                    severity="CRITICAL" if is_cam else "HIGH",
                     is_cam=is_cam
                 ))
+            return hits
         except Exception as e:
-            log.debug(f"Batch error: {e}")
-        return batch_hits
+            log.debug(f"DDG error: {e}")
+            return []
 
-    # Run ALL batches in parallel simultaneously
-    results = await asyncio.gather(*[fetch_batch(b) for b in batches],
-                                    return_exceptions=True)
-    hits = []
-    for r in results:
+    # Run DDG queries — one per variant × 3 query types
+    ddg_tasks = []
+    for v in variants[:3]:
+        v_low = v.lower()
+        ddg_tasks += [
+            ddg_search(f'"{v}" movierulz download telugu', v),
+            ddg_search(f'"{v}" movierulz download tamil', v),
+            ddg_search(f'"{v}" tamilmv OR tamilblasters download', v),
+            ddg_search(f'"{v}" filmyzilla OR hdhub4u download 1080p', v),
+            ddg_search(f'"{v}" ibomma OR moviesda download', v),
+            ddg_search(f'{v_low} movierulz telugu download 1080p', v),
+            ddg_search(f'{v_low} tamilrockers kuttymovies isaimini download', v),
+        ]
+    for sv in slug_variants[1:3]:
+        sv_title = sv.replace("-"," ").title()
+        ddg_tasks += [
+            ddg_search(f'"{sv_title}" movierulz download', sv_title),
+            ddg_search(f'{sv_title} tamilmv filmyzilla ibomma download', sv_title),
+        ]
+
+    try:
+        ddg_results = await asyncio.wait_for(
+            asyncio.gather(*ddg_tasks, return_exceptions=True),
+            timeout=15
+        )
+    except asyncio.TimeoutError:
+        ddg_results = []
+        log.debug("DDG searches timed out after 15s")
+    for r in ddg_results:
         if isinstance(r, list):
-            hits.extend(r)
-    return hits
+            all_hits.extend(r)
+
+    # ── PART 2: Direct URL check for TOP 5 sites ──────────────
+    # Only check sites that respond quickly — verified 2025
+    FAST_SITES = [
+        {"name":"TamilBlasters","lang":"Tamil","domains":
+            ["1tamilblasters.luxe","tamilblasters.life","1tamilblasters.art"],
+         "urls":[
+            "/{slug}-2025-telugu/",
+            "/{slug}-2025-tamil/",
+            "/{slug}-2025-hindi/",
+            "/{slug}-2024-telugu/",
+            "/{slug}-2024-tamil/",
+         ]},
+        {"name":"Moviesda","lang":"Tamil","domains":
+            ["moviesda30.com","moviesda28.info","moviesda.com","moviesda.io"],
+         "urls":[
+            "/{slug}-2025-tamil-movie/",
+            "/{slug}-2024-tamil-movie/",
+            "/{slug}-2025-telugu-movie/",
+            "/{slug}-2024-telugu-movie/",
+            "/{slug}-2025-hindi-dubbed-movie/",
+            "/{slug}-2024-hindi-dubbed-movie/",
+            "/download/{slug}-original-1080p-hd/",
+            "/download/{slug}-2025-original-1080p-hd/",
+            "/{slug}-movie/",
+         ]},
+        {"name":"Filmyzilla","lang":"Hindi","domains":
+            ["filmyzilla36.com","filmyzilla37.com","filmyzillaofficial.com"],
+         "urls":[
+            "/search/{slug}/",
+         ]},
+        {"name":"Movierulz","lang":"Telugu","domains":
+            ["5movierulz2.band","5movierulz.markets","7movierulz.co"],
+         "urls":[
+            "/{slug}-2025-telugu/movie-watch-online-free/",
+            "/{slug}-2025-tamil/movie-watch-online-free/",
+            "/{slug}-2025-hindi/movie-watch-online-free/",
+            "/{slug}-2024-telugu/movie-watch-online-free/",
+            "/{slug}-2024-tamil/movie-watch-online-free/",
+            "/{slug}-2024-hindi/movie-watch-online-free/",
+         ]},
+        {"name":"iBomma","lang":"Telugu","domains":
+            ["ibomma.one","ibommamoviess.com"],
+         "urls":[
+            "/{slug}-telugu-movie/",
+            "/{slug}-2025-telugu/",
+            "/{slug}-2024-telugu/",
+         ]},
+    ]
+
+    headers2 = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "Accept": "text/html",
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+
+    async def fast_check(url: str, site: dict) -> IndiaHit | None:
+        if url in seen_urls:
+            return None
+        try:
+            r = await client.get(url, headers=headers2,
+                                 follow_redirects=True, timeout=7)
+            if r.status_code != 200:
+                return None
+
+            chunk = r.content[:3000].decode("utf-8", errors="ignore").lower()
+            title_m = _re.search(r"<title[^>]*>(.*?)</title>", chunk, _re.DOTALL)
+            page_title = title_m.group(1).strip() if title_m else ""
+
+            # Film name must be in title OR page content
+            check_zone = (page_title + " " + chunk[:1000]).lower()
+            film_found = any(
+                v.lower() in check_zone or
+                all(w in check_zone for w in
+                    [x for x in v.lower().split() if len(x)>2])
+                for v in variants
+            )
+            # Also check slug variants
+            if not film_found:
+                film_found = any(sv.replace("-"," ") in check_zone
+                                 for sv in slug_variants)
+            if not film_found:
+                return None
+
+            # Reject generic search pages — must be a specific film page
+            final_path = str(r.url).split("?")[0].rstrip("/")
+            is_search_page = (
+                "?s=" in str(r.url) or
+                "/search" in str(r.url) or
+                "/page/" in str(r.url) or
+                final_path.endswith(("/movies", "/telugu", "/tamil", "/hindi"))
+            )
+            if is_search_page:
+                # For search pages — only accept if film name in title exactly
+                if not page_title or not any(
+                    v.lower() in page_title.lower() for v in variants
+                ):
+                    return None
+                # And must show download links — not just search results
+                if chunk.count("download") < 2:
+                    return None
+
+            if not any(s in chunk for s in ["download","watch","1080p","720p","hdrip"]):
+                return None
+
+            is_cam = any(k in chunk for k in ["camrip","hdcam","telesync"])
+            quality = (
+                "CAM"    if is_cam else
+                "1080p"  if "1080p" in chunk else
+                "720p"   if "720p"  in chunk else
+                "HDRip"  if "hdrip" in chunk else "Unknown"
+            )
+
+            seen_urls.add(url)
+            return IndiaHit(
+                platform=site["name"], language=site["lang"],
+                url=str(r.url), quality=quality,
+                detail=page_title[:80] or f"Verified — {site['name']}",
+                confidence=0.97 if is_cam else 0.93,
+                severity="CRITICAL" if is_cam else "HIGH",
+                is_cam=is_cam
+            )
+        except Exception:
+            return None
+
+    direct_tasks = []
+    for site in FAST_SITES:
+        for domain in site["domains"][:2]:
+            for pattern in site["urls"]:
+                for slug_v in slug_variants:  # try all slug variants
+                    url = f"https://{domain}" + pattern.format(
+                        slug=slug_v, slugs=slugs
+                    )
+                    direct_tasks.append(fast_check(url, site))
+
+    # Hard 20s timeout on all direct checks combined
+    try:
+        direct_results = await asyncio.wait_for(
+            asyncio.gather(*direct_tasks, return_exceptions=True),
+            timeout=20
+        )
+    except asyncio.TimeoutError:
+        direct_results = []
+        log.debug("Direct URL checks timed out after 20s")
+    for r in direct_results:
+        if isinstance(r, IndiaHit) and r.url not in seen_urls:
+            all_hits.append(r)
+            seen_urls.add(r.url)
+
+    # Deduplicate
+    seen = set()
+    unique = []
+    for h in all_hits:
+        if h.url not in seen:
+            seen.add(h.url)
+            unique.append(h)
+    return unique
 
 
 async def full_india_scan(film: str) -> dict:

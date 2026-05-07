@@ -800,10 +800,10 @@ async function scanFilm() {
   const film = document.getElementById('filmInput').value.trim();
   if (!film) return;
 
-  const body = document.getElementById('filmResultsBody');
+  const body = document.getElementById('filmResults');
   const verdict = document.getElementById('filmVerdict');
 
-  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.className = 'verdict-pill verdict-scanning';
   verdict.textContent = 'SCANNING';
   body.innerHTML = `<div class="scanning-text">Scanning 111 platforms for "${film}" <span class="dot-anim"></span></div>`;
 
@@ -842,7 +842,7 @@ async function scanFilm() {
         </div>`;
     }
   } catch(e) {
-    verdict.className = 'verdict-badge verdict-scanning';
+    verdict.className = 'verdict-pill verdict-scanning';
     verdict.textContent = 'ERROR';
     body.innerHTML = `<div class="placeholder-text">Error connecting to API: ${e.message}</div>`;
   }
@@ -850,9 +850,9 @@ async function scanFilm() {
 
 function clearFilm() {
   document.getElementById('filmInput').value = '';
-  document.getElementById('filmResultsBody').innerHTML =
+  document.getElementById('filmResults').innerHTML =
     '<div class="placeholder-text">Enter a film title above to scan 111 piracy platforms instantly</div>';
-  document.getElementById('filmVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('filmVerdict').className = 'verdict-pill verdict-scanning';
   document.getElementById('filmVerdict').textContent = 'READY';
   document.getElementById('filmHits').textContent = '—';
 }
@@ -862,10 +862,10 @@ async function scanIndia() {
   const film = document.getElementById('indiaInput').value.trim();
   if (!film) return;
 
-  const body = document.getElementById('indiaResultsBody');
+  const body = document.getElementById('indiaResults');
   const verdict = document.getElementById('indiaVerdict');
 
-  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.className = 'verdict-pill verdict-scanning';
   verdict.textContent = 'SCANNING';
   body.innerHTML = `<div class="scanning-text">Scanning 58 Indian platforms for "${film}" <span class="dot-anim"></span></div>`;
 
@@ -907,9 +907,9 @@ async function scanIndia() {
 
 function clearIndia() {
   document.getElementById('indiaInput').value = '';
-  document.getElementById('indiaResultsBody').innerHTML =
+  document.getElementById('indiaResults').innerHTML =
     '<div class="placeholder-text">Scans 58 Indian piracy platforms: Movierulz, TamilMV, Filmyzilla, Ibomma, Einthusan, TamilRockers and 52 more</div>';
-  document.getElementById('indiaVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('indiaVerdict').className = 'verdict-pill verdict-scanning';
   document.getElementById('indiaVerdict').textContent = 'READY';
   document.getElementById('indiaHits').textContent = '—';
 }
@@ -919,10 +919,10 @@ async function scanGaming() {
   const game = document.getElementById('gamingInput').value.trim();
   if (!game) return;
 
-  const body = document.getElementById('gamingResultsBody');
+  const body = document.getElementById('gamingResults');
   const verdict = document.getElementById('gamingVerdict');
 
-  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.className = 'verdict-pill verdict-scanning';
   verdict.textContent = 'SCANNING';
   body.innerHTML = `<div class="scanning-text">Scanning crack sites for "${game}" <span class="dot-anim"></span></div>`;
 
@@ -966,9 +966,9 @@ async function scanGaming() {
 
 function clearGaming() {
   document.getElementById('gamingInput').value = '';
-  document.getElementById('gamingResultsBody').innerHTML =
+  document.getElementById('gamingResults').innerHTML =
     '<div class="placeholder-text">Scans FitGirl, DODI, IGG, GOG-Games, SteamUnlocked, 1337x and 15+ more crack sites</div>';
-  document.getElementById('gamingVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('gamingVerdict').className = 'verdict-pill verdict-scanning';
   document.getElementById('gamingVerdict').textContent = 'READY';
   document.getElementById('gamingHits').textContent = '—';
 }
@@ -998,10 +998,10 @@ async function scanManga() {
   const type = document.getElementById('mangaType').value;
   if (!title) return;
 
-  const body = document.getElementById('mangaResultsBody');
+  const body = document.getElementById('mangaResults');
   const verdict = document.getElementById('mangaVerdict');
 
-  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.className = 'verdict-pill verdict-scanning';
   verdict.textContent = 'SCANNING';
   body.innerHTML = `<div class="scanning-text">Scanning 25+ platforms for "${title}" <span class="dot-anim"></span></div>`;
 
@@ -1041,9 +1041,9 @@ async function scanManga() {
 
 function clearManga() {
   document.getElementById('mangaInput').value = '';
-  document.getElementById('mangaResultsBody').innerHTML =
+  document.getElementById('mangaResults').innerHTML =
     '<div class="placeholder-text">Scans MangaDex, MangaFire, LibGen, NYAA, GetComics, Toonily and 20+ more platforms</div>';
-  document.getElementById('mangaVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('mangaVerdict').className = 'verdict-pill verdict-scanning';
   document.getElementById('mangaVerdict').textContent = 'READY';
   document.getElementById('mangaHits').textContent = '—';
 }
@@ -1051,9 +1051,9 @@ function clearManga() {
 // Live Shield
 async function scanLiveShield() {
   const event = document.getElementById('liveEvent').value.trim() || 'IPL 2026';
-  const body = document.getElementById('liveResultsBody');
+  const body = document.getElementById('liveShieldResults');
   const verdict = document.getElementById('liveVerdict');
-  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.className = 'verdict-pill verdict-scanning';
   verdict.textContent = 'SCANNING';
   body.innerHTML = `<div class="scanning-text">Scanning 135+ Telegram channels for "${event}" <span class="dot-anim"></span></div>`;
   
@@ -1120,7 +1120,7 @@ async function scanLiveShield() {
           <div class="hit-url"><a href="https://t.me/IPLBetting" target="_blank">https://t.me/IPLBetting</a></div></div>
           <div class="hit-quality" style="background:rgba(255,51,102,0.15);color:#ff3366">CRITICAL</div>
         </div>`;
-      verdict.className = 'verdict-badge verdict-hit';
+      verdict.className = 'verdict-pill verdict-hit';
       verdict.textContent = '7 STREAMS';
       document.getElementById('liveStreams').textContent = '7';
     }
@@ -1131,8 +1131,8 @@ async function scanLiveShield() {
 
 function clearLiveShield() {
   document.getElementById('liveEvent').value = '';
-  document.getElementById('liveResultsBody').innerHTML = '<div class="placeholder-text">Detects illegal sports streams on Telegram in real time.</div>';
-  document.getElementById('liveVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('liveShieldResults').innerHTML = '<div class="placeholder-text">Detects illegal sports streams on Telegram in real time.</div>';
+  document.getElementById('liveVerdict').className = 'verdict-pill verdict-scanning';
   document.getElementById('liveVerdict').textContent = 'READY';
   document.getElementById('liveStreams').textContent = '—';
 }
@@ -1150,7 +1150,7 @@ async function handleVideoUpload(event) {
   status.style.display = 'block';
   status.textContent = `File selected: ${file.name} (${(file.size/1024/1024).toFixed(1)}MB)`;
 
-  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.className = 'verdict-pill verdict-scanning';
   verdict.textContent = 'PROCESSING';
   body.innerHTML = `<div class="scanning-text">
     Extracting visual fingerprint + audio chromaprint from "${file.name}"
@@ -1223,7 +1223,7 @@ async function handleVideoUpload(event) {
             to register your film and enable live identification.
           </div>
         </div>`;
-      verdict.className = 'verdict-badge verdict-scanning';
+      verdict.className = 'verdict-pill verdict-scanning';
       verdict.textContent = 'REGISTER FILM';
       result.textContent = 'PENDING';
     }
@@ -1232,7 +1232,7 @@ async function handleVideoUpload(event) {
       File received: ${file.name}<br>
       To test VideoID: Register your film at dba.yugandhar@gmail.com
     </div>`;
-    verdict.className = 'verdict-badge verdict-scanning';
+    verdict.className = 'verdict-pill verdict-scanning';
     verdict.textContent = 'DEMO MODE';
   }
 }
@@ -1243,7 +1243,7 @@ async function scanBrand() {
   if (!brand) return;
   const body = document.getElementById('brandResultsBody');
   const verdict = document.getElementById('brandVerdict');
-  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.className = 'verdict-pill verdict-scanning';
   verdict.textContent = 'SCANNING';
   body.innerHTML = `<div class="scanning-text">Scanning for brand abuse: "${brand}" <span class="dot-anim"></span></div>`;
   try {
@@ -1277,7 +1277,7 @@ async function scanBrand() {
     }
   } catch(e) {
     body.innerHTML = `<div class="placeholder-text">Scanning brand abuse across piracy sites, social media and app stores...</div>`;
-    verdict.className = 'verdict-badge verdict-scanning';
+    verdict.className = 'verdict-pill verdict-scanning';
     verdict.textContent = 'LIMITED';
   }
 }
@@ -1285,7 +1285,7 @@ function clearBrand() {
   document.getElementById('brandInput').value = '';
   document.getElementById('brandResultsBody').innerHTML =
     '<div class="placeholder-text">Detects piracy site abuse, social media impersonation, fake apps, domain squatting, phishing ads</div>';
-  document.getElementById('brandVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('brandVerdict').className = 'verdict-pill verdict-scanning';
   document.getElementById('brandVerdict').textContent = 'READY';
   document.getElementById('brandThreats').textContent = '—';
 }
@@ -1294,9 +1294,9 @@ function clearBrand() {
 async function scanManga() {
   const title = document.getElementById('mangaInput').value.trim();
   if (!title) return;
-  const body = document.getElementById('mangaResultsBody');
+  const body = document.getElementById('mangaResults');
   const verdict = document.getElementById('mangaVerdict');
-  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.className = 'verdict-pill verdict-scanning';
   verdict.textContent = 'SCANNING';
   body.innerHTML = `<div class="scanning-text">Scanning 82 platforms for "${title}" <span class="dot-anim"></span></div>`;
   try {
@@ -1332,9 +1332,9 @@ async function scanManga() {
 }
 function clearManga() {
   document.getElementById('mangaInput').value = '';
-  document.getElementById('mangaResultsBody').innerHTML =
+  document.getElementById('mangaResults').innerHTML =
     '<div class="placeholder-text">Detects piracy on MangaDex, MangaFire, Toonily, NYAA, LibGen and 76 more</div>';
-  document.getElementById('mangaVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('mangaVerdict').className = 'verdict-pill verdict-scanning';
   document.getElementById('mangaVerdict').textContent = 'READY';
   document.getElementById('mangaHits').textContent = '—';
 }
@@ -1343,9 +1343,9 @@ function clearManga() {
 async function scanSports() {
   const event = document.getElementById('sportsInput').value.trim();
   if (!event) return;
-  const body = document.getElementById('sportsResultsBody');
+  const body = document.getElementById('sportsResults');
   const verdict = document.getElementById('sportsVerdict');
-  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.className = 'verdict-pill verdict-scanning';
   verdict.textContent = 'SCANNING';
   body.innerHTML = `<div class="scanning-text">Scanning 25+ platforms for "${event}" <span class="dot-anim"></span></div>`;
   try {
@@ -1381,9 +1381,9 @@ async function scanSports() {
 }
 function clearSports() {
   document.getElementById('sportsInput').value = '';
-  document.getElementById('sportsResultsBody').innerHTML =
+  document.getElementById('sportsResults').innerHTML =
     '<div class="placeholder-text">Detects illegal streams on VIPBox, CrackStreams, Reddit, Telegram, LiveTV and 20+ more</div>';
-  document.getElementById('sportsVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('sportsVerdict').className = 'verdict-pill verdict-scanning';
   document.getElementById('sportsVerdict').textContent = 'READY';
   document.getElementById('sportsHits').textContent = '—';
 }
@@ -1397,7 +1397,7 @@ async function scanMusic() {
   const body = document.getElementById('musicResultsBody');
   const verdict = document.getElementById('musicVerdict');
 
-  verdict.className = 'verdict-badge verdict-scanning';
+  verdict.className = 'verdict-pill verdict-scanning';
   verdict.textContent = 'SCANNING';
   body.innerHTML = `<div class="scanning-text">Scanning 28+ platforms for "${artist} - ${title}" <span class="dot-anim"></span></div>`;
 
@@ -1439,7 +1439,7 @@ function clearMusic() {
   document.getElementById('musicArtist').value = '';
   document.getElementById('musicResultsBody').innerHTML =
     '<div class="placeholder-text">Scans RuTracker, VK Music, MP3Juices, Telegram, NYAA and 23+ more platforms</div>';
-  document.getElementById('musicVerdict').className = 'verdict-badge verdict-scanning';
+  document.getElementById('musicVerdict').className = 'verdict-pill verdict-scanning';
   document.getElementById('musicVerdict').textContent = 'READY';
   document.getElementById('musicHits').textContent = '—';
 }

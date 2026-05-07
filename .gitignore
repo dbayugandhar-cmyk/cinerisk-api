@@ -1,18 +1,18 @@
+# Test files
+test_*.mp4
+test_*.aiff
+test_*.wav
+*.mp3
+
+# Backup files
+*_backup.py
+*_v2_backup.py
+
+# Generated/local files
+cineos_discovered_channels.json
+cineos_fingerprint_db.json
+
+# macOS
+.DS_Store
 __pycache__/
 *.pyc
-*.pyo
-.env
-.env.local
-*.pdf
-node_modules/
-.DS_Store
-123.jpg
-234.jpeg
-test_ai.png
-test_real.jpg
-test_ai_generated.png
-cineos_india_v1_backup.py
-__pycache__/
-*.pyc
-.env
-.DS_Store

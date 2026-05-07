@@ -823,7 +823,7 @@ async def generate_evidence(
         r = await sc.post(
             "https://cinerisk-api-production.up.railway.app/theater/gold_scan",
             json={"film_title": film_title},
-            headers={"X-API-Key": "CINEOS_API_KEY_HERE"}
+            headers={"X-API-Key": "ck_aW2Ni_pKRDQZet3LyQRqUXdPCJ3KvOiRhuLqZ3WEtqU"}
         )
         scan = r.json()
 

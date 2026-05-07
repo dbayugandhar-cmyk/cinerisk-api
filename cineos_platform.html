@@ -794,33 +794,23 @@ async function loadWatchlist() {
 
 // Tab switching
 function switchTab(tab) {
-  // Hide ALL panels with inline style
-  ['film','india','gaming','manga','sports','videoid','liveshield'].forEach(function(t) {
+  var tabs = ['film','india','gaming','manga','sports','videoid','liveshield'];
+  tabs.forEach(function(t) {
     var p = document.getElementById('panel-' + t);
     if (p) { p.style.display = 'none'; p.style.visibility = 'hidden'; }
+    var cards = document.querySelectorAll('.tab-card');
+    cards.forEach(function(c) { c.classList.remove('active'); });
   });
-
-  // Remove active from all tab cards
-  document.querySelectorAll('.tab-card').forEach(function(t) {
-    t.classList.remove('active');
-    t.style.borderColor = '';
-  });
-
-  // Show selected panel
   var panel = document.getElementById('panel-' + tab);
-  if (panel) {
-    panel.style.display = 'block';
-    panel.style.visibility = 'visible';
-  }
-
-  // Activate tab card
-  var cards = document.querySelectorAll('.tab-card');
-  cards.forEach(function(c) {
-    if (c.getAttribute('onclick') && c.getAttribute('onclick').indexOf("'" + tab + "'") !== -1) {
+  if (panel) { panel.style.display = 'block'; panel.style.visibility = 'visible'; }
+  var allCards = document.querySelectorAll('.tab-card');
+  allCards.forEach(function(c) {
+    if (c.getAttribute('onclick') && c.getAttribute('onclick').indexOf(tab) !== -1) {
       c.classList.add('active');
     }
   });
 }
+window.onload = function() { switchTab('film'); };
 
 // Init on page load — show film panel, hide rest
 window.addEventListener('DOMContentLoaded', function() {

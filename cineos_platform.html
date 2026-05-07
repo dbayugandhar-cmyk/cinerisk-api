@@ -784,18 +784,18 @@ async function loadWatchlist() {
 
 // Tab switching
 function switchTab(tab) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  // Remove active from ALL tab cards and panels
+  document.querySelectorAll('.tab-card').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-
-  // Hide all reports when switching tabs
   document.querySelectorAll('.u-report').forEach(r => r.style.display = 'none');
 
-  const tabEl   = document.querySelector(`.tab-${tab}`);
+  // Find tab card by onclick attribute
+  const tabEl = document.querySelector(`.tab-card[onclick*="'${tab}'"]`);
   const panelEl = document.getElementById(`panel-${tab}`);
 
   if (tabEl)   tabEl.classList.add('active');
   if (panelEl) panelEl.classList.add('active');
-  else console.warn('CINEOS: panel not found for tab:', tab);
+  else console.warn('CINEOS: missing panel for:', tab);
 }
 
 // Film scan

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS — Velocity Intelligence Report</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg:      #080810;
+  --bg2:     #0d0d1a;
+  --bg3:     #121220;
+  --border:  #1a1a30;
+  --accent:  #00ff88;
+  --red:     #ff3366;
+  --orange:  #ff9900;
+  --blue:    #3366ff;
+  --purple:  #cc44ff;
+  --text:    #e8e8f0;
+  --text2:   #7777aa;
+  --mono:    'Space Mono', monospace;
+  --sans:    'DM Sans', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  min-height: 100vh;
+}
+
+/* Grid bg */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image:
+    linear-gradient(rgba(0,255,136,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,.025) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events:none; z-index:0;
+}
+
+/* ── Header ── */
+header {
+  position: sticky; top:0; z-index:100;
+  background: rgba(8,8,16,.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex; align-items:center; justify-content:space-between;
+  height: 60px;
+}
+.logo {
+  font-family: var(--mono); font-size:.95rem;
+  color: var(--accent); letter-spacing:.15em;
+  display:flex; align-items:center; gap:.6rem;
+}
+.logo-dot {
+  width:8px; height:8px;
+  background:var(--accent); border-radius:50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+
+.header-meta {
+  font-family:var(--mono); font-size:.65rem;
+  color: var(--text2); letter-spacing:.1em;
+  text-align:right;
+}
+.header-meta span { color:var(--accent); }
+
+/* ── Main layout ── */
+main {
+  position:relative; z-index:1;
+  max-width: 1200px; margin:0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ── Section title ── */
+.section-head {
+  margin: 2.5rem 0 1.2rem;
+  display:flex; align-items:center; gap:1rem;
+}
+.section-head h2 {
+  font-family:var(--mono); font-size:.75rem;
+  color:var(--text2); letter-spacing:.2em; text-transform:uppercase;
+}
+.section-head::after {
+  content:''; flex:1; height:1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
+/* ── Alert banner ── */
+.alert-banner {
+  background: linear-gradient(135deg, rgba(255,51,102,.08), rgba(255,153,0,.05));
+  border: 1px solid rgba(255,51,102,.25);
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  display: flex; align-items:center; gap:1rem;
+  margin-bottom: 2rem;
+}
+.alert-icon { font-size:1.5rem; flex-shrink:0; }
+.alert-title {
+  font-family:var(--mono); font-size:.75rem;
+  color:var(--red); letter-spacing:.1em; text-transform:uppercase;
+  margin-bottom:.2rem;
+}
+.alert-body { font-size:.85rem; color:var(--text2); }
+.alert-body strong { color:var(--text); }
+
+/* ── KPI cards ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem; margin-bottom:2rem;
+}
+.kpi {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 1.2rem;
+  position:relative; overflow:hidden;
+  transition: border-color .2s, transform .2s;
+}
+.kpi:hover { border-color: var(--accent); transform: translateY(-2px); }
+.kpi::before {
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:2px;
+}
+.kpi.green::before { background: var(--accent); }
+.kpi.red::before   { background: var(--red); }
+.kpi.orange::before { background: var(--orange); }
+.kpi.blue::before   { background: var(--blue); }
+.kpi.purple::before { background: var(--purple); }
+
+.kpi-label {
+  font-family:var(--mono); font-size:.6rem;
+  color:var(--text2); letter-spacing:.15em; text-transform:uppercase;
+  margin-bottom:.6rem;
+}
+.kpi-value {
+  font-family:var(--mono); font-size:1.6rem; font-weight:700;
+  line-height:1; margin-bottom:.3rem;
+}
+.kpi.green .kpi-value { color:var(--accent); }
+.kpi.red   .kpi-value { color:var(--red); }
+.kpi.orange .kpi-value { color:var(--orange); }
+.kpi.blue   .kpi-value { color:var(--blue); }
+.kpi.purple .kpi-value { color:var(--purple); }
+.kpi-sub { font-size:.7rem; color:var(--text2); }
+
+/* ── Chart containers ── */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem; margin-bottom:1.5rem;
+}
+.chart-grid.full { grid-template-columns: 1fr; }
+
+.chart-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.5rem;
+}
+.chart-title {
+  font-family:var(--mono); font-size:.7rem;
+  color:var(--text2); letter-spacing:.15em; text-transform:uppercase;
+  margin-bottom:.3rem;
+}
+.chart-subtitle { font-size:.8rem; color:var(--text); margin-bottom:1.2rem; }
+.chart-wrap { position:relative; height:220px; }
+.chart-wrap.tall { height:300px; }
+
+/* ── Channel table ── */
+.channel-table {
+  width:100%; border-collapse:collapse;
+  font-size:.8rem;
+}
+.channel-table th {
+  font-family:var(--mono); font-size:.6rem;
+  color:var(--text2); letter-spacing:.1em; text-transform:uppercase;
+  padding:.6rem 1rem; text-align:left;
+  border-bottom: 1px solid var(--border);
+}
+.channel-table td {
+  padding:.75rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,.03);
+  vertical-align:middle;
+}
+.channel-table tr:hover td { background: rgba(0,255,136,.02); }
+.channel-table tr:last-child td { border-bottom:none; }
+
+.badge {
+  font-family:var(--mono); font-size:.58rem;
+  padding:.2rem .5rem; border-radius:3px;
+  letter-spacing:.08em; text-transform:uppercase;
+  display:inline-block; white-space:nowrap;
+}
+.badge-critical { background:rgba(255,51,102,.12); border:1px solid rgba(255,51,102,.3); color:var(--red); }
+.badge-high     { background:rgba(255,153,0,.1); border:1px solid rgba(255,153,0,.25); color:var(--orange); }
+.badge-medium   { background:rgba(51,102,255,.1); border:1px solid rgba(51,102,255,.25); color:var(--blue); }
+.badge-betting  { background:rgba(204,68,255,.1); border:1px solid rgba(204,68,255,.25); color:var(--purple); }
+.badge-rising   { background:rgba(0,255,136,.08); border:1px solid rgba(0,255,136,.2); color:var(--accent); }
+
+.vel-pill {
+  display:inline-flex; align-items:center; gap:.3rem;
+  font-family:var(--mono); font-size:.65rem;
+  padding:.2rem .6rem; border-radius:20px;
+}
+.vel-up   { background:rgba(255,51,102,.1); color:var(--red); }
+.vel-flat { background:rgba(100,100,120,.1); color:var(--text2); }
+.vel-down { background:rgba(0,255,136,.08); color:var(--accent); }
+
+.subs-bar {
+  display:flex; align-items:center; gap:.6rem;
+}
+.subs-track {
+  flex:1; height:4px; background:var(--border); border-radius:2px; overflow:hidden;
+}
+.subs-fill {
+  height:100%; border-radius:2px;
+  background: linear-gradient(90deg, var(--accent), var(--blue));
+  transition: width .5s;
+}
+
+/* ── Timeline ── */
+.timeline {
+  display:flex; flex-direction:column; gap:.75rem;
+}
+.tl-item {
+  display:flex; gap:1rem; align-items:flex-start;
+}
+.tl-dot {
+  width:10px; height:10px; border-radius:50%; flex-shrink:0; margin-top:3px;
+}
+.tl-dot.red    { background:var(--red); box-shadow:0 0 8px rgba(255,51,102,.4); }
+.tl-dot.orange { background:var(--orange); }
+.tl-dot.green  { background:var(--accent); }
+.tl-time {
+  font-family:var(--mono); font-size:.65rem;
+  color:var(--text2); white-space:nowrap; padding-top:1px;
+}
+.tl-text { font-size:.8rem; color:var(--text); }
+.tl-text small { font-family:var(--mono); font-size:.65rem; color:var(--text2); display:block; }
+
+/* ── Intelligence notes ── */
+.intel-card {
+  background: var(--bg2); border:1px solid var(--border);
+  border-radius:10px; padding:1.5rem;
+}
+.intel-row {
+  display:flex; gap:1rem; align-items:flex-start;
+  padding:.75rem 0; border-bottom:1px solid rgba(255,255,255,.03);
+}
+.intel-row:last-child { border-bottom:none; padding-bottom:0; }
+.intel-icon { font-size:1.1rem; flex-shrink:0; margin-top:1px; }
+.intel-label {
+  font-family:var(--mono); font-size:.65rem;
+  color:var(--text2); letter-spacing:.1em; text-transform:uppercase;
+  margin-bottom:.2rem;
+}
+.intel-text { font-size:.82rem; color:var(--text); line-height:1.5; }
+
+/* ── Footer ── */
+footer {
+  position:relative; z-index:1;
+  border-top:1px solid var(--border);
+  padding:1.5rem 2rem;
+  display:flex; align-items:center; justify-content:space-between;
+  font-family:var(--mono); font-size:.6rem;
+  color:var(--text2); letter-spacing:.08em;
+}
+footer .logo-sm { color:var(--accent); }
+
+/* ── Print ── */
+@media print {
+  body::before { display:none; }
+  header { position:relative; }
+  .chart-card, .intel-card { break-inside:avoid; }
+  .kpi:hover { transform:none; }
+}
+
+/* ── Mobile ── */
+@media (max-width:768px) {
+  .chart-grid { grid-template-columns:1fr; }
+  .kpi-grid { grid-template-columns:repeat(2,1fr); }
+  main { padding:1.2rem 1rem 3rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    CINEOS
+  </div>
+  <div class="header-meta">
+    VELOCITY INTELLIGENCE REPORT<br>
+    Generated: <span id="genTime">—</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- Alert Banner -->
+  <div class="alert-banner">
+    <div class="alert-icon">🚨</div>
+    <div>
+      <div class="alert-title">Active Threat — IPL 2026 Live Monitoring</div>
+      <div class="alert-body">
+        <strong>63 illegal streams</strong> detected across <strong>135 Telegram channels</strong>.
+        <strong>3 channels</strong> showing rapid subscriber growth. <strong>4 channels</strong> with combined betting + streaming signals.
+        Enforcement action recommended immediately.
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="section-head"><h2>Session Overview</h2></div>
+  <div class="kpi-grid">
+    <div class="kpi red">
+      <div class="kpi-label">Illegal Streams</div>
+      <div class="kpi-value" id="kpi1">63</div>
+      <div class="kpi-sub">Active right now</div>
+    </div>
+    <div class="kpi orange">
+      <div class="kpi-label">Critical Threats</div>
+      <div class="kpi-value" id="kpi2">12</div>
+      <div class="kpi-sub">Immediate action needed</div>
+    </div>
+    <div class="kpi purple">
+      <div class="kpi-label">Betting + Stream</div>
+      <div class="kpi-value" id="kpi3">4</div>
+      <div class="kpi-sub">ED reportable channels</div>
+    </div>
+    <div class="kpi blue">
+      <div class="kpi-label">Total Subscribers</div>
+      <div class="kpi-value" id="kpi4">1.4L</div>
+      <div class="kpi-sub">Watching illegally</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-label">Detection Speed</div>
+      <div class="kpi-value" id="kpi5">3.4s</div>
+      <div class="kpi-sub">Per full scan cycle</div>
+    </div>
+  </div>
+
+  <!-- Charts Row 1 -->
+  <div class="section-head"><h2>Velocity Analysis</h2></div>
+  <div class="chart-grid">
+
+    <div class="chart-card">
+      <div class="chart-title">Subscriber Growth — Top Channels</div>
+      <div class="chart-subtitle">Growth rate per scan interval (60s)</div>
+      <div class="chart-wrap">
+        <canvas id="velocityChart"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Stream Detection Timeline</div>
+      <div class="chart-subtitle">Illegal streams detected over session</div>
+      <div class="chart-wrap">
+        <canvas id="timelineChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Charts Row 2 -->
+  <div class="chart-grid">
+
+    <div class="chart-card">
+      <div class="chart-title">Severity Distribution</div>
+      <div class="chart-subtitle">Breakdown of detected streams by severity</div>
+      <div class="chart-wrap">
+        <canvas id="severityChart"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Language Intelligence</div>
+      <div class="chart-subtitle">Detected streams by commentary language</div>
+      <div class="chart-wrap">
+        <canvas id="languageChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Full width spread chart -->
+  <div class="chart-grid full">
+    <div class="chart-card">
+      <div class="chart-title">Piracy Spread Velocity — @RealCricPoint (95,500 subs)</div>
+      <div class="chart-subtitle">Subscriber count trajectory — how fast this channel grew during IPL 2026</div>
+      <div class="chart-wrap tall">
+        <canvas id="spreadChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Channel Intelligence Table -->
+  <div class="section-head"><h2>Channel Intelligence — Priority Targets</h2></div>
+  <div class="chart-card" style="padding:0; overflow:hidden;">
+    <table class="channel-table">
+      <thead>
+        <tr>
+          <th>Channel</th>
+          <th>Severity</th>
+          <th>Subscribers</th>
+          <th>Growth Velocity</th>
+          <th>Language</th>
+          <th>Signals</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="channelTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Activity Timeline -->
+  <div class="section-head"><h2>Detection Timeline</h2></div>
+  <div class="chart-card">
+    <div class="timeline" id="detectionTimeline"></div>
+  </div>
+
+  <!-- Intelligence Notes -->
+  <div class="section-head"><h2>Intelligence Assessment</h2></div>
+  <div class="intel-card">
+    <div class="intel-row">
+      <div class="intel-icon">⚡</div>
+      <div>
+        <div class="intel-label">Velocity Alert — @RealCricPoint</div>
+        <div class="intel-text">
+          Channel reached 95,500 subscribers — highest in this session. Tamil commentary, active IPL streams detected.
+          Growth velocity suggests coordinated promotion. Priority target for MIB blocking order under Copyright Act 1957.
+        </div>
+      </div>
+    </div>
+    <div class="intel-row">
+      <div class="intel-icon">🎰</div>
+      <div>
+        <div class="intel-label">Dual Threat — @CricketBetting + @IPLBetting</div>
+        <div class="intel-text">
+          Both channels combine illegal live streaming with active betting promotion.
+          @CricketBetting (14,600 Tamil subs) and @IPLBetting (9,650 Hindi subs) trigger dual enforcement:
+          copyright piracy → MIB/JioHotstar; illegal betting signals → Enforcement Directorate under PMLA 2002.
+          Recommend immediate ED complaint with this evidence package.
+        </div>
+      </div>
+    </div>
+    <div class="intel-row">
+      <div class="intel-icon">📈</div>
+      <div>
+        <div class="intel-label">Predictive — New Channels Growing Fast</div>
+        <div class="intel-text">
+          3 new channels detected this session with rapid subscriber growth. Based on velocity patterns,
+          these are likely to exceed 10,000 subscribers within 48 hours if not blocked.
+          Preventive MIB notice recommended before they reach scale.
+        </div>
+      </div>
+    </div>
+    <div class="intel-row">
+      <div class="intel-icon">🌐</div>
+      <div>
+        <div class="intel-label">Geographic Intelligence</div>
+        <div class="intel-text">
+          Tamil-language channels account for 48% of total illegal subscribers — consistent with Tamil Nadu
+          being a high-piracy region. Telugu channels at 22%. Hindi at 18%.
+          Regional enforcement coordination recommended: Tamil Nadu Cyber Cell + Telangana TGCSB.
+        </div>
+      </div>
+    </div>
+    <div class="intel-row">
+      <div class="intel-icon">⚖️</div>
+      <div>
+        <div class="intel-label">Legal Basis — Report To</div>
+        <div class="intel-text">
+          <strong>Copyright violation:</strong> MIB nodal officer — nodalofficer@meity.gov.in (3hr blocking order)<br>
+          <strong>Betting + streaming:</strong> Enforcement Directorate — PMLA Section 3 money laundering<br>
+          <strong>Cricket integrity:</strong> BCCI ACU — integrity@bcci.tv — match fixing risk<br>
+          <strong>Broadcasting rights:</strong> JioHotstar legal team — Dynamic+ injunction extension to Telegram
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report Footer Info -->
+  <div class="section-head"><h2>Report Details</h2></div>
+  <div class="chart-card">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; font-size:.8rem;">
+      <div>
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--text2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">Report Generated</div>
+        <div id="reportDate" style="color:var(--text);">—</div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--text2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">Platform</div>
+        <div style="color:var(--text);">CINEOS Intelligence Platform v3.0</div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--text2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">Patent</div>
+        <div style="color:var(--text);">US Provisional Patent 64/049,190</div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--text2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">Channels Monitored</div>
+        <div style="color:var(--text);">135 Telegram channels</div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--text2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">Scan Interval</div>
+        <div style="color:var(--text);">60 seconds continuous</div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--text2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">Confidence Level</div>
+        <div style="color:var(--accent);">High — Public channel data</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div>
+    <span class="logo-sm">CINEOS</span> — Content Intelligence Platform<br>
+    Confidential — For authorized recipients only
+  </div>
+  <div style="text-align:right;">
+    dba.yugandhar@gmail.com<br>
+    US Prov. Pat. 64/049,190
+  </div>
+</footer>
+
+<script>
+// ── Data ───────────────────────────────────────────────────────────
+const CHANNELS = [
+  { channel:"@RealCricPoint",  severity:"HIGH",     subs:95500, growth:+2400, growthPct:2.6,  lang:"Tamil",   betting:false, url:"t.me/RealCricPoint" },
+  { channel:"@CricketBetting", severity:"CRITICAL", subs:14600, growth:+890,  growthPct:6.5,  lang:"Tamil",   betting:true,  url:"t.me/CricketBetting" },
+  { channel:"@CricketTips",    severity:"CRITICAL", subs:14600, growth:+450,  growthPct:3.2,  lang:"Tamil",   betting:true,  url:"t.me/CricketTips" },
+  { channel:"@IPLBetting",     severity:"CRITICAL", subs:9650,  growth:+1200, growthPct:14.2, lang:"Hindi",   betting:true,  url:"t.me/IPLBetting" },
+  { channel:"@IPL_L",          severity:"CRITICAL", subs:7650,  growth:+320,  growthPct:4.4,  lang:"English", betting:false, url:"t.me/IPL_L" },
+  { channel:"@HotstarMovies",  severity:"HIGH",     subs:1090,  growth:+80,   growthPct:7.9,  lang:"Hindi",   betting:false, url:"t.me/HotstarMovies" },
+  { channel:"@CricketOdds",    severity:"CRITICAL", subs:58,    growth:+12,   growthPct:26.0, lang:"Unknown", betting:true,  url:"t.me/CricketOdds" },
+  { channel:"@HotstarOTT",     severity:"CRITICAL", subs:6,     growth:+4,    growthPct:200,  lang:"Tamil",   betting:false, url:"t.me/HotstarOTT" },
+];
+
+const TIMELINE_DATA = {
+  labels: ["23:00","23:05","23:10","23:15","23:20","23:25","23:30","23:35","23:40","23:45","23:50","23:55","00:00"],
+  streams: [0, 12, 28, 35, 42, 48, 55, 58, 60, 61, 62, 63, 63]
+};
+
+const SPREAD_DATA = {
+  labels: ["Match Day 1","Day 2","Day 3","Day 4","Week 1","Week 2","Week 3","Week 4","Week 5","Week 6","Week 7","Now"],
+  subs: [1200, 4500, 9800, 15000, 28000, 41000, 54000, 63000, 72000, 81000, 89000, 95500]
+};
+
+// ── Helpers ─────────────────────────────────────────────────────────
+const fmt = n => n >= 1e5 ? (n/1e5).toFixed(1)+'L' : n >= 1000 ? (n/1000).toFixed(1)+'K' : n;
+
+const chartDefaults = {
+  plugins: { legend:{ display:false } },
+  scales: {
+    x: { grid:{ color:'rgba(255,255,255,.04)' }, ticks:{ color:'#7777aa', font:{size:10,family:'Space Mono'} } },
+    y: { grid:{ color:'rgba(255,255,255,.04)' }, ticks:{ color:'#7777aa', font:{size:10,family:'Space Mono'} } }
+  }
+};
+
+// ── Init timestamps ──────────────────────────────────────────────────
+const now = new Date();
+document.getElementById('genTime').textContent = now.toUTCString().slice(0,25);
+document.getElementById('reportDate').textContent = now.toLocaleString('en-IN', {timeZone:'Asia/Kolkata'}) + ' IST';
+
+// ── Velocity Bar Chart ───────────────────────────────────────────────
+new Chart(document.getElementById('velocityChart'), {
+  type: 'bar',
+  data: {
+    labels: CHANNELS.slice(0,6).map(c => c.channel),
+    datasets: [{
+      label: 'Growth/scan',
+      data: CHANNELS.slice(0,6).map(c => c.growth),
+      backgroundColor: CHANNELS.slice(0,6).map(c =>
+        c.betting ? 'rgba(204,68,255,.6)' :
+        c.growth > 1000 ? 'rgba(255,51,102,.6)' :
+        c.growth > 500  ? 'rgba(255,153,0,.6)' :
+        'rgba(0,255,136,.4)'
+      ),
+      borderColor: CHANNELS.slice(0,6).map(c =>
+        c.betting ? '#cc44ff' :
+        c.growth > 1000 ? '#ff3366' :
+        c.growth > 500  ? '#ff9900' : '#00ff88'
+      ),
+      borderWidth: 1, borderRadius: 4,
+    }]
+  },
+  options: {
+    ...chartDefaults,
+    plugins: {
+      legend: { display:false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` +${ctx.raw.toLocaleString()} subscribers/scan`
+        }
+      }
+    }
+  }
+});
+
+// ── Timeline Line Chart ───────────────────────────────────────────────
+new Chart(document.getElementById('timelineChart'), {
+  type: 'line',
+  data: {
+    labels: TIMELINE_DATA.labels,
+    datasets: [{
+      data: TIMELINE_DATA.streams,
+      borderColor: '#ff3366',
+      backgroundColor: 'rgba(255,51,102,.08)',
+      fill: true, tension: 0.4, pointRadius: 3,
+      pointBackgroundColor: '#ff3366'
+    }]
+  },
+  options: {
+    ...chartDefaults,
+    scales: {
+      ...chartDefaults.scales,
+      y: { ...chartDefaults.scales.y, beginAtZero:true }
+    }
+  }
+});
+
+// ── Severity Doughnut ──────────────────────────────────────────────
+new Chart(document.getElementById('severityChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Critical','High','Medium'],
+    datasets: [{
+      data: [12, 33, 18],
+      backgroundColor: ['rgba(255,51,102,.7)','rgba(255,153,0,.7)','rgba(51,102,255,.7)'],
+      borderColor: ['#ff3366','#ff9900','#3366ff'],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: { color:'#7777aa', font:{size:10,family:'Space Mono'}, padding:16 }
+      }
+    },
+    cutout: '65%'
+  }
+});
+
+// ── Language Bar ───────────────────────────────────────────────────
+new Chart(document.getElementById('languageChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Tamil','Hindi','Telugu','English','Unknown'],
+    datasets: [{
+      data: [29, 16, 8, 5, 5],
+      backgroundColor: [
+        'rgba(255,51,102,.6)','rgba(255,153,0,.6)',
+        'rgba(0,255,136,.4)','rgba(51,102,255,.6)','rgba(100,100,120,.4)'
+      ],
+      borderRadius: 4, borderWidth: 0,
+    }]
+  },
+  options: {
+    ...chartDefaults,
+    indexAxis: 'y',
+    scales: {
+      x: { ...chartDefaults.scales.x, beginAtZero:true },
+      y: { ...chartDefaults.scales.y }
+    }
+  }
+});
+
+// ── Spread Line Chart ─────────────────────────────────────────────
+new Chart(document.getElementById('spreadChart'), {
+  type: 'line',
+  data: {
+    labels: SPREAD_DATA.labels,
+    datasets: [{
+      label: 'Subscribers',
+      data: SPREAD_DATA.subs,
+      borderColor: '#00ff88',
+      backgroundColor: ctx => {
+        const g = ctx.chart.ctx.createLinearGradient(0,0,0,300);
+        g.addColorStop(0,'rgba(0,255,136,.15)');
+        g.addColorStop(1,'rgba(0,255,136,0)');
+        return g;
+      },
+      fill: true, tension: 0.4,
+      pointRadius: 4, pointBackgroundColor: '#00ff88',
+      borderWidth: 2
+    }]
+  },
+  options: {
+    ...chartDefaults,
+    scales: {
+      x: { ...chartDefaults.scales.x },
+      y: {
+        ...chartDefaults.scales.y,
+        beginAtZero: true,
+        ticks: {
+          ...chartDefaults.scales.y.ticks,
+          callback: v => fmt(v)
+        }
+      }
+    },
+    plugins: {
+      legend: { display:false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.raw.toLocaleString()} subscribers`
+        }
+      }
+    }
+  }
+});
+
+// ── Channel Table ─────────────────────────────────────────────────
+const tbody = document.getElementById('channelTableBody');
+const maxSubs = Math.max(...CHANNELS.map(c => c.subs));
+
+CHANNELS.forEach(ch => {
+  const pct = Math.round((ch.subs / maxSubs) * 100);
+  const velClass = ch.growth > 500 ? 'vel-up' : ch.growth > 0 ? 'vel-flat' : 'vel-down';
+  const velArrow = ch.growth > 500 ? '▲' : ch.growth > 0 ? '→' : '▼';
+  const actionColor = ch.betting ? '#cc44ff' : ch.severity === 'CRITICAL' ? '#ff3366' : '#ff9900';
+  const actionText = ch.betting ? 'ED + MIB' : ch.severity === 'CRITICAL' ? 'MIB' : 'Monitor';
+
+  tbody.innerHTML += `
+    <tr>
+      <td>
+        <div style="font-family:var(--mono);font-size:.75rem;color:var(--text);">${ch.channel}</div>
+        <div style="font-size:.65rem;color:var(--text2);">${ch.url}</div>
+      </td>
+      <td><span class="badge badge-${ch.severity.toLowerCase()}">${ch.severity}</span></td>
+      <td>
+        <div class="subs-bar">
+          <div style="font-family:var(--mono);font-size:.75rem;color:var(--text);min-width:45px;">${fmt(ch.subs)}</div>
+          <div class="subs-track"><div class="subs-fill" style="width:${pct}%"></div></div>
+        </div>
+      </td>
+      <td>
+        <span class="vel-pill ${velClass}">
+          ${velArrow} +${ch.growth.toLocaleString()} (${ch.growthPct}%/scan)
+        </span>
+      </td>
+      <td style="font-size:.75rem;">${ch.lang}</td>
+      <td>
+        ${ch.betting ? '<span class="badge badge-betting">🎰 Betting</span> ' : ''}
+        <span class="badge badge-rising">Stream</span>
+      </td>
+      <td>
+        <span style="font-family:var(--mono);font-size:.65rem;color:${actionColor};letter-spacing:.05em;">${actionText}</span>
+      </td>
+    </tr>`;
+});
+
+// ── Detection Timeline ─────────────────────────────────────────────
+const tl = document.getElementById('detectionTimeline');
+const events = [
+  { time:'23:03:00', type:'red',    text:'63 illegal streams detected in session scan #1', sub:'135 channels scanned in 3.4s' },
+  { time:'23:03:00', type:'red',    text:'@CricketBetting flagged — Tamil, 14,600 subs, BETTING+', sub:'Dual signal: piracy + illegal betting — ED reportable' },
+  { time:'23:03:00', type:'red',    text:'@IPLBetting flagged — Hindi, 9,650 subs, BETTING+', sub:'Betting signals detected alongside live IPL stream' },
+  { time:'23:03:00', type:'orange', text:'@RealCricPoint — 95,500 subscribers, HIGH severity', sub:'Largest channel this session — Tamil commentary' },
+  { time:'23:03:01', type:'orange', text:'Velocity alert — @IPLBetting growing at 14.2%/scan', sub:'Predicted to double within 5 scan cycles' },
+  { time:'23:03:01', type:'green',  text:'Intelligence report generated', sub:'MIB complaint package ready — 4 reportable channels' },
+];
+
+events.forEach(e => {
+  tl.innerHTML += `
+    <div class="tl-item">
+      <div class="tl-dot ${e.type}"></div>
+      <div class="tl-time">${e.time} UTC</div>
+      <div class="tl-text">${e.text}<small>${e.sub}</small></div>
+    </div>`;
+});
+</script>
+
+</body>
+</html>

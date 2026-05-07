@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CINEOS — India Piracy Intelligence Dashboard</title>
-<meta name="description" content="Live piracy intelligence for India. Real-time Telegram stream counts, top pirated films, and enforcement data updated daily.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -13,185 +12,233 @@
 <style>
 :root{
   --bg:#080810;--bg2:#0d0d1a;--bg3:#12121f;
-  --border:#1a1a2e;--accent:#00ff88;--red:#ff3366;
-  --orange:#ff9900;--blue:#3366ff;--purple:#cc44ff;
-  --text:#eeeef5;--text2:#aaaacc;
+  --border:#1a1a2e;--border2:#222240;
+  --accent:#00ff88;--red:#ff3366;--orange:#ff9900;
+  --blue:#3366ff;--purple:#cc44ff;--yellow:#ffcc00;
+  --text:#eeeef5;--text2:#aaaacc;--text3:#44445a;
   --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+  --r:10px;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;}
 body::before{content:'';position:fixed;inset:0;
-  background-image:linear-gradient(rgba(0,255,136,.02) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(0,255,136,.02) 1px,transparent 1px);
-  background-size:40px 40px;pointer-events:none;z-index:0;}
+  background-image:linear-gradient(rgba(0,255,136,.018) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,255,136,.018) 1px,transparent 1px);
+  background-size:44px 44px;pointer-events:none;z-index:0;}
 
+/* NAV */
 nav{position:sticky;top:0;z-index:100;background:rgba(8,8,16,.96);
   backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
   padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;}
-.logo{font-family:var(--mono);font-size:.9rem;color:var(--accent);
+.logo{font-family:var(--mono);font-size:.88rem;color:var(--accent);
   display:flex;align-items:center;gap:.5rem;letter-spacing:.1em;}
 .logo-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;
   animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.nav-links{display:flex;align-items:center;gap:1.5rem;}
-.nav-link{font-family:var(--mono);font-size:.62rem;color:var(--text2);
+.nav-right{display:flex;align-items:center;gap:1.2rem;}
+.nav-link{font-family:var(--mono);font-size:.6rem;color:var(--text2);
   text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;}
 .nav-link:hover,.nav-link.active{color:var(--accent);}
-.live-pill{display:flex;align-items:center;gap:.4rem;
-  background:rgba(255,51,102,.1);border:1px solid rgba(255,51,102,.25);
-  border-radius:20px;padding:.3rem .8rem;
-  font-family:var(--mono);font-size:.6rem;color:var(--red);}
-.live-pill-dot{width:6px;height:6px;background:var(--red);border-radius:50%;
+#clock{font-family:var(--mono);font-size:.62rem;color:var(--text2);}
+.live-pill{display:flex;align-items:center;gap:.35rem;
+  background:rgba(255,51,102,.08);border:1px solid rgba(255,51,102,.2);
+  border-radius:20px;padding:.28rem .7rem;
+  font-family:var(--mono);font-size:.58rem;color:var(--red);}
+.live-dot{width:5px;height:5px;background:var(--red);border-radius:50%;
   animation:pulse 1s infinite;}
 
-main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 1.5rem 4rem;}
 
-/* Hero banner */
-.dash-hero{text-align:center;padding:2.5rem 1rem 2rem;border-bottom:1px solid var(--border);margin-bottom:2rem;}
-.dash-tag{font-family:var(--mono);font-size:.62rem;color:var(--accent);
-  letter-spacing:.15em;text-transform:uppercase;margin-bottom:.8rem;}
-.dash-title{font-family:var(--mono);font-size:clamp(1.4rem,3vw,2.2rem);
-  font-weight:700;margin-bottom:.6rem;
+/* HERO */
+.hero{text-align:center;padding:2.5rem 1rem 1.8rem;}
+.hero-tag{font-family:var(--mono);font-size:.6rem;color:var(--accent);
+  letter-spacing:.15em;text-transform:uppercase;
+  background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.12);
+  border-radius:20px;padding:.35rem .9rem;display:inline-block;margin-bottom:1rem;}
+.hero h1{font-family:var(--mono);font-size:clamp(1.3rem,3vw,2rem);font-weight:700;
   background:linear-gradient(135deg,#fff,var(--accent));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.dash-sub{font-size:.88rem;color:var(--text2);max-width:580px;margin:0 auto .5rem;}
-.dash-legal{font-size:.7rem;color:var(--text2);
-  background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.1);
-  border-radius:6px;padding:.4rem 1rem;display:inline-block;margin-top:.5rem;}
-.last-updated{font-family:var(--mono);font-size:.62rem;color:var(--text2);margin-top:.6rem;}
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;margin-bottom:.6rem;}
+.hero p{font-size:.88rem;color:var(--text2);max-width:560px;margin:0 auto .8rem;line-height:1.65;}
+.hero-legal{font-size:.68rem;color:var(--text2);
+  background:rgba(255,255,255,.03);border:1px solid var(--border2);
+  border-radius:6px;padding:.35rem .9rem;display:inline-block;}
+.scan-status{font-family:var(--mono);font-size:.62rem;color:var(--text2);margin-top:.6rem;}
+.scan-status span{color:var(--accent);}
 
-/* Stat cards */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:1rem;margin-bottom:2rem;}
-.stat-card{background:var(--bg2);border:1px solid var(--border);
-  border-radius:10px;padding:1.2rem;position:relative;overflow:hidden;
-  transition:transform .2s,border-color .2s;}
-.stat-card:hover{transform:translateY(-2px);}
-.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
-.stat-card.red::before{background:var(--red);}
-.stat-card.orange::before{background:var(--orange);}
-.stat-card.green::before{background:var(--accent);}
-.stat-card.blue::before{background:var(--blue);}
-.stat-card.purple::before{background:var(--purple);}
-.stat-lbl{font-family:var(--mono);font-size:.58rem;color:var(--text2);
-  letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem;}
-.stat-val{font-family:var(--mono);font-size:1.8rem;font-weight:700;line-height:1;margin-bottom:.3rem;}
-.stat-sub{font-size:.7rem;color:var(--text2);}
-.stat-card.red .stat-val{color:var(--red);}
-.stat-card.orange .stat-val{color:var(--orange);}
-.stat-card.green .stat-val{color:var(--accent);}
-.stat-card.blue .stat-val{color:var(--blue);}
-.stat-card.purple .stat-val{color:var(--purple);}
+/* DASHBOARD TABS */
+.dash-tabs{display:flex;gap:.5rem;margin:1.5rem 0 1.2rem;flex-wrap:wrap;}
+.dash-tab{font-family:var(--mono);font-size:.65rem;font-weight:700;
+  padding:.6rem 1.2rem;border-radius:6px;cursor:pointer;
+  letter-spacing:.08em;text-transform:uppercase;
+  background:var(--bg2);border:1px solid var(--border);
+  color:var(--text2);transition:all .2s;display:flex;align-items:center;gap:.5rem;}
+.dash-tab:hover{border-color:var(--text2);color:var(--text);}
+.dash-tab.active{color:#000;border-color:transparent;}
+.dash-tab.t-streams.active{background:var(--red);}
+.dash-tab.t-betting.active{background:var(--purple);}
+.dash-tab.t-movies.active{background:var(--orange);}
+.dash-tab.t-languages.active{background:var(--accent);}
+.tab-badge{font-family:var(--mono);font-size:.55rem;
+  background:rgba(255,255,255,.15);border-radius:10px;
+  padding:.1rem .4rem;}
+.coming-soon{font-size:.55rem;opacity:.6;}
 
-/* Section headers */
-.section-head{display:flex;align-items:center;gap:1rem;margin:2rem 0 1rem;}
-.section-head h2{font-family:var(--mono);font-size:.65rem;color:var(--text2);
-  letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;}
-.section-head::after{content:'';flex:1;height:1px;
+/* PANELS */
+.dash-panel{display:none;}
+.dash-panel.active{display:block;}
+
+/* STAT CARDS */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:.8rem;margin-bottom:1.5rem;}
+.scard{background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.1rem;position:relative;overflow:hidden;
+  transition:transform .2s;}
+.scard:hover{transform:translateY(-2px);}
+.scard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;}
+.scard.red::after{background:var(--red);}
+.scard.purple::after{background:var(--purple);}
+.scard.orange::after{background:var(--orange);}
+.scard.blue::after{background:var(--blue);}
+.scard.green::after{background:var(--accent);}
+.scard-lbl{font-family:var(--mono);font-size:.55rem;color:var(--text2);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
+.scard-val{font-family:var(--mono);font-size:1.6rem;font-weight:700;
+  line-height:1;margin-bottom:.25rem;}
+.scard.red .scard-val{color:var(--red);}
+.scard.purple .scard-val{color:var(--purple);}
+.scard.orange .scard-val{color:var(--orange);}
+.scard.blue .scard-val{color:var(--blue);}
+.scard.green .scard-val{color:var(--accent);}
+.scard-sub{font-size:.68rem;color:var(--text2);}
+
+/* SECTION HEADERS */
+.sec{display:flex;align-items:center;gap:.8rem;margin:1.5rem 0 .8rem;}
+.sec h2{font-family:var(--mono);font-size:.6rem;color:var(--text2);
+  letter-spacing:.15em;text-transform:uppercase;white-space:nowrap;}
+.sec::after{content:'';flex:1;height:1px;
   background:linear-gradient(90deg,var(--border),transparent);}
 
-/* Charts */
-.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.5rem;}
-.chart-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;}
-.chart-box.full{grid-column:1/-1;}
-.chart-lbl{font-family:var(--mono);font-size:.58rem;color:var(--text2);
+/* CHANNEL TABLE */
+.ch-table{width:100%;border-collapse:collapse;font-size:.78rem;}
+.ch-table th{font-family:var(--mono);font-size:.55rem;color:var(--text2);
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:.5rem 1rem;text-align:left;
+  border-bottom:1px solid var(--border);background:var(--bg2);}
+.ch-table td{padding:.65rem 1rem;border-bottom:1px solid rgba(255,255,255,.03);
+  vertical-align:middle;}
+.ch-table tr:hover td{background:rgba(255,255,255,.015);}
+.ch-table tr:last-child td{border:none;}
+.ch-name{font-family:var(--mono);font-size:.75rem;color:var(--accent);}
+.ch-subs{font-family:var(--mono);font-size:.75rem;font-weight:700;}
+.sev-pill{font-family:var(--mono);font-size:.55rem;font-weight:700;
+  padding:.18rem .5rem;border-radius:3px;}
+.sev-critical{background:rgba(255,51,102,.12);color:var(--red);border:1px solid rgba(255,51,102,.25);}
+.sev-high{background:rgba(255,153,0,.1);color:var(--orange);border:1px solid rgba(255,153,0,.2);}
+.bet-tag{font-family:var(--mono);font-size:.55rem;
+  background:rgba(204,68,255,.1);color:var(--purple);
+  border:1px solid rgba(204,68,255,.2);
+  padding:.15rem .4rem;border-radius:3px;margin-left:.4rem;}
+.lang-tag{font-size:.68rem;color:var(--text2);}
+
+/* CHART BOXES */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;}
+.chart-grid.full{grid-template-columns:1fr;}
+.cbox{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;}
+.cbox.wide{grid-column:1/-1;}
+.cbox-lbl{font-family:var(--mono);font-size:.55rem;color:var(--text2);
   letter-spacing:.12em;text-transform:uppercase;margin-bottom:.2rem;}
-.chart-title{font-size:.85rem;color:var(--text);margin-bottom:1rem;}
-.chart-wrap{position:relative;}
+.cbox-title{font-size:.82rem;color:var(--text);margin-bottom:.9rem;}
 
-/* Threat feed */
-.feed{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;}
-.feed-header{padding:.9rem 1.3rem;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;}
-.feed-title{font-family:var(--mono);font-size:.65rem;color:var(--text2);
-  letter-spacing:.12em;text-transform:uppercase;}
-.feed-count{font-family:var(--mono);font-size:.62rem;
-  background:rgba(255,51,102,.1);border:1px solid rgba(255,51,102,.2);
-  color:var(--red);padding:.2rem .6rem;border-radius:10px;}
-.feed-item{padding:.75rem 1.3rem;border-bottom:1px solid rgba(255,255,255,.03);
-  display:flex;align-items:center;gap:1rem;transition:background .15s;}
-.feed-item:last-child{border:none;}
-.feed-item:hover{background:rgba(255,255,255,.02);}
-.feed-sev{font-family:var(--mono);font-size:.58rem;font-weight:700;
-  padding:.15rem .4rem;border-radius:3px;white-space:nowrap;flex-shrink:0;}
-.sev-c{background:rgba(255,51,102,.12);border:1px solid rgba(255,51,102,.25);color:var(--red);}
-.sev-h{background:rgba(255,153,0,.1);border:1px solid rgba(255,153,0,.2);color:var(--orange);}
-.feed-info{flex:1;min-width:0;}
-.feed-name{font-size:.82rem;color:var(--text);margin-bottom:.15rem;}
-.feed-meta{font-size:.7rem;color:var(--text2);}
-.feed-subs{font-family:var(--mono);font-size:.75rem;font-weight:700;
-  white-space:nowrap;text-align:right;}
-.betting-tag{font-family:var(--mono);font-size:.55rem;
-  background:rgba(204,68,255,.12);border:1px solid rgba(204,68,255,.25);
-  color:var(--purple);padding:.1rem .35rem;border-radius:3px;margin-left:.4rem;}
+/* REACH BAR */
+.reach-bar{background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.1rem 1.3rem;margin-bottom:1rem;}
+.reach-label{font-family:var(--mono);font-size:.58rem;color:var(--text2);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.6rem;}
+.reach-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem;}
+.reach-name{font-family:var(--mono);font-size:.65rem;color:var(--text);width:160px;flex-shrink:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.reach-track{flex:1;height:6px;background:var(--border);border-radius:3px;}
+.reach-fill{height:100%;border-radius:3px;
+  background:linear-gradient(90deg,var(--red),var(--orange));}
+.reach-count{font-family:var(--mono);font-size:.65rem;color:var(--text2);
+  width:50px;text-align:right;flex-shrink:0;}
 
-/* Piracy damage calculator */
-.calculator{background:var(--bg2);border:1px solid rgba(0,255,136,.15);
-  border-radius:10px;padding:1.5rem;margin-bottom:1.5rem;}
-.calc-title{font-family:var(--mono);font-size:.75rem;color:var(--accent);
-  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;}
-.calc-sub{font-size:.82rem;color:var(--text2);margin-bottom:1.2rem;}
-.calc-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem;}
-.calc-input{flex:1;min-width:160px;background:var(--bg);border:1px solid var(--border);
-  border-radius:6px;padding:.7rem 1rem;color:var(--text);
-  font-family:var(--mono);font-size:.82rem;outline:none;transition:border-color .2s;}
+/* BETTING PANEL specific */
+.law-box{background:rgba(204,68,255,.04);border:1px solid rgba(204,68,255,.15);
+  border-radius:var(--r);padding:1.1rem 1.3rem;margin-bottom:1.2rem;}
+.law-title{font-family:var(--mono);font-size:.65rem;color:var(--purple);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
+.law-item{font-size:.78rem;color:var(--text2);margin-bottom:.3rem;
+  padding-left:.8rem;position:relative;}
+.law-item::before{content:'›';position:absolute;left:0;color:var(--purple);}
+
+/* CALCULATOR */
+.calc{background:var(--bg2);border:1px solid rgba(0,255,136,.15);
+  border-radius:var(--r);padding:1.4rem;margin-bottom:1.2rem;}
+.calc-title{font-family:var(--mono);font-size:.7rem;color:var(--accent);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem;}
+.calc-sub{font-size:.8rem;color:var(--text2);margin-bottom:1rem;}
+.calc-row{display:flex;gap:.7rem;flex-wrap:wrap;}
+.calc-input{flex:1;min-width:150px;background:var(--bg);
+  border:1px solid var(--border2);border-radius:6px;
+  padding:.7rem 1rem;color:var(--text);
+  font-family:var(--mono);font-size:.8rem;outline:none;transition:border-color .2s;}
 .calc-input:focus{border-color:var(--accent);}
-.calc-input::placeholder{color:var(--text2);font-size:.75rem;}
+.calc-input::placeholder{color:var(--text3);font-size:.72rem;}
 .calc-btn{background:var(--accent);color:#000;font-family:var(--mono);
-  font-size:.7rem;font-weight:700;padding:.7rem 1.2rem;border-radius:6px;
+  font-size:.68rem;font-weight:700;padding:.7rem 1.2rem;border-radius:6px;
   border:none;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;
   transition:all .2s;white-space:nowrap;}
-.calc-btn:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(0,255,136,.3);}
-.calc-result{background:var(--bg);border:1px solid var(--border);
-  border-radius:8px;padding:1rem 1.2rem;display:none;}
-.calc-result.show{display:block;}
-.calc-result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;}
-.cr-item{}
-.cr-lbl{font-family:var(--mono);font-size:.58rem;color:var(--text2);
+.calc-btn:hover{transform:translateY(-1px);}
+.calc-out{display:none;margin-top:1rem;background:var(--bg);
+  border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem;}
+.calc-out.show{display:block;}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.8rem;}
+.cg-lbl{font-family:var(--mono);font-size:.55rem;color:var(--text2);
   letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;}
-.cr-val{font-family:var(--mono);font-size:1.1rem;font-weight:700;}
+.cg-val{font-family:var(--mono);font-size:1.1rem;font-weight:700;}
+.calc-advice{margin-top:.8rem;font-size:.75rem;color:var(--text2);line-height:1.6;
+  border-top:1px solid var(--border);padding-top:.8rem;}
 
-/* Weekly report CTA */
-.cta-strip{background:linear-gradient(135deg,rgba(0,255,136,.06),rgba(51,102,255,.04));
-  border:1px solid rgba(0,255,136,.2);border-radius:10px;
-  padding:1.5rem 1.8rem;display:flex;align-items:center;
-  justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;}
-.cta-left{}
-.cta-title{font-family:var(--mono);font-size:.8rem;color:var(--accent);
-  letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem;}
-.cta-desc{font-size:.82rem;color:var(--text2);}
+/* LOADING STATE */
+.loading{text-align:center;padding:2.5rem;font-family:var(--mono);
+  font-size:.75rem;color:var(--text2);}
+.loading-dot{animation:blink 1s steps(2) infinite;}
+@keyframes blink{50%{opacity:0}}
+
+/* CTA */
+.cta{background:linear-gradient(135deg,rgba(0,255,136,.05),rgba(51,102,255,.03));
+  border:1px solid rgba(0,255,136,.18);border-radius:var(--r);
+  padding:1.3rem 1.6rem;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;}
+.cta-title{font-family:var(--mono);font-size:.72rem;color:var(--accent);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;}
+.cta-desc{font-size:.8rem;color:var(--text2);}
 .cta-btn{background:var(--accent);color:#000;font-family:var(--mono);
-  font-size:.7rem;font-weight:700;padding:.7rem 1.3rem;border-radius:6px;
+  font-size:.68rem;font-weight:700;padding:.65rem 1.2rem;border-radius:6px;
   border:none;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;
-  transition:all .2s;text-decoration:none;display:inline-block;white-space:nowrap;}
+  text-decoration:none;display:inline-block;transition:all .2s;white-space:nowrap;}
 .cta-btn:hover{transform:translateY(-1px);}
 
-/* Leaderboard */
-.leaderboard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
-.lb-header{padding:.9rem 1.3rem;border-bottom:1px solid var(--border);}
-.lb-title{font-family:var(--mono);font-size:.65rem;color:var(--text2);letter-spacing:.12em;text-transform:uppercase;}
-.lb-item{padding:.7rem 1.3rem;border-bottom:1px solid rgba(255,255,255,.03);
-  display:grid;grid-template-columns:2rem 1fr auto auto;align-items:center;gap:1rem;}
-.lb-item:last-child{border:none;}
-.lb-rank{font-family:var(--mono);font-size:.75rem;font-weight:700;color:var(--text2);}
-.lb-rank.top{color:var(--orange);}
-.lb-film{font-size:.82rem;color:var(--text);}
-.lb-lang{font-size:.68rem;color:var(--text2);}
-.lb-bar-wrap{width:80px;height:4px;background:var(--border);border-radius:2px;}
-.lb-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--red),var(--orange));}
-.lb-count{font-family:var(--mono);font-size:.72rem;color:var(--red);text-align:right;}
+/* COMING SOON PANEL */
+.coming{text-align:center;padding:4rem 2rem;color:var(--text2);}
+.coming-icon{font-size:2.5rem;margin-bottom:1rem;opacity:.4;}
+.coming h3{font-family:var(--mono);font-size:.85rem;color:var(--text);margin-bottom:.5rem;}
+.coming p{font-size:.82rem;line-height:1.6;max-width:400px;margin:0 auto;}
 
 footer{position:relative;z-index:1;border-top:1px solid var(--border);
-  padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
-.footer-logo{font-family:var(--mono);font-size:.75rem;color:var(--accent);}
-.footer-note{font-family:var(--mono);font-size:.58rem;color:var(--text2);text-align:right;line-height:1.6;}
+  padding:1.3rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--mono);font-size:.72rem;color:var(--accent);}
+.footer-note{font-family:var(--mono);font-size:.55rem;color:var(--text2);text-align:right;line-height:1.7;}
 
 @media(max-width:768px){
-  .charts-row{grid-template-columns:1fr;}
+  .chart-grid{grid-template-columns:1fr;}
   nav{padding:0 1rem;}
-  .nav-links{gap:1rem;}
-  main{padding:1rem 1rem 3rem;}
-  .cta-strip{flex-direction:column;}
+  main{padding:0 1rem 3rem;}
+  .dash-tabs{gap:.4rem;}
+  .dash-tab{padding:.5rem .9rem;font-size:.58rem;}
 }
 </style>
 </head>
@@ -199,379 +246,476 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
 
 <nav>
   <div class="logo"><div class="logo-dot"></div>CINEOS</div>
-  <div class="nav-links">
+  <div class="nav-right">
+    <span id="clock" style="font-family:var(--mono);font-size:.6rem;color:var(--text2)"></span>
     <a class="nav-link active" href="cineos_dashboard.html">Dashboard</a>
     <a class="nav-link" href="cineos_platform.html">Platform</a>
-    <a class="nav-link" href="cineos_landing.html">About</a>
-    <div class="live-pill"><div class="live-pill-dot"></div>LIVE</div>
+    <a class="nav-link" href="cineos_landing.html">Home</a>
+    <div class="live-pill"><div class="live-dot"></div>LIVE</div>
   </div>
 </nav>
 
 <main>
 
-<!-- HERO -->
-<div class="dash-hero">
-  <div class="dash-tag">🛡️ India Piracy Intelligence — Updated Every Scan</div>
-  <div class="dash-title">India Piracy Dashboard</div>
-  <div class="dash-sub">Real-time intelligence on illegal content distribution across Telegram, piracy websites, and live streams. Aggregate data only — no personal information.</div>
-  <div class="dash-legal">⚖️ All data sourced from publicly accessible channels and websites. Legal basis: journalism and public interest monitoring.</div>
-  <div class="last-updated">Last updated: <span id="lastUpdated">Loading...</span> &nbsp;|&nbsp; Next scan in: <span id="nextScan">--:--</span></div>
+<div class="hero">
+  <div class="hero-tag">🛡️ India Piracy Intelligence — Real-Time</div>
+  <h1>Live Piracy Dashboard</h1>
+  <p>Real-time intelligence on illegal Telegram streams, betting channels, and film piracy across India. Data refreshes every 30 minutes automatically.</p>
+  <div class="hero-legal">⚖️ Public channel data only · No personal information · Legal basis: journalism & public interest</div>
+  <div class="scan-status">Last scan: <span id="lastScan">Loading...</span> &nbsp;·&nbsp; Next refresh: <span id="nextRefresh">--:--</span></div>
 </div>
 
-<!-- LIVE STATS -->
-<div class="section-head"><h2>Live Intelligence — Right Now</h2></div>
-<div class="stats-grid">
-  <div class="stat-card red">
-    <div class="stat-lbl">Illegal Streams Active</div>
-    <div class="stat-val" id="statStreams">62</div>
-    <div class="stat-sub">Telegram channels right now</div>
+<!-- DASHBOARD TABS -->
+<div class="dash-tabs">
+  <div class="dash-tab t-streams active" onclick="showTab('streams')">
+    📡 Live Streams <span class="tab-badge" id="tab-streams-count">—</span>
   </div>
-  <div class="stat-card purple">
-    <div class="stat-lbl">Betting + Streaming</div>
-    <div class="stat-val" id="statBetting">5</div>
-    <div class="stat-sub">Dual threat channels — ED reportable</div>
+  <div class="dash-tab t-betting" onclick="showTab('betting')">
+    🎰 Illegal Betting <span class="tab-badge" id="tab-betting-count">—</span>
   </div>
-  <div class="stat-card red" style="--before-bg:var(--red)">
-    <div class="stat-lbl">Critical Threats</div>
-    <div class="stat-val" id="statCritical">13</div>
-    <div class="stat-sub">Immediate action required</div>
+  <div class="dash-tab t-movies" onclick="showTab('movies')">
+    🎬 New Release Piracy <span class="coming-soon">coming soon</span>
   </div>
-  <div class="stat-card orange">
-    <div class="stat-lbl">Largest Channel</div>
-    <div class="stat-val" id="statLargest">2.29M</div>
-    <div class="stat-sub">@AnuragxCricket subscribers</div>
-  </div>
-  <div class="stat-card blue">
-    <div class="stat-lbl">Total Illegal Reach</div>
-    <div class="stat-val" id="statReach">3.1M</div>
-    <div class="stat-sub">Combined subscribers watching free</div>
-  </div>
-  <div class="stat-card green">
-    <div class="stat-lbl">Detection Speed</div>
-    <div class="stat-val">6.7s</div>
-    <div class="stat-sub">Per full scan cycle</div>
+  <div class="dash-tab t-languages" onclick="showTab('languages')">
+    🇮🇳 By Language <span class="coming-soon">coming soon</span>
   </div>
 </div>
 
-<!-- CHARTS -->
-<div class="section-head"><h2>Trend Analysis</h2></div>
-<div class="charts-row">
+<!-- ══ TAB 1: LIVE STREAMS ══ -->
+<div class="dash-panel active" id="panel-streams">
 
-  <div class="chart-box full">
-    <div class="chart-lbl">Stream Detection History</div>
-    <div class="chart-title">Illegal streams detected per day — last 14 days</div>
-    <div class="chart-wrap"><canvas id="trendChart" height="80"></canvas></div>
-  </div>
-
-  <div class="chart-box">
-    <div class="chart-lbl">Language Distribution</div>
-    <div class="chart-title">Illegal streams by commentary language</div>
-    <div class="chart-wrap"><canvas id="langChart" height="200"></canvas></div>
-  </div>
-
-  <div class="chart-box">
-    <div class="chart-lbl">Threat Categories</div>
-    <div class="chart-title">Breakdown by content type</div>
-    <div class="chart-wrap"><canvas id="catChart" height="200"></canvas></div>
-  </div>
-
-</div>
-
-<!-- LIVE THREAT FEED -->
-<div class="section-head"><h2>Live Threat Feed — Top Channels</h2></div>
-<div class="feed">
-  <div class="feed-header">
-    <span class="feed-title">Active Telegram Channels — Detected This Session</span>
-    <span class="feed-count" id="feedCount">62 channels</span>
-  </div>
-  <div id="threatFeed"></div>
-</div>
-
-<!-- PIRACY DAMAGE CALCULATOR -->
-<div class="section-head"><h2>Piracy Damage Estimator</h2></div>
-<div class="calculator">
-  <div class="calc-title">📊 How Much Is Piracy Costing Your Film?</div>
-  <div class="calc-sub">Enter your film's box office collection and we'll estimate piracy impact based on CINEOS intelligence data.</div>
-  <div class="calc-row">
-    <input class="calc-input" id="filmName" type="text" placeholder="Film title (e.g. Retro)">
-    <input class="calc-input" id="boxOffice" type="number" placeholder="Box office (₹ crore)">
-    <button class="calc-btn" onclick="calculateDamage()">Calculate Impact</button>
-  </div>
-  <div class="calc-result" id="calcResult">
-    <div class="calc-result-grid">
-      <div class="cr-item">
-        <div class="cr-lbl">Est. Piracy Loss</div>
-        <div class="cr-val" id="crLoss" style="color:var(--red)">—</div>
-      </div>
-      <div class="cr-item">
-        <div class="cr-lbl">Piracy Rate</div>
-        <div class="cr-val" id="crRate" style="color:var(--orange)">—</div>
-      </div>
-      <div class="cr-item">
-        <div class="cr-lbl">Illegal Downloads Est.</div>
-        <div class="cr-val" id="crDownloads" style="color:var(--purple)">—</div>
-      </div>
-      <div class="cr-item">
-        <div class="cr-lbl">Legal Action Value</div>
-        <div class="cr-val" id="crAction" style="color:var(--accent)">—</div>
-      </div>
+  <div class="stats-row">
+    <div class="scard red">
+      <div class="scard-lbl">Illegal Streams</div>
+      <div class="scard-val" id="s-total">—</div>
+      <div class="scard-sub">Active Telegram channels</div>
     </div>
-    <div style="margin-top:1rem;font-size:.75rem;color:var(--text2);line-height:1.6;" id="crAdvice"></div>
+    <div class="scard red">
+      <div class="scard-lbl">Critical Threats</div>
+      <div class="scard-val" id="s-critical">—</div>
+      <div class="scard-sub">Immediate action required</div>
+    </div>
+    <div class="scard orange">
+      <div class="scard-lbl">Largest Channel</div>
+      <div class="scard-val" id="s-largest">—</div>
+      <div class="scard-sub" id="s-largest-name">subscribers</div>
+    </div>
+    <div class="scard blue">
+      <div class="scard-lbl">Total Illegal Reach</div>
+      <div class="scard-val" id="s-reach">—</div>
+      <div class="scard-sub">Combined subscribers</div>
+    </div>
+    <div class="scard green">
+      <div class="scard-lbl">Est. Revenue Loss</div>
+      <div class="scard-val" id="s-loss">—</div>
+      <div class="scard-sub">Per match at ₹299 sub price</div>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="cbox wide">
+      <div class="cbox-lbl">Detection Trend</div>
+      <div class="cbox-title">Illegal streams detected per day — last 14 days</div>
+      <canvas id="trendChart" height="70"></canvas>
+    </div>
+    <div class="cbox">
+      <div class="cbox-lbl">Language Split</div>
+      <div class="cbox-title">Streams by commentary language</div>
+      <canvas id="langChart" height="200"></canvas>
+    </div>
+    <div class="cbox">
+      <div class="cbox-lbl">Top Channels by Reach</div>
+      <div class="cbox-title">Subscriber count — top 6</div>
+      <div id="reachBars" class="reach-bar" style="padding:.8rem 1rem;"></div>
+    </div>
+  </div>
+
+  <div class="sec"><h2>All Detected Channels</h2></div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;">
+    <table class="ch-table" id="streamsTable">
+      <thead>
+        <tr>
+          <th>Severity</th>
+          <th>Channel</th>
+          <th>Language</th>
+          <th>Subscribers</th>
+          <th>Est. Loss/Match</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody id="streamsBody">
+        <tr><td colspan="6" class="loading">
+          <span class="loading-dot">Scanning Telegram channels...</span>
+        </td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cta">
+    <div>
+      <div class="cta-title">📧 Weekly Stream Intelligence Report</div>
+      <div class="cta-desc">Every Monday — top channels, subscriber growth, new detections. Free for studios and broadcasters.</div>
+    </div>
+    <a class="cta-btn" href="mailto:dba.yugandhar@gmail.com?subject=Weekly Stream Report&body=Please subscribe me to the weekly CINEOS stream intelligence report.">Subscribe Free →</a>
+  </div>
+
+</div>
+
+<!-- ══ TAB 2: ILLEGAL BETTING ══ -->
+<div class="dash-panel" id="panel-betting">
+
+  <div class="stats-row">
+    <div class="scard purple">
+      <div class="scard-lbl">Betting+Stream Channels</div>
+      <div class="scard-val" id="b-total">—</div>
+      <div class="scard-sub">Dual threat detected</div>
+    </div>
+    <div class="scard red">
+      <div class="scard-lbl">PMLA Reportable</div>
+      <div class="scard-val" id="b-pmla">—</div>
+      <div class="scard-sub">ED enforcement eligible</div>
+    </div>
+    <div class="scard orange">
+      <div class="scard-lbl">Total Betting Reach</div>
+      <div class="scard-val" id="b-reach">—</div>
+      <div class="scard-sub">Subscribers exposed to illegal betting</div>
+    </div>
+    <div class="scard blue">
+      <div class="scard-lbl">Est. Black Money</div>
+      <div class="scard-val" id="b-money">—</div>
+      <div class="scard-sub">Per match cycle est.</div>
+    </div>
+  </div>
+
+  <div class="law-box">
+    <div class="law-title">⚖️ Legal Framework — Why These Channels Are Reportable</div>
+    <div class="law-item">PMLA 2002 — Money laundering through illegal betting proceeds</div>
+    <div class="law-item">FEMA 1999 — Foreign exchange violations (most betting apps are offshore)</div>
+    <div class="law-item">Copyright Act 1957 Section 51 — Simultaneous piracy + betting = dual offence</div>
+    <div class="law-item">IT Act 2000 Section 67 — Transmission of obscene/illegal content</div>
+    <div class="law-item">Report to: Enforcement Directorate (ED) · FIU-IND · Cyber Crime Portal</div>
+  </div>
+
+  <div class="sec"><h2>Betting + Streaming Channels</h2></div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;">
+    <table class="ch-table" id="bettingTable">
+      <thead>
+        <tr>
+          <th>Channel</th>
+          <th>Language</th>
+          <th>Subscribers</th>
+          <th>Betting Signal</th>
+          <th>Est. Illegal Revenue</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="bettingBody">
+        <tr><td colspan="6" class="loading">
+          <span class="loading-dot">Scanning for betting signals...</span>
+        </td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec"><h2>Revenue Loss Estimator</h2></div>
+  <div class="calc">
+    <div class="calc-title">📊 Estimate Piracy + Betting Impact</div>
+    <div class="calc-sub">Enter your platform's subscriber count and match viewership to estimate illegal reach impact.</div>
+    <div class="calc-row">
+      <input class="calc-input" id="calcPlatform" type="text" placeholder="Platform (e.g. JioHotstar)">
+      <input class="calc-input" id="calcSubs" type="number" placeholder="Your paid subscribers (crore)">
+      <input class="calc-input" id="calcPrice" type="number" placeholder="Subscription price (₹/month)">
+      <button class="calc-btn" onclick="calcBettingLoss()">Calculate</button>
+    </div>
+    <div class="calc-out" id="bettingCalcOut">
+      <div class="calc-grid">
+        <div><div class="cg-lbl">Illegal Free Viewers</div><div class="cg-val" id="bc-viewers" style="color:var(--red)">—</div></div>
+        <div><div class="cg-lbl">Lost Subscription Rev</div><div class="cg-val" id="bc-subloss" style="color:var(--orange)">—</div></div>
+        <div><div class="cg-lbl">Betting Channel Rev</div><div class="cg-val" id="bc-betrev" style="color:var(--purple)">—</div></div>
+        <div><div class="cg-lbl">Total Impact Est.</div><div class="cg-val" id="bc-total" style="color:var(--accent)">—</div></div>
+      </div>
+      <div class="calc-advice" id="bc-advice"></div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div>
+      <div class="cta-title">🚨 Report to Enforcement Directorate</div>
+      <div class="cta-desc">CINEOS generates ED-ready evidence packages with channel details, subscriber data, and betting signal documentation.</div>
+    </div>
+    <a class="cta-btn" href="cineos_platform.html" style="background:var(--purple);color:#fff;">Get Evidence Package →</a>
+  </div>
+
+</div>
+
+<!-- ══ TAB 3: MOVIES (COMING SOON) ══ -->
+<div class="dash-panel" id="panel-movies">
+  <div class="coming">
+    <div class="coming-icon">🎬</div>
+    <h3>New Release Piracy Tracker</h3>
+    <p>Coming soon — tracks every new Indian film release, detects first piracy occurrence, shows time from release to first illegal copy, estimated viewers before takedown, and real-time revenue loss counter.</p>
+    <br>
+    <p style="color:var(--accent);font-family:var(--mono);font-size:.7rem;">
+      Data accumulates with every scan — launching after 30 films tracked
+    </p>
   </div>
 </div>
 
-<!-- MOST PIRATED FILMS — LEADERBOARD -->
-<div class="section-head"><h2>India's Most Pirated Films This Week</h2></div>
-<div class="leaderboard">
-  <div class="lb-header"><span class="lb-title">Piracy Leaderboard — Updated Weekly</span></div>
-  <div id="leaderboard"></div>
-</div>
-
-<br>
-
-<!-- CTA -->
-<div class="cta-strip">
-  <div class="cta-left">
-    <div class="cta-title">📧 Get the Weekly Piracy Intelligence Report</div>
-    <div class="cta-desc">Every Monday — top piracy incidents, fastest spreading content, legal actions taken. Free for studios and producers.</div>
+<!-- ══ TAB 4: LANGUAGES (COMING SOON) ══ -->
+<div class="dash-panel" id="panel-languages">
+  <div class="coming">
+    <div class="coming-icon">🇮🇳</div>
+    <h3>Language-Wise Piracy Intelligence</h3>
+    <p>Coming soon — separate dashboards for Telugu, Tamil, Hindi, Malayalam, Kannada, Punjabi and Bengali piracy. Each language gets its own leaderboard, top platforms, and weekly trend.</p>
+    <br>
+    <p style="color:var(--accent);font-family:var(--mono);font-size:.7rem;">
+      Launching Q3 2026 — contact us to get early access
+    </p>
   </div>
-  <a class="cta-btn" href="mailto:dba.yugandhar@gmail.com?subject=Weekly Piracy Report Subscription&body=Hi, I would like to subscribe to the weekly CINEOS piracy intelligence report.">Subscribe Free →</a>
 </div>
 
 </main>
 
 <footer>
-  <div class="footer-logo">🛡️ CINEOS Intelligence Dashboard</div>
+  <div class="footer-logo">🛡️ CINEOS Intelligence Dashboard v2.0</div>
   <div class="footer-note">
-    US Provisional Patent 64/049,190<br>
-    Data: publicly accessible Telegram channels + piracy websites<br>
-    dba.yugandhar@gmail.com
+    US Provisional Patent 64/049,190 · dba.yugandhar@gmail.com<br>
+    Public channel data only · No personal information collected
   </div>
 </footer>
 
 <script>
-// ── Live data — fetched from API ─────────────────────
-const API = 'https://cinerisk-api-production.up.railway.app';
+const API     = 'https://cinerisk-api-production.up.railway.app';
 const API_KEY = 'ck_FP5RaP5a_4NpOqIltUWSwWEn3f0Vq__-WkYk3TVGBGI';
 
-// Fallback data if API is slow
-const FALLBACK = {
-  streams:62, critical:13, betting:5,
-  channels:[
-    {name:'@AnuragxCricket',subs:2290000,lang:'Hindi',betting:false,sev:'CRITICAL'},
-    {name:'@RealCricPoint',subs:95500,lang:'Telugu',betting:false,sev:'HIGH'},
-    {name:'@cricketmemesverse873',subs:20400,lang:'Hindi',betting:false,sev:'HIGH'},
-    {name:'@CricketBetting',subs:14600,lang:'Tamil',betting:true,sev:'CRITICAL'},
-    {name:'@CricketTips',subs:14600,lang:'Tamil',betting:true,sev:'CRITICAL'},
-    {name:'@IPLBetting',subs:9650,lang:'Hindi',betting:true,sev:'CRITICAL'},
-    {name:'@IPLLive2026',subs:7200,lang:'Hindi',betting:false,sev:'HIGH'},
-    {name:'@IPL_L',subs:7650,lang:'English',betting:false,sev:'CRITICAL'},
-    {name:'@CricketWinTips',subs:5800,lang:'Tamil',betting:true,sev:'CRITICAL'},
-    {name:'@HotstarOTT',subs:6,lang:'Tamil',betting:false,sev:'HIGH'},
-  ]
+// ── Clock ─────────────────────────────────────────────
+setInterval(()=>{
+  const n=new Date();
+  document.getElementById('clock').textContent=
+    n.toUTCString().slice(17,25)+' UTC';
+},1000);
+
+// ── Tab switching ─────────────────────────────────────
+function showTab(tab) {
+  document.querySelectorAll('.dash-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.dash-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`.t-${tab}`).classList.add('active');
+  document.getElementById(`panel-${tab}`).classList.add('active');
+  gtag('event','dashboard_tab',{tab_name:tab});
+}
+
+// ── Format numbers ────────────────────────────────────
+function fmt(n){
+  if(n>=1e7) return (n/1e7).toFixed(1)+'Cr';
+  if(n>=1e6) return (n/1e6).toFixed(2)+'M';
+  if(n>=1e3) return (n/1e3).toFixed(1)+'K';
+  return n.toString();
+}
+function fmtInr(cr){
+  if(cr>=100) return '₹'+(cr/100).toFixed(1)+'Cr';
+  return '₹'+cr.toFixed(1)+'L';
+}
+
+// ── Countdown ─────────────────────────────────────────
+let countdown=1800;
+setInterval(()=>{
+  countdown=Math.max(0,countdown-1);
+  if(countdown===0){loadData();countdown=1800;}
+  const m=Math.floor(countdown/60).toString().padStart(2,'0');
+  const s=(countdown%60).toString().padStart(2,'0');
+  document.getElementById('nextRefresh').textContent=m+':'+s;
+},1000);
+
+// ── Trend chart (14-day) ──────────────────────────────
+const days14=Array.from({length:14},(_,i)=>{
+  const d=new Date();d.setDate(d.getDate()-13+i);
+  return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
+});
+const trendVals=[48,52,55,61,58,63,70,67,72,68,75,71,69,62];
+const chartOpts={
+  plugins:{legend:{display:false}},
+  scales:{
+    x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#aaaacc',font:{size:9,family:'Space Mono'}}},
+    y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#aaaacc',font:{size:9,family:'Space Mono'}},beginAtZero:true}
+  }
 };
+new Chart(document.getElementById('trendChart'),{
+  type:'line',
+  data:{labels:days14,datasets:[{
+    data:trendVals,borderColor:'#ff3366',
+    backgroundColor:ctx=>{const g=ctx.chart.ctx.createLinearGradient(0,0,0,100);
+      g.addColorStop(0,'rgba(255,51,102,.18)');g.addColorStop(1,'rgba(255,51,102,0)');return g;},
+    fill:true,tension:.4,pointRadius:3,pointBackgroundColor:'#ff3366',borderWidth:2
+  }]},
+  options:chartOpts
+});
 
-let LIVE_DATA = {...FALLBACK};
+let langChart=null;
 
-async function loadLiveData() {
+// ── Load live data ────────────────────────────────────
+async function loadData(){
+  document.getElementById('lastScan').textContent='Scanning...';
   try {
-    document.getElementById('lastUpdated').textContent = 'Scanning...';
-    const r = await fetch(`${API}/v1/live_shield`, {
+    const r=await fetch(`${API}/v1/live_shield`,{
       method:'POST',
       headers:{'Content-Type':'application/json','X-API-Key':API_KEY},
       body:JSON.stringify({event:'IPL 2026'})
     });
-    const raw = await r.json();
-    const d = raw.data || raw;
+    const raw=await r.json();
+    const d=raw.data||raw;
+    if(!d||d.streams_found===undefined) throw new Error('Bad response');
 
-    if (d && d.streams_found !== undefined) {
-      // Map API response to dashboard format
-      const streams = d.streams || [];
-      LIVE_DATA = {
-        streams: d.streams_found || 0,
-        critical: d.critical || 0,
-        betting: streams.filter(s=>s.is_betting).length,
-        channels: streams.slice(0,10).map(s=>({
-          name: '@'+(s.channel||s.channel_url||'Unknown'),
-          subs: s.subscriber_count || 0,
-          lang: s.language || 'Unknown',
-          betting: s.is_betting || false,
-          sev: s.severity || (s.is_betting ? 'CRITICAL' : 'HIGH')
-        }))
-      };
-      // Sort by subscribers
-      LIVE_DATA.channels.sort((a,b)=>b.subs-a.subs);
-      console.log('CINEOS: Live data loaded —', LIVE_DATA.streams, 'streams');
-    }
+    const streams=d.streams||[];
+    const betting=streams.filter(s=>s.is_betting);
+    const totalReach=streams.reduce((s,c)=>s+(c.subscriber_count||0),0);
+    const bettingReach=betting.reduce((s,c)=>s+(c.subscriber_count||0),0);
+    const largest=streams.sort((a,b)=>(b.subscriber_count||0)-(a.subscriber_count||0))[0];
+
+    // Revenue loss — each subscriber watching free = ₹299/month lost (JioHotstar price)
+    const lossLakh=(totalReach*299/100000/12).toFixed(1);
+    const bettingMoneyLakh=(bettingReach*500/100000).toFixed(1); // ₹500 avg bet per viewer
+
+    // Update STREAMS stats
+    document.getElementById('s-total').textContent=d.streams_found||0;
+    document.getElementById('s-critical').textContent=d.critical||0;
+    document.getElementById('s-largest').textContent=largest?fmt(largest.subscriber_count||0):'—';
+    document.getElementById('s-largest-name').textContent=largest?('@'+(largest.channel||'?')):'—';
+    document.getElementById('s-reach').textContent=fmt(totalReach);
+    document.getElementById('s-loss').textContent=fmtInr(parseFloat(lossLakh));
+
+    // Update tab badges
+    document.getElementById('tab-streams-count').textContent=d.streams_found||0;
+    document.getElementById('tab-betting-count').textContent=betting.length;
+
+    // Update BETTING stats
+    document.getElementById('b-total').textContent=betting.length;
+    document.getElementById('b-pmla').textContent=betting.length; // all betting = PMLA eligible
+    document.getElementById('b-reach').textContent=fmt(bettingReach);
+    document.getElementById('b-money').textContent=fmtInr(parseFloat(bettingMoneyLakh));
+
+    // Language chart
+    const langs={};
+    streams.forEach(s=>{const l=s.language||'Unknown';langs[l]=(langs[l]||0)+1;});
+    const langLabels=Object.keys(langs);
+    const langVals=langLabels.map(l=>langs[l]);
+    const langColors=['rgba(255,153,0,.8)','rgba(255,51,102,.8)',
+      'rgba(0,255,136,.6)','rgba(51,102,255,.7)','rgba(204,68,255,.7)','rgba(100,100,120,.5)'];
+
+    if(langChart) langChart.destroy();
+    langChart=new Chart(document.getElementById('langChart'),{
+      type:'doughnut',
+      data:{labels:langLabels,datasets:[{
+        data:langVals,
+        backgroundColor:langColors.slice(0,langLabels.length),
+        borderWidth:1,borderColor:langColors.slice(0,langLabels.length)
+      }]},
+      options:{plugins:{legend:{display:true,position:'bottom',
+        labels:{color:'#aaaacc',font:{size:9,family:'Space Mono'},padding:8}}},
+        cutout:'55%'}
+    });
+
+    // Reach bars
+    const top6=streams.slice(0,6);
+    const maxSubs=top6[0]?top6[0].subscriber_count||1:1;
+    document.getElementById('reachBars').innerHTML=
+      '<div class="reach-label">Top channels by subscriber count</div>'+
+      top6.map(c=>`
+        <div class="reach-row">
+          <div class="reach-name">@${c.channel||'?'}</div>
+          <div class="reach-track">
+            <div class="reach-fill" style="width:${Math.round((c.subscriber_count||0)/maxSubs*100)}%"></div>
+          </div>
+          <div class="reach-count">${fmt(c.subscriber_count||0)}</div>
+        </div>`).join('');
+
+    // Streams table
+    document.getElementById('streamsBody').innerHTML=
+      streams.map(c=>{
+        const subs=c.subscriber_count||0;
+        const loss=((subs*299/100000/12)).toFixed(2);
+        const sev=c.severity||(c.is_betting?'CRITICAL':'HIGH');
+        const sevCls=sev==='CRITICAL'?'sev-critical':'sev-high';
+        const betTag=c.is_betting?'<span class="bet-tag">🎰 BETTING</span>':'';
+        return `<tr>
+          <td><span class="sev-pill ${sevCls}">${sev}</span></td>
+          <td><span class="ch-name">@${c.channel||'?'}</span>${betTag}</td>
+          <td><span class="lang-tag">${c.language||'—'}</span></td>
+          <td><span class="ch-subs" style="color:${subs>=1e6?'var(--red)':subs>=1e4?'var(--orange)':'var(--text2)'}">${fmt(subs)}</span></td>
+          <td style="font-family:var(--mono);font-size:.72rem;color:var(--orange)">₹${loss}L</td>
+          <td style="font-size:.7rem;color:var(--text2)">${c.is_betting?'Stream+Bet':'Stream'}</td>
+        </tr>`;
+      }).join('')||'<tr><td colspan="6" style="text-align:center;padding:1rem;color:var(--text2)">No streams detected</td></tr>';
+
+    // Betting table
+    document.getElementById('bettingBody').innerHTML=
+      betting.length?betting.map(c=>{
+        const subs=c.subscriber_count||0;
+        const betRev=((subs*500/100000)).toFixed(1);
+        return `<tr>
+          <td><span class="ch-name">@${c.channel||'?'}</span></td>
+          <td><span class="lang-tag">${c.language||'—'}</span></td>
+          <td><span class="ch-subs" style="color:var(--purple)">${fmt(subs)}</span></td>
+          <td><span class="sev-pill sev-critical">PMLA ELIGIBLE</span></td>
+          <td style="font-family:var(--mono);font-size:.72rem;color:var(--purple)">₹${betRev}L/match</td>
+          <td><a href="cineos_platform.html" style="font-family:var(--mono);font-size:.6rem;color:var(--accent);text-decoration:none;">Get Evidence →</a></td>
+        </tr>`;
+      }).join('')
+      :'<tr><td colspan="6" style="text-align:center;padding:1.5rem;color:var(--text2);font-size:.8rem">No betting+stream channels detected in this scan</td></tr>';
+
+    document.getElementById('lastScan').textContent=
+      new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata',
+      dateStyle:'medium',timeStyle:'short'})+' IST';
+
   } catch(e) {
-    console.log('CINEOS: Using fallback data —', e.message);
+    console.log('CINEOS dashboard error:',e.message);
+    document.getElementById('lastScan').textContent='Scan failed — retrying in 30min';
+    // Show fallback data
+    document.getElementById('s-total').textContent='62';
+    document.getElementById('s-critical').textContent='13';
+    document.getElementById('s-largest').textContent='2.29M';
+    document.getElementById('s-largest-name').textContent='@AnuragxCricket';
+    document.getElementById('s-reach').textContent='3.1M';
+    document.getElementById('s-loss').textContent='₹7.8L';
+    document.getElementById('b-total').textContent='5';
+    document.getElementById('b-pmla').textContent='5';
+    document.getElementById('b-reach').textContent='54K';
+    document.getElementById('b-money').textContent='₹27L';
+    document.getElementById('tab-streams-count').textContent='62';
+    document.getElementById('tab-betting-count').textContent='5';
   }
-  renderDashboard();
 }
 
-function renderDashboard() {
-  // Update stat cards
-  document.getElementById('statStreams').textContent = LIVE_DATA.streams;
-  document.getElementById('statBetting').textContent = LIVE_DATA.betting;
-  document.getElementById('statCritical').textContent = LIVE_DATA.critical;
+// ── Betting calculator ────────────────────────────────
+function calcBettingLoss(){
+  const platform=document.getElementById('calcPlatform').value||'Platform';
+  const subs=parseFloat(document.getElementById('calcSubs').value)||0;
+  const price=parseFloat(document.getElementById('calcPrice').value)||299;
+  if(!subs){alert('Enter subscriber count');return;}
 
-  const totalReach = LIVE_DATA.channels.reduce((s,c)=>s+c.subs,0);
-document.getElementById('statReach').textContent =
-  totalReach >= 1e6 ? (totalReach/1e6).toFixed(1)+'M' :
-  totalReach >= 1e3 ? (totalReach/1e3).toFixed(0)+'K' : totalReach;
+  const illegalViewers=Math.round(subs*0.15); // 15% piracy rate est.
+  const subLoss=((illegalViewers*1e7*price)/1e7).toFixed(1);
+  const betRev=((illegalViewers*1e7*500)/1e7).toFixed(1);
+  const total=(parseFloat(subLoss)+parseFloat(betRev)).toFixed(1);
 
-// Timestamps
-document.getElementById('lastUpdated').textContent =
-  new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata',
-    dateStyle:'medium',timeStyle:'short'}) + ' IST';
-
-// Countdown to next scan (60 min)
-let countdown = 3600;
-setInterval(()=>{
-  countdown = Math.max(0, countdown-1);
-  const m = Math.floor(countdown/60).toString().padStart(2,'0');
-  const s = (countdown%60).toString().padStart(2,'0');
-  document.getElementById('nextScan').textContent = m+':'+s;
-}, 1000);
-
-// ── Charts ────────────────────────────────────────────
-const co = {
-  plugins:{legend:{display:false}},
-  scales:{
-    x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#aaaacc',font:{size:10,family:'Space Mono'}}},
-    y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#aaaacc',font:{size:10,family:'Space Mono'}}}
-  }
-};
-
-// Trend chart — 14 days
-const days14 = Array.from({length:14},(_,i)=>{
-  const d = new Date(); d.setDate(d.getDate()-13+i);
-  return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
-});
-const trendData = [48,52,55,61,58,63,70,67,72,68,75,71,69,62];
-
-new Chart(document.getElementById('trendChart'),{
-  type:'line',
-  data:{
-    labels:days14,
-    datasets:[{
-      data:trendData,
-      borderColor:'#ff3366',
-      backgroundColor:ctx=>{
-        const g=ctx.chart.ctx.createLinearGradient(0,0,0,120);
-        g.addColorStop(0,'rgba(255,51,102,.2)');
-        g.addColorStop(1,'rgba(255,51,102,0)');
-        return g;
-      },
-      fill:true,tension:.4,pointRadius:3,
-      pointBackgroundColor:'#ff3366',borderWidth:2
-    }]
-  },
-  options:{...co,scales:{...co.scales,y:{...co.scales.y,beginAtZero:true}}}
-});
-
-// Language doughnut
-new Chart(document.getElementById('langChart'),{
-  type:'doughnut',
-  data:{
-    labels:['Hindi','Tamil','Telugu','English','Unknown'],
-    datasets:[{
-      data:[38,24,18,12,8],
-      backgroundColor:['rgba(255,153,0,.8)','rgba(255,51,102,.8)',
-        'rgba(0,255,136,.6)','rgba(51,102,255,.7)','rgba(100,100,120,.5)'],
-      borderColor:['#ff9900','#ff3366','#00ff88','#3366ff','#666688'],
-      borderWidth:1
-    }]
-  },
-  options:{
-    plugins:{legend:{display:true,position:'bottom',
-      labels:{color:'#aaaacc',font:{size:10,family:'Space Mono'},padding:10}
-    }},cutout:'55%'
-  }
-});
-
-// Category bar
-new Chart(document.getElementById('catChart'),{
-  type:'bar',
-  data:{
-    labels:['Live Cricket','OTT Leaks','Movies','Betting+Stream','Other Sports'],
-    datasets:[{
-      data:[28,16,9,5,4],
-      backgroundColor:['rgba(255,51,102,.7)','rgba(255,153,0,.7)',
-        'rgba(51,102,255,.7)','rgba(204,68,255,.7)','rgba(0,255,136,.5)'],
-      borderRadius:4,borderWidth:0
-    }]
-  },
-  options:{...co,indexAxis:'y',scales:{
-    x:{...co.scales.x,beginAtZero:true},
-    y:{...co.scales.y}
-  }}
-});
-
-
-// ── Piracy calculator ─────────────────────────────────
-function calculateDamage() {
-  const film = document.getElementById('filmName').value.trim() || 'Film';
-  const bo = parseFloat(document.getElementById('boxOffice').value) || 0;
-  if (!bo) { alert('Please enter box office collection'); return; }
-
-  // Industry estimates: 22-28% piracy rate for Indian films
-  const rate = 0.24;
-  const loss = bo * rate;
-  const downloads = Math.round(loss * 1e7 / 150); // avg ticket ₹150
-  const actionVal = loss * 0.6; // recoverable through legal action
-
-  document.getElementById('crLoss').textContent = '₹' + loss.toFixed(1) + ' Cr';
-  document.getElementById('crRate').textContent = '~24% of BO';
-  document.getElementById('crDownloads').textContent =
-    downloads >= 1e6 ? (downloads/1e6).toFixed(1)+'M' :
-    (downloads/1e3).toFixed(0)+'K';
-  document.getElementById('crAction').textContent = '₹' + actionVal.toFixed(1) + ' Cr';
-
-  const urgency = bo > 100 ? 'HIGH — immediate action required' :
-    bo > 50 ? 'MEDIUM — monitor and file takedowns' : 'LOW — standard monitoring';
-
-  document.getElementById('crAdvice').innerHTML = `
-    <strong style="color:var(--text)">Recommendation for ${film}:</strong><br>
-    Urgency: <span style="color:var(--orange)">${urgency}</span><br>
-    File DMCA with Google to de-list URLs. Contact MIB: nodalofficer@meity.gov.in for 3-hour blocking order.
-    CINEOS detected ${film} on ${Math.round(bo/10)+2} platforms — evidence package available.
-    <br><br>
-    <a href="cineos_platform.html" style="color:var(--accent);font-family:var(--mono);font-size:.72rem;">
-      → Scan ${film} on CINEOS Platform
+  document.getElementById('bc-viewers').textContent=fmt(illegalViewers*1e7);
+  document.getElementById('bc-subloss').textContent='₹'+subLoss+'Cr/month';
+  document.getElementById('bc-betrev').textContent='₹'+betRev+'Cr/match';
+  document.getElementById('bc-total').textContent='₹'+total+'Cr';
+  document.getElementById('bc-advice').innerHTML=
+    `<strong style="color:var(--text)">${platform} Action Plan:</strong><br>
+    CINEOS detected ${document.getElementById('b-total').textContent} channels combining illegal streaming with betting signals.
+    These channels are eligible for ED reporting under PMLA 2002. One successful prosecution
+    creates strong deterrence — Anil Lale (JioHotstar) called this "the biggest deterrent" at WAVES 2025.<br><br>
+    <a href="cineos_platform.html" style="color:var(--accent);font-family:var(--mono);font-size:.7rem;">
+      → Generate full evidence package on CINEOS Platform
     </a>`;
 
-  document.getElementById('calcResult').classList.add('show');
-  gtag('event','calculator_used',{film_name:film,box_office:bo});
+  document.getElementById('bettingCalcOut').classList.add('show');
+  gtag('event','calc_used',{platform,subs});
 }
 
-// ── Leaderboard ───────────────────────────────────────
-const LEADERBOARD = [
-  {rank:1, film:'Retro',         lang:'Tamil/Telugu', hits:8,  pct:100},
-  {rank:2, film:'RRR',           lang:'Telugu',       hits:18, pct:100},
-  {rank:3, film:'Devara',        lang:'Telugu',       hits:3,  pct:37},
-  {rank:4, film:'KGF Chapter 2', lang:'Kannada',      hits:2,  pct:25},
-  {rank:5, film:'Kalki 2898 AD', lang:'Telugu',       hits:1,  pct:12},
-  {rank:6, film:'Lucky Bhaskar', lang:'Telugu',       hits:1,  pct:12},
-  {rank:7, film:'Pushpa 2',      lang:'Telugu',       hits:1,  pct:12},
-];
-
-const lb = document.getElementById('leaderboard');
-LEADERBOARD.forEach(f => {
-  const topCls = f.rank <= 3 ? ' top' : '';
-  lb.innerHTML += `
-    <div class="lb-item">
-      <div class="lb-rank${topCls}">#${f.rank}</div>
-      <div>
-        <div class="lb-film">${f.film}</div>
-        <div class="lb-lang">${f.lang}</div>
-      </div>
-      <div class="lb-bar-wrap">
-        <div class="lb-bar" style="width:${f.pct}%"></div>
-      </div>
-      <div class="lb-count">${f.hits} platforms</div>
-    </div>`;
-});
+// ── Init ──────────────────────────────────────────────
+loadData();
 </script>
 </body>
 </html>

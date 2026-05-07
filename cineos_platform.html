@@ -114,6 +114,7 @@ main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 1.5rem
 .tab-card:hover::before{opacity:1;}
 .tab-card.active{border-color:var(--tab-color,var(--accent));background:var(--bg3);}
 .tab-card.active::before{opacity:1;}
+.tab-card.active::before{opacity:1;}
 
 .tab-icon{font-size:1.6rem;line-height:1;}
 .tab-name{font-family:var(--mono);font-size:.62rem;font-weight:700;
@@ -124,6 +125,8 @@ main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 1.5rem
   padding:.1rem .4rem;color:var(--tab-color,var(--accent));margin-top:.1rem;}
 
 /* ── PANEL CONTAINER ── */
+.panel{display:none;}
+.panel.active{display:block;}
 .panel-wrap{background:var(--bg2);border:1px solid var(--border);
   border-radius:12px;overflow:hidden;}
 
@@ -400,7 +403,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
 <div class="panel-wrap">
 
   <!-- ══ FILM PANEL ══ -->
-  <div class="panel active" id="panel-film">
+  <div class="panel active" id="panel-film" style="display:block">
     <div class="panel-header">
       <div class="panel-header-left">
         <div class="panel-title"><span class="panel-title-icon">🎬</span> Film Monitor</div>
@@ -784,18 +787,26 @@ async function loadWatchlist() {
 
 // Tab switching
 function switchTab(tab) {
-  // Remove active from ALL tab cards and panels
+  // Step 1: Hide ALL panels
+  document.querySelectorAll('.panel').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
+  // Step 2: Remove active from ALL tab cards
   document.querySelectorAll('.tab-card').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  // Step 3: Hide all reports
   document.querySelectorAll('.u-report').forEach(r => r.style.display = 'none');
 
-  // Find tab card by onclick attribute
-  const tabEl = document.querySelector(`.tab-card[onclick*="'${tab}'"]`);
-  const panelEl = document.getElementById(`panel-${tab}`);
+  // Step 4: Show selected panel
+  const panelEl = document.getElementById('panel-' + tab);
+  if (panelEl) {
+    panelEl.classList.add('active');
+    panelEl.style.display = 'block';
+  }
 
-  if (tabEl)   tabEl.classList.add('active');
-  if (panelEl) panelEl.classList.add('active');
-  else console.warn('CINEOS: missing panel for:', tab);
+  // Step 5: Activate selected tab card
+  const tabEl = document.querySelector('.tab-card[onclick*="' + tab + '"]');
+  if (tabEl) tabEl.classList.add('active');
 }
 
 // Film scan

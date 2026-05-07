@@ -2115,17 +2115,7 @@ fetch('https://api.countapi.xyz/hit/cineos-platform/visits')
     if(el) el.textContent=(d.value||0).toLocaleString();
   }).catch(()=>{});
 
-// Override switchTab for new design
-function switchTab(tab) {
-  document.querySelectorAll('.tab-card').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.u-report').forEach(r=>r.style.display='none');
-  const card = document.querySelector(`.tab-card[onclick*="${tab}"]`);
-  const panel = document.getElementById(`panel-${tab}`);
-  if(card)  card.classList.add('active');
-  if(panel) panel.classList.add('active');
-  else console.warn('Panel not found:', tab);
-}
+// Override switchTab for n
 
 // Update mini stats after scans
 const _origScanFilm = typeof scanFilm !== 'undefined' ? scanFilm : null;

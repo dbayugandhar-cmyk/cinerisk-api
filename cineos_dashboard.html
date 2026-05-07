@@ -258,9 +258,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
 <main>
 
 <div class="hero">
-  <div class="hero-tag">🛡️ India Piracy Intelligence — Real-Time</div>
+  <div class="hero-tag">🛡️ India Piracy Intelligence — 365 Days/Year</div>
   <h1>Live Piracy Dashboard</h1>
-  <p>Real-time intelligence on illegal Telegram streams, betting channels, and film piracy across India. Data refreshes every 30 minutes automatically.</p>
+  <p>Year-round piracy intelligence — film releases, live sports, OTT leaks, gaming and illegal betting across India. Scans 135 Telegram channels + 103 piracy sites. Refreshes every 30 minutes.</p>
   <div class="hero-legal">⚖️ Public channel data only · No personal information · Legal basis: journalism & public interest</div>
   <div class="scan-status">Last scan: <span id="lastScan">Loading...</span> &nbsp;·&nbsp; Next refresh: <span id="nextRefresh">--:--</span></div>
 </div>
@@ -552,6 +552,16 @@ new Chart(document.getElementById('trendChart'),{
 
 let langChart=null;
 
+// ── Smart event detection by month ───────────────────
+function getCurrentEvent() {
+  const m = new Date().getMonth(); // 0=Jan
+  if (m >= 3 && m <= 4) return "IPL 2026";
+  if (m >= 5 && m <= 6) return "T20 World Cup 2026";
+  if (m >= 8 && m <= 9) return "India cricket series";
+  if (m >= 10 && m <= 11) return "Border Gavaskar Trophy";
+  return "India cricket live";
+}
+
 // ── Load live data ────────────────────────────────────
 async function loadData(){
   document.getElementById('lastScan').textContent='Scanning...';
@@ -559,7 +569,7 @@ async function loadData(){
     const r=await fetch(`${API}/v1/live_shield`,{
       method:'POST',
       headers:{'Content-Type':'application/json','X-API-Key':API_KEY},
-      body:JSON.stringify({event:'IPL 2026'})
+      body:JSON.stringify({event:getCurrentEvent()})
     });
     const raw=await r.json();
     const d=raw.data||raw;

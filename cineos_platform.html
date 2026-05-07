@@ -873,12 +873,13 @@ async function scanIndia() {
   body.innerHTML = `<div class="scanning-text">Scanning 58 Indian platforms for "${film}" <span class="dot-anim"></span></div>`;
 
   try {
-    const r = await fetch(`${API}/theater/gold_scan`, {
+    const r = await fetch(`${API}/v1/scan`, {
       method: 'POST',
       headers: HEADERS,
-      body: JSON.stringify({film_title: film})
+      body: JSON.stringify({title: film, category: "india"})
     });
-    const d = await r.json();
+    const raw = await r.json();
+    const d = raw.data || raw;
 
     document.getElementById('indiaHits').textContent = d.hits_found || 0;
 
@@ -932,12 +933,13 @@ async function scanGaming() {
   // Gaming uses the same gold_scan endpoint for now
   // In production this would call a dedicated gaming endpoint
   try {
-    const r = await fetch(`${API}/theater/gold_scan`, {
+    const r = await fetch(`${API}/v1/scan`, {
       method: 'POST',
       headers: HEADERS,
-      body: JSON.stringify({film_title: game})
+      body: JSON.stringify({title: game, category: "gaming"})
     });
-    const d = await r.json();
+    const raw = await r.json();
+    const d = raw.data || raw;
 
     document.getElementById('gamingHits').textContent = d.hits_found || 0;
 
@@ -1009,12 +1011,13 @@ async function scanManga() {
   body.innerHTML = `<div class="scanning-text">Scanning 25+ platforms for "${title}" <span class="dot-anim"></span></div>`;
 
   try {
-    const r = await fetch(`${API}/theater/gold_scan`, {
+    const r = await fetch(`${API}/v1/scan`, {
       method: 'POST',
       headers: HEADERS,
-      body: JSON.stringify({film_title: title})
+      body: JSON.stringify({title: title, category: "manga"})
     });
-    const d = await r.json();
+    const raw = await r.json();
+    const d = raw.data || raw;
 
     document.getElementById('mangaHits').textContent = d.hits_found || 0;
     const isClean = d.verdict && d.verdict.includes('CLEAN');
@@ -1062,7 +1065,7 @@ async function scanLiveShield() {
   
   const start = Date.now();
   try {
-    const r = await fetch(`${API}/theater/live_shield`, {
+    const r = await fetch(`${API}/v1/live_shield`, {
       method: 'POST',
       headers: HEADERS,
       body: JSON.stringify({event_name: event})
@@ -1070,7 +1073,8 @@ async function scanLiveShield() {
     const elapsed = ((Date.now()-start)/1000).toFixed(1);
     
     if (r.ok) {
-      const d = await r.json();
+      const raw = await r.json();
+    const d = raw.data || raw;
       const count = d.streams_found || 0;
       document.getElementById('liveStreams').textContent = count;
       document.getElementById('lsReportBtn').disabled = false;
@@ -1352,12 +1356,13 @@ async function scanSports() {
   verdict.textContent = 'SCANNING';
   body.innerHTML = `<div class="scanning-text">Scanning 25+ platforms for "${event}" <span class="dot-anim"></span></div>`;
   try {
-    const r = await fetch(`${API}/theater/live_shield`, {
+    const r = await fetch(`${API}/v1/live_shield`, {
       method: 'POST',
       headers: HEADERS,
       body: JSON.stringify({event: event})
     });
-    const d = await r.json();
+    const raw = await r.json();
+    const d = raw.data || raw;
     document.getElementById('sportsHits').textContent = d.hits_found || 0;
     const isClean = d.verdict && d.verdict.includes('CLEAN');
     verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;

@@ -87,18 +87,102 @@ BETTING_SIGNALS = [
     "satta", "matka", "betting app", "96win", "sat sport",
 ]
 
-# Known Telegram channel patterns for cricket piracy
+# Known Telegram channel patterns — India OTT + Sports piracy
+# Expanded to cover all major Indian OTT platforms and sports
+
 CRICKET_CHANNEL_PATTERNS = [
-    # Direct channel names to monitor
+
+    # ── IPL / Cricket live streams ────────────────────────
     "CricketStreamsLive", "IPLstreams", "SportsFreeStreams",
     "CricketLiveStream", "IPLLive2025", "IPLLive2026",
     "CricketFreeStream", "LiveCricket", "T20Live",
     "IPLMatchLive", "CricketMatch", "FreeCricketStream",
-    # Regional
+    "IPL_L", "RealCricPoint", "LiveCricketMatchLink",
+    "CricketLive24", "IPLStreamFree", "CricHDLive",
+    "CricketStreamHD", "IPLFreeStream", "T20WorldCup",
+
+    # ── Regional language cricket ─────────────────────────
     "TamilCricketLive", "TeluguCricketLive", "HindiCricketLive",
     "CricketTamil", "CricketTelugu", "IPLTamil", "IPLTelugu",
-    # Betting + streaming
+    "KannadaCricket", "MalayalamCricket", "BengaliCricket",
+    "MarathiCricket", "CricketGujarati", "PunjabiCricket",
+
+    # ── Betting + streaming (highest priority) ────────────
     "CricketBetting", "IPLBetting", "CricketTips",
+    "CricketPrediction", "IPLTips", "CricketFantasy",
+    "Dream11Tips", "CricketOdds", "BettingTips",
+    "CricketWinTips", "IPLWinPrediction",
+
+    # ── JioHotstar piracy channels ────────────────────────
+    "JioHotstarFree", "HotstarFree", "HotstarMovies",
+    "JioCinemaFree", "HotstarSeriesFree", "DisneyHotstar",
+    "HotstarOTT", "JioFreeMovies", "HotstarLeaks",
+    "JioHotstarLeaks", "HotstarWebSeries",
+
+    # ── Netflix India piracy ──────────────────────────────
+    "NetflixIndia", "NetflixFree", "NetflixMoviesHindi",
+    "NetflixSeriesFree", "NetflixLeaks", "NetflixHD",
+    "NetflixTamil", "NetflixTelugu", "NetflixMalayalam",
+    "NetflixWebSeries", "NetflixOriginals",
+
+    # ── Amazon Prime Video piracy ─────────────────────────
+    "AmazonPrimeFree", "PrimeVideoFree", "PrimeMoviesHindi",
+    "AmazonPrimeLeaks", "PrimeVideoIndia", "AmazonHDMovies",
+    "PrimeTamil", "PrimeTelugu", "PrimeWebSeries",
+
+    # ── ZEE5 piracy ───────────────────────────────────────
+    "ZEE5Free", "Zee5Movies", "Zee5Series",
+    "ZEE5Leaks", "Zee5Telugu", "Zee5Tamil",
+    "ZEE5Hindi", "ZeeMoviesFree",
+
+    # ── AHA OTT piracy (Telugu) ───────────────────────────
+    "AHAFree", "AHAMovies", "AHATelugu",
+    "AHAOriginals", "AHALeaks", "AHAWebSeries",
+    "AHAOTTFree", "TeluguOTTFree",
+
+    # ── SonyLIV piracy ────────────────────────────────────
+    "SonyLIVFree", "SonyLivMovies", "SonyLivSeries",
+    "SonyLIVLeaks", "SonyLivTelugu", "SonyLivCricket",
+    "SonyLivHD",
+
+    # ── Hindi web series / Bollywood OTT ─────────────────
+    "HindiWebSeries", "BollywoodMoviesFree",
+    "HindiHDMovies", "BollywoodHD", "HindiOTTFree",
+    "WebSeriesHindi", "HindiNetflix", "HindiAmazonPrime",
+    "HindiMoviesHD4K", "BollywoodLeaks",
+
+    # ── Telugu OTT piracy ─────────────────────────────────
+    "TeluguMoviesFree", "TeluguHDMovies", "TeluguWebSeries",
+    "TeluguOTT", "TeluguNewMovies", "TollywoodMovies",
+    "TeluguMovies4K", "TeluguLatestMovies",
+
+    # ── Tamil OTT piracy ──────────────────────────────────
+    "TamilMoviesFree", "TamilHDMovies", "TamilRockersNew",
+    "TamilMoviesOnline", "TamilWebSeries", "KollywoodMovies",
+    "TamilNewMovies", "TamilOTTFree",
+
+    # ── Other sports piracy ───────────────────────────────
+    "FootballStreamFree", "PremierLeagueFree",
+    "ISLFootballFree", "PKLKabaddi", "ProKabaddiFree",
+    "FormulaOneFree", "F1StreamFree", "TennisFree",
+    "BWFBadmintonFree", "ChessOlympiadFree",
+]
+
+# OTT-specific piracy signals
+OTT_PIRACY_SIGNALS = [
+    # Platform names
+    "jiohotstar", "hotstar", "netflix", "amazon prime",
+    "prime video", "zee5", "sonyliv", "aha ", "voot",
+    "mxplayer", "jiocinema", "altbalaji", "ullu",
+    # Action signals
+    "free download", "watch free", "direct link",
+    "download link", "hd link", "stream link",
+    "720p", "1080p", "4k", "web-dl", "webrip",
+    "season 1", "season 2", "episode", "ep ",
+    "web series", "webseries", "all episodes",
+    "google drive", "gdrive", "mega link", "telegram link",
+    # Regional OTT signals
+    "jio free", "ott free", "subscription free",
 ]
 
 # Search queries for finding new channels
@@ -168,12 +252,16 @@ def analyze_channel(html: str, channel: str) -> TelegramStream | None:
     """Analyze a Telegram channel page for piracy signals."""
     text = html.lower()
 
-    # Count piracy signals
+    # Count piracy signals — cricket + OTT combined
     signals_found = [s for s in PIRACY_SIGNALS if s.lower() in text]
     betting_found = [s for s in BETTING_SIGNALS if s.lower() in text]
+    ott_found = [s for s in OTT_PIRACY_SIGNALS if s.lower() in text]
 
-    if not signals_found and not betting_found:
+    if not signals_found and not betting_found and not ott_found:
         return None
+
+    # Merge signals
+    signals_found = list(set(signals_found + ott_found))
 
     # Extract title
     title_match = re.search(r'<title>([^<]+)</title>', html)
@@ -195,9 +283,15 @@ def analyze_channel(html: str, channel: str) -> TelegramStream | None:
                      len(betting_found) * 0.20)
 
     # Severity
+    ott_platforms = ["netflix","hotstar","amazon prime","zee5",
+                     "sonyliv","aha ","jiohotstar","jiocinema"]
+    ott_platform_found = [p for p in ott_platforms if p in text]
+
     if betting_found or len(signals_found) >= 5:
         severity = "CRITICAL"
-    elif len(signals_found) >= 3:
+    elif ott_platform_found and len(signals_found) >= 2:
+        severity = "CRITICAL"  # OTT platform piracy is critical
+    elif len(signals_found) >= 3 or ott_platform_found:
         severity = "HIGH"
     else:
         severity = "MEDIUM"
@@ -417,6 +511,8 @@ if __name__ == "__main__":
     ap.add_argument("--webhook", default="",
                     help="Webhook URL for alerts")
     ap.add_argument("--demo", action="store_true")
+    ap.add_argument("--ott", action="store_true",
+                    help="Scan for OTT content piracy")
     args = ap.parse_args()
 
     if args.demo:

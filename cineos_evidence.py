@@ -119,7 +119,7 @@ async def generate_evidence_package(
         if hasattr(h, 'link'): return h.link
         return str(h)
     url_tasks = [check_url_live(get_url(h)) for h in hits[:10]]
-        url_checks = await asyncio.gather(*url_tasks)
+    url_checks = await asyncio.gather(*url_tasks)
 
     # Get WHOIS for unique domains
     seen_domains = set()
@@ -137,7 +137,7 @@ async def generate_evidence_package(
     pdf.add_page()
 
     # Cover section
-    pdf.section_title('SECTION 1 — INCIDENT IDENTIFICATION')
+    pdf.section_title('SECTION 1  -  INCIDENT IDENTIFICATION')
     pdf.field('Film / Content Title', film_title)
     pdf.field('Report Generated', timestamp)
     pdf.field('Prepared By', 'CINEOS Anti-Piracy Intelligence Platform')
@@ -148,16 +148,16 @@ async def generate_evidence_package(
     pdf.ln(4)
 
     # Legal statement
-    pdf.section_title('SECTION 2 — LEGAL BASIS FOR ACTION')
+    pdf.section_title('SECTION 2  -  LEGAL BASIS FOR ACTION')
     pdf.set_font('Helvetica', '', 9)
     pdf.set_text_color(170, 170, 204)
     legal_text = [
         'This evidence package documents unauthorized reproduction and distribution of copyrighted',
         f'content "{film_title}" in violation of:',
         '',
-        '  • Copyright Act 1957 (India) Section 51 — Infringement of copyright',
-        '  • Information Technology Act 2000 Section 66 — Computer related offences',
-        '  • DMCA 17 U.S.C. § 512(c)(3) — Takedown notification requirements',
+        '  * Copyright Act 1957 (India) Section 51  -  Infringement of copyright',
+        '  * Information Technology Act 2000 Section 66  -  Computer related offences',
+        '  * DMCA 17 U.S.C. § 512(c)(3)  -  Takedown notification requirements',
         '',
         'All URLs and domain information herein were obtained from publicly accessible sources.',
         'No unauthorized access was performed. Evidence collected via automated public web monitoring.',
@@ -168,7 +168,7 @@ async def generate_evidence_package(
     pdf.ln(4)
 
     # Infringing URLs
-    pdf.section_title('SECTION 3 — INFRINGING URLS (EVIDENCE)', color=(255, 51, 102))
+    pdf.section_title('SECTION 3  -  INFRINGING URLS (EVIDENCE)', color=(255, 51, 102))
     for i, url_info in enumerate(url_checks, 1):
         url = url_info.get('url', '')
         status = url_info.get('status', 0)
@@ -178,7 +178,7 @@ async def generate_evidence_package(
         status_color = (255, 51, 102) if live else (100, 100, 140)
         pdf.set_font('Helvetica', 'B', 9)
         pdf.set_text_color(*status_color)
-        pdf.cell(0, 6, f'URL #{i} — {"LIVE" if live else "INACTIVE"} (HTTP {status})', ln=True)
+        pdf.cell(0, 6, f'URL #{i}  -  {"LIVE" if live else "INACTIVE"} (HTTP {status})', ln=True)
         pdf.set_font('Helvetica', '', 8)
         pdf.set_text_color(0, 255, 136)
         pdf.cell(0, 5, url[:100], ln=True)
@@ -191,7 +191,7 @@ async def generate_evidence_package(
 
     # WHOIS section
     pdf.add_page()
-    pdf.section_title('SECTION 4 — DOMAIN WHOIS INTELLIGENCE', color=(255, 153, 0))
+    pdf.section_title('SECTION 4  -  DOMAIN WHOIS INTELLIGENCE', color=(255, 153, 0))
     pdf.set_font('Helvetica', '', 8)
     pdf.set_text_color(170, 170, 204)
     pdf.cell(0, 5, 'Domain registration intelligence for takedown notices and legal filings:', ln=True)
@@ -219,7 +219,7 @@ async def generate_evidence_package(
         pdf.ln(4)
 
     # Action steps
-    pdf.section_title('SECTION 5 — RECOMMENDED LEGAL ACTIONS', color=(204, 68, 255))
+    pdf.section_title('SECTION 5  -  RECOMMENDED LEGAL ACTIONS', color=(204, 68, 255))
     actions = [
         ('IMMEDIATE', 'File DMCA takedown with Google Search Console', 'search.google.com/search-console'),
         ('IMMEDIATE', 'Report to MIB Nodal Officer', 'nodalofficer@meity.gov.in'),
@@ -243,7 +243,7 @@ async def generate_evidence_package(
 
     # Certification
     pdf.ln(8)
-    pdf.section_title('SECTION 6 — CERTIFICATION')
+    pdf.section_title('SECTION 6  -  CERTIFICATION')
     pdf.set_font('Helvetica', '', 9)
     pdf.set_text_color(170, 170, 204)
     cert_lines = [
@@ -282,7 +282,7 @@ async def main():
     hits = result.get('hits', [])
 
     if not hits:
-        print("No piracy found — generating demo evidence with known URLs")
+        print("No piracy found  -  generating demo evidence with known URLs")
         hits = [
             {'url': 'https://www.1tamilblasters.luxe/retro-2025-telugu/'},
             {'url': 'https://moviesda28.info/retro-2025-telugu-movie/'},

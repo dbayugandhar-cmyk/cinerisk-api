@@ -80,6 +80,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 1.5rem
 .dash-tab.t-betting.active{background:var(--purple);}
 .dash-tab.t-movies.active{background:var(--orange);}
 .dash-tab.t-languages.active{background:var(--accent);}
+.dash-tab.t-ott.active{background:var(--blue);}
 .tab-badge{font-family:var(--mono);font-size:.55rem;
   background:rgba(255,255,255,.15);border-radius:10px;
   padding:.1rem .4rem;}
@@ -273,6 +274,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
   <div class="dash-tab t-betting" onclick="showTab('betting')">
     🎰 Illegal Betting <span class="tab-badge" id="tab-betting-count">—</span>
   </div>
+  <div class="dash-tab t-ott" onclick="showTab('ott')">
+    📺 OTT Leaks <span class="tab-badge" id="tab-ott-count">—</span>
+  </div>
   <div class="dash-tab t-movies" onclick="showTab('movies')">
     🎬 New Release Piracy <span class="coming-soon">coming soon</span>
   </div>
@@ -448,7 +452,93 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
 
 </div>
 
-<!-- ══ TAB 3: MOVIES (COMING SOON) ══ -->
+<!-- ══ TAB 3: OTT LEAKS ══ -->
+<div class="dash-panel" id="panel-ott">
+
+  <div class="stats-row">
+    <div class="scard blue">
+      <div class="scard-lbl">OTT Leak Channels</div>
+      <div class="scard-val" id="o-total">—</div>
+      <div class="scard-sub">Active Telegram channels</div>
+    </div>
+    <div class="scard red">
+      <div class="scard-lbl">Total OTT Reach</div>
+      <div class="scard-val" id="o-reach">—</div>
+      <div class="scard-sub">Combined subscribers</div>
+    </div>
+    <div class="scard orange">
+      <div class="scard-lbl">Platforms Affected</div>
+      <div class="scard-val" id="o-platforms">—</div>
+      <div class="scard-sub">Netflix·Prime·AHA·ZEE5·JioHotstar</div>
+    </div>
+    <div class="scard purple">
+      <div class="scard-lbl">Est. Monthly Loss</div>
+      <div class="scard-val" id="o-loss">—</div>
+      <div class="scard-sub">At ₹299/month sub price</div>
+    </div>
+  </div>
+
+  <div style="background:rgba(51,102,255,.04);border:1px solid rgba(51,102,255,.15);
+    border-radius:var(--r);padding:1.1rem 1.3rem;margin-bottom:1.2rem;">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--blue);
+      letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;">
+      📺 What is OTT Piracy?
+    </div>
+    <div style="font-size:.78rem;color:var(--text2);line-height:1.6;">
+      OTT piracy occurs when subscribers share login credentials or download
+      content and redistribute it on Telegram channels. A single channel with
+      100,000 subscribers sharing Netflix credentials represents ₹2.99 crore/month
+      in lost subscription revenue. CINEOS monitors 135+ Telegram channels for
+      OTT content leaks across Netflix, Amazon Prime, AHA, ZEE5, SonyLIV and JioHotstar.
+    </div>
+  </div>
+
+  <div class="sec"><h2>OTT Leak Channels Detected</h2></div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;">
+    <table class="ch-table" id="ottTable">
+      <thead>
+        <tr>
+          <th>Channel</th>
+          <th>Platform Targeted</th>
+          <th>Language</th>
+          <th>Subscribers</th>
+          <th>Est. Monthly Loss</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="ottBody">
+        <tr><td colspan="6" class="loading">
+          <span class="loading-dot">Scanning OTT leak channels...</span>
+        </td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec"><h2>Platform Exposure Chart</h2></div>
+  <div class="chart-grid">
+    <div class="cbox">
+      <div class="cbox-lbl">Channels by Platform Targeted</div>
+      <div class="cbox-title">Which OTT gets pirated most</div>
+      <canvas id="ottPlatformChart" height="200"></canvas>
+    </div>
+    <div class="cbox">
+      <div class="cbox-lbl">Channels by Language</div>
+      <div class="cbox-title">OTT leaks by content language</div>
+      <canvas id="ottLangChart" height="200"></canvas>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div>
+      <div class="cta-title">🔒 Protect Your OTT Content</div>
+      <div class="cta-desc">CINEOS detects your content on Telegram within 60 seconds of upload. Get real-time alerts and evidence packages for DMCA takedowns.</div>
+    </div>
+    <a class="cta-btn" href="mailto:dba.yugandhar@gmail.com?subject=OTT Protection Demo&body=Please show me how CINEOS can protect our OTT platform." style="background:var(--blue);color:#fff;">Book Demo →</a>
+  </div>
+
+</div>
+
+<!-- ══ TAB 4: MOVIES (COMING SOON) ══ -->
 <div class="dash-panel" id="panel-movies">
   <div class="coming">
     <div class="coming-icon">🎬</div>
@@ -461,7 +551,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
   </div>
 </div>
 
-<!-- ══ TAB 4: LANGUAGES (COMING SOON) ══ -->
+<!-- ══ TAB 5: LANGUAGES (COMING SOON) ══ -->
 <div class="dash-panel" id="panel-languages">
   <div class="coming">
     <div class="coming-icon">🇮🇳</div>
@@ -671,6 +761,108 @@ async function loadData(){
         </tr>`;
       }).join('')
       :'<tr><td colspan="6" style="text-align:center;padding:1.5rem;color:var(--text2);font-size:.8rem">No betting+stream channels detected in this scan</td></tr>';
+
+    // ── OTT Leaks processing ─────────────────────────
+    const OTT_KEYWORDS = {
+      'netflix':['Netflix','NetflixTamil','NetflixTelugu','NetflixHD',
+        'NetflixIndia','NetflixFree','NetflixMalayalam','NetflixWebSeries',
+        'NetflixSeriesFree','NetflixOriginals','NetflixLeaks','NetflixMoviesHindi'],
+      'hotstar':['HotstarFree','HotstarLeaks','HotstarSeriesFree','HotstarWebSeries',
+        'HotstarMovies','HotstarOTT','JioHotstarFree','JioHotstarLeaks','JioCinemaFree'],
+      'prime':['PrimeVideoFree','PrimeVideoIndia','AmazonPrimeFree','AmazonPrimeLeaks',
+        'PrimeMoviesHindi','PrimeTelugu','PrimeTamil','PrimeWebSeries','AmazonHDMovies'],
+      'zee5':['ZEE5Free','ZEE5Hindi','ZEE5Leaks','Zee5Series','Zee5Movies',
+        'Zee5Tamil','Zee5Telugu','ZeeMoviesFree'],
+      'sony':['SonyLIVFree','SonyLIVLeaks','SonyLivHD','SonyLivMovies',
+        'SonyLivSeries','SonyLivTelugu','SonyLivCricket'],
+      'aha':['AHAFree','AHALeaks','AHAMovies','AHAOriginals','AHATelugu',
+        'AHAWebSeries','AHAOTTFree','TeluguOTTFree','TeluguOTT'],
+    };
+
+    // Map channels to OTT platforms
+    const ottChannels = [];
+    const platformCount = {};
+    const ottLangCount = {};
+
+    streams.forEach(s => {
+      const ch = (s.channel||'').toLowerCase();
+      for (const [platform, keywords] of Object.entries(OTT_KEYWORDS)) {
+        if (keywords.some(k => ch.includes(k.toLowerCase()) ||
+            k.toLowerCase().includes(ch))) {
+          ottChannels.push({...s, ottPlatform: platform});
+          platformCount[platform] = (platformCount[platform]||0)+1;
+          const lang = s.language||'Unknown';
+          ottLangCount[lang] = (ottLangCount[lang]||0)+1;
+          break;
+        }
+      }
+    });
+
+    const ottReach = ottChannels.reduce((s,c)=>s+(c.subscriber_count||0),0);
+    const ottLoss = ((ottReach*299/100000/12)).toFixed(1);
+    const affectedPlatforms = Object.keys(platformCount).length;
+
+    document.getElementById('o-total').textContent = ottChannels.length;
+    document.getElementById('o-reach').textContent = fmt(ottReach);
+    document.getElementById('o-platforms').textContent = affectedPlatforms||'—';
+    document.getElementById('o-loss').textContent = fmtInr(parseFloat(ottLoss));
+    document.getElementById('tab-ott-count').textContent = ottChannels.length;
+
+    // OTT table
+    const PLATFORM_COLORS = {
+      netflix:'#e50914',hotstar:'#1f80e0',prime:'#00a8e0',
+      zee5:'#2b58e2',sony:'#003087',aha:'#f5a623'
+    };
+    document.getElementById('ottBody').innerHTML = ottChannels.length ?
+      ottChannels.map(c=>{
+        const subs=c.subscriber_count||0;
+        const loss=((subs*299/100000/12)).toFixed(2);
+        const col=PLATFORM_COLORS[c.ottPlatform]||'var(--blue)';
+        return `<tr>
+          <td><span class="ch-name">@${c.channel||'?'}</span></td>
+          <td><span style="font-family:var(--mono);font-size:.65rem;font-weight:700;
+            color:${col};text-transform:uppercase;">${c.ottPlatform}</span></td>
+          <td><span class="lang-tag">${c.language||'—'}</span></td>
+          <td><span class="ch-subs" style="color:var(--blue)">${fmt(subs)}</span></td>
+          <td style="font-family:var(--mono);font-size:.72rem;color:var(--orange)">₹${loss}L/mo</td>
+          <td><a href="cineos_platform.html" style="font-family:var(--mono);font-size:.6rem;
+            color:var(--accent);text-decoration:none;">Get Evidence →</a></td>
+        </tr>`;
+      }).join('')
+      : '<tr><td colspan="6" style="text-align:center;padding:1.5rem;color:var(--text2);font-size:.8rem">No OTT leak channels detected in this scan</td></tr>';
+
+    // OTT Platform chart
+    const platLabels = Object.keys(platformCount);
+    const platVals = platLabels.map(p=>platformCount[p]);
+    const platColors = platLabels.map(p=>PLATFORM_COLORS[p]||'#666');
+    if(window._ottPlatChart) window._ottPlatChart.destroy();
+    window._ottPlatChart = new Chart(document.getElementById('ottPlatformChart'),{
+      type:'doughnut',
+      data:{labels:platLabels.map(l=>l.toUpperCase()),datasets:[{
+        data:platVals,backgroundColor:platColors,borderWidth:1,borderColor:platColors
+      }]},
+      options:{plugins:{legend:{display:true,position:'bottom',
+        labels:{color:'#aaaacc',font:{size:9,family:'Space Mono'},padding:8}}},
+        cutout:'55%'}
+    });
+
+    // OTT Language chart
+    const ottLangLabels = Object.keys(ottLangCount);
+    const ottLangVals = ottLangLabels.map(l=>ottLangCount[l]);
+    const ottLangColors=['rgba(255,153,0,.8)','rgba(255,51,102,.8)',
+      'rgba(0,255,136,.6)','rgba(51,102,255,.7)','rgba(204,68,255,.7)'];
+    if(window._ottLangChart) window._ottLangChart.destroy();
+    window._ottLangChart = new Chart(document.getElementById('ottLangChart'),{
+      type:'doughnut',
+      data:{labels:ottLangLabels,datasets:[{
+        data:ottLangVals,
+        backgroundColor:ottLangColors.slice(0,ottLangLabels.length),
+        borderWidth:1
+      }]},
+      options:{plugins:{legend:{display:true,position:'bottom',
+        labels:{color:'#aaaacc',font:{size:9,family:'Space Mono'},padding:8}}},
+        cutout:'55%'}
+    });
 
     document.getElementById('lastScan').textContent=
       new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata',

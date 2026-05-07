@@ -1009,8 +1009,9 @@ async function trackPropagation() {
   results.innerHTML = '<span style="font-family:var(--mono);color:var(--accent)">Scanning propagation...</span>';
 
   try {
-    const r = await fetch(`${API}/v1/scan`, {
-      method: 'POST', headers: HEADERS,
+    const r = await fetch('https://cinerisk-api-production.up.railway.app/v1/scan', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({title: film, category: 'india'})
     });
     const raw = await r.json();

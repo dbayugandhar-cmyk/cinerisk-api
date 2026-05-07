@@ -834,6 +834,23 @@
 
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <!-- Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PLACEHOLDER');
+  </script>
+  <!-- Simple visitor counter via API -->
+  <script>
+    fetch('https://api.countapi.xyz/hit/cineos-platform/visits')
+      .then(r => r.json())
+      .then(d => {
+        const el = document.getElementById('visitorCount');
+        if(el) el.textContent = d.value?.toLocaleString() || '—';
+      }).catch(()=>{});
+  </script>
 </head>
 <body>
 
@@ -848,16 +865,33 @@
       LIVE
     </div>
     <span id="clock">--:--:-- UTC</span>
-    <span>v2.0</span>
+    <span>v3.0</span>
   </div>
 </header>
 
 <main>
   <div class="hero">
-    <div class="hero-tag">Content Intelligence & Protection Platform</div>
-    <h1>Stop Piracy.<br>Protect Revenue.</h1>
-    <p>Real-time monitoring across 1000+ sources. Film, Indian cinema, and gaming piracy detection with zero false positives.</p>
-    <div class="patent-badge">⚖ US Provisional Patent 64/049,190</div>
+    <div class="hero-tag">🛡️ India's First AI-Powered Anti-Piracy Platform — US Patent 64/049,190</div>
+    <h1>Detect Piracy.<br>Protect Revenue.</h1>
+    <p>Real-time monitoring across 1,000+ sources — films, sports, gaming, manga, OTT. Search any title and get a full intelligence report in seconds.</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem;">
+      <div style="background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:8px;padding:0.8rem 1.2rem;text-align:center;">
+        <div style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--accent);">103+</div>
+        <div style="font-size:0.72rem;color:var(--text2);">India Piracy Sites</div>
+      </div>
+      <div style="background:rgba(255,51,102,0.08);border:1px solid rgba(255,51,102,0.2);border-radius:8px;padding:0.8rem 1.2rem;text-align:center;">
+        <div style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:#ff3366;">63</div>
+        <div style="font-size:0.72rem;color:var(--text2);">Live Streams Detected</div>
+      </div>
+      <div style="background:rgba(255,102,0,0.08);border:1px solid rgba(255,102,0,0.2);border-radius:8px;padding:0.8rem 1.2rem;text-align:center;">
+        <div style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:#ff6600;">3.4s</div>
+        <div style="font-size:0.72rem;color:var(--text2);">Detection Speed</div>
+      </div>
+      <div style="background:rgba(204,68,255,0.08);border:1px solid rgba(204,68,255,0.2);border-radius:8px;padding:0.8rem 1.2rem;text-align:center;">
+        <div style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:#cc44ff;">7 Tabs</div>
+        <div style="font-size:0.72rem;color:var(--text2);">Film·India·Gaming·Manga·Sports·VideoID·Shield</div>
+      </div>
+    </div>
   </div>
 
   <div class="stats-bar" id="statsBar">
@@ -889,13 +923,24 @@
 
   <!-- Tabs -->
   <div class="tabs">
-    <button class="tab tab-film active" onclick="switchTab('film')">🎬 Film Monitor</button>
-    <button class="tab tab-india" onclick="switchTab('india')">🎥 India Cinema</button>
-    <button class="tab tab-gaming" onclick="switchTab('gaming')">🎮 Gaming</button>
-    <button class="tab tab-manga" onclick="switchTab('manga')">📚 Manga</button>
-    <button class="tab tab-sports" onclick="switchTab('sports')">🏆 Sports</button>
-    <button class="tab tab-videoid" onclick="switchTab('videoid')">🎬 VideoID</button>
-    <button class="tab tab-liveshield" onclick="switchTab('liveshield')">🛡️ Live Shield</button>
+    <button class="tab tab-film active" onclick="switchTab('film')" title="Search any film worldwide — detect piracy on 111 platforms">🎬 Film Monitor</button>
+    <button class="tab tab-india" onclick="switchTab('india')" title="Telugu, Tamil, Hindi, Malayalam films — 103 India-specific piracy sites">🎥 India Cinema</button>
+    <button class="tab tab-gaming" onclick="switchTab('gaming')" title="Detect cracked games, modded APKs, pirated software">🎮 Gaming</button>
+    <button class="tab tab-manga" onclick="switchTab('manga')" title="Manga and anime piracy — Telegram bots and illegal sites">📚 Manga</button>
+    <button class="tab tab-sports" onclick="switchTab('sports')" title="Live sports stream detection — IPL, cricket, football">🏆 Sports</button>
+    <button class="tab tab-videoid" onclick="switchTab('videoid')" title="Upload a clip — identify if it is pirated content in 2 seconds">🔍 VideoID</button>
+    <button class="tab tab-liveshield" onclick="switchTab('liveshield')" title="Real-time Telegram monitoring — detects illegal streams + betting signals">🛡️ Live Shield</button>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div style="background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:1rem 1.4rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+    <div style="font-family:var(--mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;">How to use</div>
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;font-size:0.78rem;color:var(--text2);">
+      <span>1️⃣ Pick a tab below</span>
+      <span>2️⃣ Type a film, game, or event name</span>
+      <span>3️⃣ Click Scan</span>
+      <span>4️⃣ Click 📊 Report for full intelligence</span>
+    </div>
   </div>
 
   <!-- FILM PANEL -->
@@ -2020,8 +2065,16 @@ async function loadWatchlist() {
 function switchTab(tab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelector(`.tab-${tab}`).classList.add('active');
-  document.getElementById(`panel-${tab}`).classList.add('active');
+
+  // Hide all reports when switching tabs
+  document.querySelectorAll('.u-report').forEach(r => r.style.display = 'none');
+
+  const tabEl   = document.querySelector(`.tab-${tab}`);
+  const panelEl = document.getElementById(`panel-${tab}`);
+
+  if (tabEl)   tabEl.classList.add('active');
+  if (panelEl) panelEl.classList.add('active');
+  else console.warn('CINEOS: panel not found for tab:', tab);
 }
 
 // Film scan

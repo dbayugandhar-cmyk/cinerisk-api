@@ -525,6 +525,8 @@ async def continuous_monitor(
     log.info("="*60)
 
     known_channels = set()  # Track already seen channels
+    subscriber_history = {}  # channel_id -> list of (timestamp, count)
+    velocity_alerts = []  # Channels growing suspiciously fast
     scan_count = 0
     total_detected = 0
     session_start = datetime.utcnow()
@@ -562,6 +564,39 @@ async def continuous_monitor(
                     known_channels.add(channel_id)
 
             total_detected += len(new_streams)
+
+            # ── Subscriber Velocity Analysis ─────────────────────
+            velocity_alerts = []
+            now_ts = datetime.utcnow().isoformat()
+            for stream in current_streams:
+                ch_id = getattr(stream, 'channel', '') or ''
+                subs = getattr(stream, 'subscriber_count', 0) or 0
+                if ch_id:
+                    if ch_id not in subscriber_history:
+                        subscriber_history[ch_id] = []
+                    subscriber_history[ch_id].append((now_ts, subs))
+                    # Keep last 10 readings
+                    subscriber_history[ch_id] = subscriber_history[ch_id][-10:]
+                    # Calculate velocity if we have 2+ readings
+                    history = subscriber_history[ch_id]
+                    if len(history) >= 2:
+                        oldest_subs = history[0][1]
+                        newest_subs = history[-1][1]
+                        growth = newest_subs - oldest_subs
+                        growth_pct = (growth / max(oldest_subs, 1)) * 100
+                        if growth > 500 or growth_pct > 20:
+                            velocity_alerts.append({
+                                "channel": ch_id,
+                                "old_subs": oldest_subs,
+                                "new_subs": newest_subs,
+                                "growth": growth,
+                                "growth_pct": round(growth_pct, 1),
+                                "url": getattr(stream, 'channel_url', '')
+                            })
+                            log.info(f"  📈 VELOCITY ALERT: @{ch_id} grew {growth:+,} subs ({growth_pct:.1f}%)")
+
+            if velocity_alerts:
+                log.info(f"  📈 {len(velocity_alerts)} channels growing rapidly — PRIORITY TARGETS")
 
             if new_streams:
                 log.info(f"  🚨 {len(new_streams)} NEW illegal streams detected!")
@@ -603,6 +638,11 @@ async def continuous_monitor(
                 print(f"  New streams: {len(new_streams)}")
                 print(f"  Critical: {len(alert['critical'])}")
                 print(f"  Betting+Stream: {len(alert['betting_combined'])}")
+                if velocity_alerts:
+                    print(f"  📈 RAPID GROWTH CHANNELS ({len(velocity_alerts)}):")
+                    for v in velocity_alerts:
+                        print(f"    @{v['channel']} +{v['growth']:,} subs ({v['growth_pct']}%) — PRIORITY")
+                    print()
                 print("="*60)
 
                 for s in new_streams:

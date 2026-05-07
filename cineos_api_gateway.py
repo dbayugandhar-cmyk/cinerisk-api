@@ -823,8 +823,14 @@ async def generate_evidence(
         import httpx as _httpx
         import datetime
 
-        # Get hits from gold_scan
-        scan_result = await run_gold_scan(film_title)
+        # Call gold_scan directly via httpx
+        async with _httpx.AsyncClient(timeout=30) as _sc:
+            _r = await _sc.post(
+                "https://cinerisk-api-production.up.railway.app/theater/gold_scan",
+                json={"film_title": film_title},
+                headers={"X-API-Key": "ck_FP5RaP5a_4NpOqIltUWSwWEn3f0Vq__-WkYk3TVGBGI"}
+            )
+            scan_result = _r.json()
         hits = scan_result.get("hits", [])
         timestamp = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
 

@@ -502,6 +502,34 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
     </div>
   </div>
 
+  <div style="background:rgba(51,102,255,.04);border:1px solid rgba(51,102,255,.12);
+    border-radius:var(--r);padding:1rem 1.3rem;margin-bottom:1.2rem;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;">
+    <div>
+      <div style="font-family:var(--mono);font-size:.55rem;color:var(--text2);
+        letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;">India OTT Piracy (Annual)</div>
+      <div style="font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--red)">₹1,500 Cr+</div>
+      <div style="font-size:.7rem;color:var(--text2)">MUSO / Media Partners Asia estimate</div>
+    </div>
+    <div>
+      <div style="font-family:var(--mono);font-size:.55rem;color:var(--text2);
+        letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;">Telegram Share</div>
+      <div style="font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--orange)">~45%</div>
+      <div style="font-size:.7rem;color:var(--text2)">Of all OTT piracy in India</div>
+    </div>
+    <div>
+      <div style="font-family:var(--mono);font-size:.55rem;color:var(--text2);
+        letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;">Website Share</div>
+      <div style="font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--blue)">~35%</div>
+      <div style="font-size:.7rem;color:var(--text2)">Movierulz, iBomma, TamilMV</div>
+    </div>
+    <div>
+      <div style="font-family:var(--mono);font-size:.55rem;color:var(--text2);
+        letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;">WhatsApp Share</div>
+      <div style="font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--text2)">~20%</div>
+      <div style="font-size:.7rem;color:var(--text2)">Private groups — not detectable</div>
+    </div>
+  </div>
   <div class="sec"><h2>OTT Leak Channels Detected</h2></div>
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;">
     <table class="ch-table" id="ottTable">
@@ -808,13 +836,22 @@ async function loadData(){
     });
 
     const ottReach = ottChannels.reduce((s,c)=>s+(c.subscriber_count||0),0);
-    const ottLoss = ((ottReach*299/100000/12)).toFixed(1);
+    // OTT loss formula: subscribers × 15% conversion × ₹299/month
+    const conversionRate = 0.15;
+    const avgSubPrice = 299;
+    const ottLossMonthly = (ottReach * conversionRate * avgSubPrice / 100000).toFixed(1);
+    const ottLoss = ottLossMonthly;
+    // Annual loss
+    const ottLossAnnual = (parseFloat(ottLossMonthly) * 12).toFixed(1);
     const affectedPlatforms = Object.keys(platformCount).length;
 
     document.getElementById('o-total').textContent = ottChannels.length;
     document.getElementById('o-reach').textContent = fmt(ottReach);
     document.getElementById('o-platforms').textContent = affectedPlatforms||'—';
-    document.getElementById('o-loss').textContent = fmtInr(parseFloat(ottLoss));
+    document.getElementById('o-loss').textContent = fmtInr(parseFloat(ottLoss))+'/mo';
+    // Add annual estimate if element exists
+    const annEl = document.getElementById('o-loss-annual');
+    if(annEl) annEl.textContent = fmtInr(parseFloat(ottLossAnnual))+'/yr';
     document.getElementById('tab-ott-count').textContent = ottChannels.length;
 
     // OTT table

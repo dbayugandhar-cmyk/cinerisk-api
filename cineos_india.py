@@ -318,7 +318,7 @@ async def scan_direct_urls(
 
     for site_name, url in patterns:
         try:
-            r = await client.get(url, timeout=8, headers=HEADERS)
+            r = await client.get(url, timeout=3, headers=HEADERS)
             if r.status_code != 200:
                 await asyncio.sleep(0.1)
                 continue
@@ -413,7 +413,7 @@ async def scan_ddg_india(
             r = await client.get(
                 "https://html.duckduckgo.com/html/",
                 params={"q": query},
-                timeout=12, headers=HEADERS
+                timeout=8, headers=HEADERS
             )
             if r.status_code != 200:
                 continue
@@ -591,7 +591,7 @@ async def scan_batch_serp(
                 "https://serpapi.com/search",
                 params={"q": query, "api_key": SERP_KEY,
                         "num": 10, "engine": "duckduckgo"},
-                timeout=12
+                timeout=6
             )
             if r.status_code != 200:
                 return []
@@ -668,29 +668,20 @@ async def scan_batch_serp(
     for v in variants[:3]:
         v_low = v.lower()
         ddg_tasks += [
-            ddg_search(f'"{v}" movierulz download telugu', v),
-            ddg_search(f'"{v}" movierulz download tamil', v),
-            ddg_search(f'"{v}" tamilmv OR tamilblasters download', v),
-            ddg_search(f'"{v}" filmyzilla OR hdhub4u download 1080p', v),
-            ddg_search(f'"{v}" ibomma OR moviesda download', v),
-            ddg_search(f'{v_low} movierulz telugu download 1080p', v),
-            ddg_search(f'{v_low} tamilrockers kuttymovies isaimini download', v),
+            ddg_search(f'"{v}" movierulz OR ibomma download telugu tamil', v),
+            ddg_search(f'"{v}" tamilmv OR tamilblasters OR isaimini download', v),
+            ddg_search(f'"{v}" filmyzilla OR moviesda OR hdhub4u download 1080p', v),
+            ddg_search(f'{v_low} movierulz tamilrockers download 1080p', v),
+            ddg_search(f'{v_low} ibomma OR tamilmv download', v),
         ]
     for sv in slug_variants[1:3]:
         sv_title = sv.replace("-"," ").title()
         ddg_tasks += [
-            ddg_search(f'"{sv_title}" movierulz download', sv_title),
-            ddg_search(f'{sv_title} tamilmv filmyzilla ibomma download', sv_title),
+            ddg_search(f'"{sv_title}" movierulz OR tamilmv download', sv_title),
+            ddg_search(f'{sv_title} filmyzilla ibomma download', sv_title),
         ]
 
-    try:
-        ddg_results = await asyncio.wait_for(
-            asyncio.gather(*ddg_tasks, return_exceptions=True),
-            timeout=15
-        )
-    except asyncio.TimeoutError:
-        ddg_results = []
-        log.debug("DDG searches timed out after 15s")
+    ddg_results = await asyncio.gather(*ddg_tasks, return_exceptions=True)
     for r in ddg_results:
         if isinstance(r, list):
             all_hits.extend(r)
@@ -755,7 +746,7 @@ async def scan_batch_serp(
             return None
         try:
             r = await client.get(url, headers=headers2,
-                                 follow_redirects=True, timeout=7)
+                                 follow_redirects=True, timeout=3)
             if r.status_code != 200:
                 return None
 
@@ -822,22 +813,14 @@ async def scan_batch_serp(
     direct_tasks = []
     for site in FAST_SITES:
         for domain in site["domains"][:2]:
-            for pattern in site["urls"]:
-                for slug_v in slug_variants:  # try all slug variants
+            for pattern in site["urls"][:4]:
+                for slug_v in slug_variants[:3]:
                     url = f"https://{domain}" + pattern.format(
                         slug=slug_v, slugs=slugs
                     )
                     direct_tasks.append(fast_check(url, site))
 
-    # Hard 20s timeout on all direct checks combined
-    try:
-        direct_results = await asyncio.wait_for(
-            asyncio.gather(*direct_tasks, return_exceptions=True),
-            timeout=20
-        )
-    except asyncio.TimeoutError:
-        direct_results = []
-        log.debug("Direct URL checks timed out after 20s")
+    direct_results = await asyncio.gather(*direct_tasks, return_exceptions=True)
     for r in direct_results:
         if isinstance(r, IndiaHit) and r.url not in seen_urls:
             all_hits.append(r)
@@ -860,12 +843,11 @@ async def full_india_scan(film: str) -> dict:
     async with httpx.AsyncClient(
         headers=HEADERS,
         follow_redirects=True,
-        timeout=15
+        timeout=8
     ) as client:
-        # Run all three scans simultaneously
-        batch_hits, ddg_hits, direct_hits = await asyncio.gather(
+        # Run two scans simultaneously — scan_ddg_india removed (causes 24s timeouts)
+        batch_hits, direct_hits = await asyncio.gather(
             scan_batch_serp(film, client),
-            scan_ddg_india(film, client),
             scan_direct_urls(film, client),
             return_exceptions=True
         )
@@ -873,7 +855,6 @@ async def full_india_scan(film: str) -> dict:
     all_hits = []
     seen = set()
     for h in (batch_hits if isinstance(batch_hits, list) else []) + \
-             (ddg_hits if isinstance(ddg_hits, list) else []) + \
              (direct_hits if isinstance(direct_hits, list) else []):
         if h.url not in seen:
             seen.add(h.url)

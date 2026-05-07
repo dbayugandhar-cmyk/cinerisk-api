@@ -165,7 +165,7 @@ async def verify_api_key(
             detail={
                 "error": "API key required",
                 "message": "Include your API key in X-API-Key header",
-                "docs": "https://dbayugandhar-cmyk.github.io/cinerisk-api/cineos_landing.html"
+                "docs": "https://cineos.in/cineos_landing.html"
             }
         )
 

@@ -90,7 +90,7 @@ def send_alert_email(
     </div>
 
     <div style="margin-top:20px;text-align:center;">
-      <a href="https://dbayugandhar-cmyk.github.io/cinerisk-api/cineos_platform.html" 
+      <a href="https://cineos.in/cineos_platform.html" 
          style="background:#00aa55;color:white;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:14px;">
         View Full Intelligence Report →
       </a>
@@ -125,7 +125,7 @@ Recommended Actions:
 2. Report to MIB: nodalofficer@meity.gov.in
 3. File with TFCC: tfcc.in
 
-View full report: https://dbayugandhar-cmyk.github.io/cinerisk-api/cineos_platform.html
+View full report: https://cineos.in/cineos_platform.html
 
 CINEOS | Patent 64/049,190 | dba.yugandhar@gmail.com"""
 

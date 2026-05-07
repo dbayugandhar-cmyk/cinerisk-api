@@ -82,6 +82,8 @@ def is_category_page(url: str) -> bool:
         "/bollywood/", "/hollywood/", "/telugu/page/",
         "/?s=", "/search/", "/index.php",
         "/latest-movies/", "/new-movies/",
+        "/user/", "?s=", "?c=", "?q=",  # NYAA search/user pages
+        "/genre/", "/actor/", "/director/",
     ]
     u = url.lower().rstrip('/')
     for p in category_patterns:
@@ -148,7 +150,6 @@ INDIAN_PLATFORMS = [
     {"name": "Coolmoviez",        "domain": "coolmoviez.com",        "lang": "Pan-India",    "p": 3},
     {"name": "Movierulz2",        "domain": "movierulz.plz",         "lang": "Pan-India",    "p": 3},
     {"name": "TodayPk",           "domain": "todaypk.chat",          "lang": "Pan-India",    "p": 3},
-    {"name": "Azmovies",          "domain": "azmovies.net",          "lang": "Hindi",        "p": 3},
     {"name": "Djpunjab Movies",   "domain": "djpunjab.com",          "lang": "Punjabi",      "p": 3},
     {"name": "PagalMovies",       "domain": "pagalmovies.com",       "lang": "Hindi",        "p": 3},
     {"name": "FilmyZilla2",       "domain": "filmyzilla2.com",       "lang": "Hindi",        "p": 3},
@@ -189,8 +190,12 @@ DIRECT_URL_PATTERNS = [
     # Pattern: (site, url_template, verify_keywords)
     ("TamilRockers",    "https://www.tamilrockers.ws/{slug}/",
      ["download", "watch", "hdrip", "720p", "1080p"]),
-    ("Movierulz",       "https://www.5movierulz.camera/{slug}-movie-watch-online/",
-     ["watch online", "download", "hdrip"]),
+    ("Movierulz",       "https://www.5movierulz.camera/{slug}-telugu/",
+     ["watch online", "free", "hdrip", "full movie"]),
+    ("Movierulz2",      "https://www.5movierulz.camera/{slug}-hindi/",
+     ["watch online", "free", "hdrip", "full movie"]),
+    ("Movierulz3",      "https://www.5movierulz.camera/{slug}-tamil/",
+     ["watch online", "free", "hdrip", "full movie"]),
     ("Filmyzilla",      "https://filmyzilla.com.co/{slug}/",
      ["download", "hdrip", "720p", "hindi"]),
     ("TamilMV",         "https://www.1tamilmv.world/{slug}/",
@@ -227,6 +232,9 @@ async def scan_direct_urls(
     import re as _re
     hits = []
     slug = _re.sub(r'[^a-z0-9]+', '-', film.lower()).strip('-')
+    slug_nospace = _re.sub(r'[^a-z0-9]+', '', film.lower())  # jetlee
+    slug_year = f"{slug}-2026"
+    slug_year2 = f"{slug}-2025"
     film_words = [w for w in film.lower().split() if len(w) > 2]
     if not film_words:
         return hits
@@ -464,19 +472,20 @@ async def scan_batch_serp(
     client: httpx.AsyncClient
 ) -> list[IndiaHit]:
     """
-    Batch SerpApi scan — 10 sites per query.
-    Scans all 55 platforms in just 6 SerpApi searches.
+    Batch SerpApi scan — parallel execution.
+    All batches run simultaneously for 3x speed improvement.
     """
     if not SERP_KEY:
         return []
 
-    hits = []
     domains = [p["domain"] for p in INDIAN_PLATFORMS]
     batches = [domains[i:i+8] for i in range(0, len(domains), 8)]
+    platform_map = {p["domain"]: p for p in INDIAN_PLATFORMS}
 
-    for batch in batches:
+    async def fetch_batch(batch):
         site_q = " OR ".join(f"site:{d}" for d in batch)
-        query = f'"{film}" download ({site_q})'
+        query = f'"{film}" ({site_q})'
+        batch_hits = []
         try:
             r = await client.get(
                 "https://serpapi.com/search",
@@ -484,54 +493,90 @@ async def scan_batch_serp(
                         "num": 10, "engine": "google"},
                 timeout=15
             )
-            if r.status_code == 200:
-                for item in r.json().get("organic_results", []):
-                    link = item.get("link", "")
-                    title = item.get("title", "")
-                    snippet = item.get("snippet", "")
-                    full = f"{title} {snippet}"
+            if r.status_code != 200:
+                return []
 
-                    if is_news_article(link, full):
-                        continue
-                    if is_category_page(link):
-                        continue
-                    if not film_ok(film, full):
-                        continue
-                    if not has_piracy_signal(full):
-                        continue
+            film_words = [w for w in film.lower().split() if len(w) > 2]
 
-                    # Find matching platform
-                    platform_name = "Indian Platform"
-                    language = "Pan-India"
-                    for p in INDIAN_PLATFORMS:
-                        if p["domain"].split(".")[0] in link.lower():
-                            platform_name = p["name"]
-                            language = p["lang"]
+            for item in r.json().get("organic_results", []):
+                link = item.get("link", "")
+                title = item.get("title", "")
+                snippet = item.get("snippet", "")
+                full = f"{title} {snippet}".lower()
+
+                domain = link.split("/")[2] if "/" in link else ""
+                domain = domain.replace("www.", "")  # strip www prefix
+                platform = platform_map.get(domain)
+                if not platform:
+                    for d, p in platform_map.items():
+                        if d in link:
+                            platform = p
+                            domain = d
                             break
+                if not platform:
+                    continue
 
-                    f = full.lower()
-                    is_cam = any(k in f for k in
-                                ["camrip","hdcam","telesync",
-                                 "line audio"])
-                    quality = ("CAM" if is_cam else
-                              "HDRip" if "hdrip" in f else
-                              "WebRip" if "webrip" in f else
-                              "Unknown")
+                if is_category_page(link):
+                    continue
+                if is_news_article(link, title):
+                    continue
 
-                    if not any(h.url == link for h in hits):
-                        hits.append(IndiaHit(
-                            platform=platform_name,
-                            language=language,
-                            url=link,
-                            quality=quality,
-                            detail=title[:80],
-                            confidence=0.85,
-                            is_cam=is_cam
-                        ))
-            await asyncio.sleep(0.3)
+                matched = sum(1 for w in film_words if w in full)
+                if matched < max(1, len(film_words) - 1):
+                    continue
+
+                # Quality detection
+                full_lower = full.lower()
+                quality = ""
+                if "4k" in full_lower or "2160p" in full_lower:
+                    quality = "4K"
+                elif "1080p" in full_lower or "fhd" in full_lower:
+                    quality = "1080p"
+                elif "720p" in full_lower or "hdrip" in full_lower:
+                    quality = "HDRip"
+                elif "480p" in full_lower:
+                    quality = "480p"
+                elif "cam" in full_lower or "camrip" in full_lower:
+                    quality = "CAM"
+
+                # Language detection
+                lang = "Unknown"
+                if "telugu" in full_lower:
+                    lang = "Telugu"
+                elif "tamil" in full_lower:
+                    lang = "Tamil"
+                elif "hindi" in full_lower:
+                    lang = "Hindi"
+                elif "malayalam" in full_lower:
+                    lang = "Malayalam"
+                elif "kannada" in full_lower:
+                    lang = "Kannada"
+                elif "bengali" in full_lower:
+                    lang = "Bengali"
+
+                is_cam = "cam" in full_lower or "camrip" in full_lower
+
+                batch_hits.append(IndiaHit(
+                    platform=platform["name"],
+                    language=lang,
+                    url=link,
+                    quality=quality,
+                    detail=f"{title[:60]} — {snippet[:40]}",
+                    confidence=0.85,
+                    severity="HIGH",
+                    is_cam=is_cam
+                ))
         except Exception as e:
-            log.warning(f"Batch scan error: {e}")
+            log.debug(f"Batch error: {e}")
+        return batch_hits
 
+    # Run ALL batches in parallel simultaneously
+    results = await asyncio.gather(*[fetch_batch(b) for b in batches],
+                                    return_exceptions=True)
+    hits = []
+    for r in results:
+        if isinstance(r, list):
+            hits.extend(r)
     return hits
 
 

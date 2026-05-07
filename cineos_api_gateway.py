@@ -800,6 +800,59 @@ async def get_tiers():
         "trial": "Free tier: 10 queries to test the API"
     }
 
+@app.post("/v1/evidence")
+async def generate_evidence(
+    request: Request,
+    customer: dict = Depends(verify_api_key)
+):
+    """Generate a court-ready evidence PDF for a film title."""
+    import time
+    start = time.time()
+
+    if not await check_rate_limit(customer):
+        raise HTTPException(429, {"error": "Rate limit exceeded"})
+
+    body = await request.json()
+    film_title = body.get("film_title", body.get("title", ""))
+    if not film_title:
+        raise HTTPException(400, {"error": "film_title required"})
+
+    try:
+        import sys, os
+        sys.path.insert(0, ".")
+
+        # Run India scan to get hits
+        from cineos_india import full_india_scan
+        result = await full_india_scan(film_title)
+        hits = result.get("hits", [])
+
+        # Generate PDF
+        from cineos_evidence import generate_evidence_package
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmpdir:
+            pdf_path = f"{tmpdir}/evidence.pdf"
+            await generate_evidence_package(film_title, hits, pdf_path)
+
+            # Read PDF bytes
+            with open(pdf_path, "rb") as f:
+                pdf_bytes = f.read()
+
+        elapsed = round(time.time() - start, 2)
+
+        from fastapi.responses import Response
+        safe_name = film_title.replace(" ", "_")
+        return Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f'attachment; filename="CINEOS_Evidence_{safe_name}.pdf"',
+                "X-Scan-Time": str(elapsed),
+                "X-Hits-Found": str(len(hits)),
+            }
+        )
+    except Exception as e:
+        raise HTTPException(500, {"error": str(e)})
+
 
 if __name__ == "__main__":
     import uvicorn

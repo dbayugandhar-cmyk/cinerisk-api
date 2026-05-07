@@ -2,2027 +2,745 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="version" content="2.1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CINEOS — Content Intelligence & Protection Platform</title>
-<meta name="description" content="Real-time piracy detection across film, gaming, manga, sports and OTT. Detect piracy in under 2 seconds across 1000+ platforms.">
-<meta property="og:title" content="CINEOS — Content Intelligence Platform">
-<meta property="og:description" content="Real-time piracy detection across 1000+ platforms. US Patent 64/049,190.">
-<meta name="theme-color" content="#00ff88">
+<title>CINEOS — Anti-Piracy Intelligence Platform</title>
+<meta name="description" content="India's first AI-powered anti-piracy platform. Detect piracy across 1000+ sources in seconds.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
-
-  :root {
-    --bg: #0a0a0f;
-    --bg2: #0f0f1a;
-    --bg3: #141428;
-    --border: #1e1e3a;
-    --accent: #00ff88;
-    --accent2: #ff3366;
-    --accent3: #3366ff;
-    --accent4: #ff9900;
-    --text: #e8e8f0;
-    --text2: #8888aa;
-    --text3: #5555777;
-    --mono: 'Space Mono', monospace;
-    --sans: 'DM Sans', sans-serif;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Grid background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Header */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(10,10,15,0.95);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-  }
-
-  .logo {
-    font-family: var(--mono);
-    font-size: 1.1rem;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .logo-dot {
-    width: 8px; height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--text2);
-  }
-
-  .status-live {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: var(--accent);
-  }
-
-  .status-dot {
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: pulse 1.5s infinite;
-  }
-
-  /* Main layout */
-  main {
-    position: relative;
-    z-index: 1;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
-  /* Hero */
-  .hero {
-    text-align: center;
-    padding: 3rem 0 2rem;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
-  }
-
-  .hero-tag {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--accent);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-
-  .hero h1 {
-    font-family: var(--mono);
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero p {
-    color: var(--text2);
-    font-size: 1rem;
-    max-width: 600px;
-    margin: 0 auto 1.5rem;
-    line-height: 1.6;
-  }
-
-  .patent-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(0,255,136,0.08);
-    border: 1px solid rgba(0,255,136,0.2);
-    border-radius: 4px;
-    padding: 0.3rem 0.8rem;
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-  }
-
-  /* Stats bar */
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 2rem;
-  }
-
-  .stat-item {
-    background: var(--bg2);
-    padding: 1.2rem 1.5rem;
-    text-align: center;
-  }
-
-  .stat-value {
-    font-family: var(--mono);
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    color: var(--text2);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  /* Product tabs */
-  .tabs {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
-  }
-
-  .tab {
-    padding: 0.8rem 1.5rem;
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    color: var(--text2);
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    background: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    text-transform: uppercase;
-  }
-
-  .tab:hover { color: var(--text); }
-
-  .tab.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-
-  .tab-film.active { color: var(--accent); border-bottom-color: var(--accent); }
-  .tab-india.active { color: var(--accent4); border-bottom-color: var(--accent4); }
-  .tab-gaming.active { color: var(--accent3); border-bottom-color: var(--accent3); }
-  .tab-manga.active { color: #ff66cc; border-bottom-color: #ff66cc; }
-  .tab-sports.active { color: #ff6600; border-bottom-color: #ff6600; }
-  .tab-videoid.active { color: #00ccff; border-bottom-color: #00ccff; }
-  .tab-liveshield.active { color: #ff6600; border-bottom-color: #ff6600; }
-
-  /* Panel */
-  .panel { display: none; }
-  .panel.active { display: block; }
-
-  /* Search section */
-  .search-section {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .search-title {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--text2);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-
-  .search-row {
-    display: flex;
-    gap: 0.75rem;
-  }
-
-  .search-input {
-    flex: 1;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.75rem 1rem;
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .search-input:focus { border-color: var(--accent); }
-  .search-input::placeholder { color: var(--text3); }
-
-  .btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #000;
-    font-weight: 700;
-  }
-  .btn-primary:hover { background: #00cc66; transform: translateY(-1px); }
-
-  .btn-india {
-    background: var(--accent4);
-    color: #000;
-    font-weight: 700;
-  }
-  .btn-india:hover { background: #cc7700; }
-
-  .btn-gaming {
-    background: var(--accent3);
-    color: #fff;
-    font-weight: 700;
-  }
-  .btn-gaming:hover { background: #2255dd; }
-
-  .btn-secondary {
-    background: transparent;
-    color: var(--text2);
-    border: 1px solid var(--border);
-  }
-  .btn-secondary:hover { border-color: var(--text2); color: var(--text); }
-
-  /* Results */
-  .results-box {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-    min-height: 200px;
-  }
-
-  .results-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg3);
-  }
-
-  .results-title {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--text2);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-
-  .verdict-badge {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 0.3rem 0.8rem;
-    border-radius: 4px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .verdict-clean { background: rgba(0,255,136,0.1); color: var(--accent); border: 1px solid rgba(0,255,136,0.3); }
-  .verdict-hit { background: rgba(255,51,102,0.1); color: var(--accent2); border: 1px solid rgba(255,51,102,0.3); }
-  .verdict-scanning { background: rgba(255,153,0,0.1); color: var(--accent4); border: 1px solid rgba(255,153,0,0.3); }
-
-  .results-body { padding: 1.5rem; }
-
-  .placeholder-text {
-    color: var(--text3);
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    text-align: center;
-    padding: 3rem;
-  }
-
-  /* Hit card */
-  .hit-card {
-    background: rgba(255,51,102,0.05);
-    border: 1px solid rgba(255,51,102,0.2);
-    border-radius: 6px;
-    padding: 1rem 1.25rem;
-    margin-bottom: 0.75rem;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 1rem;
-    align-items: start;
-  }
-
-  .hit-platform {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--accent2);
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .hit-detail {
-    font-size: 0.8rem;
-    color: var(--text2);
-    line-height: 1.4;
-  }
-
-  .hit-url {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--text3);
-    margin-top: 0.25rem;
-    word-break: break-all;
-  }
-
-  .hit-url a { color: var(--accent3); text-decoration: none; }
-  .hit-url a:hover { text-decoration: underline; }
-
-  .hit-quality {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-    background: rgba(255,51,102,0.15);
-    color: var(--accent2);
-    white-space: nowrap;
-  }
-
-  /* Stats grid */
-  .mini-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .mini-stat {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1rem;
-    text-align: center;
-  }
-
-  .mini-stat-val {
-    font-family: var(--mono);
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-
-  .mini-stat-label {
-    font-size: 0.65rem;
-    color: var(--text2);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  /* Loading animation */
-  .scanning-text {
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    color: var(--accent4);
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .dot-anim::after {
-    content: '';
-    animation: dots 1.5s infinite;
-  }
-
-  @keyframes dots {
-    0% { content: '.'; }
-    33% { content: '..'; }
-    66% { content: '...'; }
-  }
-
-  /* Platform grid */
-  .platform-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  .platform-chip {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.4rem 0.75rem;
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--text2);
-    text-align: center;
-    transition: all 0.2s;
-  }
-
-  .platform-chip.hit {
-    background: rgba(255,51,102,0.08);
-    border-color: rgba(255,51,102,0.3);
-    color: var(--accent2);
-  }
-
-  .platform-chip.clean {
-    color: var(--accent);
-    border-color: rgba(0,255,136,0.2);
-  }
-
-  /* DMCA report button */
-  .action-bar {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 1rem;
-  }
-
-  /* Footer */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 1.5rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    z-index: 1;
-  }
-
-  .footer-left {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--text3);
-    line-height: 1.6;
-  }
-
-  .footer-right {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .footer-link {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--text2);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .footer-link:hover { color: var(--accent); }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    main { padding: 1rem; }
-    .mini-stats { grid-template-columns: repeat(2, 1fr); }
-    .search-row { flex-direction: column; }
-    .tabs { overflow-x: auto; }
-  }
-
-  /* ── Mobile Responsive ─────────────────────────── */
-  @media (max-width: 768px) {
-    header { padding: 0 1rem; }
-    .tab-bar { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; padding: 0 1rem; }
-    .tab { font-size: 0.65rem; padding: 0.6rem 0.8rem; white-space: nowrap; }
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .scan-row { flex-direction: column; }
-    .scan-input { width: 100%; }
-    .platform-chips { gap: 0.4rem; }
-    .platform-chip { font-size: 0.6rem; padding: 0.25rem 0.5rem; }
-    .panel { padding: 1rem; }
-    .result-card { padding: 1rem; }
-    h2 { font-size: 1.3rem; }
-  }
-  @media (max-width: 480px) {
-    .stats-row { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-    .logo { font-size: 0.9rem; }
-    .header-actions { gap: 0.5rem; }
-  }
-
-  /* ── Smooth Loading States ──────────────────────── */
-  .scanning-overlay {
-    display: none;
-    position: absolute;
-    inset: 0;
-    background: rgba(10,10,15,0.85);
-    backdrop-filter: blur(4px);
-    border-radius: 8px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1rem;
-    z-index: 10;
-  }
-  .scanning-overlay.active { display: flex; }
-  .scan-spinner {
-    width: 40px; height: 40px;
-    border: 2px solid rgba(0,255,136,0.1);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .scan-status-text {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    animation: blink 1s steps(2) infinite;
-  }
-  @keyframes blink { 50% { opacity: 0.3; } }
-
-  /* ── Result cards fade in ───────────────────────── */
-  .result-card {
-    animation: fadeInUp 0.3s ease forwards;
-    opacity: 0;
-  }
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .result-card:nth-child(1) { animation-delay: 0.05s; }
-  .result-card:nth-child(2) { animation-delay: 0.1s; }
-  .result-card:nth-child(3) { animation-delay: 0.15s; }
-  .result-card:nth-child(4) { animation-delay: 0.2s; }
-  .result-card:nth-child(5) { animation-delay: 0.25s; }
-
-  /* ── Empty state ────────────────────────────────── */
-  .empty-state {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: var(--text2);
-  }
-  .empty-state-icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.4; }
-  .empty-state p { font-family: var(--mono); font-size: 0.8rem; }
-
-  /* ── Smooth tab transitions ─────────────────────── */
-  .tab-content { animation: tabFade 0.2s ease; }
-  @keyframes tabFade { from { opacity: 0.5; } to { opacity: 1; } }
-
-  /* ── Button improvements ────────────────────────── */
-  .scan-btn {
-    position: relative;
-    overflow: hidden;
-  }
-  .scan-btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1));
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .scan-btn:hover::after { opacity: 1; }
-  .scan-btn:active { transform: scale(0.98); }
-
-  /* ── Tooltip ────────────────────────────────────── */
-  [data-tip] { position: relative; cursor: help; }
-  [data-tip]:hover::after {
-    content: attr(data-tip);
-    position: absolute;
-    bottom: calc(100% + 6px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: #1e1e3a;
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-size: 0.7rem;
-    padding: 0.4rem 0.7rem;
-    border-radius: 4px;
-    white-space: nowrap;
-    z-index: 100;
-    font-family: var(--mono);
-  }
-
-  /* ── Scrollbar styling ──────────────────────────── */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
-  /* ── Focus states ───────────────────────────────── */
-  input:focus, button:focus { outline: 2px solid rgba(0,255,136,0.3); outline-offset: 2px; }
-  input:focus { border-color: var(--accent) !important; }
-
-  /* ── Verdict badges enhanced ─────────────────────── */
-  .verdict-confirmed {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: rgba(255,51,102,0.1);
-    border: 1px solid rgba(255,51,102,0.3);
-    color: #ff3366;
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    padding: 0.3rem 0.8rem;
-    border-radius: 4px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .verdict-confirmed::before { content: '●'; animation: pulse 1s infinite; }
-  .verdict-clean {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: rgba(0,255,136,0.08);
-    border: 1px solid rgba(0,255,136,0.2);
-    color: var(--accent);
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    padding: 0.3rem 0.8rem;
-    border-radius: 4px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .verdict-clean::before { content: '✓'; }
-
-  /* ── Copy URL button ────────────────────────────── */
-  .copy-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text2);
-    font-size: 0.65rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-    cursor: pointer;
-    font-family: var(--mono);
-    transition: all 0.15s;
-    margin-left: 0.5rem;
-  }
-  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .copy-btn.copied { border-color: var(--accent); color: var(--accent); }
-
-
-  /* ── Live Shield Report ──────────────────────── */
-  .ls-report { display:none; margin-top:1.5rem; }
-  .ls-report.visible { display:block; }
-
-  .report-gen-btn {
-    background: linear-gradient(135deg,#ff6600,#cc4400);
-    color:#fff; font-family:var(--mono); font-size:0.75rem;
-    font-weight:700; padding:0.75rem 1.4rem; border-radius:6px;
-    border:none; cursor:pointer; letter-spacing:0.1em;
-    text-transform:uppercase; transition:all 0.2s;
-    display:inline-flex; align-items:center; gap:0.5rem;
-    margin-top:1rem;
-  }
-  .report-gen-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,102,0,0.3); }
-  .report-gen-btn:disabled { background:#333; color:#666; cursor:not-allowed; transform:none; }
-
-  .ls-report-header {
-    background:linear-gradient(135deg,rgba(255,102,0,0.08),rgba(255,51,102,0.05));
-    border:1px solid rgba(255,102,0,0.25); border-radius:10px;
-    padding:1.2rem 1.4rem; margin-bottom:1.2rem;
-    display:flex; justify-content:space-between; align-items:flex-start;
-    flex-wrap:wrap; gap:1rem;
-  }
-  .ls-report-meta { font-size:0.82rem; color:var(--text); }
-  .ls-report-meta div { margin-bottom:0.3rem; }
-  .ls-report-meta strong { color:#ff6600; font-family:var(--mono); }
-  .ls-report-stamp {
-    font-family:var(--mono); font-size:0.62rem; color:var(--text2);
-    background:rgba(255,102,0,0.06); border:1px solid rgba(255,102,0,0.15);
-    padding:0.5rem 0.8rem; border-radius:5px; text-align:right; line-height:1.8;
-  }
-
-  .ls-charts-grid {
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:1.2rem; margin-bottom:1.2rem;
-  }
-  .ls-chart-card {
-    background:var(--bg2); border:1px solid var(--border);
-    border-radius:10px; padding:1.3rem;
-  }
-  .ls-chart-card.full { grid-column:1/-1; }
-  .ls-chart-lbl {
-    font-family:var(--mono); font-size:0.6rem; color:var(--text2);
-    letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.25rem;
-  }
-  .ls-chart-title { font-size:0.85rem; color:var(--text); margin-bottom:1rem; }
-  .ls-chart-wrap { position:relative; height:190px; }
-  .ls-chart-wrap.tall { height:260px; }
-
-  .ls-channel-table {
-    width:100%; border-collapse:collapse; font-size:0.78rem;
-  }
-  .ls-channel-table th {
-    font-family:var(--mono); font-size:0.58rem; color:var(--text2);
-    letter-spacing:0.1em; text-transform:uppercase;
-    padding:0.5rem 0.8rem; text-align:left;
-    border-bottom:1px solid var(--border);
-  }
-  .ls-channel-table td {
-    padding:0.65rem 0.8rem; color:var(--text);
-    border-bottom:1px solid rgba(255,255,255,0.03);
-  }
-  .ls-channel-table tr:hover td { background:rgba(255,102,0,0.02); }
-  .ls-channel-table tr:last-child td { border-bottom:none; }
-
-  .ls-vel-pill {
-    display:inline-flex; align-items:center; gap:0.3rem;
-    font-family:var(--mono); font-size:0.62rem;
-    padding:0.2rem 0.5rem; border-radius:20px;
-  }
-  .vel-danger { background:rgba(255,51,102,0.1); color:#ff3366; }
-  .vel-warn   { background:rgba(255,153,0,0.1);  color:#ff9900; }
-  .vel-ok     { background:rgba(0,255,136,0.08); color:#00ff88; }
-
-  .ls-intel-row {
-    display:flex; gap:1rem; align-items:flex-start;
-    padding:0.8rem 0; border-bottom:1px solid rgba(255,255,255,0.03);
-  }
-  .ls-intel-row:last-child { border-bottom:none; }
-  .ls-intel-icon { font-size:1rem; flex-shrink:0; margin-top:2px; }
-  .ls-intel-lbl {
-    font-family:var(--mono); font-size:0.6rem; color:var(--text2);
-    letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.2rem;
-  }
-  .ls-intel-text { font-size:0.8rem; color:var(--text); line-height:1.6; }
-
-  .ls-action-btns { display:flex; gap:0.8rem; flex-wrap:wrap; margin-top:1.2rem; }
-  .ls-action-btn {
-    font-family:var(--mono); font-size:0.65rem; font-weight:700;
-    padding:0.6rem 1.1rem; border-radius:5px; border:none;
-    cursor:pointer; letter-spacing:0.08em; text-transform:uppercase;
-    transition:all 0.15s;
-  }
-  .ls-action-btn:hover { transform:translateY(-1px); }
-
-  @media (max-width:768px) {
-    .ls-charts-grid { grid-template-columns:1fr; }
-  }
-
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-  <!-- Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PTQXGXXZ78"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-PTQXGXXZ78');
-  </script>
-  <!-- Simple visitor counter via API -->
-  <script>
-    fetch('https://api.countapi.xyz/hit/cineos-platform/visits')
-      .then(r => r.json())
-      .then(d => {
-        const el = document.getElementById('visitorCount');
-        if(el) el.textContent = d.value?.toLocaleString() || '—';
-      }).catch(()=>{});
-  </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PTQXGXXZ78"></script>
+<script>
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','G-PTQXGXXZ78');
+</script>
+<style>
+:root {
+  --bg:#080810; --bg2:#0d0d1a; --bg3:#12121f;
+  --border:#1a1a2e; --border2:#222240;
+  --accent:#00ff88; --accent2:#ff3366;
+  --accent3:#3366ff; --accent4:#ff9900;
+  --purple:#cc44ff;
+  --text:#eeeef5; --text2:#aaaacc; --text3:#44445a;
+  --mono:'Space Mono',monospace;
+  --sans:'DM Sans',sans-serif;
+  --r:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;}
+
+/* Grid bg */
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,255,136,.02) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,255,136,.02) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;
+  background:rgba(8,8,16,.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 2rem;height:64px;
+  display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:var(--mono);font-size:1rem;color:var(--accent);
+  letter-spacing:.15em;display:flex;align-items:center;gap:.6rem;}
+.nav-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;
+  animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.nav-right{display:flex;align-items:center;gap:1.5rem;}
+.nav-link{font-family:var(--mono);font-size:.65rem;color:var(--text2);
+  text-decoration:none;letter-spacing:.1em;text-transform:uppercase;
+  transition:color .2s;}
+.nav-link:hover{color:var(--accent);}
+.nav-stat{font-family:var(--mono);font-size:.65rem;color:var(--text2);}
+.nav-stat span{color:var(--accent);}
+#clock{font-family:var(--mono);font-size:.65rem;color:var(--text2);}
+.live-badge{display:flex;align-items:center;gap:.4rem;
+  background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.2);
+  border-radius:20px;padding:.3rem .7rem;
+  font-family:var(--mono);font-size:.6rem;color:var(--accent);}
+.live-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;
+  animation:pulse 1.5s infinite;}
+
+/* ── MAIN ── */
+main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem;}
+
+/* ── HERO ── */
+.hero{text-align:center;padding:3.5rem 1rem 2.5rem;}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--mono);font-size:.65rem;color:var(--accent);
+  letter-spacing:.15em;text-transform:uppercase;
+  background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.15);
+  border-radius:20px;padding:.4rem 1rem;margin-bottom:1.5rem;}
+.hero h1{font-family:var(--mono);font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:700;line-height:1.15;margin-bottom:1rem;
+  background:linear-gradient(135deg,#fff 0%,var(--accent) 60%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;}
+.hero p{font-size:1rem;color:var(--text2);max-width:600px;
+  margin:0 auto 2rem;line-height:1.7;}
+
+/* Hero stats */
+.hero-stats{display:flex;justify-content:center;flex-wrap:wrap;gap:.8rem;margin-bottom:2rem;}
+.hstat{background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:.9rem 1.3rem;text-align:center;
+  transition:all .2s;}
+.hstat:hover{border-color:var(--accent);transform:translateY(-2px);}
+.hstat-val{font-family:var(--mono);font-size:1.3rem;font-weight:700;margin-bottom:.2rem;}
+.hstat-lbl{font-size:.68rem;color:var(--text2);}
+
+/* ── TAB SELECTOR — BIG CARDS ── */
+.tab-section{margin-bottom:1.5rem;}
+.tab-section-label{font-family:var(--mono);font-size:.62rem;color:var(--text2);
+  letter-spacing:.15em;text-transform:uppercase;margin-bottom:.8rem;}
+
+.tab-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.6rem;}
+@media(max-width:900px){.tab-grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:500px){.tab-grid{grid-template-columns:repeat(2,1fr);}}
+
+.tab-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:1rem .8rem;
+  text-align:center;cursor:pointer;
+  transition:all .2s;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+}
+.tab-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--tab-color,var(--accent));opacity:0;transition:opacity .2s;}
+.tab-card:hover{border-color:var(--tab-color,var(--accent));transform:translateY(-2px);
+  background:var(--bg3);}
+.tab-card:hover::before{opacity:1;}
+.tab-card.active{border-color:var(--tab-color,var(--accent));background:var(--bg3);}
+.tab-card.active::before{opacity:1;}
+
+.tab-icon{font-size:1.6rem;line-height:1;}
+.tab-name{font-family:var(--mono);font-size:.62rem;font-weight:700;
+  color:var(--text);letter-spacing:.05em;text-transform:uppercase;}
+.tab-desc{font-size:.6rem;color:var(--text2);line-height:1.3;}
+.tab-count{font-family:var(--mono);font-size:.58rem;
+  background:rgba(255,255,255,.04);border-radius:10px;
+  padding:.1rem .4rem;color:var(--tab-color,var(--accent));margin-top:.1rem;}
+
+/* ── PANEL CONTAINER ── */
+.panel-wrap{background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;}
+
+/* Panel header */
+.panel-header{padding:1.5rem 1.8rem 1rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;}
+.panel-header-left{}
+.panel-title{font-family:var(--mono);font-size:1rem;font-weight:700;
+  color:var(--text);margin-bottom:.3rem;
+  display:flex;align-items:center;gap:.6rem;}
+.panel-title-icon{font-size:1.2rem;}
+.panel-subtitle{font-size:.82rem;color:var(--text2);max-width:500px;line-height:1.5;}
+
+/* Search bar */
+.search-zone{padding:1.5rem 1.8rem;border-bottom:1px solid var(--border);}
+.search-label{font-family:var(--mono);font-size:.6rem;color:var(--text2);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.6rem;}
+.search-row{display:flex;gap:.6rem;flex-wrap:wrap;}
+.search-input{flex:1;min-width:220px;
+  background:var(--bg);border:1px solid var(--border2);border-radius:6px;
+  padding:.85rem 1rem;color:var(--text);font-family:var(--mono);font-size:.85rem;
+  outline:none;transition:border-color .2s;}
+.search-input:focus{border-color:var(--accent);}
+.search-input::placeholder{color:var(--text3);}
+.btn-scan{padding:.85rem 1.5rem;border-radius:6px;border:none;cursor:pointer;
+  font-family:var(--mono);font-size:.75rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;transition:all .2s;
+  white-space:nowrap;}
+.btn-scan:hover{transform:translateY(-1px);}
+.btn-scan:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.btn-report{padding:.85rem 1.2rem;border-radius:6px;border:none;cursor:pointer;
+  font-family:var(--mono);font-size:.72rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(0,255,136,.1);color:var(--accent);
+  border:1px solid rgba(0,255,136,.2);transition:all .2s;white-space:nowrap;}
+.btn-report:hover{background:rgba(0,255,136,.15);transform:translateY(-1px);}
+.btn-secondary{padding:.85rem 1rem;border-radius:6px;cursor:pointer;
+  font-family:var(--mono);font-size:.7rem;
+  background:transparent;color:var(--text2);
+  border:1px solid var(--border2);transition:all .2s;}
+.btn-secondary:hover{border-color:var(--text2);color:var(--text);}
+
+/* Platform chips */
+.chips-zone{padding:1rem 1.8rem;border-bottom:1px solid var(--border);
+  display:flex;flex-wrap:wrap;gap:.4rem;}
+.chip{font-family:var(--mono);font-size:.58rem;
+  background:rgba(255,255,255,.04);border:1px solid var(--border2);
+  border-radius:20px;padding:.2rem .6rem;color:var(--text2);
+  letter-spacing:.05em;}
+
+/* Results zone */
+.results-zone{padding:1.5rem 1.8rem;}
+.results-status{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;}
+.results-title{font-family:var(--mono);font-size:.7rem;color:var(--text2);
+  letter-spacing:.1em;text-transform:uppercase;}
+.verdict-pill{font-family:var(--mono);font-size:.65rem;font-weight:700;
+  padding:.3rem .8rem;border-radius:20px;letter-spacing:.08em;}
+.verdict-ready{background:rgba(100,100,140,.15);color:var(--text2);border:1px solid var(--border2);}
+.verdict-scanning{background:rgba(255,153,0,.1);color:var(--accent4);border:1px solid rgba(255,153,0,.2);animation:blink 1s steps(2) infinite;}
+.verdict-hit{background:rgba(255,51,102,.1);color:var(--accent2);border:1px solid rgba(255,51,102,.2);}
+.verdict-critical{background:rgba(255,51,102,.15);color:#ff0044;border:1px solid rgba(255,51,102,.3);}
+.verdict-clean{background:rgba(0,255,136,.08);color:var(--accent);border:1px solid rgba(0,255,136,.2);}
+@keyframes blink{50%{opacity:.5}}
+
+.results-body{min-height:120px;}
+.placeholder{text-align:center;padding:2.5rem 1rem;color:var(--text2);font-size:.85rem;line-height:1.7;}
+.placeholder-icon{font-size:2rem;margin-bottom:.8rem;opacity:.4;}
+
+.hit-card{background:var(--bg);border:1px solid var(--border2);border-radius:8px;
+  padding:.9rem 1.1rem;margin-bottom:.6rem;
+  display:flex;align-items:flex-start;gap:.8rem;
+  animation:fadeUp .25s ease forwards;opacity:0;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hit-card:nth-child(1){animation-delay:.05s}
+.hit-card:nth-child(2){animation-delay:.1s}
+.hit-card:nth-child(3){animation-delay:.15s}
+.hit-card:nth-child(4){animation-delay:.2s}
+.hit-card:nth-child(5){animation-delay:.25s}
+.hit-severity{font-family:var(--mono);font-size:.58rem;font-weight:700;
+  padding:.2rem .5rem;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+.sev-critical{background:rgba(255,51,102,.12);color:var(--accent2);border:1px solid rgba(255,51,102,.25);}
+.sev-high{background:rgba(255,153,0,.1);color:var(--accent4);border:1px solid rgba(255,153,0,.2);}
+.sev-medium{background:rgba(51,102,255,.1);color:var(--accent3);border:1px solid rgba(51,102,255,.2);}
+.hit-info{flex:1;min-width:0;}
+.hit-title{font-size:.82rem;color:var(--text);margin-bottom:.2rem;font-weight:500;}
+.hit-url{font-family:var(--mono);font-size:.68rem;color:var(--accent);
+  text-decoration:none;word-break:break-all;display:block;margin-bottom:.25rem;}
+.hit-url:hover{text-decoration:underline;}
+.hit-meta{font-size:.7rem;color:var(--text2);}
+.hit-quality{font-family:var(--mono);font-size:.6rem;padding:.15rem .4rem;
+  border-radius:3px;background:rgba(255,102,0,.1);color:#ff6600;
+  border:1px solid rgba(255,102,0,.2);margin-left:.5rem;}
+
+/* Report section — scoped per tab */
+.u-report{display:none;margin-top:1.5rem;border-top:1px solid var(--border);padding-top:1.5rem;}
+.report-header-bar{background:linear-gradient(135deg,rgba(0,255,136,.05),rgba(51,102,255,.03));
+  border:1px solid rgba(0,255,136,.15);border-radius:10px;
+  padding:1.2rem 1.5rem;margin-bottom:1.2rem;
+  display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;}
+.report-meta{font-size:.8rem;color:var(--text);}
+.report-meta div{margin-bottom:.3rem;}
+.report-meta strong{color:var(--accent);font-family:var(--mono);}
+.report-stamp{font-family:var(--mono);font-size:.6rem;color:var(--text2);
+  background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.12);
+  padding:.5rem .8rem;border-radius:6px;text-align:right;line-height:1.8;}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:.7rem;margin-bottom:1.2rem;}
+.kpi-box{background:var(--bg);border:1px solid var(--border);
+  border-radius:8px;padding:.9rem;border-top-width:2px;}
+.kpi-lbl{font-family:var(--mono);font-size:.55rem;color:var(--text2);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
+.kpi-val{font-family:var(--mono);font-size:1.3rem;font-weight:700;}
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.chart-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.1rem;}
+.chart-card.full{grid-column:1/-1;}
+.chart-lbl{font-family:var(--mono);font-size:.58rem;color:var(--text2);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:.2rem;}
+.chart-ttl{font-size:.8rem;color:var(--text);margin-bottom:.8rem;}
+.chart-wrap{position:relative;}
+.cascade-table{width:100%;border-collapse:collapse;font-size:.75rem;}
+.cascade-table th{font-family:var(--mono);font-size:.55rem;color:var(--text2);
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:.4rem .8rem;text-align:left;border-bottom:1px solid var(--border);}
+.cascade-table td{padding:.55rem .8rem;color:var(--text);
+  border-bottom:1px solid rgba(255,255,255,.03);}
+.cascade-table tr:last-child td{border:none;}
+.intel-section{background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.intel-row{display:flex;gap:.8rem;padding:.8rem 1rem;
+  border-bottom:1px solid rgba(255,255,255,.03);}
+.intel-row:last-child{border:none;}
+.intel-icon{font-size:.95rem;flex-shrink:0;margin-top:2px;}
+.intel-lbl{font-family:var(--mono);font-size:.58rem;color:var(--text2);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem;}
+.intel-txt{font-size:.78rem;color:var(--text);line-height:1.5;}
+.report-actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem;}
+.report-btn{font-family:var(--mono);font-size:.62rem;font-weight:700;
+  padding:.55rem 1rem;border-radius:5px;border:none;cursor:pointer;
+  letter-spacing:.07em;text-transform:uppercase;transition:all .15s;}
+.report-btn:hover{transform:translateY(-1px);}
+
+/* ── MINI STATS above panels ── */
+.mini-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+  gap:.6rem;padding:1rem 1.8rem;border-bottom:1px solid var(--border);}
+.ms{text-align:center;}
+.ms-val{font-family:var(--mono);font-size:1rem;font-weight:700;margin-bottom:.2rem;}
+.ms-lbl{font-family:var(--mono);font-size:.55rem;color:var(--text2);
+  text-transform:uppercase;letter-spacing:.08em;}
+
+/* ── PANEL visibility ── */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* ── Live shield specific ── */
+.stream-card{background:var(--bg);border:1px solid var(--border2);
+  border-radius:8px;padding:.85rem 1rem;margin-bottom:.5rem;
+  display:flex;align-items:flex-start;gap:.8rem;}
+.stream-sev{font-family:var(--mono);font-size:.58rem;font-weight:700;
+  padding:.2rem .45rem;border-radius:3px;flex-shrink:0;margin-top:2px;}
+.stream-info{flex:1;}
+.stream-name{font-size:.82rem;color:var(--text);font-weight:500;margin-bottom:.2rem;}
+.stream-url{font-family:var(--mono);font-size:.65rem;color:var(--accent);margin-bottom:.25rem;}
+.stream-meta{font-size:.7rem;color:var(--text2);}
+.betting-badge{font-family:var(--mono);font-size:.58rem;
+  background:rgba(204,68,255,.12);border:1px solid rgba(204,68,255,.25);
+  color:var(--purple);padding:.15rem .4rem;border-radius:3px;margin-left:.4rem;}
+
+/* ── Footer ── */
+footer{position:relative;z-index:1;border-top:1px solid var(--border);
+  padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--mono);font-size:.75rem;color:var(--accent);}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-link{font-family:var(--mono);font-size:.6rem;color:var(--text2);
+  text-decoration:none;letter-spacing:.08em;text-transform:uppercase;
+  transition:color .2s;}
+.footer-link:hover{color:var(--text);}
+.footer-right{font-family:var(--mono);font-size:.58rem;color:var(--text2);text-align:right;}
+
+@media(max-width:768px){
+  .charts-grid{grid-template-columns:1fr;}
+  .search-row{flex-direction:column;}
+  .panel-header{flex-direction:column;}
+  main{padding:0 1rem 3rem;}
+  .hero{padding:2rem .5rem 1.5rem;}
+}
+</style>
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <div class="logo-dot"></div>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-dot"></div>
     CINEOS
   </div>
-  <div class="header-right">
-    <div class="status-live">
-      <div class="status-dot"></div>
-      LIVE
-    </div>
-    <span id="clock">--:--:-- UTC</span>
-    <span>v3.0</span>
+  <div class="nav-right">
+    <span class="nav-stat">👁 <span id="visitorCount">—</span> visits</span>
+    <div class="live-badge"><div class="live-dot"></div>LIVE</div>
+    <span id="clock">--:-- UTC</span>
+    <a class="nav-link" href="cineos_landing.html">← Home</a>
   </div>
-</header>
+</nav>
 
 <main>
-  <div class="hero">
-    <div class="hero-tag">🛡️ India's First AI-Powered Anti-Piracy Platform — US Patent 64/049,190</div>
-    <h1>Detect Piracy.<br>Protect Revenue.</h1>
-    <p>Real-time monitoring across 1,000+ sources — films, sports, gaming, manga, OTT. Search any title and get a full intelligence report in seconds.</p>
-    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem;">
-      <div style="background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:8px;padding:0.8rem 1.2rem;text-align:center;">
-        <div style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--accent);">103+</div>
-        <div style="font-size:0.72rem;color:var(--text2);">India Piracy Sites</div>
-      </div>
-      <div style="background:rgba(255,51,102,0.08);border:1px solid rgba(255,51,102,0.2);border-radius:8px;padding:0.8rem 1.2rem;text-align:center;">
-        <div style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:#ff3366;">63</div>
-        <div style="font-size:0.72rem;color:var(--text2);">Live Streams Detected</div>
-      </div>
-      <div style="background:rgba(255,102,0,0.08);border:1px solid rgba(255,102,0,0.2);border-radius:8px;padding:0.8rem 1.2rem;text-align:center;">
-        <div style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:#ff6600;">3.4s</div>
-        <div style="font-size:0.72rem;color:var(--text2);">Detection Speed</div>
-      </div>
-      <div style="background:rgba(204,68,255,0.08);border:1px solid rgba(204,68,255,0.2);border-radius:8px;padding:0.8rem 1.2rem;text-align:center;">
-        <div style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:#cc44ff;">7 Tabs</div>
-        <div style="font-size:0.72rem;color:var(--text2);">Film·India·Gaming·Manga·Sports·VideoID·Shield</div>
-      </div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">🛡️ US Patent 64/049,190 — India's First AI Anti-Piracy Platform</div>
+  <h1>Find Piracy.<br>Generate Evidence.<br>Take Action.</h1>
+  <p>Pick a category below, search any title or event, and get a full intelligence report with real piracy URLs, cascade prediction, and legal action steps — in under 10 seconds.</p>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-val" style="color:var(--accent)">103+</div><div class="hstat-lbl">India Piracy Sites</div></div>
+    <div class="hstat"><div class="hstat-val" style="color:var(--accent2)">63</div><div class="hstat-lbl">Live Streams Caught</div></div>
+    <div class="hstat"><div class="hstat-val" style="color:var(--accent4)">8s</div><div class="hstat-lbl">Detection Speed</div></div>
+    <div class="hstat"><div class="hstat-val" style="color:var(--accent3)">7</div><div class="hstat-lbl">Intelligence Tabs</div></div>
+    <div class="hstat"><div class="hstat-val" style="color:var(--purple)">0</div><div class="hstat-lbl">False Positives</div></div>
+  </div>
+</div>
+
+<!-- TAB SELECTOR -->
+<div class="tab-section">
+  <div class="tab-section-label">Choose a category to scan</div>
+  <div class="tab-grid">
+    <div class="tab-card active" onclick="switchTab('film')" style="--tab-color:var(--accent)">
+      <div class="tab-icon">🎬</div>
+      <div class="tab-name">Film</div>
+      <div class="tab-desc">Any film worldwide</div>
+      <div class="tab-count">111 sites</div>
+    </div>
+    <div class="tab-card" onclick="switchTab('india')" style="--tab-color:var(--accent4)">
+      <div class="tab-icon">🇮🇳</div>
+      <div class="tab-name">India</div>
+      <div class="tab-desc">Telugu·Tamil·Hindi</div>
+      <div class="tab-count">103 sites</div>
+    </div>
+    <div class="tab-card" onclick="switchTab('gaming')" style="--tab-color:var(--accent3)">
+      <div class="tab-icon">🎮</div>
+      <div class="tab-name">Gaming</div>
+      <div class="tab-desc">Cracked games·APKs</div>
+      <div class="tab-count">79 sites</div>
+    </div>
+    <div class="tab-card" onclick="switchTab('manga')" style="--tab-color:#ff66cc">
+      <div class="tab-icon">📚</div>
+      <div class="tab-name">Manga</div>
+      <div class="tab-desc">Manga·Anime·Comics</div>
+      <div class="tab-count">82 sites</div>
+    </div>
+    <div class="tab-card" onclick="switchTab('sports')" style="--tab-color:var(--accent4)">
+      <div class="tab-icon">🏆</div>
+      <div class="tab-name">Sports</div>
+      <div class="tab-desc">IPL·Cricket·Football</div>
+      <div class="tab-count">77 sites</div>
+    </div>
+    <div class="tab-card" onclick="switchTab('videoid')" style="--tab-color:var(--accent2)">
+      <div class="tab-icon">🔍</div>
+      <div class="tab-name">VideoID</div>
+      <div class="tab-desc">Identify any clip</div>
+      <div class="tab-count">2s match</div>
+    </div>
+    <div class="tab-card" onclick="switchTab('liveshield')" style="--tab-color:var(--purple)">
+      <div class="tab-icon">🛡️</div>
+      <div class="tab-name">Live Shield</div>
+      <div class="tab-desc">Telegram·Live streams</div>
+      <div class="tab-count">135 channels</div>
     </div>
   </div>
+</div>
 
-  <div class="stats-bar" id="statsBar">
-    <div class="stat-item">
-      <div class="stat-value" id="statIncidents">—</div>
-      <div class="stat-label">Incidents Logged</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value">1000+</div>
-      <div class="stat-label">Sources Monitored</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value" id="statScore">—</div>
-      <div class="stat-label">Security Score</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value">24/7</div>
-      <div class="stat-label">Always On</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value" id="statTheaters">—</div>
-      <div class="stat-label">Theaters Active</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value">0</div>
-      <div class="stat-label">False Positives</div>
-    </div>
-  </div>
+<!-- PANEL CONTAINER -->
+<div class="panel-wrap">
 
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab tab-film active" onclick="switchTab('film')" title="Search any film worldwide — detect piracy on 111 platforms">🎬 Film Monitor</button>
-    <button class="tab tab-india" onclick="switchTab('india')" title="Telugu, Tamil, Hindi, Malayalam films — 103 India-specific piracy sites">🎥 India Cinema</button>
-    <button class="tab tab-gaming" onclick="switchTab('gaming')" title="Detect cracked games, modded APKs, pirated software">🎮 Gaming</button>
-    <button class="tab tab-manga" onclick="switchTab('manga')" title="Manga and anime piracy — Telegram bots and illegal sites">📚 Manga</button>
-    <button class="tab tab-sports" onclick="switchTab('sports')" title="Live sports stream detection — IPL, cricket, football">🏆 Sports</button>
-    <button class="tab tab-videoid" onclick="switchTab('videoid')" title="Upload a clip — identify if it is pirated content in 2 seconds">🔍 VideoID</button>
-    <button class="tab tab-liveshield" onclick="switchTab('liveshield')" title="Real-time Telegram monitoring — detects illegal streams + betting signals">🛡️ Live Shield</button>
-  </div>
-
-  <!-- HOW TO USE -->
-  <div style="background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.1);border-radius:8px;padding:1rem 1.4rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
-    <div style="font-family:var(--mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;">How to use</div>
-    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;font-size:0.78rem;color:var(--text2);">
-      <span>1️⃣ Pick a tab below</span>
-      <span>2️⃣ Type a film, game, or event name</span>
-      <span>3️⃣ Click Scan</span>
-      <span>4️⃣ Click 📊 Report for full intelligence</span>
-    </div>
-  </div>
-
-  <!-- FILM PANEL -->
+  <!-- ══ FILM PANEL ══ -->
   <div class="panel active" id="panel-film">
-    <div class="mini-stats">
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent)" id="filmSources">111</div>
-        <div class="mini-stat-label">Platforms</div>
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-title"><span class="panel-title-icon">🎬</span> Film Monitor</div>
+        <div class="panel-subtitle">Search any film title — we scan 111 global piracy sites and return confirmed URLs, quality information, and legal action steps.</div>
       </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent2)" id="filmHits">—</div>
-        <div class="mini-stat-label">Hits Found</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent4)">$199</div>
-        <div class="mini-stat-label">Per Month</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent3)">10min</div>
-        <div class="mini-stat-label">Scan Interval</div>
-      </div>
+      <div id="filmVerdict" class="verdict-pill verdict-ready">READY</div>
     </div>
-
-    <div class="search-section">
-      <div class="search-title">⚡ Scan Any Film Now</div>
+    <div class="search-zone">
+      <div class="search-label">Enter film title to scan</div>
       <div class="search-row">
         <input class="search-input" id="filmInput" type="text"
-               placeholder="Enter film title e.g. Michael, Mortal Kombat II..."
-               onkeydown="if(event.key==='Enter')scanFilm()">
-        <button class="btn btn-primary" onclick="scanFilm()">Search & Scan</button>
-        <button class="report-gen-btn" onclick="generateFilmReport()" style="background:linear-gradient(135deg,#00ff88,#00ff88bb);color:#000;">📊 Report</button>
-        <button class="btn btn-secondary" onclick="clearFilm()">Clear</button>
+          placeholder="e.g. Pushpa 2, Mortal Kombat, Oppenheimer..."
+          onkeydown="if(event.key==='Enter')scanFilm()">
+        <button class="btn-scan" id="filmScanBtn"
+          style="background:var(--accent);color:#000"
+          onclick="scanFilm()">🔍 Scan Now</button>
+        <button class="btn-report" onclick="generateFilmReport()">📊 Report</button>
+        <button class="btn-secondary" onclick="clearFilm()">Clear</button>
       </div>
     </div>
-
-    <div class="results-box" id="filmResults">
-      <div class="results-header">
-        <span class="results-title">Scan Results</span>
-        <span class="verdict-badge verdict-scanning" id="filmVerdict">READY</span>
-      </div>
-      <div class="results-body" id="filmResultsBody">
-        <div class="placeholder-text">Enter a film title above to scan 111 piracy platforms instantly</div>
-      </div>
+    <div class="mini-stats">
+      <div class="ms"><div class="ms-val" style="color:var(--accent)" id="filmHits">—</div><div class="ms-lbl">Hits Found</div></div>
+      <div class="ms"><div class="ms-val" style="color:var(--accent4)">111</div><div class="ms-lbl">Sites Scanned</div></div>
+      <div class="ms"><div class="ms-val" style="color:var(--accent3)" id="filmTime">—</div><div class="ms-lbl">Scan Time</div></div>
     </div>
-
-    <div class="search-section">
-      <div class="search-title">📋 Currently Monitoring</div>
-      <div class="platform-grid" id="watchlistGrid">
-        <div class="platform-chip">Loading...</div>
-      </div>
+    <div class="chips-zone">
+      <span class="chip">Movierulz</span><span class="chip">TamilMV</span><span class="chip">Filmyzilla</span>
+      <span class="chip">1337x</span><span class="chip">RARBG</span><span class="chip">YTS</span>
+      <span class="chip">TorrentGalaxy</span><span class="chip">Nyaa</span><span class="chip">HDHub4u</span>
+      <span class="chip">+ 102 more</span>
     </div>
-  
-    <!-- Intelligence Report (shown only in this tab) -->
-    <div class="u-report" style="display:none;margin-top:1.5rem;">
-      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
-        <div style="font-size:0.82rem;color:var(--text);">
-          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
-          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
-        </div>
-        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
-          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
+    <div class="results-zone">
+      <div class="results-status">
+        <span class="results-title">Results</span>
+        <span id="filmResultCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text2)"></span>
+      </div>
+      <div class="results-body" id="filmResults">
+        <div class="placeholder">
+          <div class="placeholder-icon">🎬</div>
+          Type a film title above and click <strong>Scan Now</strong><br>
+          Results appear here with piracy URLs, quality, and platform details
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
-          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
-          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
-          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
-          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
-          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
-          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
-          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
-        </div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
-        </div>
-        <div class="r-cascade" style="padding:0.3rem 0;"></div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
-        </div>
-        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
-      </div>
-      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
-        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
-        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
-        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
-      </div>
+      <!-- Scoped report -->
+      <div class="u-report" id="report-film"></div>
     </div>
-
   </div>
 
-  <!-- INDIA PANEL -->
+  <!-- ══ INDIA PANEL ══ -->
   <div class="panel" id="panel-india">
-    <div class="mini-stats">
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent4)">58</div>
-        <div class="mini-stat-label">Indian Platforms</div>
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-title"><span class="panel-title-icon">🇮🇳</span> India Cinema</div>
+        <div class="panel-subtitle">Specialized scanner for Telugu, Tamil, Hindi, Malayalam films. Searches 103 India-specific piracy sites including iBomma, Movierulz, TamilMV, Isaimini and more.</div>
       </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent2)" id="indiaHits">—</div>
-        <div class="mini-stat-label">Hits Found</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent4)">₹10K</div>
-        <div class="mini-stat-label">Per Month</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent3)">Sec 51</div>
-        <div class="mini-stat-label">Legal Basis</div>
-      </div>
+      <div id="indiaVerdict" class="verdict-pill verdict-ready">READY</div>
     </div>
-
-    <div class="search-section">
-      <div class="search-title" style="color:var(--accent4)">⚡ Scan Indian Platforms</div>
+    <div class="search-zone">
+      <div class="search-label">Enter Indian film title</div>
       <div class="search-row">
-        <input class="search-input" id="indiaInput" type="text"
-               placeholder="Enter film title e.g. Retro, Kalki 2898 AD..."
-               onkeydown="if(event.key==='Enter')scanIndia()">
-        <button class="btn btn-india" onclick="scanIndia()">Scan India</button>
-        <button class="report-gen-btn" onclick="generateIndiaReport()" style="background:linear-gradient(135deg,#ff9900,#ff9900bb);color:#000;">📊 Report</button>
-        <button class="report-gen-btn" onclick="generateIndiaReport()" style="background:linear-gradient(135deg,#ff9900,#ff990099);color:#fff;">
-          📊 Generate Report
-        </button>
-        <button class="btn btn-secondary" onclick="clearIndia()">Clear</button>
+        <input class="search-input" id="indiaFilm" type="text"
+          placeholder="e.g. Retro, Devara, Lucky Bhaskar, RRR..."
+          onkeydown="if(event.key==='Enter')scanIndia()">
+        <button class="btn-scan" id="indiaScanBtn"
+          style="background:var(--accent4);color:#000"
+          onclick="scanIndia()">🔍 Scan India</button>
+        <button class="btn-report" onclick="generateIndiaReport()" style="color:var(--accent4);border-color:rgba(255,153,0,.3);">📊 Report</button>
+        <button class="btn-secondary" onclick="clearIndia()">Clear</button>
       </div>
     </div>
-
-    <div class="results-box" id="indiaResults">
-      <div class="results-header">
-        <span class="results-title">India Scan Results</span>
-        <span class="verdict-badge verdict-scanning" id="indiaVerdict">READY</span>
-      </div>
-      <div class="results-body" id="indiaResultsBody">
-        <div class="placeholder-text">Scans 58 Indian piracy platforms: Movierulz, TamilMV, Filmyzilla, Ibomma, Einthusan, TamilRockers and 52 more</div>
-      </div>
+    <div class="mini-stats">
+      <div class="ms"><div class="ms-val" style="color:var(--accent4)" id="indiaHits">—</div><div class="ms-lbl">Hits Found</div></div>
+      <div class="ms"><div class="ms-val" style="color:var(--accent4)">103</div><div class="ms-lbl">India Sites</div></div>
+      <div class="ms"><div class="ms-val" style="color:var(--accent4)">4</div><div class="ms-lbl">Languages</div></div>
     </div>
-
-    <div class="search-section">
-      <div class="search-title">🌏 Indian Platforms Monitored</div>
-      <div class="platform-grid">
-        <div class="platform-chip">Movierulz</div>
-        <div class="platform-chip">TamilMV</div>
-        <div class="platform-chip">Filmyzilla</div>
-        <div class="platform-chip">9xMovies</div>
-        <div class="platform-chip">TamilBlasters</div>
-        <div class="platform-chip">Ibomma</div>
-        <div class="platform-chip">Isaimini</div>
-        <div class="platform-chip">Kuttymovies</div>
-        <div class="platform-chip">Tamilyogi</div>
-        <div class="platform-chip">Moviesda</div>
-        <div class="platform-chip">Cinevood</div>
-        <div class="platform-chip">HDHub4u</div>
-        <div class="platform-chip">Vegamovies</div>
-        <div class="platform-chip">Bolly4u</div>
-        <div class="platform-chip">MovieCounter</div>
-        <div class="platform-chip">Filmyhit</div>
-        <div class="platform-chip">Filmy4wap</div>
-        <div class="platform-chip">SkymoviesHD</div>
-        <div class="platform-chip">Filmysplit</div>
-        <div class="platform-chip">MalayalamTorrents</div>
-        <div class="platform-chip">Einthusan</div>
-        <div class="platform-chip">TamilRockers</div>
-        <div class="platform-chip">TamilGun</div>
-        <div class="platform-chip">TamilPrint</div>
-        <div class="platform-chip">Madrasrockers</div>
-        <div class="platform-chip">WorldFree4u</div>
-        <div class="platform-chip">Khatrimaza</div>
-        <div class="platform-chip">Mp4moviez</div>
-        <div class="platform-chip">7StarHD</div>
-        <div class="platform-chip">DownloadHub</div>
-        <div class="platform-chip">Jalshamoviez</div>
-        <div class="platform-chip">Filmywap</div>
-        <div class="platform-chip">Extramovies</div>
-        <div class="platform-chip">Katmoviesx</div>
-        <div class="platform-chip">TodayPk</div>
-      </div>
+    <div class="chips-zone">
+      <span class="chip">iBomma</span><span class="chip">Movierulz</span><span class="chip">TamilMV</span>
+      <span class="chip">Isaimini</span><span class="chip">Kuttymovies</span><span class="chip">TamilRockers</span>
+      <span class="chip">Filmyzilla</span><span class="chip">Moviesda</span><span class="chip">TamilBlasters</span>
+      <span class="chip">+ 94 more</span>
     </div>
-  
-    <!-- Intelligence Report (shown only in this tab) -->
-    <div class="u-report" style="display:none;margin-top:1.5rem;">
-      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
-        <div style="font-size:0.82rem;color:var(--text);">
-          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
-          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
-        </div>
-        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
-          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
+    <div class="results-zone">
+      <div class="results-status">
+        <span class="results-title">Results</span>
+        <span id="indiaResultCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text2)"></span>
+      </div>
+      <div class="results-body" id="indiaResults">
+        <div class="placeholder">
+          <div class="placeholder-icon">🇮🇳</div>
+          Type an Indian film title above — Telugu, Tamil, Hindi, Malayalam all supported<br>
+          Detects CAM copies, HDRip, WebRip across 103 India piracy platforms
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
-          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
-          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
-          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
-          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
-          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
-          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
-          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
-        </div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
-        </div>
-        <div class="r-cascade" style="padding:0.3rem 0;"></div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
-        </div>
-        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
-      </div>
-      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
-        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
-        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
-        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
-      </div>
+      <div class="u-report" id="report-india"></div>
     </div>
-
   </div>
 
-  <!-- GAMING PANEL -->
+  <!-- ══ GAMING PANEL ══ -->
   <div class="panel" id="panel-gaming">
-    <div class="mini-stats">
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent3)">79</div>
-        <div class="mini-stat-label">Crack Sites</div>
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-title"><span class="panel-title-icon">🎮</span> Gaming Intelligence</div>
+        <div class="panel-subtitle">Detect cracked PC games, modded mobile APKs, and pirated software. Monitors IGG Games, FitGirl, HappyMod, APKPure mirrors and 79 more sites.</div>
       </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent2)" id="gamingHits">—</div>
-        <div class="mini-stat-label">Hits Found</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent3)">$199</div>
-        <div class="mini-stat-label">Per Month</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent4)">DMCA</div>
-        <div class="mini-stat-label">Auto Report</div>
-      </div>
+      <div id="gamingVerdict" class="verdict-pill verdict-ready">READY</div>
     </div>
-
-    <div class="search-section">
-      <div class="search-title" style="color:var(--accent3)">⚡ Scan Any Game Now</div>
+    <div class="search-zone">
+      <div class="search-label">Enter game title</div>
       <div class="search-row">
-        <input class="search-input" id="gamingInput" type="text"
-               placeholder="Enter game title e.g. Baldurs Gate 3, Hogwarts Legacy..."
-               onkeydown="if(event.key==='Enter')scanGaming()">
-        <button class="btn btn-gaming" onclick="scanGaming()">Scan Game</button>
-        <button class="report-gen-btn" onclick="generateGamingReport()" style="background:linear-gradient(135deg,#3366ff,#3366ffbb);color:#fff;">📊 Report</button>
-        <button class="btn btn-secondary" onclick="clearGaming()">Clear</button>
+        <input class="search-input" id="gameTitle" type="text"
+          placeholder="e.g. BGMI, GTA 6, Elden Ring, Hogwarts Legacy..."
+          onkeydown="if(event.key==='Enter')scanGaming()">
+        <button class="btn-scan" id="gamingScanBtn"
+          style="background:var(--accent3);color:#fff"
+          onclick="scanGaming()">🔍 Scan Game</button>
+        <button class="btn-report" onclick="generateGamingReport()" style="color:var(--accent3);border-color:rgba(51,102,255,.3);">📊 Report</button>
+        <button class="btn-secondary" onclick="clearGaming()">Clear</button>
       </div>
     </div>
-
-    <div class="results-box" id="gamingResults">
-      <div class="results-header">
-        <span class="results-title">Gaming Scan Results</span>
-        <span class="verdict-badge verdict-scanning" id="gamingVerdict">READY</span>
-      </div>
-      <div class="results-body" id="gamingResultsBody">
-        <div class="placeholder-text">Scans FitGirl, DODI, IGG, GOG-Games, SteamUnlocked, 1337x and 15+ more crack sites</div>
-      </div>
+    <div class="mini-stats">
+      <div class="ms"><div class="ms-val" style="color:var(--accent3)" id="gamingHits">—</div><div class="ms-lbl">Hits Found</div></div>
+      <div class="ms"><div class="ms-val" style="color:var(--accent3)">79</div><div class="ms-lbl">Sites Scanned</div></div>
+      <div class="ms"><div class="ms-val" style="color:var(--accent3)">PC+Mobile</div><div class="ms-lbl">Coverage</div></div>
     </div>
-
-    <div class="search-section">
-      <div class="search-title">🎮 Crack Sites Monitored</div>
-      <div class="platform-grid">
-        <div class="platform-chip">FitGirl Repacks</div>
-        <div class="platform-chip">DODI Repacks</div>
-        <div class="platform-chip">IGG Games</div>
-        <div class="platform-chip">GOG-Games</div>
-        <div class="platform-chip">SteamUnlocked</div>
-        <div class="platform-chip">CS.RIN.RU</div>
-        <div class="platform-chip">SkidrowCodex</div>
-        <div class="platform-chip">OceanOfGames</div>
-        <div class="platform-chip">1337x</div>
-        <div class="platform-chip">TorrentGalaxy</div>
-        <div class="platform-chip">PreDB</div>
-        <div class="platform-chip">SRRDB</div>
-        <div class="platform-chip">xREL</div>
-        <div class="platform-chip">NYAA</div>
-        <div class="platform-chip">DuckDuckGo</div>
-        <div class="platform-chip">GameTrex</div>
-        <div class="platform-chip">RepackLab</div>
-        <div class="platform-chip">OvaGames</div>
-      </div>
+    <div class="chips-zone">
+      <span class="chip">IGG Games</span><span class="chip">FitGirl</span><span class="chip">SteamUnlocked</span>
+      <span class="chip">HappyMod</span><span class="chip">APKPure</span><span class="chip">Skidrow</span>
+      <span class="chip">CODEX</span><span class="chip">Repack-Games</span><span class="chip">+ 71 more</span>
     </div>
-  
-    <!-- Intelligence Report (shown only in this tab) -->
-    <div class="u-report" style="display:none;margin-top:1.5rem;">
-      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
-        <div style="font-size:0.82rem;color:var(--text);">
-          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
-          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
-        </div>
-        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
-          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
+    <div class="results-zone">
+      <div class="results-status">
+        <span class="results-title">Results</span>
+      </div>
+      <div class="results-body" id="gamingResults">
+        <div class="placeholder">
+          <div class="placeholder-icon">🎮</div>
+          Type a game name above — detects cracked copies, modded APKs, and pirated builds<br>
+          Covers PC games, mobile APKs, and console ROMs
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
-          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
-          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
-          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
-          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
-          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
-          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
-          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
-        </div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
-        </div>
-        <div class="r-cascade" style="padding:0.3rem 0;"></div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
-        </div>
-        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
-      </div>
-      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
-        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
-        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
-        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
-      </div>
+      <div class="u-report" id="report-gaming"></div>
     </div>
-
   </div>
+
+  <!-- ══ MANGA PANEL ══ -->
+  <div class="panel" id="panel-manga">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-title"><span class="panel-title-icon">📚</span> Manga & Anime</div>
+        <div class="panel-subtitle">Detect manga, anime, and comic piracy across 82 sites including Telegram bots, MangaDex mirrors, and scanlation groups. Manga accounts for 70% of all publishing piracy.</div>
+      </div>
+      <div id="mangaVerdict" class="verdict-pill verdict-ready">READY</div>
+    </div>
+    <div class="search-zone">
+      <div class="search-label">Enter manga or anime title</div>
+      <div class="search-row">
+        <input class="search-input" id="mangaTitle" type="text"
+          placeholder="e.g. One Piece, Solo Leveling, Demon Slayer..."
+          onkeydown="if(event.key==='Enter')scanManga()">
+        <button class="btn-scan" id="mangaScanBtn"
+          style="background:#ff66cc;color:#000"
+          onclick="scanManga()">🔍 Scan Manga</button>
+        <button class="btn-report" onclick="generateMangaReport()" style="color:#ff66cc;border-color:rgba(255,102,204,.3);">📊 Report</button>
+        <button class="btn-secondary" onclick="clearManga()">Clear</button>
+      </div>
+    </div>
+    <div class="mini-stats">
+      <div class="ms"><div class="ms-val" style="color:#ff66cc" id="mangaHits">—</div><div class="ms-lbl">Hits Found</div></div>
+      <div class="ms"><div class="ms-val" style="color:#ff66cc">82</div><div class="ms-lbl">Sites Scanned</div></div>
+      <div class="ms"><div class="ms-val" style="color:#ff66cc">70%</div><div class="ms-lbl">Of Publishing Piracy</div></div>
+    </div>
+    <div class="chips-zone">
+      <span class="chip">MangaDex</span><span class="chip">Manganelo</span><span class="chip">MangaFox</span>
+      <span class="chip">Telegram Bots</span><span class="chip">Tachiyomi</span><span class="chip">MangaKakalot</span>
+      <span class="chip">+ 76 more</span>
+    </div>
+    <div class="results-zone">
+      <div class="results-status">
+        <span class="results-title">Results</span>
+      </div>
+      <div class="results-body" id="mangaResults">
+        <div class="placeholder">
+          <div class="placeholder-icon">📚</div>
+          Type a manga or anime title — detects illegal chapter distribution and scanlation sites<br>
+          Also finds Telegram bots distributing content automatically
+        </div>
+      </div>
+      <div class="u-report" id="report-manga"></div>
+    </div>
+  </div>
+
+  <!-- ══ SPORTS PANEL ══ -->
+  <div class="panel" id="panel-sports">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-title"><span class="panel-title-icon">🏆</span> Sports Intelligence</div>
+        <div class="panel-subtitle">Detect illegal live sports streams across 77 platforms. IPL, cricket, football, kabaddi — finds streams on VIPBox, CrackStreams, Reddit and Telegram before the match ends.</div>
+      </div>
+      <div id="sportsVerdict" class="verdict-pill verdict-ready">READY</div>
+    </div>
+    <div class="search-zone">
+      <div class="search-label">Enter sports event or league</div>
+      <div class="search-row">
+        <input class="search-input" id="sportEvent" type="text"
+          placeholder="e.g. IPL 2026, T20 World Cup, Premier League..."
+          onkeydown="if(event.key==='Enter')scanSports()">
+        <button class="btn-scan" id="sportsScanBtn"
+          style="background:var(--accent4);color:#000"
+          onclick="scanSports()">🔍 Scan Sports</button>
+        <button class="btn-report" onclick="generateSportsReport()" style="color:var(--accent4);border-color:rgba(255,153,0,.3);">📊 Report</button>
+        <button class="btn-secondary" onclick="clearSports()">Clear</button>
+      </div>
+    </div>
+    <div class="mini-stats">
+      <div class="ms"><div class="ms-val" style="color:var(--accent4)" id="sportsHits">—</div><div class="ms-lbl">Streams Found</div></div>
+      <div class="ms"><div class="ms-val" style="color:var(--accent4)">77</div><div class="ms-lbl">Platforms</div></div>
+      <div class="ms"><div class="ms-val" style="color:var(--accent4)">Live</div><div class="ms-lbl">Detection Mode</div></div>
+    </div>
+    <div class="chips-zone">
+      <span class="chip">CrackStreams</span><span class="chip">VIPBox</span><span class="chip">Reddit Streams</span>
+      <span class="chip">IPTV Apps</span><span class="chip">Telegram Channels</span><span class="chip">YouTube (unauth)</span>
+      <span class="chip">+ 71 more</span>
+    </div>
+    <div class="results-zone">
+      <div class="results-status">
+        <span class="results-title">Results</span>
+      </div>
+      <div class="results-body" id="sportsResults">
+        <div class="placeholder">
+          <div class="placeholder-icon">🏆</div>
+          Type a sports event above — IPL, cricket, football, kabaddi all supported<br>
+          Detects live streams within 60 seconds of them going online
+        </div>
+      </div>
+      <div class="u-report" id="report-sports"></div>
+    </div>
+  </div>
+
+  <!-- ══ VIDEOID PANEL ══ -->
+  <div class="panel" id="panel-videoid">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-title"><span class="panel-title-icon">🔍</span> VideoID — Clip Identifier</div>
+        <div class="panel-subtitle">Upload any video clip — we identify if it is pirated content from a registered film in 2 seconds. CAM recordings, leaked clips, and screen recordings all detected with 95.7% accuracy.</div>
+      </div>
+      <div class="verdict-pill verdict-ready" id="videoVerdict">READY</div>
+    </div>
+    <div class="search-zone">
+      <div class="search-label">Upload a video clip to identify</div>
+      <div style="border:2px dashed var(--border2);border-radius:8px;padding:2rem;text-align:center;cursor:pointer;transition:border-color .2s;"
+        onclick="document.getElementById('videoFile').click()"
+        ondragover="event.preventDefault();this.style.borderColor='var(--accent2)'"
+        ondragleave="this.style.borderColor='var(--border2)'"
+        ondrop="event.preventDefault();handleVideoUpload({target:{files:event.dataTransfer.files}})">
+        <div style="font-size:2rem;margin-bottom:.5rem;">🎥</div>
+        <div style="font-family:var(--mono);font-size:.75rem;color:var(--text);margin-bottom:.3rem;">Drop video here or click to upload</div>
+        <div style="font-size:.72rem;color:var(--text2);">MP4, MOV, AVI · Max 500MB · Results in 2 seconds</div>
+        <input type="file" id="videoFile" accept="video/*" style="display:none" onchange="handleVideoUpload(event)">
+      </div>
+      <div id="videoStatus" style="margin-top:.8rem;font-family:var(--mono);font-size:.75rem;color:var(--text2);"></div>
+    </div>
+    <div class="results-zone">
+      <div class="results-body" id="videoResults">
+        <div class="placeholder">
+          <div class="placeholder-icon">🔍</div>
+          Upload a video clip above to identify if it's from a registered film<br>
+          Works on CAM copies, leaked clips, and screen recordings
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LIVE SHIELD PANEL ══ -->
+  <div class="panel" id="panel-liveshield">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-title" style="color:var(--purple)"><span class="panel-title-icon">🛡️</span> Live Shield — Telegram Monitor</div>
+        <div class="panel-subtitle">Real-time Telegram channel monitoring. Detects illegal streams AND illegal betting signals simultaneously. 135 channels monitored. World's first betting+streaming dual detection.</div>
+      </div>
+      <div id="liveVerdict" class="verdict-pill verdict-ready">READY</div>
+    </div>
+    <div class="search-zone">
+      <div class="search-label">Enter live event to monitor</div>
+      <div class="search-row">
+        <input class="search-input" id="liveEvent" type="text"
+          placeholder="e.g. IPL 2026, T20 World Cup, Champions League..."
+          onkeydown="if(event.key==='Enter')scanLiveShield()">
+        <button class="btn-scan" id="liveShieldScanBtn"
+          style="background:var(--purple);color:#fff"
+          onclick="scanLiveShield()">🛡️ Scan Now</button>
+        <button class="btn-report" id="lsReportBtn" onclick="generateLSReport()" style="color:var(--purple);border-color:rgba(204,68,255,.3);">📊 Report</button>
+        <button class="btn-secondary" onclick="clearLiveShield()">Clear</button>
+      </div>
+    </div>
+    <div class="mini-stats">
+      <div class="ms"><div class="ms-val" style="color:var(--purple)" id="liveStreams">—</div><div class="ms-lbl">Streams Found</div></div>
+      <div class="ms"><div class="ms-val" style="color:var(--accent2)" id="liveCritical">—</div><div class="ms-lbl">Critical</div></div>
+      <div class="ms"><div class="ms-val" style="color:var(--purple)">135</div><div class="ms-lbl">Channels Monitored</div></div>
+      <div class="ms"><div class="ms-val" style="color:var(--accent4)">3.4s</div><div class="ms-lbl">Detection Speed</div></div>
+    </div>
+    <div class="chips-zone">
+      <span class="chip">IPL Streams</span><span class="chip">Tamil Cricket</span><span class="chip">Telugu Cricket</span>
+      <span class="chip">🎰 Betting+Stream</span><span class="chip">JioHotstar Piracy</span><span class="chip">Netflix India</span>
+      <span class="chip">OTT Leaks</span><span class="chip">Hindi Web Series</span><span class="chip">+ more</span>
+    </div>
+    <div class="results-zone">
+      <div class="results-status">
+        <span class="results-title">Telegram Intelligence</span>
+        <span style="font-family:var(--mono);font-size:.6rem;color:var(--purple);
+          background:rgba(204,68,255,.08);border:1px solid rgba(204,68,255,.2);
+          padding:.2rem .6rem;border-radius:10px;">
+          🌐 World First — Betting+Stream Detection
+        </span>
+      </div>
+      <div class="results-body" id="liveShieldResults">
+        <div class="placeholder">
+          <div class="placeholder-icon">🛡️</div>
+          Type a live event and click Scan Now<br>
+          Detects Telegram channels streaming illegally + channels combining piracy with illegal betting<br>
+          <span style="color:var(--purple);">@CricketBetting (14,600 Tamil subs) detected last session</span>
+        </div>
+      </div>
+      <div class="u-report" id="report-liveshield"></div>
+    </div>
+  </div>
+
+</div><!-- end panel-wrap -->
 
 </main>
 
-  <!-- LIVE SHIELD PANEL -->
-  <div class="panel" id="panel-liveshield">
-    <div class="mini-stats">
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:#ff6600">60s</div>
-        <div class="mini-stat-label">Detection Speed</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent2)" id="liveStreams">—</div>
-        <div class="mini-stat-label">Streams Found</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:#ff6600">135+</div>
-        <div class="mini-stat-label">Channels Monitored</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent4)">$6.4B</div>
-        <div class="mini-stat-label">IPL Rights Protected</div>
-      </div>
-    </div>
-    <div class="search-section">
-      <div class="search-title" style="color:#ff6600">🛡️ Real-Time Telegram Stream Monitor</div>
-      <div class="search-row">
-        <input class="search-input" id="liveEvent" type="text"
-               placeholder="e.g. IPL 2026, Premier League, T20 World Cup..."
-               onkeydown="if(event.key==='Enter')scanLiveShield()">
-        <button class="btn" style="background:#ff6600;color:#fff;font-weight:700"
-                onclick="scanLiveShield()">Scan Now</button>
-        <button class="btn btn-secondary" onclick="clearLiveShield()">Clear</button>
-      </div>
-      <button class="report-gen-btn" id="lsReportBtn" onclick="generateLSReport()">
-        📊 Generate Intelligence Report
-      </button>
-    </div>
-    <div class="results-box" id="liveShieldResults">
-      <div class="results-header">
-        <span class="results-title">Telegram Stream Detection</span>
-        <span class="verdict-badge verdict-scanning" id="liveVerdict">READY</span>
-      </div>
-      <div class="results-body" id="liveResultsBody">
-        <div class="placeholder-text">
-          Detects illegal sports streams on Telegram in real time.<br>
-          Finds Tamil, Telugu, Hindi, English commentary channels.<br>
-          Detects illegal betting apps streaming live sports.<br>
-          <strong style="color:#ff6600">Gap IBCAP misses:</strong> Regional language Telegram channels that respawn within minutes.
-        </div>
-      </div>
-    </div>
-    <div class="search-section">
-      <div class="search-title">📡 What Live Shield Detects</div>
-      <div class="platform-grid">
-        <div class="platform-chip">IPL Streams</div>
-        <div class="platform-chip">T20 Channels</div>
-        <div class="platform-chip">Cricket Live</div>
-        <div class="platform-chip">Tamil Cricket</div>
-        <div class="platform-chip">Telugu Cricket</div>
-        <div class="platform-chip">JioHotstar Piracy</div>
-        <div class="platform-chip">Netflix India</div>
-        <div class="platform-chip">Amazon Prime</div>
-        <div class="platform-chip">ZEE5 Leaks</div>
-        <div class="platform-chip">AHA OTT</div>
-        <div class="platform-chip">SonyLIV</div>
-        <div class="platform-chip">Betting Apps</div>
-        <div class="platform-chip">1xBet Streams</div>
-        <div class="platform-chip">Reddy Anna</div>
-        <div class="platform-chip">Premier League</div>
-        <div class="platform-chip">Pro Kabaddi</div>
-        <div class="platform-chip">ISL Football</div>
-        <div class="platform-chip">Hindi Web Series</div>
-        <div class="platform-chip">Telugu Movies</div>
-        <div class="platform-chip">Tamil Movies</div>
-      </div>
-    
-    <!-- Intelligence Report (shown only in this tab) -->
-    <div class="u-report" style="display:none;margin-top:1.5rem;">
-      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
-        <div style="font-size:0.82rem;color:var(--text);">
-          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
-          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
-        </div>
-        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
-          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
-          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
-          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
-          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
-          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
-          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
-          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
-          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
-        </div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
-        </div>
-        <div class="r-cascade" style="padding:0.3rem 0;"></div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
-        </div>
-        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
-      </div>
-      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
-        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
-        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
-        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
-      </div>
-    </div>
-
-  </div>
-
-    <!-- ── INTELLIGENCE REPORT ──────────────────── -->
-    <div class="ls-report" id="lsReport">
-
-      <!-- Header -->
-      <div class="ls-report-header">
-        <div class="ls-report-meta">
-          <div>Event: <strong id="lsREvent">—</strong></div>
-          <div>Streams detected: <strong id="lsRStreams">—</strong></div>
-          <div>Critical threats: <strong id="lsRCritical" style="color:#ff3366">—</strong></div>
-          <div>Betting + Stream: <strong id="lsRBetting" style="color:#cc44ff">—</strong></div>
-        </div>
-        <div class="ls-report-stamp">
-          CINEOS LIVE SHIELD REPORT<br>
-          US Pat. 64/049,190<br>
-          <span id="lsRTime">—</span>
-        </div>
-      </div>
-
-      <!-- Charts -->
-      <div class="ls-charts-grid">
-
-        <div class="ls-chart-card full">
-          <div class="ls-chart-lbl">Stream Detection Timeline</div>
-          <div class="ls-chart-title">Illegal streams detected per scan — session history</div>
-          <div class="ls-chart-wrap tall">
-            <canvas id="lsTimelineChart"></canvas>
-          </div>
-        </div>
-
-        <div class="ls-chart-card">
-          <div class="ls-chart-lbl">Subscriber Velocity</div>
-          <div class="ls-chart-title">Top channels by growth rate this session</div>
-          <div class="ls-chart-wrap">
-            <canvas id="lsVelocityChart"></canvas>
-          </div>
-        </div>
-
-        <div class="ls-chart-card">
-          <div class="ls-chart-lbl">Language Intelligence</div>
-          <div class="ls-chart-title">Illegal streams by commentary language</div>
-          <div class="ls-chart-wrap">
-            <canvas id="lsLangChart"></canvas>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Channel Table -->
-      <div class="results-box" style="margin-bottom:1.2rem;">
-        <div class="results-header">
-          <span class="results-title">Priority Channels — Enforcement Action Required</span>
-        </div>
-        <div class="results-body" style="padding:0;">
-          <table class="ls-channel-table">
-            <thead>
-              <tr>
-                <th>Channel</th>
-                <th>Severity</th>
-                <th>Subscribers</th>
-                <th>Velocity</th>
-                <th>Language</th>
-                <th>Signals</th>
-                <th>Report To</th>
-              </tr>
-            </thead>
-            <tbody id="lsChannelBody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Intelligence -->
-      <div class="results-box" style="margin-bottom:1.2rem;">
-        <div class="results-header">
-          <span class="results-title">🧠 Intelligence Assessment</span>
-        </div>
-        <div class="results-body" id="lsIntelBody"></div>
-      </div>
-
-      <!-- Action buttons -->
-      <div class="ls-action-btns">
-        <button class="ls-action-btn" style="background:#ff6600;color:#fff;" onclick="window.print()">
-          🖨️ Print Report
-        </button>
-        <button class="ls-action-btn" style="background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);" onclick="copyLSEvidence()">
-          📋 Copy Evidence
-        </button>
-        <button class="ls-action-btn" style="background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.2);" onclick="emailMIB()">
-          📧 Email MIB
-        </button>
-      </div>
-
-    </div>
-    </div>
-  </div>
-
-  <!-- VIDEOID PANEL -->
-  <div class="panel" id="panel-videoid">
-    <div class="mini-stats">
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:#00ccff">95.7%</div>
-        <div class="mini-stat-label">CAM Accuracy</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent2)" id="videoidResult">—</div>
-        <div class="mini-stat-label">Match Result</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:#00ccff">2s</div>
-        <div class="mini-stat-label">Processing Time</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent4)">$499</div>
-        <div class="mini-stat-label">Per Film/Year</div>
-      </div>
-    </div>
-
-    <div class="search-section">
-      <div class="search-title" style="color:#00ccff">🎬 Shazam for Video — Identify Any Film Clip</div>
-      <div style="background:var(--bg3);border:2px dashed var(--border);border-radius:8px;padding:2rem;text-align:center;margin-bottom:1rem;" id="dropZone">
-        <div style="font-size:2rem;margin-bottom:0.5rem;">🎬</div>
-        <div style="font-family:var(--mono);font-size:0.8rem;color:var(--text2);margin-bottom:1rem;">
-          Drop any video clip here or click to upload
-        </div>
-        <div style="font-size:0.75rem;color:var(--text3);margin-bottom:1rem;">
-          Works on CAM recordings, Telegram clips, TikTok videos, re-encoded content
-        </div>
-        <input type="file" id="videoUpload" accept="video/*,audio/*"
-               style="display:none" onchange="handleVideoUpload(event)">
-        <button class="btn" style="background:#00ccff;color:#000;font-weight:700"
-                onclick="document.getElementById('videoUpload').click()">
-          Choose Video File
-        </button>
-      </div>
-      <div id="uploadStatus" style="display:none;font-family:var(--mono);font-size:0.75rem;color:var(--text2);padding:0.5rem;"></div>
-    </div>
-
-    <div class="results-box" id="videoidResults">
-      <div class="results-header">
-        <span class="results-title">VideoID — Film Identification</span>
-        <span class="verdict-badge verdict-scanning" id="videoidVerdict">READY</span>
-      </div>
-      <div class="results-body" id="videoidResultsBody">
-        <div class="placeholder-text">
-          Upload any video clip — we identify which film it is in under 2 seconds.<br><br>
-          Powered by perceptual video hashing + audio chromaprint fingerprinting.<br>
-          Works on CAM recordings, compressed clips, and re-encoded content.<br><br>
-          <strong style="color:#00ccff">Currently registered films:</strong><br>
-          Add your film via the API to enable identification.
-        </div>
-      </div>
-    </div>
-
-    <div class="search-section">
-      <div class="search-title">⚡ How VideoID Works</div>
-      <div class="platform-grid">
-        <div class="platform-chip">Visual Fingerprint</div>
-        <div class="platform-chip">Audio Chromaprint</div>
-        <div class="platform-chip">CAM Recording</div>
-        <div class="platform-chip">Telegram Clips</div>
-        <div class="platform-chip">TikTok Videos</div>
-        <div class="platform-chip">Instagram Reels</div>
-        <div class="platform-chip">WhatsApp Videos</div>
-        <div class="platform-chip">Re-encoded Content</div>
-        <div class="platform-chip">Compressed Clips</div>
-        <div class="platform-chip">95.7% Accuracy</div>
-        <div class="platform-chip">2 Second Match</div>
-        <div class="platform-chip">Legal Evidence</div>
-      </div>
-    </div>
-
-    <div class="search-section">
-      <div class="search-title">📋 Register Your Film</div>
-      <div style="font-size:0.82rem;color:var(--text2);line-height:1.8;">
-        To enable VideoID for your film, contact us at
-        <a href="mailto:dba.yugandhar@gmail.com?subject=VideoID Registration"
-           style="color:#00ccff;">dba.yugandhar@gmail.com</a><br>
-        We fingerprint your film and add it to the identification database.<br>
-        <strong style="color:var(--text)">$499/film/year</strong> — unlimited identification queries included.
-      </div>
-    </div>
-  </div>
-
-  <!-- MANGA PANEL -->
-  <div class="panel" id="panel-manga">
-    <div class="mini-stats">
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:#ff66cc">82</div>
-        <div class="mini-stat-label">Platforms</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent2)" id="mangaHits">—</div>
-        <div class="mini-stat-label">Hits Found</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:#ff66cc">$199</div>
-        <div class="mini-stat-label">Per Month</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent4)">$37B</div>
-        <div class="mini-stat-label">Lost to Piracy/Year</div>
-      </div>
-    </div>
-    <div class="search-section">
-      <div class="search-title" style="color:#ff66cc">📚 Scan Any Manga, Webtoon, or Comic</div>
-      <div class="search-row">
-        <input class="search-input" id="mangaInput" type="text"
-               placeholder="e.g. One Piece, Solo Leveling, Attack on Titan..."
-               onkeydown="if(event.key==='Enter')scanManga()">
-        <button class="btn" style="background:#ff66cc;color:#fff;font-weight:700" onclick="scanManga()">Scan</button>
-        <button class="report-gen-btn" onclick="generateMangaReport()" style="background:linear-gradient(135deg,#ff66cc,#ff66ccbb);color:#000;">📊 Report</button>
-        <button class="btn btn-secondary" onclick="clearManga()">Clear</button>
-      </div>
-    </div>
-    <div class="results-box" id="mangaResults">
-      <div class="results-header">
-        <span class="results-title">Manga Piracy Detection</span>
-        <span class="verdict-badge verdict-scanning" id="mangaVerdict">READY</span>
-      </div>
-      <div class="results-body" id="mangaResultsBody">
-        <div class="placeholder-text">Detects piracy on MangaDex, MangaFire, Toonily, NYAA, LibGen, AsuraScans and 76 more platforms</div>
-      </div>
-    </div>
-    <div class="search-section">
-      <div class="search-title">📚 Platforms Monitored</div>
-      <div class="platform-grid">
-        <div class="platform-chip">MangaDex</div>
-        <div class="platform-chip">MangaFire</div>
-        <div class="platform-chip">Toonily</div>
-        <div class="platform-chip">NYAA</div>
-        <div class="platform-chip">LibGen</div>
-        <div class="platform-chip">AsuraScans</div>
-        <div class="platform-chip">ReaperScans</div>
-        <div class="platform-chip">MangaReader</div>
-        <div class="platform-chip">Bato.to</div>
-        <div class="platform-chip">GetComics</div>
-        <div class="platform-chip">MangaKakalot</div>
-        <div class="platform-chip">ReadComicOnline</div>
-        <div class="platform-chip">MangaOwl</div>
-        <div class="platform-chip">MangaFreak</div>
-        <div class="platform-chip">Z-Library</div>
-        <div class="platform-chip">Archive.org</div>
-        <div class="platform-chip">TokyoTosho</div>
-        <div class="platform-chip">SubsPlease</div>
-      </div>
-    </div>
-  
-    <!-- Intelligence Report (shown only in this tab) -->
-    <div class="u-report" style="display:none;margin-top:1.5rem;">
-      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
-        <div style="font-size:0.82rem;color:var(--text);">
-          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
-          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
-        </div>
-        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
-          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
-          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
-          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
-          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
-          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
-          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
-          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
-          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
-        </div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
-        </div>
-        <div class="r-cascade" style="padding:0.3rem 0;"></div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
-        </div>
-        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
-      </div>
-      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
-        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
-        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
-        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- SPORTS PANEL -->
-  <div class="panel" id="panel-sports">
-    <div class="mini-stats">
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:#ff6600">77</div>
-        <div class="mini-stat-label">Platforms</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent2)" id="sportsHits">—</div>
-        <div class="mini-stat-label">Streams Found</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:#ff6600">$499</div>
-        <div class="mini-stat-label">Per Month</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent4)">$4.5B</div>
-        <div class="mini-stat-label">Lost to Piracy/Year</div>
-      </div>
-    </div>
-    <div class="search-section">
-      <div class="search-title" style="color:#ff6600">⚡ Scan Any Sports Event</div>
-      <div class="search-row">
-        <input class="search-input" id="sportsInput" type="text"
-               placeholder="e.g. IPL 2025 Final, Premier League, UFC 300..."
-               onkeydown="if(event.key==='Enter')scanSports()">
-        <button class="btn" style="background:#ff6600;color:#fff;font-weight:700" onclick="scanSports()">Scan</button>
-        <button class="report-gen-btn" onclick="generateSportsReport()" style="background:linear-gradient(135deg,#ff6600,#ff6600bb);color:#fff;">📊 Report</button>
-        <button class="btn btn-secondary" onclick="clearSports()">Clear</button>
-      </div>
-    </div>
-    <div class="results-box" id="sportsResults">
-      <div class="results-header">
-        <span class="results-title">Sports Stream Detection</span>
-        <span class="verdict-badge verdict-scanning" id="sportsVerdict">READY</span>
-      </div>
-      <div class="results-body" id="sportsResultsBody">
-        <div class="placeholder-text">Detects illegal streams on VIPBox, CrackStreams, Reddit, Telegram, LiveTV and 20+ more</div>
-      </div>
-    </div>
-    <div class="search-section">
-      <div class="search-title">🏆 Platforms Monitored</div>
-      <div class="platform-grid">
-        <div class="platform-chip">CrackStreams</div>
-        <div class="platform-chip">BuffStream</div>
-        <div class="platform-chip">Sportsurge</div>
-        <div class="platform-chip">VIPBox</div>
-        <div class="platform-chip">HesGoal</div>
-        <div class="platform-chip">LiveTV</div>
-        <div class="platform-chip">StreamEast</div>
-        <div class="platform-chip">CricHD</div>
-        <div class="platform-chip">CricTime</div>
-        <div class="platform-chip">SmartCric</div>
-        <div class="platform-chip">FirstRowSports</div>
-        <div class="platform-chip">Reddit Streams</div>
-        <div class="platform-chip">Telegram Sports</div>
-        <div class="platform-chip">Ronaldo7</div>
-        <div class="platform-chip">StrikeOut</div>
-        <div class="platform-chip">CricFree</div>
-        <div class="platform-chip">IPTV Cat</div>
-        <div class="platform-chip">1337x Sports</div>
-      </div>
-    </div>
-  
-    <!-- Intelligence Report (shown only in this tab) -->
-    <div class="u-report" style="display:none;margin-top:1.5rem;">
-      <div style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
-        <div style="font-size:0.82rem;color:var(--text);">
-          <div style="margin-bottom:0.3rem;">Category: <strong class="r-cat" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Search: <strong class="r-search" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
-          <div style="margin-bottom:0.3rem;">Hits: <strong class="r-hits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
-          <div>Verdict: <strong class="r-verdict" style="font-family:var(--mono)">—</strong></div>
-        </div>
-        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
-          CINEOS INTELLIGENCE REPORT<br>US Pat. 64/049,190<br><span class="r-time">—</span>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Hits Found</div>
-          <div class="r-kpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms</div>
-          <div class="r-kpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
-          <div class="r-kpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Loss</div>
-          <div class="r-kpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms</div>
-          <div style="position:relative;height:200px;"><canvas class="r-spread"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Days until content appears</div>
-          <div style="position:relative;height:190px;"><canvas class="r-platform"></canvas></div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
-          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
-          <div style="font-size:0.82rem;color:var(--text);margin-bottom:1rem;">Distribution by severity level</div>
-          <div style="position:relative;height:190px;"><canvas class="r-severity"></canvas></div>
-        </div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
-        </div>
-        <div class="r-cascade" style="padding:0.3rem 0;"></div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
-        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid var(--border);">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
-        </div>
-        <div class="r-intel" style="padding:0.5rem 1.2rem;"></div>
-      </div>
-      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
-        <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print</button>
-        <button onclick="copyActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
-        <button onclick="emailActiveReport(this)" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- MUSIC PANEL -->
-  <div class="panel" id="panel-music">
-    <div class="mini-stats">
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:#ffcc00">76</div>
-        <div class="mini-stat-label">Platforms</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent2)" id="musicHits">—</div>
-        <div class="mini-stat-label">Hits Found</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:#ffcc00">$199</div>
-        <div class="mini-stat-label">Per Month</div>
-      </div>
-      <div class="mini-stat">
-        <div class="mini-stat-val" style="color:var(--accent4)">13.9B</div>
-        <div class="mini-stat-label">Piracy Visits/Year</div>
-      </div>
-    </div>
-    <div class="search-section">
-      <div class="search-title" style="color:#ffcc00">⚡ Scan Any Song or Album</div>
-      <div class="search-row">
-        <input class="search-input" id="musicTitle" type="text"
-               placeholder="Song/Album title e.g. Blinding Lights..."
-               onkeydown="if(event.key==='Enter')scanMusic()">
-        <input class="search-input" id="musicArtist" type="text"
-               placeholder="Artist name e.g. The Weeknd..."
-               style="max-width:250px"
-               onkeydown="if(event.key==='Enter')scanMusic()">
-        <button class="btn" style="background:#ffcc00;color:#000;font-weight:700" onclick="scanMusic()">Scan</button>
-        <button class="btn btn-secondary" onclick="clearMusic()">Clear</button>
-      </div>
-    </div>
-    <div class="results-box" id="musicResults">
-      <div class="results-header">
-        <span class="results-title">Music Scan Results</span>
-        <span class="verdict-badge verdict-scanning" id="musicVerdict">READY</span>
-      </div>
-      <div class="results-body" id="musicResultsBody">
-        <div class="placeholder-text">Scans RuTracker, VK Music, MP3Juices, Telegram, NYAA and 23+ more platforms</div>
-      </div>
-    </div>
-    <div class="search-section">
-      <div class="search-title">🎵 Platforms Monitored</div>
-      <div class="platform-grid">
-        <div class="platform-chip">RuTracker</div>
-        <div class="platform-chip">VK Music</div>
-        <div class="platform-chip">MP3Juices</div>
-        <div class="platform-chip">MP3Skull</div>
-        <div class="platform-chip">Y2Mate</div>
-        <div class="platform-chip">NYAA Music</div>
-        <div class="platform-chip">1337x Music</div>
-        <div class="platform-chip">Telegram</div>
-        <div class="platform-chip">Zaycev.net</div>
-        <div class="platform-chip">SongsPK</div>
-        <div class="platform-chip">DJPunjab</div>
-        <div class="platform-chip">PagalWorld</div>
-        <div class="platform-chip">MrJatt</div>
-        <div class="platform-chip">TorrentGalaxy</div>
-        <div class="platform-chip">Internet Archive</div>
-        <div class="platform-chip">FreeMP3Cloud</div>
-        <div class="platform-chip">BeeMP3</div>
-        <div class="platform-chip">MP3Clan</div>
-      </div>
-    </div>
-  </div>
-
 <footer>
-  <div class="footer-left">
-    CINEOS Anti-Piracy Platform · US Provisional Patent 64/049,190<br>
-    dba.yugandhar@gmail.com · Anti-Piracy Detection Service (Monitoring Only)
+  <div class="footer-logo">🛡️ CINEOS v3.0</div>
+  <div class="footer-links">
+    <a class="footer-link" href="cineos_landing.html">Home</a>
+    <a class="footer-link" href="cineos_velocity.html">Velocity</a>
+    <a class="footer-link" href="cineos_api_docs.html">API Docs</a>
+    <a class="footer-link" href="mailto:dba.yugandhar@gmail.com">Contact</a>
   </div>
   <div class="footer-right">
-    <a class="footer-link" href="layer4_leak_monitor.html">Film Dashboard</a>
-    <a class="footer-link" href="mailto:dba.yugandhar@gmail.com">Contact</a>
-    <a class="footer-link" href="https://github.com/dbayugandhar-cmyk/cinerisk-api">GitHub</a>
+    US Prov. Patent 64/049,190<br>
+    dba.yugandhar@gmail.com
   </div>
 </footer>
 
@@ -3380,6 +2098,35 @@ Yugandhar Mallavarapu`);
 }
 
 </script>
+<script>
+// Clock
+setInterval(()=>{
+  const n=new Date();
+  document.getElementById('clock').textContent=
+    n.toUTCString().slice(17,25)+' UTC';
+},1000);
+
+// Visitor counter
+fetch('https://api.countapi.xyz/hit/cineos-platform/visits')
+  .then(r=>r.json()).then(d=>{
+    const el=document.getElementById('visitorCount');
+    if(el) el.textContent=(d.value||0).toLocaleString();
+  }).catch(()=>{});
+
+// Override switchTab for new design
+function switchTab(tab) {
+  document.querySelectorAll('.tab-card').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.u-report').forEach(r=>r.style.display='none');
+  const card = document.querySelector(`.tab-card[onclick*="${tab}"]`);
+  const panel = document.getElementById(`panel-${tab}`);
+  if(card)  card.classList.add('active');
+  if(panel) panel.classList.add('active');
+  else console.warn('Panel not found:', tab);
+}
+
+// Update mini stats after scans
+const _origScanFilm = typeof scanFilm !== 'undefined' ? scanFilm : null;
+</script>
 </body>
 </html>
-<!-- VideoID tabs added -->

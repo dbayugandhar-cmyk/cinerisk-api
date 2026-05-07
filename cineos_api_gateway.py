@@ -606,8 +606,14 @@ async def live_shield_scan(
         ]
 
         PIRACY_SIGNALS = [
+            # Sports/live signals
             "live stream", "watch live", "ipl live", "cricket live",
             "free stream", "streaming now", "stream link",
+            # OTT signals
+            "download", "watch free", "free download", "full movie",
+            "web series", "full episode", "watch online", "hdrip",
+            "720p", "1080p", "webrip", "netflix", "hotstar", "prime video",
+            "zee5", "sonyliv", "aha", "jiohotstar", "amazon prime",
         ]
         BETTING_SIGNALS = [
             "1xbet", "bet365", "reddy anna", "khelo", "betting",
@@ -664,8 +670,15 @@ async def live_shield_scan(
             elif any(k in text for k in ["hindi", "हिंदी"]):
                 lang = "Hindi"
 
+            # For OTT channels — channel name itself is evidence
+            OTT_NAMES = ["netflix","hotstar","prime","zee5","sony",
+                         "aha","jiohotstar","amazon","disney"]
+            is_ott = any(o in ch.lower() for o in OTT_NAMES)
+            if is_ott and not signals:
+                signals = ["OTT channel detected"]
+
             severity = "CRITICAL" if betting else \
-                      "HIGH" if len(signals) >= 3 else "MEDIUM"
+                      "HIGH" if (len(signals) >= 2 or is_ott) else "MEDIUM"
 
             streams.append({
                 "channel": ch,

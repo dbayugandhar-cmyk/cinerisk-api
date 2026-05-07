@@ -522,6 +522,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
           style="background:var(--accent3);color:#fff"
           onclick="scanGaming()">🔍 Scan Game</button>
         <button class="btn-report" onclick="generateGamingReport()" style="color:var(--accent3);border-color:rgba(51,102,255,.3);">📊 Report</button>
+        <button class="btn-report" onclick="downloadEvidence('gaming')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
         <button class="btn-secondary" onclick="clearGaming()">Clear</button>
       </div>
     </div>
@@ -569,6 +570,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
           style="background:#ff66cc;color:#000"
           onclick="scanManga()">🔍 Scan Manga</button>
         <button class="btn-report" onclick="generateMangaReport()" style="color:#ff66cc;border-color:rgba(255,102,204,.3);">📊 Report</button>
+        <button class="btn-report" onclick="downloadEvidence('manga')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
         <button class="btn-secondary" onclick="clearManga()">Clear</button>
       </div>
     </div>
@@ -616,6 +618,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
           style="background:var(--accent4);color:#000"
           onclick="scanSports()">🔍 Scan Sports</button>
         <button class="btn-report" onclick="generateSportsReport()" style="color:var(--accent4);border-color:rgba(255,153,0,.3);">📊 Report</button>
+        <button class="btn-report" onclick="downloadEvidence('sports')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
         <button class="btn-secondary" onclick="clearSports()">Clear</button>
       </div>
     </div>
@@ -697,6 +700,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
           style="background:var(--purple);color:#fff"
           onclick="scanLiveShield()">🛡️ Scan Now</button>
         <button class="btn-report" id="lsReportBtn" onclick="generateLSReport()" style="color:var(--purple);border-color:rgba(204,68,255,.3);">📊 Report</button>
+        <button class="btn-report" onclick="downloadEvidence('liveshield')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
         <button class="btn-secondary" onclick="clearLiveShield()">Clear</button>
       </div>
     </div>

@@ -364,6 +364,30 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
     </table>
   </div>
 
+  <!-- Mirror Propagation Tracker -->
+  <div class="sec"><h2>Mirror Propagation Intelligence</h2></div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.3rem;margin-bottom:1.2rem;">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;">
+      Track How Piracy Spreads
+    </div>
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <input id="propagFilm" type="text" placeholder="Enter film title (e.g. Retro)"
+        style="flex:1;min-width:180px;background:var(--bg);border:1px solid var(--border2);
+        border-radius:6px;padding:.7rem 1rem;color:var(--text);font-family:var(--mono);
+        font-size:.8rem;outline:none;"
+        onkeydown="if(event.key==='Enter')trackPropagation()">
+      <button onclick="trackPropagation()"
+        style="background:var(--accent);color:#000;font-family:var(--mono);font-size:.68rem;
+        font-weight:700;padding:.7rem 1.2rem;border-radius:6px;border:none;cursor:pointer;
+        letter-spacing:.08em;text-transform:uppercase;">
+        🔍 Track Spread
+      </button>
+    </div>
+    <div id="propagResults" style="font-size:.8rem;color:var(--text2);">
+      Enter a film title to see how piracy spreads from source to mirror sites
+    </div>
+  </div>
+
   <div class="cta">
     <div>
       <div class="cta-title">📧 Weekly Stream Intelligence Report</div>
@@ -974,6 +998,75 @@ function triggerScan() {
     btn.style.opacity = '1';
   });
   gtag('event','manual_scan_triggered');
+}
+
+// ── Mirror Propagation Tracker ───────────────────────
+async function trackPropagation() {
+  const film = document.getElementById('propagFilm').value.trim();
+  if (!film) { alert('Enter a film title'); return; }
+
+  const results = document.getElementById('propagResults');
+  results.innerHTML = '<span style="font-family:var(--mono);color:var(--accent)">Scanning propagation...</span>';
+
+  try {
+    const r = await fetch(`${API}/v1/scan`, {
+      method: 'POST', headers: HEADERS,
+      body: JSON.stringify({title: film, category: 'india'})
+    });
+    const raw = await r.json();
+    const d = raw.data || raw;
+    const hits = d.hits || [];
+
+    if (!hits.length) {
+      results.innerHTML = '<span style="color:var(--accent)">No piracy detected — film is clean</span>';
+      return;
+    }
+
+    const NETWORK = {
+      'tamilblasters': {type:'SOURCE',     hours:0,  region:'Tamil/Telugu'},
+      'tamilmv':       {type:'SOURCE',     hours:2,  region:'Tamil'},
+      'isaimini':      {type:'SOURCE',     hours:3,  region:'Tamil'},
+      'ibomma':        {type:'SOURCE',     hours:4,  region:'Telugu'},
+      'movierulz':     {type:'AGGREGATOR', hours:6,  region:'Pan-India'},
+      'moviesda':      {type:'MIRROR',     hours:8,  region:'Tamil'},
+      'filmyzilla':    {type:'MIRROR',     hours:12, region:'Hindi'},
+      'hdhub4u':       {type:'AGGREGATOR', hours:18, region:'Hindi'},
+      'moviesdacom':   {type:'MIRROR',     hours:8,  region:'Tamil'},
+    };
+
+    const typeColor = {SOURCE:'var(--red)', AGGREGATOR:'var(--orange)', MIRROR:'var(--blue)', UNKNOWN:'var(--text2)'};
+
+    const timeline = hits.map(h => {
+      const url = h.url || '';
+      const domain = url.replace('https://','').replace('http://','').replace('www.','').split('/')[0];
+      const base = Object.keys(NETWORK).find(k => domain.includes(k));
+      const info = base ? NETWORK[base] : {type:'UNKNOWN', hours:999, region:'Unknown'};
+      return {...info, domain, url};
+    }).sort((a,b) => a.hours - b.hours);
+
+    let html = `<div style="font-family:var(--mono);font-size:.6rem;color:var(--text2);margin-bottom:.5rem;">
+      PROPAGATION TIMELINE FOR ${film.toUpperCase()} — ${hits.length} SITES CONFIRMED
+    </div>`;
+
+    timeline.forEach(t => {
+      const h = t.hours < 999 ? '~'+t.hours+'h' : '?h';
+      const col = typeColor[t.type] || 'var(--text2)';
+      html += `<div style="display:flex;align-items:center;gap:.8rem;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.03);">
+        <span style="font-family:var(--mono);font-size:.65rem;color:var(--text2);width:35px">${h}</span>
+        <span style="font-family:var(--mono);font-size:.58rem;color:${col};
+          background:${col}15;border:1px solid ${col}30;padding:.1rem .4rem;
+          border-radius:3px;width:85px;text-align:center">${t.type}</span>
+        <span style="font-size:.65rem;color:var(--text2);width:80px">${t.region}</span>
+        <a href="${t.url}" target="_blank" style="font-family:var(--mono);font-size:.65rem;
+          color:var(--accent);text-decoration:none;overflow:hidden;text-overflow:ellipsis;
+          white-space:nowrap;max-width:250px">${t.domain}</a>
+      </div>`;
+    });
+
+    results.innerHTML = html;
+  } catch(e) {
+    results.innerHTML = '<span style="color:var(--red)">Error: ' + e.message + '</span>';
+  }
 }
 
 // ── Init ──────────────────────────────────────────────

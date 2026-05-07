@@ -745,7 +745,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
 </footer>
 
 <script>
-const API = 'https://cinerisk-api-production.up.railway.app';
+const API = 'https://cinerisk-api-production.up.railway.app'
+const API_KEY = 'ck_FP5RaP5a_4NpOqIltUWSwWEn3f0Vq__-WkYk3TVGBGI'
+const HEADERS = {'Content-Type': 'application/json', 'X-API-Key': API_KEY};
 
 // Clock
 setInterval(() => {
@@ -810,7 +812,7 @@ async function scanFilm() {
   try {
     const r = await fetch(`${API}/theater/gold_scan`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: HEADERS,
       body: JSON.stringify({film_title: film})
     });
     const d = await r.json();
@@ -859,7 +861,7 @@ function clearFilm() {
 
 // India scan — calls film scanner with Indian platforms focus
 async function scanIndia() {
-  const film = document.getElementById('indiaInput').value.trim();
+  const film = document.getElementById('indiaFilm').value.trim();
   if (!film) return;
 
   const body = document.getElementById('indiaResults');
@@ -872,7 +874,7 @@ async function scanIndia() {
   try {
     const r = await fetch(`${API}/theater/gold_scan`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: HEADERS,
       body: JSON.stringify({film_title: film})
     });
     const d = await r.json();
@@ -906,7 +908,7 @@ async function scanIndia() {
 }
 
 function clearIndia() {
-  document.getElementById('indiaInput').value = '';
+  document.getElementById('indiaFilm').value = '';
   document.getElementById('indiaResults').innerHTML =
     '<div class="placeholder-text">Scans 58 Indian piracy platforms: Movierulz, TamilMV, Filmyzilla, Ibomma, Einthusan, TamilRockers and 52 more</div>';
   document.getElementById('indiaVerdict').className = 'verdict-pill verdict-scanning';
@@ -916,7 +918,7 @@ function clearIndia() {
 
 // Gaming scan
 async function scanGaming() {
-  const game = document.getElementById('gamingInput').value.trim();
+  const game = document.getElementById('gameTitle').value.trim();
   if (!game) return;
 
   const body = document.getElementById('gamingResults');
@@ -931,7 +933,7 @@ async function scanGaming() {
   try {
     const r = await fetch(`${API}/theater/gold_scan`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: HEADERS,
       body: JSON.stringify({film_title: game})
     });
     const d = await r.json();
@@ -965,7 +967,7 @@ async function scanGaming() {
 }
 
 function clearGaming() {
-  document.getElementById('gamingInput').value = '';
+  document.getElementById('gameTitle').value = '';
   document.getElementById('gamingResults').innerHTML =
     '<div class="placeholder-text">Scans FitGirl, DODI, IGG, GOG-Games, SteamUnlocked, 1337x and 15+ more crack sites</div>';
   document.getElementById('gamingVerdict').className = 'verdict-pill verdict-scanning';
@@ -994,7 +996,7 @@ US Provisional Patent 64/049,190 | dba.yugandhar@gmail.com`;
 
 // Manga scan
 async function scanManga() {
-  const title = document.getElementById('mangaInput').value.trim();
+  const title = document.getElementById('mangaTitle').value.trim();
   const type = document.getElementById('mangaType').value;
   if (!title) return;
 
@@ -1008,7 +1010,7 @@ async function scanManga() {
   try {
     const r = await fetch(`${API}/theater/gold_scan`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: HEADERS,
       body: JSON.stringify({film_title: title})
     });
     const d = await r.json();
@@ -1040,7 +1042,7 @@ async function scanManga() {
 }
 
 function clearManga() {
-  document.getElementById('mangaInput').value = '';
+  document.getElementById('mangaTitle').value = '';
   document.getElementById('mangaResults').innerHTML =
     '<div class="placeholder-text">Scans MangaDex, MangaFire, LibGen, NYAA, GetComics, Toonily and 20+ more platforms</div>';
   document.getElementById('mangaVerdict').className = 'verdict-pill verdict-scanning';
@@ -1061,7 +1063,7 @@ async function scanLiveShield() {
   try {
     const r = await fetch(`${API}/theater/live_shield`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: HEADERS,
       body: JSON.stringify({event_name: event})
     });
     const elapsed = ((Date.now()-start)/1000).toFixed(1);
@@ -1239,7 +1241,7 @@ async function handleVideoUpload(event) {
 
 // Brand scan
 async function scanBrand() {
-  const brand = document.getElementById('brandInput').value.trim();
+  const brand = document.getElementById('brandName').value.trim();
   if (!brand) return;
   const body = document.getElementById('brandResultsBody');
   const verdict = document.getElementById('brandVerdict');
@@ -1249,7 +1251,7 @@ async function scanBrand() {
   try {
     const r = await fetch(`${API}/theater/brand_scan`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: HEADERS,
       body: JSON.stringify({brand_name: brand})
     });
     const d = await r.json();
@@ -1282,7 +1284,7 @@ async function scanBrand() {
   }
 }
 function clearBrand() {
-  document.getElementById('brandInput').value = '';
+  document.getElementById('brandName').value = '';
   document.getElementById('brandResultsBody').innerHTML =
     '<div class="placeholder-text">Detects piracy site abuse, social media impersonation, fake apps, domain squatting, phishing ads</div>';
   document.getElementById('brandVerdict').className = 'verdict-pill verdict-scanning';
@@ -1292,7 +1294,7 @@ function clearBrand() {
 
 // Manga scan
 async function scanManga() {
-  const title = document.getElementById('mangaInput').value.trim();
+  const title = document.getElementById('mangaTitle').value.trim();
   if (!title) return;
   const body = document.getElementById('mangaResults');
   const verdict = document.getElementById('mangaVerdict');
@@ -1302,7 +1304,7 @@ async function scanManga() {
   try {
     const r = await fetch(`${API}/theater/gold_scan`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: HEADERS,
       body: JSON.stringify({film_title: title})
     });
     const d = await r.json();
@@ -1331,7 +1333,7 @@ async function scanManga() {
   }
 }
 function clearManga() {
-  document.getElementById('mangaInput').value = '';
+  document.getElementById('mangaTitle').value = '';
   document.getElementById('mangaResults').innerHTML =
     '<div class="placeholder-text">Detects piracy on MangaDex, MangaFire, Toonily, NYAA, LibGen and 76 more</div>';
   document.getElementById('mangaVerdict').className = 'verdict-pill verdict-scanning';
@@ -1341,7 +1343,7 @@ function clearManga() {
 
 // Sports scan
 async function scanSports() {
-  const event = document.getElementById('sportsInput').value.trim();
+  const event = document.getElementById('sportEvent').value.trim();
   if (!event) return;
   const body = document.getElementById('sportsResults');
   const verdict = document.getElementById('sportsVerdict');
@@ -1349,10 +1351,10 @@ async function scanSports() {
   verdict.textContent = 'SCANNING';
   body.innerHTML = `<div class="scanning-text">Scanning 25+ platforms for "${event}" <span class="dot-anim"></span></div>`;
   try {
-    const r = await fetch(`${API}/theater/gold_scan`, {
+    const r = await fetch(`${API}/theater/live_shield`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({film_title: event})
+      headers: HEADERS,
+      body: JSON.stringify({event: event})
     });
     const d = await r.json();
     document.getElementById('sportsHits').textContent = d.hits_found || 0;
@@ -1380,7 +1382,7 @@ async function scanSports() {
   }
 }
 function clearSports() {
-  document.getElementById('sportsInput').value = '';
+  document.getElementById('sportEvent').value = '';
   document.getElementById('sportsResults').innerHTML =
     '<div class="placeholder-text">Detects illegal streams on VIPBox, CrackStreams, Reddit, Telegram, LiveTV and 20+ more</div>';
   document.getElementById('sportsVerdict').className = 'verdict-pill verdict-scanning';
@@ -1404,7 +1406,7 @@ async function scanMusic() {
   try {
     const r = await fetch(`${API}/theater/gold_scan`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: HEADERS,
       body: JSON.stringify({film_title: `${artist} ${title}`})
     });
     const d = await r.json();

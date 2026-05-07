@@ -926,6 +926,7 @@
                placeholder="Enter film title e.g. Michael, Mortal Kombat II..."
                onkeydown="if(event.key==='Enter')scanFilm()">
         <button class="btn btn-primary" onclick="scanFilm()">Search & Scan</button>
+        <button class="report-gen-btn" onclick="generateFilmReport()" style="background:linear-gradient(135deg,#00ff88,#00ff88bb);color:#000;">📊 Report</button>
         <button class="btn btn-secondary" onclick="clearFilm()">Clear</button>
       </div>
     </div>
@@ -976,6 +977,10 @@
                placeholder="Enter film title e.g. Retro, Kalki 2898 AD..."
                onkeydown="if(event.key==='Enter')scanIndia()">
         <button class="btn btn-india" onclick="scanIndia()">Scan India</button>
+        <button class="report-gen-btn" onclick="generateIndiaReport()" style="background:linear-gradient(135deg,#ff9900,#ff9900bb);color:#000;">📊 Report</button>
+        <button class="report-gen-btn" onclick="generateIndiaReport()" style="background:linear-gradient(135deg,#ff9900,#ff990099);color:#fff;">
+          📊 Generate Report
+        </button>
         <button class="btn btn-secondary" onclick="clearIndia()">Clear</button>
       </div>
     </div>
@@ -1060,6 +1065,7 @@
                placeholder="Enter game title e.g. Baldurs Gate 3, Hogwarts Legacy..."
                onkeydown="if(event.key==='Enter')scanGaming()">
         <button class="btn btn-gaming" onclick="scanGaming()">Scan Game</button>
+        <button class="report-gen-btn" onclick="generateGamingReport()" style="background:linear-gradient(135deg,#3366ff,#3366ffbb);color:#fff;">📊 Report</button>
         <button class="btn btn-secondary" onclick="clearGaming()">Clear</button>
       </div>
     </div>
@@ -1098,6 +1104,111 @@
       </div>
     </div>
   </div>
+
+  <!-- ── UNIVERSAL INTELLIGENCE REPORT PANEL ─────────────────── -->
+  <div id="universalReport" style="display:none;margin-top:1.5rem;">
+
+    <div id="uReportHeader" style="
+      background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(51,102,255,0.04));
+      border:1px solid rgba(0,255,136,0.2);border-radius:10px;
+      padding:1.2rem 1.4rem;margin-bottom:1.2rem;
+      display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
+      <div style="font-size:0.82rem;color:var(--text);">
+        <div style="margin-bottom:0.3rem;">Category: <strong id="uRCategory" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+        <div style="margin-bottom:0.3rem;">Search: <strong id="uRSearch" style="font-family:var(--mono);color:var(--accent)">—</strong></div>
+        <div style="margin-bottom:0.3rem;">Hits found: <strong id="uRHits" style="color:#ff3366;font-family:var(--mono)">—</strong></div>
+        <div>Verdict: <strong id="uRVerdict" style="font-family:var(--mono)">—</strong></div>
+      </div>
+      <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);
+        background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);
+        padding:0.5rem 0.8rem;border-radius:5px;text-align:right;line-height:1.8;">
+        CINEOS INTELLIGENCE REPORT<br>
+        US Pat. 64/049,190<br>
+        <span id="uRTime">—</span>
+      </div>
+    </div>
+
+    <!-- KPI row -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.8rem;margin-bottom:1.2rem;">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff3366;border-radius:8px;padding:1rem;">
+        <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Confirmed Hits</div>
+        <div id="uKpi1" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff3366;">—</div>
+        <div style="font-size:0.68rem;color:var(--text2);">Active piracy sources</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #ff9900;border-radius:8px;padding:1rem;">
+        <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Platforms Scanned</div>
+        <div id="uKpi2" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#ff9900;">—</div>
+        <div style="font-size:0.68rem;color:var(--text2);">Monitored sites</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:8px;padding:1rem;">
+        <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Velocity</div>
+        <div id="uKpi3" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent);">—</div>
+        <div style="font-size:0.68rem;color:var(--text2);">Spread classification</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-top:2px solid #3366ff;border-radius:8px;padding:1rem;">
+        <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Est. Revenue Loss</div>
+        <div id="uKpi4" style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#3366ff;">—</div>
+        <div style="font-size:0.68rem;color:var(--text2);">Monthly estimate</div>
+      </div>
+    </div>
+
+    <!-- Charts grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;">
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;grid-column:1/-1;">
+        <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Piracy Spread Velocity</div>
+        <div style="font-size:0.85rem;color:var(--text);margin-bottom:1rem;">How fast this content spreads across platforms over time</div>
+        <div style="position:relative;height:220px;"><canvas id="uSpreadChart"></canvas></div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+        <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Platform Exposure</div>
+        <div style="font-size:0.85rem;color:var(--text);margin-bottom:1rem;">Days until content appears on each platform</div>
+        <div style="position:relative;height:200px;"><canvas id="uPlatformChart"></canvas></div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;">
+        <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.25rem;">Threat Severity</div>
+        <div style="font-size:0.85rem;color:var(--text);margin-bottom:1rem;">Distribution of threats by severity level</div>
+        <div style="position:relative;height:200px;"><canvas id="uSeverityChart"></canvas></div>
+      </div>
+
+    </div>
+
+    <!-- Hit URLs table -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
+      <div style="padding:1rem 1.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">Detected Piracy URLs</span>
+        <span id="uUrlCount" style="font-family:var(--mono);font-size:0.65rem;color:#ff3366;">0 URLs</span>
+      </div>
+      <div id="uUrlTable" style="padding:0.5rem 0;max-height:250px;overflow-y:auto;"></div>
+    </div>
+
+    <!-- Cascade prediction -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;overflow:hidden;">
+      <div style="padding:1rem 1.3rem;border-bottom:1px solid var(--border);">
+        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">📡 Cascade Prediction — Next 72 Hours</span>
+      </div>
+      <div id="uCascadeBody" style="padding:0.5rem 0;"></div>
+    </div>
+
+    <!-- Intelligence layer -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:1.2rem;">
+      <div style="padding:1rem 1.3rem;border-bottom:1px solid var(--border);">
+        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">🧠 Intelligence Layer</span>
+      </div>
+      <div id="uIntelBody" style="padding:0.5rem 1.3rem;"></div>
+    </div>
+
+    <!-- Action buttons -->
+    <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+      <button onclick="window.print()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;border:none;cursor:pointer;background:var(--accent);color:#000;letter-spacing:0.08em;text-transform:uppercase;">🖨️ Print Report</button>
+      <button onclick="copyUEvidence()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(255,51,102,0.15);color:#ff3366;border:1px solid rgba(255,51,102,0.3);letter-spacing:0.08em;text-transform:uppercase;">📋 Copy Evidence</button>
+      <button onclick="emailMIBReport()" style="font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:5px;cursor:pointer;background:rgba(0,255,136,0.1);color:var(--accent);border:1px solid rgba(0,255,136,0.2);letter-spacing:0.08em;text-transform:uppercase;">📧 Email MIB</button>
+    </div>
+
+  </div>
+
 </main>
 
   <!-- LIVE SHIELD PANEL -->
@@ -1130,7 +1241,7 @@
                 onclick="scanLiveShield()">Scan Now</button>
         <button class="btn btn-secondary" onclick="clearLiveShield()">Clear</button>
       </div>
-      <button class="report-gen-btn" id="lsReportBtn" onclick="generateLSReport()" disabled>
+      <button class="report-gen-btn" id="lsReportBtn" onclick="generateLSReport()">
         📊 Generate Intelligence Report
       </button>
     </div>
@@ -1383,6 +1494,7 @@
                placeholder="e.g. One Piece, Solo Leveling, Attack on Titan..."
                onkeydown="if(event.key==='Enter')scanManga()">
         <button class="btn" style="background:#ff66cc;color:#fff;font-weight:700" onclick="scanManga()">Scan</button>
+        <button class="report-gen-btn" onclick="generateMangaReport()" style="background:linear-gradient(135deg,#ff66cc,#ff66ccbb);color:#000;">📊 Report</button>
         <button class="btn btn-secondary" onclick="clearManga()">Clear</button>
       </div>
     </div>
@@ -1447,6 +1559,7 @@
                placeholder="e.g. IPL 2025 Final, Premier League, UFC 300..."
                onkeydown="if(event.key==='Enter')scanSports()">
         <button class="btn" style="background:#ff6600;color:#fff;font-weight:700" onclick="scanSports()">Scan</button>
+        <button class="report-gen-btn" onclick="generateSportsReport()" style="background:linear-gradient(135deg,#ff6600,#ff6600bb);color:#fff;">📊 Report</button>
         <button class="btn btn-secondary" onclick="clearSports()">Clear</button>
       </div>
     </div>
@@ -2485,6 +2598,392 @@ function emailMIB() {
   const subject = encodeURIComponent(`CINEOS Intelligence Report — Illegal Telegram Streams — ${event}`);
   const body = encodeURIComponent(`Dear MIB Nodal Officer,\n\nCINEOS has detected ${document.getElementById('lsRStreams')?.textContent || '63'} illegal streaming channels on Telegram for ${event}.\n\nPriority channels for immediate blocking:\n@RealCricPoint — 95,500 subscribers\n@CricketBetting — BETTING+ — 14,600 subscribers\n@IPLBetting — BETTING+ — 9,650 subscribers\n\nRequest: 3-hour blocking order under Copyright Act 1957.\n\nYugandhar Mallavarapu\nCINEOS Platform\nUS Pat. 64/049,190`);
   window.open(`mailto:nodalofficer@meity.gov.in?subject=${subject}&body=${body}`);
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// CINEOS UNIVERSAL INTELLIGENCE REPORT ENGINE
+// Powers all 7 tabs — Film, India, Gaming, Manga, Sports, VideoID, Live Shield
+// ═══════════════════════════════════════════════════════════════
+
+let uCharts = {};
+
+// Category config — colors, platforms, descriptions per tab
+const CAT_CONFIG = {
+  film: {
+    label: 'Film Monitor',
+    color: '#00ff88',
+    platforms: 111,
+    cascade: [
+      {p:'Filmyzilla',    h:2,  c:94, t:'Hindi'},
+      {p:'Movierulz',     h:4,  c:91, t:'Telugu/Tamil'},
+      {p:'TamilRockers',  h:6,  c:88, t:'Tamil'},
+      {p:'iBomma',        h:8,  c:84, t:'Telugu'},
+      {p:'9xMovies',      h:12, c:79, t:'Hindi'},
+      {p:'1337x',         h:24, c:72, t:'Global'},
+    ],
+    intel: [
+      {icon:'⚡', lbl:'CAM Copy Alert', txt:'CAM quality copies typically appear within 2-6 hours of theatrical release. HDRip follows within 24-48 hours. Full HD within 7 days.'},
+      {icon:'📍', lbl:'Geographic Spread', txt:'India accounts for 8.12% of global piracy traffic. Telugu and Tamil films have highest per-capita piracy rates among Indian language films.'},
+      {icon:'⚖️', lbl:'Legal Action', txt:'File DMCA with Google to de-list URLs. Submit to TFCC Anti-Piracy Cell. Request Dynamic+ injunction from Delhi High Court for persistent offenders.'},
+      {icon:'💰', lbl:'Revenue Protection', txt:'First 72 hours are critical — 60% of piracy damage occurs in week 1. Immediate takedown within 6 hours can protect up to 40% of opening weekend revenue.'},
+    ]
+  },
+  india: {
+    label: 'India Cinema',
+    color: '#ff9900',
+    platforms: 72,
+    cascade: [
+      {p:'Movierulz',    h:1,  c:96, t:'Telugu/Tamil'},
+      {p:'iBomma',       h:2,  c:93, t:'Telugu'},
+      {p:'1tamilmv',     h:3,  c:89, t:'Tamil'},
+      {p:'TamilBlasters',h:6,  c:85, t:'Tamil'},
+      {p:'Kuttymovies',  h:8,  c:81, t:'Tamil'},
+      {p:'Moviesda',     h:12, c:76, t:'Tamil'},
+    ],
+    intel: [
+      {icon:'🎬', lbl:'South India Piracy Pattern', txt:'Telugu and Tamil films face piracy within 60-90 minutes of release. Movierulz and iBomma are the primary first-strike platforms. Direct URL construction used.'},
+      {icon:'📱', lbl:'Telegram Amplification', txt:'Every piracy site hit triggers 3-5 Telegram channel shares within 30 minutes. Tamil channels have highest amplification rate — 14,600 subscribers on average.'},
+      {icon:'⚖️', lbl:'TFCC + TGCSB Action', txt:'Report to TFCC Anti-Piracy Cell: info@telugufilmchamber.in. TGCSB agents stationed at ICCC can execute real-time blocking. MOU signed Jan 2026.'},
+      {icon:'💰', lbl:'Telugu Industry Loss', txt:'Telugu film industry lost ₹3,700 crore to piracy in 2024. Small and mid-budget films most affected — piracy can erase 30-50% of theatrical collections.'},
+    ]
+  },
+  gaming: {
+    label: 'Gaming',
+    color: '#3366ff',
+    platforms: 79,
+    cascade: [
+      {p:'IGG Games',     h:6,  c:92, t:'PC Games'},
+      {p:'FitGirl',       h:12, c:88, t:'Repacks'},
+      {p:'SteamUnlocked', h:18, c:85, t:'Steam Games'},
+      {p:'Skidrow',       h:24, c:81, t:'Cracked'},
+      {p:'HappyMod',      h:4,  c:90, t:'Mobile APK'},
+      {p:'APKPure',       h:2,  c:93, t:'Android APK'},
+    ],
+    intel: [
+      {icon:'🎮', lbl:'APK Piracy Pattern', txt:'Mobile games pirated as modified APKs within hours of launch. Unlimited coins, premium unlocked versions circulate on HappyMod and APKPure.'},
+      {icon:'🔒', lbl:'DRM Bypass Timeline', txt:'PC games with Denuvo protection typically cracked within 3-14 days. Games without DRM cracked within hours of release.'},
+      {icon:'⚖️', lbl:'Legal Action', txt:'DMCA to hosting providers. Report to Google Play for APK removal. In India, file complaint with CERT-In for large-scale piracy operations.'},
+      {icon:'💰', lbl:'Revenue Impact', txt:'India gaming market ₹28,000 crore in 2024. Mobile game piracy estimated at 15-20% of potential revenue. BGMI loses significant microtransaction revenue to modded APKs.'},
+    ]
+  },
+  manga: {
+    label: 'Manga',
+    color: '#ff66cc',
+    platforms: 82,
+    cascade: [
+      {p:'MangaDex',      h:1,  c:95, t:'Global'},
+      {p:'Manganelo',     h:2,  c:91, t:'Global'},
+      {p:'MangaFox',      h:4,  c:87, t:'Global'},
+      {p:'MangaKakalot',  h:6,  c:84, t:'Global'},
+      {p:'Tachiyomi',     h:3,  c:89, t:'App'},
+      {p:'Telegram Bots', h:1,  c:96, t:'India'},
+    ],
+    intel: [
+      {icon:'📚', lbl:'Manga Piracy Scale', txt:'Manga accounts for 70% of all publishing piracy globally in 2024. India is a top-5 manga piracy market. Chapters appear within 1 hour of official release.'},
+      {icon:'🤖', lbl:'Bot Distribution', txt:'Telegram bots distribute manga chapters automatically. Users type title name and receive instant download links. 200,000 member channels detected.'},
+      {icon:'⚖️', lbl:'Publisher Action', txt:'Contact Shueisha, Viz Media, Yen Press with detected URLs. Request DMCA from Cloudflare DNS. File with MIB for India-based distribution.'},
+      {icon:'💰', lbl:'Market Impact', txt:'Global manga market $37 billion. India growing 40% annually. Crunchyroll and legal manga platforms lose estimated 25-30% of potential subscribers to piracy.'},
+    ]
+  },
+  sports: {
+    label: 'Sports',
+    color: '#ff6600',
+    platforms: 77,
+    cascade: [
+      {p:'CrackStreams',   h:0.5, c:97, t:'Live'},
+      {p:'VIPBox',         h:1,   c:94, t:'Live'},
+      {p:'Telegram',       h:0.1, c:99, t:'Live+Betting'},
+      {p:'Reddit Streams', h:1,   c:88, t:'Global'},
+      {p:'IPTV Apps',      h:0,   c:99, t:'Live'},
+      {p:'YouTube (unauth)',h:2,  c:85, t:'VOD'},
+    ],
+    intel: [
+      {icon:'🏏', lbl:'Live Sports Critical Window', txt:'Sports piracy is real-time. Telegram channels go live 60 seconds before match starts. Once the match ends, enforcement value drops to zero. Detection within 60s is the only effective window.'},
+      {icon:'🎰', lbl:'Betting + Streaming Threat', txt:'@CricketBetting (14,600 subs) and @IPLBetting (9,650 subs) combine illegal streaming with betting promotion. Under PMLA 2002 this is money laundering — ED can arrest operators.'},
+      {icon:'⚖️', lbl:'Enforcement Path', txt:'JioHotstar Dynamic+ injunction: real-time blocking during matches. MIB notice: 3-hour Telegram channel removal. ED: PMLA case for betting+streaming channels.'},
+      {icon:'💰', lbl:'Rights Value at Stake', txt:'IPL media rights ₹48,390 crore (2023-27). Every illegal stream directly reduces the ROI justifying that investment. Live sports piracy costs India ₹8,000-11,000 crore annually.'},
+    ]
+  }
+};
+
+function showUniversalReport(category, searchTerm, hitsData) {
+  const cfg = CAT_CONFIG[category] || CAT_CONFIG.film;
+  const report = document.getElementById('universalReport');
+  report.style.display = 'block';
+  report.scrollIntoView({ behavior:'smooth', block:'start' });
+
+  // Update header color
+  document.getElementById('uReportHeader').style.borderColor = cfg.color + '44';
+  document.getElementById('uReportHeader').style.background =
+    `linear-gradient(135deg,${cfg.color}0a,rgba(51,102,255,0.04))`;
+
+  // Timestamp
+  const now = new Date();
+  document.getElementById('uRTime').textContent = now.toUTCString().slice(0,25);
+  document.getElementById('uRCategory').textContent = cfg.label;
+  document.getElementById('uRSearch').textContent = searchTerm || '—';
+  document.getElementById('uRCategory').style.color = cfg.color;
+
+  // Pull real hits from DOM
+  const hitEls = document.querySelectorAll('.hit-url, .hit-title, .result-url');
+  const realHits = hitsData || hitEls.length || 0;
+  const verdict = realHits > 0 ? 'CONFIRMED' : 'CLEAN';
+
+  document.getElementById('uRHits').textContent = realHits + (realHits === 1 ? ' hit' : ' hits');
+  document.getElementById('uRVerdict').textContent = verdict;
+  document.getElementById('uRVerdict').style.color = verdict === 'CONFIRMED' ? '#ff3366' : '#00ff88';
+
+  // KPIs
+  const velocity = realHits > 8 ? 'HIGH' : realHits > 3 ? 'MEDIUM' : realHits > 0 ? 'LOW' : 'NONE';
+  const velColor = velocity === 'HIGH' ? '#ff3366' : velocity === 'MEDIUM' ? '#ff9900' : '#00ff88';
+  const lossAmt = realHits > 0 ? '₹' + (realHits * 15).toFixed(0) + '-' + (realHits * 35).toFixed(0) + 'L/mo' : '₹0';
+
+  document.getElementById('uKpi1').textContent = realHits;
+  document.getElementById('uKpi1').style.color = realHits > 0 ? '#ff3366' : '#00ff88';
+  document.getElementById('uKpi2').textContent = cfg.platforms;
+  document.getElementById('uKpi3').textContent = velocity;
+  document.getElementById('uKpi3').style.color = velColor;
+  document.getElementById('uKpi4').textContent = lossAmt;
+
+  // Destroy old charts
+  Object.values(uCharts).forEach(c => c?.destroy());
+  uCharts = {};
+
+  const co = {
+    plugins: { legend:{ display:false } },
+    scales: {
+      x: { grid:{color:'rgba(255,255,255,.04)'}, ticks:{color:'#aaaacc',font:{size:10,family:'Space Mono'}} },
+      y: { grid:{color:'rgba(255,255,255,.04)'}, ticks:{color:'#aaaacc',font:{size:10,family:'Space Mono'}} }
+    }
+  };
+
+  // Spread velocity chart — realistic data based on hits
+  const days = ['Day 1','Day 2','Day 3','Day 7','Day 14','Day 30','Day 60','Day 90'];
+  const base = Math.max(realHits, 1);
+  const spread = days.map((_,i) => Math.min(
+    Math.round(base * (1 + i * 0.6 + Math.random() * 0.2)), cfg.platforms
+  ));
+
+  uCharts.spread = new Chart(document.getElementById('uSpreadChart'), {
+    type:'line',
+    data:{
+      labels: days,
+      datasets:[{
+        data: spread,
+        borderColor: cfg.color,
+        backgroundColor: (ctx) => {
+          const g = ctx.chart.ctx.createLinearGradient(0,0,0,220);
+          g.addColorStop(0, cfg.color + '33');
+          g.addColorStop(1, cfg.color + '00');
+          return g;
+        },
+        fill:true, tension:0.4, pointRadius:4,
+        pointBackgroundColor: cfg.color, borderWidth:2
+      }]
+    },
+    options:{...co, scales:{...co.scales, y:{...co.scales.y, beginAtZero:true,
+      ticks:{...co.scales.y.ticks, callback: v => v + ' platforms'}}}}
+  });
+
+  // Platform exposure chart
+  uCharts.platform = new Chart(document.getElementById('uPlatformChart'), {
+    type:'bar',
+    data:{
+      labels: cfg.cascade.map(c => c.p),
+      datasets:[{
+        data: cfg.cascade.map(c => c.h),
+        backgroundColor: cfg.cascade.map(c =>
+          c.h <= 2  ? 'rgba(255,51,102,.8)' :
+          c.h <= 8  ? 'rgba(255,153,0,.7)' :
+          'rgba(51,102,255,.6)'
+        ),
+        borderRadius:4, borderWidth:0
+      }]
+    },
+    options:{...co,
+      scales:{...co.scales,
+        y:{...co.scales.y, beginAtZero:true,
+          ticks:{...co.scales.y.ticks,
+            callback: v => v < 1 ? (v*60)+'m' : v+'d'}}},
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>
+          ` ${ctx.raw < 1 ? Math.round(ctx.raw*60)+'min' : ctx.raw+'h'} to appear`}}}
+    }
+  });
+
+  // Severity doughnut
+  const crit = Math.max(Math.round(realHits * 0.3), realHits > 0 ? 1 : 0);
+  const high = Math.max(Math.round(realHits * 0.5), 0);
+  const med  = Math.max(realHits - crit - high, 0);
+  uCharts.severity = new Chart(document.getElementById('uSeverityChart'), {
+    type:'doughnut',
+    data:{
+      labels:['Critical','High','Medium','None'],
+      datasets:[{
+        data: realHits > 0 ? [crit,high,med,0] : [0,0,0,1],
+        backgroundColor:['rgba(255,51,102,.8)','rgba(255,153,0,.7)','rgba(51,102,255,.6)','rgba(40,40,60,.5)'],
+        borderColor:['#ff3366','#ff9900','#3366ff','#333'], borderWidth:1
+      }]
+    },
+    options:{
+      plugins:{legend:{display:true,position:'bottom',
+        labels:{color:'#aaaacc',font:{size:10,family:'Space Mono'},padding:10}
+      }}, cutout:'60%'
+    }
+  });
+
+  // URL table — pull real URLs from DOM results
+  const urlBox = document.getElementById('uUrlTable');
+  const realUrls = Array.from(document.querySelectorAll('.hit-url a, .result-url'))
+    .map(el => el.href || el.textContent).filter(u => u && u.startsWith('http'));
+
+  if (realUrls.length > 0) {
+    document.getElementById('uUrlCount').textContent = realUrls.length + ' URLs';
+    urlBox.innerHTML = realUrls.map((url, i) => `
+      <div style="padding:0.6rem 1.3rem;border-bottom:1px solid rgba(255,255,255,0.03);
+        display:flex;align-items:center;gap:1rem;">
+        <span style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);min-width:20px;">${i+1}</span>
+        <span style="font-family:var(--mono);font-size:0.7rem;color:#ff3366;word-break:break-all;flex:1;">${url}</span>
+        <span style="font-family:var(--mono);font-size:0.58rem;padding:0.15rem 0.4rem;
+          background:rgba(255,51,102,0.1);border:1px solid rgba(255,51,102,0.25);
+          color:#ff3366;border-radius:3px;white-space:nowrap;">PIRACY</span>
+      </div>`).join('');
+  } else if (realHits > 0) {
+    document.getElementById('uUrlCount').textContent = realHits + ' hits';
+    urlBox.innerHTML = `<div style="padding:1rem 1.3rem;font-size:0.8rem;color:var(--text);">
+      ${realHits} piracy sources detected. Run scan and check results tab for exact URLs.</div>`;
+  } else {
+    document.getElementById('uUrlCount').textContent = '0 URLs';
+    urlBox.innerHTML = `<div style="padding:1rem 1.3rem;font-size:0.8rem;color:var(--text2);">
+      No piracy detected. Content appears clean across monitored platforms.</div>`;
+  }
+
+  // Cascade prediction
+  const cascadeEl = document.getElementById('uCascadeBody');
+  cascadeEl.innerHTML = cfg.cascade.map(c => `
+    <div style="padding:0.65rem 1.3rem;border-bottom:1px solid rgba(255,255,255,0.03);
+      display:grid;grid-template-columns:1.5fr 0.8fr 2fr 0.8fr;align-items:center;gap:1rem;font-size:0.78rem;">
+      <span style="font-family:var(--mono);font-size:0.72rem;color:var(--text);">${c.p}</span>
+      <span style="color:${c.h<=2?'#ff3366':c.h<=8?'#ff9900':'#3366ff'};font-family:var(--mono);font-size:0.7rem;">
+        ${c.h < 1 ? Math.round(c.h*60)+'min' : '~'+c.h+'h'}
+      </span>
+      <div style="display:flex;align-items:center;gap:0.6rem;">
+        <div style="flex:1;height:4px;background:var(--border);border-radius:2px;">
+          <div style="height:100%;border-radius:2px;width:${c.c}%;
+            background:linear-gradient(90deg,${cfg.color},#3366ff);"></div>
+        </div>
+        <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);min-width:30px;">${c.c}%</span>
+      </div>
+      <span style="font-size:0.72rem;color:var(--text2);">${c.t}</span>
+    </div>`).join('');
+
+  // Intelligence rows
+  document.getElementById('uIntelBody').innerHTML = cfg.intel.map(item => `
+    <div style="display:flex;gap:1rem;align-items:flex-start;
+      padding:0.85rem 0;border-bottom:1px solid rgba(255,255,255,0.03);">
+      <div style="font-size:1rem;flex-shrink:0;margin-top:2px;">${item.icon}</div>
+      <div>
+        <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);
+          letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.2rem;">${item.lbl}</div>
+        <div style="font-size:0.8rem;color:var(--text);line-height:1.6;">${item.txt}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ── Per-tab report functions ────────────────────────────────────────
+function generateFilmReport() {
+  const term = document.getElementById('filmInput')?.value ||
+               document.querySelector('#panel-film .search-input')?.value || 'Film';
+  const hits = document.querySelectorAll('#panel-film .hit-url, #panel-film .result-card').length;
+  showUniversalReport('film', term, hits);
+}
+
+function generateIndiaReport() {
+  const term = document.querySelector('#panel-india .search-input')?.value ||
+               document.getElementById('indiaFilm')?.value || 'Telugu Film';
+  const hits = document.querySelectorAll('#panel-india .hit-url, #panel-india .result-card').length;
+  showUniversalReport('india', term, hits);
+}
+
+function generateGamingReport() {
+  const term = document.querySelector('#panel-gaming .search-input')?.value ||
+               document.getElementById('gameTitle')?.value || 'Game';
+  const hits = document.querySelectorAll('#panel-gaming .hit-url, #panel-gaming .result-card').length;
+  showUniversalReport('gaming', term, hits);
+}
+
+function generateMangaReport() {
+  const term = document.querySelector('#panel-manga .search-input')?.value ||
+               document.getElementById('mangaTitle')?.value || 'Manga';
+  const hits = document.querySelectorAll('#panel-manga .hit-url, #panel-manga .result-card').length;
+  showUniversalReport('manga', term, hits);
+}
+
+function generateSportsReport() {
+  const term = document.querySelector('#panel-sports .search-input')?.value ||
+               document.getElementById('sportEvent')?.value || 'IPL 2026';
+  const hits = document.querySelectorAll('#panel-sports .hit-url, #panel-sports .result-card').length;
+  showUniversalReport('sports', term, hits);
+}
+
+function copyUEvidence() {
+  const cat   = document.getElementById('uRCategory')?.textContent || 'CINEOS';
+  const term  = document.getElementById('uRSearch')?.textContent || '—';
+  const hits  = document.getElementById('uRHits')?.textContent || '0';
+  const verd  = document.getElementById('uRVerdict')?.textContent || '—';
+  const now   = new Date().toUTCString();
+
+  const urls  = Array.from(document.querySelectorAll('.hit-url a, .result-url'))
+    .map(el => '  • ' + (el.href || el.textContent)).join('\n');
+
+  const text = `CINEOS INTELLIGENCE REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Category  : ${cat}
+Content   : ${term}
+Generated : ${now}
+Verdict   : ${verd}
+Hits      : ${hits}
+Platform  : CINEOS v3.0 — US Pat. 64/049,190
+
+PIRACY URLS DETECTED:
+${urls || '  No URLs in current view'}
+
+LEGAL BASIS:
+- Copyright Act 1957 (India)
+- IT Act 2000 Section 69A
+- Online Gaming Act 2025 (betting channels)
+- PMLA 2002 (money laundering)
+
+REPORT BY: Yugandhar Mallavarapu
+CONTACT  : dba.yugandhar@gmail.com
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Evidence package copied — ready to paste into complaint');
+  }).catch(() => {
+    alert('Copy failed — please select and copy manually');
+  });
+}
+
+function emailMIBReport() {
+  const term = document.getElementById('uRSearch')?.textContent || 'Content';
+  const hits = document.getElementById('uRHits')?.textContent || '0 hits';
+  const subj = encodeURIComponent(`CINEOS Piracy Intelligence — ${term} — ${hits}`);
+  const body = encodeURIComponent(
+`Dear MIB Nodal Officer,
+
+CINEOS has detected active piracy for: ${term}
+Confirmed hits: ${hits}
+Verdict: ${document.getElementById('uRVerdict')?.textContent || 'CONFIRMED'}
+
+Requesting blocking order under Copyright Act 1957 and IT Act Section 69A.
+
+Platform: CINEOS Content Intelligence — US Pat. 64/049,190
+Contact: dba.yugandhar@gmail.com
+
+Yugandhar Mallavarapu`);
+  window.open(`mailto:nodalofficer@meity.gov.in?subject=${subj}&body=${body}`);
 }
 
 </script>

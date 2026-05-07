@@ -763,32 +763,32 @@ async function loadData(){
       :'<tr><td colspan="6" style="text-align:center;padding:1.5rem;color:var(--text2);font-size:.8rem">No betting+stream channels detected in this scan</td></tr>';
 
     // ── OTT Leaks processing ─────────────────────────
-    const OTT_KEYWORDS = {
-      'netflix':['Netflix','NetflixTamil','NetflixTelugu','NetflixHD',
-        'NetflixIndia','NetflixFree','NetflixMalayalam','NetflixWebSeries',
-        'NetflixSeriesFree','NetflixOriginals','NetflixLeaks','NetflixMoviesHindi'],
-      'hotstar':['HotstarFree','HotstarLeaks','HotstarSeriesFree','HotstarWebSeries',
-        'HotstarMovies','HotstarOTT','JioHotstarFree','JioHotstarLeaks','JioCinemaFree'],
-      'prime':['PrimeVideoFree','PrimeVideoIndia','AmazonPrimeFree','AmazonPrimeLeaks',
-        'PrimeMoviesHindi','PrimeTelugu','PrimeTamil','PrimeWebSeries','AmazonHDMovies'],
-      'zee5':['ZEE5Free','ZEE5Hindi','ZEE5Leaks','Zee5Series','Zee5Movies',
-        'Zee5Tamil','Zee5Telugu','ZeeMoviesFree'],
-      'sony':['SonyLIVFree','SonyLIVLeaks','SonyLivHD','SonyLivMovies',
-        'SonyLivSeries','SonyLivTelugu','SonyLivCricket'],
-      'aha':['AHAFree','AHALeaks','AHAMovies','AHAOriginals','AHATelugu',
-        'AHAWebSeries','AHAOTTFree','TeluguOTTFree','TeluguOTT'],
+    // OTT detection — use substring matching on channel name
+    const OTT_PATTERNS = {
+      'JioHotstar': ['hotstar','jiohotstar','jiocinemafree','disneyhot'],
+      'Netflix':    ['netflix'],
+      'Amazon Prime':['prime','amazon'],
+      'ZEE5':       ['zee5','zeemovies'],
+      'SonyLIV':    ['sonyliv','sonylive','sonylI'],
+      'AHA':        ['aha','ahaott'],
     };
 
-    // Map channels to OTT platforms
+    // Map channels to OTT platforms using substring match
     const ottChannels = [];
     const platformCount = {};
     const ottLangCount = {};
 
     streams.forEach(s => {
       const ch = (s.channel||'').toLowerCase();
-      for (const [platform, keywords] of Object.entries(OTT_KEYWORDS)) {
-        if (keywords.some(k => ch.includes(k.toLowerCase()) ||
-            k.toLowerCase().includes(ch))) {
+      // Skip pure betting/cricket channels
+      if (s.is_betting) return;
+      const cricketWords = ['cricket','ipl','t20','worldcup','kabaddi',
+        'football','sports','stream','livematch','prediction','tips','odds'];
+      const isCricket = cricketWords.some(w => ch.includes(w));
+      if (isCricket) return;
+
+      for (const [platform, patterns] of Object.entries(OTT_PATTERNS)) {
+        if (patterns.some(p => ch.includes(p))) {
           ottChannels.push({...s, ottPlatform: platform});
           platformCount[platform] = (platformCount[platform]||0)+1;
           const lang = s.language||'Unknown';

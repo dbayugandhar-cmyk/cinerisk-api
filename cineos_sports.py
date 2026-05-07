@@ -362,17 +362,13 @@ async def full_sports_scan(event: str, sport: str = "") -> dict:
         follow_redirects=True,
         timeout=15
     ) as client:
-        p1 = [s for s in SPORTS_PIRACY_SITES if s["priority"] == 1]
-        p2 = [s for s in SPORTS_PIRACY_SITES if s["priority"] == 2]
-
-        p1_tasks = [scan_site_serp(s, event, client) for s in p1]
-        p1_results = await asyncio.gather(*p1_tasks,
-                                          return_exceptions=True)
-        await asyncio.sleep(0.5)
-
-        p2_tasks = [scan_site_serp(s, event, client) for s in p2]
-        p2_results = await asyncio.gather(*p2_tasks,
-                                          return_exceptions=True)
+        # Run ALL sites in parallel — no sequential batches
+        all_tasks = [scan_site_serp(s, event, client)
+                     for s in SPORTS_PIRACY_SITES]
+        all_results = await asyncio.gather(*all_tasks,
+                                           return_exceptions=True)
+        p1_results = all_results
+        p2_results = []
 
         reddit_result, tg_results, ddg_results = \
             await asyncio.gather(

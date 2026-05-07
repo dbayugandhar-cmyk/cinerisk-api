@@ -231,6 +231,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
     <div class="stat-val" id="statBetting">5</div>
     <div class="stat-sub">Dual threat channels — ED reportable</div>
   </div>
+  <div class="stat-card red" style="--before-bg:var(--red)">
+    <div class="stat-lbl">Critical Threats</div>
+    <div class="stat-val" id="statCritical">13</div>
+    <div class="stat-sub">Immediate action required</div>
+  </div>
   <div class="stat-card orange">
     <div class="stat-lbl">Largest Channel</div>
     <div class="stat-val" id="statLargest">2.29M</div>
@@ -345,29 +350,72 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
 </footer>
 
 <script>
-// ── Live data (from last scan) ────────────────────────
-const LIVE_DATA = {
-  streams: 62,
-  critical: 13,
-  betting: 5,
-  scanTime: '6.7s',
-  scannedAt: new Date().toISOString(),
-  channels: [
-    {name:'@AnuragxCricket', subs:2290000, lang:'Hindi',  betting:false, sev:'CRITICAL'},
-    {name:'@RealCricPoint',  subs:95500,   lang:'Telugu', betting:false, sev:'HIGH'},
-    {name:'@cricketmemesverse873', subs:20400, lang:'Hindi', betting:false, sev:'HIGH'},
-    {name:'@CricketBetting', subs:14600,   lang:'Tamil',  betting:true,  sev:'CRITICAL'},
-    {name:'@CricketTips',    subs:14600,   lang:'Tamil',  betting:true,  sev:'CRITICAL'},
-    {name:'@IPLBetting',     subs:9650,    lang:'Hindi',  betting:true,  sev:'CRITICAL'},
-    {name:'@IPLLive2026',    subs:7200,    lang:'Hindi',  betting:false, sev:'HIGH'},
-    {name:'@IPL_L',          subs:7650,    lang:'English',betting:false, sev:'CRITICAL'},
-    {name:'@CricketWinTips', subs:5800,    lang:'Tamil',  betting:true,  sev:'CRITICAL'},
-    {name:'@HotstarOTT',     subs:6,       lang:'Tamil',  betting:false, sev:'HIGH'},
+// ── Live data — fetched from API ─────────────────────
+const API = 'https://cinerisk-api-production.up.railway.app';
+const API_KEY = 'ck_FP5RaP5a_4NpOqIltUWSwWEn3f0Vq__-WkYk3TVGBGI';
+
+// Fallback data if API is slow
+const FALLBACK = {
+  streams:62, critical:13, betting:5,
+  channels:[
+    {name:'@AnuragxCricket',subs:2290000,lang:'Hindi',betting:false,sev:'CRITICAL'},
+    {name:'@RealCricPoint',subs:95500,lang:'Telugu',betting:false,sev:'HIGH'},
+    {name:'@cricketmemesverse873',subs:20400,lang:'Hindi',betting:false,sev:'HIGH'},
+    {name:'@CricketBetting',subs:14600,lang:'Tamil',betting:true,sev:'CRITICAL'},
+    {name:'@CricketTips',subs:14600,lang:'Tamil',betting:true,sev:'CRITICAL'},
+    {name:'@IPLBetting',subs:9650,lang:'Hindi',betting:true,sev:'CRITICAL'},
+    {name:'@IPLLive2026',subs:7200,lang:'Hindi',betting:false,sev:'HIGH'},
+    {name:'@IPL_L',subs:7650,lang:'English',betting:false,sev:'CRITICAL'},
+    {name:'@CricketWinTips',subs:5800,lang:'Tamil',betting:true,sev:'CRITICAL'},
+    {name:'@HotstarOTT',subs:6,lang:'Tamil',betting:false,sev:'HIGH'},
   ]
 };
 
-// Total reach
-const totalReach = LIVE_DATA.channels.reduce((s,c) => s+c.subs, 0);
+let LIVE_DATA = {...FALLBACK};
+
+async function loadLiveData() {
+  try {
+    document.getElementById('lastUpdated').textContent = 'Scanning...';
+    const r = await fetch(`${API}/v1/live_shield`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-API-Key':API_KEY},
+      body:JSON.stringify({event:'IPL 2026'})
+    });
+    const raw = await r.json();
+    const d = raw.data || raw;
+
+    if (d && d.streams_found !== undefined) {
+      // Map API response to dashboard format
+      const streams = d.streams || [];
+      LIVE_DATA = {
+        streams: d.streams_found || 0,
+        critical: d.critical || 0,
+        betting: streams.filter(s=>s.is_betting).length,
+        channels: streams.slice(0,10).map(s=>({
+          name: '@'+(s.channel||s.channel_url||'Unknown'),
+          subs: s.subscriber_count || 0,
+          lang: s.language || 'Unknown',
+          betting: s.is_betting || false,
+          sev: s.severity || (s.is_betting ? 'CRITICAL' : 'HIGH')
+        }))
+      };
+      // Sort by subscribers
+      LIVE_DATA.channels.sort((a,b)=>b.subs-a.subs);
+      console.log('CINEOS: Live data loaded —', LIVE_DATA.streams, 'streams');
+    }
+  } catch(e) {
+    console.log('CINEOS: Using fallback data —', e.message);
+  }
+  renderDashboard();
+}
+
+function renderDashboard() {
+  // Update stat cards
+  document.getElementById('statStreams').textContent = LIVE_DATA.streams;
+  document.getElementById('statBetting').textContent = LIVE_DATA.betting;
+  document.getElementById('statCritical').textContent = LIVE_DATA.critical;
+
+  const totalReach = LIVE_DATA.channels.reduce((s,c)=>s+c.subs,0);
 document.getElementById('statReach').textContent =
   totalReach >= 1e6 ? (totalReach/1e6).toFixed(1)+'M' :
   totalReach >= 1e3 ? (totalReach/1e3).toFixed(0)+'K' : totalReach;
@@ -460,29 +508,6 @@ new Chart(document.getElementById('catChart'),{
   }}
 });
 
-// ── Threat feed ───────────────────────────────────────
-const feed = document.getElementById('threatFeed');
-LIVE_DATA.channels.forEach((c,i) => {
-  const subsStr = c.subs >= 1e6 ? (c.subs/1e6).toFixed(2)+'M' :
-    c.subs >= 1e3 ? (c.subs/1e3).toFixed(1)+'K' : c.subs.toString();
-  const sevCls = c.sev === 'CRITICAL' ? 'sev-c' : 'sev-h';
-  const bettingTag = c.betting ?
-    '<span class="betting-tag">🎰 BETTING+</span>' : '';
-  const color = c.subs >= 1e6 ? 'var(--red)' :
-    c.subs >= 1e4 ? 'var(--orange)' : 'var(--text2)';
-
-  feed.innerHTML += `
-    <div class="feed-item">
-      <span class="feed-sev ${sevCls}">${c.sev}</span>
-      <div class="feed-info">
-        <div class="feed-name">${c.name}${bettingTag}</div>
-        <div class="feed-meta">${c.lang} commentary · Live stream detected</div>
-      </div>
-      <div class="feed-subs" style="color:${color}">${subsStr}</div>
-    </div>`;
-});
-document.getElementById('feedCount').textContent =
-  LIVE_DATA.streams + ' channels';
 
 // ── Piracy calculator ─────────────────────────────────
 function calculateDamage() {

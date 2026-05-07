@@ -502,6 +502,152 @@ def print_report(result: dict):
     print(f"\n{'='*65}")
 
 
+
+
+# ── LIVE CONTINUOUS MONITOR ──────────────────────────────────────────
+async def continuous_monitor(
+    event: str = "IPL 2026",
+    interval_seconds: int = 60,
+    webhook_url: str = "",
+    alert_email: str = "",
+    alert_threshold: int = 1
+):
+    """
+    Run Live Shield continuously every N seconds.
+    Detects NEW channels that appear between scans.
+    Sends instant alerts when new illegal streams detected.
+    """
+    log.info(f"CINEOS LIVE MONITOR STARTED")
+    log.info(f"Event: {event}")
+    log.info(f"Scan interval: {interval_seconds}s")
+    log.info(f"Alert threshold: {alert_threshold} new streams")
+    log.info("Press Ctrl+C to stop")
+    log.info("="*60)
+
+    known_channels = set()  # Track already seen channels
+    scan_count = 0
+    total_detected = 0
+    session_start = datetime.utcnow()
+
+    while True:
+        try:
+            scan_count += 1
+            scan_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+            log.info(f"[Scan #{scan_count}] {scan_time}")
+
+            # Run the scan
+            serp_key = os.getenv("SERP_API_KEY", "")
+            result = await run_live_scan(event, serp_key, webhook_url)
+
+            if not result:
+                await asyncio.sleep(interval_seconds)
+                continue
+
+            # Find NEW channels not seen before
+            current_streams = result.get("streams", [])
+            new_streams = []
+
+            for stream in current_streams:
+                # Handle both dict and dataclass
+                if hasattr(stream, 'channel'):
+                    ch = stream.channel or ""
+                    url = stream.channel_url or ""
+                    channel_id = ch + url
+                else:
+                    ch = stream.get("channel", "")
+                    url = stream.get("url", "")
+                    channel_id = ch + url
+                if channel_id not in known_channels:
+                    new_streams.append(stream)
+                    known_channels.add(channel_id)
+
+            total_detected += len(new_streams)
+
+            if new_streams:
+                log.info(f"  🚨 {len(new_streams)} NEW illegal streams detected!")
+                for s in new_streams:
+                    # Handle dataclass or dict
+                    if hasattr(s, 'severity'):
+                        severity = s.severity or "MEDIUM"
+                        channel = s.channel or "Unknown"
+                        subs = getattr(s, 'subscriber_count', 0) or 0
+                        betting = "🎰 BETTING+" if getattr(s, 'is_betting', False) else ""
+                        lang = getattr(s, 'language', 'Unknown') or "Unknown"
+                        url = s.channel_url or ""
+                    else:
+                        severity = s.get("severity", "MEDIUM")
+                        channel = s.get("channel", "Unknown")
+                        subs = s.get("subscribers", 0)
+                        betting = "🎰 BETTING+" if s.get("is_betting") else ""
+                        lang = s.get("language", "Unknown")
+                        url = s.get("url", "")
+                    log.info(f"  [{severity}] {channel} — {subs:,} subs — {lang} {betting}")
+                    log.info(f"    URL: {url}")
+
+                # Generate alert
+                alert = {
+                    "timestamp": scan_time,
+                    "event": event,
+                    "new_streams": len(new_streams),
+                    "total_session": total_detected,
+                    "scan_number": scan_count,
+                    "critical": [s for s in new_streams if (getattr(s,'severity',None) or s.get("severity","")) == "CRITICAL"],
+                    "betting_combined": [s for s in new_streams if getattr(s,'is_betting',False) or (isinstance(s,dict) and s.get("is_betting"))],
+                    "channels": new_streams
+                }
+
+                # Print formatted alert
+                print("\n" + "="*60)
+                print(f"  🚨 CINEOS LIVE ALERT — {scan_time}")
+                print(f"  Event: {event}")
+                print(f"  New streams: {len(new_streams)}")
+                print(f"  Critical: {len(alert['critical'])}")
+                print(f"  Betting+Stream: {len(alert['betting_combined'])}")
+                print("="*60)
+
+                for s in new_streams:
+                    print(f"  [{s.get('severity','?')}] {s.get('channel','?')}")
+                    print(f"    Subs: {s.get('subscriber_count',0):,}")
+                    print(f"    Lang: {s.get('language','?')}")
+                    print(f"    URL:  {s.get('channel_url','')}")
+                    if getattr(s, 'is_betting', False) or (isinstance(s, dict) and s.get("is_betting")):
+                        print(f"    ⚠️  BETTING SIGNALS DETECTED")
+                    print()
+
+                # Send webhook alert if configured
+                if webhook_url and len(new_streams) >= alert_threshold:
+                    try:
+                        import httpx
+                        async with httpx.AsyncClient() as client:
+                            await client.post(webhook_url, json=alert, timeout=5)
+                        log.info(f"  ✓ Webhook alert sent")
+                    except Exception as e:
+                        log.warning(f"  Webhook failed: {e}")
+
+            else:
+                log.info(f"  ✓ No new streams (total known: {len(known_channels)})")
+
+            # Session summary every 10 scans
+            if scan_count % 10 == 0:
+                elapsed = (datetime.utcnow() - session_start).seconds // 60
+                log.info(f"\n  SESSION SUMMARY — {elapsed} minutes")
+                log.info(f"  Scans completed: {scan_count}")
+                log.info(f"  Total new streams detected: {total_detected}")
+                log.info(f"  Unique channels tracked: {len(known_channels)}")
+
+            await asyncio.sleep(interval_seconds)
+
+        except KeyboardInterrupt:
+            log.info("\nLive monitor stopped by user")
+            print(f"\nSESSION COMPLETE:")
+            print(f"  Scans: {scan_count}")
+            print(f"  New streams detected: {total_detected}")
+            print(f"  Channels tracked: {len(known_channels)}")
+            break
+        except Exception as e:
+            log.error(f"Monitor error: {e}")
+            await asyncio.sleep(interval_seconds)
+
 if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser(
@@ -513,6 +659,14 @@ if __name__ == "__main__":
     ap.add_argument("--demo", action="store_true")
     ap.add_argument("--ott", action="store_true",
                     help="Scan for OTT content piracy")
+    ap.add_argument("--live", action="store_true",
+                    help="Continuous live monitoring mode")
+    ap.add_argument("--interval", type=int, default=60,
+                    help="Scan interval in seconds (default: 60)")
+    ap.add_argument("--webhook", type=str, default="",
+                    help="Webhook URL for real-time alerts")
+    ap.add_argument("--threshold", type=int, default=1,
+                    help="Alert threshold (min new streams)")
     args = ap.parse_args()
 
     if args.demo:

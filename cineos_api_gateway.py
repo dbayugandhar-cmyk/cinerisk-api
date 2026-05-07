@@ -562,6 +562,7 @@ async def live_shield_scan(
         raise HTTPException(429, {"error": "Rate limit exceeded"})
 
     streams = []
+    seen_channels = set()  # prevent duplicates
     try:
         import httpx as _httpx
 

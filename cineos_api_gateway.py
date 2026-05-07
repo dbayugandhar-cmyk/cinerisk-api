@@ -566,10 +566,29 @@ async def live_shield_scan(
         import httpx as _httpx
 
         CHANNELS = [
-            "CricketStreamsLive", "IPLstreams", "SportsFreeStreams",
-            "CricketLiveStream", "IPLLive2026", "CricketFreeStream",
-            "TamilCricketLive", "TeluguCricketLive", "IPLTamil",
-            "CricketBetting", "IPLBetting", "RealCricPoint",
+            "CricketStreamsLive", "IPLstreams", "SportsFreeStreams", "CricketLiveStream", "IPLLive2025", "IPLLive2026",
+            "CricketFreeStream", "LiveCricket", "T20Live", "IPLMatchLive", "CricketMatch", "FreeCricketStream",
+            "IPL_L", "RealCricPoint", "LiveCricketMatchLink", "CricketLive24", "IPLStreamFree", "CricHDLive",
+            "CricketStreamHD", "IPLFreeStream", "T20WorldCup", "TamilCricketLive", "TeluguCricketLive", "HindiCricketLive",
+            "CricketTamil", "CricketTelugu", "IPLTamil", "IPLTelugu", "KannadaCricket", "MalayalamCricket",
+            "BengaliCricket", "MarathiCricket", "CricketGujarati", "PunjabiCricket", "CricketBetting", "IPLBetting",
+            "CricketTips", "CricketPrediction", "IPLTips", "CricketFantasy", "Dream11Tips", "CricketOdds",
+            "BettingTips", "CricketWinTips", "IPLWinPrediction", "JioHotstarFree", "HotstarFree", "HotstarMovies",
+            "JioCinemaFree", "HotstarSeriesFree", "DisneyHotstar", "HotstarOTT", "JioFreeMovies", "HotstarLeaks",
+            "JioHotstarLeaks", "HotstarWebSeries", "NetflixIndia", "NetflixFree", "NetflixMoviesHindi", "NetflixSeriesFree",
+            "NetflixLeaks", "NetflixHD", "NetflixTamil", "NetflixTelugu", "NetflixMalayalam", "NetflixWebSeries",
+            "NetflixOriginals", "AmazonPrimeFree", "PrimeVideoFree", "PrimeMoviesHindi", "AmazonPrimeLeaks", "PrimeVideoIndia",
+            "AmazonHDMovies", "PrimeTamil", "PrimeTelugu", "PrimeWebSeries", "ZEE5Free", "Zee5Movies",
+            "Zee5Series", "ZEE5Leaks", "Zee5Telugu", "Zee5Tamil", "ZEE5Hindi", "ZeeMoviesFree",
+            "AHAFree", "AHAMovies", "AHATelugu", "AHAOriginals", "AHALeaks", "AHAWebSeries",
+            "AHAOTTFree", "TeluguOTTFree", "SonyLIVFree", "SonyLivMovies", "SonyLivSeries", "SonyLIVLeaks",
+            "SonyLivTelugu", "SonyLivCricket", "SonyLivHD", "HindiWebSeries", "BollywoodMoviesFree", "HindiHDMovies",
+            "BollywoodHD", "HindiOTTFree", "WebSeriesHindi", "HindiNetflix", "HindiAmazonPrime", "HindiMoviesHD4K",
+            "BollywoodLeaks", "TeluguMoviesFree", "TeluguHDMovies", "TeluguWebSeries", "TeluguOTT", "TeluguNewMovies",
+            "TollywoodMovies", "TeluguMovies4K", "TeluguLatestMovies", "TamilMoviesFree", "TamilHDMovies", "TamilRockersNew",
+            "TamilMoviesOnline", "TamilWebSeries", "KollywoodMovies", "TamilNewMovies", "TamilOTTFree", "FootballStreamFree",
+            "PremierLeagueFree", "ISLFootballFree", "PKLKabaddi", "ProKabaddiFree", "FormulaOneFree", "F1StreamFree",
+            "TennisFree", "BWFBadmintonFree", "ChessOlympiadFree",
         ]
 
         PIRACY_SIGNALS = [
@@ -665,7 +684,7 @@ async def live_shield_scan(
         },
         "meta": {
             "response_time_ms": elapsed_ms,
-            "channels_scanned": 12,
+            "channels_scanned": len(CHANNELS),
             "tier": customer.get("tier", "free"),
             "scanned_at": now_utc().isoformat()
         }

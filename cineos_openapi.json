@@ -1,0 +1,170 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CINEOS Piracy Intelligence",
+    "description": "Real-time piracy detection for film, gaming, sports and manga across 1000+ sources in under 500ms.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "dba.yugandhar@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://cinerisk-api-production.up.railway.app"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "paths": {
+    "/v1/scan": {
+      "post": {
+        "summary": "Scan for piracy",
+        "description": "Scan any film, game, or sports event across 1000+ piracy sources.",
+        "operationId": "scanForPiracy",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Jet Lee"
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": [
+                      "film",
+                      "india",
+                      "gaming",
+                      "sports"
+                    ],
+                    "default": "film"
+                  },
+                  "language": {
+                    "type": "string",
+                    "default": "any"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Scan results with verdict and infringing URLs"
+          },
+          "401": {
+            "description": "Invalid API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          }
+        }
+      }
+    },
+    "/v1/live_shield": {
+      "post": {
+        "summary": "Telegram illegal stream monitor",
+        "description": "Detect illegal sports streams on Telegram in real time. Detects IPL, cricket, Premier League streams.",
+        "operationId": "liveShield",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "event_name": {
+                    "type": "string",
+                    "example": "IPL 2026"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Detected illegal streams with language and subscriber count"
+          }
+        }
+      }
+    },
+    "/v1/velocity/{title}": {
+      "get": {
+        "summary": "Piracy spread velocity",
+        "description": "How fast is a film spreading across piracy platforms over time.",
+        "operationId": "getVelocity",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Michael"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Velocity history with platform counts and spread rate"
+          }
+        }
+      }
+    },
+    "/v1/usage": {
+      "get": {
+        "summary": "Your API usage statistics",
+        "description": "Queries used, remaining, and recent call history.",
+        "operationId": "getUsage",
+        "responses": {
+          "200": {
+            "description": "Usage statistics"
+          }
+        }
+      }
+    },
+    "/v1/tiers": {
+      "get": {
+        "summary": "Pricing tiers",
+        "description": "Available pricing plans and query limits.",
+        "operationId": "getTiers",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Tier information"
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "summary": "Health check",
+        "operationId": "health",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}

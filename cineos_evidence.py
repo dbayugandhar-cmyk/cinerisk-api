@@ -7,7 +7,7 @@ import subprocess, re, httpx, asyncio, datetime, os
 from fpdf import FPDF
 
 API = "https://cinerisk-api-production.up.railway.app"
-API_KEY = "ck_FP5RaP5a_4NpOqIltUWSwWEn3f0Vq__-WkYk3TVGBGI"
+API_KEY = "CINEOS_API_KEY_HERE"
 
 def get_whois(domain: str) -> dict:
     """Get WHOIS data for a domain."""

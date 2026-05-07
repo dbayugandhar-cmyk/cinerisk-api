@@ -423,6 +423,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
         <button class="btn-report" onclick="generateFilmReport()">📊 Report</button>
         <button class="btn-report" onclick="downloadEvidence('film')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
         <button class="btn-secondary" onclick="clearFilm()">Clear</button>
+        <button class="btn-secondary" onclick="fileMIB('film')" style="color:#ff3366;border-color:rgba(255,51,102,.3);">🏛️ File MIB</button>
       </div>
     </div>
     <div class="mini-stats">
@@ -474,6 +475,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
         <button class="btn-report" onclick="downloadEvidence('india')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
         <button class="btn-report" onclick="generateIndiaReport()" style="color:var(--accent4);border-color:rgba(255,153,0,.3);">📊 Report</button>
         <button class="btn-secondary" onclick="clearIndia()">Clear</button>
+        <button class="btn-secondary" onclick="fileMIB('india')" style="color:#ff3366;border-color:rgba(255,51,102,.3);">🏛️ File MIB</button>
       </div>
     </div>
     <div class="mini-stats">
@@ -2219,6 +2221,55 @@ ${actions.map(a=>'<div class="action '+(a.urgency==="IMMEDIATE"?"imm":"")+'"><st
     btn.textContent = orig;
     btn.disabled = false;
   }
+}
+
+// ── 1-Click MIB Filing ────────────────────────────────
+function fileMIB(tab) {
+  const inputs = {
+    film: 'filmInput', india: 'indiaFilm',
+    gaming: 'gameTitle', manga: 'mangaTitle',
+    sports: 'sportEvent', liveshield: 'liveEvent'
+  };
+  const title = document.getElementById(inputs[tab])?.value?.trim() || 'Unknown Title';
+
+  // Collect detected URLs from results area
+  const panel = document.getElementById('panel-' + tab);
+  const urlEls = panel ? panel.querySelectorAll('.hit-url, a[href*="http"]') : [];
+  const urls = [...new Set([...urlEls].map(el => el.href || el.textContent).filter(u => u.startsWith('http')))].slice(0,10);
+
+  const now = new Date().toUTCString();
+  const urlList = urls.length ? urls.join('\n') : 'See CINEOS platform for full list';
+
+  const subject = encodeURIComponent(`Piracy Report: ${title} — CINEOS Intelligence`);
+  const body = encodeURIComponent(`Dear Nodal Officer,
+
+I am writing to report active piracy of "${title}" detected by CINEOS Anti-Piracy Intelligence Platform (US Provisional Patent 64/049,190).
+
+DETECTED PIRACY URLS:
+${urlList}
+
+Detection timestamp: ${now}
+
+This content is being distributed illegally on the above platforms in violation of:
+- Copyright Act 1957 Section 51
+- Information Technology Act 2000 Section 66
+
+I request immediate action under Section 69A of the IT Act to block these URLs.
+
+Evidence package available at:
+https://dbayugandhar-cmyk.github.io/cinerisk-api/cineos_platform.html
+
+Regards,
+Yugandhar Mallavarapu
+CINEOS Anti-Piracy Intelligence
+dba.yugandhar@gmail.com
+US Provisional Patent 64/049,190`);
+
+  // Open Gmail compose with pre-filled fields
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&to=nodalofficer@meity.gov.in&su=${subject}&body=${body}`;
+  window.open(gmailUrl, '_blank');
+
+  gtag('event', 'mib_filing', {film_title: title});
 }
 </script>
 </body>

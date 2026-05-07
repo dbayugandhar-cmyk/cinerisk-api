@@ -806,7 +806,8 @@ async def generate_evidence(
     customer: dict = Depends(verify_api_key)
 ):
     """Generate a court-ready evidence PDF for a film title."""
-    import time
+    import time, subprocess, re, tempfile, os
+    from fastapi.responses import Response
     start = time.time()
 
     if not await check_rate_limit(customer):
@@ -818,29 +819,152 @@ async def generate_evidence(
         raise HTTPException(400, {"error": "film_title required"})
 
     try:
-        import sys, os
-        sys.path.insert(0, ".")
+        from fpdf import FPDF
+        import httpx as _httpx
+        import datetime
 
-        # Run India scan to get hits
-        from cineos_india import full_india_scan
-        result = await full_india_scan(film_title)
-        hits = result.get("hits", [])
+        # Get hits from gold_scan
+        scan_result = await run_gold_scan(film_title)
+        hits = scan_result.get("hits", [])
+        timestamp = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
 
-        # Generate PDF
-        from cineos_evidence import generate_evidence_package
-        import tempfile
-        with tempfile.TemporaryDirectory() as tmpdir:
-            pdf_path = f"{tmpdir}/evidence.pdf"
-            await generate_evidence_package(film_title, hits, pdf_path)
+        def get_whois(domain):
+            try:
+                r = subprocess.run(["whois", domain],
+                    capture_output=True, text=True, timeout=10)
+                raw = r.stdout
+                info = {"domain": domain}
+                for line in raw.split("\n"):
+                    l = line.lower().strip()
+                    if "registrar:" in l and not info.get("registrar"):
+                        info["registrar"] = line.split(":", 1)[-1].strip()[:50]
+                    elif "creation date" in l and not info.get("registered"):
+                        info["registered"] = line.split(":", 1)[-1].strip()[:20]
+                    elif "expir" in l and "date" in l and not info.get("expires"):
+                        info["expires"] = line.split(":", 1)[-1].strip()[:20]
+                    elif "country:" in l and not info.get("country"):
+                        info["country"] = line.split(":", 1)[-1].strip()[:20]
+                return info
+            except:
+                return {"domain": domain, "registrar": "Unknown"}
 
-            # Read PDF bytes
-            with open(pdf_path, "rb") as f:
-                pdf_bytes = f.read()
+        # Build PDF
+        class EvidencePDF(FPDF):
+            def header(self):
+                self.set_font("Helvetica", "B", 13)
+                self.set_text_color(0, 180, 100)
+                self.cell(0, 10, "CINEOS ANTI-PIRACY EVIDENCE PACKAGE", ln=True, align="C")
+                self.set_font("Helvetica", "", 8)
+                self.set_text_color(150, 150, 180)
+                self.cell(0, 5, "US Provisional Patent 64/049,190 | Copyright Act 1957 | IT Act 2000", ln=True, align="C")
+                self.line(10, 22, 200, 22)
+                self.ln(3)
+            def footer(self):
+                self.set_y(-12)
+                self.set_font("Helvetica", "", 7)
+                self.set_text_color(120, 120, 150)
+                self.cell(0, 8, f"CINEOS Intelligence | Page {self.page_no()} | Confidential | dba.yugandhar@gmail.com", align="C")
 
-        elapsed = round(time.time() - start, 2)
+        pdf = EvidencePDF()
+        pdf.set_auto_page_break(auto=True, margin=12)
+        pdf.add_page()
 
-        from fastapi.responses import Response
-        safe_name = film_title.replace(" ", "_")
+        def sec(title, color=(0,180,100)):
+            pdf.set_font("Helvetica","B",10)
+            pdf.set_text_color(*color)
+            pdf.ln(3)
+            pdf.cell(0, 7, title, ln=True)
+            pdf.set_draw_color(*color)
+            pdf.line(10, pdf.get_y(), 200, pdf.get_y())
+            pdf.ln(2)
+
+        def field(lbl, val):
+            pdf.set_font("Helvetica","B",8)
+            pdf.set_text_color(150,150,180)
+            pdf.cell(45, 5, lbl+":", ln=False)
+            pdf.set_font("Helvetica","",8)
+            pdf.set_text_color(220,220,235)
+            pdf.cell(0, 5, str(val)[:85], ln=True)
+
+        # Section 1
+        sec("SECTION 1 - INCIDENT IDENTIFICATION")
+        field("Film Title", film_title)
+        field("Report Generated", timestamp)
+        field("Platform", "CINEOS Anti-Piracy Intelligence")
+        field("Patent", "US Provisional Patent 64/049,190")
+        field("Infringing URLs", str(len(hits)))
+        field("Contact", "dba.yugandhar@gmail.com")
+
+        # Section 2 - Legal
+        sec("SECTION 2 - LEGAL BASIS", (200,100,50))
+        pdf.set_font("Helvetica","",8)
+        pdf.set_text_color(180,180,200)
+        for line in [
+            "This package documents unauthorized distribution of copyrighted content in violation of:",
+            "  * Copyright Act 1957 (India) Section 51 - Infringement of copyright",
+            "  * Information Technology Act 2000 Section 66 - Computer related offences",
+            "  * DMCA 17 U.S.C. Section 512(c)(3) - Takedown notification",
+            "All data obtained from publicly accessible sources. No unauthorized access performed.",
+        ]:
+            pdf.cell(0, 5, line, ln=True)
+
+        # Section 3 - URLs
+        sec("SECTION 3 - INFRINGING URLS", (220,50,80))
+        for i, hit in enumerate(hits[:10], 1):
+            url = hit.get("url","") if isinstance(hit,dict) else getattr(hit,"url","")
+            pdf.set_font("Helvetica","B",8)
+            pdf.set_text_color(220,50,80)
+            pdf.cell(0, 5, f"URL #{i}", ln=True)
+            pdf.set_font("Helvetica","",7)
+            pdf.set_text_color(0,200,130)
+            pdf.cell(0, 4, url[:100], ln=True)
+            pdf.set_text_color(150,150,180)
+            pdf.cell(0, 4, f"Detected: {timestamp}", ln=True)
+            pdf.ln(2)
+
+        # Section 4 - WHOIS
+        pdf.add_page()
+        sec("SECTION 4 - DOMAIN WHOIS INTELLIGENCE", (200,130,0))
+        seen = set()
+        from urllib.parse import urlparse
+        for hit in hits[:5]:
+            url = hit.get("url","") if isinstance(hit,dict) else getattr(hit,"url","")
+            domain = urlparse(url).netloc.lstrip("www.")
+            if domain and domain not in seen:
+                seen.add(domain)
+                w = get_whois(domain)
+                pdf.set_font("Helvetica","B",9)
+                pdf.set_text_color(200,130,0)
+                pdf.cell(0, 6, f"Domain: {domain}", ln=True)
+                field("Registrar", w.get("registrar","Unknown/Hidden"))
+                field("Registered", w.get("registered","Unknown"))
+                field("Expires", w.get("expires","Unknown"))
+                field("Country", w.get("country","Unknown"))
+                pdf.ln(3)
+
+        # Section 5 - Actions
+        sec("SECTION 5 - RECOMMENDED ACTIONS", (150,50,220))
+        actions = [
+            ("IMMEDIATE", "File DMCA with Google", "search.google.com/search-console"),
+            ("IMMEDIATE", "Report to MIB Nodal Officer", "nodalofficer@meity.gov.in"),
+            ("24 HOURS", "Contact registrar abuse team", "abuse@registrar.com"),
+            ("48 HOURS", "File with TFCC", "tfcc.in"),
+            ("72 HOURS", "Legal notice to hosting provider", "Via counsel"),
+            ("1 WEEK",   "File FIR with Cyber Crime cell", "cybercrime.gov.in"),
+        ]
+        for urgency, action, contact in actions:
+            pdf.set_font("Helvetica","B",8)
+            pdf.set_text_color(150,50,220)
+            pdf.cell(28, 5, f"[{urgency}]", ln=False)
+            pdf.set_font("Helvetica","",8)
+            pdf.set_text_color(220,220,235)
+            pdf.cell(0, 5, f"{action} - {contact}", ln=True)
+
+        # Output
+        pdf_bytes = bytes(pdf.output())
+        elapsed = round(time.time()-start, 2)
+        safe_name = re.sub(r"[^a-zA-Z0-9_]","_", film_title)
+
         return Response(
             content=pdf_bytes,
             media_type="application/pdf",
@@ -851,7 +975,8 @@ async def generate_evidence(
             }
         )
     except Exception as e:
-        raise HTTPException(500, {"error": str(e)})
+        import traceback
+        raise HTTPException(500, {"error": str(e), "detail": traceback.format_exc()[-500:]})
 
 
 if __name__ == "__main__":

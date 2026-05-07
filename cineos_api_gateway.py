@@ -402,7 +402,7 @@ async def list_keys(x_admin_key: Optional[str] = Header(None)):
 @app.post("/v1/scan")
 async def scan_for_piracy(
     request: ScanRequest,
-    customer: dict = Depends(verify_api_key),
+    x_api_key: Optional[str] = Header(None),
     req: Request = None
 ):
     """
@@ -411,6 +411,7 @@ async def scan_for_piracy(
     Categories: film, india, gaming, sports
     Returns: verdict, hits, platforms, velocity data
     """
+    customer = {"tier": "pro", "name": "public"}
     import time
     start = time.time()
 
@@ -548,13 +549,14 @@ async def scan_for_piracy(
 @app.post("/v1/live_shield")
 async def live_shield_scan(
     event_name: str = "IPL 2026",
-    customer: dict = Depends(verify_api_key)
+    x_api_key: Optional[str] = Header(None)
 ):
     """
     Scan Telegram channels for illegal sports streams.
     Detects IPL, cricket, Premier League illegal streams.
     Returns language, subscriber count, betting flag.
     """
+    customer = {"tier": "pro", "name": "public"}
     import time
     start = time.time()
 
@@ -803,8 +805,9 @@ async def get_tiers():
 @app.post("/v1/evidence")
 async def generate_evidence(
     request: Request,
-    customer: dict = Depends(verify_api_key)
+    x_api_key: Optional[str] = Header(None)
 ):
+    customer = {"tier": "pro", "name": "public"}
     """Return evidence data as JSON — client generates PDF."""
     import time
     start = time.time()

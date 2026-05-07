@@ -613,7 +613,6 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
 
 <script>
 const API     = 'https://cinerisk-api-production.up.railway.app';
-const API_KEY = 'CINEOS_API_KEY_ENV';
 
 // ── Clock ─────────────────────────────────────────────
 setInterval(()=>{
@@ -695,7 +694,7 @@ async function loadData(){
   try {
     const r=await fetch(`${API}/v1/live_shield`,{
       method:'POST',
-      headers:{'Content-Type':'application/json','X-API-Key':API_KEY},
+      headers:{'Content-Type':'application/json',},
       body:JSON.stringify({event:getCurrentEvent()})
     });
     const raw=await r.json();

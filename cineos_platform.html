@@ -421,6 +421,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
           style="background:var(--accent);color:#000"
           onclick="scanFilm()">🔍 Scan Now</button>
         <button class="btn-report" onclick="generateFilmReport()">📊 Report</button>
+        <button class="btn-report" onclick="downloadEvidence('film')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
         <button class="btn-secondary" onclick="clearFilm()">Clear</button>
       </div>
     </div>
@@ -470,6 +471,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
         <button class="btn-scan" id="indiaScanBtn"
           style="background:var(--accent4);color:#000"
           onclick="scanIndia()">🔍 Scan India</button>
+        <button class="btn-report" onclick="downloadEvidence('india')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
         <button class="btn-report" onclick="generateIndiaReport()" style="color:var(--accent4);border-color:rgba(255,153,0,.3);">📊 Report</button>
         <button class="btn-secondary" onclick="clearIndia()">Clear</button>
       </div>

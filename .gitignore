@@ -18,3 +18,24 @@ __pycache__/
 *.pyc
 .env
 .env
+
+# Images and test files
+*.jpg
+*.jpeg
+*.png
+*.pdf
+test_ai.png
+123.jpg
+234.jpeg
+
+# Reports (generated locally)
+reports/
+CineRisk_*.pdf
+
+# API keys
+.env
+*.env
+
+# Misc
+cineos_logo_500.png
+cineos_openapi.json

@@ -263,7 +263,16 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
   <h1>Live Piracy Dashboard</h1>
   <p>Year-round piracy intelligence — film releases, live sports, OTT leaks, gaming and illegal betting across India. Scans 135 Telegram channels + 103 piracy sites. Refreshes every 30 minutes.</p>
   <div class="hero-legal">⚖️ Public channel data only · No personal information · Legal basis: journalism & public interest</div>
-  <div class="scan-status">Last scan: <span id="lastScan">Loading...</span> &nbsp;·&nbsp; Next refresh: <span id="nextRefresh">--:--</span></div>
+  <div class="scan-status" style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
+    <span>Last scan: <span id="lastScan">Loading...</span> &nbsp;·&nbsp; Next refresh: <span id="nextRefresh">--:--</span></span>
+    <button onclick="triggerScan()" id="scanNowBtn"
+      style="font-family:var(--mono);font-size:.62rem;font-weight:700;
+      padding:.35rem .9rem;border-radius:20px;border:1px solid rgba(0,255,136,.3);
+      background:rgba(0,255,136,.08);color:var(--accent);cursor:pointer;
+      letter-spacing:.08em;text-transform:uppercase;transition:all .2s;">
+      🔄 Scan Now
+    </button>
+  </div>
 </div>
 
 <!-- DASHBOARD TABS -->
@@ -914,6 +923,21 @@ function calcBettingLoss(){
 
   document.getElementById('bettingCalcOut').classList.add('show');
   gtag('event','calc_used',{platform,subs});
+}
+
+// ── Manual scan trigger ──────────────────────────────
+function triggerScan() {
+  const btn = document.getElementById('scanNowBtn');
+  btn.textContent = '⏳ Scanning...';
+  btn.disabled = true;
+  btn.style.opacity = '.5';
+  countdown = 1800; // reset countdown
+  loadData().finally(() => {
+    btn.textContent = '🔄 Scan Now';
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  });
+  gtag('event','manual_scan_triggered');
 }
 
 // ── Init ──────────────────────────────────────────────

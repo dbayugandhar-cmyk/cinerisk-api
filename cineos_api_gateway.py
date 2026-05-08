@@ -517,8 +517,14 @@ async def scan_for_piracy(
                     }
                 )
 
-            if r.status_code == 200:
-                for item in r.json().get("organic_results", []):
+            # Use all results from concurrent queries
+                search_results_all = []
+                for resp in responses:
+                    if not isinstance(resp, Exception) and hasattr(resp, 'status_code') and resp.status_code == 200:
+                        search_results_all.extend(resp.json().get("organic_results", []))
+                
+            if search_results_all:
+                for item in search_results_all:
                     link = item.get("link", "")
                     t = item.get("title", "")
                     snippet = item.get("snippet", "")

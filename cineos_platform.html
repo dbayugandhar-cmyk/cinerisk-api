@@ -1820,9 +1820,9 @@ function showUniversalReport(category, searchTerm, hitsData) {
   setTimeout(() => reportEl.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
 
   // Update header color
-  reportEl.querySelector('.u-report-header') || reportEl.children[0].style.borderColor = cfg.color + '44';
-  reportEl.querySelector('.u-report-header') || reportEl.children[0].style.background =
-    `linear-gradient(135deg,${cfg.color}0a,rgba(51,102,255,0.04))`;
+  var hdr = reportEl.querySelector('.u-report-header') || reportEl.children[0];
+  if (hdr) { hdr.style.borderColor = cfg.color + '44';
+  hdr.style.background = 'linear-gradient(135deg,' + cfg.color + '0a,rgba(51,102,255,0.04))'; }
 
   // Timestamp
   const now = new Date();

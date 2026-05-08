@@ -439,6 +439,7 @@ async def scan_for_piracy(
     if SERP_KEY:
         try:
             import httpx as _httpx
+        import os as _os
 
             # Category-specific site lists
             site_lists = {
@@ -567,6 +568,7 @@ async def live_shield_scan(
     seen_channels = set()  # prevent duplicates
     try:
         import httpx as _httpx
+        import os as _os
 
         CHANNELS = [
             "NetflixFree", "NetflixLeaks", "NetflixTamil", "NetflixTelugu", "NetflixIndia", "NetflixHD",
@@ -822,6 +824,7 @@ async def generate_evidence(
 
     # Get hits from gold_scan
     import httpx as _httpx
+        import os as _os
     async with _httpx.AsyncClient(timeout=30) as sc:
         r = await sc.post(
             "https://cinerisk-api-production.up.railway.app/theater/gold_scan",

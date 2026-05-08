@@ -2125,19 +2125,13 @@ Yugandhar Mallavarapu`);
 
 </script>
 <script>
-// Clock
-setInterval(()=>{
-  const n=new Date();
-  document.getElementById('clock').textContent=
-    n.toUTCString().slice(17,25)+' UTC';
-},1000);
-
-// Visitor counter
-fetch('https://api.countapi.xyz/hit/cineos-platform/visits')
-  .then(r=>r.json()).then(d=>{
-    const el=document.getElementById('visitorCount');
-    if(el) el.textContent=(d.value||0).toLocaleString();
-  }).catch(()=>{});
+// Clock + safe DOM init
+document.addEventListener('DOMContentLoaded', function() {
+  setInterval(function(){
+    var el = document.getElementById('clock');
+    if(el) el.textContent = new Date().toUTCString().slice(17,25)+' UTC';
+  }, 1000);
+});
 
 
 // Update mini stats after scans

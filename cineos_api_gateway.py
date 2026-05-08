@@ -493,7 +493,7 @@ async def scan_for_piracy(
 
             async with _httpx.AsyncClient(timeout=15) as client:
                 # Run main query + extra queries concurrently
-                all_queries = [query] + (extra_queries if 'extra_queries' in dir() else [])
+                all_queries = [query] + extra_queries
                 search_tasks = []
                 for q in all_queries[:3]:
                     search_tasks.append(client.get(

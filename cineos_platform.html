@@ -718,27 +718,7 @@ function fileMIB(tab) {
                 manga:'mangaTitle',sports:'sportEvent',liveshield:'liveEvent'};
   var title = document.getElementById(inputs[tab]||'filmInput').value.trim()||'Unknown Title';
   var subj = encodeURIComponent('Piracy Report: ' + title + ' - CINEOS Intelligence');
-  var body = encodeURIComponent(
-    'Dear Nodal Officer,
-
-I am reporting active piracy of "' + title +
-    '" detected by CINEOS Anti-Piracy Intelligence Platform (US Patent 64/049,190).
-
-' +
-    'Detection timestamp: ' + new Date().toUTCString() + '
-
-' +
-    'Legal basis: Copyright Act 1957 Section 51, IT Act 2000 Section 66
-
-' +
-    'Evidence available at: cineos.in/cineos_platform.html
-
-' +
-    'Regards,
-Yugandhar Mallavarapu
-CINEOS
-cineos.in'
-  );
+  var body = encodeURIComponent('Dear Nodal Officer, I am reporting active piracy of "' + title + '" detected by CINEOS (US Patent 64/049,190). Legal basis: Copyright Act 1957 S.51. Evidence: cineos.in/cineos_platform.html. Regards, Yugandhar, CINEOS.');
   window.open('https://mail.google.com/mail/?view=cm&to=nodalofficer@meity.gov.in&su='+subj+'&body='+body,'_blank');
 }
 

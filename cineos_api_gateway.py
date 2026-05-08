@@ -844,6 +844,7 @@ async def graph_intelligence(request: Request):
     if SERP_KEY:
         try:
             import httpx as _httpx
+            import asyncio as _asyncio
             from urllib.parse import urlparse
             import re as _re
 
@@ -876,7 +877,7 @@ async def graph_intelligence(request: Request):
                     f"https://dns.google/resolve?name={domain}&type=A"
                 ))
 
-                responses = await asyncio.gather(*tasks, return_exceptions=True)
+                responses = await _asyncio.gather(*tasks, return_exceptions=True)
 
                 # Process Telegram
                 if not isinstance(responses[0], Exception) and responses[0].status_code == 200:

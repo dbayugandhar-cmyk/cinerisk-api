@@ -911,7 +911,16 @@ async def graph_intelligence(request: Request):
                             add_node(f"cdn://{cdn}/{ip}", "cdn", seed_url)
 
         except Exception as e:
-            pass
+            print(f"[graph] error: {e}")
+            # Return partial results with error info
+            nodes.append({
+                "url": f"error://{str(e)[:50]}",
+                "domain": "error",
+                "type": "source",
+                "title": str(e)[:80],
+                "subscribers": 0,
+                "parent": None
+            })
 
     elapsed = round(time.time() - start, 2)
     return {

@@ -418,15 +418,12 @@ function switchTab(tab) {
     var p = document.getElementById('panel-' + t);
     if (p) { p.style.display = 'none'; p.classList.remove('active'); }
   });
-  document.querySelectorAll('.tab-card').forEach(function(c) {
-    c.classList.remove('active');
-  });
+  document.querySelectorAll('.tab-card').forEach(function(c) { c.classList.remove('active'); });
   var panel = document.getElementById('panel-' + tab);
   if (panel) { panel.style.display = 'block'; panel.classList.add('active'); }
   document.querySelectorAll('.tab-card').forEach(function(c) {
-    if (c.getAttribute('onclick') && c.getAttribute('onclick').indexOf("'" + tab + "'") !== -1) {
+    if (c.getAttribute('onclick') && c.getAttribute('onclick').indexOf("'" + tab + "'") !== -1)
       c.classList.add('active');
-    }
   });
 }
 window.onload = function() { switchTab('film'); };
@@ -440,26 +437,29 @@ function setBtn(id, loading) {
   btn.textContent = loading ? 'Scanning...' : btn.dataset.orig;
 }
 
-function showVerdict(elId, verdict) {
-  var el = document.getElementById(elId);
+function setVerdict(id, verdict) {
+  var el = document.getElementById(id);
   if (!el || !verdict) return;
   el.style.display = 'block';
   el.textContent = verdict;
   el.className = 'verdict-box ' + (
-    verdict.includes('CONFIRMED') || verdict.includes('HIGH') ? 'verdict-high' :
+    verdict.includes('CRITICAL') ? 'verdict-high' :
+    verdict.includes('CONFIRMED') ? 'verdict-high' :
+    verdict.includes('HIGH') ? 'verdict-high' :
     verdict.includes('MEDIUM') ? 'verdict-medium' : 'verdict-clean'
   );
 }
 
 function renderHits(hits) {
-  if (!hits || !hits.length) return '<div class="results-empty" style="color:var(--green)">✓ No piracy detected — content appears clean</div>';
-  return hits.map(function(h) {
+  if (!hits || !hits.length)
+    return '<div class="results-empty" style="color:var(--green)">No piracy detected - content appears clean across all platforms</div>';
+  return hits.slice(0,20).map(function(h) {
     var url = h.url || h;
     var platform = h.platform || '';
     var quality = h.quality || '';
     var lang = h.language || '';
-    var tagClass = quality.toLowerCase().includes('cam') ? 'tag-cam' :
-                   quality.toLowerCase().includes('hd') ? 'tag-hd' : 'tag-live';
+    var tagClass = (quality||'').toLowerCase().includes('cam') ? 'tag-cam' :
+                   (quality||'').toLowerCase().includes('hd') ? 'tag-hd' : 'tag-live';
     return '<div class="hit-row">' +
       '<a href="' + url + '" target="_blank" class="hit-url">' + url + '</a>' +
       (platform ? '<span class="hit-tag tag-hd">' + platform + '</span>' : '') +
@@ -469,413 +469,279 @@ function renderHits(hits) {
   }).join('');
 }
 
-// ── SCAN FUNCTIONS ────────────────────────────────────────
+function renderStreams(streams) {
+  if (!streams || !streams.length)
+    return '<div class="results-empty">No illegal streams detected</div>';
+  return streams.slice(0,30).map(function(s) {
+    var isBetting = s.is_betting;
+    var isCritical = s.severity === 'CRITICAL';
+    var cardClass = isBetting ? 'stream-card stream-betting' :
+                    isCritical ? 'stream-card stream-critical' : 'stream-card';
+    var subs = s.subscriber_count || 0;
+    var subsStr = subs >= 1000000 ? (subs/1000000).toFixed(1)+'M' :
+                  subs >= 1000 ? (subs/1000).toFixed(1)+'K' : subs;
+    return '<div class="' + cardClass + '">' +
+      '<div class="stream-name">@' + s.channel +
+        (isBetting ? ' <span class="hit-tag tag-bet">BETTING</span>' : '') +
+        (isCritical ? ' <span class="hit-tag tag-cam">CRITICAL</span>' : '') +
+      '</div>' +
+      '<div class="stream-meta">' +
+        '<span>Subscribers: ' + subsStr + '</span>' +
+        '<span>Language: ' + (s.language||'Unknown') + '</span>' +
+        '<span>Severity: ' + (s.severity||'MEDIUM') + '</span>' +
+        (s.channel_url ? '<a href="' + s.channel_url + '" target="_blank" style="color:var(--blue)">View Channel</a>' : '') +
+      '</div>' +
+      '</div>';
+  }).join('');
+}
+
+// ── FILM TAB ──────────────────────────────────────────────
 async function scanFilm() {
-  const film = document.getElementById('filmInput').value.trim();
-  if (!film) return;
-
-  const body = document.getElementById('filmResults');
-  const verdict = document.getElementById('filmVerdict');
-
-  verdict.className = 'verdict-pill verdict-scanning';
-  verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning 111 platforms for "${film}" <span class="dot-anim"></span></div>`;
-
+  var film = document.getElementById('filmInput').value.trim();
+  if (!film) { document.getElementById('filmInput').focus(); return; }
+  setBtn('filmBtn', true);
+  document.getElementById('filmResults').innerHTML =
+    '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning 111 global sites for "' + film + '"...</div>';
   try {
-    const r = await fetch(`${API}/theater/gold_scan`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify({film_title: film})
+    var r = await fetch(API + '/theater/gold_scan', {
+      method:'POST', headers:HEADERS,
+      body:JSON.stringify({film_title:film})
     });
-    const d = await r.json();
-
-    document.getElementById('filmHits').textContent = d.hits_found || 0;
-
-    const isClean = d.verdict && d.verdict.includes('CLEAN');
-    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
-    verdict.textContent = isClean ? 'CLEAN' : 'HIT DETECTED';
-
-    if (!d.hits || d.hits.length === 0) {
-      body.innerHTML = `
-        <div style="text-align:center;padding:2rem">
-          <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
-          <div style="color:var(--text2);font-size:0.85rem">"${film}" — No piracy detected across ${d.sources_scanned || 33} platforms</div>
-        </div>`;
-    } else {
-      body.innerHTML = d.hits.map(h => `
-        <div class="hit-card">
-          <div class="hit-platform">${h.platform}</div>
-          <div>
-            <div class="hit-detail">${h.detail || 'CAM copy detected'}</div>
-            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
-          </div>
-          <div class="hit-quality">${h.quality || 'CAM'}</div>
-        </div>`).join('') +
-        `<div class="action-bar">
-          <button class="btn btn-primary" onclick="copyReport('${film}', ${JSON.stringify(d.hits).replace(/'/g,"&#39;")})">Copy DMCA Report</button>
-        </div>`;
-    }
+    var d = await r.json();
+    var hits = d.hits || [];
+    setVerdict('filmVerdict', d.verdict || (hits.length ? 'CONFIRMED' : 'CLEAN'));
+    document.getElementById('filmCount').textContent = hits.length + ' URLs found';
+    document.getElementById('filmResults').innerHTML = renderHits(hits);
   } catch(e) {
-    verdict.className = 'verdict-pill verdict-scanning';
-    verdict.textContent = 'ERROR';
-    body.innerHTML = `<div class="placeholder-text">Error connecting to API: ${e.message}</div>`;
+    document.getElementById('filmResults').innerHTML =
+      '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
   }
+  setBtn('filmBtn', false);
 }
 
+// ── INDIA TAB ─────────────────────────────────────────────
 async function scanIndia() {
-  const film = document.getElementById('indiaFilm').value.trim();
-  if (!film) return;
-
-  const body = document.getElementById('indiaResults');
-  const verdict = document.getElementById('indiaVerdict');
-
-  verdict.className = 'verdict-pill verdict-scanning';
-  verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning 58 Indian platforms for "${film}" <span class="dot-anim"></span></div>`;
-
+  var film = document.getElementById('indiaFilm').value.trim();
+  if (!film) { document.getElementById('indiaFilm').focus(); return; }
+  setBtn('indiaBtn', true);
+  document.getElementById('indiaResults').innerHTML =
+    '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning 103 India piracy platforms for "' + film + '"...</div>';
   try {
-    const r = await fetch(`${API}/v1/scan`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify({title: film, category: "india"})
+    var r = await fetch(API + '/v1/scan', {
+      method:'POST', headers:HEADERS,
+      body:JSON.stringify({title:film, category:'india'})
     });
-    const raw = await r.json();
-    const d = raw.data || raw;
-
-    document.getElementById('indiaHits').textContent = d.hits_found || 0;
-
-    const isClean = d.verdict && d.verdict.includes('CLEAN');
-    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
-    verdict.textContent = isClean ? 'CLEAN' : 'HIT DETECTED';
-
-    if (!d.hits || d.hits.length === 0) {
-      body.innerHTML = `
-        <div style="text-align:center;padding:2rem">
-          <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
-          <div style="color:var(--text2);font-size:0.85rem">"${film}" — No piracy detected on Indian platforms</div>
-        </div>`;
-    } else {
-      body.innerHTML = d.hits.map(h => `
-        <div class="hit-card" style="border-color:rgba(255,153,0,0.3);background:rgba(255,153,0,0.05)">
-          <div class="hit-platform" style="color:var(--accent4)">${h.platform}</div>
-          <div>
-            <div class="hit-detail">${h.detail || 'Piracy detected'}</div>
-            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
-          </div>
-          <div class="hit-quality" style="background:rgba(255,153,0,0.15);color:var(--accent4)">${h.quality || 'HDRip'}</div>
-        </div>`).join('');
-    }
+    var d = await r.json();
+    var data = d.data || d;
+    var hits = data.hits || [];
+    setVerdict('indiaVerdict', data.verdict || (hits.length ? 'CONFIRMED' : 'CLEAN'));
+    document.getElementById('indiaCount').textContent = hits.length + ' URLs found';
+    document.getElementById('indiaResults').innerHTML = renderHits(hits);
   } catch(e) {
-    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
+    document.getElementById('indiaResults').innerHTML =
+      '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
   }
+  setBtn('indiaBtn', false);
 }
 
+// ── GAMING TAB ────────────────────────────────────────────
 async function scanGaming() {
-  const game = document.getElementById('gameTitle').value.trim();
-  if (!game) return;
-
-  const body = document.getElementById('gamingResults');
-  const verdict = document.getElementById('gamingVerdict');
-
-  verdict.className = 'verdict-pill verdict-scanning';
-  verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning crack sites for "${game}" <span class="dot-anim"></span></div>`;
-
-  // Gaming uses the same gold_scan endpoint for now
-  // In production this would call a dedicated gaming endpoint
+  var game = document.getElementById('gameTitle').value.trim();
+  if (!game) { document.getElementById('gameTitle').focus(); return; }
+  setBtn('gamingBtn', true);
+  document.getElementById('gamingResults').innerHTML =
+    '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning gaming piracy sites for "' + game + '"...</div>';
   try {
-    const r = await fetch(`${API}/v1/scan`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify({title: game, category: "gaming"})
+    var r = await fetch(API + '/v1/scan', {
+      method:'POST', headers:HEADERS,
+      body:JSON.stringify({title:game, category:'gaming'})
     });
-    const raw = await r.json();
-    const d = raw.data || raw;
-
-    document.getElementById('gamingHits').textContent = d.hits_found || 0;
-
-    const isClean = d.verdict && d.verdict.includes('CLEAN');
-    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
-    verdict.textContent = isClean ? 'CLEAN' : 'CRACK DETECTED';
-
-    if (!d.hits || d.hits.length === 0) {
-      body.innerHTML = `
-        <div style="text-align:center;padding:2rem">
-          <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
-          <div style="color:var(--text2);font-size:0.85rem">"${game}" — No cracked copies detected</div>
-        </div>`;
-    } else {
-      body.innerHTML = d.hits.map(h => `
-        <div class="hit-card" style="border-color:rgba(51,102,255,0.3);background:rgba(51,102,255,0.05)">
-          <div class="hit-platform" style="color:var(--accent3)">${h.platform}</div>
-          <div>
-            <div class="hit-detail">${h.detail || 'Cracked copy detected'}</div>
-            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
-          </div>
-          <div class="hit-quality" style="background:rgba(51,102,255,0.15);color:var(--accent3)">CRACK</div>
-        </div>`).join('');
-    }
+    var d = await r.json();
+    var data = d.data || d;
+    var hits = data.hits || [];
+    setVerdict('gamingVerdict', data.verdict || (hits.length ? 'CONFIRMED' : 'CLEAN'));
+    document.getElementById('gamingCount').textContent = hits.length + ' URLs found';
+    document.getElementById('gamingResults').innerHTML = renderHits(hits);
   } catch(e) {
-    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
+    document.getElementById('gamingResults').innerHTML =
+      '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
   }
+  setBtn('gamingBtn', false);
 }
 
+// ── MANGA TAB ─────────────────────────────────────────────
 async function scanManga() {
-  const title = document.getElementById('mangaTitle').value.trim();
-  const type = document.getElementById('mangaType').value;
-  if (!title) return;
-
-  const body = document.getElementById('mangaResults');
-  const verdict = document.getElementById('mangaVerdict');
-
-  verdict.className = 'verdict-pill verdict-scanning';
-  verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning 25+ platforms for "${title}" <span class="dot-anim"></span></div>`;
-
+  var title = document.getElementById('mangaTitle').value.trim();
+  if (!title) { document.getElementById('mangaTitle').focus(); return; }
+  setBtn('mangaBtn', true);
+  document.getElementById('mangaResults').innerHTML =
+    '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning manga and anime piracy sites for "' + title + '"...</div>';
   try {
-    const r = await fetch(`${API}/v1/scan`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify({title: title, category: "manga"})
+    var r = await fetch(API + '/v1/scan', {
+      method:'POST', headers:HEADERS,
+      body:JSON.stringify({title:title, category:'manga'})
     });
-    const raw = await r.json();
-    const d = raw.data || raw;
-
-    document.getElementById('mangaHits').textContent = d.hits_found || 0;
-    const isClean = d.verdict && d.verdict.includes('CLEAN');
-    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
-    verdict.textContent = isClean ? 'CLEAN' : 'PIRACY DETECTED';
-
-    if (!d.hits || d.hits.length === 0) {
-      body.innerHTML = `<div style="text-align:center;padding:2rem">
-        <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
-        <div style="color:var(--text2);font-size:0.85rem">"${title}" — No piracy detected on publishing platforms</div>
-      </div>`;
-    } else {
-      body.innerHTML = d.hits.map(h => `
-        <div class="hit-card" style="border-color:rgba(255,102,204,0.3);background:rgba(255,102,204,0.05)">
-          <div class="hit-platform" style="color:#ff66cc">${h.platform}</div>
-          <div>
-            <div class="hit-detail">${h.detail || 'Piracy detected'}</div>
-            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
-          </div>
-          <div class="hit-quality" style="background:rgba(255,102,204,0.15);color:#ff66cc">${type.toUpperCase()}</div>
-        </div>`).join('');
-    }
+    var d = await r.json();
+    var data = d.data || d;
+    var hits = data.hits || [];
+    setVerdict('mangaVerdict', data.verdict || (hits.length ? 'CONFIRMED' : 'CLEAN'));
+    document.getElementById('mangaCount').textContent = hits.length + ' URLs found';
+    document.getElementById('mangaResults').innerHTML = renderHits(hits);
   } catch(e) {
-    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
+    document.getElementById('mangaResults').innerHTML =
+      '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
   }
+  setBtn('mangaBtn', false);
 }
 
+// ── SPORTS TAB ────────────────────────────────────────────
 async function scanSports() {
-  const event = document.getElementById('sportEvent').value.trim();
-  if (!event) return;
-  const body = document.getElementById('sportsResults');
-  const verdict = document.getElementById('sportsVerdict');
-  verdict.className = 'verdict-pill verdict-scanning';
-  verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning 25+ platforms for "${event}" <span class="dot-anim"></span></div>`;
+  var event = document.getElementById('sportEvent').value.trim() || 'IPL 2026';
+  setBtn('sportsBtn', true);
+  document.getElementById('sportsResults').innerHTML =
+    '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning 135 Telegram channels for "' + event + '"...</div>';
   try {
-    const r = await fetch(`${API}/v1/live_shield`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify({event: event})
+    var r = await fetch(API + '/v1/live_shield', {
+      method:'POST', headers:HEADERS,
+      body:JSON.stringify({event:event})
     });
-    const raw = await r.json();
-    const d = raw.data || raw;
-    document.getElementById('sportsHits').textContent = d.hits_found || 0;
-    const isClean = d.verdict && d.verdict.includes('CLEAN');
-    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
-    verdict.textContent = isClean ? 'CLEAN' : 'STREAM DETECTED';
-    if (!d.hits || d.hits.length === 0) {
-      body.innerHTML = `<div style="text-align:center;padding:2rem">
-        <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
-        <div style="color:var(--text2);font-size:0.85rem">"${event}" — No illegal streams detected</div>
-      </div>`;
-    } else {
-      body.innerHTML = d.hits.map(h => `
-        <div class="hit-card" style="border-color:rgba(255,102,0,0.3);background:rgba(255,102,0,0.05)">
-          <div class="hit-platform" style="color:#ff6600">${h.platform}</div>
-          <div>
-            <div class="hit-detail">${h.detail || 'Illegal stream detected'}</div>
-            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
-          </div>
-          <div class="hit-quality" style="background:rgba(255,102,0,0.15);color:#ff6600">LIVE</div>
-        </div>`).join('');
-    }
+    var d = await r.json();
+    var data = d.data || d;
+    var streams = data.streams || [];
+    var critical = streams.filter(function(s){return s.severity==='CRITICAL';});
+    var betting = streams.filter(function(s){return s.is_betting;});
+    setVerdict('sportsVerdict',
+      critical.length ? 'CRITICAL - ' + critical.length + ' critical streams + ' + betting.length + ' betting channels' :
+      streams.length ? 'CONFIRMED - ' + streams.length + ' illegal streams detected' : 'CLEAN');
+    document.getElementById('sportsCount').textContent = streams.length + ' streams found';
+    document.getElementById('sportsResults').innerHTML = renderStreams(streams);
   } catch(e) {
-    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
+    document.getElementById('sportsResults').innerHTML =
+      '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
   }
+  setBtn('sportsBtn', false);
 }
 
+// ── LIVE SHIELD TAB ───────────────────────────────────────
 async function scanLiveShield() {
-  const event = document.getElementById('liveEvent').value.trim() || 'IPL 2026';
-  const body = document.getElementById('liveShieldResults');
-  const verdict = document.getElementById('liveVerdict');
-  verdict.className = 'verdict-pill verdict-scanning';
-  verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning 135+ Telegram channels for "${event}" <span class="dot-anim"></span></div>`;
-  
-  const start = Date.now();
+  var event = document.getElementById('liveEvent').value.trim() || 'IPL 2026';
+  setBtn('liveBtn', true);
+  document.getElementById('liveShieldResults').innerHTML =
+    '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning 135 Telegram channels — betting + stream dual detection for "' + event + '"...</div>';
   try {
-    const r = await fetch(`${API}/v1/live_shield`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify({event_name: event})
+    var r = await fetch(API + '/v1/live_shield', {
+      method:'POST', headers:HEADERS,
+      body:JSON.stringify({event:event})
     });
-    const elapsed = ((Date.now()-start)/1000).toFixed(1);
-    
-    if (r.ok) {
-      const raw = await r.json();
-    const d = raw.data || raw;
-      const count = d.streams_found || 0;
-      document.getElementById('liveStreams').textContent = count;
-      document.getElementById('lsReportBtn').disabled = false;
-      verdict.className = `verdict-badge ${count > 0 ? 'verdict-hit' : 'verdict-clean'}`;
-      verdict.textContent = count > 0 ? `${count} STREAMS` : 'CLEAN';
-      
-      if (count === 0) {
-        body.innerHTML = `<div style="text-align:center;padding:2rem">
-          <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
-          <div style="color:var(--text2);font-size:0.85rem">No illegal streams detected in ${elapsed}s</div>
-        </div>`;
-      } else {
-        const streams = d.streams || [];
-        body.innerHTML = `<div style="font-family:var(--mono);font-size:0.72rem;color:var(--text2);padding:0.5rem 0;margin-bottom:0.5rem;">
-          ${count} streams detected in ${elapsed}s — ${d.critical || 0} critical
-        </div>` + streams.map(s => `
-          <div class="hit-card" style="border-color:rgba(255,102,0,0.3);background:rgba(255,102,0,0.05)">
-            <div class="hit-platform" style="color:#ff6600">
-              @${s.channel}
-              ${s.is_betting ? '<span style="background:rgba(255,51,102,0.2);color:#ff3366;font-size:0.6rem;padding:0.1rem 0.4rem;border-radius:3px;margin-left:4px;">BETTING</span>' : ''}
-            </div>
-            <div>
-              <div class="hit-detail">${s.language} commentary · ${s.subscriber_count?.toLocaleString() || 0} subscribers</div>
-              <div class="hit-url"><a href="${s.channel_url}" target="_blank">${s.channel_url}</a></div>
-            </div>
-            <div class="hit-quality" style="background:rgba(255,102,0,0.15);color:#ff6600">${s.severity}</div>
-          </div>`).join('');
-      }
-    } else {
-      // Show real data from our scanner
-      body.innerHTML = `
-        <div style="font-family:var(--mono);font-size:0.72rem;color:var(--text2);padding:0.5rem 0;margin-bottom:0.5rem;">
-          7 streams detected in 2.4s — 3 critical
-        </div>
-        <div class="hit-card" style="border-color:rgba(255,102,0,0.3);background:rgba(255,102,0,0.05)">
-          <div class="hit-platform" style="color:#ff6600">@RealCricPoint</div>
-          <div><div class="hit-detail">Tamil commentary · 95,500 subscribers</div>
-          <div class="hit-url"><a href="https://t.me/RealCricPoint" target="_blank">https://t.me/RealCricPoint</a></div></div>
-          <div class="hit-quality" style="background:rgba(255,102,0,0.15);color:#ff6600">HIGH</div>
-        </div>
-        <div class="hit-card" style="border-color:rgba(255,51,102,0.3);background:rgba(255,51,102,0.05)">
-          <div class="hit-platform" style="color:#ff3366">@CricketBetting <span style="background:rgba(255,51,102,0.2);color:#ff3366;font-size:0.6rem;padding:0.1rem 0.4rem;border-radius:3px;margin-left:4px;">BETTING</span></div>
-          <div><div class="hit-detail">Tamil commentary · 14,600 subscribers</div>
-          <div class="hit-url"><a href="https://t.me/CricketBetting" target="_blank">https://t.me/CricketBetting</a></div></div>
-          <div class="hit-quality" style="background:rgba(255,51,102,0.15);color:#ff3366">CRITICAL</div>
-        </div>
-        <div class="hit-card" style="border-color:rgba(255,51,102,0.3);background:rgba(255,51,102,0.05)">
-          <div class="hit-platform" style="color:#ff3366">@IPLBetting <span style="background:rgba(255,51,102,0.2);color:#ff3366;font-size:0.6rem;padding:0.1rem 0.4rem;border-radius:3px;margin-left:4px;">BETTING</span></div>
-          <div><div class="hit-detail">Hindi commentary · 9,650 subscribers</div>
-          <div class="hit-url"><a href="https://t.me/IPLBetting" target="_blank">https://t.me/IPLBetting</a></div></div>
-          <div class="hit-quality" style="background:rgba(255,51,102,0.15);color:#ff3366">CRITICAL</div>
-        </div>`;
-      verdict.className = 'verdict-pill verdict-hit';
-      verdict.textContent = '7 STREAMS';
-      document.getElementById('liveStreams').textContent = '7';
-    }
+    var d = await r.json();
+    var data = d.data || d;
+    var streams = data.streams || [];
+    var betting = streams.filter(function(s){return s.is_betting;});
+    var critical = streams.filter(function(s){return s.severity==='CRITICAL';});
+    setVerdict('liveVerdict',
+      betting.length ? 'CRITICAL - ' + betting.length + ' BETTING+STREAM channels (PMLA reportable) + ' + streams.length + ' total' :
+      critical.length ? 'HIGH - ' + critical.length + ' critical illegal streams' :
+      streams.length ? 'CONFIRMED - ' + streams.length + ' channels active' : 'CLEAN');
+    document.getElementById('liveCount').textContent = streams.length + ' channels | ' + betting.length + ' betting';
+    document.getElementById('liveShieldResults').innerHTML = renderStreams(streams);
   } catch(e) {
-    body.innerHTML = `<div class="placeholder-text">Scanning ${event}... Contact dba.yugandhar@gmail.com for live demo</div>`;
+    document.getElementById('liveShieldResults').innerHTML =
+      '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
   }
+  setBtn('liveBtn', false);
 }
 
+// ── EVIDENCE PDF ──────────────────────────────────────────
 async function downloadEvidence(tab) {
-  const inputs = {
-    film: 'filmInput', india: 'indiaFilm',
-    gaming: 'gameTitle', manga: 'mangaTitle',
-    sports: 'sportEvent', liveshield: 'liveEvent'
-  };
-  const inputId = inputs[tab] || 'filmInput';
-  const titleEl = document.getElementById(inputId);
-  const title = titleEl ? titleEl.value.trim() : '';
-  if (!title) { alert('Please enter a title first, then click Evidence PDF'); return; }
-
-  const btn = event.target;
-  const orig = btn.textContent;
-  btn.textContent = 'Generating...';
-  btn.disabled = true;
-
+  var inputs = {film:'filmInput',india:'indiaFilm',gaming:'gameTitle',
+                manga:'mangaTitle',sports:'sportEvent',liveshield:'liveEvent'};
+  var el = document.getElementById(inputs[tab] || 'filmInput');
+  var title = el ? el.value.trim() : '';
+  if (!title) { alert('Enter a title first, then click Evidence PDF'); return; }
+  var btn = event.target;
+  var orig = btn.textContent;
+  btn.textContent = 'Generating...'; btn.disabled = true;
   try {
-    const r = await fetch(API + '/v1/evidence', {
-      method: 'POST', headers: HEADERS,
-      body: JSON.stringify({film_title: title})
+    var r = await fetch(API + '/v1/evidence', {
+      method:'POST', headers:HEADERS,
+      body:JSON.stringify({film_title:title})
     });
-    const d = await r.json();
+    var d = await r.json();
     if (!d.success) throw new Error(d.error || 'Failed');
-
-    const hits = d.hits || [];
-    const actions = d.recommended_actions || [];
-    const now = new Date().toUTCString();
-
-    const html = `<!DOCTYPE html><html><head><title>CINEOS Evidence - ${title}</title>
-<style>
-body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;color:#111;}
-h1{color:#007744;border-bottom:2px solid #007744;padding-bottom:8px;}
-h2{color:#333;border-bottom:1px solid #ccc;padding-bottom:4px;margin-top:24px;}
-.field{margin:6px 0;} .lbl{font-weight:bold;color:#555;display:inline-block;width:140px;}
-.url{color:#0066cc;word-break:break-all;font-size:13px;}
-.hit{background:#fff5f5;border:1px solid #ffcccc;padding:10px;margin:8px 0;border-radius:4px;}
-.action{padding:8px;margin:5px 0;background:#f5f5ff;border-left:4px solid #6633ff;}
-.imm{border-left-color:#cc0000;background:#fff5f5;}
-.footer{margin-top:40px;padding-top:10px;border-top:1px solid #ccc;font-size:12px;color:#777;}
-</style></head><body>
-<h1>CINEOS Anti-Piracy Evidence Package</h1>
-<div class="field"><span class="lbl">Content Title:</span> <strong>${title}</strong></div>
-<div class="field"><span class="lbl">Verdict:</span> <strong style="color:#cc0000">${d.verdict||'UNKNOWN'}</strong></div>
-<div class="field"><span class="lbl">URLs Found:</span> ${hits.length}</div>
-<div class="field"><span class="lbl">Generated:</span> ${now}</div>
-<div class="field"><span class="lbl">Patent:</span> US Provisional Patent 64/049,190</div>
-<h2>Legal Basis</h2>
-${(d.legal_references||[]).map(l=>'<div class="field">* '+l+'</div>').join('')}
-<h2>Infringing URLs</h2>
-${hits.length ? hits.map((h,i)=>'<div class="hit"><strong>URL #'+(i+1)+'</strong><br><span class="url">'+h.url+'</span><br><small>Platform: '+h.platform+' | Quality: '+h.quality+'</small><br><small>Detected: '+now+'</small></div>').join('') : '<p>No URLs found for this title.</p>'}
-<h2>Recommended Actions</h2>
-${actions.map(a=>'<div class="action '+(a.urgency==="IMMEDIATE"?"imm":"")+'"><strong>['+a.urgency+']</strong> '+a.action+'<br><small>'+a.contact+'</small></div>').join('')}
-<div class="footer">Generated by CINEOS Anti-Piracy Intelligence | dba.yugandhar@gmail.com | Patent 64/049,190<br>Submit to: nodalofficer@meity.gov.in | cybercrime.gov.in</div>
-
-<!-- Hidden elements required by scan functions -->
-<div id="filmHits" style="display:none"></div>
-<div id="gamingHits" style="display:none"></div>
-<div id="indiaHits" style="display:none"></div>
-<div id="mangaHits" style="display:none"></div>
-<div id="sportsHits" style="display:none"></div>
-<div id="liveStreams" style="display:none"></div>
-<button id="lsReportBtn" style="display:none"></button>
-<select id="mangaType" style="display:none"><option value="manga">manga</option></select>
-</body></html>`;
-
-    const w = window.open('','_blank','width=900,height=700');
-    w.document.write(html);
-    w.document.close();
-    setTimeout(()=>w.print(),800);
-
+    var hits = d.hits || [];
+    var actions = d.recommended_actions || [];
+    var now = new Date().toUTCString();
+    var html = '<!DOCTYPE html><html><head><title>CINEOS Evidence - ' + title + '</title>' +
+      '<style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;background:#fff;}' +
+      'h1{color:#007744;border-bottom:2px solid #007744;padding-bottom:8px;}' +
+      'h2{color:#333;border-bottom:1px solid #ccc;padding-bottom:4px;margin-top:24px;}' +
+      '.field{margin:6px 0;}.lbl{font-weight:bold;color:#555;display:inline-block;width:140px;}' +
+      '.url{color:#0066cc;word-break:break-all;font-size:13px;}' +
+      '.hit{background:#fff5f5;border:1px solid #ffcccc;padding:10px;margin:8px 0;border-radius:4px;}' +
+      '.action{padding:8px;margin:5px 0;background:#f5f5ff;border-left:4px solid #6633ff;}' +
+      '.imm{border-left-color:#cc0000;background:#fff5f5;}' +
+      '.footer{margin-top:40px;padding-top:10px;border-top:1px solid #ccc;font-size:12px;color:#777;}</style></head><body>' +
+      '<h1>CINEOS Anti-Piracy Evidence Package</h1>' +
+      '<div class="field"><span class="lbl">Content:</span> <strong>' + title + '</strong></div>' +
+      '<div class="field"><span class="lbl">Verdict:</span> <strong style="color:#cc0000">' + (d.verdict||'UNKNOWN') + '</strong></div>' +
+      '<div class="field"><span class="lbl">URLs Found:</span> ' + hits.length + '</div>' +
+      '<div class="field"><span class="lbl">Generated:</span> ' + now + '</div>' +
+      '<div class="field"><span class="lbl">Patent:</span> US Provisional Patent 64/049,190</div>' +
+      '<h2>Legal Basis</h2>' +
+      (d.legal_references||[]).map(function(l){return '<div class="field">* '+l+'</div>';}).join('') +
+      '<h2>Infringing URLs (' + hits.length + ' found)</h2>' +
+      (hits.length ? hits.map(function(h,i){
+        return '<div class="hit"><strong>URL #'+(i+1)+'</strong><br>' +
+          '<span class="url">'+h.url+'</span><br>' +
+          '<small>Platform: '+h.platform+' | Quality: '+h.quality+'</small><br>' +
+          '<small>Detected: '+now+'</small></div>';
+      }).join('') : '<p>No URLs detected for this title.</p>') +
+      '<h2>Recommended Actions</h2>' +
+      actions.map(function(a){
+        return '<div class="action '+(a.urgency==="IMMEDIATE"?"imm":"")+'"><strong>['+a.urgency+']</strong> '+a.action+'<br><small>'+a.contact+'</small></div>';
+      }).join('') +
+      '<div class="footer">Generated by CINEOS Anti-Piracy Intelligence | cineos.in<br>' +
+      'yugandhar@cineos.in | US Provisional Patent 64/049,190</div>' +
+      '</body></html>';
+    var w = window.open('','_blank','width=900,height=700');
+    w.document.write(html); w.document.close();
+    setTimeout(function(){w.print();}, 800);
   } catch(e) {
     alert('Error: ' + e.message);
-  } finally {
-    btn.textContent = orig;
-    btn.disabled = false;
   }
+  btn.textContent = orig; btn.disabled = false;
 }
 
 // ── MIB FILING ───────────────────────────────────────────
 function fileMIB(tab) {
   var inputs = {film:'filmInput',india:'indiaFilm',gaming:'gameTitle',
                 manga:'mangaTitle',sports:'sportEvent',liveshield:'liveEvent'};
-  var title = document.getElementById(inputs[tab] || 'filmInput').value.trim() || 'Unknown Title';
+  var title = document.getElementById(inputs[tab]||'filmInput').value.trim()||'Unknown Title';
   var subj = encodeURIComponent('Piracy Report: ' + title + ' - CINEOS Intelligence');
-  var body = encodeURIComponent('Dear Nodal Officer,\n\nI am reporting active piracy of "' + title + '" detected by CINEOS Anti-Piracy Intelligence Platform (US Patent 64/049,190).\n\nDetection timestamp: ' + new Date().toUTCString() + '\n\nLegal basis: Copyright Act 1957 Section 51, IT Act 2000 Section 66\n\nEvidence available at: cineos.in/cineos_platform.html\n\nRegards,\nYugandhar Mallavarapu\nCINEOS Anti-Piracy Intelligence\ncineos.in');
-  window.open('https://mail.google.com/mail/?view=cm&to=nodalofficer@meity.gov.in&su=' + subj + '&body=' + body, '_blank');
+  var body = encodeURIComponent(
+    'Dear Nodal Officer,
+
+I am reporting active piracy of "' + title +
+    '" detected by CINEOS Anti-Piracy Intelligence Platform (US Patent 64/049,190).
+
+' +
+    'Detection timestamp: ' + new Date().toUTCString() + '
+
+' +
+    'Legal basis: Copyright Act 1957 Section 51, IT Act 2000 Section 66
+
+' +
+    'Evidence available at: cineos.in/cineos_platform.html
+
+' +
+    'Regards,
+Yugandhar Mallavarapu
+CINEOS
+cineos.in'
+  );
+  window.open('https://mail.google.com/mail/?view=cm&to=nodalofficer@meity.gov.in&su='+subj+'&body='+body,'_blank');
 }
+
 </script>
 
 <!-- Hidden elements required by scan functions -->

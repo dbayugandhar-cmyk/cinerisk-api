@@ -803,6 +803,131 @@ async def get_tiers():
         "trial": "Free tier: 10 queries to test the API"
     }
 
+@app.post("/v1/graph")
+async def graph_intelligence(request: Request):
+    """
+    Build piracy network graph from a seed URL.
+    Discovers mirrors, Telegram channels, CDN, social clips, resellers.
+    """
+    import time
+    start = time.time()
+    body = await request.json()
+    seed_url = body.get("seed_url","").strip()
+    title = body.get("title","").strip()
+    depth = min(int(body.get("depth", 2)), 2)
+
+    if not seed_url or not title:
+        raise HTTPException(400, "seed_url and title required")
+
+    nodes = []
+    edges = []
+    by_type = {"source":0,"mirror":0,"telegram":0,"cdn":0,"social":0,"reseller":0}
+    seen = set()
+
+    def add_node(url, ntype, parent=None, subscribers=0):
+        if url in seen:
+            return
+        seen.add(url)
+        from urllib.parse import urlparse
+        domain = urlparse(url).netloc.lower().replace("www.","")
+        nodes.append({
+            "url": url, "domain": domain, "type": ntype,
+            "title": title, "subscribers": subscribers, "parent": parent
+        })
+        by_type[ntype] = by_type.get(ntype, 0) + 1
+        if parent:
+            edges.append({"from": parent, "to": url, "type": ntype})
+
+    # Add seed
+    add_node(seed_url, "source")
+
+    if SERP_KEY:
+        try:
+            import httpx as _httpx
+            from urllib.parse import urlparse
+            import re as _re
+
+            domain = urlparse(seed_url).netloc.lower().replace("www.","")
+            base = domain.split(".")[0]
+
+            async with _httpx.AsyncClient(timeout=12) as client:
+                tasks = []
+
+                # Find Telegram channels
+                tasks.append(client.get("https://serpapi.com/search", params={
+                    "q": f'"{title}" telegram t.me stream download piracy',
+                    "api_key": SERP_KEY, "num": 5, "engine": "google"
+                }))
+
+                # Find social clips
+                tasks.append(client.get("https://serpapi.com/search", params={
+                    "q": f'"{title}" full movie site:youtube.com OR site:dailymotion.com',
+                    "api_key": SERP_KEY, "num": 5, "engine": "google"
+                }))
+
+                # Find resellers
+                tasks.append(client.get("https://serpapi.com/search", params={
+                    "q": f'"{title}" IPTV subscription buy channel',
+                    "api_key": SERP_KEY, "num": 5, "engine": "google"
+                }))
+
+                # DNS lookup for CDN
+                tasks.append(client.get(
+                    f"https://dns.google/resolve?name={domain}&type=A"
+                ))
+
+                responses = await asyncio.gather(*tasks, return_exceptions=True)
+
+                # Process Telegram
+                if not isinstance(responses[0], Exception) and responses[0].status_code == 200:
+                    for item in responses[0].json().get("organic_results", []):
+                        tg = _re.findall(r't\.me/(\w+)', item.get("link","") + item.get("snippet",""))
+                        for ch in tg[:2]:
+                            if len(ch) > 3:
+                                add_node(f"https://t.me/{ch}", "telegram", seed_url)
+
+                # Process social
+                if not isinstance(responses[1], Exception) and responses[1].status_code == 200:
+                    for item in responses[1].json().get("organic_results", [])[:3]:
+                        link = item.get("link","")
+                        if any(s in link for s in ["youtube.com","dailymotion.com","vimeo.com"]):
+                            add_node(link, "social", seed_url)
+
+                # Process resellers
+                if not isinstance(responses[2], Exception) and responses[2].status_code == 200:
+                    for item in responses[2].json().get("organic_results", [])[:2]:
+                        link = item.get("link","")
+                        t = item.get("title","").lower()
+                        if any(w in t for w in ["iptv","subscription","buy","resell"]):
+                            add_node(link, "reseller", seed_url)
+
+                # Process CDN
+                if not isinstance(responses[3], Exception) and responses[3].status_code == 200:
+                    answers = responses[3].json().get("Answer", [])
+                    if answers:
+                        ip = answers[0].get("data","")
+                        cdn = "Cloudflare" if ip.startswith(("104.","172.64.","162.158.")) else                               "Fastly" if ip.startswith(("151.101.","199.232.")) else                               "AWS" if ip.startswith(("13.","52.","54.")) else "Unknown"
+                        if cdn != "Unknown":
+                            add_node(f"cdn://{cdn}/{ip}", "cdn", seed_url)
+
+        except Exception as e:
+            pass
+
+    elapsed = round(time.time() - start, 2)
+    return {
+        "success": True,
+        "data": {
+            "title": title,
+            "seed_url": seed_url,
+            "total_nodes": len(nodes),
+            "by_type": by_type,
+            "nodes": nodes,
+            "edges": edges,
+            "scan_time": elapsed
+        }
+    }
+
+
 @app.post("/v1/evidence")
 async def generate_evidence(
     request: Request,

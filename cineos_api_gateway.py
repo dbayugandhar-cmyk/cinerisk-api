@@ -35,7 +35,7 @@ log = logging.getLogger("cineos.gateway")
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://postgres:REDACTED@tramway.proxy.rlwy.net:27075/railway"
+    "PASTE_NEW_DB_URL_HERE"
 )
 SERP_KEY = os.getenv("SERP_API_KEY", "")
 STRIPE_SECRET = os.getenv("STRIPE_SECRET_KEY", "")

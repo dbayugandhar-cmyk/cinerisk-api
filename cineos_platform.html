@@ -477,7 +477,19 @@ function renderHits(hits) {
 function renderStreams(streams) {
   if (!streams || !streams.length)
     return '<div class="results-empty">No illegal streams detected</div>';
-  return streams.slice(0,30).map(function(s) {
+  // Filter: only show channels with subscribers OR betting/critical
+  var filtered = streams.filter(function(s) {
+    return s.subscriber_count > 0 || s.is_betting || s.severity === 'CRITICAL';
+  });
+  // Sort: betting first, then by subscriber count
+  filtered.sort(function(a,b) {
+    if (a.is_betting && !b.is_betting) return -1;
+    if (!a.is_betting && b.is_betting) return 1;
+    return (b.subscriber_count||0) - (a.subscriber_count||0);
+  });
+  if (!filtered.length)
+    return '<div class="results-empty" style="color:var(--green)">No active channels detected — all 135 channels have zero subscribers</div>';
+  return filtered.slice(0,30).map(function(s) {
     var isBetting = s.is_betting;
     var isCritical = s.severity === 'CRITICAL';
     var cardClass = isBetting ? 'stream-card stream-betting' :

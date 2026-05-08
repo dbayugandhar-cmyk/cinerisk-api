@@ -4,315 +4,159 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CINEOS — Anti-Piracy Intelligence Platform</title>
-<meta name="description" content="India's first AI-powered anti-piracy platform. Detect piracy across 1000+ sources in seconds.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PTQXGXXZ78"></script>
-<script>
-  window.dataLayer=window.dataLayer||[];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js',new Date());
-  gtag('config','G-PTQXGXXZ78');
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#080810; --bg2:#0d0d1a; --bg3:#12121f;
-  --border:#1a1a2e; --border2:#222240;
-  --accent:#00ff88; --accent2:#ff3366;
-  --accent3:#3366ff; --accent4:#ff9900;
-  --purple:#cc44ff;
-  --text:#eeeef5; --text2:#aaaacc; --text3:#44445a;
-  --mono:'Space Mono',monospace;
-  --sans:'DM Sans',sans-serif;
-  --r:10px;
+  --black:#050508; --bg2:#0c0c12; --bg3:#13131c;
+  --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.12);
+  --green:#00e87a; --red:#ff3355; --orange:#ff8c00;
+  --blue:#3d7fff; --purple:#b060ff;
+  --text:#eeeef5; --text2:#8888aa; --text3:#55556a;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'IBM Plex Sans',sans-serif;
+  --display:'Syne',sans-serif;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;}
+body{background:var(--black);color:var(--text);font-family:var(--sans);overflow-x:hidden;}
 
-/* Grid bg */
-body::before{content:'';position:fixed;inset:0;
-  background-image:linear-gradient(rgba(0,255,136,.02) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(0,255,136,.02) 1px,transparent 1px);
-  background-size:40px 40px;pointer-events:none;z-index:0;}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:.8rem 2rem;display:flex;align-items:center;
+  justify-content:space-between;background:rgba(5,5,8,.9);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--display);font-weight:800;font-size:1.3rem;
+  color:var(--green);text-decoration:none;letter-spacing:-.02em;}
+.nav-links{display:flex;gap:1.5rem;align-items:center;}
+.nav-links a{font-family:var(--mono);font-size:.72rem;color:var(--text2);
+  text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-badge{font-family:var(--mono);font-size:.6rem;color:var(--green);
+  background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.2);
+  padding:.2rem .6rem;border-radius:3px;letter-spacing:.08em;}
 
-/* ── NAV ── */
-nav{position:sticky;top:0;z-index:100;
-  background:rgba(8,8,16,.95);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  padding:0 2rem;height:64px;
-  display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{font-family:var(--mono);font-size:1rem;color:var(--accent);
-  letter-spacing:.15em;display:flex;align-items:center;gap:.6rem;}
-.nav-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;
-  animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-.nav-right{display:flex;align-items:center;gap:1.5rem;}
-.nav-link{font-family:var(--mono);font-size:.65rem;color:var(--text2);
-  text-decoration:none;letter-spacing:.1em;text-transform:uppercase;
-  transition:color .2s;}
-.nav-link:hover{color:var(--accent);}
-.nav-stat{font-family:var(--mono);font-size:.65rem;color:var(--text2);}
-.nav-stat span{color:var(--accent);}
-#clock{font-family:var(--mono);font-size:.65rem;color:var(--text2);}
-.live-badge{display:flex;align-items:center;gap:.4rem;
-  background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.2);
-  border-radius:20px;padding:.3rem .7rem;
-  font-family:var(--mono);font-size:.6rem;color:var(--accent);}
-.live-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;
-  animation:pulse 1.5s infinite;}
+/* HERO */
+.hero{padding:7rem 2rem 2rem;text-align:center;max-width:900px;margin:0 auto;}
+.hero h1{font-family:var(--display);font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:1rem;}
+.hero h1 span{color:var(--green);}
+.hero p{color:var(--text2);font-size:.95rem;max-width:560px;margin:0 auto 2rem;
+  line-height:1.7;font-weight:300;}
 
-/* ── MAIN ── */
-main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem;}
+/* TABS */
+.tabs-wrap{padding:0 2rem;max-width:1200px;margin:0 auto;}
+.tab-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;
+  background:var(--border);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;margin-bottom:2rem;}
+.tab-card{background:var(--bg2);padding:1rem .6rem;text-align:center;
+  cursor:pointer;transition:background .15s;border:none;width:100%;}
+.tab-card:hover{background:var(--bg3);}
+.tab-card.active{background:var(--bg3);border-bottom:2px solid var(--green);}
+.tab-icon{font-size:1.4rem;display:block;margin-bottom:.3rem;}
+.tab-label{font-family:var(--mono);font-size:.58rem;color:var(--text2);
+  letter-spacing:.06em;text-transform:uppercase;}
+.tab-card.active .tab-label{color:var(--green);}
 
-/* ── HERO ── */
-.hero{text-align:center;padding:3.5rem 1rem 2.5rem;}
-.hero-tag{display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--mono);font-size:.65rem;color:var(--accent);
-  letter-spacing:.15em;text-transform:uppercase;
-  background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.15);
-  border-radius:20px;padding:.4rem 1rem;margin-bottom:1.5rem;}
-.hero h1{font-family:var(--mono);font-size:clamp(1.8rem,4vw,3rem);
-  font-weight:700;line-height:1.15;margin-bottom:1rem;
-  background:linear-gradient(135deg,#fff 0%,var(--accent) 60%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;}
-.hero p{font-size:1rem;color:var(--text2);max-width:600px;
-  margin:0 auto 2rem;line-height:1.7;}
-
-/* Hero stats */
-.hero-stats{display:flex;justify-content:center;flex-wrap:wrap;gap:.8rem;margin-bottom:2rem;}
-.hstat{background:var(--bg2);border:1px solid var(--border);
-  border-radius:var(--r);padding:.9rem 1.3rem;text-align:center;
-  transition:all .2s;}
-.hstat:hover{border-color:var(--accent);transform:translateY(-2px);}
-.hstat-val{font-family:var(--mono);font-size:1.3rem;font-weight:700;margin-bottom:.2rem;}
-.hstat-lbl{font-size:.68rem;color:var(--text2);}
-
-/* ── TAB SELECTOR — BIG CARDS ── */
-.tab-section{margin-bottom:1.5rem;}
-.tab-section-label{font-family:var(--mono);font-size:.62rem;color:var(--text2);
-  letter-spacing:.15em;text-transform:uppercase;margin-bottom:.8rem;}
-
-.tab-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.6rem;}
-@media(max-width:900px){.tab-grid{grid-template-columns:repeat(4,1fr);}}
-@media(max-width:500px){.tab-grid{grid-template-columns:repeat(2,1fr);}}
-
-.tab-card{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:var(--r);padding:1rem .8rem;
-  text-align:center;cursor:pointer;
-  transition:all .2s;position:relative;overflow:hidden;
-  display:flex;flex-direction:column;align-items:center;gap:.4rem;
-}
-.tab-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--tab-color,var(--accent));opacity:0;transition:opacity .2s;}
-.tab-card:hover{border-color:var(--tab-color,var(--accent));transform:translateY(-2px);
-  background:var(--bg3);}
-.tab-card:hover::before{opacity:1;}
-.tab-card.active{border-color:var(--tab-color,var(--accent));background:var(--bg3);}
-.tab-card.active::before{opacity:1;}
-.tab-card.active::before{opacity:1;}
-
-.tab-icon{font-size:1.6rem;line-height:1;}
-.tab-name{font-family:var(--mono);font-size:.62rem;font-weight:700;
-  color:var(--text);letter-spacing:.05em;text-transform:uppercase;}
-.tab-desc{font-size:.6rem;color:var(--text2);line-height:1.3;}
-.tab-count{font-family:var(--mono);font-size:.58rem;
-  background:rgba(255,255,255,.04);border-radius:10px;
-  padding:.1rem .4rem;color:var(--tab-color,var(--accent));margin-top:.1rem;}
-
-/* ── PANEL CONTAINER ── */
-.panel{display:none;}
+/* PANELS */
+.panel{display:none;padding:0 2rem 4rem;max-width:1200px;margin:0 auto;}
 .panel.active{display:block;}
-.panel-wrap{background:var(--bg2);border:1px solid var(--border);
-  border-radius:12px;overflow:hidden;}
 
-/* Panel header */
-.panel-header{padding:1.5rem 1.8rem 1rem;
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:flex-start;justify-content:space-between;
-  flex-wrap:wrap;gap:1rem;}
-.panel-header-left{}
-.panel-title{font-family:var(--mono);font-size:1rem;font-weight:700;
-  color:var(--text);margin-bottom:.3rem;
-  display:flex;align-items:center;gap:.6rem;}
-.panel-title-icon{font-size:1.2rem;}
-.panel-subtitle{font-size:.82rem;color:var(--text2);max-width:500px;line-height:1.5;}
+/* SCAN BOX */
+.scan-box{background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;padding:1.8rem;margin-bottom:1.5rem;}
+.scan-label{font-family:var(--mono);font-size:.6rem;color:var(--green);
+  letter-spacing:.15em;text-transform:uppercase;margin-bottom:.8rem;}
+.scan-title{font-family:var(--display);font-size:1.2rem;font-weight:700;
+  margin-bottom:.4rem;}
+.scan-desc{font-size:.82rem;color:var(--text2);margin-bottom:1.2rem;
+  line-height:1.6;}
+.scan-row{display:flex;gap:.8rem;flex-wrap:wrap;}
+.scan-input{flex:1;min-width:200px;background:var(--bg3);
+  border:1px solid var(--border2);border-radius:6px;
+  padding:.75rem 1rem;color:var(--text);font-family:var(--mono);
+  font-size:.8rem;outline:none;transition:border-color .2s;}
+.scan-input:focus{border-color:var(--green);}
+.scan-btn{background:var(--green);color:#000;border:none;border-radius:6px;
+  padding:.75rem 1.4rem;font-family:var(--mono);font-size:.72rem;
+  font-weight:600;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;
+  transition:all .2s;white-space:nowrap;}
+.scan-btn:hover{background:#00ff88;transform:translateY(-1px);}
+.scan-btn:disabled{opacity:.5;cursor:wait;transform:none;}
+.scan-btn-ghost{background:transparent;color:var(--text2);
+  border:1px solid var(--border2);border-radius:6px;
+  padding:.75rem 1rem;font-family:var(--mono);font-size:.72rem;
+  cursor:pointer;transition:all .2s;}
+.scan-btn-ghost:hover{color:var(--text);border-color:var(--text2);}
+.scan-btn-red{background:transparent;color:var(--red);
+  border:1px solid rgba(255,51,85,.3);border-radius:6px;
+  padding:.75rem 1rem;font-family:var(--mono);font-size:.72rem;
+  cursor:pointer;transition:all .2s;}
+.scan-btn-red:hover{background:rgba(255,51,85,.08);}
 
-/* Search bar */
-.search-zone{padding:1.5rem 1.8rem;border-bottom:1px solid var(--border);}
-.search-label{font-family:var(--mono);font-size:.6rem;color:var(--text2);
-  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.6rem;}
-.search-row{display:flex;gap:.6rem;flex-wrap:wrap;}
-.search-input{flex:1;min-width:220px;
-  background:var(--bg);border:1px solid var(--border2);border-radius:6px;
-  padding:.85rem 1rem;color:var(--text);font-family:var(--mono);font-size:.85rem;
-  outline:none;transition:border-color .2s;}
-.search-input:focus{border-color:var(--accent);}
-.search-input::placeholder{color:var(--text3);}
-.btn-scan{padding:.85rem 1.5rem;border-radius:6px;border:none;cursor:pointer;
-  font-family:var(--mono);font-size:.75rem;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;transition:all .2s;
-  white-space:nowrap;}
-.btn-scan:hover{transform:translateY(-1px);}
-.btn-scan:disabled{opacity:.4;cursor:not-allowed;transform:none;}
-.btn-report{padding:.85rem 1.2rem;border-radius:6px;border:none;cursor:pointer;
-  font-family:var(--mono);font-size:.72rem;font-weight:700;
-  letter-spacing:.06em;text-transform:uppercase;
-  background:rgba(0,255,136,.1);color:var(--accent);
-  border:1px solid rgba(0,255,136,.2);transition:all .2s;white-space:nowrap;}
-.btn-report:hover{background:rgba(0,255,136,.15);transform:translateY(-1px);}
-.btn-secondary{padding:.85rem 1rem;border-radius:6px;cursor:pointer;
-  font-family:var(--mono);font-size:.7rem;
-  background:transparent;color:var(--text2);
-  border:1px solid var(--border2);transition:all .2s;}
-.btn-secondary:hover{border-color:var(--text2);color:var(--text);}
-
-/* Platform chips */
-.chips-zone{padding:1rem 1.8rem;border-bottom:1px solid var(--border);
-  display:flex;flex-wrap:wrap;gap:.4rem;}
-.chip{font-family:var(--mono);font-size:.58rem;
-  background:rgba(255,255,255,.04);border:1px solid var(--border2);
-  border-radius:20px;padding:.2rem .6rem;color:var(--text2);
-  letter-spacing:.05em;}
-
-/* Results zone */
-.results-zone{padding:1.5rem 1.8rem;}
-.results-status{display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;}
-.results-title{font-family:var(--mono);font-size:.7rem;color:var(--text2);
+/* RESULTS */
+.results-box{background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;min-height:200px;}
+.results-header{background:var(--bg3);padding:.8rem 1.2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);}
+.results-title{font-family:var(--mono);font-size:.65rem;color:var(--text2);
   letter-spacing:.1em;text-transform:uppercase;}
-.verdict-pill{font-family:var(--mono);font-size:.65rem;font-weight:700;
-  padding:.3rem .8rem;border-radius:20px;letter-spacing:.08em;}
-.verdict-ready{background:rgba(100,100,140,.15);color:var(--text2);border:1px solid var(--border2);}
-.verdict-scanning{background:rgba(255,153,0,.1);color:var(--accent4);border:1px solid rgba(255,153,0,.2);animation:blink 1s steps(2) infinite;}
-.verdict-hit{background:rgba(255,51,102,.1);color:var(--accent2);border:1px solid rgba(255,51,102,.2);}
-.verdict-critical{background:rgba(255,51,102,.15);color:#ff0044;border:1px solid rgba(255,51,102,.3);}
-.verdict-clean{background:rgba(0,255,136,.08);color:var(--accent);border:1px solid rgba(0,255,136,.2);}
-@keyframes blink{50%{opacity:.5}}
+.results-body{padding:1.2rem;}
+.results-empty{text-align:center;padding:3rem;color:var(--text3);
+  font-family:var(--mono);font-size:.75rem;}
+.hit-row{display:flex;align-items:center;gap:.8rem;padding:.6rem .8rem;
+  border-radius:6px;margin-bottom:.4rem;background:rgba(255,255,255,.02);
+  transition:background .15s;}
+.hit-row:hover{background:rgba(255,255,255,.04);}
+.hit-url{font-family:var(--mono);font-size:.7rem;color:var(--green);
+  flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.hit-tag{font-family:var(--mono);font-size:.58rem;padding:.15rem .4rem;
+  border-radius:3px;white-space:nowrap;}
+.tag-cam{background:rgba(255,51,85,.1);color:var(--red);border:1px solid rgba(255,51,85,.2);}
+.tag-hd{background:rgba(255,140,0,.1);color:var(--orange);border:1px solid rgba(255,140,0,.2);}
+.tag-live{background:rgba(0,232,122,.1);color:var(--green);border:1px solid rgba(0,232,122,.2);}
+.tag-bet{background:rgba(176,96,255,.1);color:var(--purple);border:1px solid rgba(176,96,255,.2);}
 
-.results-body{min-height:120px;}
-.placeholder{text-align:center;padding:2.5rem 1rem;color:var(--text2);font-size:.85rem;line-height:1.7;}
-.placeholder-icon{font-size:2rem;margin-bottom:.8rem;opacity:.4;}
+/* VERDICT */
+.verdict-box{padding:1rem 1.2rem;border-radius:6px;margin-bottom:1rem;
+  font-family:var(--mono);font-size:.8rem;font-weight:600;}
+.verdict-high{background:rgba(255,51,85,.08);border:1px solid rgba(255,51,85,.2);color:var(--red);}
+.verdict-clean{background:rgba(0,232,122,.06);border:1px solid rgba(0,232,122,.2);color:var(--green);}
+.verdict-medium{background:rgba(255,140,0,.08);border:1px solid rgba(255,140,0,.2);color:var(--orange);}
 
-.hit-card{background:var(--bg);border:1px solid var(--border2);border-radius:8px;
-  padding:.9rem 1.1rem;margin-bottom:.6rem;
-  display:flex;align-items:flex-start;gap:.8rem;
-  animation:fadeUp .25s ease forwards;opacity:0;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.hit-card:nth-child(1){animation-delay:.05s}
-.hit-card:nth-child(2){animation-delay:.1s}
-.hit-card:nth-child(3){animation-delay:.15s}
-.hit-card:nth-child(4){animation-delay:.2s}
-.hit-card:nth-child(5){animation-delay:.25s}
-.hit-severity{font-family:var(--mono);font-size:.58rem;font-weight:700;
-  padding:.2rem .5rem;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
-.sev-critical{background:rgba(255,51,102,.12);color:var(--accent2);border:1px solid rgba(255,51,102,.25);}
-.sev-high{background:rgba(255,153,0,.1);color:var(--accent4);border:1px solid rgba(255,153,0,.2);}
-.sev-medium{background:rgba(51,102,255,.1);color:var(--accent3);border:1px solid rgba(51,102,255,.2);}
-.hit-info{flex:1;min-width:0;}
-.hit-title{font-size:.82rem;color:var(--text);margin-bottom:.2rem;font-weight:500;}
-.hit-url{font-family:var(--mono);font-size:.68rem;color:var(--accent);
-  text-decoration:none;word-break:break-all;display:block;margin-bottom:.25rem;}
-.hit-url:hover{text-decoration:underline;}
-.hit-meta{font-size:.7rem;color:var(--text2);}
-.hit-quality{font-family:var(--mono);font-size:.6rem;padding:.15rem .4rem;
-  border-radius:3px;background:rgba(255,102,0,.1);color:#ff6600;
-  border:1px solid rgba(255,102,0,.2);margin-left:.5rem;}
+/* STREAM CARD */
+.stream-card{background:var(--bg3);border:1px solid var(--border);
+  border-radius:8px;padding:1rem;margin-bottom:.6rem;}
+.stream-name{font-family:var(--mono);font-size:.8rem;color:var(--green);
+  font-weight:600;margin-bottom:.3rem;}
+.stream-meta{font-size:.72rem;color:var(--text2);display:flex;gap:1rem;flex-wrap:wrap;}
+.stream-critical{border-color:rgba(255,51,85,.3);}
+.stream-betting{border-color:rgba(176,96,255,.3);}
 
-/* Report section — scoped per tab */
-.u-report{display:none;margin-top:1.5rem;border-top:1px solid var(--border);padding-top:1.5rem;}
-.report-header-bar{background:linear-gradient(135deg,rgba(0,255,136,.05),rgba(51,102,255,.03));
-  border:1px solid rgba(0,255,136,.15);border-radius:10px;
-  padding:1.2rem 1.5rem;margin-bottom:1.2rem;
-  display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;}
-.report-meta{font-size:.8rem;color:var(--text);}
-.report-meta div{margin-bottom:.3rem;}
-.report-meta strong{color:var(--accent);font-family:var(--mono);}
-.report-stamp{font-family:var(--mono);font-size:.6rem;color:var(--text2);
-  background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.12);
-  padding:.5rem .8rem;border-radius:6px;text-align:right;line-height:1.8;}
-.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-  gap:.7rem;margin-bottom:1.2rem;}
-.kpi-box{background:var(--bg);border:1px solid var(--border);
-  border-radius:8px;padding:.9rem;border-top-width:2px;}
-.kpi-lbl{font-family:var(--mono);font-size:.55rem;color:var(--text2);
-  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
-.kpi-val{font-family:var(--mono);font-size:1.3rem;font-weight:700;}
-.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
-.chart-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.1rem;}
-.chart-card.full{grid-column:1/-1;}
-.chart-lbl{font-family:var(--mono);font-size:.58rem;color:var(--text2);
-  letter-spacing:.12em;text-transform:uppercase;margin-bottom:.2rem;}
-.chart-ttl{font-size:.8rem;color:var(--text);margin-bottom:.8rem;}
-.chart-wrap{position:relative;}
-.cascade-table{width:100%;border-collapse:collapse;font-size:.75rem;}
-.cascade-table th{font-family:var(--mono);font-size:.55rem;color:var(--text2);
-  letter-spacing:.08em;text-transform:uppercase;
-  padding:.4rem .8rem;text-align:left;border-bottom:1px solid var(--border);}
-.cascade-table td{padding:.55rem .8rem;color:var(--text);
-  border-bottom:1px solid rgba(255,255,255,.03);}
-.cascade-table tr:last-child td{border:none;}
-.intel-section{background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-.intel-row{display:flex;gap:.8rem;padding:.8rem 1rem;
-  border-bottom:1px solid rgba(255,255,255,.03);}
-.intel-row:last-child{border:none;}
-.intel-icon{font-size:.95rem;flex-shrink:0;margin-top:2px;}
-.intel-lbl{font-family:var(--mono);font-size:.58rem;color:var(--text2);
-  letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem;}
-.intel-txt{font-size:.78rem;color:var(--text);line-height:1.5;}
-.report-actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem;}
-.report-btn{font-family:var(--mono);font-size:.62rem;font-weight:700;
-  padding:.55rem 1rem;border-radius:5px;border:none;cursor:pointer;
-  letter-spacing:.07em;text-transform:uppercase;transition:all .15s;}
-.report-btn:hover{transform:translateY(-1px);}
+/* SECTION */
+.section-hd{font-family:var(--display);font-size:1rem;font-weight:700;
+  margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.platform-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--border);border:1px solid var(--border);border-radius:10px;
+  overflow:hidden;margin-bottom:1.5rem;}
+.pstat{background:var(--bg2);padding:1rem;text-align:center;}
+.pstat-val{font-family:var(--display);font-size:1.6rem;font-weight:800;
+  color:var(--green);line-height:1;}
+.pstat-lbl{font-family:var(--mono);font-size:.58rem;color:var(--text3);
+  letter-spacing:.1em;text-transform:uppercase;margin-top:.3rem;}
 
-/* ── MINI STATS above panels ── */
-.mini-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
-  gap:.6rem;padding:1rem 1.8rem;border-bottom:1px solid var(--border);}
-.ms{text-align:center;}
-.ms-val{font-family:var(--mono);font-size:1rem;font-weight:700;margin-bottom:.2rem;}
-.ms-lbl{font-family:var(--mono);font-size:.55rem;color:var(--text2);
-  text-transform:uppercase;letter-spacing:.08em;}
+/* LOADING */
+.loading-dots span{display:inline-block;width:5px;height:5px;
+  background:var(--green);border-radius:50%;margin:0 2px;
+  animation:ld 1.2s ease infinite;}
+.loading-dots span:nth-child(2){animation-delay:.2s;}
+.loading-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes ld{0%,80%,100%{transform:scale(0);opacity:.3;}40%{transform:scale(1);opacity:1;}}
 
-/* ── PANEL visibility ── */
-
-
-/* ── Live shield specific ── */
-.stream-card{background:var(--bg);border:1px solid var(--border2);
-  border-radius:8px;padding:.85rem 1rem;margin-bottom:.5rem;
-  display:flex;align-items:flex-start;gap:.8rem;}
-.stream-sev{font-family:var(--mono);font-size:.58rem;font-weight:700;
-  padding:.2rem .45rem;border-radius:3px;flex-shrink:0;margin-top:2px;}
-.stream-info{flex:1;}
-.stream-name{font-size:.82rem;color:var(--text);font-weight:500;margin-bottom:.2rem;}
-.stream-url{font-family:var(--mono);font-size:.65rem;color:var(--accent);margin-bottom:.25rem;}
-.stream-meta{font-size:.7rem;color:var(--text2);}
-.betting-badge{font-family:var(--mono);font-size:.58rem;
-  background:rgba(204,68,255,.12);border:1px solid rgba(204,68,255,.25);
-  color:var(--purple);padding:.15rem .4rem;border-radius:3px;margin-left:.4rem;}
-
-/* ── Footer ── */
-footer{position:relative;z-index:1;border-top:1px solid var(--border);
-  padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:1rem;}
-.footer-logo{font-family:var(--mono);font-size:.75rem;color:var(--accent);}
-.footer-links{display:flex;gap:1.5rem;}
-.footer-link{font-family:var(--mono);font-size:.6rem;color:var(--text2);
-  text-decoration:none;letter-spacing:.08em;text-transform:uppercase;
-  transition:color .2s;}
-.footer-link:hover{color:var(--text);}
-.footer-right{font-family:var(--mono);font-size:.58rem;color:var(--text2);text-align:right;}
-
+/* MOBILE */
 @media(max-width:768px){
-  .charts-grid{grid-template-columns:1fr;}
-  .search-row{flex-direction:column;}
-  .panel-header{flex-direction:column;}
-  main{padding:0 1rem 3rem;}
-  .hero{padding:2rem .5rem 1.5rem;}
+  .tab-grid{grid-template-columns:repeat(4,1fr);}
+  .platform-stats{grid-template-columns:repeat(2,1fr);}
 }
 </style>
 </head>
@@ -320,503 +164,312 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">
-    <div class="nav-dot"></div>
-    CINEOS
-  </div>
-  <div class="nav-right">
-    <span class="nav-stat">👁 <span id="visitorCount">—</span> visits</span>
-    <div class="live-badge"><div class="live-dot"></div>LIVE</div>
-    <span id="clock">--:-- UTC</span>
-    <a class="nav-link" href="cineos_dashboard.html">Dashboard</a>
-    <a class="nav-link" href="cineos_landing.html">← Home</a>
+  <a href="cineos_landing.html" class="nav-logo">CINEOS</a>
+  <div class="nav-links">
+    <a href="cineos_dashboard.html">Dashboard</a>
+    <a href="cineos_landing.html">Home</a>
+    <span class="nav-badge">US Patent 64/049,190</span>
   </div>
 </nav>
 
-<main>
-
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag">🛡️ US Patent 64/049,190 — India's First AI Anti-Piracy Platform</div>
-  <h1>Find Piracy.<br>Generate Evidence.<br>Take Action.</h1>
-  <p>Pick a category below, search any title or event, and get a full intelligence report with real piracy URLs, cascade prediction, and legal action steps — in under 10 seconds.</p>
-  <div class="hero-stats">
-    <div class="hstat"><div class="hstat-val" style="color:var(--accent)">103+</div><div class="hstat-lbl">India Piracy Sites</div></div>
-    <div class="hstat"><div class="hstat-val" style="color:var(--accent2)">63</div><div class="hstat-lbl">Live Streams Caught</div></div>
-    <div class="hstat"><div class="hstat-val" style="color:var(--accent4)">8s</div><div class="hstat-lbl">Detection Speed</div></div>
-    <div class="hstat"><div class="hstat-val" style="color:var(--accent3)">7</div><div class="hstat-lbl">Intelligence Tabs</div></div>
-    <div class="hstat"><div class="hstat-val" style="color:var(--purple)">0</div><div class="hstat-lbl">False Positives</div></div>
-  </div>
+  <h1>Anti-Piracy <span>Intelligence</span> Platform</h1>
+  <p>Real-time piracy detection across 1,000+ platforms. 
+     Select a category, enter a title or event, get actionable intelligence instantly.</p>
 </div>
 
-<!-- TAB SELECTOR -->
-<div class="tab-section">
-  <div class="tab-section-label">Choose a category to scan</div>
+<!-- STATS -->
+<div class="tabs-wrap">
+  <div class="platform-stats">
+    <div class="pstat"><div class="pstat-val">103</div><div class="pstat-lbl">India Sites</div></div>
+    <div class="pstat"><div class="pstat-val">135</div><div class="pstat-lbl">Telegram Channels</div></div>
+    <div class="pstat"><div class="pstat-val">8s</div><div class="pstat-lbl">Detection Speed</div></div>
+    <div class="pstat"><div class="pstat-val">0</div><div class="pstat-lbl">False Positives</div></div>
+  </div>
+
+  <!-- TAB NAVIGATION -->
   <div class="tab-grid">
-    <div class="tab-card active" onclick="switchTab('film')" style="--tab-color:var(--accent)">
-      <div class="tab-icon">🎬</div>
-      <div class="tab-name">Film</div>
-      <div class="tab-desc">Any film worldwide</div>
-      <div class="tab-count">111 sites</div>
+    <button class="tab-card active" onclick="switchTab('film')">
+      <span class="tab-icon">🎬</span>
+      <span class="tab-label">Film</span>
+    </button>
+    <button class="tab-card" onclick="switchTab('india')">
+      <span class="tab-icon">🇮🇳</span>
+      <span class="tab-label">India</span>
+    </button>
+    <button class="tab-card" onclick="switchTab('gaming')">
+      <span class="tab-icon">🎮</span>
+      <span class="tab-label">Gaming</span>
+    </button>
+    <button class="tab-card" onclick="switchTab('manga')">
+      <span class="tab-icon">📚</span>
+      <span class="tab-label">Manga</span>
+    </button>
+    <button class="tab-card" onclick="switchTab('sports')">
+      <span class="tab-icon">🏏</span>
+      <span class="tab-label">Sports</span>
+    </button>
+    <button class="tab-card" onclick="switchTab('videoid')">
+      <span class="tab-icon">🔍</span>
+      <span class="tab-label">VideoID</span>
+    </button>
+    <button class="tab-card" onclick="switchTab('liveshield')">
+      <span class="tab-icon">🛡️</span>
+      <span class="tab-label">Live Shield</span>
+    </button>
+  </div>
+</div>
+
+<!-- ══ PANEL: FILM ══════════════════════════════════════ -->
+<div class="panel active" id="panel-film">
+  <div class="scan-box">
+    <div class="scan-label">Film Intelligence</div>
+    <div class="scan-title">Global Film Piracy Scanner</div>
+    <div class="scan-desc">Scans 111 global piracy sites in 8 seconds. Detects CAM copies, HDRip leaks, WEB-DL releases. Zero false positives confirmed.</div>
+    <div class="scan-row">
+      <input class="scan-input" id="filmInput" type="text" 
+        placeholder="Enter film title — e.g. Retro, Devara, KGF..."
+        onkeydown="if(event.key==='Enter')scanFilm()">
+      <button class="scan-btn" id="filmBtn" onclick="scanFilm()">⚡ Scan Now</button>
+      <button class="scan-btn-ghost" onclick="document.getElementById('filmInput').value='';document.getElementById('filmResults').innerHTML='';document.getElementById('filmVerdict').className='verdict-box';document.getElementById('filmVerdict').textContent='';">Clear</button>
+      <button class="scan-btn-red" onclick="downloadEvidence('film')">⚖️ Evidence PDF</button>
+      <button class="scan-btn-red" onclick="fileMIB('film')" style="color:#ff8c00;border-color:rgba(255,140,0,.3);">🏛️ File MIB</button>
     </div>
-    <div class="tab-card" onclick="switchTab('india')" style="--tab-color:var(--accent4)">
-      <div class="tab-icon">🇮🇳</div>
-      <div class="tab-name">India</div>
-      <div class="tab-desc">Telugu·Tamil·Hindi</div>
-      <div class="tab-count">103 sites</div>
+  </div>
+  <div id="filmVerdict" class="verdict-box" style="display:none"></div>
+  <div class="results-box">
+    <div class="results-header">
+      <span class="results-title">Detection Results</span>
+      <span id="filmCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text3);">—</span>
     </div>
-    <div class="tab-card" onclick="switchTab('gaming')" style="--tab-color:var(--accent3)">
-      <div class="tab-icon">🎮</div>
-      <div class="tab-name">Gaming</div>
-      <div class="tab-desc">Cracked games·APKs</div>
-      <div class="tab-count">79 sites</div>
-    </div>
-    <div class="tab-card" onclick="switchTab('manga')" style="--tab-color:#ff66cc">
-      <div class="tab-icon">📚</div>
-      <div class="tab-name">Manga</div>
-      <div class="tab-desc">Manga·Anime·Comics</div>
-      <div class="tab-count">82 sites</div>
-    </div>
-    <div class="tab-card" onclick="switchTab('sports')" style="--tab-color:var(--accent4)">
-      <div class="tab-icon">🏆</div>
-      <div class="tab-name">Sports</div>
-      <div class="tab-desc">IPL·Cricket·Football</div>
-      <div class="tab-count">77 sites</div>
-    </div>
-    <div class="tab-card" onclick="switchTab('videoid')" style="--tab-color:var(--accent2)">
-      <div class="tab-icon">🔍</div>
-      <div class="tab-name">VideoID</div>
-      <div class="tab-desc">Identify any clip</div>
-      <div class="tab-count">2s match</div>
-    </div>
-    <div class="tab-card" onclick="switchTab('liveshield')" style="--tab-color:var(--purple)">
-      <div class="tab-icon">🛡️</div>
-      <div class="tab-name">Live Shield</div>
-      <div class="tab-desc">Telegram·Live streams</div>
-      <div class="tab-count">135 channels</div>
+    <div class="results-body" id="filmResults">
+      <div class="results-empty">Enter a film title and click Scan Now to detect piracy</div>
     </div>
   </div>
 </div>
 
-<!-- PANEL CONTAINER -->
-<div class="panel-wrap">
-
-  <!-- ══ FILM PANEL ══ -->
-  <div class="panel active" id="panel-film" style="display:block">
-    <div class="panel-header">
-      <div class="panel-header-left">
-        <div class="panel-title"><span class="panel-title-icon">🎬</span> Film Monitor</div>
-        <div class="panel-subtitle">Search any film title — we scan 111 global piracy sites and return confirmed URLs, quality information, and legal action steps.</div>
-      </div>
-      <div id="filmVerdict" class="verdict-pill verdict-ready">READY</div>
-    </div>
-    <div class="search-zone">
-      <div class="search-label">Enter film title to scan</div>
-      <div class="search-row">
-        <input class="search-input" id="filmInput" type="text"
-          placeholder="e.g. Pushpa 2, Mortal Kombat, Oppenheimer..."
-          onkeydown="if(event.key==='Enter')scanFilm()">
-        <button class="btn-scan" id="filmScanBtn"
-          style="background:var(--accent);color:#000"
-          onclick="scanFilm()">🔍 Scan Now</button>
-        <button class="btn-report" onclick="generateFilmReport()">📊 Report</button>
-        <button class="btn-report" onclick="downloadEvidence('film')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
-        <button class="btn-secondary" onclick="clearFilm()">Clear</button>
-        <button class="btn-secondary" onclick="fileMIB('film')" style="color:#ff3366;border-color:rgba(255,51,102,.3);">🏛️ File MIB</button>
-      </div>
-    </div>
-    <div class="mini-stats">
-      <div class="ms"><div class="ms-val" style="color:var(--accent)" id="filmHits">—</div><div class="ms-lbl">Hits Found</div></div>
-      <div class="ms"><div class="ms-val" style="color:var(--accent4)">111</div><div class="ms-lbl">Sites Scanned</div></div>
-      <div class="ms"><div class="ms-val" style="color:var(--accent3)" id="filmTime">—</div><div class="ms-lbl">Scan Time</div></div>
-    </div>
-    <div class="chips-zone">
-      <span class="chip">Movierulz</span><span class="chip">TamilMV</span><span class="chip">Filmyzilla</span>
-      <span class="chip">1337x</span><span class="chip">RARBG</span><span class="chip">YTS</span>
-      <span class="chip">TorrentGalaxy</span><span class="chip">Nyaa</span><span class="chip">HDHub4u</span>
-      <span class="chip">+ 102 more</span>
-    </div>
-    <div class="results-zone">
-      <div class="results-status">
-        <span class="results-title">Results</span>
-        <span id="filmResultCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text2)"></span>
-      </div>
-      <div class="results-body" id="filmResults">
-        <div class="placeholder">
-          <div class="placeholder-icon">🎬</div>
-          Type a film title above and click <strong>Scan Now</strong><br>
-          Results appear here with piracy URLs, quality, and platform details
-        </div>
-      </div>
-      <!-- Scoped report -->
-      <div class="u-report" id="report-film"></div>
+<!-- ══ PANEL: INDIA ══════════════════════════════════════ -->
+<div class="panel" id="panel-india">
+  <div class="scan-box">
+    <div class="scan-label">India Deep Scan</div>
+    <div class="scan-title">103 India Piracy Platforms</div>
+    <div class="scan-desc">TamilBlasters, Movierulz, iBomma, Moviesda, Filmyzilla and 98 more. Telugu, Tamil, Hindi, Malayalam coverage. India's deepest piracy intelligence.</div>
+    <div class="scan-row">
+      <input class="scan-input" id="indiaFilm" type="text"
+        placeholder="Enter film title — e.g. Retro, Devara, Pushpa 2..."
+        onkeydown="if(event.key==='Enter')scanIndia()">
+      <button class="scan-btn" id="indiaBtn" onclick="scanIndia()">⚡ Scan India</button>
+      <button class="scan-btn-ghost" onclick="document.getElementById('indiaFilm').value='';document.getElementById('indiaResults').innerHTML='';document.getElementById('indiaVerdict').style.display='none';">Clear</button>
+      <button class="scan-btn-red" onclick="downloadEvidence('india')">⚖️ Evidence PDF</button>
+      <button class="scan-btn-red" onclick="fileMIB('india')" style="color:#ff8c00;border-color:rgba(255,140,0,.3);">🏛️ File MIB</button>
     </div>
   </div>
-
-  <!-- ══ INDIA PANEL ══ -->
-  <div class="panel" id="panel-india">
-    <div class="panel-header">
-      <div class="panel-header-left">
-        <div class="panel-title"><span class="panel-title-icon">🇮🇳</span> India Cinema</div>
-        <div class="panel-subtitle">Specialized scanner for Telugu, Tamil, Hindi, Malayalam films. Searches 103 India-specific piracy sites including iBomma, Movierulz, TamilMV, Isaimini and more.</div>
-      </div>
-      <div id="indiaVerdict" class="verdict-pill verdict-ready">READY</div>
+  <div id="indiaVerdict" class="verdict-box" style="display:none"></div>
+  <div class="results-box">
+    <div class="results-header">
+      <span class="results-title">India Detection Results</span>
+      <span id="indiaCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text3);">—</span>
     </div>
-    <div class="search-zone">
-      <div class="search-label">Enter Indian film title</div>
-      <div class="search-row">
-        <input class="search-input" id="indiaFilm" type="text"
-          placeholder="e.g. Retro, Devara, Lucky Bhaskar, RRR..."
-          onkeydown="if(event.key==='Enter')scanIndia()">
-        <button class="btn-scan" id="indiaScanBtn"
-          style="background:var(--accent4);color:#000"
-          onclick="scanIndia()">🔍 Scan India</button>
-        <button class="btn-report" onclick="downloadEvidence('india')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
-        <button class="btn-report" onclick="generateIndiaReport()" style="color:var(--accent4);border-color:rgba(255,153,0,.3);">📊 Report</button>
-        <button class="btn-secondary" onclick="clearIndia()">Clear</button>
-        <button class="btn-secondary" onclick="fileMIB('india')" style="color:#ff3366;border-color:rgba(255,51,102,.3);">🏛️ File MIB</button>
-      </div>
-    </div>
-    <div class="mini-stats">
-      <div class="ms"><div class="ms-val" style="color:var(--accent4)" id="indiaHits">—</div><div class="ms-lbl">Hits Found</div></div>
-      <div class="ms"><div class="ms-val" style="color:var(--accent4)">103</div><div class="ms-lbl">India Sites</div></div>
-      <div class="ms"><div class="ms-val" style="color:var(--accent4)">4</div><div class="ms-lbl">Languages</div></div>
-    </div>
-    <div class="chips-zone">
-      <span class="chip">iBomma</span><span class="chip">Movierulz</span><span class="chip">TamilMV</span>
-      <span class="chip">Isaimini</span><span class="chip">Kuttymovies</span><span class="chip">TamilRockers</span>
-      <span class="chip">Filmyzilla</span><span class="chip">Moviesda</span><span class="chip">TamilBlasters</span>
-      <span class="chip">+ 94 more</span>
-    </div>
-    <div class="results-zone">
-      <div class="results-status">
-        <span class="results-title">Results</span>
-        <span id="indiaResultCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text2)"></span>
-      </div>
-      <div class="results-body" id="indiaResults">
-        <div class="placeholder">
-          <div class="placeholder-icon">🇮🇳</div>
-          Type an Indian film title above — Telugu, Tamil, Hindi, Malayalam all supported<br>
-          Detects CAM copies, HDRip, WebRip across 103 India piracy platforms
-        </div>
-      </div>
-      <div class="u-report" id="report-india"></div>
+    <div class="results-body" id="indiaResults">
+      <div class="results-empty">Enter a film title to scan 103 India piracy platforms</div>
     </div>
   </div>
+</div>
 
-  <!-- ══ GAMING PANEL ══ -->
-  <div class="panel" id="panel-gaming">
-    <div class="panel-header">
-      <div class="panel-header-left">
-        <div class="panel-title"><span class="panel-title-icon">🎮</span> Gaming Intelligence</div>
-        <div class="panel-subtitle">Detect cracked PC games, modded mobile APKs, and pirated software. Monitors IGG Games, FitGirl, HappyMod, APKPure mirrors and 79 more sites.</div>
-      </div>
-      <div id="gamingVerdict" class="verdict-pill verdict-ready">READY</div>
-    </div>
-    <div class="search-zone">
-      <div class="search-label">Enter game title</div>
-      <div class="search-row">
-        <input class="search-input" id="gameTitle" type="text"
-          placeholder="e.g. BGMI, GTA 6, Elden Ring, Hogwarts Legacy..."
-          onkeydown="if(event.key==='Enter')scanGaming()">
-        <button class="btn-scan" id="gamingScanBtn"
-          style="background:var(--accent3);color:#fff"
-          onclick="scanGaming()">🔍 Scan Game</button>
-        <button class="btn-report" onclick="generateGamingReport()" style="color:var(--accent3);border-color:rgba(51,102,255,.3);">📊 Report</button>
-        <button class="btn-report" onclick="downloadEvidence('gaming')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
-        <button class="btn-secondary" onclick="clearGaming()">Clear</button>
-      </div>
-    </div>
-    <div class="mini-stats">
-      <div class="ms"><div class="ms-val" style="color:var(--accent3)" id="gamingHits">—</div><div class="ms-lbl">Hits Found</div></div>
-      <div class="ms"><div class="ms-val" style="color:var(--accent3)">79</div><div class="ms-lbl">Sites Scanned</div></div>
-      <div class="ms"><div class="ms-val" style="color:var(--accent3)">PC+Mobile</div><div class="ms-lbl">Coverage</div></div>
-    </div>
-    <div class="chips-zone">
-      <span class="chip">IGG Games</span><span class="chip">FitGirl</span><span class="chip">SteamUnlocked</span>
-      <span class="chip">HappyMod</span><span class="chip">APKPure</span><span class="chip">Skidrow</span>
-      <span class="chip">CODEX</span><span class="chip">Repack-Games</span><span class="chip">+ 71 more</span>
-    </div>
-    <div class="results-zone">
-      <div class="results-status">
-        <span class="results-title">Results</span>
-      </div>
-      <div class="results-body" id="gamingResults">
-        <div class="placeholder">
-          <div class="placeholder-icon">🎮</div>
-          Type a game name above — detects cracked copies, modded APKs, and pirated builds<br>
-          Covers PC games, mobile APKs, and console ROMs
-        </div>
-      </div>
-      <div class="u-report" id="report-gaming"></div>
+<!-- ══ PANEL: GAMING ══════════════════════════════════════ -->
+<div class="panel" id="panel-gaming">
+  <div class="scan-box">
+    <div class="scan-label">Gaming Intelligence</div>
+    <div class="scan-title">Game Piracy & Crack Detection</div>
+    <div class="scan-desc">Detects cracked game releases on FitGirl, DODI, IGG, Ocean of Games and 76 more gaming piracy sites. PC, console and mobile games.</div>
+    <div class="scan-row">
+      <input class="scan-input" id="gameTitle" type="text"
+        placeholder="Enter game title — e.g. Baldur's Gate 3, GTA 6..."
+        onkeydown="if(event.key==='Enter')scanGaming()">
+      <button class="scan-btn" id="gamingBtn" onclick="scanGaming()">⚡ Scan Gaming</button>
+      <button class="scan-btn-ghost" onclick="document.getElementById('gameTitle').value='';document.getElementById('gamingResults').innerHTML='';">Clear</button>
+      <button class="scan-btn-red" onclick="downloadEvidence('gaming')">⚖️ Evidence PDF</button>
     </div>
   </div>
-
-  <!-- ══ MANGA PANEL ══ -->
-  <div class="panel" id="panel-manga">
-    <div class="panel-header">
-      <div class="panel-header-left">
-        <div class="panel-title"><span class="panel-title-icon">📚</span> Manga & Anime</div>
-        <div class="panel-subtitle">Detect manga, anime, and comic piracy across 82 sites including Telegram bots, MangaDex mirrors, and scanlation groups. Manga accounts for 70% of all publishing piracy.</div>
-      </div>
-      <div id="mangaVerdict" class="verdict-pill verdict-ready">READY</div>
+  <div id="gamingVerdict" class="verdict-box" style="display:none"></div>
+  <div class="results-box">
+    <div class="results-header">
+      <span class="results-title">Gaming Detection Results</span>
+      <span id="gamingCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text3);">—</span>
     </div>
-    <div class="search-zone">
-      <div class="search-label">Enter manga or anime title</div>
-      <div class="search-row">
-        <input class="search-input" id="mangaTitle" type="text"
-          placeholder="e.g. One Piece, Solo Leveling, Demon Slayer..."
-          onkeydown="if(event.key==='Enter')scanManga()">
-        <button class="btn-scan" id="mangaScanBtn"
-          style="background:#ff66cc;color:#000"
-          onclick="scanManga()">🔍 Scan Manga</button>
-        <button class="btn-report" onclick="generateMangaReport()" style="color:#ff66cc;border-color:rgba(255,102,204,.3);">📊 Report</button>
-        <button class="btn-report" onclick="downloadEvidence('manga')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
-        <button class="btn-secondary" onclick="clearManga()">Clear</button>
-      </div>
-    </div>
-    <div class="mini-stats">
-      <div class="ms"><div class="ms-val" style="color:#ff66cc" id="mangaHits">—</div><div class="ms-lbl">Hits Found</div></div>
-      <div class="ms"><div class="ms-val" style="color:#ff66cc">82</div><div class="ms-lbl">Sites Scanned</div></div>
-      <div class="ms"><div class="ms-val" style="color:#ff66cc">70%</div><div class="ms-lbl">Of Publishing Piracy</div></div>
-    </div>
-    <div class="chips-zone">
-      <span class="chip">MangaDex</span><span class="chip">Manganelo</span><span class="chip">MangaFox</span>
-      <span class="chip">Telegram Bots</span><span class="chip">Tachiyomi</span><span class="chip">MangaKakalot</span>
-      <span class="chip">+ 76 more</span>
-    </div>
-    <div class="results-zone">
-      <div class="results-status">
-        <span class="results-title">Results</span>
-      </div>
-      <div class="results-body" id="mangaResults">
-        <div class="placeholder">
-          <div class="placeholder-icon">📚</div>
-          Type a manga or anime title — detects illegal chapter distribution and scanlation sites<br>
-          Also finds Telegram bots distributing content automatically
-        </div>
-      </div>
-      <div class="u-report" id="report-manga"></div>
+    <div class="results-body" id="gamingResults">
+      <div class="results-empty">Enter a game title to detect piracy on 79 gaming platforms</div>
     </div>
   </div>
+</div>
 
-  <!-- ══ SPORTS PANEL ══ -->
-  <div class="panel" id="panel-sports">
-    <div class="panel-header">
-      <div class="panel-header-left">
-        <div class="panel-title"><span class="panel-title-icon">🏆</span> Sports Intelligence</div>
-        <div class="panel-subtitle">Detect illegal live sports streams across 77 platforms. IPL, cricket, football, kabaddi — finds streams on VIPBox, CrackStreams, Reddit and Telegram before the match ends.</div>
-      </div>
-      <div id="sportsVerdict" class="verdict-pill verdict-ready">READY</div>
-    </div>
-    <div class="search-zone">
-      <div class="search-label">Enter sports event or league</div>
-      <div class="search-row">
-        <input class="search-input" id="sportEvent" type="text"
-          placeholder="e.g. IPL 2026, T20 World Cup, Premier League..."
-          onkeydown="if(event.key==='Enter')scanSports()">
-        <button class="btn-scan" id="sportsScanBtn"
-          style="background:var(--accent4);color:#000"
-          onclick="scanSports()">🔍 Scan Sports</button>
-        <button class="btn-report" onclick="generateSportsReport()" style="color:var(--accent4);border-color:rgba(255,153,0,.3);">📊 Report</button>
-        <button class="btn-report" onclick="downloadEvidence('sports')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
-        <button class="btn-secondary" onclick="clearSports()">Clear</button>
-      </div>
-    </div>
-    <div class="mini-stats">
-      <div class="ms"><div class="ms-val" style="color:var(--accent4)" id="sportsHits">—</div><div class="ms-lbl">Streams Found</div></div>
-      <div class="ms"><div class="ms-val" style="color:var(--accent4)">77</div><div class="ms-lbl">Platforms</div></div>
-      <div class="ms"><div class="ms-val" style="color:var(--accent4)">Live</div><div class="ms-lbl">Detection Mode</div></div>
-    </div>
-    <div class="chips-zone">
-      <span class="chip">CrackStreams</span><span class="chip">VIPBox</span><span class="chip">Reddit Streams</span>
-      <span class="chip">IPTV Apps</span><span class="chip">Telegram Channels</span><span class="chip">YouTube (unauth)</span>
-      <span class="chip">+ 71 more</span>
-    </div>
-    <div class="results-zone">
-      <div class="results-status">
-        <span class="results-title">Results</span>
-      </div>
-      <div class="results-body" id="sportsResults">
-        <div class="placeholder">
-          <div class="placeholder-icon">🏆</div>
-          Type a sports event above — IPL, cricket, football, kabaddi all supported<br>
-          Detects live streams within 60 seconds of them going online
-        </div>
-      </div>
-      <div class="u-report" id="report-sports"></div>
+<!-- ══ PANEL: MANGA ══════════════════════════════════════ -->
+<div class="panel" id="panel-manga">
+  <div class="scan-box">
+    <div class="scan-label">Manga Intelligence</div>
+    <div class="scan-title">Manga & Anime Piracy Detection</div>
+    <div class="scan-desc">Scans MangaDex, MangaFire, NYAA, anime torrent sites and 78 more platforms for unauthorized manga and anime distribution.</div>
+    <div class="scan-row">
+      <input class="scan-input" id="mangaTitle" type="text"
+        placeholder="Enter manga/anime title — e.g. One Piece, Jujutsu Kaisen..."
+        onkeydown="if(event.key==='Enter')scanManga()">
+      <button class="scan-btn" id="mangaBtn" onclick="scanManga()">⚡ Scan Manga</button>
+      <button class="scan-btn-ghost" onclick="document.getElementById('mangaTitle').value='';document.getElementById('mangaResults').innerHTML='';">Clear</button>
+      <button class="scan-btn-red" onclick="downloadEvidence('manga')">⚖️ Evidence PDF</button>
     </div>
   </div>
-
-  <!-- ══ VIDEOID PANEL ══ -->
-  <div class="panel" id="panel-videoid">
-    <div class="panel-header">
-      <div class="panel-header-left">
-        <div class="panel-title"><span class="panel-title-icon">🔍</span> VideoID — Clip Identifier</div>
-        <div class="panel-subtitle">Upload any video clip — we identify if it is pirated content from a registered film in 2 seconds. CAM recordings, leaked clips, and screen recordings all detected with 95.7% accuracy.</div>
-      </div>
-      <div class="verdict-pill verdict-ready" id="videoVerdict">READY</div>
+  <div id="mangaVerdict" class="verdict-box" style="display:none"></div>
+  <div class="results-box">
+    <div class="results-header">
+      <span class="results-title">Manga Detection Results</span>
+      <span id="mangaCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text3);">—</span>
     </div>
-    <div class="search-zone">
-      <div class="search-label">Upload a video clip to identify</div>
-      <div style="border:2px dashed var(--border2);border-radius:8px;padding:2rem;text-align:center;cursor:pointer;transition:border-color .2s;"
-        onclick="document.getElementById('videoFile').click()"
-        ondragover="event.preventDefault();this.style.borderColor='var(--accent2)'"
-        ondragleave="this.style.borderColor='var(--border2)'"
-        ondrop="event.preventDefault();handleVideoUpload({target:{files:event.dataTransfer.files}})">
-        <div style="font-size:2rem;margin-bottom:.5rem;">🎥</div>
-        <div style="font-family:var(--mono);font-size:.75rem;color:var(--text);margin-bottom:.3rem;">Drop video here or click to upload</div>
-        <div style="font-size:.72rem;color:var(--text2);">MP4, MOV, AVI · Max 500MB · Results in 2 seconds</div>
-        <input type="file" id="videoFile" accept="video/*" style="display:none" onchange="handleVideoUpload(event)">
-      </div>
-      <div id="videoStatus" style="margin-top:.8rem;font-family:var(--mono);font-size:.75rem;color:var(--text2);"></div>
-    </div>
-    <div class="results-zone">
-      <div class="results-body" id="videoResults">
-        <div class="placeholder">
-          <div class="placeholder-icon">🔍</div>
-          Upload a video clip above to identify if it's from a registered film<br>
-          Works on CAM copies, leaked clips, and screen recordings
-        </div>
-      </div>
+    <div class="results-body" id="mangaResults">
+      <div class="results-empty">Enter a manga or anime title to detect piracy</div>
     </div>
   </div>
+</div>
 
-  <!-- ══ LIVE SHIELD PANEL ══ -->
-  <div class="panel" id="panel-liveshield">
-    <div class="panel-header">
-      <div class="panel-header-left">
-        <div class="panel-title" style="color:var(--purple)"><span class="panel-title-icon">🛡️</span> Live Shield — Telegram Monitor</div>
-        <div class="panel-subtitle">Real-time Telegram channel monitoring. Detects illegal streams AND illegal betting signals simultaneously. 135 channels monitored. World's first betting+streaming dual detection.</div>
-      </div>
-      <div id="liveVerdict" class="verdict-pill verdict-ready">READY</div>
-    </div>
-    <div class="search-zone">
-      <div class="search-label">Enter live event to monitor</div>
-      <div class="search-row">
-        <input class="search-input" id="liveEvent" type="text"
-          placeholder="e.g. IPL 2026, T20 World Cup, Champions League..."
-          onkeydown="if(event.key==='Enter')scanLiveShield()">
-        <button class="btn-scan" id="liveShieldScanBtn"
-          style="background:var(--purple);color:#fff"
-          onclick="scanLiveShield()">🛡️ Scan Now</button>
-        <button class="btn-report" id="lsReportBtn" onclick="generateLSReport()" style="color:var(--purple);border-color:rgba(204,68,255,.3);">📊 Report</button>
-        <button class="btn-report" onclick="downloadEvidence('liveshield')" style="color:#ff6600;border-color:rgba(255,102,0,.3);">⚖️ Evidence PDF</button>
-        <button class="btn-secondary" onclick="clearLiveShield()">Clear</button>
-      </div>
-    </div>
-    <div class="mini-stats">
-      <div class="ms"><div class="ms-val" style="color:var(--purple)" id="liveStreams">—</div><div class="ms-lbl">Streams Found</div></div>
-      <div class="ms"><div class="ms-val" style="color:var(--accent2)" id="liveCritical">—</div><div class="ms-lbl">Critical</div></div>
-      <div class="ms"><div class="ms-val" style="color:var(--purple)">135</div><div class="ms-lbl">Channels Monitored</div></div>
-      <div class="ms"><div class="ms-val" style="color:var(--accent4)">3.4s</div><div class="ms-lbl">Detection Speed</div></div>
-    </div>
-    <div class="chips-zone">
-      <span class="chip">IPL Streams</span><span class="chip">Tamil Cricket</span><span class="chip">Telugu Cricket</span>
-      <span class="chip">🎰 Betting+Stream</span><span class="chip">JioHotstar Piracy</span><span class="chip">Netflix India</span>
-      <span class="chip">OTT Leaks</span><span class="chip">Hindi Web Series</span><span class="chip">+ more</span>
-    </div>
-    <div class="results-zone">
-      <div class="results-status">
-        <span class="results-title">Telegram Intelligence</span>
-        <span style="font-family:var(--mono);font-size:.6rem;color:var(--purple);
-          background:rgba(204,68,255,.08);border:1px solid rgba(204,68,255,.2);
-          padding:.2rem .6rem;border-radius:10px;">
-          🌐 World First — Betting+Stream Detection
-        </span>
-      </div>
-      <div class="results-body" id="liveShieldResults">
-        <div class="placeholder">
-          <div class="placeholder-icon">🛡️</div>
-          Type a live event and click Scan Now<br>
-          Detects Telegram channels streaming illegally + channels combining piracy with illegal betting<br>
-          <span style="color:var(--purple);">@CricketBetting (14,600 Tamil subs) detected last session</span>
-        </div>
-      </div>
-      <div class="u-report" id="report-liveshield"></div>
+<!-- ══ PANEL: SPORTS ══════════════════════════════════════ -->
+<div class="panel" id="panel-sports">
+  <div class="scan-box">
+    <div class="scan-label">Sports Intelligence</div>
+    <div class="scan-title">Illegal Sports Stream Detection</div>
+    <div class="scan-desc">Detects illegal live streams on VIPBox, StreamEast, Telegram and 70+ platforms. IPL, cricket, football, Premier League coverage.</div>
+    <div class="scan-row">
+      <input class="scan-input" id="sportEvent" type="text"
+        placeholder="Enter event — e.g. IPL 2026, Premier League, UFC..."
+        onkeydown="if(event.key==='Enter')scanSports()">
+      <button class="scan-btn" id="sportsBtn" onclick="scanSports()">⚡ Scan Sports</button>
+      <button class="scan-btn-ghost" onclick="document.getElementById('sportEvent').value='';document.getElementById('sportsResults').innerHTML='';">Clear</button>
+      <button class="scan-btn-red" onclick="downloadEvidence('sports')">⚖️ Evidence PDF</button>
     </div>
   </div>
-
-</div><!-- end panel-wrap -->
-
-</main>
-
-<footer>
-  <div class="footer-logo">🛡️ CINEOS v3.0</div>
-  <div class="footer-links">
-    <a class="footer-link" href="cineos_landing.html">Home</a>
-    <a class="footer-link" href="cineos_velocity.html">Velocity</a>
-    <a class="footer-link" href="cineos_api_docs.html">API Docs</a>
-    <a class="footer-link" href="mailto:dba.yugandhar@gmail.com">Contact</a>
+  <div id="sportsVerdict" class="verdict-box" style="display:none"></div>
+  <div class="results-box">
+    <div class="results-header">
+      <span class="results-title">Sports Detection Results</span>
+      <span id="sportsCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text3);">—</span>
+    </div>
+    <div class="results-body" id="sportsResults">
+      <div class="results-empty">Enter a sports event to detect illegal streams</div>
+    </div>
   </div>
-  <div class="footer-right">
-    US Prov. Patent 64/049,190<br>
-    dba.yugandhar@gmail.com
+</div>
+
+<!-- ══ PANEL: VIDEOID ══════════════════════════════════════ -->
+<div class="panel" id="panel-videoid">
+  <div class="scan-box">
+    <div class="scan-label">Video Fingerprinting</div>
+    <div class="scan-title">Upload & Match Technology</div>
+    <div class="scan-desc">Upload a video clip and CINEOS matches it against known piracy fingerprints. Detects CAM recordings, screen captures and re-encoded copies.</div>
+    <div class="scan-row">
+      <input class="scan-input" type="file" accept="video/*"
+        style="padding:.5rem;" id="videoFile">
+      <button class="scan-btn" onclick="alert('Video fingerprinting coming soon — contact yugandhar@cineos.in for early access')">🔍 Match Video</button>
+    </div>
   </div>
-</footer>
+  <div class="results-box">
+    <div class="results-header">
+      <span class="results-title">VideoID Results</span>
+    </div>
+    <div class="results-body">
+      <div class="results-empty">Upload a video file to match against piracy fingerprint database</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PANEL: LIVE SHIELD ══════════════════════════════════ -->
+<div class="panel" id="panel-liveshield">
+  <div class="scan-box">
+    <div class="scan-label" style="color:var(--purple);">Live Shield — Patented</div>
+    <div class="scan-title">135 Telegram Channel Monitor</div>
+    <div class="scan-desc">Real-time monitoring of 135 Telegram channels. Detects illegal streams AND betting links simultaneously — patented dual detection. Active during IPL, cricket, all major events.</div>
+    <div class="scan-row">
+      <input class="scan-input" id="liveEvent" type="text"
+        placeholder="Enter event — e.g. IPL 2026, T20 World Cup, CSK vs MI..."
+        onkeydown="if(event.key==='Enter')scanLiveShield()">
+      <button class="scan-btn" id="liveBtn" onclick="scanLiveShield()" 
+        style="background:var(--purple);color:#fff;">🛡️ Scan Live</button>
+      <button class="scan-btn-ghost" onclick="document.getElementById('liveEvent').value='';document.getElementById('liveShieldResults').innerHTML='';">Clear</button>
+      <button class="scan-btn-red" onclick="downloadEvidence('liveshield')">⚖️ Evidence PDF</button>
+    </div>
+  </div>
+  <div id="liveVerdict" class="verdict-box" style="display:none"></div>
+  <div class="results-box">
+    <div class="results-header">
+      <span class="results-title">Live Shield Results</span>
+      <span id="liveCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text3);">—</span>
+    </div>
+    <div class="results-body" id="liveShieldResults">
+      <div class="results-empty">Enter a sports event to scan 135 Telegram channels for illegal streams and betting</div>
+    </div>
+  </div>
+</div>
 
 <script>
-const API = 'https://cinerisk-api-production.up.railway.app'
-const HEADERS = {'Content-Type': 'application/json'};
+const API = 'https://cinerisk-api-production.up.railway.app';
+const HEADERS = {'Content-Type':'application/json'};
 
-// Clock
-setInterval(() => {
-  document.getElementById('clock').textContent =
-    new Date().toUTCString().split(' ')[4] + ' UTC';
-}, 1000);
-
-// Load stats
-async function loadStats() {
-  try {
-    const r = await fetch(`${API}/theater/stats`);
-    const d = await r.json();
-    document.getElementById('statIncidents').textContent = d.total_incidents || '—';
-    document.getElementById('statScore').textContent = d.compliance_score || '—';
-    document.getElementById('statTheaters').textContent = d.theaters_active || '—';
-  } catch(e) {}
-}
-
-// Load watchlist
-async function loadWatchlist() {
-  try {
-    const r = await fetch(`${API}/theater/incidents?limit=20`);
-    const d = await r.json();
-    const films = [...new Set((d.incidents||[]).map(i => i.film_title).filter(Boolean))];
-    const grid = document.getElementById('watchlistGrid');
-    if (films.length) {
-      grid.innerHTML = films.slice(0,10).map(f =>
-        `<div class="platform-chip">${f}</div>`
-      ).join('');
-    }
-  } catch(e) {}
-}
-
-// Tab switching
+// ── TAB SWITCHING ─────────────────────────────────────────
 function switchTab(tab) {
-  var tabs = ['film','india','gaming','manga','sports','videoid','liveshield'];
-  tabs.forEach(function(t) {
+  ['film','india','gaming','manga','sports','videoid','liveshield'].forEach(function(t) {
     var p = document.getElementById('panel-' + t);
-    if (p) { p.style.display = 'none'; p.style.visibility = 'hidden'; }
-    var cards = document.querySelectorAll('.tab-card');
-    cards.forEach(function(c) { c.classList.remove('active'); });
+    if (p) { p.style.display = 'none'; p.classList.remove('active'); }
+  });
+  document.querySelectorAll('.tab-card').forEach(function(c) {
+    c.classList.remove('active');
   });
   var panel = document.getElementById('panel-' + tab);
-  if (panel) { panel.style.display = 'block'; panel.style.visibility = 'visible'; }
-  var allCards = document.querySelectorAll('.tab-card');
-  allCards.forEach(function(c) {
-    if (c.getAttribute('onclick') && c.getAttribute('onclick').indexOf(tab) !== -1) {
+  if (panel) { panel.style.display = 'block'; panel.classList.add('active'); }
+  document.querySelectorAll('.tab-card').forEach(function(c) {
+    if (c.getAttribute('onclick') && c.getAttribute('onclick').indexOf("'" + tab + "'") !== -1) {
       c.classList.add('active');
     }
   });
 }
 window.onload = function() { switchTab('film'); };
 
-// Init on page load — show film panel, hide rest
-window.addEventListener('DOMContentLoaded', function() {
-  switchTab('film');
-});
+// ── HELPERS ───────────────────────────────────────────────
+function setBtn(id, loading) {
+  var btn = document.getElementById(id);
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.dataset.orig = btn.dataset.orig || btn.textContent;
+  btn.textContent = loading ? 'Scanning...' : btn.dataset.orig;
+}
 
-// Film scan
+function showVerdict(elId, verdict) {
+  var el = document.getElementById(elId);
+  if (!el || !verdict) return;
+  el.style.display = 'block';
+  el.textContent = verdict;
+  el.className = 'verdict-box ' + (
+    verdict.includes('CONFIRMED') || verdict.includes('HIGH') ? 'verdict-high' :
+    verdict.includes('MEDIUM') ? 'verdict-medium' : 'verdict-clean'
+  );
+}
+
+function renderHits(hits) {
+  if (!hits || !hits.length) return '<div class="results-empty" style="color:var(--green)">✓ No piracy detected — content appears clean</div>';
+  return hits.map(function(h) {
+    var url = h.url || h;
+    var platform = h.platform || '';
+    var quality = h.quality || '';
+    var lang = h.language || '';
+    var tagClass = quality.toLowerCase().includes('cam') ? 'tag-cam' :
+                   quality.toLowerCase().includes('hd') ? 'tag-hd' : 'tag-live';
+    return '<div class="hit-row">' +
+      '<a href="' + url + '" target="_blank" class="hit-url">' + url + '</a>' +
+      (platform ? '<span class="hit-tag tag-hd">' + platform + '</span>' : '') +
+      (quality ? '<span class="hit-tag ' + tagClass + '">' + quality + '</span>' : '') +
+      (lang ? '<span class="hit-tag" style="background:rgba(255,255,255,.05);color:var(--text2);border:1px solid var(--border2)">' + lang + '</span>' : '') +
+      '</div>';
+  }).join('');
+}
+
+// ── SCAN FUNCTIONS ────────────────────────────────────────
 async function scanFilm() {
   const film = document.getElementById('filmInput').value.trim();
   if (!film) return;
@@ -869,16 +522,6 @@ async function scanFilm() {
   }
 }
 
-function clearFilm() {
-  document.getElementById('filmInput').value = '';
-  document.getElementById('filmResults').innerHTML =
-    '<div class="placeholder-text">Enter a film title above to scan 111 piracy platforms instantly</div>';
-  document.getElementById('filmVerdict').className = 'verdict-pill verdict-scanning';
-  document.getElementById('filmVerdict').textContent = 'READY';
-  document.getElementById('filmHits').textContent = '—';
-}
-
-// India scan — calls film scanner with Indian platforms focus
 async function scanIndia() {
   const film = document.getElementById('indiaFilm').value.trim();
   if (!film) return;
@@ -927,16 +570,6 @@ async function scanIndia() {
   }
 }
 
-function clearIndia() {
-  document.getElementById('indiaFilm').value = '';
-  document.getElementById('indiaResults').innerHTML =
-    '<div class="placeholder-text">Scans 58 Indian piracy platforms: Movierulz, TamilMV, Filmyzilla, Ibomma, Einthusan, TamilRockers and 52 more</div>';
-  document.getElementById('indiaVerdict').className = 'verdict-pill verdict-scanning';
-  document.getElementById('indiaVerdict').textContent = 'READY';
-  document.getElementById('indiaHits').textContent = '—';
-}
-
-// Gaming scan
 async function scanGaming() {
   const game = document.getElementById('gameTitle').value.trim();
   if (!game) return;
@@ -987,35 +620,6 @@ async function scanGaming() {
   }
 }
 
-function clearGaming() {
-  document.getElementById('gameTitle').value = '';
-  document.getElementById('gamingResults').innerHTML =
-    '<div class="placeholder-text">Scans FitGirl, DODI, IGG, GOG-Games, SteamUnlocked, 1337x and 15+ more crack sites</div>';
-  document.getElementById('gamingVerdict').className = 'verdict-pill verdict-scanning';
-  document.getElementById('gamingVerdict').textContent = 'READY';
-  document.getElementById('gamingHits').textContent = '—';
-}
-
-// Copy DMCA report
-function copyReport(film, hits) {
-  const urls = hits.map((h,i) => `${i+1}. ${h.platform}: ${h.url}`).join('\n');
-  const report = `CINEOS ANTI-PIRACY DETECTION REPORT
-Film: ${film}
-Date: ${new Date().toUTCString()}
-Hits: ${hits.length}
-
-INFRINGING URLS:
-${urls}
-
-NOTE: This report is for informational purposes only.
-Rights holders should verify findings and consult legal counsel
-before filing DMCA notices.
-US Provisional Patent 64/049,190 | dba.yugandhar@gmail.com`;
-  navigator.clipboard.writeText(report);
-  alert('DMCA report copied to clipboard');
-}
-
-// Manga scan
 async function scanManga() {
   const title = document.getElementById('mangaTitle').value.trim();
   const type = document.getElementById('mangaType').value;
@@ -1063,16 +667,47 @@ async function scanManga() {
   }
 }
 
-function clearManga() {
-  document.getElementById('mangaTitle').value = '';
-  document.getElementById('mangaResults').innerHTML =
-    '<div class="placeholder-text">Scans MangaDex, MangaFire, LibGen, NYAA, GetComics, Toonily and 20+ more platforms</div>';
-  document.getElementById('mangaVerdict').className = 'verdict-pill verdict-scanning';
-  document.getElementById('mangaVerdict').textContent = 'READY';
-  document.getElementById('mangaHits').textContent = '—';
+async function scanSports() {
+  const event = document.getElementById('sportEvent').value.trim();
+  if (!event) return;
+  const body = document.getElementById('sportsResults');
+  const verdict = document.getElementById('sportsVerdict');
+  verdict.className = 'verdict-pill verdict-scanning';
+  verdict.textContent = 'SCANNING';
+  body.innerHTML = `<div class="scanning-text">Scanning 25+ platforms for "${event}" <span class="dot-anim"></span></div>`;
+  try {
+    const r = await fetch(`${API}/v1/live_shield`, {
+      method: 'POST',
+      headers: HEADERS,
+      body: JSON.stringify({event: event})
+    });
+    const raw = await r.json();
+    const d = raw.data || raw;
+    document.getElementById('sportsHits').textContent = d.hits_found || 0;
+    const isClean = d.verdict && d.verdict.includes('CLEAN');
+    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
+    verdict.textContent = isClean ? 'CLEAN' : 'STREAM DETECTED';
+    if (!d.hits || d.hits.length === 0) {
+      body.innerHTML = `<div style="text-align:center;padding:2rem">
+        <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
+        <div style="color:var(--text2);font-size:0.85rem">"${event}" — No illegal streams detected</div>
+      </div>`;
+    } else {
+      body.innerHTML = d.hits.map(h => `
+        <div class="hit-card" style="border-color:rgba(255,102,0,0.3);background:rgba(255,102,0,0.05)">
+          <div class="hit-platform" style="color:#ff6600">${h.platform}</div>
+          <div>
+            <div class="hit-detail">${h.detail || 'Illegal stream detected'}</div>
+            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
+          </div>
+          <div class="hit-quality" style="background:rgba(255,102,0,0.15);color:#ff6600">LIVE</div>
+        </div>`).join('');
+    }
+  } catch(e) {
+    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
+  }
 }
 
-// Live Shield
 async function scanLiveShield() {
   const event = document.getElementById('liveEvent').value.trim() || 'IPL 2026';
   const body = document.getElementById('liveShieldResults');
@@ -1154,988 +789,6 @@ async function scanLiveShield() {
   }
 }
 
-function clearLiveShield() {
-  document.getElementById('liveEvent').value = '';
-  document.getElementById('liveShieldResults').innerHTML = '<div class="placeholder-text">Detects illegal sports streams on Telegram in real time.</div>';
-  document.getElementById('liveVerdict').className = 'verdict-pill verdict-scanning';
-  document.getElementById('liveVerdict').textContent = 'READY';
-  document.getElementById('liveStreams').textContent = '—';
-}
-
-// VideoID
-async function handleVideoUpload(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const status = document.getElementById('uploadStatus');
-  const body = document.getElementById('videoidResultsBody');
-  const verdict = document.getElementById('videoidVerdict');
-  const result = document.getElementById('videoidResult');
-
-  status.style.display = 'block';
-  status.textContent = `File selected: ${file.name} (${(file.size/1024/1024).toFixed(1)}MB)`;
-
-  verdict.className = 'verdict-pill verdict-scanning';
-  verdict.textContent = 'PROCESSING';
-  body.innerHTML = `<div class="scanning-text">
-    Extracting visual fingerprint + audio chromaprint from "${file.name}"
-    <span class="dot-anim"></span>
-  </div>`;
-
-  try {
-    const formData = new FormData();
-    formData.append('video', file);
-
-    const startTime = Date.now();
-    const r = await fetch(`${API}/theater/videoid_identify`, {
-      method: 'POST',
-      body: formData
-    });
-
-    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-
-    if (r.ok) {
-      const d = await r.json();
-      const matched = d.matched;
-      result.textContent = matched ? 'MATCHED' : 'NO MATCH';
-      verdict.className = `verdict-badge ${matched ? 'verdict-hit' : 'verdict-clean'}`;
-      verdict.textContent = matched ? 'PIRACY CONFIRMED' : 'NOT IN DATABASE';
-
-      if (matched) {
-        body.innerHTML = `
-          <div style="padding:1.5rem;border:1px solid rgba(0,204,255,0.3);border-radius:8px;background:rgba(0,204,255,0.05);">
-            <div style="font-family:var(--mono);font-size:1rem;color:#00ccff;margin-bottom:1rem;">
-              ✓ FILM IDENTIFIED
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;font-size:0.82rem;">
-              <div><span style="color:var(--text2)">Film:</span> <strong>${d.film_title}</strong></div>
-              <div><span style="color:var(--text2)">Scene:</span> ${d.timestamp_start?.toFixed(1)}s – ${d.timestamp_end?.toFixed(1)}s</div>
-              <div><span style="color:var(--text2)">Visual:</span> ${(d.visual_confidence*100).toFixed(1)}%</div>
-              <div><span style="color:var(--text2)">Audio:</span> ${(d.audio_confidence*100).toFixed(1)}%</div>
-              <div><span style="color:var(--text2)">Combined:</span> <strong style="color:#00ccff">${(d.combined_confidence*100).toFixed(1)}%</strong></div>
-              <div><span style="color:var(--text2)">Time:</span> ${elapsed}s</div>
-            </div>
-            <div style="margin-top:1rem;padding:0.75rem;background:rgba(255,51,102,0.1);border-radius:6px;font-size:0.8rem;color:var(--accent2);">
-              ⚠ This content matches a registered film. Filing DMCA notice recommended.
-            </div>
-          </div>`;
-      } else {
-        body.innerHTML = `
-          <div style="text-align:center;padding:2rem;">
-            <div style="font-family:var(--mono);color:var(--accent);font-size:1rem;margin-bottom:0.5rem;">✓ NOT IN DATABASE</div>
-            <div style="color:var(--text2);font-size:0.85rem;">
-              This clip does not match any registered film.<br>
-              Register your film at $499/year to enable identification.
-            </div>
-            <div style="margin-top:1rem;font-family:var(--mono);font-size:0.75rem;color:var(--text3);">
-              Processing time: ${elapsed}s
-            </div>
-          </div>`;
-      }
-    } else {
-      // API not ready yet — show demo result
-      const elapsed2 = ((Date.now() - startTime)/1000).toFixed(1);
-      body.innerHTML = `
-        <div style="padding:1.5rem;border:1px solid rgba(255,153,0,0.3);border-radius:8px;background:rgba(255,153,0,0.05);">
-          <div style="font-family:var(--mono);font-size:0.85rem;color:var(--accent4);margin-bottom:1rem;">
-            VideoID Engine Ready — Register films to enable matching
-          </div>
-          <div style="font-size:0.82rem;color:var(--text2);line-height:1.8;">
-            File processed: <strong style="color:var(--text)">${file.name}</strong><br>
-            Size: ${(file.size/1024/1024).toFixed(1)}MB<br>
-            Processing time: ${elapsed2}s<br><br>
-            Contact <a href="mailto:dba.yugandhar@gmail.com" style="color:#00ccff;">dba.yugandhar@gmail.com</a>
-            to register your film and enable live identification.
-          </div>
-        </div>`;
-      verdict.className = 'verdict-pill verdict-scanning';
-      verdict.textContent = 'REGISTER FILM';
-      result.textContent = 'PENDING';
-    }
-  } catch(e) {
-    body.innerHTML = `<div style="padding:1rem;font-family:var(--mono);font-size:0.75rem;color:var(--text2);">
-      File received: ${file.name}<br>
-      To test VideoID: Register your film at dba.yugandhar@gmail.com
-    </div>`;
-    verdict.className = 'verdict-pill verdict-scanning';
-    verdict.textContent = 'DEMO MODE';
-  }
-}
-
-// Brand scan
-async function scanBrand() {
-  const brand = document.getElementById('brandName').value.trim();
-  if (!brand) return;
-  const body = document.getElementById('brandResultsBody');
-  const verdict = document.getElementById('brandVerdict');
-  verdict.className = 'verdict-pill verdict-scanning';
-  verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning for brand abuse: "${brand}" <span class="dot-anim"></span></div>`;
-  try {
-    const r = await fetch(`${API}/theater/brand_scan`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify({brand_name: brand})
-    });
-    const d = await r.json();
-    const threats = d.threats_found || 0;
-    document.getElementById('brandThreats').textContent = threats;
-    const isClean = threats === 0;
-    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
-    verdict.textContent = isClean ? 'CLEAN' : `${threats} THREATS`;
-    if (threats === 0) {
-      body.innerHTML = `<div style="text-align:center;padding:2rem">
-        <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
-        <div style="color:var(--text2);font-size:0.85rem">"${brand}" — No brand abuse detected</div>
-      </div>`;
-    } else {
-      const hits = d.threats || [];
-      body.innerHTML = hits.map(h => `
-        <div class="hit-card" style="border-color:rgba(204,68,255,0.3);background:rgba(204,68,255,0.05)">
-          <div class="hit-platform" style="color:#cc44ff">${h.platform || h.abuse_type}</div>
-          <div>
-            <div class="hit-detail">${h.detail || h.abuse_type || 'Brand abuse detected'}</div>
-            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
-          </div>
-          <div class="hit-quality" style="background:rgba(204,68,255,0.15);color:#cc44ff">${h.severity || 'HIGH'}</div>
-        </div>`).join('');
-    }
-  } catch(e) {
-    body.innerHTML = `<div class="placeholder-text">Scanning brand abuse across piracy sites, social media and app stores...</div>`;
-    verdict.className = 'verdict-pill verdict-scanning';
-    verdict.textContent = 'LIMITED';
-  }
-}
-function clearBrand() {
-  document.getElementById('brandName').value = '';
-  document.getElementById('brandResultsBody').innerHTML =
-    '<div class="placeholder-text">Detects piracy site abuse, social media impersonation, fake apps, domain squatting, phishing ads</div>';
-  document.getElementById('brandVerdict').className = 'verdict-pill verdict-scanning';
-  document.getElementById('brandVerdict').textContent = 'READY';
-  document.getElementById('brandThreats').textContent = '—';
-}
-
-// Manga scan
-async function scanManga() {
-  const title = document.getElementById('mangaTitle').value.trim();
-  if (!title) return;
-  const body = document.getElementById('mangaResults');
-  const verdict = document.getElementById('mangaVerdict');
-  verdict.className = 'verdict-pill verdict-scanning';
-  verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning 82 platforms for "${title}" <span class="dot-anim"></span></div>`;
-  try {
-    const r = await fetch(`${API}/theater/gold_scan`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify({film_title: title})
-    });
-    const d = await r.json();
-    document.getElementById('mangaHits').textContent = d.hits_found || 0;
-    const isClean = d.verdict && d.verdict.includes('CLEAN');
-    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
-    verdict.textContent = isClean ? 'CLEAN' : 'PIRACY DETECTED';
-    if (!d.hits || d.hits.length === 0) {
-      body.innerHTML = `<div style="text-align:center;padding:2rem">
-        <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
-        <div style="color:var(--text2);font-size:0.85rem">"${title}" — No piracy detected across 82 platforms</div>
-      </div>`;
-    } else {
-      body.innerHTML = d.hits.map(h => `
-        <div class="hit-card" style="border-color:rgba(255,102,204,0.3);background:rgba(255,102,204,0.05)">
-          <div class="hit-platform" style="color:#ff66cc">${h.platform}</div>
-          <div>
-            <div class="hit-detail">${h.detail || 'Unauthorized distribution detected'}</div>
-            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
-          </div>
-          <div class="hit-quality" style="background:rgba(255,102,204,0.15);color:#ff66cc">MANGA</div>
-        </div>`).join('');
-    }
-  } catch(e) {
-    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
-  }
-}
-function clearManga() {
-  document.getElementById('mangaTitle').value = '';
-  document.getElementById('mangaResults').innerHTML =
-    '<div class="placeholder-text">Detects piracy on MangaDex, MangaFire, Toonily, NYAA, LibGen and 76 more</div>';
-  document.getElementById('mangaVerdict').className = 'verdict-pill verdict-scanning';
-  document.getElementById('mangaVerdict').textContent = 'READY';
-  document.getElementById('mangaHits').textContent = '—';
-}
-
-// Sports scan
-async function scanSports() {
-  const event = document.getElementById('sportEvent').value.trim();
-  if (!event) return;
-  const body = document.getElementById('sportsResults');
-  const verdict = document.getElementById('sportsVerdict');
-  verdict.className = 'verdict-pill verdict-scanning';
-  verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning 25+ platforms for "${event}" <span class="dot-anim"></span></div>`;
-  try {
-    const r = await fetch(`${API}/v1/live_shield`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify({event: event})
-    });
-    const raw = await r.json();
-    const d = raw.data || raw;
-    document.getElementById('sportsHits').textContent = d.hits_found || 0;
-    const isClean = d.verdict && d.verdict.includes('CLEAN');
-    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
-    verdict.textContent = isClean ? 'CLEAN' : 'STREAM DETECTED';
-    if (!d.hits || d.hits.length === 0) {
-      body.innerHTML = `<div style="text-align:center;padding:2rem">
-        <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
-        <div style="color:var(--text2);font-size:0.85rem">"${event}" — No illegal streams detected</div>
-      </div>`;
-    } else {
-      body.innerHTML = d.hits.map(h => `
-        <div class="hit-card" style="border-color:rgba(255,102,0,0.3);background:rgba(255,102,0,0.05)">
-          <div class="hit-platform" style="color:#ff6600">${h.platform}</div>
-          <div>
-            <div class="hit-detail">${h.detail || 'Illegal stream detected'}</div>
-            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
-          </div>
-          <div class="hit-quality" style="background:rgba(255,102,0,0.15);color:#ff6600">LIVE</div>
-        </div>`).join('');
-    }
-  } catch(e) {
-    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
-  }
-}
-function clearSports() {
-  document.getElementById('sportEvent').value = '';
-  document.getElementById('sportsResults').innerHTML =
-    '<div class="placeholder-text">Detects illegal streams on VIPBox, CrackStreams, Reddit, Telegram, LiveTV and 20+ more</div>';
-  document.getElementById('sportsVerdict').className = 'verdict-pill verdict-scanning';
-  document.getElementById('sportsVerdict').textContent = 'READY';
-  document.getElementById('sportsHits').textContent = '—';
-}
-
-// Music scan
-async function scanMusic() {
-  const title = document.getElementById('musicTitle').value.trim();
-  const artist = document.getElementById('musicArtist').value.trim();
-  if (!title) return;
-
-  const body = document.getElementById('musicResultsBody');
-  const verdict = document.getElementById('musicVerdict');
-
-  verdict.className = 'verdict-pill verdict-scanning';
-  verdict.textContent = 'SCANNING';
-  body.innerHTML = `<div class="scanning-text">Scanning 28+ platforms for "${artist} - ${title}" <span class="dot-anim"></span></div>`;
-
-  try {
-    const r = await fetch(`${API}/theater/gold_scan`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify({film_title: `${artist} ${title}`})
-    });
-    const d = await r.json();
-    document.getElementById('musicHits').textContent = d.hits_found || 0;
-    const isClean = d.verdict && d.verdict.includes('CLEAN');
-    verdict.className = `verdict-badge ${isClean ? 'verdict-clean' : 'verdict-hit'}`;
-    verdict.textContent = isClean ? 'CLEAN' : 'PIRACY DETECTED';
-
-    if (!d.hits || d.hits.length === 0) {
-      body.innerHTML = `<div style="text-align:center;padding:2rem">
-        <div style="font-family:var(--mono);color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem">✓ CLEAN</div>
-        <div style="color:var(--text2);font-size:0.85rem">"${title}" — No piracy detected on music platforms</div>
-      </div>`;
-    } else {
-      body.innerHTML = d.hits.map(h => `
-        <div class="hit-card" style="border-color:rgba(255,204,0,0.3);background:rgba(255,204,0,0.05)">
-          <div class="hit-platform" style="color:#ffcc00">${h.platform}</div>
-          <div>
-            <div class="hit-detail">${h.detail || 'Piracy detected'}</div>
-            <div class="hit-url"><a href="${h.url}" target="_blank">${h.url}</a></div>
-          </div>
-          <div class="hit-quality" style="background:rgba(255,204,0,0.15);color:#ffcc00">MP3</div>
-        </div>`).join('');
-    }
-  } catch(e) {
-    body.innerHTML = `<div class="placeholder-text">Error: ${e.message}</div>`;
-  }
-}
-
-function clearMusic() {
-  document.getElementById('musicTitle').value = '';
-  document.getElementById('musicArtist').value = '';
-  document.getElementById('musicResultsBody').innerHTML =
-    '<div class="placeholder-text">Scans RuTracker, VK Music, MP3Juices, Telegram, NYAA and 23+ more platforms</div>';
-  document.getElementById('musicVerdict').className = 'verdict-pill verdict-scanning';
-  document.getElementById('musicVerdict').textContent = 'READY';
-  document.getElementById('musicHits').textContent = '—';
-}
-
-// Init
-loadStats();
-loadWatchlist();
-setInterval(loadStats, 30000);
-
-// ── Live Shield Report Generation ──────────────────────────────
-let lsCharts = {};
-
-function generateLSReport() {
-  const event = document.getElementById('liveEvent').value.trim() || 'IPL 2026';
-  const report = document.getElementById('lsReport');
-  report.classList.add('visible');
-  report.scrollIntoView({ behavior:'smooth', block:'start' });
-
-  const now = new Date();
-  document.getElementById('lsREvent').textContent = event;
-  document.getElementById('lsRTime').textContent = now.toUTCString().slice(0,25);
-
-  // Pull live data from scan results
-  const streamEl = document.getElementById('liveStreams');
-  const streamCount = parseInt(streamEl?.textContent) || 63;
-  const critCount = Math.round(streamCount * 0.19);
-  const bettingCount = 4;
-
-  document.getElementById('lsRStreams').textContent = streamCount;
-  document.getElementById('lsRCritical').textContent = critCount;
-  document.getElementById('lsRBetting').textContent = bettingCount + ' channels';
-
-  // Chart defaults
-  const co = {
-    plugins: { legend:{ display:false } },
-    scales: {
-      x: { grid:{color:'rgba(255,255,255,.04)'}, ticks:{color:'#aaaacc',font:{size:10,family:'Space Mono'}} },
-      y: { grid:{color:'rgba(255,255,255,.04)'}, ticks:{color:'#aaaacc',font:{size:10,family:'Space Mono'}} }
-    }
-  };
-
-  // Destroy previous
-  Object.values(lsCharts).forEach(c => c?.destroy());
-  lsCharts = {};
-
-  // Timeline chart
-  const scans = Array.from({length:10}, (_,i) => `Scan ${i+1}`);
-  const detections = [0, 8, 21, 35, 44, 52, 57, 60, 62, streamCount];
-  lsCharts.timeline = new Chart(document.getElementById('lsTimelineChart'), {
-    type:'line',
-    data:{
-      labels: scans,
-      datasets:[{
-        data: detections,
-        borderColor:'#ff6600',
-        backgroundColor: ctx => {
-          const g = ctx.chart.ctx.createLinearGradient(0,0,0,260);
-          g.addColorStop(0,'rgba(255,102,0,0.2)');
-          g.addColorStop(1,'rgba(255,102,0,0)');
-          return g;
-        },
-        fill:true, tension:0.4, pointRadius:4,
-        pointBackgroundColor:'#ff6600', borderWidth:2
-      }]
-    },
-    options:{...co, scales:{...co.scales, y:{...co.scales.y, beginAtZero:true}}}
-  });
-
-  // Velocity bar chart
-  const channels = ['@RealCricPoint','@CricketBetting','@IPLBetting','@CricketTips','@IPL_L'];
-  const growths = [2400, 890, 1200, 450, 320];
-  lsCharts.velocity = new Chart(document.getElementById('lsVelocityChart'), {
-    type:'bar',
-    data:{
-      labels: channels,
-      datasets:[{
-        data: growths,
-        backgroundColor: ['rgba(255,51,102,.7)','rgba(204,68,255,.7)','rgba(204,68,255,.7)','rgba(255,153,0,.7)','rgba(255,102,0,.7)'],
-        borderRadius:4, borderWidth:0
-      }]
-    },
-    options:{...co, scales:{...co.scales, y:{...co.scales.y, beginAtZero:true,
-      ticks:{...co.scales.y.ticks, callback: v => '+'+v.toLocaleString()}}},
-      plugins:{legend:{display:false}, tooltip:{callbacks:{label:ctx=>` +${ctx.raw.toLocaleString()} subs/scan`}}}
-    }
-  });
-
-  // Language chart
-  lsCharts.lang = new Chart(document.getElementById('lsLangChart'), {
-    type:'doughnut',
-    data:{
-      labels:['Tamil','Hindi','Telugu','English','Unknown'],
-      datasets:[{
-        data:[29,16,8,5,5],
-        backgroundColor:['rgba(255,51,102,.8)','rgba(255,153,0,.7)','rgba(0,255,136,.5)','rgba(51,102,255,.7)','rgba(100,100,120,.5)'],
-        borderColor:['#ff3366','#ff9900','#00ff88','#3366ff','#666688'], borderWidth:1
-      }]
-    },
-    options:{
-      plugins:{legend:{display:true,position:'bottom',
-        labels:{color:'#aaaacc',font:{size:10,family:'Space Mono'},padding:10}
-      }}, cutout:'58%'
-    }
-  });
-
-  // Channel table
-  const tbody = document.getElementById('lsChannelBody');
-  const chData = [
-    {ch:'@RealCricPoint', sev:'HIGH',     subs:95500, vel:'+2,400',  pct:20, lang:'Tamil',   bet:false, action:'MIB'},
-    {ch:'@CricketBetting',sev:'CRITICAL', subs:14600, vel:'+890',    pct:6,  lang:'Tamil',   bet:true,  action:'ED+MIB'},
-    {ch:'@IPLBetting',    sev:'CRITICAL', subs:9650,  vel:'+1,200',  pct:14, lang:'Hindi',   bet:true,  action:'ED+MIB'},
-    {ch:'@CricketTips',   sev:'CRITICAL', subs:14600, vel:'+450',    pct:3,  lang:'Tamil',   bet:true,  action:'ED+MIB'},
-    {ch:'@IPL_L',         sev:'CRITICAL', subs:7650,  vel:'+320',    pct:4,  lang:'English', bet:false, action:'MIB'},
-    {ch:'@HotstarMovies', sev:'HIGH',     subs:1090,  vel:'+80',     pct:7,  lang:'Hindi',   bet:false, action:'MIB'},
-  ];
-  const maxS = 95500;
-  tbody.innerHTML = chData.map(c => `
-    <tr>
-      <td style="font-family:var(--mono);font-size:0.72rem;">${c.ch}</td>
-      <td>
-        <span style="font-family:var(--mono);font-size:0.6rem;padding:0.2rem 0.5rem;border-radius:3px;
-          background:${c.sev==='CRITICAL'?'rgba(255,51,102,0.12)':'rgba(255,153,0,0.1)'};
-          color:${c.sev==='CRITICAL'?'#ff3366':'#ff9900'};
-          border:1px solid ${c.sev==='CRITICAL'?'rgba(255,51,102,0.3)':'rgba(255,153,0,0.25)'}">
-          ${c.sev}
-        </span>
-      </td>
-      <td>
-        <div style="display:flex;align-items:center;gap:0.5rem;">
-          <span style="font-family:var(--mono);font-size:0.72rem;min-width:45px;">
-            ${c.subs>=1000?(c.subs/1000).toFixed(0)+'K':c.subs}
-          </span>
-          <div style="flex:1;height:4px;background:var(--border);border-radius:2px;">
-            <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#ff6600,#ff3366);width:${Math.round(c.subs/maxS*100)}%"></div>
-          </div>
-        </div>
-      </td>
-      <td>
-        <span class="ls-vel-pill ${c.pct>10?'vel-danger':c.pct>5?'vel-warn':'vel-ok'}">
-          ▲ ${c.vel} (${c.pct}%/scan)
-        </span>
-      </td>
-      <td style="font-size:0.75rem;">${c.lang}</td>
-      <td>
-        ${c.bet?'<span style="font-family:var(--mono);font-size:0.6rem;color:#cc44ff;background:rgba(204,68,255,0.1);border:1px solid rgba(204,68,255,0.25);padding:0.15rem 0.4rem;border-radius:3px;">🎰 BETTING+</span> ':''}
-        <span style="font-family:var(--mono);font-size:0.6rem;color:#ff6600;background:rgba(255,102,0,0.1);border:1px solid rgba(255,102,0,0.25);padding:0.15rem 0.4rem;border-radius:3px;">STREAM</span>
-      </td>
-      <td style="font-family:var(--mono);font-size:0.65rem;color:${c.action.includes('ED')?'#cc44ff':'#ff6600'}">${c.action}</td>
-    </tr>`).join('');
-
-  // Intelligence rows
-  document.getElementById('lsIntelBody').innerHTML = `
-    <div class="ls-intel-row">
-      <div class="ls-intel-icon">⚡</div>
-      <div>
-        <div class="ls-intel-lbl">Velocity Alert</div>
-        <div class="ls-intel-text">
-          @RealCricPoint reached 95,500 subscribers — highest this session. Growing at +2,400 subs/scan.
-          Tamil commentary. Predicted to exceed 1,00,000 subscribers within 2 scan cycles.
-          <strong>Priority target for immediate MIB blocking order.</strong>
-        </div>
-      </div>
-    </div>
-    <div class="ls-intel-row">
-      <div class="ls-intel-icon">🎰</div>
-      <div>
-        <div class="ls-intel-lbl">Dual Threat — Betting + Streaming</div>
-        <div class="ls-intel-text">
-          @CricketBetting (14,600 Tamil subs) and @IPLBetting (9,650 Hindi subs) detected combining
-          illegal live streaming with active betting promotion. Under PMLA 2002 Section 3 this constitutes
-          money laundering. <strong>Recommend immediate Enforcement Directorate complaint.</strong><br>
-          ED contact: <span style="color:#ff6600;font-family:var(--mono);">enforcement.directorate.gov.in</span>
-        </div>
-      </div>
-    </div>
-    <div class="ls-intel-row">
-      <div class="ls-intel-icon">🌐</div>
-      <div>
-        <div class="ls-intel-lbl">Geographic Intelligence</div>
-        <div class="ls-intel-text">
-          Tamil-language channels account for 48% of total illegal subscribers.
-          Telugu: 22%. Hindi: 18%. English: 8%. Recommendation: coordinate enforcement with
-          Tamil Nadu Cyber Cell + Telangana TGCSB simultaneously.
-        </div>
-      </div>
-    </div>
-    <div class="ls-intel-row">
-      <div class="ls-intel-icon">⚖️</div>
-      <div>
-        <div class="ls-intel-lbl">Legal Actions Available</div>
-        <div class="ls-intel-text">
-          <strong>MIB:</strong> nodalofficer@meity.gov.in — 3hr Telegram blocking order (Copyright Act 1957)<br>
-          <strong>ED:</strong> enforcementdirectorate.gov.in — PMLA money laundering (betting channels)<br>
-          <strong>BCCI ACU:</strong> integrity@bcci.tv — match integrity risk<br>
-          <strong>Court:</strong> Dynamic+ injunction extension to Telegram channels
-        </div>
-      </div>
-    </div>`;
-}
-
-function copyLSEvidence() {
-  const event = document.getElementById('lsREvent')?.textContent || 'IPL 2026';
-  const streams = document.getElementById('lsRStreams')?.textContent || '63';
-  const now = new Date().toUTCString();
-  const text = `CINEOS LIVE SHIELD — INTELLIGENCE REPORT
-Generated: ${now}
-Event: ${event}
-Streams detected: ${streams}
-Critical: ${document.getElementById('lsRCritical')?.textContent || '12'}
-Betting+Stream channels: 4
-
-PRIORITY TARGETS:
-@RealCricPoint — 95,500 subscribers — Tamil — MIB action required
-@CricketBetting — 14,600 subscribers — Tamil — BETTING+ — ED+MIB action
-@IPLBetting — 9,650 subscribers — Hindi — BETTING+ — ED+MIB action
-@CricketTips — 14,600 subscribers — Tamil — BETTING+ — ED+MIB action
-
-LEGAL BASIS:
-Copyright Act 1957 + PMLA 2002 + Online Gaming Act 2025
-
-CINEOS Content Intelligence Platform
-US Provisional Patent 64/049,190
-dba.yugandhar@gmail.com`;
-  navigator.clipboard.writeText(text).then(() => {
-    alert('Evidence copied — paste into MIB/ED complaint');
-  });
-}
-
-function emailMIB() {
-  const event = document.getElementById('lsREvent')?.textContent || 'IPL 2026';
-  const subject = encodeURIComponent(`CINEOS Intelligence Report — Illegal Telegram Streams — ${event}`);
-  const body = encodeURIComponent(`Dear MIB Nodal Officer,\n\nCINEOS has detected ${document.getElementById('lsRStreams')?.textContent || '63'} illegal streaming channels on Telegram for ${event}.\n\nPriority channels for immediate blocking:\n@RealCricPoint — 95,500 subscribers\n@CricketBetting — BETTING+ — 14,600 subscribers\n@IPLBetting — BETTING+ — 9,650 subscribers\n\nRequest: 3-hour blocking order under Copyright Act 1957.\n\nYugandhar Mallavarapu\nCINEOS Platform\nUS Pat. 64/049,190`);
-  window.open(`mailto:nodalofficer@meity.gov.in?subject=${subject}&body=${body}`);
-}
-
-
-// ═══════════════════════════════════════════════════════════════
-// CINEOS UNIVERSAL INTELLIGENCE REPORT ENGINE
-// Powers all 7 tabs — Film, India, Gaming, Manga, Sports, VideoID, Live Shield
-// ═══════════════════════════════════════════════════════════════
-
-let uCharts = {};
-
-// Category config — colors, platforms, descriptions per tab
-const CAT_CONFIG = {
-  film: {
-    label: 'Film Monitor',
-    color: '#00ff88',
-    platforms: 111,
-    cascade: [
-      {p:'Filmyzilla',    h:2,  c:94, t:'Hindi'},
-      {p:'Movierulz',     h:4,  c:91, t:'Telugu/Tamil'},
-      {p:'TamilRockers',  h:6,  c:88, t:'Tamil'},
-      {p:'iBomma',        h:8,  c:84, t:'Telugu'},
-      {p:'9xMovies',      h:12, c:79, t:'Hindi'},
-      {p:'1337x',         h:24, c:72, t:'Global'},
-    ],
-    intel: [
-      {icon:'⚡', lbl:'CAM Copy Alert', txt:'CAM quality copies typically appear within 2-6 hours of theatrical release. HDRip follows within 24-48 hours. Full HD within 7 days.'},
-      {icon:'📍', lbl:'Geographic Spread', txt:'India accounts for 8.12% of global piracy traffic. Telugu and Tamil films have highest per-capita piracy rates among Indian language films.'},
-      {icon:'⚖️', lbl:'Legal Action', txt:'File DMCA with Google to de-list URLs. Submit to TFCC Anti-Piracy Cell. Request Dynamic+ injunction from Delhi High Court for persistent offenders.'},
-      {icon:'💰', lbl:'Revenue Protection', txt:'First 72 hours are critical — 60% of piracy damage occurs in week 1. Immediate takedown within 6 hours can protect up to 40% of opening weekend revenue.'},
-    ]
-  },
-  india: {
-    label: 'India Cinema',
-    color: '#ff9900',
-    platforms: 72,
-    cascade: [
-      {p:'Movierulz',    h:1,  c:96, t:'Telugu/Tamil'},
-      {p:'iBomma',       h:2,  c:93, t:'Telugu'},
-      {p:'1tamilmv',     h:3,  c:89, t:'Tamil'},
-      {p:'TamilBlasters',h:6,  c:85, t:'Tamil'},
-      {p:'Kuttymovies',  h:8,  c:81, t:'Tamil'},
-      {p:'Moviesda',     h:12, c:76, t:'Tamil'},
-    ],
-    intel: [
-      {icon:'🎬', lbl:'South India Piracy Pattern', txt:'Telugu and Tamil films face piracy within 60-90 minutes of release. Movierulz and iBomma are the primary first-strike platforms. Direct URL construction used.'},
-      {icon:'📱', lbl:'Telegram Amplification', txt:'Every piracy site hit triggers 3-5 Telegram channel shares within 30 minutes. Tamil channels have highest amplification rate — 14,600 subscribers on average.'},
-      {icon:'⚖️', lbl:'TFCC + TGCSB Action', txt:'Report to TFCC Anti-Piracy Cell: info@telugufilmchamber.in. TGCSB agents stationed at ICCC can execute real-time blocking. MOU signed Jan 2026.'},
-      {icon:'💰', lbl:'Telugu Industry Loss', txt:'Telugu film industry lost ₹3,700 crore to piracy in 2024. Small and mid-budget films most affected — piracy can erase 30-50% of theatrical collections.'},
-    ]
-  },
-  gaming: {
-    label: 'Gaming',
-    color: '#3366ff',
-    platforms: 79,
-    cascade: [
-      {p:'IGG Games',     h:6,  c:92, t:'PC Games'},
-      {p:'FitGirl',       h:12, c:88, t:'Repacks'},
-      {p:'SteamUnlocked', h:18, c:85, t:'Steam Games'},
-      {p:'Skidrow',       h:24, c:81, t:'Cracked'},
-      {p:'HappyMod',      h:4,  c:90, t:'Mobile APK'},
-      {p:'APKPure',       h:2,  c:93, t:'Android APK'},
-    ],
-    intel: [
-      {icon:'🎮', lbl:'APK Piracy Pattern', txt:'Mobile games pirated as modified APKs within hours of launch. Unlimited coins, premium unlocked versions circulate on HappyMod and APKPure.'},
-      {icon:'🔒', lbl:'DRM Bypass Timeline', txt:'PC games with Denuvo protection typically cracked within 3-14 days. Games without DRM cracked within hours of release.'},
-      {icon:'⚖️', lbl:'Legal Action', txt:'DMCA to hosting providers. Report to Google Play for APK removal. In India, file complaint with CERT-In for large-scale piracy operations.'},
-      {icon:'💰', lbl:'Revenue Impact', txt:'India gaming market ₹28,000 crore in 2024. Mobile game piracy estimated at 15-20% of potential revenue. BGMI loses significant microtransaction revenue to modded APKs.'},
-    ]
-  },
-  manga: {
-    label: 'Manga',
-    color: '#ff66cc',
-    platforms: 82,
-    cascade: [
-      {p:'MangaDex',      h:1,  c:95, t:'Global'},
-      {p:'Manganelo',     h:2,  c:91, t:'Global'},
-      {p:'MangaFox',      h:4,  c:87, t:'Global'},
-      {p:'MangaKakalot',  h:6,  c:84, t:'Global'},
-      {p:'Tachiyomi',     h:3,  c:89, t:'App'},
-      {p:'Telegram Bots', h:1,  c:96, t:'India'},
-    ],
-    intel: [
-      {icon:'📚', lbl:'Manga Piracy Scale', txt:'Manga accounts for 70% of all publishing piracy globally in 2024. India is a top-5 manga piracy market. Chapters appear within 1 hour of official release.'},
-      {icon:'🤖', lbl:'Bot Distribution', txt:'Telegram bots distribute manga chapters automatically. Users type title name and receive instant download links. 200,000 member channels detected.'},
-      {icon:'⚖️', lbl:'Publisher Action', txt:'Contact Shueisha, Viz Media, Yen Press with detected URLs. Request DMCA from Cloudflare DNS. File with MIB for India-based distribution.'},
-      {icon:'💰', lbl:'Market Impact', txt:'Global manga market $37 billion. India growing 40% annually. Crunchyroll and legal manga platforms lose estimated 25-30% of potential subscribers to piracy.'},
-    ]
-  },
-  sports: {
-    label: 'Sports',
-    color: '#ff6600',
-    platforms: 77,
-    cascade: [
-      {p:'CrackStreams',   h:0.5, c:97, t:'Live'},
-      {p:'VIPBox',         h:1,   c:94, t:'Live'},
-      {p:'Telegram',       h:0.1, c:99, t:'Live+Betting'},
-      {p:'Reddit Streams', h:1,   c:88, t:'Global'},
-      {p:'IPTV Apps',      h:0,   c:99, t:'Live'},
-      {p:'YouTube (unauth)',h:2,  c:85, t:'VOD'},
-    ],
-    intel: [
-      {icon:'🏏', lbl:'Live Sports Critical Window', txt:'Sports piracy is real-time. Telegram channels go live 60 seconds before match starts. Once the match ends, enforcement value drops to zero. Detection within 60s is the only effective window.'},
-      {icon:'🎰', lbl:'Betting + Streaming Threat', txt:'@CricketBetting (14,600 subs) and @IPLBetting (9,650 subs) combine illegal streaming with betting promotion. Under PMLA 2002 this is money laundering — ED can arrest operators.'},
-      {icon:'⚖️', lbl:'Enforcement Path', txt:'JioHotstar Dynamic+ injunction: real-time blocking during matches. MIB notice: 3-hour Telegram channel removal. ED: PMLA case for betting+streaming channels.'},
-      {icon:'💰', lbl:'Rights Value at Stake', txt:'IPL media rights ₹48,390 crore (2023-27). Every illegal stream directly reduces the ROI justifying that investment. Live sports piracy costs India ₹8,000-11,000 crore annually.'},
-    ]
-  }
-};
-
-function showUniversalReport(category, searchTerm, hitsData) {
-  // Find the ACTIVE panel's report div — not a global one
-  const activePanel = document.querySelector('.panel.active');
-  if (!activePanel) return;
-  const report = activePanel.querySelector('.u-report');
-  if (!report) return;
-  const cfg = CAT_CONFIG[category] || CAT_CONFIG.film;
-  const reportEl = document.getElementById('universalReport');
-  reportEl.style.display = 'block';
-  setTimeout(() => reportEl.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
-
-  // Update header color
-  var hdr = reportEl.querySelector('.u-report-header') || reportEl.children[0];
-  if (hdr) { hdr.style.borderColor = cfg.color + '44';
-  hdr.style.background = 'linear-gradient(135deg,' + cfg.color + '0a,rgba(51,102,255,0.04))'; }
-
-  // Timestamp
-  const now = new Date();
-  reportEl.querySelector('.r-time').textContent = now.toUTCString().slice(0,25);
-  reportEl.querySelector('.r-cat').textContent = cfg.label;
-  reportEl.querySelector('.r-search').textContent = searchTerm || '—';
-  reportEl.querySelector('.r-cat').style.color = cfg.color;
-
-  // Pull real hits from DOM
-  const hitEls = document.querySelectorAll('.hit-url, .hit-title, .result-url');
-  const realHits = hitsData || hitEls.length || 0;
-  const verdict = realHits > 0 ? 'CONFIRMED' : 'CLEAN';
-
-  reportEl.querySelector('.r-hits').textContent = realHits + (realHits === 1 ? ' hit' : ' hits');
-  reportEl.querySelector('.r-verdict').textContent = verdict;
-  report.querySelector('.r-verdict').style.color = verdict === 'CONFIRMED' ? '#ff3366' : '#00ff88';
-
-  // KPIs
-  const velocity = realHits > 8 ? 'HIGH' : realHits > 3 ? 'MEDIUM' : realHits > 0 ? 'LOW' : 'NONE';
-  const velColor = velocity === 'HIGH' ? '#ff3366' : velocity === 'MEDIUM' ? '#ff9900' : '#00ff88';
-  const lossAmt = realHits > 0 ? '₹' + (realHits * 15).toFixed(0) + '-' + (realHits * 35).toFixed(0) + 'L/mo' : '₹0';
-
-  report.querySelector('.r-kpi1').textContent = realHits;
-  report.querySelector('.r-kpi1').style.color = realHits > 0 ? '#ff3366' : '#00ff88';
-  report.querySelector('.r-kpi2').textContent = cfg.platforms;
-  report.querySelector('.r-kpi3').textContent = velocity;
-  report.querySelector('.r-kpi3').style.color = velColor;
-  report.querySelector('.r-kpi4').textContent = lossAmt;
-
-  // Destroy old charts
-  Object.values(uCharts).forEach(c => c?.destroy());
-  uCharts = {};
-
-  const co = {
-    plugins: { legend:{ display:false } },
-    scales: {
-      x: { grid:{color:'rgba(255,255,255,.04)'}, ticks:{color:'#aaaacc',font:{size:10,family:'Space Mono'}} },
-      y: { grid:{color:'rgba(255,255,255,.04)'}, ticks:{color:'#aaaacc',font:{size:10,family:'Space Mono'}} }
-    }
-  };
-
-  // Spread velocity chart — realistic data based on hits
-  const days = ['Day 1','Day 2','Day 3','Day 7','Day 14','Day 30','Day 60','Day 90'];
-  const base = Math.max(realHits, 1);
-  const spread = days.map((_,i) => Math.min(
-    Math.round(base * (1 + i * 0.6 + Math.random() * 0.2)), cfg.platforms
-  ));
-
-  uCharts.spread = new Chart(report.querySelector('.r-spread'), {
-    type:'line',
-    data:{
-      labels: days,
-      datasets:[{
-        data: spread,
-        borderColor: cfg.color,
-        backgroundColor: (ctx) => {
-          const g = ctx.chart.ctx.createLinearGradient(0,0,0,220);
-          g.addColorStop(0, cfg.color + '33');
-          g.addColorStop(1, cfg.color + '00');
-          return g;
-        },
-        fill:true, tension:0.4, pointRadius:4,
-        pointBackgroundColor: cfg.color, borderWidth:2
-      }]
-    },
-    options:{...co, scales:{...co.scales, y:{...co.scales.y, beginAtZero:true,
-      ticks:{...co.scales.y.ticks, callback: v => v + ' platforms'}}}}
-  });
-
-  // Platform exposure chart
-  uCharts.platform = new Chart(report.querySelector('.r-platform'), {
-    type:'bar',
-    data:{
-      labels: cfg.cascade.map(c => c.p),
-      datasets:[{
-        data: cfg.cascade.map(c => c.h),
-        backgroundColor: cfg.cascade.map(c =>
-          c.h <= 2  ? 'rgba(255,51,102,.8)' :
-          c.h <= 8  ? 'rgba(255,153,0,.7)' :
-          'rgba(51,102,255,.6)'
-        ),
-        borderRadius:4, borderWidth:0
-      }]
-    },
-    options:{...co,
-      scales:{...co.scales,
-        y:{...co.scales.y, beginAtZero:true,
-          ticks:{...co.scales.y.ticks,
-            callback: v => v < 1 ? (v*60)+'m' : v+'d'}}},
-      plugins:{legend:{display:false},
-        tooltip:{callbacks:{label:ctx=>
-          ` ${ctx.raw < 1 ? Math.round(ctx.raw*60)+'min' : ctx.raw+'h'} to appear`}}}
-    }
-  });
-
-  // Severity doughnut
-  const crit = Math.max(Math.round(realHits * 0.3), realHits > 0 ? 1 : 0);
-  const high = Math.max(Math.round(realHits * 0.5), 0);
-  const med  = Math.max(realHits - crit - high, 0);
-  uCharts.severity = new Chart(report.querySelector('.r-severity'), {
-    type:'doughnut',
-    data:{
-      labels:['Critical','High','Medium','None'],
-      datasets:[{
-        data: realHits > 0 ? [crit,high,med,0] : [0,0,0,1],
-        backgroundColor:['rgba(255,51,102,.8)','rgba(255,153,0,.7)','rgba(51,102,255,.6)','rgba(40,40,60,.5)'],
-        borderColor:['#ff3366','#ff9900','#3366ff','#333'], borderWidth:1
-      }]
-    },
-    options:{
-      plugins:{legend:{display:true,position:'bottom',
-        labels:{color:'#aaaacc',font:{size:10,family:'Space Mono'},padding:10}
-      }}, cutout:'60%'
-    }
-  });
-
-  // URL table — pull real URLs from DOM results
-  const urlBox = report.querySelector('.r-urls') || {innerHTML:''};
-  const realUrls = Array.from(document.querySelectorAll('.hit-url a, .result-url'))
-    .map(el => el.href || el.textContent).filter(u => u && u.startsWith('http'));
-
-  if (realUrls.length > 0) {
-    report.querySelector('.r-urlcount') || {textContent:''}.textContent = realUrls.length + ' URLs';
-    urlBox.innerHTML = realUrls.map((url, i) => `
-      <div style="padding:0.6rem 1.3rem;border-bottom:1px solid rgba(255,255,255,0.03);
-        display:flex;align-items:center;gap:1rem;">
-        <span style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);min-width:20px;">${i+1}</span>
-        <span style="font-family:var(--mono);font-size:0.7rem;color:#ff3366;word-break:break-all;flex:1;">${url}</span>
-        <span style="font-family:var(--mono);font-size:0.58rem;padding:0.15rem 0.4rem;
-          background:rgba(255,51,102,0.1);border:1px solid rgba(255,51,102,0.25);
-          color:#ff3366;border-radius:3px;white-space:nowrap;">PIRACY</span>
-      </div>`).join('');
-  } else if (realHits > 0) {
-    report.querySelector('.r-urlcount') || {textContent:''}.textContent = realHits + ' hits';
-    urlBox.innerHTML = `<div style="padding:1rem 1.3rem;font-size:0.8rem;color:var(--text);">
-      ${realHits} piracy sources detected. Run scan and check results tab for exact URLs.</div>`;
-  } else {
-    report.querySelector('.r-urlcount') || {textContent:''}.textContent = '0 URLs';
-    urlBox.innerHTML = `<div style="padding:1rem 1.3rem;font-size:0.8rem;color:var(--text2);">
-      No piracy detected. Content appears clean across monitored platforms.</div>`;
-  }
-
-  // Cascade prediction
-  const cascadeEl = report.querySelector('.r-cascade');
-  cascadeEl.innerHTML = cfg.cascade.map(c => `
-    <div style="padding:0.65rem 1.3rem;border-bottom:1px solid rgba(255,255,255,0.03);
-      display:grid;grid-template-columns:1.5fr 0.8fr 2fr 0.8fr;align-items:center;gap:1rem;font-size:0.78rem;">
-      <span style="font-family:var(--mono);font-size:0.72rem;color:var(--text);">${c.p}</span>
-      <span style="color:${c.h<=2?'#ff3366':c.h<=8?'#ff9900':'#3366ff'};font-family:var(--mono);font-size:0.7rem;">
-        ${c.h < 1 ? Math.round(c.h*60)+'min' : '~'+c.h+'h'}
-      </span>
-      <div style="display:flex;align-items:center;gap:0.6rem;">
-        <div style="flex:1;height:4px;background:var(--border);border-radius:2px;">
-          <div style="height:100%;border-radius:2px;width:${c.c}%;
-            background:linear-gradient(90deg,${cfg.color},#3366ff);"></div>
-        </div>
-        <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);min-width:30px;">${c.c}%</span>
-      </div>
-      <span style="font-size:0.72rem;color:var(--text2);">${c.t}</span>
-    </div>`).join('');
-
-  // Intelligence rows
-  report.querySelector('.r-intel').innerHTML = cfg.intel.map(item => `
-    <div style="display:flex;gap:1rem;align-items:flex-start;
-      padding:0.85rem 0;border-bottom:1px solid rgba(255,255,255,0.03);">
-      <div style="font-size:1rem;flex-shrink:0;margin-top:2px;">${item.icon}</div>
-      <div>
-        <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text2);
-          letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.2rem;">${item.lbl}</div>
-        <div style="font-size:0.8rem;color:var(--text);line-height:1.6;">${item.txt}</div>
-      </div>
-    </div>`).join('');
-}
-
-// ── Per-tab report functions ────────────────────────────────────────
-function generateFilmReport() {
-  const term = document.getElementById('filmInput')?.value ||
-               document.querySelector('#panel-film .search-input')?.value || 'Film';
-  const hits = document.querySelectorAll('#panel-film .hit-url, #panel-film .result-card').length;
-  showUniversalReport('film', term, hits);
-}
-
-function generateIndiaReport() {
-  const term = document.querySelector('#panel-india .search-input')?.value ||
-               document.getElementById('indiaFilm')?.value || 'Telugu Film';
-  const hits = document.querySelectorAll('#panel-india .hit-url, #panel-india .result-card').length;
-  showUniversalReport('india', term, hits);
-}
-
-function generateGamingReport() {
-  const term = document.querySelector('#panel-gaming .search-input')?.value ||
-               document.getElementById('gameTitle')?.value || 'Game';
-  const hits = document.querySelectorAll('#panel-gaming .hit-url, #panel-gaming .result-card').length;
-  showUniversalReport('gaming', term, hits);
-}
-
-function generateMangaReport() {
-  const term = document.querySelector('#panel-manga .search-input')?.value ||
-               document.getElementById('mangaTitle')?.value || 'Manga';
-  const hits = document.querySelectorAll('#panel-manga .hit-url, #panel-manga .result-card').length;
-  showUniversalReport('manga', term, hits);
-}
-
-function generateSportsReport() {
-  const term = document.querySelector('#panel-sports .search-input')?.value ||
-               document.getElementById('sportEvent')?.value || 'IPL 2026';
-  const hits = document.querySelectorAll('#panel-sports .hit-url, #panel-sports .result-card').length;
-  showUniversalReport('sports', term, hits);
-}
-
-function copyActiveReport(btn) {
-  const report = btn.closest('.u-report');
-  const cat   = report.querySelector('.r-cat')?.textContent || 'CINEOS';
-  const term  = report.querySelector('.r-search')?.textContent || '—';
-  const hits  = report.querySelector('.r-hits')?.textContent || '0';
-  const verd  = report.querySelector('.r-verdict')?.textContent || '—';
-  const now   = new Date().toUTCString();
-  const text = `CINEOS INTELLIGENCE REPORT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Category  : ${cat}
-Content   : ${term}
-Generated : ${now}
-Verdict   : ${verd}
-Hits      : ${hits}
-Patent    : US Prov. 64/049,190
-Contact   : dba.yugandhar@gmail.com
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
-  navigator.clipboard.writeText(text)
-    .then(() => alert('Evidence copied'))
-    .catch(() => alert('Copy failed'));
-}
-
-function emailActiveReport(btn) {
-  const report = btn.closest('.u-report');
-  const term = report.querySelector('.r-search')?.textContent || 'Content';
-  const hits = report.querySelector('.r-hits')?.textContent || '0 hits';
-  const subj = encodeURIComponent(`CINEOS Piracy Report — ${term} — ${hits}`);
-  const body = encodeURIComponent(`Dear MIB Nodal Officer,\n\nCINEOS detected active piracy for: ${term}\nHits: ${hits}\nVerdict: ${report.querySelector('.r-verdict')?.textContent}\n\nRequesting blocking order under Copyright Act 1957.\n\nYugandhar Mallavarapu\ndba.yugandhar@gmail.com\nUS Pat. 64/049,190`);
-  window.open(`mailto:nodalofficer@meity.gov.in?subject=${subj}&body=${body}`);
-}
-
-function copyUEvidence() {
-  const cat   = report.querySelector('.r-cat')?.textContent || 'CINEOS';
-  const term  = report.querySelector('.r-search')?.textContent || '—';
-  const hits  = report.querySelector('.r-hits')?.textContent || '0';
-  const verd  = report.querySelector('.r-verdict')?.textContent || '—';
-  const now   = new Date().toUTCString();
-
-  const urls  = Array.from(document.querySelectorAll('.hit-url a, .result-url'))
-    .map(el => '  • ' + (el.href || el.textContent)).join('\n');
-
-  const text = `CINEOS INTELLIGENCE REPORT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Category  : ${cat}
-Content   : ${term}
-Generated : ${now}
-Verdict   : ${verd}
-Hits      : ${hits}
-Platform  : CINEOS v3.0 — US Pat. 64/049,190
-
-PIRACY URLS DETECTED:
-${urls || '  No URLs in current view'}
-
-LEGAL BASIS:
-- Copyright Act 1957 (India)
-- IT Act 2000 Section 69A
-- Online Gaming Act 2025 (betting channels)
-- PMLA 2002 (money laundering)
-
-REPORT BY: Yugandhar Mallavarapu
-CONTACT  : dba.yugandhar@gmail.com
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
-
-  navigator.clipboard.writeText(text).then(() => {
-    alert('Evidence package copied — ready to paste into complaint');
-  }).catch(() => {
-    alert('Copy failed — please select and copy manually');
-  });
-}
-
-function emailMIBReport() {
-  const term = report.querySelector('.r-search')?.textContent || 'Content';
-  const hits = report.querySelector('.r-hits')?.textContent || '0 hits';
-  const subj = encodeURIComponent(`CINEOS Piracy Intelligence — ${term} — ${hits}`);
-  const body = encodeURIComponent(
-`Dear MIB Nodal Officer,
-
-CINEOS has detected active piracy for: ${term}
-Confirmed hits: ${hits}
-Verdict: ${report.querySelector('.r-verdict')?.textContent || 'CONFIRMED'}
-
-Requesting blocking order under Copyright Act 1957 and IT Act Section 69A.
-
-Platform: CINEOS Content Intelligence — US Pat. 64/049,190
-Contact: dba.yugandhar@gmail.com
-
-Yugandhar Mallavarapu`);
-  window.open(`mailto:nodalofficer@meity.gov.in?subject=${subj}&body=${body}`);
-}
-
-</script>
-<script>
-// Clock + safe DOM init
-document.addEventListener('DOMContentLoaded', function() {
-  setInterval(function(){
-    var el = document.getElementById('clock');
-    if(el) el.textContent = new Date().toUTCString().slice(17,25)+' UTC';
-  }, 1000);
-});
-
-
-// Update mini stats after scans
-
 async function downloadEvidence(tab) {
   const inputs = {
     film: 'filmInput', india: 'indiaFilm',
@@ -2204,53 +857,14 @@ ${actions.map(a=>'<div class="action '+(a.urgency==="IMMEDIATE"?"imm":"")+'"><st
   }
 }
 
-// ── 1-Click MIB Filing ────────────────────────────────
+// ── MIB FILING ───────────────────────────────────────────
 function fileMIB(tab) {
-  const inputs = {
-    film: 'filmInput', india: 'indiaFilm',
-    gaming: 'gameTitle', manga: 'mangaTitle',
-    sports: 'sportEvent', liveshield: 'liveEvent'
-  };
-  const title = document.getElementById(inputs[tab])?.value?.trim() || 'Unknown Title';
-
-  // Collect detected URLs from results area
-  const panel = document.getElementById('panel-' + tab);
-  const urlEls = panel ? panel.querySelectorAll('.hit-url, a[href*="http"]') : [];
-  const urls = [...new Set([...urlEls].map(el => el.href || el.textContent).filter(u => u.startsWith('http')))].slice(0,10);
-
-  const now = new Date().toUTCString();
-  const urlList = urls.length ? urls.join('\n') : 'See CINEOS platform for full list';
-
-  const subject = encodeURIComponent(`Piracy Report: ${title} — CINEOS Intelligence`);
-  const body = encodeURIComponent(`Dear Nodal Officer,
-
-I am writing to report active piracy of "${title}" detected by CINEOS Anti-Piracy Intelligence Platform (US Provisional Patent 64/049,190).
-
-DETECTED PIRACY URLS:
-${urlList}
-
-Detection timestamp: ${now}
-
-This content is being distributed illegally on the above platforms in violation of:
-- Copyright Act 1957 Section 51
-- Information Technology Act 2000 Section 66
-
-I request immediate action under Section 69A of the IT Act to block these URLs.
-
-Evidence package available at:
-https://cineos.in/cineos_platform.html
-
-Regards,
-Yugandhar Mallavarapu
-CINEOS Anti-Piracy Intelligence
-dba.yugandhar@gmail.com
-US Provisional Patent 64/049,190`);
-
-  // Open Gmail compose with pre-filled fields
-  const gmailUrl = `https://mail.google.com/mail/?view=cm&to=nodalofficer@meity.gov.in&su=${subject}&body=${body}`;
-  window.open(gmailUrl, '_blank');
-
-  gtag('event', 'mib_filing', {film_title: title});
+  var inputs = {film:'filmInput',india:'indiaFilm',gaming:'gameTitle',
+                manga:'mangaTitle',sports:'sportEvent',liveshield:'liveEvent'};
+  var title = document.getElementById(inputs[tab] || 'filmInput').value.trim() || 'Unknown Title';
+  var subj = encodeURIComponent('Piracy Report: ' + title + ' - CINEOS Intelligence');
+  var body = encodeURIComponent('Dear Nodal Officer,\n\nI am reporting active piracy of "' + title + '" detected by CINEOS Anti-Piracy Intelligence Platform (US Patent 64/049,190).\n\nDetection timestamp: ' + new Date().toUTCString() + '\n\nLegal basis: Copyright Act 1957 Section 51, IT Act 2000 Section 66\n\nEvidence available at: cineos.in/cineos_platform.html\n\nRegards,\nYugandhar Mallavarapu\nCINEOS Anti-Piracy Intelligence\ncineos.in');
+  window.open('https://mail.google.com/mail/?view=cm&to=nodalofficer@meity.gov.in&su=' + subj + '&body=' + body, '_blank');
 }
 </script>
 </body>

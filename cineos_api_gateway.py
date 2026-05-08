@@ -439,7 +439,7 @@ async def scan_for_piracy(
     if SERP_KEY:
         try:
             import httpx as _httpx
-        import os as _os
+            import os as _os
 
             # Category-specific site lists
             site_lists = {

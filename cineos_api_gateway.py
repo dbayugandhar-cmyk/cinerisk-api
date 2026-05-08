@@ -474,8 +474,39 @@ async def scan_for_piracy(
 
             site_q = " OR ".join(f"site:{s}" for s in sites[:10])
             query = f'"{title}" ({site_q})'
+            
+            # Additional targeted queries per category
+            extra_queries = []
+            if category == "gaming":
+                extra_queries = [
+                    f'"{title}" free download pc game crack',
+                    f'"{title}" fitgirl repack OR dodi repack',
+                ]
+            elif category == "india":
+                extra_queries = [
+                    f'"{title}" tamilblasters OR movierulz download',
+                ]
+            elif category == "film":
+                extra_queries = [
+                    f'"{title}" yts OR 1337x OR rarbg download',
+                ]
 
             async with _httpx.AsyncClient(timeout=15) as client:
+                # Run main query + extra queries concurrently
+                all_queries = [query] + (extra_queries if 'extra_queries' in dir() else [])
+                search_tasks = []
+                for q in all_queries[:3]:
+                    search_tasks.append(client.get(
+                        "https://serpapi.com/search",
+                        params={"q": q, "api_key": SERP_KEY, "num": 10, "engine": "google"}
+                    ))
+                responses = await asyncio.gather(*search_tasks, return_exceptions=True)
+                search_results_all = []
+                for resp in responses:
+                    if not isinstance(resp, Exception):
+                        search_results_all.extend(resp.json().get("organic_results", []))
+                
+                # Legacy single request kept for compatibility
                 r = await client.get(
                     "https://serpapi.com/search",
                     params={
@@ -493,10 +524,18 @@ async def scan_for_piracy(
                     snippet = item.get("snippet", "")
                     full = f"{t} {snippet}".lower()
 
-                    # Basic validation
+                    # Strict validation — title must match in URL or title+snippet
                     title_words = [w for w in title.lower().split() if len(w) > 2]
-                    matched = sum(1 for w in title_words if w in full)
-                    if matched < min(1, len(title_words)):
+                    # Check URL contains title words
+                    url_lower = link.lower()
+                    url_matches = sum(1 for w in title_words if w in url_lower)
+                    text_matches = sum(1 for w in title_words if w in full)
+                    # Require: all words in URL OR majority in title+snippet
+                    required = max(2, len(title_words))
+                    if url_matches < len(title_words) and text_matches < required:
+                        continue
+                    # Extra check: snippet must be about this content, not just mention it
+                    if url_matches == 0 and text_matches < len(title_words):
                         continue
 
                     domain = link.split("/")[2] if "/" in link else link

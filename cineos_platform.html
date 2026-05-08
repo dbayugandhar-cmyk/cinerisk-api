@@ -2139,10 +2139,8 @@ fetch('https://api.countapi.xyz/hit/cineos-platform/visits')
     if(el) el.textContent=(d.value||0).toLocaleString();
   }).catch(()=>{});
 
-// Override switchTab for n
 
 // Update mini stats after scans
-const _origScanFilm = typeof scanFilm !== 'undefined' ? scanFilm : null;
 
 async function downloadEvidence(tab) {
   const inputs = {

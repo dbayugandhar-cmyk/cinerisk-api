@@ -1815,29 +1815,29 @@ function showUniversalReport(category, searchTerm, hitsData) {
   const report = activePanel.querySelector('.u-report');
   if (!report) return;
   const cfg = CAT_CONFIG[category] || CAT_CONFIG.film;
-  const report = document.getElementById('universalReport');
-  report.style.display = 'block';
-  setTimeout(() => report.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+  const reportEl = document.getElementById('universalReport');
+  reportEl.style.display = 'block';
+  setTimeout(() => reportEl.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
 
   // Update header color
-  report.querySelector('.u-report-header') || report.children[0].style.borderColor = cfg.color + '44';
-  report.querySelector('.u-report-header') || report.children[0].style.background =
+  reportEl.querySelector('.u-report-header') || reportEl.children[0].style.borderColor = cfg.color + '44';
+  reportEl.querySelector('.u-report-header') || reportEl.children[0].style.background =
     `linear-gradient(135deg,${cfg.color}0a,rgba(51,102,255,0.04))`;
 
   // Timestamp
   const now = new Date();
-  report.querySelector('.r-time').textContent = now.toUTCString().slice(0,25);
-  report.querySelector('.r-cat').textContent = cfg.label;
-  report.querySelector('.r-search').textContent = searchTerm || '—';
-  report.querySelector('.r-cat').style.color = cfg.color;
+  reportEl.querySelector('.r-time').textContent = now.toUTCString().slice(0,25);
+  reportEl.querySelector('.r-cat').textContent = cfg.label;
+  reportEl.querySelector('.r-search').textContent = searchTerm || '—';
+  reportEl.querySelector('.r-cat').style.color = cfg.color;
 
   // Pull real hits from DOM
   const hitEls = document.querySelectorAll('.hit-url, .hit-title, .result-url');
   const realHits = hitsData || hitEls.length || 0;
   const verdict = realHits > 0 ? 'CONFIRMED' : 'CLEAN';
 
-  report.querySelector('.r-hits').textContent = realHits + (realHits === 1 ? ' hit' : ' hits');
-  report.querySelector('.r-verdict').textContent = verdict;
+  reportEl.querySelector('.r-hits').textContent = realHits + (realHits === 1 ? ' hit' : ' hits');
+  reportEl.querySelector('.r-verdict').textContent = verdict;
   report.querySelector('.r-verdict').style.color = verdict === 'CONFIRMED' ? '#ff3366' : '#00ff88';
 
   // KPIs

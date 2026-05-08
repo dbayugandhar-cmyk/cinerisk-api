@@ -715,6 +715,25 @@ async function downloadEvidence(tab) {
   }
   btn.textContent = orig; btn.disabled = false;
 }
+
+var w = window.open('','_blank','width=900,height=700');
+    w.document.write(html); w.document.close();
+    setTimeout(function(){w.print();}, 800);
+  } catch(e) {
+    alert('Error: ' + e.message);
+  }
+  btn.textContent = orig; btn.disabled = false;
+}
+
+// ── MIB FILING ───────────────────────────────────────────
+function fileMIB(tab) {
+  var inputs = {film:'filmInput',india:'indiaFilm',gaming:'gameTitle',
+                manga:'mangaTitle',sports:'sportEvent',liveshield:'liveEvent'};
+  var title = document.getElementById(inputs[tab]||'filmInput').value.trim()||'Unknown Title';
+  var subj = encodeURIComponent('Piracy Report: ' + title + ' - CINEOS Intelligence');
+  var body = encodeURIComponent('Dear Nodal Officer, I am reporting active piracy of "' + title + '" detected by CINEOS (US Patent 64/049,190). Legal basis: Copyright Act 1957 S.51. Evidence: cineos.in/cineos_platform.html. Regards, Yugandhar, CINEOS.');
+  window.open('https://mail.google.com/mail/?view=cm&to=nodalofficer@meity.gov.in&su='+subj+'&body='+body,'_blank');
+}
 </script>
 <script>
 var _gColors = {source:"#ff3355",mirror:"#ff8c00",telegram:"#3d7fff",cdn:"#b060ff",social:"#00e87a",reseller:"#ffcc00"};

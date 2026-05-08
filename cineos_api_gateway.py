@@ -524,15 +524,16 @@ async def scan_for_piracy(
                     snippet = item.get("snippet", "")
                     full = f"{t} {snippet}".lower()
 
-                    # Balanced validation
+                    # Smart validation
                     title_words = [w for w in title.lower().split() if len(w) > 2]
                     url_lower = link.lower()
+                    t_lower = t.lower()
                     url_matches = sum(1 for w in title_words if w in url_lower)
                     text_matches = sum(1 for w in title_words if w in full)
-                    # Pass if: any word in URL + any word in text
-                    # OR majority of words in text
+                    title_matches = sum(1 for w in title_words if w in t_lower)
+                    # Pass if result title matches OR URL matches OR text majority
                     majority = max(1, len(title_words) - 1)
-                    if url_matches == 0 and text_matches < majority:
+                    if title_matches < majority and url_matches == 0 and text_matches < majority:
                         continue
 
                     domain = link.split("/")[2] if "/" in link else link

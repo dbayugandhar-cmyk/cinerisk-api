@@ -264,7 +264,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
   <p>Year-round piracy intelligence — film releases, live sports, OTT leaks, gaming and illegal betting across India. Scans 135 Telegram channels + 103 piracy sites. Refreshes every 30 minutes.</p>
   <div class="hero-legal">⚖️ Public channel data only · No personal information · Legal basis: journalism & public interest</div>
   <div class="scan-status" style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
-    <span>Last scan: <span id="lastScan">Loading...</span> &nbsp;·&nbsp; Next refresh: <span id="nextRefresh">--:--</span></span>
+    <span>Last scan: <span id="lastScan">Loading...</span> &nbsp;·&nbsp; Next refresh: <span id="nextRefresh">--:--</span> &nbsp;·&nbsp; <span id="scanDiff" style="color:var(--text2)">—</span></span>
     <button onclick="triggerScan()" id="scanNowBtn"
       style="font-family:var(--mono);font-size:.62rem;font-weight:700;
       padding:.35rem .9rem;border-radius:20px;border:1px solid rgba(0,255,136,.3);
@@ -1043,6 +1043,17 @@ async function loadData(){
         cutout:'55%'}
     });
 
+    // Change detection
+    if (window._prevStreamCount !== undefined) {
+        var diff = streams.length - window._prevStreamCount;
+        var diffEl = document.getElementById('scanDiff');
+        if (diffEl) {
+            if (diff > 0) { diffEl.textContent = '+'+diff+' new'; diffEl.style.color='var(--red)'; }
+            else if (diff < 0) { diffEl.textContent = diff+' removed'; diffEl.style.color='var(--accent)'; }
+            else { diffEl.textContent = 'No change'; diffEl.style.color='var(--text2)'; }
+        }
+    }
+    window._prevStreamCount = streams.length;
     document.getElementById('lastScan').textContent=
       new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata',
       dateStyle:'medium',timeStyle:'short'})+' IST';

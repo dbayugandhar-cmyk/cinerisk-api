@@ -439,109 +439,65 @@ async def scan_for_piracy(
     if SERP_KEY:
         try:
             import httpx as _httpx
-            import os as _os
 
-            # Category-specific site lists
-            site_lists = {
+            # Category queries
+            cat_queries = {
                 "film": [
-                    "thepiratebay.org", "1337x.to", "yts.mx",
-                    "whereyouwatch.com", "nyaa.si", "limetorrents.lol",
-                    "torrentgalaxy.to", "rarbg.to", "bitsearch.to",
-                    "opensubtitles.org", "watchsomuch.to"
+                    f'"{title}" yts OR 1337x OR rarbg download torrent',
+                    f'"{title}" free download full movie',
                 ],
                 "india": [
-                    "5movierulz.camera", "1tamilmv.world", "ibomma.com",
-                    "filmyzilla.com", "9xmovies.cool", "tamilrockers.ws",
-                    "isaimini.com", "hdHub4u.com", "worldfree4u.mom",
-                    "mp4moviez.com", "kuttymovies.com", "moviesda.com"
+                    f'"{title}" tamilblasters OR movierulz OR filmyzilla download',
+                    f'"{title}" ibomma OR moviesda OR tamilmv download',
                 ],
                 "gaming": [
-                    "fitgirl-repacks.site", "igg-games.com",
-                    "steamunlocked.net", "dodi-repacks.site",
-                    "gog-games.to", "cs.rin.ru", "ovagames.com",
-                    "repacklab.com", "pcgamestorrents.com"
+                    f'"{title}" fitgirl repack free download',
+                    f'"{title}" igg-games OR steamunlocked OR dodi repack',
+                    f'"{title}" free download pc game crack',
+                ],
+                "manga": [
+                    f'"{title}" mangadex OR nyaa download free',
+                    f'"{title}" manga read free online',
                 ],
                 "sports": [
-                    "crackstreams.com", "vipbox.lc", "hesgoal.com",
-                    "buffstream.io", "sportsurge.net", "livetv.sx",
-                    "cricfree.sc", "crictime.com", "smartcric.com"
+                    f'"{title}" free live stream illegal',
+                    f'"{title}" watch free stream vipbox',
                 ],
             }
-
-            sites = site_lists.get(category, site_lists["film"])
-            if category == "all":
-                sites = [s for sl in site_lists.values() for s in sl]
-
-            site_q = " OR ".join(f"site:{s}" for s in sites[:10])
-            query = f'"{title}" ({site_q})'
-            
-            # Additional targeted queries per category
-            extra_queries = []
-            if category == "gaming":
-                extra_queries = [
-                    f'"{title}" free download pc game crack',
-                    f'"{title}" fitgirl repack OR dodi repack',
-                ]
-            elif category == "india":
-                extra_queries = [
-                    f'"{title}" tamilblasters OR movierulz download',
-                ]
-            elif category == "film":
-                extra_queries = [
-                    f'"{title}" yts OR 1337x OR rarbg download',
-                ]
+            queries = cat_queries.get(category, cat_queries["film"])
 
             async with _httpx.AsyncClient(timeout=15) as client:
-                # Run main query + extra queries concurrently
-                all_queries = [query] + extra_queries
-                search_tasks = []
-                for q in all_queries[:3]:
-                    search_tasks.append(client.get(
-                        "https://serpapi.com/search",
-                        params={"q": q, "api_key": SERP_KEY, "num": 10, "engine": "google"}
-                    ))
-                responses = await asyncio.gather(*search_tasks, return_exceptions=True)
-                search_results_all = []
-                for resp in responses:
-                    if not isinstance(resp, Exception):
-                        search_results_all.extend(resp.json().get("organic_results", []))
-                
-                # Legacy single request kept for compatibility
-                r = await client.get(
-                    "https://serpapi.com/search",
-                    params={
-                        "q": query,
-                        "api_key": SERP_KEY,
-                        "num": 10,
-                        "engine": "google"
-                    }
-                )
+                all_results = []
+                for q in queries[:2]:
+                    try:
+                        r = await client.get(
+                            "https://serpapi.com/search",
+                            params={"q":q,"api_key":SERP_KEY,"num":10,"engine":"google"}
+                        )
+                        if r.status_code == 200:
+                            all_results.extend(r.json().get("organic_results",[]))
+                    except:
+                        pass
 
-            # Use all results from concurrent queries
-                search_results_all = []
-                for resp in responses:
-                    if not isinstance(resp, Exception) and hasattr(resp, 'status_code') and resp.status_code == 200:
-                        search_results_all.extend(resp.json().get("organic_results", []))
-                
-            if search_results_all:
-                for item in search_results_all:
-                    link = item.get("link", "")
-                    t = item.get("title", "")
-                    snippet = item.get("snippet", "")
-                    full = f"{t} {snippet}".lower()
+                title_words = [w.lower() for w in title.split() if len(w) > 2]
+                seen_urls = set()
 
-                    # Smart validation
-                    title_words = [w for w in title.lower().split() if len(w) > 2]
-                    url_lower = link.lower()
-                    t_lower = t.lower()
-                    url_matches = sum(1 for w in title_words if w in url_lower)
-                    text_matches = sum(1 for w in title_words if w in full)
-                    title_matches = sum(1 for w in title_words if w in t_lower)
-                    # Pass if result title matches OR URL matches OR text majority
-                    majority = max(1, len(title_words) - 1)
-                    if title_matches < majority and url_matches == 0 and text_matches < majority:
+                for item in all_results:
+                    link = item.get("link","")
+                    t = item.get("title","")
+                    snippet = item.get("snippet","")
+
+                    if link in seen_urls:
                         continue
 
+                    # Match title words against title+snippet
+                    combined = f"{t} {snippet} {link}".lower()
+                    matched = sum(1 for w in title_words if w in combined)
+
+                    if matched < max(1, len(title_words) - 1):
+                        continue
+
+                    seen_urls.add(link)
                     domain = link.split("/")[2] if "/" in link else link
                     platforms.append(domain[:40])
                     hits.append({

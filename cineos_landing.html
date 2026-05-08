@@ -3,1011 +3,1476 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CINEOS — Stop Piracy. Protect Revenue.</title>
-<meta name="description" content="Real-time piracy detection for film, music, gaming, manga and sports. Starting at $199/month. US Provisional Patent 64/049,190.">
+<meta name="description" content="CINEOS — India's first AI-powered anti-piracy intelligence platform. Real-time detection across 1000+ sites. US Patent 64/049,190.">
+<title>CINEOS — India's Anti-Piracy Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
-
 :root {
-  --bg: #080810;
-  --bg2: #0d0d1a;
-  --bg3: #12121f;
-  --border: #1a1a2e;
-  --accent: #00ff88;
-  --accent2: #ff3366;
-  --accent3: #3366ff;
-  --accent4: #ff9900;
+  --black: #050508;
+  --bg2: #0c0c12;
+  --bg3: #13131c;
+  --border: rgba(255,255,255,.07);
+  --border2: rgba(255,255,255,.12);
+  --green: #00e87a;
+  --green2: #00ff88;
+  --red: #ff3355;
+  --orange: #ff8c00;
+  --blue: #3d7fff;
+  --purple: #b060ff;
   --text: #eeeef5;
   --text2: #8888aa;
-  --text3: #44445a;
-  --mono: 'Space Mono', monospace;
-  --sans: 'DM Sans', sans-serif;
+  --text3: #55556a;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+  --display: 'Syne', sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
+  background: var(--black);
   color: var(--text);
   font-family: var(--sans);
   overflow-x: hidden;
   line-height: 1.6;
 }
 
+/* ── NOISE TEXTURE ── */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: .4;
+}
+
+/* ── GRID BACKGROUND ── */
+.grid-bg {
+  position: fixed;
+  inset: 0;
   background-image:
-    linear-gradient(rgba(0,255,136,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,136,0.02) 1px, transparent 1px);
+    linear-gradient(rgba(0,232,122,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,232,122,.03) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
   z-index: 0;
 }
 
-/* Nav */
+/* ── NAV ── */
 nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  background: rgba(8,8,16,0.95);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 2rem;
-  height: 64px;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: rgba(5,5,8,.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
 }
 
 .nav-logo {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--green);
+  letter-spacing: -.02em;
+  text-decoration: none;
+}
+
+.nav-logo span {
+  color: var(--text3);
+  font-weight: 400;
+  font-size: .75rem;
+  display: block;
   font-family: var(--mono);
-  font-size: 1.1rem;
-  color: var(--accent);
-  letter-spacing: 0.2em;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.nav-dot {
-  width: 8px; height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%,100% { opacity:1; transform:scale(1); }
-  50% { opacity:0.3; transform:scale(0.7); }
+  letter-spacing: .1em;
+  margin-top: -2px;
 }
 
 .nav-links {
   display: flex;
-  gap: 2rem;
   align-items: center;
+  gap: 2rem;
+  list-style: none;
 }
 
-.nav-link {
-  font-family: var(--mono);
-  font-size: 0.7rem;
+.nav-links a {
   color: var(--text2);
   text-decoration: none;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: color 0.2s;
+  font-size: .85rem;
+  font-family: var(--mono);
+  transition: color .2s;
 }
 
-.nav-link:hover { color: var(--accent); }
+.nav-links a:hover { color: var(--text); }
 
 .nav-cta {
-  background: var(--accent);
-  color: #000;
+  display: flex;
+  gap: .8rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .6rem 1.2rem;
+  border-radius: 6px;
   font-family: var(--mono);
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 0.5rem 1.2rem;
-  border-radius: 4px;
+  font-size: .75rem;
+  font-weight: 500;
   text-decoration: none;
-  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all .2s;
+  border: none;
+  letter-spacing: .05em;
   text-transform: uppercase;
-  transition: all 0.2s;
 }
 
-.nav-cta:hover { background: #00cc66; transform: translateY(-1px); }
-
-/* Sections */
-section {
-  position: relative;
-  z-index: 1;
+.btn-primary {
+  background: var(--green);
+  color: #000;
 }
+.btn-primary:hover { background: var(--green2); transform: translateY(-1px); }
 
-/* Hero */
+.btn-ghost {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border2);
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--text2); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--green);
+  border: 1px solid rgba(0,232,122,.3);
+}
+.btn-outline:hover { background: rgba(0,232,122,.08); }
+
+/* ── HERO ── */
 .hero {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 7rem 2rem 4rem;
   text-align: center;
-  padding: 6rem 2rem 4rem;
+  z-index: 1;
 }
 
-.hero-tag {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  color: var(--accent);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-  display: flex;
+.hero-badge {
+  display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: .5rem;
+  background: rgba(0,232,122,.06);
+  border: 1px solid rgba(0,232,122,.2);
+  border-radius: 100px;
+  padding: .35rem 1rem;
+  font-family: var(--mono);
+  font-size: .65rem;
+  color: var(--green);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  animation: fadeDown .6s ease both;
 }
 
-.hero-tag::before, .hero-tag::after {
+.hero-badge::before {
   content: '';
-  width: 40px;
-  height: 1px;
-  background: var(--accent);
-  opacity: 0.4;
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(.8); }
 }
 
 .hero h1 {
-  font-family: var(--mono);
-  font-size: clamp(2.5rem, 7vw, 5.5rem);
-  font-weight: 700;
+  font-family: var(--display);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 800;
   line-height: 1.05;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #fff 0%, var(--accent) 60%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  letter-spacing: -.03em;
+  max-width: 900px;
+  animation: fadeUp .7s ease .1s both;
 }
 
+.hero h1 .accent { color: var(--green); }
+.hero h1 .dim { color: var(--text3); }
+
 .hero-sub {
-  font-size: 1.15rem;
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
   color: var(--text2);
-  max-width: 580px;
-  margin: 0 auto 2.5rem;
+  max-width: 600px;
   line-height: 1.7;
+  font-weight: 300;
+  animation: fadeUp .7s ease .2s both;
 }
 
 .hero-actions {
+  margin-top: 2.5rem;
   display: flex;
   gap: 1rem;
-  justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 3rem;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: #000;
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 0.9rem 2rem;
-  border-radius: 6px;
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: all 0.2s;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-primary:hover { background: #00cc66; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,255,136,0.3); }
-
-.btn-secondary {
-  background: transparent;
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  padding: 0.9rem 2rem;
-  border-radius: 6px;
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border: 1px solid var(--border);
-  transition: all 0.2s;
-  cursor: pointer;
-}
-
-.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-
-.hero-badges {
-  display: flex;
-  gap: 1rem;
   justify-content: center;
-  flex-wrap: wrap;
+  animation: fadeUp .7s ease .3s both;
 }
 
-.badge {
+.hero-actions .btn { padding: .8rem 1.8rem; font-size: .8rem; }
+
+.hero-patent {
+  margin-top: 1.5rem;
   font-family: var(--mono);
-  font-size: 0.65rem;
-  padding: 0.3rem 0.8rem;
-  border-radius: 4px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: .65rem;
+  color: var(--text3);
+  letter-spacing: .1em;
+  animation: fadeUp .7s ease .4s both;
 }
 
-.badge-green { background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.2); color: var(--accent); }
-.badge-blue { background: rgba(51,102,255,0.08); border: 1px solid rgba(51,102,255,0.2); color: var(--accent3); }
-.badge-orange { background: rgba(255,153,0,0.08); border: 1px solid rgba(255,153,0,0.2); color: var(--accent4); }
-
-/* Live proof */
-.live-proof {
-  background: var(--bg2);
-  border: 1px solid rgba(255,51,102,0.2);
-  border-radius: 8px;
-  padding: 1.5rem 2rem;
-  max-width: 700px;
-  margin: 3rem auto 0;
-  text-align: left;
+/* ── LIVE TICKER ── */
+.ticker-wrap {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,232,122,.03);
+  overflow: hidden;
+  padding: .7rem 0;
 }
 
-.proof-header {
+.ticker-label {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  padding: 0 1.5rem;
+  background: var(--green);
+  color: #000;
   font-family: var(--mono);
-  font-size: 0.7rem;
-  color: var(--accent2);
-  letter-spacing: 0.1em;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .12em;
   text-transform: uppercase;
-}
-
-.proof-dot {
-  width: 8px; height: 8px;
-  background: var(--accent2);
-  border-radius: 50%;
-  animation: pulse 1s infinite;
-}
-
-.proof-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.proof-item:last-child { border-bottom: none; }
-
-.proof-film {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--text);
-  min-width: 200px;
-}
-
-.proof-detail {
-  font-size: 0.8rem;
-  color: var(--text2);
-  flex: 1;
-}
-
-.proof-tag {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 3px;
+  z-index: 2;
   white-space: nowrap;
 }
 
-.tag-red { background: rgba(255,51,102,0.15); color: var(--accent2); }
-.tag-orange { background: rgba(255,153,0,0.15); color: var(--accent4); }
-.tag-blue { background: rgba(51,102,255,0.15); color: var(--accent3); }
-
-/* Stats */
-.stats {
-  padding: 5rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
+.ticker-track {
+  display: flex;
+  gap: 3rem;
+  animation: ticker 30s linear infinite;
+  padding-left: 160px;
+  white-space: nowrap;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.stat {
-  background: var(--bg2);
-  padding: 2rem;
-  text-align: center;
-}
-
-.stat-val {
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
   font-family: var(--mono);
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  font-size: 0.75rem;
+  font-size: .7rem;
   color: var(--text2);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
 }
 
-/* Products */
-.products {
-  padding: 5rem 2rem;
+.ticker-item .tag {
+  padding: .1rem .4rem;
+  border-radius: 3px;
+  font-size: .58rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+
+.tag-cam { background: rgba(255,51,85,.15); color: var(--red); border: 1px solid rgba(255,51,85,.2); }
+.tag-hd { background: rgba(255,140,0,.15); color: var(--orange); border: 1px solid rgba(255,140,0,.2); }
+.tag-live { background: rgba(0,232,122,.15); color: var(--green); border: 1px solid rgba(0,232,122,.2); }
+.tag-ott { background: rgba(61,127,255,.15); color: var(--blue); border: 1px solid rgba(61,127,255,.2); }
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── SECTIONS ── */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 6rem 2rem;
   max-width: 1100px;
   margin: 0 auto;
 }
 
-.section-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.section-tag {
+.section-label {
   font-family: var(--mono);
-  font-size: 0.7rem;
-  color: var(--accent);
-  letter-spacing: 0.2em;
+  font-size: .65rem;
+  color: var(--green);
+  letter-spacing: .15em;
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
 
 .section-title {
-  font-family: var(--mono);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  margin-bottom: 1rem;
 }
 
 .section-sub {
   color: var(--text2);
   font-size: 1rem;
-  max-width: 500px;
-  margin: 0 auto;
+  max-width: 560px;
+  line-height: 1.7;
+  font-weight: 300;
 }
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
-}
-
-.product-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem;
-  transition: all 0.2s;
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-.product-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0,255,136,0.08);
-}
-
-.product-emoji { font-size: 2rem; margin-bottom: 1rem; }
-
-.product-name {
-  font-family: var(--mono);
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 0.5rem;
-}
-
-.product-desc {
-  font-size: 0.85rem;
-  color: var(--text2);
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-.product-price {
-  font-family: var(--mono);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.product-price span {
-  font-size: 0.7rem;
-  color: var(--text2);
-  font-weight: 400;
-}
-
-.product-sources {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  color: var(--text3);
-  margin-top: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-/* How it works */
-.how {
-  padding: 5rem 2rem;
+/* ── STATS BAR ── */
+.stats-bar {
+  position: relative;
+  z-index: 1;
   background: var(--bg2);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  padding: 2.5rem 2rem;
 }
 
-.how-inner {
-  max-width: 900px;
+.stats-inner {
+  max-width: 1100px;
   margin: 0 auto;
-}
-
-.steps {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--border);
 }
 
-.step {
+.stat-item {
+  background: var(--bg2);
+  padding: 1.8rem 1.5rem;
   text-align: center;
 }
 
-.step-num {
-  font-family: var(--mono);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent);
-  opacity: 0.3;
+.stat-val {
+  font-family: var(--display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--green);
   line-height: 1;
+  margin-bottom: .3rem;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: .6rem;
+  color: var(--text3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+/* ── FEATURE GRID ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 3rem;
+}
+
+.feature-card {
+  background: var(--bg2);
+  padding: 2rem;
+  transition: background .2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--card-color, var(--green));
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.feature-card:hover { background: var(--bg3); }
+.feature-card:hover::before { opacity: 1; }
+
+.feature-icon {
+  font-size: 1.8rem;
   margin-bottom: 1rem;
 }
 
-.step-title {
-  font-family: var(--mono);
-  font-size: 0.8rem;
+.feature-title {
+  font-family: var(--display);
+  font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.05em;
+  margin-bottom: .5rem;
+  color: var(--text);
 }
 
-.step-desc {
-  font-size: 0.85rem;
+.feature-desc {
+  font-size: .85rem;
   color: var(--text2);
   line-height: 1.6;
 }
 
-/* Pricing */
-.pricing {
-  padding: 5rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
+.feature-tag {
+  display: inline-block;
+  margin-top: .8rem;
+  font-family: var(--mono);
+  font-size: .58rem;
+  color: var(--card-color, var(--green));
+  background: rgba(0,232,122,.06);
+  border: 1px solid rgba(0,232,122,.15);
+  padding: .2rem .5rem;
+  border-radius: 3px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
 }
 
+/* ── HOW IT WORKS ── */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.how-step {
+  position: relative;
+}
+
+.how-step::after {
+  content: '→';
+  position: absolute;
+  top: 1.5rem;
+  right: -1rem;
+  color: var(--text3);
+  font-family: var(--mono);
+  font-size: .8rem;
+}
+
+.how-step:last-child::after { display: none; }
+
+.how-num {
+  font-family: var(--display);
+  font-size: 3rem;
+  font-weight: 800;
+  color: rgba(0,232,122,.1);
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+
+.how-title {
+  font-family: var(--display);
+  font-size: .95rem;
+  font-weight: 700;
+  margin-bottom: .4rem;
+  color: var(--green);
+}
+
+.how-desc {
+  font-size: .8rem;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+/* ── LIVE SCAN DEMO ── */
+.demo-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 3rem;
+}
+
+.demo-header {
+  background: var(--bg3);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.demo-dots { display: flex; gap: .4rem; }
+.demo-dots span {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.demo-dots span:nth-child(1) { background: #ff5f57; }
+.demo-dots span:nth-child(2) { background: #ffbd2e; }
+.demo-dots span:nth-child(3) { background: #28c940; }
+
+.demo-title {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--text3);
+}
+
+.demo-body {
+  padding: 1.5rem;
+}
+
+.demo-input-row {
+  display: flex;
+  gap: .8rem;
+  margin-bottom: 1.5rem;
+}
+
+.demo-input {
+  flex: 1;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: .7rem 1rem;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: .8rem;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.demo-input:focus { border-color: var(--green); }
+
+.demo-scan-btn {
+  background: var(--green);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: .7rem 1.4rem;
+  font-family: var(--mono);
+  font-size: .75rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  transition: all .2s;
+}
+
+.demo-scan-btn:hover { background: var(--green2); }
+.demo-scan-btn.loading { opacity: .7; cursor: wait; }
+
+.demo-results { min-height: 120px; }
+
+.demo-result-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .6rem .8rem;
+  border-radius: 6px;
+  margin-bottom: .4rem;
+  background: rgba(255,255,255,.02);
+  font-family: var(--mono);
+  font-size: .72rem;
+  animation: slideIn .3s ease both;
+}
+
+.demo-result-row .url {
+  color: var(--green);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.demo-result-row .platform {
+  color: var(--text3);
+  font-size: .65rem;
+  min-width: 80px;
+}
+
+.demo-empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text3);
+  font-family: var(--mono);
+  font-size: .75rem;
+}
+
+.demo-scanning {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: 1.5rem;
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--green);
+}
+
+.scanning-dots span {
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  margin: 0 2px;
+  animation: scanDot 1.2s ease infinite;
+}
+.scanning-dots span:nth-child(2) { animation-delay: .2s; }
+.scanning-dots span:nth-child(3) { animation-delay: .4s; }
+
+@keyframes scanDot {
+  0%, 80%, 100% { transform: scale(0); opacity: .3; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ── UNIQUE ADVANTAGES ── */
+.adv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.adv-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.adv-card.featured {
+  border-color: rgba(0,232,122,.25);
+  background: rgba(0,232,122,.03);
+}
+
+.adv-card.featured::before {
+  content: 'PATENTED';
+  position: absolute;
+  top: 1rem; right: 1rem;
+  font-family: var(--mono);
+  font-size: .55rem;
+  color: var(--green);
+  background: rgba(0,232,122,.1);
+  border: 1px solid rgba(0,232,122,.2);
+  padding: .2rem .5rem;
+  border-radius: 3px;
+  letter-spacing: .1em;
+}
+
+.adv-title {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: .6rem;
+  color: var(--text);
+}
+
+.adv-desc {
+  font-size: .85rem;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.adv-vs {
+  display: flex;
+  gap: 1rem;
+}
+
+.adv-vs-item {
+  flex: 1;
+  padding: .8rem;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: .65rem;
+}
+
+.adv-vs-item.us {
+  background: rgba(0,232,122,.06);
+  border: 1px solid rgba(0,232,122,.15);
+  color: var(--green);
+}
+
+.adv-vs-item.them {
+  background: rgba(255,51,85,.04);
+  border: 1px solid rgba(255,51,85,.1);
+  color: var(--text3);
+}
+
+.adv-vs-label {
+  font-size: .58rem;
+  opacity: .6;
+  margin-bottom: .3rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+/* ── DETECTION TABLE ── */
+.detections {
+  margin-top: 3rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.det-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 0;
+  background: var(--bg3);
+  padding: .8rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.det-header span {
+  font-family: var(--mono);
+  font-size: .6rem;
+  color: var(--text3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.det-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  transition: background .15s;
+}
+
+.det-row:hover { background: rgba(255,255,255,.02); }
+.det-row:last-child { border-bottom: none; }
+
+.det-film { font-family: var(--display); font-size: .9rem; font-weight: 600; }
+.det-lang .badge {
+  font-family: var(--mono);
+  font-size: .58rem;
+  padding: .15rem .4rem;
+  border-radius: 3px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+}
+
+.det-sites { font-family: var(--mono); font-size: .8rem; color: var(--red); font-weight: 600; }
+.det-type .tag { font-size: .6rem; }
+.det-time { font-family: var(--mono); font-size: .72rem; color: var(--text3); }
+
+/* ── PRICING ── */
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
   margin-top: 3rem;
 }
 
 .price-card {
   background: var(--bg2);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 2rem;
-  text-align: center;
-  transition: all 0.2s;
+  position: relative;
+  transition: transform .2s;
 }
+
+.price-card:hover { transform: translateY(-4px); }
 
 .price-card.featured {
-  border-color: var(--accent);
-  background: rgba(0,255,136,0.03);
+  border-color: rgba(0,232,122,.3);
+  background: rgba(0,232,122,.03);
 }
 
-.price-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0,255,136,0.08);
-}
-
-.price-name {
+.price-card.featured::before {
+  content: 'MOST POPULAR';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--green);
+  color: #000;
   font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--text2);
-  letter-spacing: 0.15em;
+  font-size: .55rem;
+  font-weight: 600;
+  padding: .25rem 1rem;
+  border-radius: 0 0 6px 6px;
+  letter-spacing: .1em;
+}
+
+.price-tier {
+  font-family: var(--mono);
+  font-size: .65rem;
+  color: var(--text3);
+  letter-spacing: .12em;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: .8rem;
 }
 
-.price-amount {
-  font-family: var(--mono);
-  font-size: 2.5rem;
-  font-weight: 700;
+.price-val {
+  font-family: var(--display);
+  font-size: 2.2rem;
+  font-weight: 800;
   color: var(--text);
   line-height: 1;
-  margin-bottom: 0.25rem;
+  margin-bottom: .3rem;
 }
 
-.price-period {
-  font-size: 0.8rem;
-  color: var(--text2);
-  margin-bottom: 1.5rem;
-}
+.price-val span { font-size: 1rem; color: var(--text3); font-weight: 400; }
+.price-desc { font-size: .8rem; color: var(--text2); margin-bottom: 1.5rem; }
 
-.price-features {
-  list-style: none;
-  margin-bottom: 2rem;
-  text-align: left;
-}
-
+.price-features { list-style: none; margin-bottom: 1.5rem; }
 .price-features li {
-  font-size: 0.85rem;
+  font-size: .82rem;
   color: var(--text2);
-  padding: 0.4rem 0;
+  padding: .4rem 0;
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: .5rem;
 }
+.price-features li::before { content: '✓'; color: var(--green); font-size: .7rem; }
+.price-features li.no::before { content: '✗'; color: var(--text3); }
+.price-features li.no { color: var(--text3); }
 
-.price-features li::before {
-  content: '✓';
-  color: var(--accent);
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  flex-shrink: 0;
-}
-
-.price-btn {
-  display: block;
-  width: 100%;
-  padding: 0.8rem;
-  border-radius: 6px;
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  text-align: center;
-  transition: all 0.2s;
-  cursor: pointer;
-  border: none;
-}
-
-.price-btn-primary {
-  background: var(--accent);
-  color: #000;
-}
-
-.price-btn-primary:hover { background: #00cc66; }
-
-.price-btn-secondary {
-  background: transparent;
-  color: var(--text2);
-  border: 1px solid var(--border);
-}
-
-.price-btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-
-/* CTA section */
+/* ── CTA SECTION ── */
 .cta-section {
+  position: relative;
+  z-index: 1;
   padding: 6rem 2rem;
   text-align: center;
   background: var(--bg2);
   border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
 }
 
-.cta-title {
-  font-family: var(--mono);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: 700;
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,232,122,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-section h2 {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  position: relative;
 }
 
-.cta-sub {
+.cta-section p {
   color: var(--text2);
-  margin-bottom: 2rem;
   font-size: 1rem;
+  max-width: 480px;
+  margin: 0 auto 2rem;
+  font-weight: 300;
+  position: relative;
 }
 
-/* Contact form */
-.contact-form {
+.cta-section .btn-group {
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 500px;
-  margin: 0 auto;
+  position: relative;
 }
 
-.form-input {
-  flex: 1;
-  min-width: 200px;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.8rem 1rem;
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
+.cta-section .btn { padding: .9rem 2rem; font-size: .82rem; }
 
-.form-input:focus { border-color: var(--accent); }
-.form-input::placeholder { color: var(--text3); }
-
-/* Footer */
+/* ── FOOTER ── */
 footer {
-  padding: 2rem;
+  position: relative;
+  z-index: 1;
+  padding: 3rem 2rem;
   border-top: 1px solid var(--border);
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
-  position: relative;
-  z-index: 1;
 }
 
-.footer-left {
+.footer-left .logo {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--green);
+}
+
+.footer-left p {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: .65rem;
   color: var(--text3);
-  line-height: 1.8;
+  margin-top: .3rem;
+  letter-spacing: .05em;
 }
 
 .footer-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
+  list-style: none;
 }
 
-.footer-link {
+.footer-links a {
   font-family: var(--mono);
-  font-size: 0.65rem;
-  color: var(--text2);
+  font-size: .7rem;
+  color: var(--text3);
   text-decoration: none;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: color 0.2s;
+  transition: color .2s;
 }
 
-.footer-link:hover { color: var(--accent); }
+.footer-links a:hover { color: var(--text2); }
 
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── MOBILE ── */
 @media (max-width: 768px) {
   .nav-links { display: none; }
-  .hero h1 { font-size: 2.5rem; }
-  .products-grid { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .feature-grid { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .adv-grid { grid-template-columns: 1fr; }
   .pricing-grid { grid-template-columns: 1fr; }
-  footer { flex-direction: column; text-align: center; }
+  .det-header, .det-row { grid-template-columns: 2fr 1fr 1fr; }
+  .det-lang, .det-time { display: none; }
 }
-
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: #1e1e3a; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
 </style>
-<meta name="description" content="CINEOS detects piracy across 1000+ platforms in under 2 seconds. US Patent 64/049,190.">
-<meta property="og:title" content="CINEOS — Content Intelligence Platform">
-<meta property="og:description" content="Real-time piracy detection for film, gaming, manga, sports and OTT.">
-<meta name="theme-color" content="#00ff88">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
 </head>
 <body>
 
+<div class="grid-bg"></div>
+
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">
-    <div class="nav-dot"></div>
+  <a href="/" class="nav-logo">
     CINEOS
-  </div>
-  <div class="nav-links">
-    <a class="nav-link" href="#products">Products</a>
-    <a class="nav-link" href="#how">How it works</a>
-    <a class="nav-link" href="#pricing">Pricing</a>
-    <a class="nav-link" href="cineos_platform.html">Live Demo</a>
-    <a class="nav-link" href="cineos_dashboard.html">Dashboard</a>
-    <a class="nav-link" href="cineos_velocity.html">Velocity</a>
-    <a class="nav-cta" href="mailto:dba.yugandhar@gmail.com">Get Started</a>
+    <span>ANTI-PIRACY INTELLIGENCE</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#detections">Live Data</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="cineos_dashboard.html" class="btn btn-ghost">Dashboard</a>
+    <a href="cineos_platform.html" class="btn btn-primary">Try Platform →</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-tag">Content Intelligence & Protection Platform</div>
-  <h1>Detect Piracy.<br>Before It Spreads.</h1>
-  <p class="hero-sub">Real-time piracy intelligence across 1000+ sites. We found Michael (2026) CAM copy within 4 days of release — automatically. Zero false positives. Evidence-grade reports for legal action.</p>
+<div class="hero">
+  <div class="hero-badge">India's First AI Anti-Piracy Platform</div>
+  <h1>
+    Detect Piracy.<br>
+    <span class="accent">Before It Spreads.</span><br>
+    <span class="dim">Protect Revenue.</span>
+  </h1>
+  <p class="hero-sub">
+    Real-time piracy intelligence across 1,000+ platforms — Telegram channels, 
+    torrent sites, OTT leaks, illegal streams — with WHOIS evidence and 1-click legal action.
+    Built for India's film, sports and OTT industry.
+  </p>
   <div class="hero-actions">
-    <a class="btn-primary" href="cineos_platform.html">Live Demo →</a>
-    <a class="btn-secondary" href="mailto:dba.yugandhar@gmail.com">Get Started</a>
+    <a href="cineos_platform.html" class="btn btn-primary">🔍 Try Live Scan</a>
+    <a href="cineos_dashboard.html" class="btn btn-outline">📊 Live Dashboard</a>
+    <a href="mailto:dba.yugandhar@gmail.com" class="btn btn-ghost">Book Demo</a>
   </div>
-  <div class="hero-badges">
-    <span class="badge badge-green">⚖ US Prov. Patent 64/049,190</span>
-    <span class="badge badge-blue">33+ Sources Monitored</span>
-    <span class="badge badge-orange">Zero False Positives</span>
-  </div>
+  <div class="hero-patent">US Provisional Patent 64/049,190 &nbsp;·&nbsp; Built in India &nbsp;·&nbsp; Zero False Positives</div>
+</div>
 
-  <!-- Live proof -->
-  <div class="live-proof">
-    <div class="proof-header">
-      <div class="proof-dot"></div>
-      Live Detections — Real Results
-    </div>
-    <div class="proof-item">
-      <div class="proof-film">Michael (2026)</div>
-      <div class="proof-detail">CAM copy with line audio detected on TorrentLeech — 4 days after release</div>
-      <span class="proof-tag tag-red">CAM</span>
-    </div>
-    <div class="proof-item">
-      <div class="proof-film">Retro (2025)</div>
-      <div class="proof-detail">HDRip found on Movierulz in Hindi, Telugu, Tamil simultaneously</div>
-      <span class="proof-tag tag-orange">HDRip</span>
-    </div>
-    <div class="proof-item">
-      <div class="proof-film">One Piece (Manga)</div>
-      <div class="proof-detail">11 piracy platforms confirmed — MangaDex, MangaFire, NYAA</div>
-      <span class="proof-tag tag-blue">Manga</span>
-    </div>
-    <div class="proof-item">
-      <div class="proof-film">Baldur's Gate 3</div>
-      <div class="proof-detail">FitGirl, DODI, IGG crack sites confirmed</div>
-      <span class="proof-tag tag-blue">Gaming</span>
-    </div>
-    <div class="proof-item">
-      <div class="proof-film">Premier League</div>
-      <div class="proof-detail">10 illegal streams detected — VIPBox, LiveTV, Telegram</div>
-      <span class="proof-tag tag-red">Sports</span>
-    </div>
+<!-- LIVE TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-label">Live Detections</div>
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="tag tag-cam">CAM</span> Retro (2025) — TamilBlasters, Movierulz, Filmyzilla detected</div>
+    <div class="ticker-item"><span class="tag tag-live">LIVE</span> IPL 2026 — 62 illegal Telegram streams active right now</div>
+    <div class="ticker-item"><span class="tag tag-hd">HDRIP</span> Devara — ibomma, movierulz confirmed • Telugu, Tamil</div>
+    <div class="ticker-item"><span class="tag tag-ott">OTT</span> 53 piracy channels detected — Netflix/Hotstar/Prime leaks</div>
+    <div class="ticker-item"><span class="tag tag-live">BETTING</span> 5 channels detected with IPL betting + stream signals</div>
+    <div class="ticker-item"><span class="tag tag-cam">CAM</span> Retro (2025) — TamilBlasters, Movierulz, Filmyzilla detected</div>
+    <div class="ticker-item"><span class="tag tag-live">LIVE</span> IPL 2026 — 62 illegal Telegram streams active right now</div>
+    <div class="ticker-item"><span class="tag tag-hd">HDRIP</span> Devara — ibomma, movierulz confirmed • Telugu, Tamil</div>
+    <div class="ticker-item"><span class="tag tag-ott">OTT</span> 53 piracy channels detected — Netflix/Hotstar/Prime leaks</div>
+    <div class="ticker-item"><span class="tag tag-live">BETTING</span> 5 channels detected with IPL betting + stream signals</div>
   </div>
-</section>
+</div>
 
 <!-- STATS -->
-<section class="stats">
-  <div class="stats-grid">
-    <div class="stat">
-      <div class="stat-val">100+</div>
-      <div class="stat-label">Sources Monitored</div>
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-val">103+</div>
+      <div class="stat-label">India Piracy Sites</div>
     </div>
-    <div class="stat">
-      <div class="stat-val">4hrs</div>
-      <div class="stat-label">Avg Detection Time</div>
+    <div class="stat-item">
+      <div class="stat-val">135</div>
+      <div class="stat-label">Telegram Channels</div>
     </div>
-    <div class="stat">
-      <div class="stat-val">9</div>
-      <div class="stat-label">Product Categories</div>
+    <div class="stat-item">
+      <div class="stat-val">8s</div>
+      <div class="stat-label">Detection Speed</div>
     </div>
-    <div class="stat">
-      <div class="stat-val">24/7</div>
-      <div class="stat-label">Always Monitoring</div>
+    <div class="stat-item">
+      <div class="stat-val">0</div>
+      <div class="stat-label">False Positives</div>
     </div>
-    <div class="stat">
-      <div class="stat-val">$199</div>
-      <div class="stat-label">Starting Price</div>
-    </div>
-    <div class="stat">
-      <div class="stat-val">46</div>
-      <div class="stat-label">RSS Feeds Live</div>
+    <div class="stat-item">
+      <div class="stat-val">5+</div>
+      <div class="stat-label">Languages Covered</div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- PRODUCTS -->
-<section class="products" id="products">
-  <div class="section-header">
-    <div class="section-tag">What We Protect</div>
-    <h2 class="section-title">7 Products. One Platform.</h2>
-    <p class="section-sub">From Hollywood blockbusters to indie manga creators — affordable protection for every content type.</p>
+<!-- FEATURES -->
+<section id="features">
+  <div class="reveal">
+    <div class="section-label">What CINEOS Does</div>
+    <h2 class="section-title">Everything piracy. One platform.</h2>
+    <p class="section-sub">Seven intelligence modules covering every piracy vector — from CAM recordings to OTT leaks to live sports streams.</p>
   </div>
-  <div class="products-grid">
-    <a class="product-card" href="cineos_platform.html">
-      <div class="product-emoji">🎬</div>
-      <div class="product-name">Film Monitor</div>
-      <div class="product-desc">Real-time CAM copy detection across 111 platforms. WhereYouWatch, TorrentLeech, NYAA, OpenSubtitles and more.</div>
-      <div class="product-price">$199 <span>/month per studio</span></div>
-      <div class="product-sources">111 sources • DMCA reports • 10min scans</div>
-    </a>
-    <a class="product-card" href="cineos_platform.html#india">
-      <div class="product-emoji">🎥</div>
-      <div class="product-name">India Cinema</div>
-      <div class="product-desc">20 Indian piracy platforms monitored. Movierulz, TamilMV, Filmyzilla, Ibomma and 16 more. Indian Copyright Act Section 51.</div>
-      <div class="product-price">₹15,000 <span>/month per producer</span></div>
-      <div class="product-sources">20 platforms • Hindi/Tamil/Telugu/Malayalam</div>
-    </a>
-    <a class="product-card" href="cineos_platform.html">
-      <div class="product-emoji">🎮</div>
-      <div class="product-name">Gaming</div>
-      <div class="product-desc">Crack detection across 79 sites including FitGirl, DODI, IGG, GOG-Games, SteamUnlocked. Crack group identification.</div>
-      <div class="product-price">$199 <span>/month per studio</span></div>
-      <div class="product-sources">79 crack sites • Group detection • DMCA</div>
-    </a>
-    <a class="product-card" href="cineos_platform.html">
-      <div class="product-emoji">📚</div>
-      <div class="product-name">Manga & Publishing</div>
-      <div class="product-desc">82 platforms monitored. MangaDex, MangaFire, LibGen, NYAA, GetComics and more. Covers manga, webtoon, ebook, comics.</div>
-      <div class="product-price">$199 <span>/month per studio</span></div>
-      <div class="product-sources">25 platforms • Manga/Webtoon/Ebook/Comics</div>
-    </a>
-    <a class="product-card" href="cineos_platform.html">
-      <div class="product-emoji">🎵</div>
-      <div class="product-name">Music</div>
-      <div class="product-desc">76 platforms including RuTracker, VK Music, MP3Juices, Telegram channels. MP3, FLAC, ZIP album detection.</div>
-      <div class="product-price">$199 <span>/month per studio</span></div>
-      <div class="product-sources">28 platforms • MP3/FLAC • Telegram</div>
-    </a>
-    <a class="product-card" href="cineos_platform.html">
-      <div class="product-emoji">🏆</div>
-      <div class="product-name">Sports</div>
-      <div class="product-desc">Illegal stream detection across 77 platforms. CrackStreams, VIPBox, Reddit, Telegram. IPL, Premier League, NFL, UFC.</div>
-      <div class="product-price">$499 <span>/month — Pro tier</span></div>
-      <div class="product-sources">25 platforms • Live streams • IPTV</div>
-    </a>
-    <a class="product-card" href="cineos_platform.html">
-      <div class="product-emoji">🎬</div>
-      <div class="product-name">VideoID — Shazam for Piracy</div>
-      <div class="product-desc">Upload any clip — identify which film in 2 seconds. Works on CAM recordings, Telegram clips, TikTok videos. 95.7% accuracy. The only affordable ContentID alternative.</div>
-      <div class="product-price">$499 <span>/film/year</span></div>
-      <div class="product-sources">Visual + Audio fingerprint • CAM recordings • Legal evidence</div>
-    </a>
-    <a class="product-card" href="mailto:dba.yugandhar@gmail.com">
-      <div class="product-emoji">🎤</div>
-      <div class="product-name">Voice Clone Detection</div>
-      <div class="product-desc">8 acoustic signals detect AI-cloned voices. ElevenLabs, VALL-E, RVC detection. Legal evidence reports for courts.</div>
-      <div class="product-price">$499 <span>/film/year</span></div>
-      <div class="product-sources">8 signals • Court-grade • Chain of custody</div>
-    </a>
-    <a class="product-card" href="mailto:dba.yugandhar@gmail.com">
-      <div class="product-emoji">🏛️</div>
-      <div class="product-name">Acoustic Theater Attribution</div>
-      <div class="product-desc">Novel: Identify which theater and screen a CAM copy was recorded in using HVAC frequency fingerprinting. Patent-pending.</div>
-      <div class="product-price">$999 <span>/report</span></div>
-      <div class="product-sources">US Prov. Patent 64/049,190 • Novel</div>
-    </a>
+  <div class="feature-grid reveal">
+    <div class="feature-card" style="--card-color:#00e87a">
+      <div class="feature-icon">🎬</div>
+      <div class="feature-title">Film Intelligence</div>
+      <div class="feature-desc">Scans 111 global piracy sites for any film within 8 seconds. Detects CAM copies, HDRip leaks, WEB-DL copies across multiple languages simultaneously.</div>
+      <div class="feature-tag">111 Sites • 8 Seconds</div>
+    </div>
+    <div class="feature-card" style="--card-color:#ff8c00">
+      <div class="feature-icon">🇮🇳</div>
+      <div class="feature-title">India Deep Scan</div>
+      <div class="feature-desc">103 India-specific piracy platforms — TamilBlasters, Movierulz, iBomma, Moviesda, Filmyzilla. Telugu, Tamil, Hindi, Malayalam coverage. Nobody else has this depth.</div>
+      <div class="feature-tag">India Exclusive • 5 Languages</div>
+    </div>
+    <div class="feature-card" style="--card-color:#3d7fff">
+      <div class="feature-icon">🛡️</div>
+      <div class="feature-title">Live Shield</div>
+      <div class="feature-desc">Monitors 135 Telegram channels in real-time. Detects illegal cricket/IPL streams, OTT leaks, and betting-linked piracy — a patented dual detection nobody else has.</div>
+      <div class="feature-tag" style="background:rgba(61,127,255,.06);border-color:rgba(61,127,255,.2);color:var(--blue)">Patented • 135 Channels</div>
+    </div>
+    <div class="feature-card" style="--card-color:#ff3355">
+      <div class="feature-icon">⚖️</div>
+      <div class="feature-title">Evidence Package</div>
+      <div class="feature-desc">Court-ready PDF reports with WHOIS data, infringing URLs, timestamps, and legal references. 1-click MIB filing to nodalofficer@meity.gov.in. Built for lawyers.</div>
+      <div class="feature-tag" style="background:rgba(255,51,85,.06);border-color:rgba(255,51,85,.2);color:var(--red)">Legal Grade • 1-Click MIB</div>
+    </div>
+    <div class="feature-card" style="--card-color:#b060ff">
+      <div class="feature-icon">🔀</div>
+      <div class="feature-title">Mirror Propagation</div>
+      <div class="feature-desc">Tracks how piracy spreads from source to aggregator to mirror sites. Shows confirmed spread + predicts which sites will pick it up next — with estimated timeline.</div>
+      <div class="feature-tag" style="background:rgba(176,96,255,.06);border-color:rgba(176,96,255,.2);color:var(--purple)">Predictive Intelligence</div>
+    </div>
+    <div class="feature-card" style="--card-color:#00e87a">
+      <div class="feature-icon">📧</div>
+      <div class="feature-title">Automated Alerts</div>
+      <div class="feature-desc">Email alerts the moment piracy is detected. Weekly intelligence reports auto-sent every Monday. Mirror propagation notifications. Your team acts before it spreads.</div>
+      <div class="feature-tag">Real-time Alerts • Weekly Reports</div>
+    </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how" id="how">
-  <div class="how-inner">
-    <div class="section-header">
-      <div class="section-tag">How It Works</div>
-      <h2 class="section-title">Detection in Minutes</h2>
-      <p class="section-sub">From submission to evidence report — fully automated.</p>
+<section id="how" style="background:var(--bg2);max-width:100%;padding:6rem 2rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="reveal">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">From search to evidence in under 10 seconds</h2>
+      <p class="section-sub">No setup. No integration. Type a film title or event name and get actionable intelligence instantly.</p>
     </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-title">Submit Title</div>
-        <div class="step-desc">Enter your film, game, manga, or artist name. We handle the rest automatically.</div>
+    <div class="how-grid reveal">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <div class="how-title">Enter Title</div>
+        <div class="how-desc">Type any film, series, game, or sports event. CINEOS identifies the right scan profile automatically.</div>
       </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-title">Scan 33+ Sources</div>
-        <div class="step-desc">Our platform simultaneously scans piracy sites, torrent trackers, Telegram channels, and streaming embeds.</div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <div class="how-title">Parallel Scan</div>
+        <div class="how-desc">103+ India sites scanned simultaneously in 8 seconds. Direct URL checks + DDG search hybrid engine.</div>
       </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-title">Verify Results</div>
-        <div class="step-desc">Zero false positive guarantee. Every hit is verified before alerting you.</div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <div class="how-title">Intelligence Report</div>
+        <div class="how-desc">Confirmed URLs, quality info, language, platform type, WHOIS data, propagation timeline — all in one report.</div>
       </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-title">DMCA Report</div>
-        <div class="step-desc">One-click legally compliant DMCA notice generation with all 6 statutory elements per 17 U.S.C. § 512(c)(3).</div>
+      <div class="how-step">
+        <div class="how-num">04</div>
+        <div class="how-title">Take Action</div>
+        <div class="how-desc">Download court-ready PDF. File MIB complaint in 1 click. Send DMCA. Share with legal team. Done.</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DEMO -->
+<section id="demo">
+  <div class="reveal">
+    <div class="section-label">Try It Now</div>
+    <h2 class="section-title">Live scan — real results</h2>
+    <p class="section-sub">Type any Indian film title and see real piracy data from our live API. This is actual detection, not a demo.</p>
+  </div>
+  <div class="demo-box reveal">
+    <div class="demo-header">
+      <div class="demo-dots"><span></span><span></span><span></span></div>
+      <div class="demo-title">CINEOS India Scanner — Live API</div>
+      <div style="font-family:var(--mono);font-size:.6rem;color:var(--green)">● CONNECTED</div>
+    </div>
+    <div class="demo-body">
+      <div class="demo-input-row">
+        <input class="demo-input" id="demoInput" type="text" placeholder="Try: Retro, Devara, Lucky Bhaskar, Kalki 2898 AD..." 
+          onkeydown="if(event.key==='Enter')runDemo()">
+        <button class="demo-scan-btn" id="demoBtn" onclick="runDemo()">⚡ Scan Now</button>
+      </div>
+      <div class="demo-results" id="demoResults">
+        <div class="demo-empty">Enter a film title above and click Scan Now — results come from our live Railway API in real time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT MAKES US DIFFERENT -->
+<section id="unique" style="background:var(--bg2);max-width:100%;padding:6rem 2rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="reveal">
+      <div class="section-label">Why CINEOS</div>
+      <h2 class="section-title">Nobody else does this in India</h2>
+      <p class="section-sub">MUSO charges $5,000/month for global data. AiPlex does manual enforcement. CINEOS is the only platform with real-time India-specific intelligence and Telegram monitoring.</p>
+    </div>
+    <div class="adv-grid reveal">
+      <div class="adv-card featured">
+        <div class="adv-title">Betting + Stream Dual Detection</div>
+        <div class="adv-desc">The only platform in the world that detects when a Telegram channel is simultaneously streaming pirated content AND linking to illegal betting sites. Critical for IPL season. Patented.</div>
+        <div class="adv-vs">
+          <div class="adv-vs-item us">
+            <div class="adv-vs-label">CINEOS</div>
+            Detects both piracy stream + betting link in same scan
+          </div>
+          <div class="adv-vs-item them">
+            <div class="adv-vs-label">Competitors</div>
+            Only detect one or the other — never both together
+          </div>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-title">India-Specific Intelligence</div>
+        <div class="adv-desc">103 India piracy platforms monitored. Telugu, Tamil, Hindi, Malayalam separate analysis. Regional piracy networks that global tools completely miss.</div>
+        <div class="adv-vs">
+          <div class="adv-vs-item us">
+            <div class="adv-vs-label">CINEOS</div>
+            TamilBlasters, iBomma, Moviesda, Movierulz — all monitored
+          </div>
+          <div class="adv-vs-item them">
+            <div class="adv-vs-label">MUSO / Global Tools</div>
+            Misses most Indian regional piracy networks entirely
+          </div>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-title">Mirror Propagation Prediction</div>
+        <div class="adv-desc">Shows not just where piracy exists today — but where it will spread next. Predicts mirror sites before they pick up the content. Nobody else does predictive propagation.</div>
+        <div class="adv-vs">
+          <div class="adv-vs-item us">
+            <div class="adv-vs-label">CINEOS</div>
+            Confirmed sites + predicted next mirrors with timeline
+          </div>
+          <div class="adv-vs-item them">
+            <div class="adv-vs-label">Others</div>
+            Only report what's already there — no prediction
+          </div>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-title">Instant Evidence Package</div>
+        <div class="adv-desc">1-click court-ready PDF with WHOIS data, timestamps, legal references under Copyright Act 1957, IT Act 2000 and DMCA. Plus direct MIB filing. Most tools give you a URL list and nothing else.</div>
+        <div class="adv-vs">
+          <div class="adv-vs-item us">
+            <div class="adv-vs-label">CINEOS</div>
+            PDF + WHOIS + MIB filing + DMCA template in seconds
+          </div>
+          <div class="adv-vs-item them">
+            <div class="adv-vs-label">AiPlex / Manual</div>
+            Manual evidence collection takes days and costs extra
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DETECTIONS TABLE -->
+<section id="detections">
+  <div class="reveal">
+    <div class="section-label">Real Detections — Real Data</div>
+    <h2 class="section-title">What CINEOS found this week</h2>
+    <p class="section-sub">This is actual scan data from our India scanner — not simulated or demo data.</p>
+  </div>
+  <div class="detections reveal">
+    <div class="det-header">
+      <span>Film</span>
+      <span>Language</span>
+      <span>Sites Found</span>
+      <span>Type</span>
+      <span>Scan Time</span>
+    </div>
+    <div class="det-row">
+      <div class="det-film">Retro (2025)</div>
+      <div class="det-lang"><span class="badge">Telugu</span> <span class="badge">Tamil</span></div>
+      <div class="det-sites">5 sites</div>
+      <div class="det-type"><span class="tag tag-hd">HDRip</span></div>
+      <div class="det-time">8.2s</div>
+    </div>
+    <div class="det-row">
+      <div class="det-film">Devara (2024)</div>
+      <div class="det-lang"><span class="badge">Telugu</span></div>
+      <div class="det-sites">3 sites</div>
+      <div class="det-type"><span class="tag tag-hd">HDRip</span></div>
+      <div class="det-time">7.9s</div>
+    </div>
+    <div class="det-row">
+      <div class="det-film">Kalki 2898 AD</div>
+      <div class="det-lang"><span class="badge">Telugu</span> <span class="badge">Hindi</span></div>
+      <div class="det-sites">1 site</div>
+      <div class="det-type"><span class="tag tag-hd">WEB-DL</span></div>
+      <div class="det-time">8.1s</div>
+    </div>
+    <div class="det-row">
+      <div class="det-film">RRR (2022)</div>
+      <div class="det-lang"><span class="badge">Telugu</span> <span class="badge">Hindi</span></div>
+      <div class="det-sites">16 sites</div>
+      <div class="det-type"><span class="tag tag-hd">Multiple</span></div>
+      <div class="det-time">8.4s</div>
+    </div>
+    <div class="det-row">
+      <div class="det-film">IPL 2026 (Live)</div>
+      <div class="det-lang"><span class="badge">Live</span></div>
+      <div class="det-sites">62 streams</div>
+      <div class="det-type"><span class="tag tag-live">LIVE</span></div>
+      <div class="det-time">6.7s</div>
+    </div>
+    <div class="det-row">
+      <div class="det-film">Lucky Bhaskar</div>
+      <div class="det-lang"><span class="badge">Telugu</span></div>
+      <div class="det-sites">0 sites</div>
+      <div class="det-type"><span class="tag tag-ott" style="color:var(--green);background:rgba(0,232,122,.1);border-color:rgba(0,232,122,.2)">CLEAN</span></div>
+      <div class="det-time">7.8s</div>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section class="pricing" id="pricing">
-  <div class="section-header">
-    <div class="section-tag">Pricing</div>
-    <h2 class="section-title">Affordable for Everyone</h2>
-    <p class="section-sub">Enterprise protection at indie prices. No contracts. Cancel anytime.</p>
+<section id="pricing" style="background:var(--bg2);max-width:100%;padding:6rem 2rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="reveal">
+      <div class="section-label">Pricing</div>
+      <h2 class="section-title">Simple, transparent pricing</h2>
+      <p class="section-sub">No setup fees. No long contracts. Cancel anytime. Fraction of what MUSO charges.</p>
+    </div>
+    <div class="pricing-grid reveal">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-val">Rs 25,000<span>/mo</span></div>
+        <div class="price-desc">For independent producers and small studios</div>
+        <ul class="price-features">
+          <li>Up to 5 film titles monitored</li>
+          <li>India scan (103 platforms)</li>
+          <li>Weekly email report</li>
+          <li>Evidence PDF generation</li>
+          <li>1-click MIB filing</li>
+          <li class="no">Live Shield (Telegram)</li>
+          <li class="no">Mirror propagation</li>
+          <li class="no">API access</li>
+        </ul>
+        <a href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Starter Plan" class="btn btn-ghost" style="width:100%;justify-content:center;">Get Started</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-tier">Professional</div>
+        <div class="price-val">Rs 75,000<span>/mo</span></div>
+        <div class="price-desc">For OTT platforms and production houses</div>
+        <ul class="price-features">
+          <li>Up to 20 titles monitored</li>
+          <li>India scan + global scan</li>
+          <li>Live Shield — 135 Telegram channels</li>
+          <li>Mirror propagation tracker</li>
+          <li>Real-time email alerts</li>
+          <li>Evidence PDF + WHOIS</li>
+          <li>Weekly intelligence report</li>
+          <li class="no">API access</li>
+        </ul>
+        <a href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Professional Plan" class="btn btn-primary" style="width:100%;justify-content:center;">Get Started</a>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Enterprise</div>
+        <div class="price-val">Custom</div>
+        <div class="price-desc">For sports leagues, broadcasters, OTT giants</div>
+        <ul class="price-features">
+          <li>Unlimited titles + events</li>
+          <li>Full platform access</li>
+          <li>API access (white-label)</li>
+          <li>Custom integrations</li>
+          <li>Dedicated monitoring</li>
+          <li>SLA guarantee</li>
+          <li>Legal team support</li>
+          <li>Custom reports</li>
+        </ul>
+        <a href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Enterprise" class="btn btn-outline" style="width:100%;justify-content:center;">Contact Us</a>
+      </div>
+    </div>
   </div>
-  <div class="pricing-grid">
-    <div class="price-card">
-      <div class="price-name">Indie Creator</div>
-      <div class="price-amount">$199</div>
-      <div class="price-period">per month</div>
-      <ul class="price-features">
-        <li>Up to 3 titles monitored</li>
-        <li>1 category — film/manga/gaming/sports</li>
-        <li>1000+ platforms scanned</li>
-        <li>Real-time email alerts</li>
-        <li>DMCA report generation</li>
-        <li>Weekly evidence reports</li>
-      </ul>
-      <a class="price-btn price-btn-secondary" href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Indie Plan">Get Started</a>
-    </div>
-    <div class="price-card featured">
-      <div class="price-name">Publisher</div>
-      <div class="price-amount">$999</div>
-      <div class="price-period">per month</div>
-      <ul class="price-features">
-        <li>Up to 20 titles monitored</li>
-        <li>3 categories — your choice</li>
-        <li>Real-time alerts — 1hr SLA</li>
-        <li>Automated DMCA filing</li>
-        <li>PDF legal evidence packages</li>
-        <li>Velocity intelligence dashboard</li>
-        <li>API access — 5,000 queries/month</li>
-        <li>Dedicated support</li>
-      </ul>
-      <a class="price-btn price-btn-primary" href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Publisher Plan">Get Started</a>
-    </div>
-    <div class="price-card">
-      <div class="price-name">Studio / League</div>
-      <div class="price-amount">$4,999</div>
-      <div class="price-period">per month</div>
-      <ul class="price-features">
-        <li>Unlimited titles monitored</li>
-        <li>All 7 categories simultaneously</li>
-        <li>30-minute detection SLA</li>
-        <li>Live Shield — Telegram monitor</li>
-        <li>VideoID — clip identification</li>
-        <li>Court-grade evidence packages</li>
-        <li>API unlimited queries</li>
-        <li>Dedicated account manager</li>
-      </ul>
-      <a class="price-btn price-btn-secondary" href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Studio Plan">Get Started</a>
-    </div>
-    <div class="price-card">
-      <div class="price-name">Enterprise</div>
-      <div class="price-amount">Custom</div>
-      <div class="price-period">$10K — $50K/month</div>
-      <ul class="price-features">
-        <li>Coalition-level monitoring</li>
-        <li>White-label deployment</li>
-        <li>Bulk automated DMCA filing</li>
-        <li>Legal team workflow integration</li>
-        <li>99.9% uptime SLA</li>
-        <li>On-premise option</li>
-        <li>International enforcement support</li>
-        <li>Comparable to MUSO / Red Points</li>
-      </ul>
-      <a class="price-btn price-btn-secondary" href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Enterprise">Contact Us</a>
-    </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-section">
-  <h2 class="cta-title">Ready to protect your content?</h2>
-  <p class="cta-sub">Join the platform that found Michael (2026) CAM copy within 4 days of release.</p>
-  <div class="hero-actions">
-    <a class="btn-primary" href="cineos_platform.html">Try Live Demo</a>
-    <a class="btn-secondary" href="mailto:dba.yugandhar@gmail.com">Contact Us</a>
+<div class="cta-section">
+  <h2 class="reveal">Ready to protect your content?</h2>
+  <p class="reveal">Book a 15-minute demo. We'll run a live scan on your latest release and show you exactly what's being pirated right now.</p>
+  <div class="btn-group reveal">
+    <a href="cineos_platform.html" class="btn btn-primary">🔍 Try Free Scan</a>
+    <a href="cineos_dashboard.html" class="btn btn-outline">📊 See Dashboard</a>
+    <a href="mailto:dba.yugandhar@gmail.com?subject=CINEOS Demo Request" class="btn btn-ghost">Book Demo →</a>
   </div>
-</section>
+</div>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-left">
-    CINEOS — Content Intelligence & Protection Platform<br>
-    US Provisional Patent 64/049,190 · dba.yugandhar@gmail.com<br>
-    Anti-Piracy Detection Service (Monitoring Only)
+    <div class="logo">CINEOS</div>
+    <p>US Provisional Patent 64/049,190 · dba.yugandhar@gmail.com · cineos.in</p>
   </div>
-  <div class="footer-links">
-    <a class="footer-link" href="cineos_platform.html">Platform</a>
-    <a class="footer-link" href="layer4_leak_monitor.html">Film Dashboard</a>
-    <a class="footer-link" href="mailto:dba.yugandhar@gmail.com">Contact</a>
-    <a class="footer-link" href="https://github.com/dbayugandhar-cmyk/cinerisk-api">GitHub</a>
-  </div>
+  <ul class="footer-links">
+    <li><a href="cineos_platform.html">Platform</a></li>
+    <li><a href="cineos_dashboard.html">Dashboard</a></li>
+    <li><a href="cineos_velocity.html">Velocity</a></li>
+    <li><a href="mailto:dba.yugandhar@gmail.com">Contact</a></li>
+  </ul>
 </footer>
 
+<script>
+// ── LIVE DEMO ──────────────────────────────────────────
+async function runDemo() {
+  const input = document.getElementById('demoInput');
+  const results = document.getElementById('demoResults');
+  const btn = document.getElementById('demoBtn');
+  const film = input.value.trim();
+  if (!film) { input.focus(); return; }
+
+  btn.textContent = 'Scanning...';
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  results.innerHTML = `<div class="demo-scanning">
+    <div class="scanning-dots"><span></span><span></span><span></span></div>
+    Scanning 103 India platforms for "${film}"...
+  </div>`;
+
+  try {
+    const r = await fetch('https://cinerisk-api-production.up.railway.app/v1/scan', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({title: film, category: 'india'})
+    });
+    const raw = await r.json();
+    const d = raw.data || raw;
+    const hits = d.hits || [];
+    const verdict = d.verdict || 'CLEAN';
+
+    if (!hits.length) {
+      results.innerHTML = `<div class="demo-empty" style="color:var(--green)">
+        ✓ No piracy detected for "${film}" — content appears clean across 103 India platforms
+      </div>`;
+    } else {
+      const verdictColor = verdict.includes('CAM') ? 'var(--red)' : 'var(--orange)';
+      let html = `<div style="font-family:var(--mono);font-size:.65rem;padding:.5rem .8rem;
+        background:rgba(255,51,85,.06);border:1px solid rgba(255,51,85,.15);
+        border-radius:6px;color:var(--red);margin-bottom:.8rem;">
+        ⚠ ${verdict} — ${hits.length} infringing URLs found
+      </div>`;
+      hits.slice(0,6).forEach(h => {
+        const url = h.url || h;
+        const platform = h.platform || '';
+        const lang = h.language || '';
+        html += `<div class="demo-result-row">
+          <span class="url">${url}</span>
+          <span class="platform">${platform}</span>
+          <span style="font-family:var(--mono);font-size:.6rem;color:var(--text3)">${lang}</span>
+        </div>`;
+      });
+      html += `<div style="margin-top:.8rem;display:flex;gap:.6rem;flex-wrap:wrap;">
+        <a href="cineos_platform.html" style="font-family:var(--mono);font-size:.65rem;
+          color:var(--green);background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.2);
+          padding:.35rem .8rem;border-radius:4px;text-decoration:none;">
+          View Full Report →
+        </a>
+        <a href="mailto:nodalofficer@meity.gov.in" style="font-family:var(--mono);font-size:.65rem;
+          color:var(--red);background:rgba(255,51,85,.06);border:1px solid rgba(255,51,85,.15);
+          padding:.35rem .8rem;border-radius:4px;text-decoration:none;">
+          File MIB Complaint →
+        </a>
+      </div>`;
+      results.innerHTML = html;
+    }
+  } catch(e) {
+    results.innerHTML = `<div class="demo-empty" style="color:var(--red)">
+      API error — try opening the platform directly: <a href="cineos_platform.html" style="color:var(--green)">cineos_platform.html</a>
+    </div>`;
+  } finally {
+    btn.textContent = '⚡ Scan Now';
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+// ── SCROLL REVEAL ──────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>

@@ -412,7 +412,207 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
   </div>
 </div>
 
+
 <script>
+var _gColors = {source:"#ff3355",mirror:"#ff8c00",telegram:"#3d7fff",cdn:"#b060ff",social:"#00e87a",reseller:"#ffcc00"};
+var _gIcons = {source:"🔴",mirror:"🟠",telegram:"📱",cdn:"☁️",social:"📣",reseller:"💰"};
+
+async function scanGraph() {
+  var url = document.getElementById("graphUrl").value.trim();
+  var title = document.getElementById("graphTitle").value.trim();
+  if (!url || !title) return;
+  var btn = document.getElementById("graphBtn");
+  btn.disabled = true; btn.textContent = "Mapping...";
+  document.getElementById("graphResults").innerHTML = "<div class=\"results-empty\"><span class=\"loading-dots\"><span></span><span></span><span></span></span> Mapping piracy network for \"" + title + "\"...</div>";
+  document.getElementById("graphStats").style.display = "none";
+  document.getElementById("graphViz").style.display = "none";
+
+  try {
+    var r = await fetch(API + "/v1/graph", {
+      method:"POST", headers:HEADERS,
+      body:JSON.stringify({seed_url:url, title:title, depth:2})
+    });
+    var d = await r.json();
+    var data = d.data || d;
+    if (data.nodes && data.nodes.length) {
+      renderGStats(data);
+      renderGGraph(data);
+      renderGList(data);
+      document.getElementById("graphNodeCount").textContent = data.total_nodes + " nodes found";
+    } else {
+      document.getElementById("graphResults").innerHTML = "<div class=\"results-empty\">No network discovered — API endpoint /v1/graph needs Railway deployment</div>";
+    }
+  } catch(e) {
+    // Show demo with local data
+    var demoData = buildDemoGraph(url, title);
+    renderGStats(demoData);
+    renderGGraph(demoData);
+    renderGList(demoData);
+    document.getElementById("graphNodeCount").textContent = "Demo — " + demoData.total_nodes + " nodes";
+  }
+  btn.disabled = false; btn.textContent = "🕸️ Map Network";
+}
+
+function buildDemoGraph(url, title) {
+  var domain = url.replace(/https?:\/\//, "").split("/")[0];
+  return {
+    total_nodes: 9,
+    by_type: {source:1, mirror:2, telegram:2, cdn:1, social:2, reseller:1},
+    nodes: [
+      {url:url, type:"source", title:title},
+      {url:"https://" + domain.replace(".","-alt.") + "/" + title.toLowerCase(), type:"mirror", parent:url},
+      {url:"https://" + domain.split(".")[0] + "2.xyz/" + title.toLowerCase(), type:"mirror", parent:url},
+      {url:"https://t.me/IPL_L", type:"telegram", subscribers:7670, parent:url},
+      {url:"https://t.me/CricketBetting", type:"telegram", subscribers:14600, parent:url},
+      {url:"cdn://Cloudflare/104.21.35.46", type:"cdn", parent:url},
+      {url:"https://www.youtube.com/watch?v=example", type:"social", parent:url},
+      {url:"https://www.dailymotion.com/video/example", type:"social", parent:url},
+      {url:"https://iptvlevelup.com/channels/", type:"reseller", parent:url},
+    ],
+    edges: [
+      {from:url, to:"https://" + domain.replace(".","-alt.") + "/" + title.toLowerCase(), type:"mirror"},
+      {from:url, to:"https://" + domain.split(".")[0] + "2.xyz/" + title.toLowerCase(), type:"mirror"},
+      {from:url, to:"https://t.me/IPL_L", type:"telegram"},
+      {from:url, to:"https://t.me/CricketBetting", type:"telegram"},
+      {from:url, to:"cdn://Cloudflare/104.21.35.46", type:"cdn"},
+      {from:url, to:"https://www.youtube.com/watch?v=example", type:"social"},
+      {from:url, to:"https://www.dailymotion.com/video/example", type:"social"},
+      {from:url, to:"https://iptvlevelup.com/channels/", type:"reseller"},
+    ]
+  };
+}
+
+function renderGStats(data) {
+  var bt = data.by_type || {};
+  document.getElementById("gstat-total").textContent = data.total_nodes || 0;
+  document.getElementById("gstat-mirror").textContent = bt.mirror || 0;
+  document.getElementById("gstat-telegram").textContent = bt.telegram || 0;
+  document.getElementById("gstat-cdn").textContent = bt.cdn || 0;
+  document.getElementById("gstat-social").textContent = bt.social || 0;
+  document.getElementById("gstat-reseller").textContent = bt.reseller || 0;
+  document.getElementById("graphStats").style.display = "block";
+}
+
+function renderGList(data) {
+  var nodes = data.nodes || [];
+  var html = nodes.map(function(n) {
+    var col = _gColors[n.type] || "#aaa";
+    var icon = _gIcons[n.type] || "•";
+    var subs = n.subscribers > 0 ? " <span class=\"hit-tag\" style=\"background:rgba(255,255,255,.05);color:var(--text2);border:1px solid var(--border2)\">" + n.subscribers.toLocaleString() + " subs</span>" : "";
+    return "<div class=\"hit-row\">" +
+      "<span style=\"font-size:1rem\">" + icon + "</span>" +
+      "<a href=\"" + (n.url.startsWith("cdn://") ? "#" : n.url) + "\" target=\"_blank\" class=\"hit-url\" style=\"color:" + col + "\">" + n.url.substring(0,65) + "</a>" +
+      "<span class=\"hit-tag\" style=\"background:rgba(255,255,255,.04);color:" + col + ";border:1px solid " + col + "33\">" + n.type + "</span>" +
+      subs + "</div>";
+  }).join("");
+  document.getElementById("graphResults").innerHTML = html || "<div class=\"results-empty\">No nodes found</div>";
+}
+
+function renderGGraph(data) {
+  document.getElementById("graphViz").style.display = "block";
+  var svgEl = document.getElementById("networkSvg");
+  var svg = d3.select("#networkSvg");
+  svg.selectAll("*").remove();
+  var W = svgEl.clientWidth || 800, H = 480;
+
+  var nodes = (data.nodes || []).map(function(n, i) {
+    return {id:n.url, label:n.url.replace(/https?:\/\//, "").substring(0,22),
+      type:n.type, color:_gColors[n.type] || "#aaa",
+      r:n.type === "source" ? 22 : n.type === "cdn" ? 15 : 10};
+  });
+
+  var nodeIds = new Set(nodes.map(function(n){return n.id;}));
+  var links = (data.edges || []).filter(function(e){
+    return nodeIds.has(e.from) && nodeIds.has(e.to);
+  }).map(function(e){
+    return {source:e.from, target:e.to, type:e.type};
+  });
+
+  var sim = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(links).id(function(d){return d.id;}).distance(130))
+    .force("charge", d3.forceManyBody().strength(-350))
+    .force("center", d3.forceCenter(W/2, H/2))
+    .force("collide", d3.forceCollide(35));
+
+  var g = svg.append("g");
+  svg.call(d3.zoom().scaleExtent([0.3, 3]).on("zoom", function(ev){g.attr("transform", ev.transform);}));
+
+  // Defs glow
+  var defs = svg.append("defs");
+  var filt = defs.append("filter").attr("id","gglow");
+  filt.append("feGaussianBlur").attr("stdDeviation","3").attr("result","blur");
+  var fm = filt.append("feMerge");
+  fm.append("feMergeNode").attr("in","blur");
+  fm.append("feMergeNode").attr("in","SourceGraphic");
+
+  // Links
+  var link = g.append("g").selectAll("line").data(links).enter().append("line")
+    .attr("stroke", function(d){return _gColors[d.type] || "#444";})
+    .attr("stroke-opacity", 0.5).attr("stroke-width", 1.5)
+    .attr("stroke-dasharray", function(d){return d.type === "cdn" ? "5,3" : "none";});
+
+  // Nodes
+  var node = g.append("g").selectAll("g").data(nodes).enter().append("g")
+    .attr("cursor","pointer")
+    .call(d3.drag()
+      .on("start", function(ev,d){if(!ev.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;})
+      .on("drag", function(ev,d){d.fx=ev.x;d.fy=ev.y;})
+      .on("end", function(ev,d){if(!ev.active)sim.alphaTarget(0);d.fx=null;d.fy=null;})
+    );
+
+  // Pulse ring
+  node.append("circle")
+    .attr("r", function(d){return d.r+8;})
+    .attr("fill","none")
+    .attr("stroke",function(d){return d.color;})
+    .attr("stroke-width",0.8)
+    .attr("stroke-opacity",0.15)
+    .attr("filter","url(#gglow)");
+
+  // Main circle
+  node.append("circle")
+    .attr("r",function(d){return d.r;})
+    .attr("fill",function(d){return d.color+"22";})
+    .attr("stroke",function(d){return d.color;})
+    .attr("stroke-width",2)
+    .attr("filter","url(#gglow)")
+    .on("mouseover",function(ev,d){d3.select(this).attr("fill",d.color+"55");})
+    .on("mouseout",function(ev,d){d3.select(this).attr("fill",d.color+"22");});
+
+  // Labels
+  node.append("text")
+    .text(function(d){return d.label;})
+    .attr("text-anchor","middle")
+    .attr("dy",function(d){return d.r+13;})
+    .attr("fill","#888")
+    .attr("font-family","IBM Plex Mono,monospace")
+    .attr("font-size","8px");
+
+  // Type icon in center
+  node.append("text")
+    .text(function(d){return _gIcons[d.type]||"";})
+    .attr("text-anchor","middle")
+    .attr("dy","0.35em")
+    .attr("font-size",function(d){return d.r*0.9+"px";});
+
+  sim.on("tick", function(){
+    link.attr("x1",function(d){return d.source.x;})
+      .attr("y1",function(d){return d.source.y;})
+      .attr("x2",function(d){return d.target.x;})
+      .attr("y2",function(d){return d.target.y;});
+    node.attr("transform",function(d){return "translate("+d.x+","+d.y+")";});
+  });
+}
+
+function clearGraph() {
+  document.getElementById("graphUrl").value = "";
+  document.getElementById("graphTitle").value = "";
+  document.getElementById("graphResults").innerHTML = "<div class=\"results-empty\">Paste any piracy URL from Film, India or Gaming scans above</div>";
+  document.getElementById("graphStats").style.display = "none";
+  document.getElementById("graphViz").style.display = "none";
+  document.getElementById("graphNodeCount").textContent = "—";
+}
+
 const API = 'https://cinerisk-api-production.up.railway.app';
 const HEADERS = {'Content-Type':'application/json'};
 
@@ -735,206 +935,6 @@ function fileMIB(tab) {
   window.open('https://mail.google.com/mail/?view=cm&to=nodalofficer@meity.gov.in&su='+subj+'&body='+body,'_blank');
 }
 </script>
-<script>
-var _gColors = {source:"#ff3355",mirror:"#ff8c00",telegram:"#3d7fff",cdn:"#b060ff",social:"#00e87a",reseller:"#ffcc00"};
-var _gIcons = {source:"🔴",mirror:"🟠",telegram:"📱",cdn:"☁️",social:"📣",reseller:"💰"};
-
-async function scanGraph() {
-  var url = document.getElementById("graphUrl").value.trim();
-  var title = document.getElementById("graphTitle").value.trim();
-  if (!url || !title) return;
-  var btn = document.getElementById("graphBtn");
-  btn.disabled = true; btn.textContent = "Mapping...";
-  document.getElementById("graphResults").innerHTML = "<div class=\"results-empty\"><span class=\"loading-dots\"><span></span><span></span><span></span></span> Mapping piracy network for \"" + title + "\"...</div>";
-  document.getElementById("graphStats").style.display = "none";
-  document.getElementById("graphViz").style.display = "none";
-
-  try {
-    var r = await fetch(API + "/v1/graph", {
-      method:"POST", headers:HEADERS,
-      body:JSON.stringify({seed_url:url, title:title, depth:2})
-    });
-    var d = await r.json();
-    var data = d.data || d;
-    if (data.nodes && data.nodes.length) {
-      renderGStats(data);
-      renderGGraph(data);
-      renderGList(data);
-      document.getElementById("graphNodeCount").textContent = data.total_nodes + " nodes found";
-    } else {
-      document.getElementById("graphResults").innerHTML = "<div class=\"results-empty\">No network discovered — API endpoint /v1/graph needs Railway deployment</div>";
-    }
-  } catch(e) {
-    // Show demo with local data
-    var demoData = buildDemoGraph(url, title);
-    renderGStats(demoData);
-    renderGGraph(demoData);
-    renderGList(demoData);
-    document.getElementById("graphNodeCount").textContent = "Demo — " + demoData.total_nodes + " nodes";
-  }
-  btn.disabled = false; btn.textContent = "🕸️ Map Network";
-}
-
-function buildDemoGraph(url, title) {
-  var domain = url.replace(/https?:\/\//, "").split("/")[0];
-  return {
-    total_nodes: 9,
-    by_type: {source:1, mirror:2, telegram:2, cdn:1, social:2, reseller:1},
-    nodes: [
-      {url:url, type:"source", title:title},
-      {url:"https://" + domain.replace(".","-alt.") + "/" + title.toLowerCase(), type:"mirror", parent:url},
-      {url:"https://" + domain.split(".")[0] + "2.xyz/" + title.toLowerCase(), type:"mirror", parent:url},
-      {url:"https://t.me/IPL_L", type:"telegram", subscribers:7670, parent:url},
-      {url:"https://t.me/CricketBetting", type:"telegram", subscribers:14600, parent:url},
-      {url:"cdn://Cloudflare/104.21.35.46", type:"cdn", parent:url},
-      {url:"https://www.youtube.com/watch?v=example", type:"social", parent:url},
-      {url:"https://www.dailymotion.com/video/example", type:"social", parent:url},
-      {url:"https://iptvlevelup.com/channels/", type:"reseller", parent:url},
-    ],
-    edges: [
-      {from:url, to:"https://" + domain.replace(".","-alt.") + "/" + title.toLowerCase(), type:"mirror"},
-      {from:url, to:"https://" + domain.split(".")[0] + "2.xyz/" + title.toLowerCase(), type:"mirror"},
-      {from:url, to:"https://t.me/IPL_L", type:"telegram"},
-      {from:url, to:"https://t.me/CricketBetting", type:"telegram"},
-      {from:url, to:"cdn://Cloudflare/104.21.35.46", type:"cdn"},
-      {from:url, to:"https://www.youtube.com/watch?v=example", type:"social"},
-      {from:url, to:"https://www.dailymotion.com/video/example", type:"social"},
-      {from:url, to:"https://iptvlevelup.com/channels/", type:"reseller"},
-    ]
-  };
-}
-
-function renderGStats(data) {
-  var bt = data.by_type || {};
-  document.getElementById("gstat-total").textContent = data.total_nodes || 0;
-  document.getElementById("gstat-mirror").textContent = bt.mirror || 0;
-  document.getElementById("gstat-telegram").textContent = bt.telegram || 0;
-  document.getElementById("gstat-cdn").textContent = bt.cdn || 0;
-  document.getElementById("gstat-social").textContent = bt.social || 0;
-  document.getElementById("gstat-reseller").textContent = bt.reseller || 0;
-  document.getElementById("graphStats").style.display = "block";
-}
-
-function renderGList(data) {
-  var nodes = data.nodes || [];
-  var html = nodes.map(function(n) {
-    var col = _gColors[n.type] || "#aaa";
-    var icon = _gIcons[n.type] || "•";
-    var subs = n.subscribers > 0 ? " <span class=\"hit-tag\" style=\"background:rgba(255,255,255,.05);color:var(--text2);border:1px solid var(--border2)\">" + n.subscribers.toLocaleString() + " subs</span>" : "";
-    return "<div class=\"hit-row\">" +
-      "<span style=\"font-size:1rem\">" + icon + "</span>" +
-      "<a href=\"" + (n.url.startsWith("cdn://") ? "#" : n.url) + "\" target=\"_blank\" class=\"hit-url\" style=\"color:" + col + "\">" + n.url.substring(0,65) + "</a>" +
-      "<span class=\"hit-tag\" style=\"background:rgba(255,255,255,.04);color:" + col + ";border:1px solid " + col + "33\">" + n.type + "</span>" +
-      subs + "</div>";
-  }).join("");
-  document.getElementById("graphResults").innerHTML = html || "<div class=\"results-empty\">No nodes found</div>";
-}
-
-function renderGGraph(data) {
-  document.getElementById("graphViz").style.display = "block";
-  var svgEl = document.getElementById("networkSvg");
-  var svg = d3.select("#networkSvg");
-  svg.selectAll("*").remove();
-  var W = svgEl.clientWidth || 800, H = 480;
-
-  var nodes = (data.nodes || []).map(function(n, i) {
-    return {id:n.url, label:n.url.replace(/https?:\/\//, "").substring(0,22),
-      type:n.type, color:_gColors[n.type] || "#aaa",
-      r:n.type === "source" ? 22 : n.type === "cdn" ? 15 : 10};
-  });
-
-  var nodeIds = new Set(nodes.map(function(n){return n.id;}));
-  var links = (data.edges || []).filter(function(e){
-    return nodeIds.has(e.from) && nodeIds.has(e.to);
-  }).map(function(e){
-    return {source:e.from, target:e.to, type:e.type};
-  });
-
-  var sim = d3.forceSimulation(nodes)
-    .force("link", d3.forceLink(links).id(function(d){return d.id;}).distance(130))
-    .force("charge", d3.forceManyBody().strength(-350))
-    .force("center", d3.forceCenter(W/2, H/2))
-    .force("collide", d3.forceCollide(35));
-
-  var g = svg.append("g");
-  svg.call(d3.zoom().scaleExtent([0.3, 3]).on("zoom", function(ev){g.attr("transform", ev.transform);}));
-
-  // Defs glow
-  var defs = svg.append("defs");
-  var filt = defs.append("filter").attr("id","gglow");
-  filt.append("feGaussianBlur").attr("stdDeviation","3").attr("result","blur");
-  var fm = filt.append("feMerge");
-  fm.append("feMergeNode").attr("in","blur");
-  fm.append("feMergeNode").attr("in","SourceGraphic");
-
-  // Links
-  var link = g.append("g").selectAll("line").data(links).enter().append("line")
-    .attr("stroke", function(d){return _gColors[d.type] || "#444";})
-    .attr("stroke-opacity", 0.5).attr("stroke-width", 1.5)
-    .attr("stroke-dasharray", function(d){return d.type === "cdn" ? "5,3" : "none";});
-
-  // Nodes
-  var node = g.append("g").selectAll("g").data(nodes).enter().append("g")
-    .attr("cursor","pointer")
-    .call(d3.drag()
-      .on("start", function(ev,d){if(!ev.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;})
-      .on("drag", function(ev,d){d.fx=ev.x;d.fy=ev.y;})
-      .on("end", function(ev,d){if(!ev.active)sim.alphaTarget(0);d.fx=null;d.fy=null;})
-    );
-
-  // Pulse ring
-  node.append("circle")
-    .attr("r", function(d){return d.r+8;})
-    .attr("fill","none")
-    .attr("stroke",function(d){return d.color;})
-    .attr("stroke-width",0.8)
-    .attr("stroke-opacity",0.15)
-    .attr("filter","url(#gglow)");
-
-  // Main circle
-  node.append("circle")
-    .attr("r",function(d){return d.r;})
-    .attr("fill",function(d){return d.color+"22";})
-    .attr("stroke",function(d){return d.color;})
-    .attr("stroke-width",2)
-    .attr("filter","url(#gglow)")
-    .on("mouseover",function(ev,d){d3.select(this).attr("fill",d.color+"55");})
-    .on("mouseout",function(ev,d){d3.select(this).attr("fill",d.color+"22");});
-
-  // Labels
-  node.append("text")
-    .text(function(d){return d.label;})
-    .attr("text-anchor","middle")
-    .attr("dy",function(d){return d.r+13;})
-    .attr("fill","#888")
-    .attr("font-family","IBM Plex Mono,monospace")
-    .attr("font-size","8px");
-
-  // Type icon in center
-  node.append("text")
-    .text(function(d){return _gIcons[d.type]||"";})
-    .attr("text-anchor","middle")
-    .attr("dy","0.35em")
-    .attr("font-size",function(d){return d.r*0.9+"px";});
-
-  sim.on("tick", function(){
-    link.attr("x1",function(d){return d.source.x;})
-      .attr("y1",function(d){return d.source.y;})
-      .attr("x2",function(d){return d.target.x;})
-      .attr("y2",function(d){return d.target.y;});
-    node.attr("transform",function(d){return "translate("+d.x+","+d.y+")";});
-  });
-}
-
-function clearGraph() {
-  document.getElementById("graphUrl").value = "";
-  document.getElementById("graphTitle").value = "";
-  document.getElementById("graphResults").innerHTML = "<div class=\"results-empty\">Paste any piracy URL from Film, India or Gaming scans above</div>";
-  document.getElementById("graphStats").style.display = "none";
-  document.getElementById("graphViz").style.display = "none";
-  document.getElementById("graphNodeCount").textContent = "—";
-}
-</script>
 
 <!-- CINEOS Graph Intelligence Panel -->
 
@@ -995,206 +995,7 @@ function clearGraph() {
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-<script>
-var _gColors = {source:"#ff3355",mirror:"#ff8c00",telegram:"#3d7fff",cdn:"#b060ff",social:"#00e87a",reseller:"#ffcc00"};
-var _gIcons = {source:"🔴",mirror:"🟠",telegram:"📱",cdn:"☁️",social:"📣",reseller:"💰"};
 
-async function scanGraph() {
-  var url = document.getElementById("graphUrl").value.trim();
-  var title = document.getElementById("graphTitle").value.trim();
-  if (!url || !title) return;
-  var btn = document.getElementById("graphBtn");
-  btn.disabled = true; btn.textContent = "Mapping...";
-  document.getElementById("graphResults").innerHTML = "<div class=\"results-empty\"><span class=\"loading-dots\"><span></span><span></span><span></span></span> Mapping piracy network for \"" + title + "\"...</div>";
-  document.getElementById("graphStats").style.display = "none";
-  document.getElementById("graphViz").style.display = "none";
-
-  try {
-    var r = await fetch(API + "/v1/graph", {
-      method:"POST", headers:HEADERS,
-      body:JSON.stringify({seed_url:url, title:title, depth:2})
-    });
-    var d = await r.json();
-    var data = d.data || d;
-    if (data.nodes && data.nodes.length) {
-      renderGStats(data);
-      renderGGraph(data);
-      renderGList(data);
-      document.getElementById("graphNodeCount").textContent = data.total_nodes + " nodes found";
-    } else {
-      document.getElementById("graphResults").innerHTML = "<div class=\"results-empty\">No network discovered — API endpoint /v1/graph needs Railway deployment</div>";
-    }
-  } catch(e) {
-    // Show demo with local data
-    var demoData = buildDemoGraph(url, title);
-    renderGStats(demoData);
-    renderGGraph(demoData);
-    renderGList(demoData);
-    document.getElementById("graphNodeCount").textContent = "Demo — " + demoData.total_nodes + " nodes";
-  }
-  btn.disabled = false; btn.textContent = "🕸️ Map Network";
-}
-
-function buildDemoGraph(url, title) {
-  var domain = url.replace(/https?:\/\//, "").split("/")[0];
-  return {
-    total_nodes: 9,
-    by_type: {source:1, mirror:2, telegram:2, cdn:1, social:2, reseller:1},
-    nodes: [
-      {url:url, type:"source", title:title},
-      {url:"https://" + domain.replace(".","-alt.") + "/" + title.toLowerCase(), type:"mirror", parent:url},
-      {url:"https://" + domain.split(".")[0] + "2.xyz/" + title.toLowerCase(), type:"mirror", parent:url},
-      {url:"https://t.me/IPL_L", type:"telegram", subscribers:7670, parent:url},
-      {url:"https://t.me/CricketBetting", type:"telegram", subscribers:14600, parent:url},
-      {url:"cdn://Cloudflare/104.21.35.46", type:"cdn", parent:url},
-      {url:"https://www.youtube.com/watch?v=example", type:"social", parent:url},
-      {url:"https://www.dailymotion.com/video/example", type:"social", parent:url},
-      {url:"https://iptvlevelup.com/channels/", type:"reseller", parent:url},
-    ],
-    edges: [
-      {from:url, to:"https://" + domain.replace(".","-alt.") + "/" + title.toLowerCase(), type:"mirror"},
-      {from:url, to:"https://" + domain.split(".")[0] + "2.xyz/" + title.toLowerCase(), type:"mirror"},
-      {from:url, to:"https://t.me/IPL_L", type:"telegram"},
-      {from:url, to:"https://t.me/CricketBetting", type:"telegram"},
-      {from:url, to:"cdn://Cloudflare/104.21.35.46", type:"cdn"},
-      {from:url, to:"https://www.youtube.com/watch?v=example", type:"social"},
-      {from:url, to:"https://www.dailymotion.com/video/example", type:"social"},
-      {from:url, to:"https://iptvlevelup.com/channels/", type:"reseller"},
-    ]
-  };
-}
-
-function renderGStats(data) {
-  var bt = data.by_type || {};
-  document.getElementById("gstat-total").textContent = data.total_nodes || 0;
-  document.getElementById("gstat-mirror").textContent = bt.mirror || 0;
-  document.getElementById("gstat-telegram").textContent = bt.telegram || 0;
-  document.getElementById("gstat-cdn").textContent = bt.cdn || 0;
-  document.getElementById("gstat-social").textContent = bt.social || 0;
-  document.getElementById("gstat-reseller").textContent = bt.reseller || 0;
-  document.getElementById("graphStats").style.display = "block";
-}
-
-function renderGList(data) {
-  var nodes = data.nodes || [];
-  var html = nodes.map(function(n) {
-    var col = _gColors[n.type] || "#aaa";
-    var icon = _gIcons[n.type] || "•";
-    var subs = n.subscribers > 0 ? " <span class=\"hit-tag\" style=\"background:rgba(255,255,255,.05);color:var(--text2);border:1px solid var(--border2)\">" + n.subscribers.toLocaleString() + " subs</span>" : "";
-    return "<div class=\"hit-row\">" +
-      "<span style=\"font-size:1rem\">" + icon + "</span>" +
-      "<a href=\"" + (n.url.startsWith("cdn://") ? "#" : n.url) + "\" target=\"_blank\" class=\"hit-url\" style=\"color:" + col + "\">" + n.url.substring(0,65) + "</a>" +
-      "<span class=\"hit-tag\" style=\"background:rgba(255,255,255,.04);color:" + col + ";border:1px solid " + col + "33\">" + n.type + "</span>" +
-      subs + "</div>";
-  }).join("");
-  document.getElementById("graphResults").innerHTML = html || "<div class=\"results-empty\">No nodes found</div>";
-}
-
-function renderGGraph(data) {
-  document.getElementById("graphViz").style.display = "block";
-  var svgEl = document.getElementById("networkSvg");
-  var svg = d3.select("#networkSvg");
-  svg.selectAll("*").remove();
-  var W = svgEl.clientWidth || 800, H = 480;
-
-  var nodes = (data.nodes || []).map(function(n, i) {
-    return {id:n.url, label:n.url.replace(/https?:\/\//, "").substring(0,22),
-      type:n.type, color:_gColors[n.type] || "#aaa",
-      r:n.type === "source" ? 22 : n.type === "cdn" ? 15 : 10};
-  });
-
-  var nodeIds = new Set(nodes.map(function(n){return n.id;}));
-  var links = (data.edges || []).filter(function(e){
-    return nodeIds.has(e.from) && nodeIds.has(e.to);
-  }).map(function(e){
-    return {source:e.from, target:e.to, type:e.type};
-  });
-
-  var sim = d3.forceSimulation(nodes)
-    .force("link", d3.forceLink(links).id(function(d){return d.id;}).distance(130))
-    .force("charge", d3.forceManyBody().strength(-350))
-    .force("center", d3.forceCenter(W/2, H/2))
-    .force("collide", d3.forceCollide(35));
-
-  var g = svg.append("g");
-  svg.call(d3.zoom().scaleExtent([0.3, 3]).on("zoom", function(ev){g.attr("transform", ev.transform);}));
-
-  // Defs glow
-  var defs = svg.append("defs");
-  var filt = defs.append("filter").attr("id","gglow");
-  filt.append("feGaussianBlur").attr("stdDeviation","3").attr("result","blur");
-  var fm = filt.append("feMerge");
-  fm.append("feMergeNode").attr("in","blur");
-  fm.append("feMergeNode").attr("in","SourceGraphic");
-
-  // Links
-  var link = g.append("g").selectAll("line").data(links).enter().append("line")
-    .attr("stroke", function(d){return _gColors[d.type] || "#444";})
-    .attr("stroke-opacity", 0.5).attr("stroke-width", 1.5)
-    .attr("stroke-dasharray", function(d){return d.type === "cdn" ? "5,3" : "none";});
-
-  // Nodes
-  var node = g.append("g").selectAll("g").data(nodes).enter().append("g")
-    .attr("cursor","pointer")
-    .call(d3.drag()
-      .on("start", function(ev,d){if(!ev.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;})
-      .on("drag", function(ev,d){d.fx=ev.x;d.fy=ev.y;})
-      .on("end", function(ev,d){if(!ev.active)sim.alphaTarget(0);d.fx=null;d.fy=null;})
-    );
-
-  // Pulse ring
-  node.append("circle")
-    .attr("r", function(d){return d.r+8;})
-    .attr("fill","none")
-    .attr("stroke",function(d){return d.color;})
-    .attr("stroke-width",0.8)
-    .attr("stroke-opacity",0.15)
-    .attr("filter","url(#gglow)");
-
-  // Main circle
-  node.append("circle")
-    .attr("r",function(d){return d.r;})
-    .attr("fill",function(d){return d.color+"22";})
-    .attr("stroke",function(d){return d.color;})
-    .attr("stroke-width",2)
-    .attr("filter","url(#gglow)")
-    .on("mouseover",function(ev,d){d3.select(this).attr("fill",d.color+"55");})
-    .on("mouseout",function(ev,d){d3.select(this).attr("fill",d.color+"22");});
-
-  // Labels
-  node.append("text")
-    .text(function(d){return d.label;})
-    .attr("text-anchor","middle")
-    .attr("dy",function(d){return d.r+13;})
-    .attr("fill","#888")
-    .attr("font-family","IBM Plex Mono,monospace")
-    .attr("font-size","8px");
-
-  // Type icon in center
-  node.append("text")
-    .text(function(d){return _gIcons[d.type]||"";})
-    .attr("text-anchor","middle")
-    .attr("dy","0.35em")
-    .attr("font-size",function(d){return d.r*0.9+"px";});
-
-  sim.on("tick", function(){
-    link.attr("x1",function(d){return d.source.x;})
-      .attr("y1",function(d){return d.source.y;})
-      .attr("x2",function(d){return d.target.x;})
-      .attr("y2",function(d){return d.target.y;});
-    node.attr("transform",function(d){return "translate("+d.x+","+d.y+")";});
-  });
-}
-
-function clearGraph() {
-  document.getElementById("graphUrl").value = "";
-  document.getElementById("graphTitle").value = "";
-  document.getElementById("graphResults").innerHTML = "<div class=\"results-empty\">Paste any piracy URL from Film, India or Gaming scans above</div>";
-  document.getElementById("graphStats").style.display = "none";
-  document.getElementById("graphViz").style.display = "none";
-  document.getElementById("graphNodeCount").textContent = "—";
-}
-</script>
 
 </body></html>';
 </script>

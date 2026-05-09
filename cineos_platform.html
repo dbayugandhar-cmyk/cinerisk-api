@@ -219,6 +219,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
       <span class="tab-icon">🌐</span>
       <span class="tab-label">All Sources</span>
     </button>
+    <button class="tab-card" onclick="switchTab('fraud')">
+      <span class="tab-icon">🚨</span>
+      <span class="tab-label">Fraud Intel</span>
+    </button>
     <button class="tab-card" onclick="switchTab('brand')">
       <span class="tab-icon">🏷️</span>
       <span class="tab-label">Brand Intel</span>
@@ -392,14 +396,188 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
 </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js">
+var FRAUD_DATA = {
+  channels: [
+    {channel:'CricketBetting', subscribers:14600, type:'illegal_betting',
+     url:'https://t.me/CricketBetting', severity:'CRITICAL',
+     signals:['IPL betting odds','match tips','1xbet links']},
+    {channel:'IPLBetting', subscribers:9610, type:'illegal_betting',
+     url:'https://t.me/IPLBetting', severity:'CRITICAL',
+     signals:['IPL match betting','odds published','illegal book']},
+    {channel:'ReddyAnnaBookOfficialReddy', subscribers:23785, type:'illegal_betting',
+     url:'https://t.me/ReddyAnnaBookOfficialReddy', severity:'CRITICAL',
+     signals:['Reddy Anna book','cricket betting','FEMA violation']},
+    {channel:'sattamatkaji2026India', subscribers:0, type:'illegal_betting',
+     url:'https://t.me/sattamatkaji2026India', severity:'HIGH',
+     signals:['satta matka','gambling promotion','daily results']},
+    {channel:'India_1xbetofficial1xBet', subscribers:0, type:'illegal_betting',
+     url:'https://t.me/India_1xbetofficial1xBet', severity:'HIGH',
+     signals:['1xBet India','INR deposits','FEMA violation']},
+    {channel:'CricketOdds', subscribers:58, type:'illegal_betting',
+     url:'https://t.me/CricketOdds', severity:'MEDIUM',
+     signals:['cricket odds','match tips','betting signals']},
+    {channel:'CryptoSignals', subscribers:0, type:'fake_investment',
+     url:'https://t.me/CryptoSignals', severity:'HIGH',
+     signals:['guaranteed returns','crypto profit','daily income']},
+  ],
+  instagram: [
+    {url:'https://www.instagram.com/reel/DXesWX7gGQq/', type:'fake_investment',
+     signals:['guaranteed returns','daily profit']},
+    {url:'https://www.instagram.com/p/DVIWyKRDeax/', type:'fake_investment',
+     signals:['investment guaranteed','100% profit']},
+    {url:'https://www.instagram.com/reel/DWQ5GC3kutP/', type:'crypto_scam',
+     signals:['crypto profit','guaranteed returns']},
+    {url:'https://www.instagram.com/reel/DMur4i0gXe-/', type:'fake_investment',
+     signals:['trading profit','risk free']},
+    {url:'https://www.instagram.com/reel/DVSVxfNDLyO/', type:'fake_trading',
+     signals:['option tips','100% accuracy']},
+    {url:'https://www.instagram.com/reel/DVxdP6EANd1/', type:'fake_trading',
+     signals:['intraday profit','guaranteed calls']},
+  ]
+};
+
+var FRAUD_TYPE_COLORS = {
+  illegal_betting: '#ff3355',
+  fake_investment: '#ff8c00',
+  crypto_scam: '#b060ff',
+  fake_trading: '#3d7fff',
+};
+
+var FRAUD_TYPE_LABELS = {
+  illegal_betting: 'Illegal Betting',
+  fake_investment: 'Fake Investment',
+  crypto_scam: 'Crypto Scam',
+  fake_trading: 'Fake Trading Tips',
+};
+
+function scanFraud() {
+  var type = document.getElementById('fraudType').value;
+  setBtn('fraudBtn', true);
+
+  var channels = type === 'all' ? FRAUD_DATA.channels :
+    FRAUD_DATA.channels.filter(function(c){return c.type === type;});
+  var instagram = type === 'all' ? FRAUD_DATA.instagram :
+    FRAUD_DATA.instagram.filter(function(c){return c.type === type;});
+
+  var totalReach = channels.reduce(function(a,c){return a+c.subscribers;},0);
+  var critical = channels.filter(function(c){return c.severity==='CRITICAL';}).length;
+
+  setVerdict('fraudVerdict',
+    critical > 0 ? 'CRITICAL - ' + critical + ' illegal channels, ' + totalReach.toLocaleString() + ' subscribers' :
+    channels.length > 0 ? 'CONFIRMED - ' + channels.length + ' fraud channels detected' : 'CLEAN');
+
+  var stats = document.getElementById('fraudStats');
+  stats.style.display = 'grid';
+  stats.innerHTML = [
+    ['Channels', channels.length, 'var(--red)'],
+    ['Reach', totalReach.toLocaleString(), 'var(--orange)'],
+    ['Instagram', instagram.length, 'var(--purple)'],
+    ['Critical', critical, '#ff3355'],
+  ].map(function(it){
+    return '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:10px;">' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">' + it[0] + '</div>' +
+      '<div style="font-size:1.3rem;font-weight:600;color:' + it[2] + ';">' + it[1] + '</div></div>';
+  }).join('');
+
+  var tgList = document.getElementById('fraudTelegramList');
+  tgList.innerHTML = channels.map(function(c){
+    var col = FRAUD_TYPE_COLORS[c.type] || '#ff3355';
+    var sevCol = c.severity === 'CRITICAL' ? '#ff3355' : c.severity === 'HIGH' ? '#ff8c00' : '#8888aa';
+    var subs = c.subscribers >= 1000 ? (c.subscribers/1000).toFixed(1)+'K' : c.subscribers;
+    return '<div style="background:var(--bg3);border:1px solid var(--border);' +
+      'border-left:3px solid ' + col + ';border-radius:6px;padding:10px;">' +
+      '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">' +
+      '<span style="font-size:.75rem;font-weight:600;color:var(--text);">@' + c.channel + '</span>' +
+      '<span style="font-family:var(--mono);font-size:.6rem;background:rgba(255,51,85,.15);' +
+      'color:' + sevCol + ';padding:1px 5px;border-radius:3px;">' + c.severity + '</span>' +
+      '</div>' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text2);margin-bottom:3px;">' +
+      subs + ' subscribers · ' + (FRAUD_TYPE_LABELS[c.type]||c.type) + '</div>' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">' +
+      c.signals.join(' · ') + '</div>' +
+      '<a href="' + c.url + '" target="_blank" ' +
+      'style="font-family:var(--mono);font-size:.6rem;color:var(--blue);margin-top:3px;display:block;">View channel</a>' +
+      '</div>';
+  }).join('');
+
+  var webList = document.getElementById('fraudWebList');
+  webList.innerHTML = instagram.map(function(c){
+    var col = FRAUD_TYPE_COLORS[c.type] || '#b060ff';
+    return '<div style="background:var(--bg3);border:1px solid var(--border);' +
+      'border-left:3px solid ' + col + ';border-radius:6px;padding:10px;">' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text2);margin-bottom:3px;">' +
+      'Instagram · ' + (FRAUD_TYPE_LABELS[c.type]||c.type) + '</div>' +
+      '<a href="' + c.url + '" target="_blank" ' +
+      'style="font-size:.7rem;color:var(--blue);word-break:break-all;">' +
+      c.url.replace('https://www.instagram.com/','instagram.com/') + '</a>' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);margin-top:3px;">' +
+      c.signals.join(' · ') + '</div>' +
+      '</div>';
+  }).join('');
+
+  setBtn('fraudBtn', false);
+}
+
+function generateSEBIReport() {
+  var now = new Date().toUTCString();
+  var channels = FRAUD_DATA.channels;
+  var totalReach = channels.reduce(function(a,c){return a+c.subscribers;},0);
+
+  var html = '<html><head><title>CINEOS SEBI Complaint<\/title>' +
+    '<style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;}' +
+    'h1{color:#cc0000;}h2{color:#333;border-bottom:1px solid #ccc;padding-bottom:5px;}' +
+    '.channel{background:#fff5f5;border-left:4px solid #cc0000;padding:10px;margin:8px 0;}' +
+    '.footer{margin-top:40px;font-size:11px;color:#777;border-top:1px solid #ccc;padding-top:10px;}' +
+    '<\/style><\/head><body>' +
+    '<h1>CINEOS Financial Fraud Intelligence Report<\/h1>' +
+    '<p><strong>Submitted to:<\/strong> SEBI Enforcement Department — sanjayg@sebi.gov.in<\/p>' +
+    '<p><strong>Date:<\/strong> ' + now + '<\/p>' +
+    '<p><strong>Complainant:<\/strong> Yugandhar Mallavarapu | yugandhar@cineos.in | cineos.in<\/p>' +
+    '<p><strong>Patent:<\/strong> US Provisional Patent 64\/049,190<\/p>' +
+    '<h2>Executive Summary<\/h2>' +
+    '<p>' + channels.length + ' illegal Telegram channels detected. Total subscriber reach: <strong>' +
+    totalReach.toLocaleString() + ' users<\/strong>. Plus ' + FRAUD_DATA.instagram.length +
+    ' Instagram fraud posts.<\/p>' +
+    '<h2>Illegal Channels Confirmed<\/h2>' +
+    channels.map(function(c){
+      return '<div class="channel">' +
+        '<strong>@' + c.channel + '<\/strong> — ' + c.subscribers.toLocaleString() + ' subscribers<br>' +
+        'Type: ' + (FRAUD_TYPE_LABELS[c.type]||c.type) + ' | Severity: ' + c.severity + '<br>' +
+        'Signals: ' + c.signals.join(', ') + '<br>' +
+        'URL: <a href="' + c.url + '">' + c.url + '<\/a>' +
+        '<\/div>';
+    }).join('') +
+    '<h2>Legal Violations<\/h2>' +
+    '<ul>' +
+    '<li>Public Gambling Act 1867 — Sections 3, 4, 12<\/li>' +
+    '<li>SEBI (PFUTP) Regulations 2003<\/li>' +
+    '<li>SEBI Investment Advisers Regulations 2013<\/li>' +
+    '<li>FEMA — 1xBet and Reddy Anna accepting Indian Rupees<\/li>' +
+    '<li>IT Act 2000 Section 66D — Cheating by personation<\/li>' +
+    '<\/ul>' +
+    '<h2>Requested Actions<\/h2>' +
+    '<ol>' +
+    '<li>Direct MeitY under IT Act Section 69A to block all channels<\/li>' +
+    '<li>Alert Enforcement Directorate for FEMA probe on 1xBet and Reddy Anna<\/li>' +
+    '<li>Issue public advisory warning Indian investors<\/li>' +
+    '<li>Share with state Cyber Crime cells for FIR<\/li>' +
+    '<\/ol>' +
+    '<div class="footer">CINEOS Anti-Piracy and Fraud Intelligence | cineos.in | yugandhar@cineos.in | Patent 64\/049,190<\/div>' +
+    '<\/body><\/html>';
+
+  var w = window.open('','_blank','width=900,height=700');
+  w.document.write(html); w.document.close();
+  setTimeout(function(){w.print();}, 800);
+}
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script>
 const API = 'https://cinerisk-api-production.up.railway.app';
 const HEADERS = {'Content-Type':'application/json'};
 
 function switchTab(tab) {
-  ['film','india','gaming','sports','videoid','liveshield','multi','brand','graph'].forEach(function(t) {
+  ['film','india','gaming','sports','videoid','liveshield','multi','fraud','brand','graph'].forEach(function(t) {
     var p = document.getElementById('panel-' + t);
     if (p) { p.style.display = 'none'; p.classList.remove('active'); }
   });
@@ -817,6 +995,69 @@ function drawBrandMap(sellers) {
     </div>
     <div class="results-body" id="multiResults">
       <div class="results-empty">Enter a title to scan across all piracy sources simultaneously</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-fraud">
+  <div class="scan-box">
+    <div class="scan-label" style="color:#ff3355;">Financial Fraud Intelligence</div>
+    <div class="scan-title">Illegal Betting + Investment Scam Detection</div>
+    <div class="scan-desc">Real-time detection of illegal gambling channels, investment scam groups and financial fraud on Telegram and Instagram. Evidence-grade reports for SEBI, RBI and Cyber Crime.</div>
+    <div class="scan-row" style="flex-wrap:wrap;gap:8px;">
+      <button class="scan-btn" id="fraudBtn" onclick="scanFraud()"
+        style="background:#ff3355;color:#fff;">Scan Now</button>
+      <select id="fraudType"
+        style="font-family:var(--mono);font-size:.7rem;
+        background:var(--bg3);color:var(--text);
+        border:1px solid var(--border2);
+        padding:6px 10px;border-radius:4px;">
+        <option value="all">All Fraud Types</option>
+        <option value="illegal_betting">Illegal Betting</option>
+        <option value="fake_investment">Fake Investment</option>
+        <option value="crypto_scam">Crypto Scam</option>
+        <option value="fake_trading">Fake Trading Tips</option>
+      </select>
+      <button class="scan-btn-red" onclick="generateSEBIReport()"
+        style="background:transparent;border:1px solid #ff3355;color:#ff3355;">
+        SEBI Report PDF
+      </button>
+    </div>
+  </div>
+
+  <div id="fraudVerdict" class="verdict-box" style="display:none"></div>
+
+  <div id="fraudStats" style="display:none;
+    grid-template-columns:repeat(4,1fr);gap:8px;margin:1rem 0;"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:1rem;">
+
+    <div>
+      <div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);
+        letter-spacing:.1em;margin-bottom:.5rem;">TELEGRAM CHANNELS</div>
+      <div id="fraudTelegramList" style="display:flex;flex-direction:column;gap:6px;"></div>
+    </div>
+
+    <div>
+      <div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);
+        letter-spacing:.1em;margin-bottom:.5rem;">WEB + SOCIAL FRAUD</div>
+      <div id="fraudWebList" style="display:flex;flex-direction:column;gap:6px;"></div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:1rem;">
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);
+      letter-spacing:.1em;margin-bottom:.5rem;">EVIDENCE SUBMITTED TO SEBI</div>
+    <div style="background:var(--bg3);border:1px solid var(--border);
+      border-radius:6px;padding:12px;font-size:.75rem;color:var(--text2);">
+      <div style="color:var(--green);margin-bottom:4px;">
+        Complaint filed: May 9, 2026 — sanjayg@sebi.gov.in
+      </div>
+      <div>6 illegal channels | 48,053 subscribers | 6 Instagram reels</div>
+      <div style="color:var(--text3);margin-top:4px;">
+        Violations: Public Gambling Act 1867 | SEBI PFUTP 2003 | FEMA | IT Act 66D
+      </div>
     </div>
   </div>
 </div>

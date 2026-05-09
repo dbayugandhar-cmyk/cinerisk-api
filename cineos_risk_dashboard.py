@@ -1,0 +1,187 @@
+"""
+CINEOS Seller Risk Dashboard
+Generates visual HTML risk reports for brand clients.
+Shows risk scores, geographic distribution, trends.
+"""
+import json, os
+from datetime import datetime
+
+def generate_risk_dashboard(
+    brand: str,
+    sellers: list,
+    output_path: str = None
+) -> str:
+    """Generate an HTML risk dashboard for a brand."""
+
+    scored = sorted(sellers, key=lambda x: -x.get('risk_score',0))
+    total = len(scored)
+    critical = [s for s in scored if s.get('risk_score',0) >= 75]
+    high = [s for s in scored if 55 <= s.get('risk_score',0) < 75]
+    medium = [s for s in scored if 35 <= s.get('risk_score',0) < 55]
+
+    # City distribution
+    cities = {}
+    for s in scored:
+        city = s.get('city','Unknown')
+        cities[city] = cities.get(city, 0) + 1
+    top_cities = sorted(cities.items(), key=lambda x:-x[1])[:5]
+
+    now = datetime.now().strftime('%B %d, %Y')
+
+    rows = ''
+    for s in scored[:20]:
+        score = s.get('risk_score',0)
+        color = '#ff3355' if score>=75 else '#ff8c00' if score>=55 else '#ffcc00' if score>=35 else '#00b060'
+        bar = int(score/10)
+        rows += f"""
+        <tr>
+          <td>{s.get('seller','')}</td>
+          <td>{s.get('city','')}</td>
+          <td>{s.get('brand','')}</td>
+          <td>Rs {s.get('price',0):,}</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="width:{score*2}px;height:8px;background:{color};border-radius:4px;"></div>
+              <span style="color:{color};font-weight:600;">{score}/100</span>
+            </div>
+          </td>
+          <td><span style="color:{color};">{s.get('verdict','').split('—')[0].strip()}</span></td>
+        </tr>"""
+
+    city_rows = ''
+    for city, count in top_cities:
+        city_rows += f"""
+        <div style="display:flex;justify-content:space-between;
+          padding:8px 0;border-bottom:1px solid #2a2a3a;">
+          <span style="color:#e0e0ff;">{city}</span>
+          <span style="color:#ff3355;font-weight:600;">{count} sellers</span>
+        </div>"""
+
+    html = f"""<!DOCTYPE html>
+<html>
+<head>
+<title>CINEOS {brand} Risk Report — {now}</title>
+<style>
+  body{{font-family:'IBM Plex Mono',monospace;background:#0a0a0f;color:#e0e0ff;margin:0;padding:24px;}}
+  h1{{color:#00ff88;font-size:1.4rem;margin-bottom:4px;}}
+  .subtitle{{color:#8888aa;font-size:.8rem;margin-bottom:24px;}}
+  .stats{{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}}
+  .stat{{background:#13131c;border:1px solid #2a2a3a;border-radius:8px;padding:16px;}}
+  .stat-label{{color:#8888aa;font-size:.65rem;letter-spacing:.1em;}}
+  .stat-value{{font-size:2rem;font-weight:700;margin-top:4px;}}
+  table{{width:100%;border-collapse:collapse;background:#13131c;
+    border-radius:8px;overflow:hidden;margin-bottom:24px;}}
+  th{{background:#1a1a2a;color:#8888aa;font-size:.65rem;
+    letter-spacing:.1em;padding:12px 16px;text-align:left;}}
+  td{{padding:10px 16px;border-bottom:1px solid #1a1a2a;
+    font-size:.75rem;}}
+  .section{{background:#13131c;border:1px solid #2a2a3a;
+    border-radius:8px;padding:16px;margin-bottom:16px;}}
+  .section-title{{color:#8888aa;font-size:.65rem;
+    letter-spacing:.1em;margin-bottom:12px;}}
+  .footer{{color:#444466;font-size:.65rem;margin-top:24px;
+    border-top:1px solid #2a2a3a;padding-top:16px;}}
+</style>
+</head>
+<body>
+<h1>CINEOS Brand Intelligence Report</h1>
+<div class="subtitle">
+  {brand} Counterfeit Seller Risk Assessment — {now} | 
+  cineos.in | Patent 64/049,190
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-label">TOTAL SELLERS</div>
+    <div class="stat-value" style="color:#e0e0ff;">{total}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">CRITICAL (75+)</div>
+    <div class="stat-value" style="color:#ff3355;">{len(critical)}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">HIGH (55-74)</div>
+    <div class="stat-value" style="color:#ff8c00;">{len(high)}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">CITIES AFFECTED</div>
+    <div class="stat-value" style="color:#3d7fff;">{len(cities)}</div>
+  </div>
+</div>
+
+<table>
+  <tr>
+    <th>SELLER</th><th>CITY</th><th>BRAND</th>
+    <th>PRICE</th><th>RISK SCORE</th><th>VERDICT</th>
+  </tr>
+  {rows}
+</table>
+
+<div class="section">
+  <div class="section-title">GEOGRAPHIC HOTSPOTS</div>
+  {city_rows}
+</div>
+
+<div class="section">
+  <div class="section-title">RECOMMENDED ACTIONS</div>
+  <div style="font-size:.75rem;color:#e0e0ff;line-height:1.8;">
+    {'<br>'.join([
+        f"• IMMEDIATE: File IP complaint against {s.get('seller','')} ({s.get('city','')})"
+        for s in critical[:3]
+    ])}
+    {'<br>' if critical else ''}
+    {'<br>'.join([
+        f"• INVESTIGATE: {s.get('seller','')} ({s.get('city','')}) — Score {s.get('risk_score',0)}/100"
+        for s in high[:3]
+    ])}
+  </div>
+</div>
+
+<div class="footer">
+  Generated by CINEOS Intelligence Platform | cineos.in<br>
+  US Provisional Patent 64/049,190 | yugandhar@cineos.in<br>
+  This report is confidential and for authorized use only.
+</div>
+</body>
+</html>"""
+
+    if not output_path:
+        output_path = f"reports/{brand.lower().replace(' ','_')}_risk_{datetime.now().strftime('%Y%m%d')}.html"
+
+    os.makedirs('reports', exist_ok=True)
+    open(output_path,'w').write(html)
+    print(f"Dashboard saved: {output_path}")
+    return html
+
+if __name__ == '__main__':
+    # Load real seller data and score it
+    try:
+        import sys
+        sys.path.insert(0,'.')
+        from cineos_risk_api import score_all_sellers
+        sellers_raw = json.load(open('reports/deep_sellers.json'))
+        sellers = score_all_sellers(sellers_raw)
+    except:
+        sellers = []
+
+    if not sellers:
+        # Demo data
+        sellers = [
+            {'seller':'Th Store','city':'Imphal','brand':'Nike',
+             'price':999,'risk_score':78,'verdict':'CRITICAL — Confirmed counterfeit'},
+            {'seller':'BUDDY_HOUSE','city':'Sirsa','brand':'Nike',
+             'price':800,'risk_score':75,'verdict':'CRITICAL — Confirmed counterfeit'},
+            {'seller':'Next Wave','city':'Amritsar','brand':'Nike',
+             'price':699,'risk_score':63,'verdict':'HIGH — Very likely counterfeit'},
+            {'seller':'Aster Shoes','city':'Karnal','brand':'Nike',
+             'price':450,'risk_score':63,'verdict':'HIGH — Very likely counterfeit'},
+            {'seller':'Ajay Enterprises','city':'Ghaziabad','brand':'Nike',
+             'price':3299,'risk_score':45,'verdict':'MEDIUM — Suspicious listing'},
+        ]
+
+    brands = set(s.get('brand','Nike') for s in sellers)
+    for brand in list(brands)[:3]:
+        brand_sellers = [s for s in sellers if s.get('brand','') == brand]
+        if brand_sellers:
+            generate_risk_dashboard(brand, brand_sellers)
+            print(f"  {brand}: {len(brand_sellers)} sellers scored")

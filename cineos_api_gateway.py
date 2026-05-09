@@ -985,6 +985,119 @@ async def graph_intelligence(request: Request):
     }
 
 
+@app.post("/v1/kg/ingest")
+async def kg_ingest(request: Request):
+    """Ingest scan results into knowledge graph."""
+    import hashlib, json as _json
+    body = await request.json()
+    title = body.get("title","")
+    hits = body.get("hits",[])
+    verdict = body.get("verdict","")
+    category = body.get("category","india")
+
+    if not title or not hits:
+        return {"success": False, "error": "title and hits required"}
+
+    try:
+        async with pool.acquire() as conn:
+            # Add content node
+            content_id = hashlib.md5(f"content://{title}".encode()).hexdigest()[:16]
+            await conn.execute("""
+                INSERT INTO kg_nodes (id,url,domain,node_type,metadata)
+                VALUES ($1,$2,$3,'content',$4::jsonb)
+                ON CONFLICT (id) DO UPDATE SET
+                    last_seen=NOW(), hit_count=kg_nodes.hit_count+1
+            """, content_id, f"content://{title}", title,
+                _json.dumps({"title":title,"category":category,"verdict":verdict}))
+
+            # Add piracy nodes
+            for hit in hits[:20]:
+                url = hit.get("url","")
+                if not url: continue
+                from urllib.parse import urlparse
+                domain = urlparse(url).netloc.lower().replace("www.","")
+                nid = hashlib.md5(url.encode()).hexdigest()[:16]
+                await conn.execute("""
+                    INSERT INTO kg_nodes (id,url,domain,node_type,metadata)
+                    VALUES ($1,$2,$3,'piracy_url',$4::jsonb)
+                    ON CONFLICT (id) DO UPDATE SET
+                        last_seen=NOW(), hit_count=kg_nodes.hit_count+1
+                """, nid, url, domain,
+                    _json.dumps({"platform":hit.get("platform",""),
+                                "quality":hit.get("quality",""),
+                                "title":title}))
+                # Add edge
+                await conn.execute("""
+                    INSERT INTO kg_edges (from_node,to_node,relationship)
+                    VALUES ($1,$2,'pirated_on')
+                    ON CONFLICT DO NOTHING
+                """, content_id, nid)
+
+            # Log event
+            await conn.execute("""
+                INSERT INTO kg_events (event_type,title,data)
+                VALUES ('scan',$1,$2::jsonb)
+            """, title, _json.dumps({"hits":len(hits),"verdict":verdict}))
+
+        return {"success": True, "ingested": len(hits)}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+@app.get("/v1/kg/stats")
+async def kg_stats():
+    """Get knowledge graph statistics."""
+    import json as _json
+    try:
+        async with pool.acquire() as conn:
+            total_nodes = await conn.fetchval("SELECT COUNT(*) FROM kg_nodes")
+            total_edges = await conn.fetchval("SELECT COUNT(*) FROM kg_edges")
+            total_ops = await conn.fetchval("SELECT COUNT(*) FROM kg_operators")
+            by_type = await conn.fetch(
+                "SELECT node_type, COUNT(*) as c FROM kg_nodes GROUP BY node_type")
+            recent = await conn.fetch("""
+                SELECT title, event_type, created_at,
+                       data->>'hits' as hits
+                FROM kg_events ORDER BY created_at DESC LIMIT 10
+            """)
+            top_domains = await conn.fetch("""
+                SELECT domain, hit_count, cdn, node_type
+                FROM kg_nodes WHERE node_type='piracy_url'
+                ORDER BY hit_count DESC LIMIT 10
+            """)
+        return {
+            "success": True,
+            "data": {
+                "total_nodes": total_nodes,
+                "total_edges": total_edges,
+                "total_operators": total_ops,
+                "by_type": {r["node_type"]:r["c"] for r in by_type},
+                "recent_events": [dict(r) for r in recent],
+                "top_domains": [dict(r) for r in top_domains]
+            }
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+@app.get("/v1/kg/offenders")
+async def kg_offenders():
+    """Get repeat offender domains."""
+    try:
+        async with pool.acquire() as conn:
+            rows = await conn.fetch("""
+                SELECT domain, cdn, hit_count,
+                       first_seen, last_seen
+                FROM kg_nodes
+                WHERE node_type='piracy_url'
+                ORDER BY hit_count DESC LIMIT 20
+            """)
+        return {
+            "success": True,
+            "data": [dict(r) for r in rows]
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
 @app.post("/v1/evidence")
 async def generate_evidence(
     request: Request,

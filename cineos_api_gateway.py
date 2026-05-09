@@ -295,7 +295,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://cineos.in","https://dbayugandhar-cmyk.github.io","http://localhost:3000"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -1045,7 +1045,10 @@ async def graph_intelligence(request: Request):
 
 
 @app.get("/v1/kg/setup")
-async def kg_setup():
+async def kg_setup(x_admin_key: Optional[str] = Header(None)):
+    admin_key = os.getenv("ADMIN_KEY", "cineos_admin_2026")
+    if x_admin_key != admin_key:
+        raise HTTPException(403, "Admin key required")
     """Create knowledge graph tables."""
     try:
         import asyncpg as _asyncpg
@@ -1098,7 +1101,11 @@ async def kg_setup():
 
 
 @app.post("/v1/kg/ingest")
-async def kg_ingest(request: Request):
+async def kg_ingest(request: Request,
+    x_cineos_key: Optional[str] = Header(None)):
+    internal_key = os.getenv("INTERNAL_KEY", "cineos_internal_2026")
+    if x_cineos_key and x_cineos_key != internal_key:
+        raise HTTPException(403, "Invalid key")
     """Ingest scan results into knowledge graph."""
     import hashlib, json as _json
     body = await request.json()

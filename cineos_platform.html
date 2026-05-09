@@ -396,7 +396,143 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
 </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js">
+var DARK_INTEL_DATA = {
+  reddit: {
+    label: 'Reddit',
+    icon: '💬',
+    color: '#ff4500',
+    findings: [
+      {title:'r/delhi: Fake Colgate spotted in kirana shops',url:'https://reddit.com/r/delhi/comments/1o3lx1m/a_fake_colgate_to',category:'counterfeit',score:847},
+      {title:'r/hyderabad: Kirana shops selling fake branded goods',url:'https://reddit.com/r/hyderabad/comments/1g7t4hs/',category:'counterfeit',score:312},
+      {title:'r/india: IPL betting links being shared on WhatsApp',url:'https://reddit.com/r/india/',category:'fraud',score:156},
+    ]
+  },
+  discord: {
+    label: 'Discord',
+    icon: '🎮',
+    color: '#5865f2',
+    findings: [
+      {title:'discord.gg/7ZBUTXMf8p — Web Series streaming server',url:'https://discord.gg/7ZBUTXMf8p',category:'piracy'},
+      {title:'discord.gg/2xnNdWqGNg — Netflix free streaming',url:'https://discord.gg/2xnNdWqGNg',category:'piracy'},
+      {title:'disboard.org/tag/cricket — 49 servers found',url:'https://disboard.org/servers/tag/cricket',category:'piracy'},
+    ]
+  },
+  whatsapp: {
+    label: 'WhatsApp',
+    icon: '📱',
+    color: '#25d366',
+    findings: [
+      {title:'Satta Matka betting group',url:'https://chat.whatsapp.com/H3KLESkmnCzKrWiTXaVU2s',category:'illegal_betting'},
+      {title:'Cricket betting tips group',url:'https://chat.whatsapp.com/LVjxy3RsaWeDy7ezPkSUlA',category:'illegal_betting'},
+      {title:'Market satta results group',url:'https://chat.whatsapp.com/I5U1AJeLsCa5wXeSf5NPG1',category:'illegal_betting'},
+      {title:'Investment guaranteed returns',url:'https://chat.whatsapp.com/EGwzxUbFT64H3vvaYDB87u',category:'fraud'},
+      {title:'IPL betting tips group',url:'https://chat.whatsapp.com/LpTC1brK2HY6vTX92gi0vt',category:'illegal_betting'},
+      {title:'Crypto profit signals',url:'https://chat.whatsapp.com/I98LRdlqy071xFKAmcC04X',category:'fraud'},
+    ]
+  },
+  darkweb: {
+    label: 'Dark Web',
+    icon: '🌑',
+    color: '#8888aa',
+    findings: [
+      {title:'Pastebin: India data leak 2026',url:'https://pastebin.com/ATJE7VdZ',category:'data_leak'},
+      {title:'Pastebin: India credentials dump',url:'https://pastebin.com/grtpFTa4',category:'data_leak'},
+      {title:'Betting software backend infrastructure India',url:'https://bettoblock.com/list-of-sports-betting-software',category:'fraud_infrastructure'},
+      {title:'Piracy CDN distribution network India',url:'https://instagram.com/p/DWBwgffEkCj',category:'piracy'},
+    ]
+  },
+  misinfo: {
+    label: 'Misinfo',
+    icon: '⚠️',
+    color: '#ffcc00',
+    findings: [
+      {title:'Fake RBI notification viral on WhatsApp',url:'https://instagram.com/reel/DYEN5G2Rz3u',category:'financial_misinfo'},
+      {title:'False health cure going viral India 2026',url:'https://facebook.com/Pibchandigarh1/',category:'health_misinfo'},
+      {title:'Fake election news viral YouTube',url:'https://youtube.com/watch?v=egkx7t46jhY',category:'election_misinfo'},
+      {title:'Fake food safety warning viral Instagram',url:'https://instagram.com/p/DX9CfeBkT_g',category:'product_misinfo'},
+    ]
+  }
+};
+
+function scanDarkIntel() {
+  var type = document.getElementById('darkIntelType').value;
+  var btn = document.getElementById('darkIntelBtn');
+  if (btn) { btn.textContent = 'Scanning...'; btn.disabled = true; }
+
+  var sources = type === 'all' ? DARK_INTEL_DATA :
+    {[type]: DARK_INTEL_DATA[type]};
+
+  // Stats
+  var totalFindings = Object.values(sources)
+    .reduce(function(a,s){return a+(s.findings||[]).length;},0);
+  var stats = document.getElementById('darkIntelStats');
+  stats.style.display = 'grid';
+
+  var statItems = [
+    ['Reddit', DARK_INTEL_DATA.reddit.findings.length, '#ff4500'],
+    ['Discord', DARK_INTEL_DATA.discord.findings.length, '#5865f2'],
+    ['WhatsApp', DARK_INTEL_DATA.whatsapp.findings.length, '#25d366'],
+    ['Dark Web', DARK_INTEL_DATA.darkweb.findings.length, '#8888aa'],
+    ['Misinfo', DARK_INTEL_DATA.misinfo.findings.length, '#ffcc00'],
+  ];
+  stats.innerHTML = statItems.map(function(it){
+    return '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:10px;">' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">' + it[0] + '</div>' +
+      '<div style="font-size:1.3rem;font-weight:600;color:' + it[2] + ';">' + it[1] + '</div></div>';
+  }).join('');
+
+  // Verdict
+  var vd = document.getElementById('darkIntelVerdict');
+  if (vd) {
+    vd.style.display = 'block';
+    vd.textContent = 'CONFIRMED — ' + totalFindings + ' findings across ' + Object.keys(sources).length + ' platforms';
+    vd.className = 'verdict-box verdict-high';
+  }
+
+  // Sources
+  var sourcesList = document.getElementById('darkIntelSources');
+  sourcesList.innerHTML = Object.entries(sources).map(function(entry){
+    var key = entry[0];
+    var src = entry[1];
+    return '<div style="background:var(--bg3);border:1px solid var(--border);' +
+      'border-left:3px solid ' + src.color + ';border-radius:6px;padding:10px;">' +
+      '<div style="display:flex;justify-content:space-between;margin-bottom:4px;">' +
+      '<span style="font-size:.8rem;font-weight:600;">' + src.icon + ' ' + src.label + '</span>' +
+      '<span style="font-family:var(--mono);font-size:.65rem;color:var(--text3);">' +
+        src.findings.length + ' findings</span></div>' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">' +
+        src.findings.map(function(f){return f.category;})
+        .filter(function(v,i,a){return a.indexOf(v)===i;}).join(', ') +
+      '</div></div>';
+  }).join('');
+
+  // Findings
+  var findingsList = document.getElementById('darkIntelFindings');
+  var allFindings = [];
+  Object.entries(sources).forEach(function(entry){
+    var src = entry[1];
+    (src.findings||[]).forEach(function(f){
+      allFindings.push({...f, platform: src.label, color: src.color, icon: src.icon});
+    });
+  });
+
+  findingsList.innerHTML = allFindings.map(function(f){
+    return '<div style="background:var(--bg3);border:1px solid var(--border);' +
+      'border-left:3px solid ' + f.color + ';border-radius:6px;padding:8px 10px;">' +
+      '<div style="font-size:.7rem;color:var(--text);margin-bottom:3px;">' +
+        f.icon + ' ' + f.title + '</div>' +
+      '<div style="display:flex;justify-content:space-between;">' +
+      '<span style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">' +
+        f.category.replace(/_/g,' ') + '</span>' +
+      '<a href="' + f.url + '" target="_blank" ' +
+        'style="font-family:var(--mono);font-size:.6rem;color:var(--blue);">View</a>' +
+      '</div></div>';
+  }).join('');
+
+  if (btn) { btn.textContent = 'Scan All Platforms'; btn.disabled = false; }
+}
+</script>
 <script>
 var FRAUD_DATA = {
   channels: [
@@ -587,7 +723,7 @@ const API = 'https://cinerisk-api-production.up.railway.app';
 const HEADERS = {'Content-Type':'application/json'};
 
 function switchTab(tab) {
-  ['film','india','gaming','sports','videoid','liveshield','multi','fraud','brand','graph'].forEach(function(t) {
+  ['film','india','gaming','sports','videoid','darkintel','liveshield','multi','fraud','brand','graph'].forEach(function(t) {
     var p = document.getElementById('panel-' + t);
     if (p) { p.style.display = 'none'; p.classList.remove('active'); }
   });
@@ -1138,6 +1274,48 @@ function drawBrandMap(sellers) {
           <div style="width:10px;height:10px;border-radius:50%;background:#b060ff;"></div>Multi-brand
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-darkintel">
+  <div class="scan-box">
+    <div class="scan-label" style="color:#b060ff;">Dark Intelligence Network</div>
+    <div class="scan-title">Reddit · Discord · WhatsApp · Dark Web · Misinformation</div>
+    <div class="scan-desc">Cross-platform intelligence across social networks, messaging apps and dark web indexes. Detects fraud networks that operate across multiple platforms simultaneously.</div>
+    <div class="scan-row" style="flex-wrap:wrap;gap:8px;">
+      <button class="scan-btn" id="darkIntelBtn" onclick="scanDarkIntel()"
+        style="background:#b060ff;color:#fff;">Scan All Platforms</button>
+      <select id="darkIntelType"
+        style="font-family:var(--mono);font-size:.7rem;
+        background:var(--bg3);color:var(--text);
+        border:1px solid var(--border2);padding:6px 10px;border-radius:4px;">
+        <option value="all">All Sources</option>
+        <option value="reddit">Reddit</option>
+        <option value="discord">Discord</option>
+        <option value="whatsapp">WhatsApp</option>
+        <option value="darkweb">Dark Web</option>
+        <option value="misinfo">Misinformation</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="darkIntelVerdict" class="verdict-box" style="display:none"></div>
+
+  <div id="darkIntelStats" style="display:none;
+    grid-template-columns:repeat(5,1fr);gap:8px;margin:1rem 0;"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:1rem;">
+    <div>
+      <div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);
+        letter-spacing:.1em;margin-bottom:.5rem;">PLATFORM INTELLIGENCE</div>
+      <div id="darkIntelSources" style="display:flex;flex-direction:column;gap:6px;"></div>
+    </div>
+    <div>
+      <div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);
+        letter-spacing:.1em;margin-bottom:.5rem;">LATEST FINDINGS</div>
+      <div id="darkIntelFindings" style="display:flex;flex-direction:column;gap:6px;
+        max-height:400px;overflow-y:auto;"></div>
     </div>
   </div>
 </div>

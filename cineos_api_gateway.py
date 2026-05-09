@@ -999,7 +999,9 @@ async def kg_ingest(request: Request):
         return {"success": False, "error": "title and hits required"}
 
     try:
-        async with pool.acquire() as conn:
+        import asyncpg as _asyncpg
+        conn = await _asyncpg.connect(DATABASE_URL)
+        if True:
             # Add content node
             content_id = hashlib.md5(f"content://{title}".encode()).hexdigest()[:16]
             await conn.execute("""
@@ -1038,7 +1040,7 @@ async def kg_ingest(request: Request):
                 INSERT INTO kg_events (event_type,title,data)
                 VALUES ('scan',$1,$2::jsonb)
             """, title, _json.dumps({"hits":len(hits),"verdict":verdict}))
-
+        await conn.close()
         return {"success": True, "ingested": len(hits)}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -1048,22 +1050,25 @@ async def kg_stats():
     """Get knowledge graph statistics."""
     import json as _json
     try:
-        async with pool.acquire() as conn:
-            total_nodes = await conn.fetchval("SELECT COUNT(*) FROM kg_nodes")
-            total_edges = await conn.fetchval("SELECT COUNT(*) FROM kg_edges")
-            total_ops = await conn.fetchval("SELECT COUNT(*) FROM kg_operators")
-            by_type = await conn.fetch(
-                "SELECT node_type, COUNT(*) as c FROM kg_nodes GROUP BY node_type")
-            recent = await conn.fetch("""
-                SELECT title, event_type, created_at,
-                       data->>'hits' as hits
-                FROM kg_events ORDER BY created_at DESC LIMIT 10
-            """)
-            top_domains = await conn.fetch("""
-                SELECT domain, hit_count, cdn, node_type
-                FROM kg_nodes WHERE node_type='piracy_url'
-                ORDER BY hit_count DESC LIMIT 10
-            """)
+        import asyncpg as _asyncpg
+        conn = await _asyncpg.connect(DATABASE_URL)
+        total_nodes = await conn.fetchval("SELECT COUNT(*) FROM kg_nodes")
+        total_edges = await conn.fetchval("SELECT COUNT(*) FROM kg_edges")
+        total_ops = await conn.fetchval("SELECT COUNT(*) FROM kg_operators")
+        by_type = await conn.fetch(
+            "SELECT node_type, COUNT(*) as c FROM kg_nodes GROUP BY node_type")
+        recent = await conn.fetch("""
+            SELECT title, event_type, created_at,
+                   data->>'hits' as hits
+            FROM kg_events ORDER BY created_at DESC LIMIT 10
+        """)
+        top_domains = await conn.fetch("""
+            SELECT domain, hit_count, cdn, node_type
+            FROM kg_nodes WHERE node_type='piracy_url'
+            ORDER BY hit_count DESC LIMIT 10
+        """)
+        await conn.close()
+        if True:
         return {
             "success": True,
             "data": {
@@ -1082,14 +1087,16 @@ async def kg_stats():
 async def kg_offenders():
     """Get repeat offender domains."""
     try:
-        async with pool.acquire() as conn:
-            rows = await conn.fetch("""
-                SELECT domain, cdn, hit_count,
-                       first_seen, last_seen
-                FROM kg_nodes
-                WHERE node_type='piracy_url'
-                ORDER BY hit_count DESC LIMIT 20
-            """)
+        import asyncpg as _asyncpg
+        conn = await _asyncpg.connect(DATABASE_URL)
+        rows = await conn.fetch("""
+            SELECT domain, cdn, hit_count,
+                   first_seen, last_seen
+            FROM kg_nodes
+            WHERE node_type='piracy_url'
+            ORDER BY hit_count DESC LIMIT 20
+        """)
+        await conn.close()
         return {
             "success": True,
             "data": [dict(r) for r in rows]

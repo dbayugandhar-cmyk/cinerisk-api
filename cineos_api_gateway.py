@@ -303,6 +303,53 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup():
+    # Initialize knowledge graph tables
+    try:
+        async with pool.acquire() as conn:
+            await conn.execute("""
+                CREATE TABLE IF NOT EXISTS kg_nodes (
+                    id TEXT PRIMARY KEY,
+                    url TEXT NOT NULL,
+                    domain TEXT,
+                    node_type TEXT,
+                    cdn TEXT,
+                    nameservers TEXT DEFAULT '[]',
+                    operator_cluster TEXT,
+                    subscriber_count INTEGER DEFAULT 0,
+                    hit_count INTEGER DEFAULT 1,
+                    first_seen TIMESTAMPTZ DEFAULT NOW(),
+                    last_seen TIMESTAMPTZ DEFAULT NOW(),
+                    metadata JSONB DEFAULT '{}'
+                );
+                CREATE TABLE IF NOT EXISTS kg_edges (
+                    id SERIAL PRIMARY KEY,
+                    from_node TEXT NOT NULL,
+                    to_node TEXT NOT NULL,
+                    relationship TEXT NOT NULL,
+                    confidence FLOAT DEFAULT 1.0,
+                    created_at TIMESTAMPTZ DEFAULT NOW(),
+                    UNIQUE(from_node, to_node, relationship)
+                );
+                CREATE TABLE IF NOT EXISTS kg_operators (
+                    id TEXT PRIMARY KEY,
+                    cdn TEXT,
+                    nameservers TEXT,
+                    domain_count INTEGER DEFAULT 1,
+                    first_seen TIMESTAMPTZ DEFAULT NOW(),
+                    last_seen TIMESTAMPTZ DEFAULT NOW(),
+                    domains JSONB DEFAULT '[]'
+                );
+                CREATE TABLE IF NOT EXISTS kg_events (
+                    id SERIAL PRIMARY KEY,
+                    event_type TEXT,
+                    title TEXT,
+                    data JSONB DEFAULT '{}',
+                    created_at TIMESTAMPTZ DEFAULT NOW()
+                );
+            """)
+            print("[KG] Knowledge graph tables ready")
+    except Exception as e:
+        print(f"[KG] Table init error: {e}")
     """Initialize database tables."""
     try:
         p = await get_pool()

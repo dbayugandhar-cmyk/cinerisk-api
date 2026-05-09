@@ -1302,6 +1302,145 @@ async def multi_source_scan(request: Request):
         }
     }
 
+@app.post("/v1/risk/seller")
+async def score_seller_risk(request: Request):
+    """
+    Score a seller for counterfeit risk.
+    Returns 0-100 risk score with evidence.
+    Enterprise API — used by Nike, HUL, Samsung etc.
+    """
+    body = await request.json()
+    seller = body.get("seller", {})
+    if not seller:
+        raise HTTPException(400, "seller object required")
+
+    from collections import namedtuple
+    import re as _re
+
+    RETAIL_PRICES = {
+        "Nike": 8000, "Adidas": 7000, "Dove": 200,
+        "Dettol": 150, "Samsung Galaxy": 20000,
+        "Apple": 50000, "Crocin": 50,
+    }
+    PLATFORM_RISK = {
+        "meesho.com": 85, "instagram.com": 80,
+        "facebook.com": 75, "olx.in": 70,
+        "indiamart.com": 55,
+    }
+    HIGH_CONF = ["first copy","first-copy","[copy]","(copy)",
+                 "master copy","aaa quality","replica"]
+    MED_CONF = ["copy","duplicate","same as original"]
+
+    score = 0
+    breakdown = {}
+    evidence = []
+
+    brand = seller.get("brand","")
+    price_str = seller.get("price","")
+    url = seller.get("url","")
+    gst = seller.get("gst","")
+    platform = seller.get("platform","") or url.split("/")[2] if url else ""
+
+    # Price gap
+    retail = RETAIL_PRICES.get(brand, 1000)
+    price_nums = _re.findall(r"[\d,]+", str(price_str))
+    price = int(price_nums[0].replace(",","")) if price_nums else 0
+
+    if price > 0 and retail > 0:
+        gap = ((retail - price) / retail) * 100
+        if gap > 90:
+            ps = 30
+            evidence.append(f"Price Rs {price:,} is {gap:.0f}% below retail Rs {retail:,}")
+        elif gap > 75: ps = 25
+        elif gap > 60: ps = 18
+        elif gap > 40: ps = 10
+        else: ps = 3
+    else:
+        ps = 8
+    score += ps
+    breakdown["price_gap"] = ps
+
+    # Signals
+    check = (url + seller.get("company","") + brand).lower()
+    if any(s in check for s in HIGH_CONF):
+        ss = 25
+        evidence.append("Explicit counterfeit admission in listing")
+    elif any(s in check for s in MED_CONF):
+        ss = 15
+        evidence.append("Counterfeit signals detected")
+    else:
+        ss = 0
+    score += ss
+    breakdown["explicit_signals"] = ss
+
+    # GST
+    if not gst:
+        gs = 8
+        evidence.append("No GST number provided")
+    elif not _re.match(r"^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$", gst.upper()):
+        gs = 20
+        evidence.append(f"Invalid GST format: {gst}")
+    else:
+        gs = 0
+    score += gs
+    breakdown["gst_invalid"] = gs
+
+    # Platform
+    ps2 = int(PLATFORM_RISK.get(platform, 50) * 0.1)
+    score += ps2
+    breakdown["platform_risk"] = ps2
+
+    score = min(100, score)
+    verdict = (
+        "CRITICAL" if score >= 75 else
+        "HIGH" if score >= 55 else
+        "MEDIUM" if score >= 35 else "LOW"
+    )
+
+    return {
+        "success": True,
+        "data": {
+            "seller": seller.get("company",""),
+            "city": seller.get("city",""),
+            "brand": brand,
+            "risk_score": score,
+            "verdict": verdict,
+            "breakdown": breakdown,
+            "evidence": evidence,
+            "recommendation": (
+                "File IP complaint immediately" if score >= 75 else
+                "Investigate and monitor" if score >= 55 else
+                "Monitor weekly"
+            )
+        }
+    }
+
+@app.post("/v1/risk/batch")
+async def score_sellers_batch(request: Request):
+    """Score multiple sellers at once. Max 50 per request."""
+    body = await request.json()
+    sellers = body.get("sellers", [])[:50]
+    if not sellers:
+        raise HTTPException(400, "sellers array required")
+
+    results = []
+    for s in sellers:
+        r = await score_seller_risk(
+            type("R", (), {"json": lambda self=s: asyncio.coroutine(lambda: s)()})()
+        )
+        results.append(r["data"])
+
+    results.sort(key=lambda x: -x["risk_score"])
+    return {
+        "success": True,
+        "data": {
+            "total": len(results),
+            "critical": len([r for r in results if r["risk_score"] >= 75]),
+            "high": len([r for r in results if 55 <= r["risk_score"] < 75]),
+            "sellers": results
+        }
+    }
+
 @app.post("/v1/evidence")
 async def generate_evidence(
     request: Request,

@@ -639,7 +639,9 @@ async def live_shield_scan(
             "TollywoodMovies", "TeluguMovies4K", "TeluguLatestMovies", "TamilMoviesFree", "TamilHDMovies", "TamilRockersNew",
             "TamilMoviesOnline", "TamilWebSeries", "KollywoodMovies", "TamilNewMovies", "TamilOTTFree", "FootballStreamFree",
             "PremierLeagueFree", "ISLFootballFree", "PKLKabaddi", "ProKabaddiFree", "FormulaOneFree", "F1StreamFree",
-            "TennisFree", "BWFBadmintonFree", "ChessOlympiadFree",
+            "TennisFree", "BWFBadmintonFree",             "ipltossmatchsessionn",
+            "cricbets",
+            "ChessOlympiadFree",
         ]
 
         PIRACY_SIGNALS = [

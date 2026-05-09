@@ -639,8 +639,9 @@ async function downloadEvidence(tab) {
           '<a href="'+h.url+'">'+h.url+'</a><br>' +
           '<small>Platform: '+h.platform+' | Detected: '+now+'</small></div>';
       }).join('') : '<p>No URLs detected.</p>') +
-      '<div class="footer">CINEOS Anti-Piracy Intelligence | cineos.in</div><script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+      '<div class="footer">CINEOS Anti-Piracy Intelligence | cineos.in</div></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 </body></html>';
     var w = window.open('','_blank','width=900,height=700');
     w.document.write(html); w.document.close();

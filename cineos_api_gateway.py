@@ -976,38 +976,54 @@ async def graph_intelligence(request: Request):
         try:
             import httpx as _httpx2
             import re as _re2
-            discovery_queries = [
-                f"telegram channel {event_name} cricket stream free 2026",
-                f"t.me {event_name} live stream free cricket channel",
-                f"telegram {event_name} piracy stream channel link",
-            ]
-            async with _httpx2.AsyncClient(timeout=8) as _dc:
-                for dq in discovery_queries[:2]:
+            # Multi-strategy discovery
+            async with _httpx2.AsyncClient(timeout=8,
+                headers={"User-Agent":"Mozilla/5.0"},
+                follow_redirects=True) as _dc:
+                
+                new_channels = set()
+                
+                # Strategy 1 — Cross-reference from known active channels
+                seed_channels = ["IPL_L","RealCricPoint","CricketStreamsLive"]
+                for seed in seed_channels:
                     try:
-                        dr = await _dc.get(
-                            "https://serpapi.com/search",
-                            params={"q":dq,"api_key":SERP_KEY,"num":5,"engine":"google"}
-                        )
-                        for res in dr.json().get("organic_results",[]):
-                            combined = res.get("link","") + " " + res.get("snippet","")
-                            tg_matches = _re2.findall(r't\.me/(\w{4,30})', combined)
-                            for ch in tg_matches:
-                                if ch not in seen_channels and ch not in ['s','share','msg']:
-                                    seen_channels.add(ch)
-                                    streams.append({
-                                        "channel": ch,
-                                        "channel_url": f"https://t.me/{ch}",
-                                        "language": "Unknown",
-                                        "subscriber_count": 0,
-                                        "is_betting": False,
-                                        "stream_signals": ["discovered"],
-                                        "severity": "MEDIUM",
-                                        "confidence": 0.3,
-                                        "discovered": True,
-                                    })
-                                    print(f"[LS] Discovered new channel: @{ch}")
-                    except:
-                        pass
+                        sr = await _dc.get(f"https://t.me/s/{seed}")
+                        if sr.status_code == 200:
+                            found = _re2.findall(
+                                r't\.me/([a-zA-Z][a-zA-Z0-9_]{3,30})', sr.text)
+                            for ch in found:
+                                if ch not in seen_channels and ch not in [seed,'s','share','joinchat']:
+                                    new_channels.add(ch)
+                    except: pass
+                
+                # Strategy 2 — Google site:t.me
+                try:
+                    gr = await _dc.get("https://serpapi.com/search", params={
+                        "q": f"site:t.me {event_name} cricket stream free",
+                        "api_key": SERP_KEY, "num": 10, "engine": "google"
+                    })
+                    for res in gr.json().get("organic_results",[]):
+                        link = res.get("link","")
+                        m = _re2.search(r't\.me/([a-zA-Z][a-zA-Z0-9_]{3,30})', link)
+                        if m and m.group(1) not in seen_channels:
+                            new_channels.add(m.group(1))
+                except: pass
+                
+                # Add discovered channels
+                for ch in list(new_channels)[:10]:
+                    seen_channels.add(ch)
+                    streams.append({
+                        "channel": ch,
+                        "channel_url": f"https://t.me/{ch}",
+                        "language": "Unknown",
+                        "subscriber_count": 0,
+                        "is_betting": False,
+                        "stream_signals": ["auto-discovered"],
+                        "severity": "MEDIUM",
+                        "confidence": 0.4,
+                        "discovered": True,
+                    })
+                    print(f"[LS] Discovered: @{ch}")
         except:
             pass
 

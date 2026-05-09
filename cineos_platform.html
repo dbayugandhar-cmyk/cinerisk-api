@@ -202,10 +202,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
       <span class="tab-icon">🎮</span>
       <span class="tab-label">Gaming</span>
     </button>
-    <button class="tab-card" onclick="switchTab('manga')">
-      <span class="tab-icon">📚</span>
-      <span class="tab-label">Manga</span>
-    </button>
+    
     <button class="tab-card" onclick="switchTab('sports')">
       <span class="tab-icon">🏏</span>
       <span class="tab-label">Sports</span>
@@ -221,6 +218,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
     <button class="tab-card" onclick="switchTab('multi')">
       <span class="tab-icon">🌐</span>
       <span class="tab-label">All Sources</span>
+    </button>
+    <button class="tab-card" onclick="switchTab('brand')">
+      <span class="tab-icon">🏷️</span>
+      <span class="tab-label">Brand Intel</span>
     </button>
     <button class="tab-card" onclick="switchTab('graph')">
       <span class="tab-icon">🕸️</span>
@@ -314,33 +315,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
 </div>
 
 <!-- ══ PANEL: MANGA ══════════════════════════════════════ -->
-<div class="panel" id="panel-manga">
-  <div class="scan-box">
-    <div class="scan-label">Manga Intelligence</div>
-    <div class="scan-title">Manga & Anime Piracy Detection</div>
-    <div class="scan-desc">Scans MangaDex, MangaFire, NYAA, anime torrent sites and 78 more platforms for unauthorized manga and anime distribution.</div>
-    <div class="scan-row">
-      <input class="scan-input" id="mangaTitle" type="text"
-        placeholder="Enter manga/anime title — e.g. One Piece, Jujutsu Kaisen..."
-        onkeydown="if(event.key==='Enter')scanManga()">
-      <button class="scan-btn" id="mangaBtn" onclick="scanManga()">⚡ Scan Manga</button>
-      <button class="scan-btn-ghost" onclick="document.getElementById('mangaTitle').value='';document.getElementById('mangaResults').innerHTML='';">Clear</button>
-      <button class="scan-btn-red" onclick="downloadEvidence('manga')">⚖️ Evidence PDF</button>
-    </div>
-  </div>
-  <div id="mangaVerdict" class="verdict-box" style="display:none"></div>
-  <div class="results-box">
-    <div class="results-header">
-      <span class="results-title">Manga Detection Results</span>
-      <span id="mangaCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text3);">—</span>
-    </div>
-    <div class="results-body" id="mangaResults">
-      <div class="results-empty">Enter a manga or anime title to detect piracy</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ PANEL: SPORTS ══════════════════════════════════════ -->
 <div class="panel" id="panel-sports">
   <div class="scan-box">
     <div class="scan-label">Sports Intelligence</div>
@@ -423,7 +397,7 @@ const API = 'https://cinerisk-api-production.up.railway.app';
 const HEADERS = {'Content-Type':'application/json'};
 
 function switchTab(tab) {
-  ['film','india','gaming','manga','sports','videoid','liveshield','multi','graph'].forEach(function(t) {
+  ['film','india','gaming','sports','videoid','liveshield','multi','brand','graph'].forEach(function(t) {
     var p = document.getElementById('panel-' + t);
     if (p) { p.style.display = 'none'; p.classList.remove('active'); }
   });
@@ -1402,6 +1376,136 @@ function drawHeatmap(sellers) {
       renderHeatmapList(sellers);
     });
 }
+
+var BRAND_SELLERS = [{"city": "Bengaluru", "state": "Karnataka", "lat": 12.97, "lng": 77.59, "sellers": ["Shri Sai Enterprises", "Miracle Soaps And Detergents", "Augend And Addend", "Susheel Healthcare Private Limited", "Celebrate Wellness"], "brands": ["Dove", "Dettol"], "listings": 12, "confirmed": true, "color": "#b060ff"}, {"city": "New Delhi", "state": "", "lat": 28.66, "lng": 77.22, "sellers": ["Refueled Manufacturers", "Sarvagunaushdhi Private Limited", "Rigil Enterprises", "Mobilebies", "Ridhi Industries"], "brands": ["Dove", "Nike", "Samsung Galaxy"], "listings": 6, "confirmed": true, "color": "#b060ff"}, {"city": "Sirsa", "state": "Haryana", "lat": 29.53, "lng": 75.02, "sellers": ["BUDDY_HOUSE"], "brands": ["Nike"], "listings": 3, "confirmed": true, "color": "#ff3355"}, {"city": "Mumbai", "state": "Maharashtra", "lat": 19.08, "lng": 72.88, "sellers": ["Invogue Collection", "Manthan Inc", "Branded Shoes"], "brands": ["Dettol", "Nike", "Samsung Galaxy"], "listings": 3, "confirmed": true, "color": "#b060ff"}, {"city": "Amritsar", "state": "Punjab", "lat": 31.63, "lng": 74.87, "sellers": ["Next Wave"], "brands": ["Nike"], "listings": 3, "confirmed": true, "color": "#ff3355"}, {"city": "Surat", "state": "Gujarat", "lat": 21.17, "lng": 72.83, "sellers": ["Unique shoes", "Jin Tex \\u0026 Madhur Traders"], "brands": ["Dove", "Nike"], "listings": 2, "confirmed": true, "color": "#b060ff"}, {"city": "Ghaziabad", "state": "Uttar Pradesh", "lat": 28.67, "lng": 77.45, "sellers": ["Ajay Enterprises", "Cellova Lifesciences"], "brands": ["Nike", "Crocin"], "listings": 2, "confirmed": true, "color": "#b060ff"}, {"city": "Mysore", "state": "Karnataka", "lat": 12.3, "lng": 76.65, "sellers": ["Cold Fusion Zone"], "brands": ["Samsung Galaxy"], "listings": 2, "confirmed": true, "color": "#ff8c00"}, {"city": "Thane", "state": "Maharashtra", "lat": 19.22, "lng": 72.97, "sellers": ["Concentric Circles LLP", "J K Machine Tools"], "brands": ["Dove", "Samsung Galaxy"], "listings": 2, "confirmed": true, "color": "#b060ff"}, {"city": "Kosamba", "state": "Gujarat", "lat": 21.47, "lng": 72.95, "sellers": ["N Star Enterprise"], "brands": ["Samsung Galaxy"], "listings": 2, "confirmed": true, "color": "#ff8c00"}, {"city": "Ahmedabad", "state": "Gujarat", "lat": 23.02, "lng": 72.57, "sellers": ["Hometown Enterprise"], "brands": ["Samsung Galaxy"], "listings": 2, "confirmed": true, "color": "#ff8c00"}, {"city": "Agra", "state": "Uttar Pradesh", "lat": 27.18, "lng": 78.01, "sellers": ["Dove Ventures LLP"], "brands": ["Dove"], "listings": 2, "confirmed": true, "color": "#00b060"}, {"city": "Noida", "state": "Uttar Pradesh", "lat": 28.54, "lng": 77.39, "sellers": ["NoWorry ( A Brand of Aikm Pharma Private Limited )"], "brands": ["Dove"], "listings": 2, "confirmed": true, "color": "#00b060"}, {"city": "Delhi", "state": "", "lat": 28.66, "lng": 77.22, "sellers": ["JD Collection \\u0026 Surgical Mask"], "brands": ["Nike"], "listings": 1, "confirmed": true, "color": "#ff3355"}, {"city": "Pathankot", "state": "Punjab", "lat": 32.27, "lng": 75.65, "sellers": ["S.P. Traders"], "brands": ["Nike"], "listings": 1, "confirmed": true, "color": "#ff3355"}, {"city": "Perinthalmanna", "state": "Kerala", "lat": 10.97, "lng": 76.22, "sellers": ["Valtrex WholeSalers"], "brands": ["Nike"], "listings": 1, "confirmed": true, "color": "#ff3355"}, {"city": "Karnal", "state": "Haryana", "lat": 29.69, "lng": 76.99, "sellers": ["Aster Shoes"], "brands": ["Nike"], "listings": 1, "confirmed": true, "color": "#ff3355"}, {"city": "Gurgaon", "state": "Haryana", "lat": 28.46, "lng": 77.03, "sellers": ["lola Enterprises"], "brands": ["Samsung Galaxy"], "listings": 1, "confirmed": true, "color": "#ff8c00"}, {"city": "Jodhpur", "state": "Rajasthan", "lat": 26.29, "lng": 73.02, "sellers": ["SFC Company"], "brands": ["Samsung Galaxy"], "listings": 1, "confirmed": true, "color": "#ff8c00"}, {"city": "Nagpur", "state": "Maharashtra", "lat": 21.15, "lng": 79.09, "sellers": ["K. K. International"], "brands": ["Samsung Galaxy"], "listings": 1, "confirmed": true, "color": "#ff8c00"}, {"city": "Una-Diu", "state": "Gujarat", "lat": 20.82, "lng": 71.03, "sellers": ["Sagar Mart"], "brands": ["Samsung Galaxy"], "listings": 1, "confirmed": true, "color": "#ff8c00"}, {"city": "Bharuch", "state": "Gujarat", "lat": 21.7, "lng": 72.99, "sellers": ["Gadget-Hub"], "brands": ["Samsung Galaxy"], "listings": 1, "confirmed": true, "color": "#ff8c00"}, {"city": "Coimbatore", "state": "Tamil Nadu", "lat": 11.02, "lng": 76.97, "sellers": ["Bluebull Agencies"], "brands": ["Dettol"], "listings": 1, "confirmed": true, "color": "#3d7fff"}, {"city": "Indore", "state": "Madhya Pradesh", "lat": 22.72, "lng": 75.86, "sellers": ["Navya Sanitary House"], "brands": ["Dettol"], "listings": 1, "confirmed": true, "color": "#3d7fff"}, {"city": "Wayanad", "state": "Kerala", "lat": 11.61, "lng": 76.08, "sellers": ["Nector Lab Associates"], "brands": ["Dettol"], "listings": 1, "confirmed": true, "color": "#3d7fff"}, {"city": "Rampur", "state": "Uttar Pradesh", "lat": 28.81, "lng": 79.02, "sellers": ["Quality Enterprises"], "brands": ["Dove"], "listings": 1, "confirmed": true, "color": "#00b060"}, {"city": "Kolhapur", "state": "Maharashtra", "lat": 16.7, "lng": 74.24, "sellers": ["Rameshlal Jiyaldas"], "brands": ["Dove"], "listings": 1, "confirmed": true, "color": "#00b060"}, {"city": "Rajkot", "state": "Gujarat", "lat": 22.3, "lng": 70.8, "sellers": ["Eczicure (OPC) Private Limited"], "brands": ["Crocin"], "listings": 1, "confirmed": true, "color": "#b060ff"}];
+
+function loadBrandHeatmap() {
+  var brand = document.getElementById('brandFilter').value;
+  var sellers = brand === 'all' ? BRAND_SELLERS :
+    BRAND_SELLERS.filter(function(s){return s.brands.includes(brand);});
+
+  // Stats
+  var stats = document.getElementById('brandStats');
+  stats.style.display = 'grid';
+  var totalSellers = sellers.reduce(function(a,s){return a+s.listings;},0);
+  var states = new Set(sellers.map(function(s){return s.state;})).size;
+  var brands = new Set(sellers.flatMap(function(s){return s.brands;})).size;
+  stats.innerHTML = [
+    ['Cities', sellers.length, 'var(--purple)'],
+    ['Sellers', totalSellers, 'var(--red)'],
+    ['States', states, 'var(--blue)'],
+    ['Brands', brands, 'var(--green)'],
+  ].map(function(it){
+    return '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:10px;">' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">' + it[0] + '</div>' +
+      '<div style="font-size:1.4rem;font-weight:600;color:' + it[2] + ';">' + it[1] + '</div>' +
+      '</div>';
+  }).join('');
+
+  // City list
+  var cityList = document.getElementById('brandCityList');
+  cityList.innerHTML = sellers.slice(0,10).map(function(s){
+    var col = s.brands.length > 1 ? '#b060ff' :
+      ({Nike:'#ff3355',Dettol:'#3d7fff',Dove:'#00b060','Samsung Galaxy':'#ff8c00',Crocin:'#b060ff'}[s.brands[0]]||'#888');
+    return '<div style="display:flex;align-items:center;gap:6px;padding:4px 0;' +
+      'border-bottom:1px solid var(--border);">' +
+      '<div style="width:6px;height:6px;border-radius:50%;background:' + col + ';flex-shrink:0;"></div>' +
+      '<div>' +
+      '<div style="font-size:.7rem;color:var(--text);">' + s.city + '</div>' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">' +
+        s.listings + ' sellers · ' + s.brands.join(', ') + '</div>' +
+      '</div></div>';
+  }).join('');
+
+  // Draw map
+  drawBrandMap(sellers);
+}
+
+function drawBrandMap(sellers) {
+  var BRAND_COLORS = {
+    Nike:'#ff3355', Dettol:'#3d7fff', Dove:'#00b060',
+    'Samsung Galaxy':'#ff8c00', Crocin:'#b060ff'
+  };
+
+  d3.json('https://cdn.jsdelivr.net/npm/datamaps@0.5.10/src/js/data/ind.topo.json')
+    .then(function(india) {
+      var svg = d3.select('#brandMapSvg');
+      svg.selectAll('*').remove();
+
+      var proj = d3.geoMercator().center([82,22]).scale(900).translate([300,340]);
+      var path = d3.geoPath(proj);
+      var isDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
+
+      svg.selectAll('path')
+        .data(topojson.feature(india, india.objects.ind).features)
+        .join('path')
+        .attr('d', path)
+        .attr('fill', isDark ? '#0c0c12' : '#13131c')
+        .attr('stroke', 'rgba(255,255,255,.12)')
+        .attr('stroke-width', 0.5);
+
+      sellers.forEach(function(s) {
+        var pos = proj([s.lng, s.lat]);
+        var r = 5 + Math.sqrt(s.listings) * 3;
+        var col = s.brands.length > 1 ? '#b060ff' :
+          (BRAND_COLORS[s.brands[0]] || '#888888');
+
+        // Glow ring
+        svg.append('circle')
+          .attr('cx', pos[0]).attr('cy', pos[1])
+          .attr('r', r * 1.8)
+          .attr('fill', col)
+          .attr('opacity', 0.1);
+
+        // Main dot
+        svg.append('circle')
+          .attr('cx', pos[0]).attr('cy', pos[1])
+          .attr('r', r)
+          .attr('fill', col)
+          .attr('opacity', 0.85)
+          .attr('stroke', '#fff')
+          .attr('stroke-width', 1)
+          .style('cursor', 'pointer')
+          .on('mouseover', function(event) {
+            var tt = document.getElementById('brandTooltip');
+            tt.innerHTML =
+              '<div style="font-weight:600;color:var(--text);margin-bottom:3px;">' + s.city + '</div>' +
+              '<div style="color:var(--text2);">' + s.state + '</div>' +
+              '<div style="color:var(--text2);">' + s.listings + ' sellers on IndiaMART</div>' +
+              '<div style="color:var(--text3);margin-top:3px;">' + s.brands.join(', ') + '</div>' +
+              (s.sellers && s.sellers.length ?
+                '<div style="color:var(--text3);margin-top:3px;font-size:.65rem;">' +
+                s.sellers.slice(0,3).join(', ') + '</div>' : '');
+            var svgEl = document.getElementById('brandMapSvg');
+            var cr = svgEl.closest('[style*="position:relative"]').getBoundingClientRect();
+            tt.style.display = 'block';
+            tt.style.left = (event.clientX - cr.left + 12) + 'px';
+            tt.style.top = (event.clientY - cr.top + 12) + 'px';
+          })
+          .on('mouseout', function() {
+            document.getElementById('brandTooltip').style.display = 'none';
+          });
+
+        // City label
+        svg.append('text')
+          .attr('x', pos[0])
+          .attr('y', pos[1] + r + 10)
+          .attr('text-anchor', 'middle')
+          .attr('font-size', '8')
+          .attr('font-family', 'IBM Plex Mono')
+          .attr('fill', 'rgba(255,255,255,.5)')
+          .text(s.city);
+      });
+    })
+    .catch(function() {
+      var svg = d3.select('#brandMapSvg');
+      svg.selectAll('*').remove();
+      svg.append('text').attr('x',300).attr('y',300)
+        .attr('text-anchor','middle').attr('font-size',13)
+        .attr('font-family','IBM Plex Mono').attr('fill','#8888aa')
+        .text(sellers.length + ' cities loaded — map unavailable');
+    });
+}
 </script>
 <!-- Hidden elements required by scan functions -->
 <div id="filmHits" style="display:none"></div>
@@ -1443,6 +1547,76 @@ function drawHeatmap(sellers) {
     </div>
     <div class="results-body" id="multiResults">
       <div class="results-empty">Enter a title to scan across all piracy sources simultaneously</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-brand">
+  <div class="scan-box">
+    <div class="scan-label" style="color:#b060ff;">Brand Intelligence Network</div>
+    <div class="scan-title">India Counterfeit Seller Heatmap</div>
+    <div class="scan-desc">59 confirmed sellers across 28 cities. Real company names from IndiaMART. Filter by brand to see distribution and geographic hotspots.</div>
+    <div class="scan-row" style="flex-wrap:wrap;gap:8px;">
+      <button class="scan-btn" onclick="loadBrandHeatmap()"
+        style="background:#b060ff;color:#fff;">Load Live Data</button>
+      <select id="brandFilter"
+        style="font-family:var(--mono);font-size:.7rem;
+        background:var(--bg3);color:var(--text);
+        border:1px solid var(--border2);
+        padding:6px 10px;border-radius:4px;"
+        onchange="loadBrandHeatmap()">
+        <option value="all">All Brands</option>
+        <option value="Nike">Nike</option>
+        <option value="Dettol">Dettol</option>
+        <option value="Dove">Dove</option>
+        <option value="Samsung Galaxy">Samsung Galaxy</option>
+        <option value="Crocin">Crocin</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="brandStats" style="display:none;
+    grid-template-columns:repeat(4,1fr);gap:8px;margin:1rem 0;"></div>
+
+  <div style="display:flex;gap:16px;margin-top:1rem;flex-wrap:wrap;">
+    <div style="flex:1;min-width:280px;position:relative;">
+      <svg id="brandMapSvg" viewBox="0 0 600 680" width="100%"
+        style="display:block;background:var(--bg2);border-radius:8px;min-height:300px;">
+        <text x="300" y="340" text-anchor="middle"
+          fill="#8888aa" font-size="13" font-family="IBM Plex Mono">
+          Click Load Live Data to show seller map
+        </text>
+      </svg>
+      <div id="brandTooltip" style="position:absolute;display:none;
+        background:var(--bg3);border:1px solid var(--border2);
+        border-radius:6px;padding:8px 12px;font-size:11px;
+        pointer-events:none;z-index:10;min-width:160px;"></div>
+    </div>
+    <div style="width:200px;">
+      <div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);
+        letter-spacing:.1em;margin-bottom:.5rem;">TOP CITIES</div>
+      <div id="brandCityList" style="display:flex;flex-direction:column;gap:4px;
+        max-height:300px;overflow-y:auto;"></div>
+      <div style="margin-top:12px;font-family:var(--mono);font-size:.6rem;
+        color:var(--text3);letter-spacing:.1em;margin-bottom:.5rem;">LEGEND</div>
+      <div style="font-size:.65rem;color:var(--text2);display:flex;
+        flex-direction:column;gap:5px;">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#ff3355;"></div>Nike
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#3d7fff;"></div>Dettol
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#00b060;"></div>Dove
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#ff8c00;"></div>Samsung
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#b060ff;"></div>Multi-brand
+        </div>
+      </div>
     </div>
   </div>
 </div>

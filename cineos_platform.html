@@ -520,6 +520,12 @@ async function scanFilm() {
     setVerdict('filmVerdict', d.verdict || (hits.length ? 'CONFIRMED' : 'CLEAN'));
     document.getElementById('filmCount').textContent = hits.length + ' URLs found';
     document.getElementById('filmResults').innerHTML = renderHits(hits);
+    // Auto-ingest to knowledge graph
+    if (hits.length > 0) {
+      fetch(API + '/v1/kg/ingest', {method:'POST',headers:HEADERS,
+        body:JSON.stringify({title:film,category:'film',
+          verdict:d.verdict||'CONFIRMED',hits:hits})}).catch(()=>{});
+    }
   } catch(e) {
     document.getElementById('filmResults').innerHTML = '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
   }
@@ -539,6 +545,11 @@ async function scanIndia() {
     setVerdict('indiaVerdict', data.verdict || (hits.length ? 'CONFIRMED' : 'CLEAN'));
     document.getElementById('indiaCount').textContent = hits.length + ' URLs found';
     document.getElementById('indiaResults').innerHTML = renderHits(hits);
+    if (hits.length > 0) {
+      fetch(API + '/v1/kg/ingest', {method:'POST',headers:HEADERS,
+        body:JSON.stringify({title:film,category:'india',
+          verdict:data.verdict||'CONFIRMED',hits:hits})}).catch(()=>{});
+    }
   } catch(e) {
     document.getElementById('indiaResults').innerHTML = '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
   }

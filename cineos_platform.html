@@ -639,7 +639,60 @@ async function downloadEvidence(tab) {
           '<a href="'+h.url+'">'+h.url+'</a><br>' +
           '<small>Platform: '+h.platform+' | Detected: '+now+'</small></div>';
       }).join('') : '<p>No URLs detected.</p>') +
-      '<div class="footer">CINEOS Anti-Piracy Intelligence | cineos.in</div></script>
+      '<div class="footer">CINEOS Anti-Piracy Intelligence | cineos.in</div>
+
+async function downloadEvidence(tab) {
+  var inputs = {film:'filmInput',india:'indiaFilm',gaming:'gameTitle',
+                sports:'sportEvent',liveshield:'liveEvent',multi:'multiTitle'};
+  var el = document.getElementById(inputs[tab] || 'filmInput');
+  var title = el ? el.value.trim() : '';
+  if (!title) { alert('Enter a title first'); return; }
+  var btn = event.target;
+  var orig = btn.textContent;
+  btn.textContent = 'Generating...'; btn.disabled = true;
+  try {
+    var r = await fetch(API + '/v1/evidence', {
+      method:'POST',headers:HEADERS,
+      body:JSON.stringify({film_title:title})
+    });
+    var d = await r.json();
+    if (!d.success) throw new Error(d.error || 'Failed');
+    var hits = d.hits || [];
+    var now = new Date().toUTCString();
+    var html = '<!DOCTYPE html><html><head><title>CINEOS Evidence - ' + title + '</title>' +
+      '<style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;}' +
+      'h1{color:#007744;}' +
+      '.hit{background:#fff5f5;border:1px solid #ffcccc;padding:10px;margin:8px 0;border-radius:4px;}' +
+      '.footer{margin-top:40px;padding-top:10px;border-top:1px solid #ccc;font-size:12px;color:#777;}' +
+      '</style></head><body>' +
+      '<h1>CINEOS Evidence Package</h1>' +
+      '<p><strong>Content:</strong> ' + title + '</p>' +
+      '<p><strong>Generated:</strong> ' + now + '</p>' +
+      '<p><strong>Patent:</strong> US Provisional Patent 64/049,190</p>' +
+      '<h2>Infringing URLs (' + hits.length + ' found)</h2>' +
+      (hits.length ? hits.map(function(h,i){
+        return '<div class=\'hit\'><strong>URL #'+(i+1)+'</strong><br>' +
+          '<a href=\''+h.url+'\'>'+h.url+'</a><br>' +
+          '<small>Platform: '+h.platform+' | Detected: '+now+'</small></div>';
+      }).join('') : '<p>No URLs detected.</p>') +
+      '<div class=\'footer\'>CINEOS Anti-Piracy Intelligence | cineos.in</div>' +
+      '</body></html>';
+    var w = window.open('','_blank','width=900,height=700');
+    w.document.write(html); w.document.close();
+    setTimeout(function(){w.print();}, 800);
+  } catch(e) { alert('Error: ' + e.message); }
+  btn.textContent = orig; btn.disabled = false;
+}
+
+function fileMIB(tab) {
+  var inputs = {film:'filmInput',india:'indiaFilm',gaming:'gameTitle',
+                sports:'sportEvent',liveshield:'liveEvent'};
+  var title = document.getElementById(inputs[tab]||'filmInput').value.trim()||'Unknown Title';
+  var subj = encodeURIComponent('Piracy Report: ' + title + ' - CINEOS Intelligence');
+  var body = encodeURIComponent('Dear Nodal Officer, I am reporting active piracy of "' + title + '" detected by CINEOS (US Patent 64/049,190). Legal basis: Copyright Act 1957 S.51. Evidence: cineos.in/cineos_platform.html. Regards, Yugandhar, CINEOS.');
+  window.open('https://mail.google.com/mail/?view=cm&to=nodalofficer@meity.gov.in&su='+subj+'&body='+body,'_blank');
+}
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 </body></html>';

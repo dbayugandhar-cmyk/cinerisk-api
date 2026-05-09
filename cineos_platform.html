@@ -218,6 +218,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
       <span class="tab-icon">🛡️</span>
       <span class="tab-label">Live Shield</span>
     </button>
+    <button class="tab-card" onclick="switchTab('multi')">
+      <span class="tab-icon">🌐</span>
+      <span class="tab-label">All Sources</span>
+    </button>
     <button class="tab-card" onclick="switchTab('graph')">
       <span class="tab-icon">🕸️</span>
       <span class="tab-label">Graph</span>
@@ -419,7 +423,7 @@ const API = 'https://cinerisk-api-production.up.railway.app';
 const HEADERS = {'Content-Type':'application/json'};
 
 function switchTab(tab) {
-  ['film','india','gaming','manga','sports','videoid','liveshield','graph'].forEach(function(t) {
+  ['film','india','gaming','manga','sports','videoid','liveshield','multi','graph'].forEach(function(t) {
     var p = document.getElementById('panel-' + t);
     if (p) { p.style.display = 'none'; p.classList.remove('active'); }
   });
@@ -676,6 +680,66 @@ function fileMIB(tab) {
   var body = encodeURIComponent('Dear Nodal Officer, I am reporting active piracy of "' + title + '" detected by CINEOS (US Patent 64/049,190). Legal basis: Copyright Act 1957 S.51. Evidence: cineos.in/cineos_platform.html. Regards, Yugandhar, CINEOS.');
   window.open('https://mail.google.com/mail/?view=cm&to=nodalofficer@meity.gov.in&su='+subj+'&body='+body,'_blank');
 }
+
+async function scanMulti() {
+  var title = document.getElementById('multiTitle').value.trim();
+  if (!title) return;
+  setBtn('multiBtn', true);
+  document.getElementById('multiResults').innerHTML =
+    '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning all sources for "' + title + '"...</div>';
+  try {
+    var r = await fetch(API + '/v1/multiscan', {
+      method:'POST', headers:HEADERS,
+      body:JSON.stringify({title:title})
+    });
+    var d = await r.json();
+    var data = d.data || d;
+    var sources = data.sources || {};
+    var total = data.total_sources || 0;
+
+    setVerdict('multiVerdict', total > 0 ? 'CONFIRMED - ' + total + ' sources detected' : 'CLEAN');
+    document.getElementById('multiCount').textContent = total + ' results';
+
+    var html = '';
+    var labels = {
+      piracy:'🏴‍☠️ Piracy Sites', youtube:'📺 YouTube',
+      reddit:'💬 Reddit', iptv:'📡 IPTV', discord:'🎮 Discord'
+    };
+    var colors = {
+      piracy:'var(--red)', youtube:'#ff0000',
+      reddit:'#ff4500', iptv:'var(--orange)', discord:'#5865f2'
+    };
+
+    for (var src in sources) {
+      var items = sources[src];
+      if (!items || !items.length) continue;
+      html += '<div style="margin-bottom:1rem;">';
+      html += '<div style="font-family:var(--mono);font-size:.65rem;color:' +
+        (colors[src]||'var(--text2)') + ';letter-spacing:.1em;text-transform:uppercase;' +
+        'margin-bottom:.5rem;">' + (labels[src]||src) + ' — ' + items.length + ' found</div>';
+      items.slice(0,5).forEach(function(item) {
+        var url = item.url || item;
+        var title2 = item.title || '';
+        html += '<div class="hit-row">' +
+          '<a href="' + url + '" target="_blank" class="hit-url" style="color:' +
+          (colors[src]||'var(--green)') + '">' + url.substring(0,65) + '</a>' +
+          (title2 ? '<span class="hit-tag" style="background:rgba(255,255,255,.04);' +
+          'color:var(--text2);border:1px solid var(--border2);max-width:150px;' +
+          'overflow:hidden;text-overflow:ellipsis;">' + title2.substring(0,30) + '</span>' : '') +
+          '</div>';
+      });
+      html += '</div>';
+    }
+
+    document.getElementById('multiResults').innerHTML = html ||
+      '<div class="results-empty" style="color:var(--green)">No piracy detected across all sources</div>';
+
+  } catch(e) {
+    document.getElementById('multiResults').innerHTML =
+      '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
+  }
+  setBtn('multiBtn', false);
+}
 </script>
 <!-- Hidden elements required by scan functions -->
 <div id="filmHits" style="display:none"></div>
@@ -693,6 +757,33 @@ function fileMIB(tab) {
 <div id="sportsCount" style="display:none"></div>
 <div id="liveCount" style="display:none"></div>
 <!-- CINEOS Graph Intelligence Panel -->
+
+<div class="panel" id="panel-multi">
+  <div class="scan-box">
+    <div class="scan-label" style="color:#ff8c00;">Multi-Source Intelligence</div>
+    <div class="scan-title">All Sources — Piracy Sites + YouTube + Reddit + IPTV</div>
+    <div class="scan-desc">Scans piracy websites, YouTube uploads, Reddit posts, IPTV playlists and public Discord servers simultaneously. Full intelligence picture in one scan.</div>
+    <div class="scan-row">
+      <input class="scan-input" id="multiTitle" type="text"
+        placeholder="Enter title — e.g. Dacoit, Biker, Aadu 3..."
+        onkeydown="if(event.key==='Enter')scanMulti()">
+      <button class="scan-btn" id="multiBtn" onclick="scanMulti()"
+        style="background:#ff8c00;color:#000;">🌐 Full Scan</button>
+      <button class="scan-btn-ghost" onclick="document.getElementById('multiTitle').value='';document.getElementById('multiResults').innerHTML='';">Clear</button>
+      <button class="scan-btn-red" onclick="downloadEvidence('multi')">⚖️ Evidence PDF</button>
+    </div>
+  </div>
+  <div id="multiVerdict" class="verdict-box" style="display:none"></div>
+  <div class="results-box">
+    <div class="results-header">
+      <span class="results-title">Multi-Source Results</span>
+      <span id="multiCount" style="font-family:var(--mono);font-size:.65rem;color:var(--text3)">—</span>
+    </div>
+    <div class="results-body" id="multiResults">
+      <div class="results-empty">Enter a title to scan across all piracy sources simultaneously</div>
+    </div>
+  </div>
+</div>
 
 <div class="panel" id="panel-graph">
   <div class="scan-box">

@@ -1068,7 +1068,6 @@ async def kg_stats():
             ORDER BY hit_count DESC LIMIT 10
         """)
         await conn.close()
-        if True:
         return {
             "success": True,
             "data": {

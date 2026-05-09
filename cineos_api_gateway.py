@@ -977,8 +977,9 @@ async def graph_intelligence(request: Request):
             import httpx as _httpx2
             import re as _re2
             discovery_queries = [
-                f"telegram.me {event_name} cricket IPL free stream",
-                f"t.me cricket piracy channel free live stream",
+                f"telegram channel {event_name} cricket stream free 2026",
+                f"t.me {event_name} live stream free cricket channel",
+                f"telegram {event_name} piracy stream channel link",
             ]
             async with _httpx2.AsyncClient(timeout=8) as _dc:
                 for dq in discovery_queries[:2]:

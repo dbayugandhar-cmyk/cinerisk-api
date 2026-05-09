@@ -970,6 +970,46 @@ async def graph_intelligence(request: Request):
                 "parent": None
             })
 
+    # ── DYNAMIC CHANNEL DISCOVERY ────────────────────────
+    # Search Google for new piracy Telegram channels
+    if SERP_KEY and len(streams) < 150:
+        try:
+            import httpx as _httpx2
+            import re as _re2
+            discovery_queries = [
+                f"telegram.me {event_name} cricket IPL free stream",
+                f"t.me cricket piracy channel free live stream",
+            ]
+            async with _httpx2.AsyncClient(timeout=8) as _dc:
+                for dq in discovery_queries[:2]:
+                    try:
+                        dr = await _dc.get(
+                            "https://serpapi.com/search",
+                            params={"q":dq,"api_key":SERP_KEY,"num":5,"engine":"google"}
+                        )
+                        for res in dr.json().get("organic_results",[]):
+                            combined = res.get("link","") + " " + res.get("snippet","")
+                            tg_matches = _re2.findall(r't\.me/(\w{4,30})', combined)
+                            for ch in tg_matches:
+                                if ch not in seen_channels and ch not in ['s','share','msg']:
+                                    seen_channels.add(ch)
+                                    streams.append({
+                                        "channel": ch,
+                                        "channel_url": f"https://t.me/{ch}",
+                                        "language": "Unknown",
+                                        "subscriber_count": 0,
+                                        "is_betting": False,
+                                        "stream_signals": ["discovered"],
+                                        "severity": "MEDIUM",
+                                        "confidence": 0.3,
+                                        "discovered": True,
+                                    })
+                                    print(f"[LS] Discovered new channel: @{ch}")
+                    except:
+                        pass
+        except:
+            pass
+
     elapsed = round(time.time() - start, 2)
     return {
         "success": True,

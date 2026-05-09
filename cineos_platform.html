@@ -453,7 +453,8 @@ var FRAUD_TYPE_LABELS = {
 
 function scanFraud() {
   var type = document.getElementById('fraudType').value;
-  setBtn('fraudBtn', true);
+  var fraudBtnEl = document.getElementById('fraudBtn');
+  if (fraudBtnEl) { fraudBtnEl.textContent = 'Scanning...'; fraudBtnEl.disabled = true; }
 
   var channels = type === 'all' ? FRAUD_DATA.channels :
     FRAUD_DATA.channels.filter(function(c){return c.type === type;});
@@ -463,9 +464,13 @@ function scanFraud() {
   var totalReach = channels.reduce(function(a,c){return a+c.subscribers;},0);
   var critical = channels.filter(function(c){return c.severity==='CRITICAL';}).length;
 
-  setVerdict('fraudVerdict',
-    critical > 0 ? 'CRITICAL - ' + critical + ' illegal channels, ' + totalReach.toLocaleString() + ' subscribers' :
-    channels.length > 0 ? 'CONFIRMED - ' + channels.length + ' fraud channels detected' : 'CLEAN');
+  var vd = document.getElementById('fraudVerdict');
+  if (vd) {
+    vd.style.display = 'block';
+    vd.textContent = critical > 0 ? 'CRITICAL - ' + critical + ' illegal channels, ' + totalReach.toLocaleString() + ' subscribers' :
+      channels.length > 0 ? 'CONFIRMED - ' + channels.length + ' fraud channels detected' : 'CLEAN';
+    vd.className = 'verdict-box ' + (critical > 0 ? 'verdict-high' : 'verdict-clean');
+  }
 
   var stats = document.getElementById('fraudStats');
   stats.style.display = 'grid';
@@ -516,7 +521,7 @@ function scanFraud() {
       '</div>';
   }).join('');
 
-  setBtn('fraudBtn', false);
+  if (fraudBtnEl) { fraudBtnEl.textContent = 'Scan Now'; fraudBtnEl.disabled = false; }
 }
 
 function generateSEBIReport() {

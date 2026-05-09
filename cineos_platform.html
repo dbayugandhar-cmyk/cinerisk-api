@@ -460,6 +460,10 @@ function scanFraud() {
     FRAUD_DATA.channels.filter(function(c){return c.type === type;});
   var instagram = type === 'all' ? FRAUD_DATA.instagram :
     FRAUD_DATA.instagram.filter(function(c){return c.type === type;});
+  
+  console.log('[FRAUD] channels:', channels.length, 'instagram:', instagram.length);
+  console.log('[FRAUD] tgList el:', document.getElementById('fraudTelegramList'));
+  console.log('[FRAUD] webList el:', document.getElementById('fraudWebList'));
 
   var totalReach = channels.reduce(function(a,c){return a+c.subscribers;},0);
   var critical = channels.filter(function(c){return c.severity==='CRITICAL';}).length;

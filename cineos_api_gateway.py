@@ -1302,6 +1302,71 @@ async def multi_source_scan(request: Request):
         }
     }
 
+@app.post("/v1/webhooks/register")
+async def register_webhook(request: Request):
+    """
+    Register a webhook URL to receive real-time alerts.
+    Clients get notified instantly when new piracy/fraud detected.
+    """
+    body = await request.json()
+    url = body.get("url","")
+    events = body.get("events", ["piracy","fraud","counterfeit"])
+    client_name = body.get("client_name","")
+
+    if not url or not url.startswith("https://"):
+        raise HTTPException(400, "Valid HTTPS webhook URL required")
+
+    try:
+        async with pool.acquire() as conn:
+            await conn.execute("""
+                CREATE TABLE IF NOT EXISTS webhooks (
+                    id SERIAL PRIMARY KEY,
+                    client_name TEXT,
+                    url TEXT NOT NULL,
+                    events JSONB DEFAULT '[]',
+                    active BOOLEAN DEFAULT TRUE,
+                    created_at TIMESTAMPTZ DEFAULT NOW(),
+                    last_triggered TIMESTAMPTZ
+                )
+            """)
+            await conn.execute("""
+                INSERT INTO webhooks (client_name, url, events)
+                VALUES ($1, $2, $3::jsonb)
+                ON CONFLICT DO NOTHING
+            """, client_name, url, json.dumps(events))
+        return {
+            "success": True,
+            "message": f"Webhook registered for {events}",
+            "url": url
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+async def trigger_webhooks(event_type: str, data: dict):
+    """Fire webhooks when new intelligence is detected."""
+    import httpx as _httpx
+    try:
+        async with pool.acquire() as conn:
+            webhooks = await conn.fetch("""
+                SELECT url, client_name FROM webhooks
+                WHERE active = TRUE
+                AND events ? $1
+            """, event_type)
+
+        async with _httpx.AsyncClient(timeout=5) as client:
+            for wh in webhooks:
+                try:
+                    await client.post(wh["url"], json={
+                        "event": event_type,
+                        "data": data,
+                        "cineos_version": "1.0",
+                        "timestamp": datetime.utcnow().isoformat()
+                    })
+                except:
+                    pass
+    except:
+        pass
+
 @app.post("/v1/risk/seller")
 async def score_seller_risk(request: Request):
     """

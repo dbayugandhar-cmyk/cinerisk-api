@@ -177,11 +177,10 @@ async def scan_counterfeits(brand: str, category: str = 'fmcg') -> dict:
         # Build targeted queries
         platform_q = ' OR '.join(f'site:{p}' for p in COUNTERFEIT_PLATFORMS[:5])
         queries = [
-            f'"{brand}" ("first copy" OR "replica" OR "super copy") india',
-            f'"{brand}" copy ({platform_q})',
-            f'"{brand}" wholesale "bulk available" india -official -authorized',
-            f'"{brand}" "AAA quality" OR "master copy" india buy',
-            f'fake "{brand}" india telegram whatsapp order 2026',
+            f'"{brand}" "first copy" supplier indiamart',
+            f'"{brand}" duplicate wholesale indiamart',
+            f'"{brand}" fake supplier wholesale india 2026',
+            f'"{brand}" copy manufacturer india bulk order',
         ]
         
         seen = set()
@@ -200,13 +199,18 @@ async def scan_counterfeits(brand: str, category: str = 'fmcg') -> dict:
                     snippet = item.get("snippet","").lower()
                     combined = f"{title} {snippet}".lower()
                     
-                    # Must mention brand
-                    if brand.lower() not in combined: continue
+                    # Must mention brand in title specifically
+                    if brand.lower() not in title.lower(): continue
                     
                     # Must have counterfeit signals
                     signals_found = [s for s in COUNTERFEIT_SIGNALS 
                                    if s in combined]
                     if not signals_found: continue
+                    
+                    # Skip unrelated categories
+                    unrelated = ['tour','hotel','package','travel','achkan',
+                                'sherwani','hair','loreal','pantene']
+                    if any(u in title.lower() for u in unrelated): continue
                     
                     # Skip official brand sites
                     if any(b.lower().replace(' ','') in urlparse(url).netloc

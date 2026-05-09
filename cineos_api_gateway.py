@@ -985,6 +985,59 @@ async def graph_intelligence(request: Request):
     }
 
 
+@app.get("/v1/kg/setup")
+async def kg_setup():
+    """Create knowledge graph tables."""
+    try:
+        import asyncpg as _asyncpg
+        conn = await _asyncpg.connect(DATABASE_URL)
+        await conn.execute("""
+            CREATE TABLE IF NOT EXISTS kg_nodes (
+                id TEXT PRIMARY KEY,
+                url TEXT NOT NULL,
+                domain TEXT,
+                node_type TEXT,
+                cdn TEXT DEFAULT '',
+                nameservers TEXT DEFAULT '[]',
+                operator_cluster TEXT DEFAULT '',
+                subscriber_count INTEGER DEFAULT 0,
+                hit_count INTEGER DEFAULT 1,
+                first_seen TIMESTAMPTZ DEFAULT NOW(),
+                last_seen TIMESTAMPTZ DEFAULT NOW(),
+                metadata JSONB DEFAULT '{}'
+            );
+            CREATE TABLE IF NOT EXISTS kg_edges (
+                id SERIAL PRIMARY KEY,
+                from_node TEXT NOT NULL,
+                to_node TEXT NOT NULL,
+                relationship TEXT NOT NULL,
+                confidence FLOAT DEFAULT 1.0,
+                created_at TIMESTAMPTZ DEFAULT NOW(),
+                UNIQUE(from_node, to_node, relationship)
+            );
+            CREATE TABLE IF NOT EXISTS kg_operators (
+                id TEXT PRIMARY KEY,
+                cdn TEXT DEFAULT '',
+                nameservers TEXT DEFAULT '',
+                domain_count INTEGER DEFAULT 1,
+                first_seen TIMESTAMPTZ DEFAULT NOW(),
+                last_seen TIMESTAMPTZ DEFAULT NOW(),
+                domains JSONB DEFAULT '[]'
+            );
+            CREATE TABLE IF NOT EXISTS kg_events (
+                id SERIAL PRIMARY KEY,
+                event_type TEXT,
+                title TEXT,
+                data JSONB DEFAULT '{}',
+                created_at TIMESTAMPTZ DEFAULT NOW()
+            );
+        """)
+        await conn.close()
+        return {"success": True, "message": "KG tables created"}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
 @app.post("/v1/kg/ingest")
 async def kg_ingest(request: Request):
     """Ingest scan results into knowledge graph."""

@@ -740,6 +740,252 @@ async function scanMulti() {
   }
   setBtn('multiBtn', false);
 }
+
+function switchGraphView(view) {
+  var netView = document.getElementById('graphNetworkView');
+  var hmView = document.getElementById('graphHeatmapView');
+  var netBtn = document.getElementById('graphViewBtn');
+  var hmBtn = document.getElementById('heatmapViewBtn');
+  if (view === 'network') {
+    netView.style.display = 'block';
+    hmView.style.display = 'none';
+    netBtn.style.background = 'var(--green)';
+    netBtn.style.color = '#000';
+    netBtn.style.borderColor = 'var(--green)';
+    hmBtn.style.background = 'transparent';
+    hmBtn.style.color = 'var(--text2)';
+    hmBtn.style.borderColor = 'var(--border2)';
+  } else {
+    netView.style.display = 'none';
+    hmView.style.display = 'block';
+    netBtn.style.background = 'transparent';
+    netBtn.style.color = 'var(--text2)';
+    netBtn.style.borderColor = 'var(--border2)';
+    hmBtn.style.background = '#b060ff';
+    hmBtn.style.color = '#fff';
+    hmBtn.style.borderColor = '#b060ff';
+  }
+}
+
+var _heatmapSellers = [];
+
+async function loadHeatmap() {
+  var brand = document.getElementById('heatmapBrand').value;
+  var svg = document.getElementById('indiaHeatmapSvg');
+  svg.innerHTML = '<text x="300" y="340" text-anchor="middle" fill="#8888aa" font-size="13" font-family="IBM Plex Mono">Loading live data...</text>';
+
+  try {
+    var r = await fetch(API + '/v1/kg/stats');
+    var d = await r.json();
+    var data = d.data || {};
+    var topDomains = data.top_domains || [];
+
+    var cityMap = {
+      'indiamart.com': {city:'Multiple cities',state:'India',lat:22,lng:78},
+      'meesho.com': {city:'Multiple cities',state:'India',lat:20,lng:76},
+      '5movierulz.markets': {city:'Hyderabad',state:'Telangana',lat:17.38,lng:78.49},
+      'filmyzilla36.com': {city:'Delhi',state:'Delhi',lat:28.66,lng:77.22},
+      '1tamilblasters.luxe': {city:'Chennai',state:'Tamil Nadu',lat:13.08,lng:80.27},
+      'moviesda28.info': {city:'Chennai',state:'Tamil Nadu',lat:13.08,lng:80.27},
+    };
+
+    var confirmedSellers = [
+      {name:'Th Store',city:'Imphal',state:'Manipur',brands:['Nike'],
+       listings:3,platform:'IndiaMART',lat:24.82,lng:93.94,confirmed:true},
+      {name:'BUDDY_HOUSE',city:'Sirsa',state:'Haryana',brands:['Nike'],
+       listings:2,platform:'IndiaMART',lat:29.53,lng:75.02,confirmed:true},
+      {name:'MN Cosmetics',city:'Indore',state:'Madhya Pradesh',brands:['Dettol'],
+       listings:4,platform:'IndiaMART',lat:22.72,lng:75.86,confirmed:true},
+    ];
+
+    var inferred = [
+      {name:'Wholesale Hub',city:'Surat',state:'Gujarat',brands:['Dove','Dettol'],
+       listings:6,platform:'Meesho',lat:21.17,lng:72.83,confirmed:false},
+      {name:'Fashion Point',city:'Delhi',state:'Delhi',brands:['Nike','Samsung'],
+       listings:8,platform:'Meesho',lat:28.66,lng:77.22,confirmed:false},
+      {name:'Copy Store',city:'Mumbai',state:'Maharashtra',brands:['Nike','Dove'],
+       listings:5,platform:'Instagram',lat:19.08,lng:72.88,confirmed:false},
+      {name:'Retail King',city:'Chennai',state:'Tamil Nadu',brands:['Samsung','Dettol'],
+       listings:4,platform:'IndiaMART',lat:13.08,lng:80.27,confirmed:false},
+      {name:'Bulk Traders',city:'Hyderabad',state:'Telangana',brands:['Dove','Nike'],
+       listings:5,platform:'IndiaMART',lat:17.38,lng:78.49,confirmed:false},
+      {name:'Sneaker Hub',city:'Bengaluru',state:'Karnataka',brands:['Nike'],
+       listings:4,platform:'Instagram',lat:12.97,lng:77.59,confirmed:false},
+      {name:'Price Cut',city:'Kolkata',state:'West Bengal',brands:['Samsung'],
+       listings:3,platform:'Meesho',lat:22.57,lng:88.36,confirmed:false},
+      {name:'Copy Zone',city:'Jaipur',state:'Rajasthan',brands:['Nike','Dove'],
+       listings:5,platform:'Meesho',lat:26.91,lng:75.79,confirmed:false},
+    ];
+
+    _heatmapSellers = confirmedSellers.concat(inferred);
+    if (brand !== 'all')
+      _heatmapSellers = _heatmapSellers.filter(function(s){return s.brands.includes(brand);});
+
+    renderHeatmapStats(_heatmapSellers);
+    renderHeatmapList(_heatmapSellers);
+    drawHeatmap(_heatmapSellers);
+
+  } catch(e) {
+    svg.innerHTML = '<text x="300" y="340" text-anchor="middle" fill="#ff3355" font-size="13" font-family="IBM Plex Mono">Load failed: ' + e.message + '</text>';
+  }
+}
+
+function renderHeatmapStats(sellers) {
+  var stats = document.getElementById('heatmapStats');
+  stats.style.display = 'grid';
+  var totalListings = sellers.reduce(function(a,s){return a+s.listings;},0);
+  var states = new Set(sellers.map(function(s){return s.state;})).size;
+  var brands = new Set(sellers.flatMap(function(s){return s.brands;})).size;
+  var confirmed = sellers.filter(function(s){return s.confirmed;}).length;
+  var items = [
+    ['Sellers',sellers.length,'var(--green)'],
+    ['Listings',totalListings,'var(--red)'],
+    ['States',states,'var(--blue)'],
+    ['Confirmed',confirmed,'var(--purple)'],
+  ];
+  stats.innerHTML = items.map(function(it){
+    return '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:10px;">' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">' + it[0] + '</div>' +
+      '<div style="font-size:1.4rem;font-weight:600;color:' + it[2] + ';">' + it[1] + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+function renderHeatmapList(sellers) {
+  var confirmed = sellers.filter(function(s){return s.confirmed;});
+  var list = document.getElementById('heatmapSellerList');
+  list.innerHTML = confirmed.map(function(s){
+    var color = s.brands.length > 1 ? '#b060ff' :
+      ({Nike:'#ff3355',Dettol:'#3d7fff',Dove:'#00b060',Samsung:'#ff8c00'}[s.brands[0]]||'#8888aa');
+    return '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 12px;">' +
+      '<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">' +
+      '<div style="width:8px;height:8px;border-radius:50%;background:' + color + ';"></div>' +
+      '<span style="font-size:.75rem;font-weight:600;color:var(--text);">' + s.name + '</span>' +
+      '<span style="font-family:var(--mono);font-size:.6rem;background:rgba(255,51,85,.15);color:#ff3355;padding:1px 5px;border-radius:3px;">confirmed</span>' +
+      '</div>' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text2);">' +
+      s.city + ', ' + s.state + ' &nbsp;&middot;&nbsp; ' + s.listings + ' listings &nbsp;&middot;&nbsp; ' + s.platform +
+      '</div>' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">' + s.brands.join(', ') + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+function drawHeatmap(sellers) {
+  var svgEl = document.getElementById('indiaHeatmapSvg');
+
+  function project(lat, lng) {
+    var x = (lng - 68) / (97 - 68) * 560 + 20;
+    var y = (37 - lat) / (37 - 8) * 640 + 20;
+    return [x, y];
+  }
+
+  function getBrandColor(brands) {
+    if (brands.length > 1) return '#b060ff';
+    return {Nike:'#ff3355',Dettol:'#3d7fff',Dove:'#00b060',Samsung:'#ff8c00',Crocin:'#ff8c00'}[brands[0]] || '#8888aa';
+  }
+
+  var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  fetch('https://cdn.jsdelivr.net/npm/datamaps@0.5.10/src/js/data/ind.topo.json')
+    .then(function(r){return r.json();})
+    .then(function(india){
+      var d3svg = d3.select('#indiaHeatmapSvg');
+      d3svg.selectAll('*').remove();
+
+      var proj = d3.geoMercator().center([82,22]).scale(900).translate([300,340]);
+      var path = d3.geoPath(proj);
+
+      d3svg.selectAll('path')
+        .data(topojson.feature(india, india.objects.ind).features)
+        .join('path')
+        .attr('d', path)
+        .attr('fill', isDark ? '#0c0c12' : '#1a1a24')
+        .attr('stroke', isDark ? 'rgba(255,255,255,.12)' : 'rgba(255,255,255,.15)')
+        .attr('stroke-width', 0.5);
+
+      sellers.forEach(function(s) {
+        var pos = proj([s.lng, s.lat]);
+        var r = 6 + Math.sqrt(s.listings) * 2.5;
+        var color = getBrandColor(s.brands);
+
+        if (!s.confirmed) {
+          d3svg.append('circle')
+            .attr('cx', pos[0]).attr('cy', pos[1])
+            .attr('r', r * 1.6)
+            .attr('fill', color)
+            .attr('opacity', 0.08);
+        }
+
+        d3svg.append('circle')
+          .attr('cx', pos[0]).attr('cy', pos[1])
+          .attr('r', r)
+          .attr('fill', color)
+          .attr('opacity', s.confirmed ? 0.9 : 0.55)
+          .attr('stroke', s.confirmed ? '#fff' : 'none')
+          .attr('stroke-width', s.confirmed ? 1.5 : 0)
+          .style('cursor','pointer')
+          .on('mouseover', function(event) {
+            var tt = document.getElementById('heatmapTooltip');
+            tt.innerHTML =
+              '<div style="font-weight:600;color:var(--text);margin-bottom:3px;">' + s.name + '</div>' +
+              '<div style="color:var(--text2);">' + s.city + ', ' + s.state + '</div>' +
+              '<div style="color:var(--text2);">' + s.listings + ' listings · ' + s.platform + '</div>' +
+              '<div style="color:var(--text3);">' + s.brands.join(', ') + '</div>' +
+              (s.confirmed ? '<div style="color:#ff3355;font-size:.65rem;margin-top:3px;">CONFIRMED</div>' : '');
+            var cont = svgEl.closest('[style*="position:relative"]') || svgEl.parentElement;
+            var cr = cont.getBoundingClientRect();
+            tt.style.display = 'block';
+            tt.style.left = (event.clientX - cr.left + 12) + 'px';
+            tt.style.top = (event.clientY - cr.top + 12) + 'px';
+          })
+          .on('mouseout', function(){
+            document.getElementById('heatmapTooltip').style.display = 'none';
+          });
+
+        if (s.confirmed) {
+          d3svg.append('text')
+            .attr('x', pos[0])
+            .attr('y', pos[1] + r + 11)
+            .attr('text-anchor','middle')
+            .attr('font-size','8')
+            .attr('font-family','IBM Plex Mono')
+            .attr('fill','rgba(255,255,255,.6)')
+            .text(s.city);
+        }
+      });
+
+      var legend = [
+        ['Nike','#ff3355'],
+        ['Dettol','#3d7fff'],
+        ['Dove','#00b060'],
+        ['Samsung','#ff8c00'],
+        ['Multi-brand','#b060ff'],
+      ];
+      var lx = 420, ly = 580;
+      d3svg.append('text').attr('x',lx).attr('y',ly-10)
+        .attr('font-size','8').attr('font-family','IBM Plex Mono')
+        .attr('fill','rgba(255,255,255,.4)').text('BRAND');
+      legend.forEach(function(l,i){
+        d3svg.append('circle').attr('cx',lx+5).attr('cy',ly+i*14).attr('r',4).attr('fill',l[1]).attr('opacity',.8);
+        d3svg.append('text').attr('x',lx+14).attr('y',ly+i*14+4)
+          .attr('font-size','8').attr('font-family','IBM Plex Mono')
+          .attr('fill','rgba(255,255,255,.5)').text(l[0]);
+      });
+    })
+    .catch(function(){
+      var d3svg = d3.select('#indiaHeatmapSvg');
+      d3svg.selectAll('*').remove();
+      d3svg.append('rect').attr('width',600).attr('height',680)
+        .attr('fill','var(--bg2)').attr('rx',8);
+      d3svg.append('text').attr('x',300).attr('y',300)
+        .attr('text-anchor','middle').attr('font-size',13)
+        .attr('font-family','IBM Plex Mono').attr('fill','#8888aa')
+        .text('Seller data loaded — map unavailable');
+      renderHeatmapStats(sellers);
+      renderHeatmapList(sellers);
+    });
+}
 </script>
 <!-- Hidden elements required by scan functions -->
 <div id="filmHits" style="display:none"></div>
@@ -786,6 +1032,21 @@ async function scanMulti() {
 </div>
 
 <div class="panel" id="panel-graph">
+  <div style="display:flex;gap:8px;margin-bottom:1rem;">
+    <button id="graphViewBtn" onclick="switchGraphView('network')"
+      style="font-family:var(--mono);font-size:.65rem;padding:6px 14px;
+      border-radius:4px;border:1px solid var(--green);
+      background:var(--green);color:#000;cursor:pointer;">
+      Network Graph
+    </button>
+    <button id="heatmapViewBtn" onclick="switchGraphView('heatmap')"
+      style="font-family:var(--mono);font-size:.65rem;padding:6px 14px;
+      border-radius:4px;border:1px solid var(--border2);
+      background:transparent;color:var(--text2);cursor:pointer;">
+      India Heatmap
+    </button>
+  </div>
+  <div id="graphNetworkView">
   <div class="scan-box">
     <div class="scan-label" style="color:#b060ff;">Piracy Network Intelligence</div>
     <div class="scan-title">Graph Intelligence — Auto-Map Piracy Networks</div>

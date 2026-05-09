@@ -1216,6 +1216,85 @@ async def kg_offenders():
         return {"success": False, "error": str(e)}
 
 
+@app.post("/v1/multiscan")
+async def multi_source_scan(request: Request):
+    """
+    Scan across all public sources:
+    piracy sites + YouTube + Reddit + IPTV
+    """
+    import re as _re
+    import time
+    start = time.time()
+    body = await request.json()
+    title = body.get("title","").strip()
+    if not title:
+        raise HTTPException(400, "title required")
+
+    sources = {"piracy":[], "youtube":[], "reddit":[], "iptv":[], "discord":[]}
+
+    if SERP_KEY:
+        try:
+            import httpx as _httpx
+            async with _httpx.AsyncClient(timeout=12) as client:
+                queries = {
+                    "youtube": f'"{title}" full movie site:youtube.com',
+                    "reddit":  f'"{title}" piracy download stream site:reddit.com r/Malayalam OR r/Tamil OR r/Telugu OR r/Bollywood OR r/IndianOTT',
+                    "iptv":    f'"{title}" IPTV m3u stream online free 2026',
+                    "piracy":  f'"{title}" tamilblasters OR movierulz OR filmyzilla download',
+                }
+                tasks = []
+                for src, q in queries.items():
+                    tasks.append((src, client.get(
+                        "https://serpapi.com/search",
+                        params={"q":q,"api_key":SERP_KEY,"num":5,"engine":"google"}
+                    )))
+
+                for src, task in tasks:
+                    try:
+                        r = await task
+                        results = r.json().get("organic_results",[])
+                        for item in results:
+                            link = item.get("link","")
+                            snippet = item.get("snippet","")
+                            t = item.get("title","").lower()
+                            title_words = [w.lower() for w in title.split() if len(w)>2]
+                            combined = f"{t} {snippet} {link}".lower()
+                            
+                            if not any(w in combined for w in title_words):
+                                continue
+                            
+                            if src == "youtube" and "youtube.com/watch" in link:
+                                sources["youtube"].append({"url":link,"title":item.get("title","")})
+                            elif src == "reddit" and "reddit.com/r/" in link:
+                                # Only film-related subreddits
+                                film_subs = ["malayalam","tamil","telugu","bollywood",
+                                           "indianott","cinema","movies","piracy"]
+                                if any(s in link.lower() for s in film_subs):
+                                    sources["reddit"].append({"url":link,"title":item.get("title","")})
+                            elif src == "iptv":
+                                if any(x in link.lower() for x in ["iptv","m3u","playlist","stream"]):
+                                    sources["iptv"].append({"url":link,"title":item.get("title","")})
+                            elif src == "piracy":
+                                sources["piracy"].append({"url":link,"platform":link.split("/")[2]})
+                    except: pass
+
+        except Exception as e:
+            pass
+
+    elapsed = round(time.time()-start, 2)
+    total = sum(len(v) for v in sources.values())
+    
+    return {
+        "success": True,
+        "data": {
+            "title": title,
+            "total_sources": total,
+            "sources": sources,
+            "scan_time": elapsed,
+            "verdict": "CONFIRMED" if total > 0 else "CLEAN"
+        }
+    }
+
 @app.post("/v1/evidence")
 async def generate_evidence(
     request: Request,

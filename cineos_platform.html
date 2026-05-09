@@ -437,14 +437,12 @@ function renderHits(hits) {
     var url = h.url || h;
     var platform = h.platform || '';
     var quality = h.quality || '';
-    var lang = h.language || '';
     var tagClass = (quality||'').toLowerCase().includes('cam') ? 'tag-cam' :
                    (quality||'').toLowerCase().includes('hd') ? 'tag-hd' : 'tag-live';
     return '<div class="hit-row">' +
       '<a href="' + url + '" target="_blank" class="hit-url">' + url + '</a>' +
       (platform ? '<span class="hit-tag tag-hd">' + platform + '</span>' : '') +
       (quality ? '<span class="hit-tag ' + tagClass + '">' + quality + '</span>' : '') +
-      (lang ? '<span class="hit-tag" style="background:rgba(255,255,255,.05);color:var(--text2);border:1px solid var(--border2)">' + lang + '</span>' : '') +
       '</div>';
   }).join('');
 }
@@ -452,18 +450,16 @@ function renderHits(hits) {
 function renderStreams(streams) {
   if (!streams || !streams.length)
     return '<div class="results-empty">No illegal streams detected</div>';
-  // Filter: only show channels with subscribers OR betting/critical
   var filtered = streams.filter(function(s) {
     return s.subscriber_count > 0 || s.is_betting || s.severity === 'CRITICAL';
   });
-  // Sort: betting first, then by subscriber count
   filtered.sort(function(a,b) {
     if (a.is_betting && !b.is_betting) return -1;
     if (!a.is_betting && b.is_betting) return 1;
     return (b.subscriber_count||0) - (a.subscriber_count||0);
   });
   if (!filtered.length)
-    return '<div class="results-empty" style="color:var(--green)">No active channels detected — all 135 channels have zero subscribers</div>';
+    return '<div class="results-empty" style="color:var(--green)">No active channels detected</div>';
   return filtered.slice(0,30).map(function(s) {
     var isBetting = s.is_betting;
     var isCritical = s.severity === 'CRITICAL';
@@ -490,7 +486,7 @@ async function scanFilm() {
   var film = document.getElementById('filmInput').value.trim();
   if (!film) return;
   setBtn('filmBtn', true);
-  document.getElementById('filmResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning 111 sites for "' + film + '"...</div>';
+  document.getElementById('filmResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning...</div>';
   try {
     var r = await fetch(API + '/theater/gold_scan', {method:'POST',headers:HEADERS,body:JSON.stringify({film_title:film})});
     var d = await r.json();
@@ -498,11 +494,9 @@ async function scanFilm() {
     setVerdict('filmVerdict', d.verdict || (hits.length ? 'CONFIRMED' : 'CLEAN'));
     document.getElementById('filmCount').textContent = hits.length + ' URLs found';
     document.getElementById('filmResults').innerHTML = renderHits(hits);
-    // Auto-ingest to knowledge graph
     if (hits.length > 0) {
       fetch(API + '/v1/kg/ingest', {method:'POST',headers:HEADERS,
-        body:JSON.stringify({title:film,category:'film',
-          verdict:d.verdict||'CONFIRMED',hits:hits})}).catch(()=>{});
+        body:JSON.stringify({title:film,category:'film',verdict:d.verdict||'CONFIRMED',hits:hits})}).catch(function(){});
     }
   } catch(e) {
     document.getElementById('filmResults').innerHTML = '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
@@ -514,7 +508,7 @@ async function scanIndia() {
   var film = document.getElementById('indiaFilm').value.trim();
   if (!film) return;
   setBtn('indiaBtn', true);
-  document.getElementById('indiaResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning 103 India platforms for "' + film + '"...</div>';
+  document.getElementById('indiaResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning...</div>';
   try {
     var r = await fetch(API + '/v1/scan', {method:'POST',headers:HEADERS,body:JSON.stringify({title:film,category:'india'})});
     var d = await r.json();
@@ -525,8 +519,7 @@ async function scanIndia() {
     document.getElementById('indiaResults').innerHTML = renderHits(hits);
     if (hits.length > 0) {
       fetch(API + '/v1/kg/ingest', {method:'POST',headers:HEADERS,
-        body:JSON.stringify({title:film,category:'india',
-          verdict:data.verdict||'CONFIRMED',hits:hits})}).catch(()=>{});
+        body:JSON.stringify({title:film,category:'india',verdict:data.verdict||'CONFIRMED',hits:hits})}).catch(function(){});
     }
   } catch(e) {
     document.getElementById('indiaResults').innerHTML = '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
@@ -538,7 +531,7 @@ async function scanGaming() {
   var game = document.getElementById('gameTitle').value.trim();
   if (!game) return;
   setBtn('gamingBtn', true);
-  document.getElementById('gamingResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning gaming piracy sites for "' + game + '"...</div>';
+  document.getElementById('gamingResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning...</div>';
   try {
     var r = await fetch(API + '/v1/scan', {method:'POST',headers:HEADERS,body:JSON.stringify({title:game,category:'gaming'})});
     var d = await r.json();
@@ -553,29 +546,10 @@ async function scanGaming() {
   setBtn('gamingBtn', false);
 }
 
-async function scanManga() {
-  var title = document.getElementById('mangaTitle').value.trim();
-  if (!title) return;
-  setBtn('mangaBtn', true);
-  document.getElementById('mangaResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning manga piracy sites for "' + title + '"...</div>';
-  try {
-    var r = await fetch(API + '/v1/scan', {method:'POST',headers:HEADERS,body:JSON.stringify({title:title,category:'manga'})});
-    var d = await r.json();
-    var data = d.data || d;
-    var hits = data.hits || [];
-    setVerdict('mangaVerdict', data.verdict || (hits.length ? 'CONFIRMED' : 'CLEAN'));
-    document.getElementById('mangaCount').textContent = hits.length + ' URLs found';
-    document.getElementById('mangaResults').innerHTML = renderHits(hits);
-  } catch(e) {
-    document.getElementById('mangaResults').innerHTML = '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
-  }
-  setBtn('mangaBtn', false);
-}
-
 async function scanSports() {
   var event = document.getElementById('sportEvent').value.trim() || 'IPL 2026';
   setBtn('sportsBtn', true);
-  document.getElementById('sportsResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning 135 Telegram channels for "' + event + '"...</div>';
+  document.getElementById('sportsResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning...</div>';
   try {
     var r = await fetch(API + '/v1/live_shield', {method:'POST',headers:HEADERS,body:JSON.stringify({event:event})});
     var d = await r.json();
@@ -594,14 +568,14 @@ async function scanSports() {
 async function scanLiveShield() {
   var event = document.getElementById('liveEvent').value.trim() || 'IPL 2026';
   setBtn('liveBtn', true);
-  document.getElementById('liveShieldResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning 135 Telegram channels for "' + event + '"...</div>';
+  document.getElementById('liveShieldResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning...</div>';
   try {
     var r = await fetch(API + '/v1/live_shield', {method:'POST',headers:HEADERS,body:JSON.stringify({event:event})});
     var d = await r.json();
     var data = d.data || d;
     var streams = data.streams || [];
     var betting = streams.filter(function(s){return s.is_betting;});
-    setVerdict('liveVerdict', betting.length ? 'CRITICAL - ' + betting.length + ' BETTING+STREAM (PMLA) + ' + streams.length + ' total' : streams.length ? 'CONFIRMED - ' + streams.length + ' channels' : 'CLEAN');
+    setVerdict('liveVerdict', betting.length ? 'CRITICAL - ' + betting.length + ' BETTING+STREAM' : streams.length ? 'CONFIRMED - ' + streams.length + ' channels' : 'CLEAN');
     document.getElementById('liveCount').textContent = streams.length + ' channels | ' + betting.length + ' betting';
     document.getElementById('liveShieldResults').innerHTML = renderStreams(streams);
   } catch(e) {
@@ -610,9 +584,68 @@ async function scanLiveShield() {
   setBtn('liveBtn', false);
 }
 
+async function scanMulti() {
+  var title = document.getElementById('multiTitle').value.trim();
+  if (!title) return;
+  setBtn('multiBtn', true);
+  document.getElementById('multiResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Scanning all sources for "' + title + '"...</div>';
+  try {
+    var r = await fetch(API + '/v1/multiscan', {method:'POST',headers:HEADERS,body:JSON.stringify({title:title})});
+    var d = await r.json();
+    var data = d.data || d;
+    var sources = data.sources || {};
+    var total = data.total_sources || 0;
+    setVerdict('multiVerdict', total > 0 ? 'CONFIRMED - ' + total + ' sources detected' : 'CLEAN');
+    document.getElementById('multiCount').textContent = total + ' results';
+    var html = '';
+    var labels = {piracy:'Piracy Sites',youtube:'YouTube',reddit:'Reddit',iptv:'IPTV',discord:'Discord'};
+    var colors = {piracy:'var(--red)',youtube:'#ff0000',reddit:'#ff4500',iptv:'var(--orange)',discord:'#5865f2'};
+    for (var src in sources) {
+      var items = sources[src];
+      if (!items || !items.length) continue;
+      html += '<div style="margin-bottom:1rem;">';
+      html += '<div style="font-family:var(--mono);font-size:.65rem;color:' + (colors[src]||'var(--text2)') + ';letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;">' + (labels[src]||src) + ' - ' + items.length + ' found</div>';
+      items.slice(0,5).forEach(function(item) {
+        var url = item.url || item;
+        html += '<div class="hit-row"><a href="' + url + '" target="_blank" class="hit-url">' + url.substring(0,65) + '</a></div>';
+      });
+      html += '</div>';
+    }
+    document.getElementById('multiResults').innerHTML = html || '<div class="results-empty" style="color:var(--green)">No piracy detected across all sources</div>';
+  } catch(e) {
+    document.getElementById('multiResults').innerHTML = '<div class="results-empty" style="color:var(--red)">Scan failed: ' + e.message + '</div>';
+  }
+  setBtn('multiBtn', false);
+}
+
+async function mapGraph() {
+  var seedUrl = document.getElementById('graphSeedUrl').value.trim();
+  var title = document.getElementById('graphTitle').value.trim() || 'Unknown';
+  if (!seedUrl) return;
+  setBtn('graphBtn', true);
+  document.getElementById('graphResults').innerHTML = '<div class="results-empty"><span class="loading-dots"><span></span><span></span><span></span></span> Mapping network...</div>';
+  try {
+    var r = await fetch(API + '/v1/graph', {method:'POST',headers:HEADERS,body:JSON.stringify({seed_url:seedUrl,title:title})});
+    var d = await r.json();
+    var data = d.data || d;
+    var nodes = data.nodes || [];
+    document.getElementById('graphCount').textContent = nodes.length + ' nodes';
+    setVerdict('graphVerdict', nodes.length > 1 ? 'CONFIRMED - ' + nodes.length + ' network nodes mapped' : 'CLEAN');
+    if (nodes.length > 1 && typeof renderGraph === 'function') {
+      renderGraph(nodes, data.edges || []);
+    } else {
+      document.getElementById('graphResults').innerHTML = nodes.map(function(n) {
+        return '<div class="hit-row"><span class="hit-tag tag-hd">' + (n.type||'node') + '</span><a href="' + (n.url||'') + '" target="_blank" class="hit-url">' + (n.url||'').substring(0,65) + '</a></div>';
+      }).join('');
+    }
+  } catch(e) {
+    document.getElementById('graphResults').innerHTML = '<div class="results-empty" style="color:var(--red)">Map failed: ' + e.message + '</div>';
+  }
+  setBtn('graphBtn', false);
+}
+
 async function downloadEvidence(tab) {
-  var inputs = {film:'filmInput',india:'indiaFilm',gaming:'gameTitle',
-                sports:'sportEvent',liveshield:'liveEvent',multi:'multiTitle'};
+  var inputs = {film:'filmInput',india:'indiaFilm',gaming:'gameTitle',sports:'sportEvent',liveshield:'liveEvent'};
   var el = document.getElementById(inputs[tab] || 'filmInput');
   var title = el ? el.value.trim() : '';
   if (!title) { alert('Enter a title first'); return; }
@@ -620,34 +653,128 @@ async function downloadEvidence(tab) {
   var orig = btn.textContent;
   btn.textContent = 'Generating...'; btn.disabled = true;
   try {
-    var r = await fetch(API + '/v1/evidence', {
-      method:'POST',headers:HEADERS,
-      body:JSON.stringify({film_title:title})
-    });
+    var r = await fetch(API + '/v1/evidence', {method:'POST',headers:HEADERS,body:JSON.stringify({film_title:title})});
     var d = await r.json();
     if (!d.success) throw new Error(d.error || 'Failed');
     var hits = d.hits || [];
     var now = new Date().toUTCString();
-    var html = '<!DOCTYPE html><html><head><title>CINEOS Evidence - ' + title + '</title>' +
-      '<style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;}' +
-      'h1{color:#007744;}' +
-      '.hit{background:#fff5f5;border:1px solid #ffcccc;padding:10px;margin:8px 0;border-radius:4px;}' +
-      '.footer{margin-top:40px;padding-top:10px;border-top:1px solid #ccc;font-size:12px;color:#777;}' +
-      '<\/style><\/head><body>' +
-      '<h1>CINEOS Evidence Package</h1>' +
-      '<p><strong>Content:</strong> ' + title + '</p>' +
-      '<p><strong>Generated:</strong> ' + now + '</p>' +
-      '<p><strong>Patent:</strong> US Provisional Patent 64/049,190</p>' +
-      '<h2>Infringing URLs (' + hits.length + ' found)</h2>' +
-      (hits.length ? hits.map(function(h,i){
-        return '<div class=\'hit\'><strong>URL #'+(i+1)+'</strong><br>' +
-          '<a href=\''+h.url+'\'>'+h.url+'</a><br>' +
-          '<small>Platform: '+h.platform+' | Detected: '+now+'</small></div>';
-      }).join('') : '<p>No URLs detected.</p>') +
-      '<div class=\'footer\'>CINEOS Anti-Piracy Intelligence | cineos.in</div>' +
-      '
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    var html = '<html><head><title>CINEOS Evidence - ' + title + '<\/title>' +
+      '<style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;}h1{color:#007744;}.footer{margin-top:40px;font-size:12px;color:#777;}<\/style><\/head><body>' +
+      '<h1>CINEOS Evidence Package<\/h1>' +
+      '<p>Content: ' + title + ' | Generated: ' + now + '<\/p>' +
+      (hits.length ? hits.map(function(h,i){ return '<p>' + (i+1) + '. <a href="' + h.url + '">' + h.url + '<\/a> | ' + h.platform + '<\/p>'; }).join('') : '<p>No URLs detected.<\/p>') +
+      '<div class="footer">CINEOS | cineos.in | Patent 64\/049,190<\/div><\/body><\/html>';
+    var w = window.open('','_blank','width=900,height=700');
+    w.document.write(html); w.document.close();
+    setTimeout(function(){w.print();}, 800);
+  } catch(e) { alert('Error: ' + e.message); }
+  btn.textContent = orig; btn.disabled = false;
+}
+
+function fileMIB(tab) {
+  var inputs = {film:'filmInput',india:'indiaFilm',gaming:'gameTitle',sports:'sportEvent',liveshield:'liveEvent'};
+  var title = document.getElementById(inputs[tab]||'filmInput').value.trim()||'Unknown Title';
+  var subj = encodeURIComponent('Piracy Report: ' + title + ' - CINEOS Intelligence');
+  var body = encodeURIComponent('Dear Nodal Officer, I am reporting active piracy of "' + title + '" detected by CINEOS (US Patent 64\/049,190). Legal basis: Copyright Act 1957 S.51. Regards, Yugandhar, CINEOS.');
+  window.open('https://mail.google.com/mail/?view=cm&to=nodalofficer@meity.gov.in&su='+subj+'&body='+body,'_blank');
+}
+
+function switchGraphView(view) {
+  var netView = document.getElementById('graphNetworkView');
+  var netBtn = document.getElementById('graphViewBtn');
+  if (view === 'network') {
+    if (netView) netView.style.display = 'block';
+    if (netBtn) { netBtn.style.background = 'var(--green)'; netBtn.style.color = '#000'; }
+  }
+}
+
+var BRAND_SELLERS = [{"city": "Bengaluru", "state": "Karnataka", "lat": 12.97, "lng": 77.59, "sellers": ["Shri Sai Enterprises", "Miracle Soaps And Detergents", "Augend And Addend", "Susheel Healthcare Private Limited", "Celebrate Wellness"], "brands": ["Dove", "Dettol"], "listings": 12, "confirmed": true, "color": "#b060ff"}, {"city": "New Delhi", "state": "", "lat": 28.66, "lng": 77.22, "sellers": ["Refueled Manufacturers", "Sarvagunaushdhi Private Limited", "Rigil Enterprises", "Mobilebies", "Ridhi Industries"], "brands": ["Dove", "Nike", "Samsung Galaxy"], "listings": 6, "confirmed": true, "color": "#b060ff"}, {"city": "Sirsa", "state": "Haryana", "lat": 29.53, "lng": 75.02, "sellers": ["BUDDY_HOUSE"], "brands": ["Nike"], "listings": 3, "confirmed": true, "color": "#ff3355"}, {"city": "Mumbai", "state": "Maharashtra", "lat": 19.08, "lng": 72.88, "sellers": ["Invogue Collection", "Manthan Inc", "Branded Shoes"], "brands": ["Dettol", "Nike", "Samsung Galaxy"], "listings": 3, "confirmed": true, "color": "#b060ff"}, {"city": "Amritsar", "state": "Punjab", "lat": 31.63, "lng": 74.87, "sellers": ["Next Wave"], "brands": ["Nike"], "listings": 3, "confirmed": true, "color": "#ff3355"}, {"city": "Surat", "state": "Gujarat", "lat": 21.17, "lng": 72.83, "sellers": ["Unique shoes", "Jin Tex \\u0026 Madhur Traders"], "brands": ["Dove", "Nike"], "listings": 2, "confirmed": true, "color": "#b060ff"}, {"city": "Ghaziabad", "state": "Uttar Pradesh", "lat": 28.67, "lng": 77.45, "sellers": ["Ajay Enterprises", "Cellova Lifesciences"], "brands": ["Nike", "Crocin"], "listings": 2, "confirmed": true, "color": "#b060ff"}, {"city": "Mysore", "state": "Karnataka", "lat": 12.3, "lng": 76.65, "sellers": ["Cold Fusion Zone"], "brands": ["Samsung Galaxy"], "listings": 2, "confirmed": true, "color": "#ff8c00"}, {"city": "Thane", "state": "Maharashtra", "lat": 19.22, "lng": 72.97, "sellers": ["Concentric Circles LLP", "J K Machine Tools"], "brands": ["Dove", "Samsung Galaxy"], "listings": 2, "confirmed": true, "color": "#b060ff"}, {"city": "Kosamba", "state": "Gujarat", "lat": 21.47, "lng": 72.95, "sellers": ["N Star Enterprise"], "brands": ["Samsung Galaxy"], "listings": 2, "confirmed": true, "color": "#ff8c00"}, {"city": "Ahmedabad", "state": "Gujarat", "lat": 23.02, "lng": 72.57, "sellers": ["Hometown Enterprise"], "brands": ["Samsung Galaxy"], "listings": 2, "confirmed": true, "color": "#ff8c00"}, {"city": "Agra", "state": "Uttar Pradesh", "lat": 27.18, "lng": 78.01, "sellers": ["Dove Ventures LLP"], "brands": ["Dove"], "listings": 2, "confirmed": true, "color": "#00b060"}, {"city": "Noida", "state": "Uttar Pradesh", "lat": 28.54, "lng": 77.39, "sellers": ["NoWorry ( A Brand of Aikm Pharma Private Limited )"], "brands": ["Dove"], "listings": 2, "confirmed": true, "color": "#00b060"}, {"city": "Delhi", "state": "", "lat": 28.66, "lng": 77.22, "sellers": ["JD Collection \\u0026 Surgical Mask"], "brands": ["Nike"], "listings": 1, "confirmed": true, "color": "#ff3355"}, {"city": "Pathankot", "state": "Punjab", "lat": 32.27, "lng": 75.65, "sellers": ["S.P. Traders"], "brands": ["Nike"], "listings": 1, "confirmed": true, "color": "#ff3355"}, {"city": "Perinthalmanna", "state": "Kerala", "lat": 10.97, "lng": 76.22, "sellers": ["Valtrex WholeSalers"], "brands": ["Nike"], "listings": 1, "confirmed": true, "color": "#ff3355"}, {"city": "Karnal", "state": "Haryana", "lat": 29.69, "lng": 76.99, "sellers": ["Aster Shoes"], "brands": ["Nike"], "listings": 1, "confirmed": true, "color": "#ff3355"}, {"city": "Gurgaon", "state": "Haryana", "lat": 28.46, "lng": 77.03, "sellers": ["lola Enterprises"], "brands": ["Samsung Galaxy"], "listings": 1, "confirmed": true, "color": "#ff8c00"}, {"city": "Jodhpur", "state": "Rajasthan", "lat": 26.29, "lng": 73.02, "sellers": ["SFC Company"], "brands": ["Samsung Galaxy"], "listings": 1, "confirmed": true, "color": "#ff8c00"}, {"city": "Nagpur", "state": "Maharashtra", "lat": 21.15, "lng": 79.09, "sellers": ["K. K. International"], "brands": ["Samsung Galaxy"], "listings": 1, "confirmed": true, "color": "#ff8c00"}, {"city": "Una-Diu", "state": "Gujarat", "lat": 20.82, "lng": 71.03, "sellers": ["Sagar Mart"], "brands": ["Samsung Galaxy"], "listings": 1, "confirmed": true, "color": "#ff8c00"}, {"city": "Bharuch", "state": "Gujarat", "lat": 21.7, "lng": 72.99, "sellers": ["Gadget-Hub"], "brands": ["Samsung Galaxy"], "listings": 1, "confirmed": true, "color": "#ff8c00"}, {"city": "Coimbatore", "state": "Tamil Nadu", "lat": 11.02, "lng": 76.97, "sellers": ["Bluebull Agencies"], "brands": ["Dettol"], "listings": 1, "confirmed": true, "color": "#3d7fff"}, {"city": "Indore", "state": "Madhya Pradesh", "lat": 22.72, "lng": 75.86, "sellers": ["Navya Sanitary House"], "brands": ["Dettol"], "listings": 1, "confirmed": true, "color": "#3d7fff"}, {"city": "Wayanad", "state": "Kerala", "lat": 11.61, "lng": 76.08, "sellers": ["Nector Lab Associates"], "brands": ["Dettol"], "listings": 1, "confirmed": true, "color": "#3d7fff"}, {"city": "Rampur", "state": "Uttar Pradesh", "lat": 28.81, "lng": 79.02, "sellers": ["Quality Enterprises"], "brands": ["Dove"], "listings": 1, "confirmed": true, "color": "#00b060"}, {"city": "Kolhapur", "state": "Maharashtra", "lat": 16.7, "lng": 74.24, "sellers": ["Rameshlal Jiyaldas"], "brands": ["Dove"], "listings": 1, "confirmed": true, "color": "#00b060"}, {"city": "Rajkot", "state": "Gujarat", "lat": 22.3, "lng": 70.8, "sellers": ["Eczicure (OPC) Private Limited"], "brands": ["Crocin"], "listings": 1, "confirmed": true, "color": "#b060ff"}];
+
+function loadBrandHeatmap() {
+  var brand = document.getElementById('brandFilter').value;
+  var sellers = brand === 'all' ? BRAND_SELLERS :
+    BRAND_SELLERS.filter(function(s){return s.brands.includes(brand);});
+  var stats = document.getElementById('brandStats');
+  stats.style.display = 'grid';
+  var totalSellers = sellers.reduce(function(a,s){return a+s.listings;},0);
+  var states = new Set(sellers.map(function(s){return s.state;})).size;
+  var brands = new Set(sellers.flatMap(function(s){return s.brands;})).size;
+  stats.innerHTML = [
+    ['Cities',sellers.length,'var(--purple)'],
+    ['Sellers',totalSellers,'var(--red)'],
+    ['States',states,'var(--blue)'],
+    ['Brands',brands,'var(--green)'],
+  ].map(function(it){
+    return '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:10px;">' +
+      '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">' + it[0] + '</div>' +
+      '<div style="font-size:1.4rem;font-weight:600;color:' + it[2] + ';">' + it[1] + '</div></div>';
+  }).join('');
+  var cityList = document.getElementById('brandCityList');
+  if (cityList) {
+    cityList.innerHTML = sellers.slice(0,12).map(function(s){
+      var col = s.brands.length > 1 ? '#b060ff' :
+        ({Nike:'#ff3355',Dettol:'#3d7fff',Dove:'#00b060','Samsung Galaxy':'#ff8c00',Crocin:'#b060ff'}[s.brands[0]]||'#888');
+      return '<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--border);">' +
+        '<div style="width:6px;height:6px;border-radius:50%;background:' + col + ';flex-shrink:0;"></div>' +
+        '<div><div style="font-size:.7rem;color:var(--text);">' + s.city + '</div>' +
+        '<div style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">' + s.listings + ' · ' + s.brands.join(', ') + '</div></div></div>';
+    }).join('');
+  }
+  drawBrandMap(sellers);
+}
+
+function drawBrandMap(sellers) {
+  var BRAND_COLORS = {Nike:'#ff3355',Dettol:'#3d7fff',Dove:'#00b060','Samsung Galaxy':'#ff8c00',Crocin:'#b060ff'};
+  d3.json('https://cdn.jsdelivr.net/npm/datamaps@0.5.10/src/js/data/ind.topo.json')
+    .then(function(india) {
+      var svg = d3.select('#brandMapSvg');
+      svg.selectAll('*').remove();
+      var proj = d3.geoMercator().center([82,22]).scale(900).translate([300,340]);
+      var path = d3.geoPath(proj);
+      svg.selectAll('path')
+        .data(topojson.feature(india, india.objects.ind).features)
+        .join('path').attr('d', path)
+        .attr('fill','#13131c').attr('stroke','rgba(255,255,255,.12)').attr('stroke-width',0.5);
+      sellers.forEach(function(s) {
+        var pos = proj([s.lng, s.lat]);
+        var r = 5 + Math.sqrt(s.listings) * 3;
+        var col = s.brands.length > 1 ? '#b060ff' : (BRAND_COLORS[s.brands[0]] || '#888888');
+        svg.append('circle').attr('cx',pos[0]).attr('cy',pos[1]).attr('r',r*1.8).attr('fill',col).attr('opacity',0.1);
+        svg.append('circle').attr('cx',pos[0]).attr('cy',pos[1]).attr('r',r)
+          .attr('fill',col).attr('opacity',0.85).attr('stroke','#fff').attr('stroke-width',1)
+          .style('cursor','pointer')
+          .on('mouseover',function(event){
+            var tt = document.getElementById('brandTooltip');
+            if (!tt) return;
+            tt.innerHTML = '<div style="font-weight:600;color:var(--text);">' + s.city + '</div>' +
+              '<div style="color:var(--text2);">' + s.state + '</div>' +
+              '<div style="color:var(--text2);">' + s.listings + ' sellers</div>' +
+              '<div style="color:var(--text3);">' + s.brands.join(', ') + '</div>' +
+              (s.sellers ? '<div style="color:var(--text3);font-size:.65rem;">' + s.sellers.slice(0,3).join(', ') + '</div>' : '');
+            var svgEl = document.getElementById('brandMapSvg');
+            var par = svgEl.parentElement;
+            var cr = par.getBoundingClientRect();
+            tt.style.display = 'block';
+            tt.style.left = (event.clientX - cr.left + 12) + 'px';
+            tt.style.top = (event.clientY - cr.top + 12) + 'px';
+          })
+          .on('mouseout',function(){
+            var tt = document.getElementById('brandTooltip');
+            if (tt) tt.style.display = 'none';
+          });
+        svg.append('text').attr('x',pos[0]).attr('y',pos[1]+r+10)
+          .attr('text-anchor','middle').attr('font-size','8')
+          .attr('font-family','IBM Plex Mono').attr('fill','rgba(255,255,255,.5)').text(s.city);
+      });
+    }).catch(function(){
+      var svg = d3.select('#brandMapSvg');
+      svg.selectAll('*').remove();
+      svg.append('text').attr('x',300).attr('y',300).attr('text-anchor','middle')
+        .attr('font-size',13).attr('font-family','IBM Plex Mono')
+        .attr('fill','#8888aa').text(sellers.length + ' cities — map unavailable');
+    });
+}
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 </body></html>';
     var w = window.open('','_blank','width=900,height=700');
     w.document.write(html); w.document.close();

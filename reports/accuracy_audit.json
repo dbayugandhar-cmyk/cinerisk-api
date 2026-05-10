@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-05-10T15:05:30.442390",
+  "version": "3.0",
+  "tier1_channels": 129,
+  "tier2_channels": 126,
+  "tier3_channels": 825,
+  "tier1_accuracy": "95%+",
+  "tier2_accuracy": "85-90%",
+  "tier3_accuracy": "40-60% \u2014 review queue only",
+  "reportable_channels": 255,
+  "reportable_pct": 23.6,
+  "seller_confirmed": 8,
+  "seller_likely": 11,
+  "total_sellers": 59,
+  "methodology": "Tiered confidence model. Tier 1: explicit evidence (phone/UPI publicly posted, hard fraud keywords). Tier 2: strong name signal (unambiguous fraud terms). Tier 3: discovery queue pending additional signal. Reports issued only on Tier 1+2. IT Act 65B on all."
+}

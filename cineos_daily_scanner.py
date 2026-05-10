@@ -324,3 +324,17 @@ async def update_intelligence_graph():
         log("Intelligence graph updated")
     except Exception as e:
         log(f"Graph update error: {e}")
+
+
+async def run_serp_intelligence():
+    """Daily SerpApi enrichment — expands graph automatically."""
+    log("Running SerpApi intelligence expansion...")
+    try:
+        import subprocess
+        subprocess.run(
+            ['python3', 'cineos_serp_intelligence.py'],
+            capture_output=True, timeout=300
+        )
+        log("SerpApi expansion complete")
+    except Exception as e:
+        log(f"SerpApi expansion error: {e}")

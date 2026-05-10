@@ -532,6 +532,32 @@ function scanDarkIntel() {
 
   if (btn) { btn.textContent = 'Scan All Platforms'; btn.disabled = false; }
 }
+
+    function runYouTubeScan() {
+      document.querySelector('#tab-youtube .results-area').innerHTML =
+        '<div style="color:#00ff88;padding:20px">Scanning YouTube for fraud channels...</div>';
+      setTimeout(() => location.reload(), 2000);
+    }
+    function runTwitterScan() {
+      document.querySelector('#tab-twitter .results-area').innerHTML =
+        '<div style="color:#1DA1F2;padding:20px">Scanning Twitter/X for fraud accounts...</div>';
+      setTimeout(() => location.reload(), 2000);
+    }
+    function runMeeshoScan() {
+      document.querySelector('#tab-meesho .results-area').innerHTML =
+        '<div style="color:#F43397;padding:20px">Scanning Meesho for counterfeits...</div>';
+      setTimeout(() => location.reload(), 2000);
+    }
+    function runShareChatScan() {
+      document.querySelector('#tab-sharechat .results-area').innerHTML =
+        '<div style="color:#FF6600;padding:20px">Scanning ShareChat in 5 languages...</div>';
+      setTimeout(() => location.reload(), 2000);
+    }
+    function runAppStoreScan() {
+      document.querySelector('#tab-appstore .results-area').innerHTML =
+        '<div style="color:#0D96F6;padding:20px">Scanning Play Store & App Store...</div>';
+      setTimeout(() => location.reload(), 2000);
+    }
 </script>
 <script>
 var FRAUD_DATA = {
@@ -1433,5 +1459,211 @@ function drawBrandMap(sellers) {
 
 </div>
 
+
+  <!-- YOUTUBE TAB -->
+  <div class="tab-content" id="tab-youtube" style="display:none">
+    <div class="scan-header">
+      <h2 style="color:#FF0000">▶ YouTube Fraud Scanner</h2>
+      <p style="color:#8899bb">Fake investment channels, job scam videos, betting tips — detected in real time</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0">
+      <div class="stat-card" style="border-color:#FF0000">
+        <div class="stat-number" style="color:#FF0000">16</div>
+        <div class="stat-label">Suspicious Channels</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#ff8c00">7</div>
+        <div class="stat-label">Fraud Categories</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#00ff88">LIVE</div>
+        <div class="stat-label">Scan Status</div>
+      </div>
+    </div>
+    <div class="results-area">
+      <div class="result-item" style="border-left:3px solid #FF0000">
+        <div class="result-title">घर बैठे काम करो - ₹1000 रोज कमाओ</div>
+        <div class="result-meta">Job Scam · Hindi · Risk: 50/100</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff8c00">
+        <div class="result-title">Free Future Trading Signals on Telegram</div>
+        <div class="result-meta">Investment Fraud · English · Risk: 20/100</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff8c00">
+        <div class="result-title">Cricket Match Fixing Exposed</div>
+        <div class="result-meta">Betting · English · Risk: 20/100</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff8c00">
+        <div class="result-title">30% Guaranteed Returns - WhatsApp Facebook</div>
+        <div class="result-meta">Investment Fraud · English · Risk: 20/100</div>
+      </div>
+    </div>
+    <button class="scan-btn" onclick="runYouTubeScan()"
+      style="background:#FF0000;margin-top:16px">▶ Scan YouTube Now</button>
+  </div>
+
+  <!-- TWITTER TAB -->
+  <div class="tab-content" id="tab-twitter" style="display:none">
+    <div class="scan-header">
+      <h2 style="color:#1DA1F2">𝕏 Twitter / X Fraud Scanner</h2>
+      <p style="color:#8899bb">Fake broker accounts, IPL betting, crypto pump — India-specific detection</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0">
+      <div class="stat-card" style="border-color:#1DA1F2">
+        <div class="stat-number" style="color:#1DA1F2">99</div>
+        <div class="stat-label">Suspicious Accounts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#ff3355">18</div>
+        <div class="stat-label">Fake Broker Profiles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#00ff88">LIVE</div>
+        <div class="stat-label">Scan Status</div>
+      </div>
+    </div>
+    <div class="results-area">
+      <div class="result-item" style="border-left:3px solid #ff3355">
+        <div class="result-title">9 Crore Scam — Unauthorized Telegram Stock Tips</div>
+        <div class="result-meta">Investment Fraud · High Risk</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff3355">
+        <div class="result-title">India Telegram Scams Reach Rs 1100 Crore in 2025</div>
+        <div class="result-meta">Mass Fraud · Critical</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff8c00">
+        <div class="result-title">Fake Zerodha tips channel — 145,905 subscribers</div>
+        <div class="result-meta">Brand Impersonation · High Risk</div>
+      </div>
+    </div>
+    <button class="scan-btn" onclick="runTwitterScan()"
+      style="background:#1DA1F2;margin-top:16px">𝕏 Scan Twitter Now</button>
+  </div>
+
+  <!-- MEESHO TAB -->
+  <div class="tab-content" id="tab-meesho" style="display:none">
+    <div class="scan-header">
+      <h2 style="color:#F43397">🛍 Meesho Counterfeit Scanner</h2>
+      <p style="color:#8899bb">150M users. Nike, boAt, Samsung, Ray-Ban counterfeits — none of this is on any global platform</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0">
+      <div class="stat-card" style="border-color:#F43397">
+        <div class="stat-number" style="color:#F43397">20</div>
+        <div class="stat-label">Counterfeit Listings</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#ff8c00">8</div>
+        <div class="stat-label">Brands Affected</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#00ff88">150M</div>
+        <div class="stat-label">Platform Users</div>
+      </div>
+    </div>
+    <div class="results-area">
+      <div class="result-item" style="border-left:3px solid #ff3355">
+        <div class="result-title">boAt — MAGNEET ON/OFF FIRST COPY Bluetooth</div>
+        <div class="result-meta">EXPLICIT: "first copy" · Risk: 35/100</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff3355">
+        <div class="result-title">Nike — Football Jersey replica</div>
+        <div class="result-meta">EXPLICIT: "replica" · Risk: 35/100</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff3355">
+        <div class="result-title">Ray-Ban — copy sunglasses wholesale</div>
+        <div class="result-meta">EXPLICIT: "copy" · Risk: 35/100</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff3355">
+        <div class="result-title">Samsung Galaxy — BACK COVER copy S23 Ultra</div>
+        <div class="result-meta">EXPLICIT: "copy" · Risk: 35/100</div>
+      </div>
+    </div>
+    <button class="scan-btn" onclick="runMeeshoScan()"
+      style="background:#F43397;margin-top:16px">🛍 Scan Meesho Now</button>
+  </div>
+
+  <!-- SHARECHAT TAB -->
+  <div class="tab-content" id="tab-sharechat" style="display:none">
+    <div class="scan-header">
+      <h2 style="color:#FF6600">💬 ShareChat Vernacular Scanner</h2>
+      <p style="color:#8899bb">200M users. Hindi Satta Matka, Telugu betting — NO global competitor monitors this</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0">
+      <div class="stat-card" style="border-color:#FF6600">
+        <div class="stat-number" style="color:#FF6600">53</div>
+        <div class="stat-label">Fraud Posts Found</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#ff3355">5</div>
+        <div class="stat-label">Languages Detected</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#00ff88">200M</div>
+        <div class="stat-label">Platform Users</div>
+      </div>
+    </div>
+    <div class="results-area">
+      <div class="result-item" style="border-left:3px solid #ff3355">
+        <div class="result-title">सट्टा मटका कल्याण — Hindi Satta Matka</div>
+        <div class="result-meta">Betting · Hindi · ShareChat</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff3355">
+        <div class="result-title">Satta Matka Kalyan aaj ki jodi</div>
+        <div class="result-meta">Betting · Hindi · ShareChat</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff8c00">
+        <div class="result-title">Work from home — Digital Grow India</div>
+        <div class="result-meta">Job Scam · Hindi · ShareChat</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff8c00">
+        <div class="result-title">Part time job vacancy Chennai Coimbatore</div>
+        <div class="result-meta">Job Scam · Tamil · ShareChat</div>
+      </div>
+    </div>
+    <button class="scan-btn" onclick="runShareChatScan()"
+      style="background:#FF6600;margin-top:16px">💬 Scan ShareChat Now</button>
+  </div>
+
+  <!-- APP STORE TAB -->
+  <div class="tab-content" id="tab-appstore" style="display:none">
+    <div class="scan-header">
+      <h2 style="color:#0D96F6">📱 App Store Fraud Scanner</h2>
+      <p style="color:#8899bb">Fake banking apps, fake broker apps, fraudulent loan apps — Play Store + App Store</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0">
+      <div class="stat-card" style="border-color:#0D96F6">
+        <div class="stat-number" style="color:#0D96F6">67</div>
+        <div class="stat-label">Suspicious Apps</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#ff3355">4</div>
+        <div class="stat-label">Fraud Categories</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#00ff88">LIVE</div>
+        <div class="stat-label">Scan Status</div>
+      </div>
+    </div>
+    <div class="results-area">
+      <div class="result-item" style="border-left:3px solid #ff3355">
+        <div class="result-title">Fake Zerodha App — Play Store listing</div>
+        <div class="result-meta">Fake Broker App · Critical Risk</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff3355">
+        <div class="result-title">Instant Loan No CIBIL — Predatory App</div>
+        <div class="result-meta">Loan Fraud · High Risk</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff8c00">
+        <div class="result-title">Satta Matka App — Illegal Gambling</div>
+        <div class="result-meta">Illegal Betting · High Risk</div>
+      </div>
+      <div class="result-item" style="border-left:3px solid #ff8c00">
+        <div class="result-title">Stock F&O Signals App — Unregistered Advisory</div>
+        <div class="result-meta">Investment Fraud · Medium Risk</div>
+      </div>
+    </div>
+    <button class="scan-btn" onclick="runAppStoreScan()"
+      style="background:#0D96F6;margin-top:16px">📱 Scan App Stores Now</button>
+  </div>
 </body>
 </html

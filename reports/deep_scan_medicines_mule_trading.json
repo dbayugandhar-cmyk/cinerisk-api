@@ -1,0 +1,172 @@
+{
+  "generated_at": "2026-05-10T19:06:14.859535",
+  "classification": "INTERNAL \u2014 Novel fraud intelligence",
+  "raw_results": {
+    "fake_loan_apps": [
+      {
+        "scanner": "FAKE_LOAN_APP",
+        "query": "loan app without RBI india telegram whatsapp",
+        "title": "Smart Lakhan",
+        "url": "https://t.me/s/Smartlakhan?before=80",
+        "snippet": "bharat loan app se loan kaise len 2024 - how to apply bharat loan | loan app fast approval join telegram :- https://t.me/smartlakhanhello and namaste ",
+        "signals": [
+          "MESSAGING_DISTRIBUTION"
+        ],
+        "tg_links": [
+          "smartlakhanhello"
+        ],
+        "wa_links": [],
+        "apk_urls": [],
+        "risk": "CRITICAL",
+        "evidence": "1c717cca158f83c29df99fe4c972bbd3bf1d1fd1f8306696cece5ce5b7399116",
+        "action": "Report to RBI + Play Store + MeitY",
+        "found_at": "2026-05-10T19:03:50.729591"
+      },
+      {
+        "scanner": "FAKE_LOAN_APP",
+        "query": "instant loan app new india 2026 telegram join",
+        "title": "TechPana on Instagram: \"How to Get Instant Loan Without ...",
+        "url": "https://www.instagram.com/reel/DWY1ZZ4jmvB/",
+        "snippet": "join telegram now https://t.me/loanpaybharat save ... loan is approved money loan app instant loan apps in india 2026. loan ...",
+        "signals": [
+          "MESSAGING_DISTRIBUTION"
+        ],
+        "tg_links": [
+          "loanpaybharat"
+        ],
+        "wa_links": [],
+        "apk_urls": [],
+        "risk": "CRITICAL",
+        "evidence": "5b58ca97881179ba9a5fc3073d059e63b7f63eb630b4661ebd0224bf030607c0",
+        "action": "Report to RBI + Play Store + MeitY",
+        "found_at": "2026-05-10T19:03:59.718544"
+      }
+    ],
+    "sebi_unregistered": [
+      {
+        "scanner": "SEBI_UNREGISTERED",
+        "query": "\"SEBI registered\" tips telegram india free join",
+        "title": "View @indextradingnitin",
+        "url": "https://t.me/indextradingnitin",
+        "snippet": "sebi registered research analyst, employed with smc global securities ltd. ... if you have telegram, you can view and join. index trading with ca niti",
+        "signals": [
+          "UNVERIFIED_SEBI_CLAIM",
+          "TELEGRAM_CHANNEL"
+        ],
+        "tg_links": [
+          "indextradingnitin"
+        ],
+        "risk": "HIGH",
+        "violation": "SEBI IA Regulations 2013 \u2014 unregistered investment advisor",
+        "action": "SEBI SCORES complaint + Telegram IT Rules 2021 notice",
+        "evidence": "d1a267250d78d64c384b907ad6b5c4a6f5420ae4723f14dc988718fc90a07088"
+      },
+      {
+        "scanner": "SEBI_UNREGISTERED",
+        "query": "option tips telegram india free channel join",
+        "title": "Aakanksha Option Trading",
+        "url": "https://t.me/aakankshatrading",
+        "snippet": "aakanksha option trading. 57 530 subscribers. sebi ... preview channel. if you have telegram, you can view and join. aakanksha option trading right aw",
+        "signals": [
+          "TELEGRAM_CHANNEL"
+        ],
+        "tg_links": [
+          "aakankshatrading"
+        ],
+        "risk": "HIGH",
+        "violation": "SEBI IA Regulations 2013 \u2014 unregistered investment advisor",
+        "action": "SEBI SCORES complaint + Telegram IT Rules 2021 notice",
+        "evidence": "c0fa4a275a259f534f062d0740fef0e7a268a6f09f54208a3220a40a9982d27a"
+      }
+    ],
+    "digital_arrest": [],
+    "task_fraud": [
+      {
+        "scanner": "TASK_FRAUD_PIPELINE",
+        "query": "work from home earn money india telegram channel",
+        "title": "View @job4freshersworkfromhome",
+        "url": "https://t.me/job4freshersworkfromhome",
+        "snippet": "this is the official channel of @job4fresherss for work from home jobs. click here to apply for work from home \u2713",
+        "signals": [
+          "MESSAGING_PLATFORM"
+        ],
+        "tg_links": [
+          "job4freshersworkfromhome"
+        ],
+        "wa_links": [],
+        "risk": "HIGH",
+        "action": "I4C + NPCI + bank alert",
+        "evidence": "1c92d23e9b9f6ac0039a5d605495bb1887e406224b7ade573313693c3b09e67c"
+      },
+      {
+        "scanner": "TASK_FRAUD_PIPELINE",
+        "query": "online task earn money india telegram channel",
+        "title": "BE A TASK RECEPTIONIST ON TELEGRAM!! \ud83d\udcb8 https://t.me ...",
+        "url": "https://www.facebook.com/groups/264232390106269/posts/657254474137390/",
+        "snippet": "be a task receptionist on telegram!! https://t.me/taskofearnbot/task?startapp=31462228951203 how to earn? complete simple task like.",
+        "signals": [
+          "FAKE_ENGAGEMENT_TASK",
+          "MESSAGING_PLATFORM"
+        ],
+        "tg_links": [
+          "taskofearnbot"
+        ],
+        "wa_links": [],
+        "risk": "HIGH",
+        "action": "I4C + NPCI + bank alert",
+        "evidence": "26228c5a97519166451f888e84c34d483573bc767711a3cd7f21ea62f93cb49d"
+      }
+    ]
+  },
+  "genuine_results": {
+    "fake_loan_apps": [],
+    "sebi_unregistered": [
+      {
+        "scanner": "SEBI_UNREGISTERED",
+        "query": "\"SEBI registered\" tips telegram india free join",
+        "title": "View @indextradingnitin",
+        "url": "https://t.me/indextradingnitin",
+        "snippet": "sebi registered research analyst, employed with smc global securities ltd. ... if you have telegram, you can view and join. index trading with ca niti",
+        "signals": [
+          "UNVERIFIED_SEBI_CLAIM",
+          "TELEGRAM_CHANNEL"
+        ],
+        "tg_links": [
+          "indextradingnitin"
+        ],
+        "risk": "HIGH",
+        "violation": "SEBI IA Regulations 2013 \u2014 unregistered investment advisor",
+        "action": "SEBI SCORES complaint + Telegram IT Rules 2021 notice",
+        "evidence": "d1a267250d78d64c384b907ad6b5c4a6f5420ae4723f14dc988718fc90a07088"
+      }
+    ],
+    "digital_arrest": [],
+    "task_fraud": [
+      {
+        "scanner": "TASK_FRAUD_PIPELINE",
+        "query": "online task earn money india telegram channel",
+        "title": "BE A TASK RECEPTIONIST ON TELEGRAM!! \ud83d\udcb8 https://t.me ...",
+        "url": "https://www.facebook.com/groups/264232390106269/posts/657254474137390/",
+        "snippet": "be a task receptionist on telegram!! https://t.me/taskofearnbot/task?startapp=31462228951203 how to earn? complete simple task like.",
+        "signals": [
+          "FAKE_ENGAGEMENT_TASK",
+          "MESSAGING_PLATFORM"
+        ],
+        "tg_links": [
+          "taskofearnbot"
+        ],
+        "wa_links": [],
+        "risk": "HIGH",
+        "action": "I4C + NPCI + bank alert",
+        "evidence": "26228c5a97519166451f888e84c34d483573bc767711a3cd7f21ea62f93cb49d"
+      }
+    ]
+  },
+  "total_genuine": 2,
+  "business_value": {
+    "fake_loan_apps": "RBI + NBFCs \u2014 Rs 50L-2Cr/year",
+    "sebi_unregistered": "SEBI + brokers \u2014 Rs 25L-1Cr/year",
+    "digital_arrest": "MHA + I4C \u2014 Rs 1-5Cr/year",
+    "task_fraud": "NPCI + banks \u2014 Rs 50L-2Cr/year"
+  }
+}

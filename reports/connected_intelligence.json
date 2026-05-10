@@ -1,0 +1,1236 @@
+{
+  "generated_at": "2026-05-10T15:21:14.865868",
+  "source": "CINEOS India Fraud Intelligence",
+  "patent": "US Provisional Patent 64/049,190",
+  "legal": "Public data only. IT Act 65B compliant.",
+  "layers": {
+    "connected_network": {
+      "total_components": 12,
+      "largest_size": 40,
+      "top_networks": [
+        {
+          "size": 40,
+          "node_types": {
+            "NETWORK": 2,
+            "CHANNEL": 38
+          },
+          "total_reach": 2450942,
+          "channels": [
+            "vipin_aryan_sawariyaexch1",
+            "Mahadev_bookt",
+            "Mahakalonlinebook247",
+            "World777_fairplay_tiger365",
+            "reddy_Annae",
+            "newmahadevbook",
+            "OfficialMahadevbook100no",
+            "gold365_lotus3655",
+            "kingexch_99exch_tigerexch",
+            "MAHADEVBOOK_MHADEV"
+          ],
+          "operators": [],
+          "phones": [],
+          "networks": [
+            "Mahadev Book",
+            "Lotus365"
+          ]
+        },
+        {
+          "size": 39,
+          "node_types": {
+            "NETWORK": 6,
+            "CHANNEL": 33
+          },
+          "total_reach": 1768195,
+          "channels": [
+            "Colourc_Predictc_daddy",
+            "bigdaddy_cric11forecastc",
+            "bdgwind_daddyt_gamer",
+            "daman_55clubs_BigDaddy",
+            "BigDaddy",
+            "daddy_predictss",
+            "BigDaddyKahuna",
+            "BDGwin",
+            "bdgwinc",
+            "number_hack_number_hack_tredingg"
+          ],
+          "operators": [],
+          "phones": [],
+          "networks": [
+            "BigDaddy",
+            "BDGWin",
+            "Daman",
+            "Yaarwin",
+            "91Club",
+            "Tiranga"
+          ]
+        },
+        {
+          "size": 19,
+          "node_types": {
+            "NETWORK": 4,
+            "CHANNEL": 9,
+            "OPERATOR": 3,
+            "PHONE": 2,
+            "BRAND": 1
+          },
+          "total_reach": 706394,
+          "channels": [
+            "cricadda_playbro_winadda_book_id",
+            "tiger365i",
+            "Tiger365_Betbhai9_Laser247",
+            "reddyanna_skyexchange_Mylaser",
+            "Fairdeal_play99exch_cricbet99",
+            "Reddyannabook_Sky1exchange",
+            "reddy_shriram_mahadev",
+            "BCCI_TOSS_MATCH_FIXER1",
+            "BCCI_MATCH_TOSS_FIXER0"
+          ],
+          "operators": [
+            "UNKNOWN_OP_4335",
+            "UNKNOWN_OP_8940",
+            "OP001"
+          ],
+          "phones": [
+            "8306154335",
+            "9216328940"
+          ],
+          "networks": [
+            "Reddy Anna Book",
+            "Play99",
+            "reddyanna888_io",
+            "reddyanna888_support"
+          ]
+        },
+        {
+          "size": 4,
+          "node_types": {
+            "CHANNEL": 1,
+            "OPERATOR": 1,
+            "NETWORK": 2
+          },
+          "total_reach": 199986,
+          "channels": [
+            "session_cricket_tips"
+          ],
+          "operators": [
+            "OP003"
+          ],
+          "phones": [],
+          "networks": [
+            "fair786guide",
+            "FAIR786FAMILY"
+          ]
+        },
+        {
+          "size": 4,
+          "node_types": {
+            "CHANNEL": 1,
+            "OPERATOR": 1,
+            "NETWORK": 2
+          },
+          "total_reach": 109799,
+          "channels": [
+            "MURUGAN_FIXER_LONDON1"
+          ],
+          "operators": [
+            "OP002"
+          ],
+          "phones": [],
+          "networks": [
+            "play99_support",
+            "Playgames9999"
+          ]
+        },
+        {
+          "size": 4,
+          "node_types": {
+            "PHONE": 1,
+            "CHANNEL": 2,
+            "OPERATOR": 1
+          },
+          "total_reach": 0,
+          "channels": [
+            "IPLBetting",
+            "ipltossmatchsessionn"
+          ],
+          "operators": [
+            "UNKNOWN_OP_6068"
+          ],
+          "phones": [
+            "8441916068"
+          ],
+          "networks": []
+        },
+        {
+          "size": 4,
+          "node_types": {
+            "OPERATOR": 3,
+            "BRAND": 1
+          },
+          "total_reach": 0,
+          "channels": [],
+          "operators": [
+            "SELLER_BUDDY_HOUSE",
+            "SELLER_Aster Shoes",
+            "SELLER_Next Wave"
+          ],
+          "phones": [],
+          "networks": []
+        },
+        {
+          "size": 3,
+          "node_types": {
+            "PHONE": 1,
+            "CHANNEL": 1,
+            "OPERATOR": 1
+          },
+          "total_reach": 0,
+          "channels": [
+            "Satta_khaiwal_gali_dishwar"
+          ],
+          "operators": [
+            "UNKNOWN_OP_2162"
+          ],
+          "phones": [
+            "6378542162"
+          ],
+          "networks": []
+        },
+        {
+          "size": 3,
+          "node_types": {
+            "OPERATOR": 2,
+            "BRAND": 1
+          },
+          "total_reach": 0,
+          "channels": [],
+          "operators": [
+            "SELLER_Cold Fusion Zone",
+            "SELLER_Gadget-Hub"
+          ],
+          "phones": [],
+          "networks": []
+        },
+        {
+          "size": 2,
+          "node_types": {
+            "PHONE": 1,
+            "OPERATOR": 1
+          },
+          "total_reach": 0,
+          "channels": [],
+          "operators": [
+            "UNKNOWN_OP_6466"
+          ],
+          "phones": [
+            "8696206466"
+          ],
+          "networks": []
+        }
+      ]
+    },
+    "payment_flows": {
+      "upi_flows": [],
+      "phone_flows": [
+        {
+          "phone": "+91-8306154335",
+          "whatsapp": true,
+          "channels_found_in": [
+            "BCCI_MATCH_TOSS_FIXER0",
+            "BCCI_TOSS_MATCH_FIXER1"
+          ],
+          "confidence": 95,
+          "source": "Publicly posted in channel messages",
+          "evidence_hash": "65f2ca20dddda020057082542e70b8875c59bfc22be533106fea3317132fd5d5",
+          "next_step": "DoT subscriber lookup \u2014 police authority",
+          "next_step_2": "Bank KYC linked to phone number",
+          "legal_basis": "IT Act 65B \u2014 public channel evidence"
+        },
+        {
+          "phone": "+91-9216328940",
+          "whatsapp": true,
+          "channels_found_in": [
+            "BCCI_MATCH_TOSS_FIXER0",
+            "BCCI_TOSS_MATCH_FIXER1"
+          ],
+          "confidence": 95,
+          "source": "Publicly posted in channel messages",
+          "evidence_hash": "238e8125ed80dbe8dbe264f8b6952b04a189a93b2b172c002d06185284f6cd78",
+          "next_step": "DoT subscriber lookup \u2014 police authority",
+          "next_step_2": "Bank KYC linked to phone number",
+          "legal_basis": "IT Act 65B \u2014 public channel evidence"
+        },
+        {
+          "phone": "+91-8441916068",
+          "whatsapp": false,
+          "channels_found_in": [
+            "IPLBetting",
+            "ipltossmatchsessionn"
+          ],
+          "confidence": 90,
+          "source": "Publicly posted in channel messages",
+          "evidence_hash": "060e37872e827fdafb44d7bbbff34504c312eeb854746960de0e46e395e16db6",
+          "next_step": "DoT subscriber lookup \u2014 police authority",
+          "next_step_2": "Bank KYC linked to phone number",
+          "legal_basis": "IT Act 65B \u2014 public channel evidence"
+        },
+        {
+          "phone": "+91-6378542162",
+          "whatsapp": false,
+          "channels_found_in": [
+            "Satta_khaiwal_gali_dishwar"
+          ],
+          "confidence": 85,
+          "source": "Publicly posted in channel messages",
+          "evidence_hash": "86872c83279352e8c008ad80dd10ce75709214705cf1e9f3709d4d9fb760e0be",
+          "next_step": "DoT subscriber lookup \u2014 police authority",
+          "next_step_2": "Bank KYC linked to phone number",
+          "legal_basis": "IT Act 65B \u2014 public channel evidence"
+        },
+        {
+          "phone": "+91-8696206466",
+          "whatsapp": false,
+          "channels_found_in": [],
+          "confidence": 75,
+          "source": "Publicly posted in channel messages",
+          "evidence_hash": "1f4a5f5099d0a1d55528e35d862a7d4107d8395388e4d5730a579d43fdb7320e",
+          "next_step": "DoT subscriber lookup \u2014 police authority",
+          "next_step_2": "Bank KYC linked to phone number",
+          "legal_basis": "IT Act 65B \u2014 public channel evidence"
+        },
+        {
+          "phone": "+91-9911919102",
+          "whatsapp": false,
+          "channels_found_in": [],
+          "confidence": 75,
+          "source": "Publicly posted in channel messages",
+          "evidence_hash": "89879a1b11c6365aa50b45efdf02ce69bec7b453a9052f31c5f73d01e1625aa6",
+          "next_step": "DoT subscriber lookup \u2014 police authority",
+          "next_step_2": "Bank KYC linked to phone number",
+          "legal_basis": "IT Act 65B \u2014 public channel evidence"
+        }
+      ],
+      "total": 6
+    },
+    "repeat_infrastructure": {
+      "naming_clusters": 11,
+      "brand_clusters": 11,
+      "total_clusters": 18,
+      "clusters": [
+        {
+          "type": "naming_pattern",
+          "pattern": "dream11_all_group_best_dream_",
+          "channels": [
+            "DREAM11_ALL_GROUP_BEST_dream_99",
+            "DREAM11_ALL_GROUP_BEST_dream_89",
+            "DREAM11_ALL_GROUP_BEST_dream_9"
+          ],
+          "count": 3,
+          "reach": 4626,
+          "confidence": 85,
+          "evidence": "Sequential numbering = same operator",
+          "legal": "Proves coordinated operation under BNS 2023"
+        },
+        {
+          "type": "naming_pattern",
+          "pattern": "ipl_match_report",
+          "channels": [
+            "IPL_MATCH_REPORT0",
+            "IPL_MATCH_REPORT2"
+          ],
+          "count": 2,
+          "reach": 239605,
+          "confidence": 85,
+          "evidence": "Sequential numbering = same operator",
+          "legal": "Proves coordinated operation under BNS 2023"
+        },
+        {
+          "type": "naming_pattern",
+          "pattern": "murugan_fixer_london",
+          "channels": [
+            "MURUGAN_FIXER_LONDON1",
+            "MURUGAN_FIXER_London"
+          ],
+          "count": 2,
+          "reach": 160575,
+          "confidence": 85,
+          "evidence": "Sequential numbering = same operator",
+          "legal": "Proves coordinated operation under BNS 2023"
+        },
+        {
+          "type": "naming_pattern",
+          "pattern": "kolkata_fatafat",
+          "channels": [
+            "kolkata_fatafat3",
+            "Kolkata_fatafat1"
+          ],
+          "count": 2,
+          "reach": 53379,
+          "confidence": 85,
+          "evidence": "Sequential numbering = same operator",
+          "legal": "Proves coordinated operation under BNS 2023"
+        },
+        {
+          "type": "naming_pattern",
+          "pattern": "shillong_teer_khanapara_juwai",
+          "channels": [
+            "SHILLONG_TEER_KHANAPARA_JUWAI",
+            "Shillong_Teer_Khanapara_Juwai07"
+          ],
+          "count": 2,
+          "reach": 70654,
+          "confidence": 85,
+          "evidence": "Sequential numbering = same operator",
+          "legal": "Proves coordinated operation under BNS 2023"
+        },
+        {
+          "type": "naming_pattern",
+          "pattern": "kalyan_sridevi_dpboss_mataka",
+          "channels": [
+            "KALYAN_SRIDEVI_DPBOSS_MATAKA01",
+            "KALYAN_SRIDEVI_DPBOSS_MATAKA"
+          ],
+          "count": 2,
+          "reach": 26410,
+          "confidence": 85,
+          "evidence": "Sequential numbering = same operator",
+          "legal": "Proves coordinated operation under BNS 2023"
+        },
+        {
+          "type": "naming_pattern",
+          "pattern": "vipin_aryan_sawariyaexch",
+          "channels": [
+            "vipin_aryan_sawariyaexch1",
+            "vipin_aryan_sawariyaexch"
+          ],
+          "count": 2,
+          "reach": 33753,
+          "confidence": 85,
+          "evidence": "Sequential numbering = same operator",
+          "legal": "Proves coordinated operation under BNS 2023"
+        },
+        {
+          "type": "naming_pattern",
+          "pattern": "filmyzilla",
+          "channels": [
+            "filmyzilla101",
+            "filmyzilla26"
+          ],
+          "count": 2,
+          "reach": 23017,
+          "confidence": 85,
+          "evidence": "Sequential numbering = same operator",
+          "legal": "Proves coordinated operation under BNS 2023"
+        },
+        {
+          "type": "naming_pattern",
+          "pattern": "skymovieshd",
+          "channels": [
+            "SkymoviesHD5",
+            "SkymoviesHD"
+          ],
+          "count": 2,
+          "reach": 12376,
+          "confidence": 85,
+          "evidence": "Sequential numbering = same operator",
+          "legal": "Proves coordinated operation under BNS 2023"
+        },
+        {
+          "type": "naming_pattern",
+          "pattern": "all_colour_game_avitor_hack",
+          "channels": [
+            "All_Colour_game_avitor_hack",
+            "All_Colour_game_avitor_hack2"
+          ],
+          "count": 2,
+          "reach": 18727,
+          "confidence": 85,
+          "evidence": "Sequential numbering = same operator",
+          "legal": "Proves coordinated operation under BNS 2023"
+        },
+        {
+          "type": "brand_cluster",
+          "brand": "mahadev",
+          "channels": [
+            "cricbet99_reddyanna_cricketbuzz",
+            "tiger365_gold365_allpanel",
+            "Mahadev_bookg",
+            "Mahadev_bookh",
+            "Mahadev_bookt",
+            "shriram_myLaser247_reddy_anna",
+            "Mahadev_id_gold365",
+            "ambani_fairplay_11xplay_trusted",
+            "MAHADEVBOOK_MHADEV",
+            "World777_fairplay_tiger365"
+          ],
+          "count": 41,
+          "reach": 2201956,
+          "confidence": 80,
+          "evidence": "41 channels promoting same brand",
+          "legal": "Franchise fraud operation"
+        },
+        {
+          "type": "brand_cluster",
+          "brand": "mahadev book",
+          "channels": [
+            "cricbet99_reddyanna_cricketbuzz",
+            "tiger365_gold365_allpanel",
+            "Mahadev_bookg",
+            "Mahadev_bookh",
+            "Mahadev_bookt",
+            "shriram_myLaser247_reddy_anna",
+            "ambani_fairplay_11xplay_trusted",
+            "World777_fairplay_tiger365",
+            "Reddy_Annaw",
+            "reddy_Annae"
+          ],
+          "count": 26,
+          "reach": 1853123,
+          "confidence": 80,
+          "evidence": "26 channels promoting same brand",
+          "legal": "Franchise fraud operation"
+        },
+        {
+          "type": "brand_cluster",
+          "brand": "lotus365",
+          "channels": [
+            "tiger365_allpanelexch",
+            "Lotusbook365_Lotus365_Gold365",
+            "nitinn_lotus365",
+            "Lotus365u",
+            "Lotus365o",
+            "Lotus365book_saffron247_my99exch",
+            "lotus365z",
+            "Lotus365_id_shriram_id_lotusbook",
+            "Rockybook_Rocky_lotus365_winbuzz",
+            "CRYPTO_book_lotus365_nitinnj"
+          ],
+          "count": 12,
+          "reach": 562335,
+          "confidence": 80,
+          "evidence": "12 channels promoting same brand",
+          "legal": "Franchise fraud operation"
+        },
+        {
+          "type": "brand_cluster",
+          "brand": "laser247",
+          "channels": [
+            "allpanel_cricbet99_laser247",
+            "cricbet99_11xplay_laser247",
+            "betbhai9_laser247_cricbet99",
+            "Tiger365_Betbhai9_Laser247",
+            "laser247_my99exch_betbook247",
+            "shriram_myLaser247_reddy_anna",
+            "fairplay_laser247_11xplay",
+            "Rocky_book_laser247_mahadevbook",
+            "mahadevbook_laser247_skyexchange",
+            "cricbet99_mylaser247_betbhai9"
+          ],
+          "count": 11,
+          "reach": 1262812,
+          "confidence": 80,
+          "evidence": "11 channels promoting same brand",
+          "legal": "Franchise fraud operation"
+        },
+        {
+          "type": "brand_cluster",
+          "brand": "fairplay",
+          "channels": [
+            "ambani_fairplay_11xplay_trusted",
+            "skyexchange247_fairplay_winbuzz",
+            "fairplay_fair_play_club_book",
+            "World777_fairplay_tiger365",
+            "fairplay_fair_play_crypto_book",
+            "fairplay_reddybook_reddy_group",
+            "fairplay_laser247_11xplay",
+            "Mahadevbook_fairplay_Lotusbook",
+            "fair_play_fairplay_book_crypto",
+            "fairplay_vip_book"
+          ],
+          "count": 11,
+          "reach": 685937,
+          "confidence": 80,
+          "evidence": "11 channels promoting same brand",
+          "legal": "Franchise fraud operation"
+        },
+        {
+          "type": "brand_cluster",
+          "brand": "tiger365",
+          "channels": [
+            "Mylaser_crickbet_tiger365",
+            "tiger365_gold365_allpanel",
+            "Tiger365_Betbhai9_Laser247",
+            "tiger365_allpanelexch",
+            "World777_fairplay_tiger365",
+            "all_panel_dragon_tiger365",
+            "Tiger365_sky_exchange",
+            "rocky_bookc",
+            "Tiger365_Exchange_Book_crypto",
+            "tiger365i"
+          ],
+          "count": 10,
+          "reach": 1032147,
+          "confidence": 80,
+          "evidence": "10 channels promoting same brand",
+          "legal": "Franchise fraud operation"
+        },
+        {
+          "type": "brand_cluster",
+          "brand": "betbhai",
+          "channels": [
+            "betbhai9_laser247_cricbet99",
+            "Tiger365_Betbhai9_Laser247",
+            "TIGEREXCHANGE_My99exch_betbhai9",
+            "gold365_betbhai_my99exch_id",
+            "louts_betbhai_Id",
+            "cricbet99n",
+            "Betbhai3",
+            "sky_exchange_betbhai9_book",
+            "betbhai",
+            "cricbet99_mylaser247_betbhai9"
+          ],
+          "count": 10,
+          "reach": 790151,
+          "confidence": 80,
+          "evidence": "10 channels promoting same brand",
+          "legal": "Franchise fraud operation"
+        },
+        {
+          "type": "brand_cluster",
+          "brand": "reddy anna",
+          "channels": [
+            "Tiger365_Betbhai9_Laser247",
+            "Fairdeal_play99exch_cricbet99",
+            "fairplay_reddybook_reddy_group",
+            "Reddybookgreen_Reddybookvip",
+            "cricadda_playbro_winadda_book_id",
+            "reddy_shriram_mahadev",
+            "tiger365i",
+            "Anuragt_bookqc_Malikc",
+            "News_Crypto5",
+            "Mahadevsd_Bookuoo"
+          ],
+          "count": 10,
+          "reach": 455748,
+          "confidence": 80,
+          "evidence": "10 channels promoting same brand",
+          "legal": "Franchise fraud operation"
+        }
+      ]
+    },
+    "reseller_clusters": {
+      "networks": 5,
+      "total_ecosystem_reach": 786605,
+      "clusters": {
+        "Reddy Anna Book": {
+          "channels": [
+            "Anuragt_bookqc_Malikc",
+            "News_Crypto5",
+            "CRYPTO_reddy_annag",
+            "Mahadevsd_Bookuoo",
+            "gold365_lotus3655",
+            "reddyanna888_io"
+          ],
+          "model": "Betting book \u2014 agents earn commission per ID",
+          "reach": 0,
+          "phones": [
+            "8306154335",
+            "9216328940"
+          ],
+          "legal": "Public Gambling Act 1867 \u2014 organised crime",
+          "agent_count": 6
+        },
+        "Mahadev Book": {
+          "channels": [
+            "CRYPTO_book_lotus365_nitinnj",
+            "mahadev_bookiee",
+            "Mahadev_id_gold365",
+            "mahadevbook_laser247_skyexchange",
+            "online_lotus365_mahadev"
+          ],
+          "model": "Betting book \u2014 subject of active ED case",
+          "reach": 135251,
+          "phones": [],
+          "legal": "ED investigation active \u2014 offshore operation",
+          "agent_count": 5
+        },
+        "BigDaddy / Colour Prediction": {
+          "channels": [
+            "Colourc_Predictc_daddy",
+            "bdgwind_daddyt_gamer",
+            "daman_55clubs_BigDaddy",
+            "Lottery_Tiranga_91Club_82_Daman",
+            "daddy_predictss"
+          ],
+          "model": "Illegal lottery \u2014 colour prediction format",
+          "reach": 341569,
+          "phones": [],
+          "legal": "RBI Act \u2014 illegal lottery, no registration",
+          "agent_count": 5
+        },
+        "Fair786": {
+          "channels": [
+            "session_cricket_tips",
+            "fair786guide",
+            "FAIR786FAMILY"
+          ],
+          "model": "Betting platform \u2014 agent commission model",
+          "reach": 199986,
+          "phones": [],
+          "legal": "Public Gambling Act 1867",
+          "agent_count": 3
+        },
+        "Murugan / Play99": {
+          "channels": [
+            "MURUGAN_FIXER_LONDON1",
+            "Playgames9999",
+            "play99_support"
+          ],
+          "model": "Betting platform \u2014 overseas operator claim",
+          "reach": 109799,
+          "phones": [],
+          "legal": "FEMA 1999 \u2014 foreign operator, India victims",
+          "agent_count": 3
+        }
+      }
+    },
+    "risk_attribution": {
+      "total_attributions": 15,
+      "tier1": 3,
+      "tier2": 4,
+      "tier3": 8,
+      "attributions": [
+        {
+          "operator_id": "OPERATOR_c5d490780837",
+          "identifier": "UNKNOWN_OP_4335",
+          "confidence": 80,
+          "tier": "TIER_1",
+          "signals": [
+            "Phone: +91-8306154335",
+            "Channel: @BCCI_MATCH_TOSS_FIXER0",
+            "Channel: @BCCI_TOSS_MATCH_FIXER1",
+            "Network: Reddy Anna Book"
+          ],
+          "connected": [
+            {
+              "type": "PHONE",
+              "id": "8306154335",
+              "relation": "USES_PHONE",
+              "confidence": 95
+            },
+            {
+              "type": "CHANNEL",
+              "id": "BCCI_MATCH_TOSS_FIXER0",
+              "relation": "OPERATES",
+              "confidence": 95
+            },
+            {
+              "type": "CHANNEL",
+              "id": "BCCI_TOSS_MATCH_FIXER1",
+              "relation": "OPERATES",
+              "confidence": 95
+            },
+            {
+              "type": "NETWORK",
+              "id": "Reddy Anna Book",
+              "relation": "AFFILIATED_WITH",
+              "confidence": 80
+            }
+          ],
+          "evidence_hash": "158084b3cb115df11a9a0c435c69abd0a4dcf53520c7444f82bbb8a3aaea1d0f",
+          "hmac_sig": "124bc626df12de5a777e9d1fb40573ca",
+          "captured_at": "2026-05-10T15:21:14.870164",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_207820173ce6",
+          "identifier": "UNKNOWN_OP_8940",
+          "confidence": 80,
+          "tier": "TIER_1",
+          "signals": [
+            "Phone: +91-9216328940",
+            "Channel: @BCCI_MATCH_TOSS_FIXER0",
+            "Channel: @BCCI_TOSS_MATCH_FIXER1",
+            "Network: Reddy Anna Book"
+          ],
+          "connected": [
+            {
+              "type": "PHONE",
+              "id": "9216328940",
+              "relation": "USES_PHONE",
+              "confidence": 95
+            },
+            {
+              "type": "CHANNEL",
+              "id": "BCCI_MATCH_TOSS_FIXER0",
+              "relation": "OPERATES",
+              "confidence": 95
+            },
+            {
+              "type": "CHANNEL",
+              "id": "BCCI_TOSS_MATCH_FIXER1",
+              "relation": "OPERATES",
+              "confidence": 95
+            },
+            {
+              "type": "NETWORK",
+              "id": "Reddy Anna Book",
+              "relation": "AFFILIATED_WITH",
+              "confidence": 80
+            }
+          ],
+          "evidence_hash": "5345a30dc413031bace9607dd5bf0ba655e4efd89e96d23055662e566eaea4c7",
+          "hmac_sig": "d940244a320e3d62203ef2c0e4496b3b",
+          "captured_at": "2026-05-10T15:21:14.870197",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_41e907c008c1",
+          "identifier": "UNKNOWN_OP_6068",
+          "confidence": 70,
+          "tier": "TIER_1",
+          "signals": [
+            "Phone: +91-8441916068",
+            "Channel: @IPLBetting",
+            "Channel: @ipltossmatchsessionn"
+          ],
+          "connected": [
+            {
+              "type": "PHONE",
+              "id": "8441916068",
+              "relation": "USES_PHONE",
+              "confidence": 90
+            },
+            {
+              "type": "CHANNEL",
+              "id": "IPLBetting",
+              "relation": "OPERATES",
+              "confidence": 90
+            },
+            {
+              "type": "CHANNEL",
+              "id": "ipltossmatchsessionn",
+              "relation": "OPERATES",
+              "confidence": 90
+            }
+          ],
+          "evidence_hash": "4cca13631cb8ef9ae312bf5fdf720846b2d26364b72ad671ada44a70d0317652",
+          "hmac_sig": "c1b548def802ed6ffa3774f97a096d47",
+          "captured_at": "2026-05-10T15:21:14.870223",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_651b05989a25",
+          "identifier": "UNKNOWN_OP_2162",
+          "confidence": 55,
+          "tier": "TIER_2",
+          "signals": [
+            "Phone: +91-6378542162",
+            "Channel: @Satta_khaiwal_gali_dishwar"
+          ],
+          "connected": [
+            {
+              "type": "PHONE",
+              "id": "6378542162",
+              "relation": "USES_PHONE",
+              "confidence": 85
+            },
+            {
+              "type": "CHANNEL",
+              "id": "Satta_khaiwal_gali_dishwar",
+              "relation": "OPERATES",
+              "confidence": 85
+            }
+          ],
+          "evidence_hash": "4ff4f1fbef74ec5c48a8285833b65b8d38f8fede2e90fd9f3dacd89578f85a60",
+          "hmac_sig": "722c3abfd03c4f8b869e3b4f88fd1d07",
+          "captured_at": "2026-05-10T15:21:14.870243",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_8d9540a81b25",
+          "identifier": "OP001",
+          "confidence": 50,
+          "tier": "TIER_2",
+          "signals": [
+            "Channel: @BCCI_MATCH_TOSS_FIXER0",
+            "Channel: @BCCI_TOSS_MATCH_FIXER1",
+            "Network: reddyanna888_io",
+            "Network: reddyanna888_support"
+          ],
+          "connected": [
+            {
+              "type": "CHANNEL",
+              "id": "BCCI_MATCH_TOSS_FIXER0",
+              "relation": "OPERATES",
+              "confidence": 95
+            },
+            {
+              "type": "CHANNEL",
+              "id": "BCCI_TOSS_MATCH_FIXER1",
+              "relation": "OPERATES",
+              "confidence": 95
+            },
+            {
+              "type": "NETWORK",
+              "id": "reddyanna888_io",
+              "relation": "AFFILIATED_WITH",
+              "confidence": 70
+            },
+            {
+              "type": "NETWORK",
+              "id": "reddyanna888_support",
+              "relation": "AFFILIATED_WITH",
+              "confidence": 70
+            }
+          ],
+          "evidence_hash": "4708d736250d99a63cb63cacc486e5ddad2bf459f1bc52d86f5cdca70804ec97",
+          "hmac_sig": "34fe8bed2e7d7eba0c2d303ff5b8a213",
+          "captured_at": "2026-05-10T15:21:14.870302",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [
+            "IT Act 66D",
+            "PGA 1867",
+            "BNS 318"
+          ],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_2e804d7c5105",
+          "identifier": "UNKNOWN_OP_6466",
+          "confidence": 40,
+          "tier": "TIER_2",
+          "signals": [
+            "Phone: +91-8696206466"
+          ],
+          "connected": [
+            {
+              "type": "PHONE",
+              "id": "8696206466",
+              "relation": "USES_PHONE",
+              "confidence": 75
+            }
+          ],
+          "evidence_hash": "deb687434ab414aaf6610c0038321e4ddc6a6fb6b3d799fa9c0999c0e1d5e4e0",
+          "hmac_sig": "df63794b37c91438a6f80c3cd1932796",
+          "captured_at": "2026-05-10T15:21:14.870260",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_e3d052f728b2",
+          "identifier": "UNKNOWN_OP_9102",
+          "confidence": 40,
+          "tier": "TIER_2",
+          "signals": [
+            "Phone: +91-9911919102"
+          ],
+          "connected": [
+            {
+              "type": "PHONE",
+              "id": "9911919102",
+              "relation": "USES_PHONE",
+              "confidence": 75
+            }
+          ],
+          "evidence_hash": "97c0b1f64ccde15f4c04123b8966a7b96e89a6f56c7abebda445b433939d7522",
+          "hmac_sig": "a87bf57a147f1c35e9fdb7238a80e0fd",
+          "captured_at": "2026-05-10T15:21:14.870278",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_8aff6751ea77",
+          "identifier": "OP002",
+          "confidence": 35,
+          "tier": "TIER_3",
+          "signals": [
+            "Channel: @MURUGAN_FIXER_LONDON1",
+            "Network: Playgames9999",
+            "Network: play99_support"
+          ],
+          "connected": [
+            {
+              "type": "CHANNEL",
+              "id": "MURUGAN_FIXER_LONDON1",
+              "relation": "OPERATES",
+              "confidence": 45
+            },
+            {
+              "type": "NETWORK",
+              "id": "Playgames9999",
+              "relation": "AFFILIATED_WITH",
+              "confidence": 70
+            },
+            {
+              "type": "NETWORK",
+              "id": "play99_support",
+              "relation": "AFFILIATED_WITH",
+              "confidence": 70
+            }
+          ],
+          "evidence_hash": "d85458e068a49849786d4e3f3ccd9e7f5566a87cab4dff067f423e4a9245984a",
+          "hmac_sig": "1ecf20f62de34635839595af88ddadff",
+          "captured_at": "2026-05-10T15:21:14.870324",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [
+            "PGA 1867",
+            "IT Act 66"
+          ],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_384e4bde658c",
+          "identifier": "OP003",
+          "confidence": 35,
+          "tier": "TIER_3",
+          "signals": [
+            "Channel: @session_cricket_tips",
+            "Network: fair786guide",
+            "Network: FAIR786FAMILY"
+          ],
+          "connected": [
+            {
+              "type": "CHANNEL",
+              "id": "session_cricket_tips",
+              "relation": "OPERATES",
+              "confidence": 35
+            },
+            {
+              "type": "NETWORK",
+              "id": "fair786guide",
+              "relation": "AFFILIATED_WITH",
+              "confidence": 70
+            },
+            {
+              "type": "NETWORK",
+              "id": "FAIR786FAMILY",
+              "relation": "AFFILIATED_WITH",
+              "confidence": 70
+            }
+          ],
+          "evidence_hash": "974dfb9d3bd53e76dd6b258245f548da83e01b764deea0b037d9d2bd155148b3",
+          "hmac_sig": "7f5a27f4fd0ba02c968fa1815d660035",
+          "captured_at": "2026-05-10T15:21:14.870346",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [
+            "PGA 1867",
+            "IT Act 66"
+          ],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_5743b18217ff",
+          "identifier": "SELLER_BUDDY_HOUSE",
+          "confidence": 0,
+          "tier": "TIER_3",
+          "signals": [],
+          "connected": [
+            {
+              "type": "BRAND",
+              "id": "Nike",
+              "relation": "COUNTERFEITS",
+              "confidence": 77
+            }
+          ],
+          "evidence_hash": "5a264e24252795b3e19e07f52aa1ad18f81f575fcc9f4b2f5a2c81407ee94321",
+          "hmac_sig": "16d592e3e74bd6c3feba9c81b1f519a9",
+          "captured_at": "2026-05-10T15:21:14.870362",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_6bd670603c4e",
+          "identifier": "SELLER_Next Wave",
+          "confidence": 0,
+          "tier": "TIER_3",
+          "signals": [],
+          "connected": [
+            {
+              "type": "BRAND",
+              "id": "Nike",
+              "relation": "COUNTERFEITS",
+              "confidence": 77
+            }
+          ],
+          "evidence_hash": "b3033a602e56d2bd90ba02039458c8060b9c30ab9db3b992d8d1eabc30e274f5",
+          "hmac_sig": "8ee71dd601032298a095cd19138cb26e",
+          "captured_at": "2026-05-10T15:21:14.870379",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_ab3e3cecadb9",
+          "identifier": "SELLER_Aster Shoes",
+          "confidence": 0,
+          "tier": "TIER_3",
+          "signals": [],
+          "connected": [
+            {
+              "type": "BRAND",
+              "id": "Nike",
+              "relation": "COUNTERFEITS",
+              "confidence": 77
+            }
+          ],
+          "evidence_hash": "20e22c557252d872fd2da52a221d845a5cdd4754ed87719e2f3e071acb2d6d9f",
+          "hmac_sig": "2b9ad0e96090cd014f7718d72d436128",
+          "captured_at": "2026-05-10T15:21:14.870395",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_67631a60eb38",
+          "identifier": "SELLER_Cold Fusion Zone",
+          "confidence": 0,
+          "tier": "TIER_3",
+          "signals": [],
+          "connected": [
+            {
+              "type": "BRAND",
+              "id": "Samsung Galaxy",
+              "relation": "COUNTERFEITS",
+              "confidence": 77
+            }
+          ],
+          "evidence_hash": "460fa514e6b9d6ff40f730d010df00d8ae71f4958fe649a3c80a14fff0dc5f2f",
+          "hmac_sig": "fc665f7aebe299d014a70bca2a4b7a3b",
+          "captured_at": "2026-05-10T15:21:14.870412",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_f300277675e8",
+          "identifier": "SELLER_Gadget-Hub",
+          "confidence": 0,
+          "tier": "TIER_3",
+          "signals": [],
+          "connected": [
+            {
+              "type": "BRAND",
+              "id": "Samsung Galaxy",
+              "relation": "COUNTERFEITS",
+              "confidence": 77
+            }
+          ],
+          "evidence_hash": "4f203c4092c0bdd7e83c7d274922af6975a48de2604e7e189318f5a9798896b0",
+          "hmac_sig": "02c5b40df989884e9e834aeb42a51089",
+          "captured_at": "2026-05-10T15:21:14.870428",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        },
+        {
+          "operator_id": "OPERATOR_1a85fc3175d8",
+          "identifier": "SELLER_Mahakali Copy Center",
+          "confidence": 0,
+          "tier": "TIER_3",
+          "signals": [],
+          "connected": [
+            {
+              "type": "BRAND",
+              "id": "Dettol",
+              "relation": "COUNTERFEITS",
+              "confidence": 57
+            }
+          ],
+          "evidence_hash": "0eef705f7cfba8ddb7f13616b7f16fbfd9916d099b43099f0e24466d23d8dbe2",
+          "hmac_sig": "b2e4e05c8400a46dc3d26aafab6b782b",
+          "captured_at": "2026-05-10T15:21:14.870445",
+          "standard": "IT Act 2000 Section 65B",
+          "violations": [],
+          "next_steps": {
+            "if_phone": "DoT subscriber lookup \u2192 operator name",
+            "if_upi": "NPCI query \u2192 bank account holder",
+            "if_channel": "IT Rules 2021 takedown notice",
+            "court": "Evidence package + 65B certificate"
+          }
+        }
+      ]
+    }
+  }
+}

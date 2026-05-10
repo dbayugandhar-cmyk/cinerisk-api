@@ -310,3 +310,17 @@ MEDICINE_TARGETS = [
     'belayabpharmaceuticals',
     'Bakaalpharma',
 ]
+
+
+async def update_intelligence_graph():
+    """Update fraud graph with today's new findings."""
+    log("Updating intelligence graph...")
+    try:
+        import subprocess
+        subprocess.run(
+            ['python3', 'cineos_intelligence_graph.py'],
+            capture_output=True, timeout=120
+        )
+        log("Intelligence graph updated")
+    except Exception as e:
+        log(f"Graph update error: {e}")

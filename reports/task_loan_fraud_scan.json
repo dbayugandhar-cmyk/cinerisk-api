@@ -1,0 +1,53 @@
+{
+  "scanned_at": "2026-05-10T19:20:09.850461",
+  "channels": [
+    {
+      "username": "taskofearnbot",
+      "title": "",
+      "subscribers": 0,
+      "fraud_type": [],
+      "phones": [],
+      "upis": [],
+      "wa_links": [],
+      "tg_links": [],
+      "amounts": [],
+      "msg_count": 0,
+      "evidence": "d1d5ffd4c39e9318c5b5e756cc982f1338ad19d36d690a65df283bbac602a001",
+      "scanned_at": "2026-05-10T19:19:54.667941"
+    },
+    {
+      "username": "loanpaybharat",
+      "title": "Loan Pay Bharat | Loan Updates",
+      "subscribers": 0,
+      "fraud_type": [
+        "LOAN_FRAUD",
+        "INVESTMENT_FRAUD"
+      ],
+      "phones": [
+        "6320782284"
+      ],
+      "upis": [],
+      "wa_links": [],
+      "tg_links": [
+        "loanpaybharat"
+      ],
+      "amounts": [
+        "5000",
+        "500000",
+        "200000"
+      ],
+      "msg_count": 17,
+      "evidence": "9178ceaf79654ac0be010609854bcefa43ae17fe9f6d2144bf7b420e09f15afb",
+      "scanned_at": "2026-05-10T19:19:59.795408"
+    },
+    {
+      "username": "smartlakhanhello",
+      "error": "No user has \"smartlakhanhello\" as username",
+      "scanned_at": "2026-05-10T19:20:04.841953"
+    }
+  ],
+  "connected": [
+    "loanpaybharat"
+  ],
+  "genuine": []
+}

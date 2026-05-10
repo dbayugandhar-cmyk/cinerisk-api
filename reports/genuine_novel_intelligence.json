@@ -1,0 +1,496 @@
+{
+  "generated_at": "2026-05-10T18:06:34.529245",
+  "classification": "INTERNAL \u2014 Verified incident based",
+  "xhelper_leads": [],
+  "gujarat_findings": [
+    {
+      "type": "GUJARAT_MULE",
+      "title": "Gujarat Police arrest six more in Dubai-linked \u20b9800 crore ...",
+      "url": "https://www.instagram.com/reel/DR13KOFAiLx/",
+      "snippet": "the cid cyber excellence centre has arrested six individuals for supplying over 270 mule bank accounts to a dubai-based cybercrime syndicate.",
+      "signals": [
+        "DUBAI_LINK"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "6569f7460525c2bd7bfb2fc7531a6f7da7a4c601057f57cdafdea148d77492df"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "Online Investment Fraud via Telegram",
+      "url": "https://www.facebook.com/newstagindia/posts/online-investment-fraud-via-telegram-1866-lakh-scam-expo",
+      "snippet": "online investment fraud via telegram: \u20b918.66 lakh scam exposed; two arrested, main accused still at large . . . #onlinefraud #telegramscam.",
+      "signals": [
+        "MULTI_FRAUD"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "417733f3d19ec47bcfbe1427e9b4a58634a464b2d0fb516debe91d51f881dc6f"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "\ud83d\udea8 *Don't Rent Your Bank Account* \u2b55 ODFC.App",
+      "url": "https://www.instagram.com/p/DXtWD0WAjKP/",
+      "snippet": "karnataka (feb 2026): cid arrested 13 \"mule herders\" in bengaluru; accounts handled rs 100cr+ from betting/digital arrest scams. 20 firs, 96 ...",
+      "signals": [
+        "MULTI_FRAUD"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "544470fa3601e25c22e238f1693e68a290a744e419c799d29e2b15e2f86a1855"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "India targets digital arrest scams; government asks ...",
+      "url": "https://www.facebook.com/WIONews/posts/india-targets-digital-arrest-scams-government-asks-whatsapp-t",
+      "snippet": "india targets digital arrest scams; government asks whatsapp to block device ids the move aims to stop repeat scam offenders kanishka sarkar ...",
+      "signals": [
+        "MULTI_FRAUD"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "b7824e8b68f1e8aae9d5abbf86fe505fb2f272c78c96b37b3f4e01408f1bb68b"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "A 65-year-old retired school teacher from Gujarat's ...",
+      "url": "https://www.facebook.com/Kashmircrownews/posts/a-65-year-old-retired-school-teacher-from-gujarats-ga",
+      "snippet": "a 65-year-old retired school teacher from gujarat's gandhinagar was allegedly held under a prolonged \u201cdigital arrest\u201d for nearly a month and ...",
+      "signals": [
+        "MULTI_FRAUD"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "debaf172d6f8bdcc62d213e6b31149d7aa770ab1f26267ccd0663b41a9de48f9"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "Neeraj Sharma vs State Of Haryana on 9 February, 2026",
+      "url": "https://indiankanoon.org/doc/21530286/",
+      "snippet": "he disclosed that he used to get opened the bank accounts and used to give the bank account kit to his son tushar and lakshay. xxx xxx xxx 8 of 17 :::",
+      "signals": [
+        "ACCOUNT_KIT"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "dc922a1eb34cbc5d52b381c770b312fe0e46adbdfb5f899d95c2b5c992c5b547"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "Many accounts were remotely controlled by fraudsters ...",
+      "url": "https://www.facebook.com/DailyGreaterKashmir/posts/many-accounts-were-remotely-controlled-by-fraudst",
+      "snippet": "... telegram and facebook and are then remotely controlled by fraudsters ... bank account kit books, 04 cheque books, 06 blank cheques, 07 ...",
+      "signals": [
+        "ACCOUNT_KIT"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "9e9924e1b58558cd0726ca442819c06a19d1a367809054a6c0ebac3c6fe7e581"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "Delhi Cyber Police arrest 4 in major online investment ...",
+      "url": "https://firstindia.co.in/news/delhi/Delhi-cyber-police-arrest-4-in-major-online-investment-fraud-cas",
+      "snippet": "it was found that he had taken his bank account kit, along with the account-linked sim and login credentials, to chittorgarh, rajasthan. technical ...",
+      "signals": [
+        "ACCOUNT_KIT"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "6de90f02ebb69d95affb57404ff76a063826685da4faf7f2f6af9394d184973d"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "India News | Two Held for Supplying SIM Cards and Synthetic ...",
+      "url": "https://www.latestly.com/agency-news/india-news-two-held-for-supplying-sim-cards-and-synthetic-bank-",
+      "snippet": "another accused, vipin kumar (20), a resident of alwar in rajasthan, was arrested near the rk ashram metro station while delivering a synthetic bank a",
+      "signals": [
+        "ACCOUNT_KIT"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "708a82085421633b84517539b71e4cc83dca7bcee15d58c5c70fc83c2bb5c909"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "\u0905\u092c \u0915\u092e\u093e\u0908 \u0915\u093e \u0938\u092b\u0930 \u092f\u0939\u0940\u0902 \u0938\u0947 \u0936\u0941\u0930\u0942 \u0915\u0930\u094b\u2014FastPayz \u0915\u0947 \u0938\u093e\u0925 \u0924\u0947\u091c\u0940 ...",
+      "url": "https://www.instagram.com/p/DMxmLHGRw3p/",
+      "snippet": "hello agents if you need bank account (kit) sim card / whatsapp authentication then contact me telegram - https://t.me/smarts294",
+      "signals": [
+        "TG_CHANNEL"
+      ],
+      "tg_ch": [
+        "smarts294"
+      ],
+      "phones": [],
+      "hash": "6943e07c1ee7131a8b27717a751ee8af633eb59eb81d218c1d22061562b4bee6"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "Cyber Police Kashmir receive complaints regarding KYC ...",
+      "url": "https://www.facebook.com/jknojknewsobserver/posts/kyc-fraud-gang-busted-in-srinagar-02-persons-arres",
+      "snippet": "... bank account kit books,04 cheque books, 06 blank cheques,07 passbooks,and other documents*. more arrests are expected, further investigation ...",
+      "signals": [
+        "ACCOUNT_KIT"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "8b8d6955efcfac55f9308ab864bfea14146de65aa2a05e470b3d8414e9706f23"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "209 Crore Online Investment Scam Busted in Ganderbal",
+      "url": "https://www.facebook.com/Meerirfan23/posts/209-crore-online-investment-scam-busted-in-ganderbal-9-he",
+      "snippet": "... bank account kit books, 04 cheque books, 06 blank cheques, 07 passbooks and other documents. further investigation is going on. no photo ...",
+      "signals": [
+        "ACCOUNT_KIT"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "67db2d2629e29cf5099600a7d02af2636103fc4326c9fb76bc638fe5708317c7"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "CRM-M-4401-2026 (O&M)",
+      "url": "https://lawgico.in/wp-content/uploads/2026/03/CRM-M_4401_2026_09_02_2026_FINAL_ORDER.pdf",
+      "snippet": "the said persons created a whatsapp group as well as a group on the telegram application under the ... used to give the bank account kit to his son tu",
+      "signals": [
+        "ACCOUNT_KIT"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "e33cf27659ee484f175a6155230a68ed1a18cb395cdf04b95a26b188609f1095"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "Gujarat Police arrest six more in Dubai-linked \u20b9800 crore ...",
+      "url": "https://www.instagram.com/reel/DR13KOFAiLx/",
+      "snippet": "the cid cyber excellence centre has arrested six individuals for supplying over 270 mule bank accounts to a dubai-based cybercrime syndicate.",
+      "signals": [
+        "DUBAI_LINK"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "6569f7460525c2bd7bfb2fc7531a6f7da7a4c601057f57cdafdea148d77492df"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "Six held for providing 270 'mule' bank accounts to Dubai- ...",
+      "url": "https://theprint.in/india/six-held-for-providing-270-mule-bank-accounts-to-dubai-based-cyber-scamste",
+      "snippet": "six held for providing 270 'mule' bank accounts to dubai-based cyber scamsters ... channels on youtube, telegram & whatsapp. support our ...",
+      "signals": [
+        "DUBAI_LINK"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "080b6eb9e0f51b7bec2fdd39c8d95ea07fe42439d1191396105e386adb66cf78"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "\u20b978 Crore Cyber Fraud Exposed: SSP Darpan Ahluwalia ...",
+      "url": "https://www.facebook.com/thehawk/posts/78-crore-cyber-fraud-exposed-ssp-darpan-ahluwalia-reveals-dub",
+      "snippet": "\u20b978 crore cyber fraud exposed: ssp darpan ahluwalia reveals dubai-based network targeting indians a massive international cyber fraud network ...",
+      "signals": [
+        "DUBAI_LINK"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "5ac09c7bb6669ace293a03dbe1ec3d4a1df2d7f825ead8bfb0909515f2fca562"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "Online Investment Fraud via Telegram",
+      "url": "https://www.facebook.com/newstagindia/posts/online-investment-fraud-via-telegram-1866-lakh-scam-expo",
+      "snippet": "online investment fraud via telegram: \u20b918.66 lakh scam exposed; two arrested, main accused still at large . . . #onlinefraud #telegramscam.",
+      "signals": [
+        "MULTI_FRAUD"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "417733f3d19ec47bcfbe1427e9b4a58634a464b2d0fb516debe91d51f881dc6f"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "Gujarat CID arrests 6 more in \u20b9804-cr cyber fraud linked to ...",
+      "url": "https://english.gujaratsamachar.com/news/gujarat/gujarat-cid-arrests-6-more-in-804-cr-cyber-fraud-li",
+      "snippet": "gujarat cid arrests 6 more in \u20b9804-cr cyber fraud linked to dubai, over 1,500 cases traced \u00b7 1. kamlesh ashok sen, surat \u00b7 2. sagar ashok sen, ...",
+      "signals": [
+        "DUBAI_LINK"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "6d24f607a3b184fe114b52b443ff4cbbab8ea1d509c3e7d5208a7a4a7f13d883"
+    },
+    {
+      "type": "GUJARAT_MULE",
+      "title": "2 Arrested in Punjab Cyber Fraud Probe, Dubai Gang Link ...",
+      "url": "https://the420.in/punjab-cyber-cell-thane-arrest-dubai-gang-digital-arrest-fraud/",
+      "snippet": "2 thane mules nabbed in punjab probe expose dubai cyber gang's \u20b915 cr digital arrest racket. \u20b98l seized, interpol next.",
+      "signals": [
+        "DUBAI_LINK",
+        "MULTI_FRAUD"
+      ],
+      "tg_ch": [],
+      "phones": [],
+      "hash": "813c436fe22c15a639b637ab44c94063314a7d16eee5465b521aea2a05f99dbf"
+    }
+  ],
+  "naza_findings": [
+    {
+      "type": "NAZA_MEDICA",
+      "title": "AI-Powered QR Codes Help Fake Medicine Mafia Create ...",
+      "url": "https://the420.in/fake-medicine-mafia-pharma-scam-ai-qr-codes-agra-2025-crackdown/",
+      "snippet": "a medical company calling itself \u201cnaza medica\u201d is accused of being at the center, flooding markets with fake medicines from its hub in agra.",
+      "signals": [
+        "NAZA_CONFIRMED",
+        "GEOGRAPHIC"
+      ],
+      "tg_ch": [],
+      "hash": "cf374d0c03feeafa73cb34e526042e770b5480d7afe22f1cc6f8f57c2c6a675f"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "AI-Powered QR Codes Help Fake Medicine Mafia Create ...",
+      "url": "https://the420.in/fake-medicine-mafia-pharma-scam-ai-qr-codes-agra-2025-crackdown/",
+      "snippet": "a medical company calling itself \u201cnaza medica\u201d is accused of being at the center, flooding markets with fake medicines from its hub in agra.",
+      "signals": [
+        "NAZA_CONFIRMED",
+        "GEOGRAPHIC"
+      ],
+      "tg_ch": [],
+      "hash": "cf374d0c03feeafa73cb34e526042e770b5480d7afe22f1cc6f8f57c2c6a675f"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "Identity Card Manufacturers near Dr Ram Manohar Lohia ...",
+      "url": "https://www.justdial.com/Lucknow/Identity-Card-Manufacturers-in-Dr-Ram-Manohar-Lohia-Institute-Of-Me",
+      "snippet": "manufacturers are increasingly investing in advanced security features such as holograms, microprints, and qr codes to combat the production of counte",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "cffbf81fe96d987e0a50928bc6b1e6d31fc18c371ec0e1d52fee74a57ec433a3"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "Poison in the Supply Chain: India's Booming Fake ...",
+      "url": "https://healthonair.in/ground-reports/poison-in-the-supply-chain-indias-booming-fake-medicine-racket",
+      "snippet": "from repackaged expired drugs to forged qr codes, an investigative report reveals how an organised network is flooding markets\u2014and why ...",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "ef724b1aa4dc3badcf69e1fcd0136f63c48fc231f284f01d0373e66161ab78f2"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "QR code scam: 19-year-old arrested for tampering with ...",
+      "url": "https://timesofindia.indiatimes.com/city/delhi/qr-code-scam-19-year-old-arrested-for-tampering-with-",
+      "snippet": "new delhi: police arrested a 19-year-old youth for allegedly tampering with merchant qr codes and cheating customers and shop owners by ...",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "b20c0da36b31ce2df9425ed621d00ceeaa3342838a2e6552d34ac3bf40f95cab"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "AI-Powered QR Codes Help Fake Medicine Mafia Create ...",
+      "url": "https://the420.in/fake-medicine-mafia-pharma-scam-ai-qr-codes-agra-2025-crackdown/",
+      "snippet": "a medical company calling itself \u201cnaza medica\u201d is accused of being at the center, flooding markets with fake medicines from its hub in agra.",
+      "signals": [
+        "NAZA_CONFIRMED",
+        "GEOGRAPHIC"
+      ],
+      "tg_ch": [],
+      "hash": "cf374d0c03feeafa73cb34e526042e770b5480d7afe22f1cc6f8f57c2c6a675f"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "prescriptions-are-fueling-illegal-online-drug- ...",
+      "url": "https://www.facebook.com/EconomicTimes/posts/%EF%B8%8F-fake-ai-prescriptions-are-invading-the-intern",
+      "snippet": "big crackdown on fake medicines; modi govt makes it mandatory for api/medicine manufacturers to have qr code with all details on medicines/api ...",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "57a8fd272dde2769ae9d608f21a4630c3610234dec7311cde9d6ab18385f3f9e"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "UP STF, Agra Police bust counterfeit medicine racket ...",
+      "url": "https://www.bwpoliceworld.com/article/up-stf-agra-police-bust-counterfeit-medicine-racket-medicines-",
+      "snippet": "in this racket, agra and lucknow were made hotspots for counterfeit medicines. the syndicate used fake bills and qr codes to sell counterfeit medicine",
+      "signals": [
+        "AI_QR",
+        "GEOGRAPHIC"
+      ],
+      "tg_ch": [],
+      "hash": "a818da0216e4bd406c6a6922bf5c946fc821d2d1629dbe2200e1c07413dc9214"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "Poison in the Supply Chain: India's Booming Fake ...",
+      "url": "https://healthonair.in/ground-reports/poison-in-the-supply-chain-indias-booming-fake-medicine-racket",
+      "snippet": "counterfeiters are generating forged qr codes that appear genuine and are often linked to cloned or misleading data. officials admit that ...",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "ef724b1aa4dc3badcf69e1fcd0136f63c48fc231f284f01d0373e66161ab78f2"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "India QR Code System for Medicine Verification Fight ...",
+      "url": "https://www.precedenceresearch.com/news/india-qr-code-medicine-verification-system",
+      "snippet": "india introduces qr code verification on medicine packaging to help consumers identify genuine drugs. scan codes to check expiry date, ...",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "12e4a91089ec2d22fb83bfbeea1e1fc9bc7f1ff3018c8724e9d5acf9995d9b36"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "(Medguardai) AI + Blockchain Based Fake Medicine ...",
+      "url": "https://rsisinternational.org/journals/ijrias/view/medguardai-ai-blockchain-based-fake-medicine-dete",
+      "snippet": "this paper presents medguardai, an intelligent medicine verification system that combines image-based scanning, qr code validation, artificial intelli",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "b788d1f3cad13590596fde7a662438c2f41b950334961a653355c755210f68ab"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "Amendment to the Drugs Rules, 1945: Mandating QR ...",
+      "url": "https://www.linkedin.com/pulse/amendment-drugs-rules-1945-mandating-qr-codes-excipients-singh-upqdc",
+      "snippet": "drugs (second amendment) rules, 2025 ... fighting counterfeit drugs: india adopts qr codes on pharmaceutical packaging starting 1st august 2023.",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "cfb3b88c3f0f8c965c49783e2e6b24e008d2061671e8335bbe4379b370072b83"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "QR Code on Medicine: Can It Confirm Authenticity? - First Check",
+      "url": "https://firstcheck.in/qr-code-medicine-authenticity-fact-check/",
+      "snippet": "scanning a medicine's qr code can reveal if it's genuine. here's what the cdsco mandate confirms.",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "230735802ce905d41d89ae513ec0409b1b3f08c128a4c22e81249d13a86e37e2"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "A framework for enhancing pharmaceutical integrity and ...",
+      "url": "https://www.nature.com/articles/s41598-026-38215-1",
+      "snippet": "the proposed system utilises individual strip qr codes that enable real-time scanning at the point of sale to verify drug authenticity, directly ...",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "60440d45dcbb70ebfa8aafe7eb9264d7632be18ed647ace266c7b9310fddce6f"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "Scan to Check: IPC Launches QR Code System to Curb ...",
+      "url": "https://medicaldialogues.in/news/industry/pharma/scan-to-check-ipc-launches-qr-code-system-to-curb-s",
+      "snippet": "new delhi: india has rolled out a new qr code-based verification system to help consumers check the authenticity of medicines and protect ...",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "4d0f9ef7cd83ef7ce78a16378a59704c1c7263d82782ea2bfa4b53feb231056d"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "India QR Code System for Medicine Verification Fight ...",
+      "url": "https://www.precedenceresearch.com/news/india-qr-code-medicine-verification-system",
+      "snippet": "india introduces qr code verification on medicine packaging to help consumers identify genuine drugs. scan codes to check expiry date, ...",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "12e4a91089ec2d22fb83bfbeea1e1fc9bc7f1ff3018c8724e9d5acf9995d9b36"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "Verify Genuine Medicines Using QR Codes ...",
+      "url": "https://www.instagram.com/p/DT7r997kp0l/",
+      "snippet": "india is turning to qr code\u2013based tracking systems \u2014 allowing every strip of medicine to be traced from manufacturer to patient. with a simple ...",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "11c37a2551b53aaa29f593ceda2a2b961778e6d66cd35fece0245916fbb836c5"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "Safeguarding the pharma excipients supply chain",
+      "url": "https://www.expresspharma.in/safeguarding-the-pharma-excipients-supply-chain/",
+      "snippet": "but as cdsco plans to expand qr codes to cover other critical drug categories in phases, all segments of the pharma value chain need to tighten ...",
+      "signals": [
+        "AI_QR"
+      ],
+      "tg_ch": [],
+      "hash": "ed3d7046db91ae5176cfe5917404a72a5c0aaedb6a3f9eeed69eea101f4adc9f"
+    },
+    {
+      "type": "NAZA_MEDICA",
+      "title": "Public Notices - CDSCO - Ministry of Health & Family Welfare",
+      "url": "https://cdsco.mohfw.gov.in/opencms/opencms/hi/Notifications/Public-Notices/",
+      "snippet": "public notices ; 15, carbimazole related agranulocytosis - recommendations for the change in prescribing information leaflets (pils), 2026-feb-17 ; 16",
+      "signals": [
+        "GEOGRAPHIC"
+      ],
+      "tg_ch": [],
+      "hash": "416643a8644b9c5010aa1ffce24e585dd233524e6c702d0f97a36fa5461953f6"
+    }
+  ],
+  "naza_whois": {
+    "nazamedica.com": {
+      "live": false
+    },
+    "nazamedica.in": {
+      "live": false
+    },
+    "naza-medica.com": {
+      "live": false
+    },
+    "nazamedical.com": {
+      "live": false
+    },
+    "nazamedical.in": {
+      "live": false
+    },
+    "nazapharma.in": {
+      "live": false
+    }
+  },
+  "verified_incidents": {
+    "xhelper": {
+      "source": "CloudSEK research 2024",
+      "scale": "100,000+ mule accounts",
+      "method": "Telegram pyramid + XHelper app",
+      "cineos": "Monitor recruitment Telegram channels",
+      "client": "NPCI + HDFC + ICICI + Axis"
+    },
+    "gujarat": {
+      "source": "CID Crime Gujarat April 2026",
+      "scale": "Rs 77 Cr + Dubai links",
+      "method": "Bank account kits via Telegram/WhatsApp",
+      "cineos": "Find remaining active channels",
+      "client": "All major banks"
+    },
+    "naza_medica": {
+      "source": "The420.in + police raid 2025",
+      "scale": "25+ formulations, 4 states",
+      "method": "AI QR codes on fake medicine",
+      "cineos": "WHOIS + QR pattern + distributor scan",
+      "client": "Sun Pharma + Cipla + CDSCO"
+    }
+  }
+}

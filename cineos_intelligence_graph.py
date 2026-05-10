@@ -194,7 +194,7 @@ class FraudIntelligenceGraph:
                     'created':      node['added_at'],
                     'modified':     node['added_at'],
                     'name':         f"Telegram: {node['identifier']}",
-                    'pattern':      f"[url:value = 't.me/{node[\"identifier\"]}']",
+                    'pattern':      "[url:value = 't.me/" + node['identifier'] + "']",
                     'pattern_type': 'stix',
                     'valid_from':   node['added_at'],
                     'indicator_types': ['malicious-activity'],

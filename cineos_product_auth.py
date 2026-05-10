@@ -79,11 +79,11 @@ class ProductAuthEngine:
         """
         brand    = listing.get('brand', '')
         price    = self._parse_price(listing.get('price', ''))
-        title    = listing.get('title', '').lower()
+        title    = (listing.get('product', '') + ' ' + listing.get('title', '')).lower()
         url      = listing.get('url', '').lower()
         platform = listing.get('platform', '') or \
                    re.sub(r'https?://(?:www\.)?([^/]+).*', r'\1', url)
-        seller   = listing.get('seller', '')
+        seller   = listing.get('company', listing.get('seller', ''))
         gst      = listing.get('gst', '')
 
         score = 0

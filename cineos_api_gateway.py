@@ -1506,6 +1506,122 @@ async def score_sellers_batch(request: Request):
         }
     }
 
+@app.post("/v1/auth/product")
+async def authenticate_product(request: Request):
+    """
+    Digital product authentication — Entrupy-style but digital.
+    Score any product listing 0-100 for counterfeit risk.
+    Returns verdict, evidence signals and recommended action.
+    """
+    import re as _re
+
+    body = await request.json()
+    listing = body.get("listing", body)
+
+    PRICE_BANDS = {
+        "Nike": (3000, 8000), "Adidas": (2500, 7000),
+        "Samsung Galaxy": (8000, 20000), "Apple": (30000, 80000),
+        "Dettol": (80, 200), "Dove": (100, 250),
+        "Crocin": (30, 80), "boAt": (500, 3000),
+        "Ray-Ban": (5000, 12000), "Titan": (2000, 8000),
+    }
+    EXPLICIT = [
+        "first copy","1st copy","master copy","[copy]","(copy)",
+        "aaa quality","replica","duplicate","copy","mastercopy",
+    ]
+
+    brand   = listing.get("brand", "")
+    product = (listing.get("product","") + " " + listing.get("title","")).lower()
+    company = listing.get("company", listing.get("seller","")).lower()
+    url     = listing.get("url","").lower()
+    gst     = listing.get("gst","")
+    check   = product + " " + company + " " + url
+
+    price_str = listing.get("price","")
+    nums = _re.findall(r"[\d,]+", str(price_str))
+    price = int(nums[0].replace(",","")) if nums else 0
+
+    score = 0
+    signals = []
+
+    found = [e for e in EXPLICIT if e in check]
+    if found:
+        score += 35
+        signals.append(f"EXPLICIT: '{found[0]}' in listing")
+
+    if brand in PRICE_BANDS and price > 0:
+        min_g, retail = PRICE_BANDS[brand]
+        gap = int((1 - price/retail) * 100)
+        if price < min_g * 0.3:
+            score += 30
+            signals.append(f"PRICE: Rs {price:,} = {gap}% below retail Rs {retail:,}")
+        elif price < min_g * 0.5:
+            score += 20
+            signals.append(f"PRICE: Rs {price:,} far below genuine minimum")
+        elif price < min_g:
+            score += 10
+            signals.append(f"PRICE: Rs {price:,} below genuine range")
+
+    if not gst:
+        score += 8
+        signals.append("NO GST number provided")
+    else:
+        if not _re.match(r"^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$",
+                        gst.upper().strip()):
+            score += 15
+            signals.append(f"INVALID GST: {gst}")
+
+    platform = listing.get("platform","indiamart.com").lower()
+    score += {"meesho.com":8,"instagram.com":8,"indiamart.com":5}.get(platform,4)
+    score = min(100, score)
+
+    verdict = ("CONFIRMED COUNTERFEIT" if score>=75 else
+               "VERY LIKELY COUNTERFEIT" if score>=55 else
+               "SUSPICIOUS" if score>=35 else "LOW RISK")
+    action  = ("File IP complaint immediately" if score>=75 else
+               "Investigate and take down" if score>=55 else
+               "Monitor and verify" if score>=35 else "Continue monitoring")
+
+    return {
+        "success": True,
+        "data": {
+            "auth_score": score,
+            "verdict": verdict,
+            "action": action,
+            "signals": signals,
+            "brand": brand,
+            "seller": listing.get("company", listing.get("seller","")),
+            "price": price,
+            "method": "CINEOS Digital Authentication v1.0",
+        }
+    }
+
+@app.post("/v1/auth/batch")
+async def authenticate_batch(request: Request):
+    """Authenticate up to 50 product listings at once."""
+    body = await request.json()
+    listings = body.get("listings", [])[:50]
+    if not listings:
+        raise HTTPException(400, "listings array required")
+
+    results = []
+    for listing in listings:
+        r = await authenticate_product(
+            type("R", (), {"json": lambda l=listing: __import__("asyncio").coroutine(lambda: l)()})()
+        )
+        results.append(r["data"])
+
+    results.sort(key=lambda x: -x["auth_score"])
+    confirmed = [r for r in results if r["auth_score"] >= 75]
+    return {
+        "success": True,
+        "data": {
+            "total": len(results),
+            "confirmed_counterfeit": len(confirmed),
+            "results": results,
+        }
+    }
+
 @app.post("/v1/evidence")
 async def generate_evidence(
     request: Request,

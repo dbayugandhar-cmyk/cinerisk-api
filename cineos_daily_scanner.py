@@ -295,3 +295,18 @@ async def main():
     log("=" * 55)
 
 asyncio.run(main())
+
+# Medicine + trading channel attribution
+# Runs after main scan — 10 channels max per day
+MEDICINE_TARGETS = [
+    'bigbull_trading_company',
+    'marathi_traders_1', 
+    'shriramcompany',
+    'SilverPharma',
+    'pharmaceutical_ws',
+    'BT_med',
+    'Pharmacynetwork168',
+    'Newlifepharmawholesale',
+    'belayabpharmaceuticals',
+    'Bakaalpharma',
+]

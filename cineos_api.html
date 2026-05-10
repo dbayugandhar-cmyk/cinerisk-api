@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Documentation — CINEOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04080F;--bg2:#080E1A;--bg3:#0C1525;--border:#12203A;--green:#00E87A;--gd:rgba(0,232,122,0.08);--red:#FF2D55;--orange:#FF6B35;--blue:#2D7FFF;--purple:#9B51E0;--text:#C8D8F0;--text2:#5A7A9A;--white:#FFFFFF;--mono:'JetBrains Mono',monospace;--display:'Syne',sans-serif;--body:'Space Grotesk',sans-serif;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.7;display:flex;min-height:100vh;}
+/* SIDEBAR */
+.sidebar{width:240px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);position:fixed;top:0;left:0;bottom:0;overflow-y:auto;padding:24px 0;}
+.sb-logo{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:16px;}
+.sb-logo a{font-family:var(--display);font-size:1.2rem;font-weight:800;color:var(--green);text-decoration:none;}
+.sb-logo span{font-family:var(--mono);font-size:0.6rem;color:var(--text2);display:block;margin-top:2px;}
+.sb-section{padding:8px 20px 4px;font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;}
+.sb-link{display:block;padding:7px 20px;font-size:0.82rem;color:var(--text2);text-decoration:none;transition:all 0.15s;}
+.sb-link:hover{color:var(--text);background:var(--bg3);}
+.sb-link.active{color:var(--green);border-left:2px solid var(--green);padding-left:18px;}
+.sb-method{font-family:var(--mono);font-size:0.6rem;font-weight:600;padding:1px 6px;border-radius:3px;margin-right:6px;}
+.m-get{background:rgba(0,232,122,0.15);color:var(--green);}
+.m-post{background:rgba(45,127,255,0.15);color:var(--blue);}
+/* MAIN */
+.main{margin-left:240px;flex:1;padding:48px;}
+.hero{margin-bottom:48px;}
+.badge{display:inline-block;background:var(--gd);border:1px solid rgba(0,232,122,0.2);border-radius:20px;padding:4px 14px;font-family:var(--mono);font-size:0.63rem;color:var(--green);letter-spacing:0.1em;margin-bottom:16px;}
+h1{font-family:var(--display);font-size:2.2rem;font-weight:800;color:var(--white);letter-spacing:-0.02em;margin-bottom:8px;}
+.hero p{font-size:0.92rem;color:var(--text2);max-width:560px;}
+/* BASE URL */
+.base-url{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:40px;display:flex;align-items:center;gap:12px;}
+.base-label{font-family:var(--mono);font-size:0.65rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;flex-shrink:0;}
+.base-val{font-family:var(--mono);font-size:0.85rem;color:var(--green);}
+/* ENDPOINT */
+.endpoint{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:28px;}
+.ep-head{padding:16px 20px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.ep-method{font-family:var(--mono);font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:5px;}
+.ep-path{font-family:var(--mono);font-size:0.9rem;color:var(--white);}
+.ep-desc{margin-left:auto;font-size:0.8rem;color:var(--text2);}
+.ep-body{padding:20px;}
+.ep-section{font-family:var(--mono);font-size:0.62rem;color:var(--text2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;margin-top:18px;}
+.ep-section:first-child{margin-top:0;}
+.param-row{display:flex;gap:12px;margin-bottom:8px;align-items:flex-start;}
+.param-name{font-family:var(--mono);font-size:0.78rem;color:var(--white);width:130px;flex-shrink:0;}
+.param-type{font-family:var(--mono);font-size:0.68rem;color:var(--text2);width:60px;flex-shrink:0;margin-top:2px;}
+.param-req{font-family:var(--mono);font-size:0.62rem;padding:1px 6px;border-radius:3px;flex-shrink:0;margin-top:3px;}
+.req{background:rgba(255,45,85,0.12);color:var(--red);}
+.opt{background:var(--bg3);color:var(--text2);}
+.param-desc{font-size:0.82rem;color:var(--text2);}
+/* CODE */
+pre{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px 18px;overflow-x:auto;margin-top:8px;}
+code{font-family:var(--mono);font-size:0.78rem;color:var(--text);line-height:1.6;}
+.str{color:#98C379;}
+.key{color:#61AFEF;}
+.num{color:#D19A66;}
+.bool{color:#56B6C2;}
+.comment{color:var(--text2);}
+/* AUTH */
+.auth-block{background:rgba(45,127,255,0.06);border:1px solid rgba(45,127,255,0.2);border-radius:8px;padding:16px 18px;margin-bottom:28px;}
+.auth-block h3{font-size:0.88rem;font-weight:600;color:var(--blue);margin-bottom:6px;}
+.auth-block p{font-size:0.82rem;color:var(--text2);}
+/* RATE */
+.rate-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
+.rate-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
+.rate-val{font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--green);margin-bottom:3px;}
+.rate-lbl{font-family:var(--mono);font-size:0.62rem;color:var(--text2);letter-spacing:0.06em;text-transform:uppercase;}
+/* SECTION TITLE */
+.section-title{font-family:var(--display);font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:6px;margin-top:48px;padding-top:48px;border-top:1px solid var(--border);}
+.section-title:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+.section-sub{font-size:0.88rem;color:var(--text2);margin-bottom:24px;}
+footer{border-top:1px solid var(--border);margin-top:48px;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+footer p{font-family:var(--mono);font-size:0.68rem;color:var(--text2);}
+a{color:var(--green);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sb-logo">
+    <a href="cineos_landing.html">CINEOS</a>
+    <span>API DOCUMENTATION</span>
+  </div>
+  <div class="sb-section">Overview</div>
+  <a href="#overview" class="sb-link active">Introduction</a>
+  <a href="#auth" class="sb-link">Authentication</a>
+  <a href="#rate" class="sb-link">Rate limits</a>
+  <div class="sb-section">Core endpoints</div>
+  <a href="#health" class="sb-link"><span class="sb-method m-get">GET</span>/v1/health</a>
+  <a href="#scan" class="sb-link"><span class="sb-method m-post">POST</span>/v1/scan</a>
+  <a href="#multiscan" class="sb-link"><span class="sb-method m-post">POST</span>/v1/multiscan</a>
+  <a href="#risk-seller" class="sb-link"><span class="sb-method m-post">POST</span>/v1/risk/seller</a>
+  <a href="#risk-batch" class="sb-link"><span class="sb-method m-post">POST</span>/v1/risk/batch</a>
+  <div class="sb-section">Intelligence</div>
+  <a href="#evidence" class="sb-link"><span class="sb-method m-post">POST</span>/v1/evidence</a>
+  <a href="#graph" class="sb-link"><span class="sb-method m-get">GET</span>/v1/graph</a>
+  <a href="#live-shield" class="sb-link"><span class="sb-method m-post">POST</span>/v1/live_shield</a>
+  <div class="sb-section">Knowledge graph</div>
+  <a href="#kg-stats" class="sb-link"><span class="sb-method m-get">GET</span>/v1/kg/stats</a>
+  <a href="#kg-offenders" class="sb-link"><span class="sb-method m-get">GET</span>/v1/kg/offenders</a>
+  <a href="#kg-ingest" class="sb-link"><span class="sb-method m-post">POST</span>/v1/kg/ingest</a>
+  <div class="sb-section">Webhooks</div>
+  <a href="#webhook" class="sb-link"><span class="sb-method m-post">POST</span>/v1/webhooks/register</a>
+  <div class="sb-section">Admin</div>
+  <a href="#keys" class="sb-link"><span class="sb-method m-post">POST</span>/admin/keys/create</a>
+</div>
+
+<div class="main">
+  <div id="overview" class="hero">
+    <div class="badge">v1.0 — Live</div>
+    <h1>CINEOS API</h1>
+    <p>India's Trust Intelligence Network — 18 endpoints for fraud detection, counterfeit seller scoring, evidence packaging and threat intelligence across 13 platforms and 6 Indian languages.</p>
+  </div>
+
+  <div class="base-url">
+    <span class="base-label">Base URL</span>
+    <span class="base-val">https://cinerisk-api-production.up.railway.app</span>
+  </div>
+
+  <div id="auth" class="auth-block">
+    <h3>Authentication</h3>
+    <p>All endpoints except /v1/health require an API key in the request header.<br>
+    Header: <code style="font-family:var(--mono);color:var(--green)">X-API-Key: your_api_key_here</code><br>
+    Request an API key: <a href="mailto:yugandhar@cineos.in">yugandhar@cineos.in</a></p>
+  </div>
+
+  <div id="rate">
+    <div class="rate-grid">
+      <div class="rate-card"><div class="rate-val">100</div><div class="rate-lbl">Requests / hour</div></div>
+      <div class="rate-card"><div class="rate-val">50</div><div class="rate-lbl">Batch items max</div></div>
+      <div class="rate-card"><div class="rate-val">99.9%</div><div class="rate-lbl">Uptime SLA</div></div>
+    </div>
+  </div>
+
+  <!-- HEALTH -->
+  <div class="section-title" id="health">Health check</div>
+  <div class="section-sub">Verify the API is live before making requests.</div>
+  <div class="endpoint">
+    <div class="ep-head">
+      <span class="ep-method m-get">GET</span>
+      <span class="ep-path">/v1/health</span>
+      <span class="ep-desc">No auth required</span>
+    </div>
+    <div class="ep-body">
+      <div class="ep-section">Response</div>
+      <pre><code>{
+  <span class="key">"status"</span>: <span class="str">"ok"</span>,
+  <span class="key">"version"</span>: <span class="str">"1.0"</span>,
+  <span class="key">"channels_monitored"</span>: <span class="num">1077</span>,
+  <span class="key">"subscriber_reach"</span>: <span class="num">61300000</span>,
+  <span class="key">"platforms"</span>: <span class="num">13</span>,
+  <span class="key">"languages"</span>: <span class="num">6</span>,
+  <span class="key">"last_scan"</span>: <span class="str">"2026-05-10T08:00:00Z"</span>
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- SCAN -->
+  <div class="section-title" id="scan">Brand scan</div>
+  <div class="section-sub">Scan for counterfeit sellers and fraud channels targeting a specific brand.</div>
+  <div class="endpoint">
+    <div class="ep-head">
+      <span class="ep-method m-post">POST</span>
+      <span class="ep-path">/v1/scan</span>
+    </div>
+    <div class="ep-body">
+      <div class="ep-section">Request body</div>
+      <div class="param-row"><span class="param-name">brand</span><span class="param-type">string</span><span class="param-req req">required</span><span class="param-desc">Brand name to scan — e.g. "Nike", "Samsung", "Dove"</span></div>
+      <div class="param-row"><span class="param-name">platforms</span><span class="param-type">array</span><span class="param-req opt">optional</span><span class="param-desc">Platforms to scan. Default: all. Options: telegram, indiamart, meesho, instagram, sharechat, youtube</span></div>
+      <div class="param-row"><span class="param-name">languages</span><span class="param-type">array</span><span class="param-req opt">optional</span><span class="param-desc">Languages to scan. Default: all. Options: en, hi, te, ta, kn, ml</span></div>
+      <div class="param-row"><span class="param-name">min_score</span><span class="param-type">integer</span><span class="param-req opt">optional</span><span class="param-desc">Minimum risk score to include. Default: 35. Range: 0–100</span></div>
+      <pre><code>{
+  <span class="key">"brand"</span>: <span class="str">"Nike"</span>,
+  <span class="key">"platforms"</span>: [<span class="str">"indiamart"</span>, <span class="str">"meesho"</span>, <span class="str">"telegram"</span>],
+  <span class="key">"min_score"</span>: <span class="num">50</span>
+}</code></pre>
+      <div class="ep-section">Response</div>
+      <pre><code>{
+  <span class="key">"brand"</span>: <span class="str">"Nike"</span>,
+  <span class="key">"scan_id"</span>: <span class="str">"scan_20260510_084532"</span>,
+  <span class="key">"scanned_at"</span>: <span class="str">"2026-05-10T08:45:32Z"</span>,
+  <span class="key">"total_findings"</span>: <span class="num">23</span>,
+  <span class="key">"findings"</span>: [
+    {
+      <span class="key">"platform"</span>: <span class="str">"indiamart"</span>,
+      <span class="key">"seller_name"</span>: <span class="str">"BUDDY_HOUSE"</span>,
+      <span class="key">"city"</span>: <span class="str">"Sirsa, Haryana"</span>,
+      <span class="key">"gst_number"</span>: <span class="str">"06XXXXXXXXXXXZ"</span>,
+      <span class="key">"risk_score"</span>: <span class="num">77</span>,
+      <span class="key">"signals"</span>: [<span class="str">"EXPLICIT: first copy"</span>, <span class="str">"PRICE: Rs 800 = 90% below retail"</span>],
+      <span class="key">"verdict"</span>: <span class="str">"CONFIRMED_COUNTERFEIT"</span>,
+      <span class="key">"evidence_hash"</span>: <span class="str">"sha256:a3f4b2..."</span>,
+      <span class="key">"url"</span>: <span class="str">"https://www.indiamart.com/..."</span>
+    }
+  ]
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- RISK/SELLER -->
+  <div class="section-title" id="risk-seller">Seller risk score</div>
+  <div class="section-sub">Score a specific IndiaMART or Meesho seller URL for counterfeit risk.</div>
+  <div class="endpoint">
+    <div class="ep-head">
+      <span class="ep-method m-post">POST</span>
+      <span class="ep-path">/v1/risk/seller</span>
+    </div>
+    <div class="ep-body">
+      <div class="ep-section">Request body</div>
+      <div class="param-row"><span class="param-name">url</span><span class="param-type">string</span><span class="param-req req">required</span><span class="param-desc">IndiaMART or Meesho seller or listing URL</span></div>
+      <div class="param-row"><span class="param-name">brand</span><span class="param-type">string</span><span class="param-req opt">optional</span><span class="param-desc">Brand being counterfeited — improves scoring accuracy</span></div>
+      <pre><code>{
+  <span class="key">"url"</span>: <span class="str">"https://www.indiamart.com/proddetail/nike-first-copy-shoes..."</span>,
+  <span class="key">"brand"</span>: <span class="str">"Nike"</span>
+}</code></pre>
+      <div class="ep-section">Response</div>
+      <pre><code>{
+  <span class="key">"url"</span>: <span class="str">"https://www.indiamart.com/..."</span>,
+  <span class="key">"risk_score"</span>: <span class="num">77</span>,
+  <span class="key">"verdict"</span>: <span class="str">"CONFIRMED_COUNTERFEIT"</span>,
+  <span class="key">"signals"</span>: [
+    <span class="str">"EXPLICIT: 'first copy' in title"</span>,
+    <span class="str">"PRICE: 90% below retail"</span>,
+    <span class="str">"BRAND: Nike in listing without authorisation signal"</span>
+  ],
+  <span class="key">"gst_validated"</span>: <span class="bool">true</span>,
+  <span class="key">"gst_number"</span>: <span class="str">"06XXXXXXXXXXXZ"</span>,
+  <span class="key">"seller_city"</span>: <span class="str">"Sirsa, Haryana"</span>,
+  <span class="key">"evidence_hash"</span>: <span class="str">"sha256:a3f4b2c1..."</span>,
+  <span class="key">"it_act_65b_compliant"</span>: <span class="bool">true</span>
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- RISK/BATCH -->
+  <div class="section-title" id="risk-batch">Batch seller scoring</div>
+  <div class="section-sub">Score up to 50 sellers in a single request.</div>
+  <div class="endpoint">
+    <div class="ep-head">
+      <span class="ep-method m-post">POST</span>
+      <span class="ep-path">/v1/risk/batch</span>
+    </div>
+    <div class="ep-body">
+      <div class="ep-section">Request body</div>
+      <div class="param-row"><span class="param-name">sellers</span><span class="param-type">array</span><span class="param-req req">required</span><span class="param-desc">Array of seller objects. Max 50 per request.</span></div>
+      <pre><code>{
+  <span class="key">"sellers"</span>: [
+    { <span class="key">"url"</span>: <span class="str">"https://indiamart.com/..."</span>, <span class="key">"brand"</span>: <span class="str">"Nike"</span> },
+    { <span class="key">"url"</span>: <span class="str">"https://meesho.com/..."</span>, <span class="key">"brand"</span>: <span class="str">"boAt"</span> }
+  ]
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- EVIDENCE -->
+  <div class="section-title" id="evidence">Evidence package</div>
+  <div class="section-sub">Generate an IT Act 2000 Section 65B compliant evidence package for a finding.</div>
+  <div class="endpoint">
+    <div class="ep-head">
+      <span class="ep-method m-post">POST</span>
+      <span class="ep-path">/v1/evidence</span>
+    </div>
+    <div class="ep-body">
+      <div class="ep-section">Request body</div>
+      <div class="param-row"><span class="param-name">scan_id</span><span class="param-type">string</span><span class="param-req req">required</span><span class="param-desc">Scan ID from a previous /v1/scan response</span></div>
+      <div class="param-row"><span class="param-name">finding_index</span><span class="param-type">integer</span><span class="param-req req">required</span><span class="param-desc">Index of the finding to package (0-based)</span></div>
+      <div class="ep-section">Response</div>
+      <pre><code>{
+  <span class="key">"evidence_id"</span>: <span class="str">"ev_20260510_084532_0"</span>,
+  <span class="key">"sha256_hash"</span>: <span class="str">"a3f4b2c1d5e6f7a8b9c0..."</span>,
+  <span class="key">"hmac_signature"</span>: <span class="str">"hmac_sha256:x9y8z7..."</span>,
+  <span class="key">"captured_at"</span>: <span class="str">"2026-05-10T08:45:32.441Z"</span>,
+  <span class="key">"it_act_65b"</span>: <span class="bool">true</span>,
+  <span class="key">"certifying_statement"</span>: <span class="str">"I certify this electronic record was captured..."</span>,
+  <span class="key">"finding"</span>: { <span class="comment">/* full finding object */</span> },
+  <span class="key">"pdf_url"</span>: <span class="str">"https://cinerisk-api.../evidence/ev_20260510.pdf"</span>
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- WEBHOOK -->
+  <div class="section-title" id="webhook">Webhook registration</div>
+  <div class="section-sub">Register a URL to receive real-time alerts when new threats are detected.</div>
+  <div class="endpoint">
+    <div class="ep-head">
+      <span class="ep-method m-post">POST</span>
+      <span class="ep-path">/v1/webhooks/register</span>
+    </div>
+    <div class="ep-body">
+      <div class="ep-section">Request body</div>
+      <div class="param-row"><span class="param-name">url</span><span class="param-type">string</span><span class="param-req req">required</span><span class="param-desc">HTTPS URL to receive POST notifications</span></div>
+      <div class="param-row"><span class="param-name">events</span><span class="param-type">array</span><span class="param-req opt">optional</span><span class="param-desc">Event types. Default: all. Options: counterfeit, piracy, betting, fraud, digital_arrest</span></div>
+      <div class="param-row"><span class="param-name">brands</span><span class="param-type">array</span><span class="param-req opt">optional</span><span class="param-desc">Filter alerts to specific brands only</span></div>
+      <div class="param-row"><span class="param-name">min_score</span><span class="param-type">integer</span><span class="param-req opt">optional</span><span class="param-desc">Minimum risk score to trigger webhook. Default: 50</span></div>
+      <pre><code>{
+  <span class="key">"url"</span>: <span class="str">"https://your-platform.com/cineos-webhook"</span>,
+  <span class="key">"events"</span>: [<span class="str">"counterfeit"</span>, <span class="str">"piracy"</span>],
+  <span class="key">"brands"</span>: [<span class="str">"Nike"</span>, <span class="str">"Samsung"</span>],
+  <span class="key">"min_score"</span>: <span class="num">60</span>
+}</code></pre>
+      <div class="ep-section">Webhook payload (sent to your URL)</div>
+      <pre><code>{
+  <span class="key">"event"</span>: <span class="str">"counterfeit"</span>,
+  <span class="key">"detected_at"</span>: <span class="str">"2026-05-10T14:22:10Z"</span>,
+  <span class="key">"risk_score"</span>: <span class="num">77</span>,
+  <span class="key">"brand"</span>: <span class="str">"Nike"</span>,
+  <span class="key">"platform"</span>: <span class="str">"indiamart"</span>,
+  <span class="key">"seller"</span>: <span class="str">"BUDDY_HOUSE, Sirsa HR"</span>,
+  <span class="key">"url"</span>: <span class="str">"https://indiamart.com/..."</span>,
+  <span class="key">"evidence_hash"</span>: <span class="str">"sha256:a3f4b2..."</span>
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- KG STATS -->
+  <div class="section-title" id="kg-stats">Knowledge graph stats</div>
+  <div class="section-sub">Current state of the CINEOS fraud operator knowledge graph.</div>
+  <div class="endpoint">
+    <div class="ep-head">
+      <span class="ep-method m-get">GET</span>
+      <span class="ep-path">/v1/kg/stats</span>
+    </div>
+    <div class="ep-body">
+      <div class="ep-section">Response</div>
+      <pre><code>{
+  <span class="key">"total_channels"</span>: <span class="num">1077</span>,
+  <span class="key">"total_reach"</span>: <span class="num">61300000</span>,
+  <span class="key">"phone_numbers_attributed"</span>: <span class="num">4</span>,
+  <span class="key">"linked_channel_networks"</span>: <span class="num">109</span>,
+  <span class="key">"counterfeit_sellers"</span>: <span class="num">79</span>,
+  <span class="key">"platforms_monitored"</span>: <span class="num">13</span>,
+  <span class="key">"languages_covered"</span>: <span class="num">6</span>,
+  <span class="key">"fraud_categories"</span>: {
+    <span class="key">"betting_satta"</span>: <span class="num">437</span>,
+    <span class="key">"crypto_investment"</span>: <span class="num">238</span>,
+    <span class="key">"piracy"</span>: <span class="num">175</span>,
+    <span class="key">"task_job_fraud"</span>: <span class="num">120</span>,
+    <span class="key">"colour_prediction"</span>: <span class="num">41</span>,
+    <span class="key">"lottery"</span>: <span class="num">32</span>,
+    <span class="key">"loan_fraud"</span>: <span class="num">10</span>
+  },
+  <span class="key">"last_updated"</span>: <span class="str">"2026-05-10T08:00:00Z"</span>
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- MULTISCAN -->
+  <div class="section-title" id="multiscan">Multi-platform scan</div>
+  <div class="section-sub">Scan all 13 platforms simultaneously for a brand or keyword.</div>
+  <div class="endpoint">
+    <div class="ep-head">
+      <span class="ep-method m-post">POST</span>
+      <span class="ep-path">/v1/multiscan</span>
+    </div>
+    <div class="ep-body">
+      <div class="ep-section">Request body</div>
+      <div class="param-row"><span class="param-name">query</span><span class="param-type">string</span><span class="param-req req">required</span><span class="param-desc">Brand name, keyword or fraud pattern to scan across all platforms</span></div>
+      <div class="param-row"><span class="param-name">deep</span><span class="param-type">boolean</span><span class="param-req opt">optional</span><span class="param-desc">If true, scans dark web and private channel variants. Default: false</span></div>
+      <pre><code>{
+  <span class="key">"query"</span>: <span class="str">"Zerodha"</span>,
+  <span class="key">"deep"</span>: <span class="bool">true</span>
+}</code></pre>
+      <div class="ep-section">Response</div>
+      <pre><code>{
+  <span class="key">"query"</span>: <span class="str">"Zerodha"</span>,
+  <span class="key">"total_findings"</span>: <span class="num">18</span>,
+  <span class="key">"by_platform"</span>: {
+    <span class="key">"telegram"</span>: <span class="num">14</span>,
+    <span class="key">"youtube"</span>: <span class="num">2</span>,
+    <span class="key">"twitter"</span>: <span class="num">2</span>
+  },
+  <span class="key">"total_reach"</span>: <span class="num">540284</span>,
+  <span class="key">"highest_risk"</span>: {
+    <span class="key">"channel"</span>: <span class="str">"@Groww_Tips_Zerodha_Upstox"</span>,
+    <span class="key">"subscribers"</span>: <span class="num">540284</span>,
+    <span class="key">"risk_score"</span>: <span class="num">88</span>
+  }
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- LIVE SHIELD -->
+  <div class="section-title" id="live-shield">Live Shield — real-time monitoring</div>
+  <div class="section-sub">Activate continuous monitoring for a brand or event. Ideal for IPL match days, product launches.</div>
+  <div class="endpoint">
+    <div class="ep-head">
+      <span class="ep-method m-post">POST</span>
+      <span class="ep-path">/v1/live_shield</span>
+    </div>
+    <div class="ep-body">
+      <div class="ep-section">Request body</div>
+      <div class="param-row"><span class="param-name">brand</span><span class="param-type">string</span><span class="param-req req">required</span><span class="param-desc">Brand or event name to monitor continuously</span></div>
+      <div class="param-row"><span class="param-name">duration_hours</span><span class="param-type">integer</span><span class="param-req opt">optional</span><span class="param-desc">Hours to monitor. Default: 24. Max: 168 (1 week)</span></div>
+      <div class="param-row"><span class="param-name">webhook_url</span><span class="param-type">string</span><span class="param-req opt">optional</span><span class="param-desc">URL to receive live alerts during monitoring window</span></div>
+    </div>
+  </div>
+
+  <!-- ADMIN KEYS -->
+  <div class="section-title" id="keys">Create API key</div>
+  <div class="section-sub">Generate a new API key for a client or partner. Admin access required.</div>
+  <div class="endpoint">
+    <div class="ep-head">
+      <span class="ep-method m-post">POST</span>
+      <span class="ep-path">/admin/keys/create</span>
+    </div>
+    <div class="ep-body">
+      <div class="ep-section">Request body</div>
+      <div class="param-row"><span class="param-name">client_name</span><span class="param-type">string</span><span class="param-req req">required</span><span class="param-desc">Name of the client or partner organisation</span></div>
+      <div class="param-row"><span class="param-name">tier</span><span class="param-type">string</span><span class="param-req req">required</span><span class="param-desc">Access tier: brand, fraud_intel, enterprise</span></div>
+      <div class="param-row"><span class="param-name">rate_limit</span><span class="param-type">integer</span><span class="param-req opt">optional</span><span class="param-desc">Requests per hour. Default by tier: brand=50, fraud_intel=100, enterprise=unlimited</span></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>CINEOS API v1.0 · cinerisk-api-production.up.railway.app · US Patent 64/049,190</p>
+    <p><a href="mailto:yugandhar@cineos.in">yugandhar@cineos.in</a> · <a href="cineos_terms.html">Terms</a> · <a href="cineos_privacy.html">Privacy</a></p>
+  </footer>
+</div>
+
+</body>
+</html>

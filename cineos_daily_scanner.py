@@ -338,3 +338,41 @@ async def run_serp_intelligence():
         log("SerpApi expansion complete")
     except Exception as e:
         log(f"SerpApi expansion error: {e}")
+
+async def run_marketplace_scan_daily():
+    """Daily marketplace scan — Amazon + Flipkart."""
+    log("Running marketplace scan...")
+    try:
+        import subprocess
+        subprocess.run(
+            ['python3', 'cineos_marketplace_scanner.py'],
+            capture_output=True, timeout=300)
+        log("Marketplace scan complete")
+    except Exception as e:
+        log(f"Marketplace scan error: {e}")
+
+
+async def run_darkweb_scan_daily():
+    """Daily dark web intelligence scan."""
+    log("Running dark web intelligence scan...")
+    try:
+        import subprocess
+        subprocess.run(
+            ['python3', 'cineos_darkweb_scanner.py'],
+            capture_output=True, timeout=300)
+        log("Dark web scan complete")
+    except Exception as e:
+        log(f"Dark web scan error: {e}")
+
+
+async def run_brand_impersonation_daily():
+    """Daily brand impersonation scan."""
+    log("Running brand impersonation scan...")
+    try:
+        import subprocess
+        subprocess.run(
+            ['python3', 'cineos_brand_impersonation_scanner.py'],
+            capture_output=True, timeout=300)
+        log("Brand impersonation scan complete")
+    except Exception as e:
+        log(f"Brand impersonation error: {e}")

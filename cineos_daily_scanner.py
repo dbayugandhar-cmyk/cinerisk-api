@@ -78,7 +78,7 @@ async def run_telegram_quick_scan():
                     ch['subscribers']           = new_subs
                     ch['last_updated']          = datetime.datetime.now().isoformat()
                     growth = new_subs - old_subs
-                    if abs(growth) > 1000:
+                    if abs(growth) > 1000 and ch.get('subscribers_previous', 0) > 0:
                         log(f"  Growth: @{ch['username'][:30]} "
                             f"{'+' if growth>0 else ''}{growth:,}")
                     updated += 1

@@ -554,27 +554,27 @@ function scanDarkIntel() {
 }
 
     function runYouTubeScan() {
-      document.querySelector('#tab-youtube .results-area').innerHTML =
+      document.querySelector('#panel-youtube .results-area').innerHTML =
         '<div style="color:#00ff88;padding:20px">Scanning YouTube for fraud channels...</div>';
       setTimeout(() => location.reload(), 2000);
     }
     function runTwitterScan() {
-      document.querySelector('#tab-twitter .results-area').innerHTML =
+      document.querySelector('#panel-twitter .results-area').innerHTML =
         '<div style="color:#1DA1F2;padding:20px">Scanning Twitter/X for fraud accounts...</div>';
       setTimeout(() => location.reload(), 2000);
     }
     function runMeeshoScan() {
-      document.querySelector('#tab-meesho .results-area').innerHTML =
+      document.querySelector('#panel-meesho .results-area').innerHTML =
         '<div style="color:#F43397;padding:20px">Scanning Meesho for counterfeits...</div>';
       setTimeout(() => location.reload(), 2000);
     }
     function runShareChatScan() {
-      document.querySelector('#tab-sharechat .results-area').innerHTML =
+      document.querySelector('#panel-sharechat .results-area').innerHTML =
         '<div style="color:#FF6600;padding:20px">Scanning ShareChat in 5 languages...</div>';
       setTimeout(() => location.reload(), 2000);
     }
     function runAppStoreScan() {
-      document.querySelector('#tab-appstore .results-area').innerHTML =
+      document.querySelector('#panel-appstore .results-area').innerHTML =
         '<div style="color:#0D96F6;padding:20px">Scanning Play Store & App Store...</div>';
       setTimeout(() => location.reload(), 2000);
     }
@@ -769,7 +769,7 @@ const API = 'https://cinerisk-api-production.up.railway.app';
 const HEADERS = {'Content-Type':'application/json'};
 
 function switchTab(tab) {
-  ['film','india','gaming','sports','videoid','darkintel','liveshield','multi','fraud','brand','graph'].forEach(function(t) {
+  ['film','india','gaming','sports','videoid','darkintel','liveshield','multi','fraud','brand','graph','youtube','twitter','meesho','sharechat','appstore'].forEach(function(t) {
     var p = document.getElementById('panel-' + t);
     if (p) { p.style.display = 'none'; p.classList.remove('active'); }
   });
@@ -1481,7 +1481,7 @@ function drawBrandMap(sellers) {
 
 
   <!-- YOUTUBE TAB -->
-  <div class="tab-content" id="tab-youtube" style="display:none">
+  <div class="tab-content" id="panel-youtube" style="display:none">
     <div class="scan-header">
       <h2 style="color:#FF0000">▶ YouTube Fraud Scanner</h2>
       <p style="color:#8899bb">Fake investment channels, job scam videos, betting tips — detected in real time</p>
@@ -1523,7 +1523,7 @@ function drawBrandMap(sellers) {
   </div>
 
   <!-- TWITTER TAB -->
-  <div class="tab-content" id="tab-twitter" style="display:none">
+  <div class="tab-content" id="panel-twitter" style="display:none">
     <div class="scan-header">
       <h2 style="color:#1DA1F2">𝕏 Twitter / X Fraud Scanner</h2>
       <p style="color:#8899bb">Fake broker accounts, IPL betting, crypto pump — India-specific detection</p>
@@ -1561,7 +1561,7 @@ function drawBrandMap(sellers) {
   </div>
 
   <!-- MEESHO TAB -->
-  <div class="tab-content" id="tab-meesho" style="display:none">
+  <div class="tab-content" id="panel-meesho" style="display:none">
     <div class="scan-header">
       <h2 style="color:#F43397">🛍 Meesho Counterfeit Scanner</h2>
       <p style="color:#8899bb">150M users. Nike, boAt, Samsung, Ray-Ban counterfeits — none of this is on any global platform</p>
@@ -1603,7 +1603,7 @@ function drawBrandMap(sellers) {
   </div>
 
   <!-- SHARECHAT TAB -->
-  <div class="tab-content" id="tab-sharechat" style="display:none">
+  <div class="tab-content" id="panel-sharechat" style="display:none">
     <div class="scan-header">
       <h2 style="color:#FF6600">💬 ShareChat Vernacular Scanner</h2>
       <p style="color:#8899bb">200M users. Hindi Satta Matka, Telugu betting — NO global competitor monitors this</p>
@@ -1645,7 +1645,7 @@ function drawBrandMap(sellers) {
   </div>
 
   <!-- APP STORE TAB -->
-  <div class="tab-content" id="tab-appstore" style="display:none">
+  <div class="tab-content" id="panel-appstore" style="display:none">
     <div class="scan-header">
       <h2 style="color:#0D96F6">📱 App Store Fraud Scanner</h2>
       <p style="color:#8899bb">Fake banking apps, fake broker apps, fraudulent loan apps — Play Store + App Store</p>

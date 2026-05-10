@@ -43,7 +43,7 @@ log = logging.getLogger("cineos.l4.gold")
 DATABASE_URL   = os.getenv("DATABASE_URL", "")
 SERP_API_KEY   = os.getenv("SERP_API_KEY", "")
 SENDGRID_KEY   = os.getenv("SENDGRID_API_KEY", "")
-ALERT_EMAIL    = os.getenv("ALERT_EMAIL_TO", "dba.yugandhar@gmail.com")
+ALERT_EMAIL    = os.getenv("ALERT_EMAIL_TO", "yugandhar@cineos.in")
 CINEOS_API     = os.getenv("CINEOS_API", "https://cinerisk-api-production.up.railway.app")
 
 HEADERS = {
@@ -1330,7 +1330,7 @@ SECTION 4 — CONTACT INFORMATION  [17 U.S.C. § 512(c)(3)(A)(iv)]
 {line}
   Name    : {authorized_by}
   Org     : CINEOS Anti-Piracy Platform
-  Email   : dba.yugandhar@gmail.com
+  Email   : yugandhar@cineos.in
 
 SECTION 5 — GOOD FAITH BELIEF  [17 U.S.C. § 512(c)(3)(A)(v)]
 {line}
@@ -1354,7 +1354,7 @@ RECOMMENDED ACTIONS
 
 {sep}
   CINEOS — The only system that identifies the seat, not just the screen.
-  For prosecution evidence: dba.yugandhar@gmail.com
+  For prosecution evidence: yugandhar@cineos.in
   US Provisional Patent 64/049,190
 {sep}
 """
@@ -1379,7 +1379,7 @@ async def send_report_email(report: ScanReport, studio_email: str):
                 json={
                     "personalizations": [{"to": [{"email": studio_email}]}],
                     "from": {"email": "alerts@cineos.io", "name": "CINEOS Anti-Piracy"},
-                    "reply_to": {"email": "dba.yugandhar@gmail.com"},
+                    "reply_to": {"email": "yugandhar@cineos.in"},
                     "subject": subject,
                     "content": [{"type": "text/plain", "value": body}],
                 }

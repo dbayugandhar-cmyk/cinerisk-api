@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 DATABASE_URL = os.getenv("DATABASE_URL", "")
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", "")
-ALERT_EMAIL_TO = os.getenv("ALERT_EMAIL_TO", "dba.yugandhar@gmail.com")
+ALERT_EMAIL_TO = os.getenv("ALERT_EMAIL_TO", "yugandhar@cineos.in")
 ALERT_EMAIL_FROM = os.getenv("ALERT_EMAIL_FROM", "alerts@cineos.io")
 POLL_INTERVAL = 600  # every 10 minutes
 

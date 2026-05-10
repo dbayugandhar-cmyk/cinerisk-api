@@ -626,7 +626,7 @@ SECTION 3 — CONTACT INFORMATION
 {"─"*72}
   Name            : Yugandhar Mallavarapu, CINEOS
   Organization    : CINEOS Manga & Publishing Anti-Piracy
-  Email           : dba.yugandhar@gmail.com
+  Email           : yugandhar@cineos.in
   Patent          : US Provisional Patent 64/049,190
 
 SECTION 4 — ACCURACY DECLARATION
@@ -652,7 +652,7 @@ RECOMMENDED ACTIONS
 {"="*72}
   CINEOS Manga & Publishing Anti-Piracy Platform
   25 platforms | Real-time | $29/month for creators
-  dba.yugandhar@gmail.com | US Prov. Pat. 64/049,190
+  yugandhar@cineos.in | US Prov. Pat. 64/049,190
   Supporting: Manga · Webtoon · Ebook · Comics · Light Novel
 {"="*72}
 """

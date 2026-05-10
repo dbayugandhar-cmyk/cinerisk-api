@@ -573,7 +573,7 @@ ACCURACY DECLARATION
 {"="*72}
   CINEOS Content Brand Shield
   $49/month creators | $299/month labels | $999/month leagues
-  dba.yugandhar@gmail.com | US Prov. Pat. 64/049,190
+  yugandhar@cineos.in | US Prov. Pat. 64/049,190
 {"="*72}
 """
 

@@ -472,7 +472,7 @@ SECTION 3 — CONTACT INFORMATION
 {"─"*72}
   Name          : Yugandhar Mallavarapu, CINEOS
   Organization  : CINEOS India Anti-Piracy Platform
-  Email         : dba.yugandhar@gmail.com
+  Email         : yugandhar@cineos.in
   Patent        : US Provisional Patent 64/049,190
 
 SECTION 4 — GOOD FAITH BELIEF
@@ -510,7 +510,7 @@ RECOMMENDED ACTIONS
 {"="*72}
   CINEOS India — Protecting Indian Cinema
   20 platforms | Real-time | Rs 5,000-15,000/month per title
-  dba.yugandhar@gmail.com | US Prov. Pat. 64/049,190
+  yugandhar@cineos.in | US Prov. Pat. 64/049,190
 {"="*72}
 """
 

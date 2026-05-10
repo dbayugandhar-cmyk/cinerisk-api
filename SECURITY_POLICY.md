@@ -81,7 +81,7 @@
 - Engage cybersecurity incident response within **48 hours**
 
 ### Contact
-Security incidents: dba.yugandhar@gmail.com
+Security incidents: yugandhar@cineos.in
 Response SLA: 24 hours acknowledgment, 72 hours resolution plan
 
 ---

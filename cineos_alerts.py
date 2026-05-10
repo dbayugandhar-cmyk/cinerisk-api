@@ -7,7 +7,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 # Gmail config — use App Password (not regular password)
-GMAIL_USER = "dba.yugandhar@gmail.com"
+GMAIL_USER = "yugandhar@cineos.in"
 GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD", "")
 
 def send_alert_email(
@@ -99,7 +99,7 @@ def send_alert_email(
     <p style="margin-top:20px;font-size:11px;color:#aaa;text-align:center;">
       Detected: {now}<br>
       CINEOS Anti-Piracy Intelligence | US Patent 64/049,190<br>
-      dba.yugandhar@gmail.com
+      yugandhar@cineos.in
     </p>
 
   </div>
@@ -127,7 +127,7 @@ Recommended Actions:
 
 View full report: https://cineos.in/cineos_platform.html
 
-CINEOS | Patent 64/049,190 | dba.yugandhar@gmail.com"""
+CINEOS | Patent 64/049,190 | yugandhar@cineos.in"""
 
     try:
         msg = MIMEMultipart("alternative")

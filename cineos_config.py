@@ -400,7 +400,7 @@ SECTION 6 — ELECTRONIC SIGNATURE
 {"="*72}
   CINEOS — Content Intelligence and Protection Platform
   {patent_ref}
-  dba.yugandhar@gmail.com
+  yugandhar@cineos.in
 {"="*72}
 """
 

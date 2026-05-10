@@ -32,7 +32,7 @@ Environment variables:
   SENDGRID_API_KEY    SendGrid key (free 100 emails/day)
   TELEGRAM_BOT_TOKEN  Telegram bot token (free)
   TELEGRAM_CHAT_ID    Your Telegram chat ID for alerts
-  ALERT_EMAIL_TO      dba.yugandhar@gmail.com
+  ALERT_EMAIL_TO      yugandhar@cineos.in
   CINEOS_API          https://cinerisk-api-production.up.railway.app
 """
 
@@ -62,7 +62,7 @@ SERP_API_KEY      = os.getenv("SERP_API_KEY", "")
 SENDGRID_API_KEY  = os.getenv("SENDGRID_API_KEY", "")
 TELEGRAM_BOT_TOKEN= os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID  = os.getenv("TELEGRAM_CHAT_ID", "")
-ALERT_EMAIL_TO    = os.getenv("ALERT_EMAIL_TO", "dba.yugandhar@gmail.com")
+ALERT_EMAIL_TO    = os.getenv("ALERT_EMAIL_TO", "yugandhar@cineos.in")
 ALERT_EMAIL_FROM  = os.getenv("ALERT_EMAIL_FROM", "alerts@cineos.io")
 CINEOS_API        = os.getenv("CINEOS_API", "https://cinerisk-api-production.up.railway.app")
 TMDB_KEY          = os.getenv("TMDB_API_KEY", "28ff1ef4ae81f137ddd9cbeec2634033")

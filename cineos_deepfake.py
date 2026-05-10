@@ -1178,13 +1178,13 @@ LEGAL DISCLAIMER
   comprehensive forensic investigation.
 
   For court submission, request a certified report with chain of
-  custody documentation from dba.yugandhar@gmail.com
+  custody documentation from yugandhar@cineos.in
 
 CERTIFICATION
 {"─"*72}
   Analyzed by     : CINEOS Deepfake Detection Platform v1.0
   Patent          : US Provisional Patent 64/049,190
-  Contact         : dba.yugandhar@gmail.com
+  Contact         : yugandhar@cineos.in
   Report Price    : $499 per certified report
   
   This analysis was performed using proprietary signal fusion

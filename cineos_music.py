@@ -475,7 +475,7 @@ ACCURACY DECLARATION
 
 {"="*72}
   CINEOS Music Anti-Piracy | $19/month per artist
-  dba.yugandhar@gmail.com | US Prov. Pat. 64/049,190
+  yugandhar@cineos.in | US Prov. Pat. 64/049,190
 {"="*72}
 """
 

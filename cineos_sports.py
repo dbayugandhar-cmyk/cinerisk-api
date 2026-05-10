@@ -471,7 +471,7 @@ ACCURACY DECLARATION
 {"="*72}
   CINEOS Sports Anti-Piracy
   $299/month per league | $99/event for PPV
-  dba.yugandhar@gmail.com | US Prov. Pat. 64/049,190
+  yugandhar@cineos.in | US Prov. Pat. 64/049,190
 {"="*72}
 """
 

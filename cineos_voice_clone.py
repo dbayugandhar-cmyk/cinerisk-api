@@ -762,13 +762,13 @@ LEGAL DISCLAIMER
   findings independently before taking legal action.
 
   For court submission, request certified report with full
-  methodology documentation: dba.yugandhar@gmail.com
+  methodology documentation: yugandhar@cineos.in
 
 CERTIFICATION
 {"─"*72}
   Analyzed by     : CINEOS Voice Clone Detection v1.0
   Patent          : US Provisional Patent 64/049,190
-  Contact         : dba.yugandhar@gmail.com
+  Contact         : yugandhar@cineos.in
   Report Price    : $499 per certified report
   Subscription    : $49/month for musicians | $299/month for labels
 

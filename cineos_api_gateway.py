@@ -205,7 +205,7 @@ async def verify_api_key(
                 "tier": tier,
                 "limit": monthly_limit,
                 "used": customer.get("queries_this_month", 0),
-                "upgrade": "Contact dba.yugandhar@gmail.com to upgrade"
+                "upgrade": "Contact yugandhar@cineos.in to upgrade"
             }
         )
 
@@ -374,7 +374,7 @@ async def root():
             "studio": "$999/month — 20,000 queries",
             "enterprise": "Custom — unlimited"
         },
-        "contact": "dba.yugandhar@gmail.com",
+        "contact": "yugandhar@cineos.in",
         "endpoints": {
             "scan": "POST /v1/scan — Scan for piracy",
             "live_shield": "POST /v1/live_shield — Telegram stream monitor",
@@ -848,7 +848,7 @@ async def get_tiers():
             for name, config in TIERS.items()
             if name != "free"
         },
-        "contact": "dba.yugandhar@gmail.com",
+        "contact": "yugandhar@cineos.in",
         "trial": "Free tier: 10 queries to test the API"
     }
 

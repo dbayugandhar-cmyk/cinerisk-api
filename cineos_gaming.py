@@ -397,7 +397,7 @@ SECTION 3 — CONTACT INFORMATION  [17 U.S.C. § 512(c)(3)(A)(iv)]
 {"─"*70}
   Name          : Yugandhar Mallavarapu, CINEOS
   Organization  : CINEOS Gaming Anti-Piracy Platform
-  Email         : dba.yugandhar@gmail.com
+  Email         : yugandhar@cineos.in
   Patent        : US Provisional Patent 64/049,190
 
 SECTION 4 — GOOD FAITH BELIEF  [17 U.S.C. § 512(c)(3)(A)(v)]
@@ -425,7 +425,7 @@ RECOMMENDED ACTIONS
 {"="*70}
   CINEOS Gaming — Protecting Indie Developers
   $99/month per game | Real-time monitoring | DMCA reports
-  dba.yugandhar@gmail.com | US Prov. Pat. 64/049,190
+  yugandhar@cineos.in | US Prov. Pat. 64/049,190
 {"="*70}
 """
     return report

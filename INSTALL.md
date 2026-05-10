@@ -29,5 +29,5 @@ You should see:
 [CINEOS] Stream open - monitoring YOUR THEATER Screen 1 for FILM TITLE
 
 ## Support
-dba.yugandhar@gmail.com
+yugandhar@cineos.in
 CINEOS Platform - US Prov. Pat. 64/049,190

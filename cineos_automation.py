@@ -13,7 +13,7 @@ from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 
 GMAIL_PASS = os.environ.get('GMAIL_APP_PASSWORD','')
-GMAIL_FROM = 'dba.yugandhar@gmail.com'
+GMAIL_FROM = 'yugandhar@cineos.in'
 SERP_KEY = os.environ.get('SERP_API_KEY','')
 
 # ── 1. GOOGLE DMCA TAKEDOWN ───────────────────────────────
@@ -362,7 +362,7 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--mode', choices=['digest','monitor','dmca','test'],
                     default='test')
-    ap.add_argument('--email', default='dba.yugandhar@gmail.com')
+    ap.add_argument('--email', default='yugandhar@cineos.in')
     ap.add_argument('--event', default='IPL 2026')
     ap.add_argument('--films', nargs='+',
                     default=['Retro','Devara','Kalki 2898 AD','Lucky Bhaskar'])

@@ -13,9 +13,9 @@ import urllib.parse
 logger = logging.getLogger(__name__)
 
 SENDGRID_API_KEY  = os.environ.get("SENDGRID_API_KEY")
-FROM_EMAIL        = "dba.yugandhar@gmail.com"
+FROM_EMAIL        = "yugandhar@cineos.in"
 FROM_NAME         = "CINEOS Anti-Piracy"
-TO_EMAIL          = "dba.yugandhar@gmail.com"
+TO_EMAIL          = "yugandhar@cineos.in"
 DASHBOARD_URL     = "https://dbayugandhar-cmyk.github.io/cinerisk-api/cineos_platform.html"
 API_BASE_URL      = "https://cinerisk-api-production.up.railway.app"
 

@@ -5,7 +5,7 @@ Runs every Monday — scans top films and sends report to subscribers
 import asyncio, os, datetime, sys
 sys.path.insert(0, '.')
 
-GMAIL_USER = "dba.yugandhar@gmail.com"
+GMAIL_USER = "yugandhar@cineos.in"
 GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD", "")
 SERP_API_KEY = os.environ.get("SERP_API_KEY", "")
 
@@ -17,7 +17,7 @@ WEEKLY_WATCHLIST = [
 
 # Subscribers list — add clients here
 SUBSCRIBERS = [
-    "dba.yugandhar@gmail.com",  # yourself — always gets report
+    "yugandhar@cineos.in",  # yourself — always gets report
 ]
 
 async def run_weekly_report():
@@ -132,7 +132,7 @@ async def run_weekly_report():
 
     <p style="margin-top:20px;font-size:11px;color:#aaa;text-align:center;border-top:1px solid #eee;padding-top:15px;">
       CINEOS Weekly Intelligence | US Patent 64/049,190<br>
-      To add films to watchlist or unsubscribe: dba.yugandhar@gmail.com<br>
+      To add films to watchlist or unsubscribe: yugandhar@cineos.in<br>
       Platform: cineos_platform.html | Dashboard: cineos_dashboard.html
     </p>
   </div>

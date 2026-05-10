@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS Pricing — India's Trust Intelligence Network</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500;600;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#070B14;color:#E0E8FF;font-family:'Inter',sans-serif;line-height:1.6;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  nav{display:flex;justify-content:space-between;align-items:center;
+    padding:20px 48px;border-bottom:1px solid #1A2A44;}
+  .logo{color:#00FF88;font-family:'IBM Plex Mono';font-size:1.2rem;font-weight:600;}
+  .nav-links a{color:#8899BB;text-decoration:none;margin-left:28px;font-size:.9rem;}
+  .nav-links a:hover{color:#E0E8FF;}
+
+  .hero{text-align:center;padding:72px 24px 48px;}
+  .hero-tag{font-family:'IBM Plex Mono';font-size:.7rem;color:#00FF88;
+    letter-spacing:.2em;margin-bottom:16px;}
+  .hero h1{font-size:2.8rem;font-weight:800;margin-bottom:16px;line-height:1.2;}
+  .hero p{font-size:1.05rem;color:#8899BB;max-width:540px;margin:0 auto 32px;}
+
+  .toggle{display:flex;justify-content:center;margin-bottom:48px;}
+  .toggle-inner{background:#0D1421;border:1px solid #1A2A44;
+    border-radius:8px;padding:4px;display:flex;}
+  .toggle-btn{padding:8px 24px;border-radius:6px;font-size:.85rem;
+    cursor:pointer;border:none;font-family:'Inter';transition:.2s;}
+  .toggle-btn.active{background:#00FF88;color:#070B14;font-weight:600;}
+  .toggle-btn:not(.active){background:transparent;color:#8899BB;}
+
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+    max-width:1100px;margin:0 auto;padding:0 24px 72px;}
+
+  .plan{background:#0D1421;border:1px solid #1A2A44;border-radius:16px;
+    padding:36px 28px;position:relative;transition:.2s;}
+  .plan:hover{border-color:#3D7FFF;transform:translateY(-2px);}
+  .plan.popular{border-color:#00FF88;}
+  .popular-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:#00FF88;color:#070B14;font-size:.7rem;font-weight:700;
+    padding:4px 14px;border-radius:20px;letter-spacing:.08em;white-space:nowrap;}
+
+  .plan-name{font-family:'IBM Plex Mono';font-size:.75rem;color:#8899BB;
+    letter-spacing:.15em;margin-bottom:10px;text-transform:uppercase;}
+  .plan-price{font-size:2.4rem;font-weight:800;margin-bottom:4px;}
+  .plan-period{font-size:.85rem;color:#8899BB;margin-bottom:6px;}
+  .plan-desc{font-size:.85rem;color:#8899BB;margin-bottom:24px;
+    padding-bottom:24px;border-bottom:1px solid #1A2A44;}
+
+  .feature-list{list-style:none;margin-bottom:32px;}
+  .feature-list li{display:flex;align-items:flex-start;gap:10px;
+    font-size:.88rem;color:#8899BB;margin-bottom:10px;}
+  .feature-list li .check{color:#00FF88;font-weight:700;flex-shrink:0;margin-top:1px;}
+  .feature-list li .feat-text{color:#C0CCE0;}
+
+  .plan-btn{width:100%;padding:13px;border-radius:8px;font-size:.9rem;
+    font-weight:600;cursor:pointer;font-family:'Inter';transition:.2s;
+    text-decoration:none;display:block;text-align:center;}
+  .plan-btn.primary{background:#00FF88;color:#070B14;border:none;}
+  .plan-btn.primary:hover{background:#00DD77;}
+  .plan-btn.secondary{background:transparent;color:#E0E8FF;
+    border:1px solid #1A2A44;}
+  .plan-btn.secondary:hover{border-color:#3D7FFF;color:#3D7FFF;}
+
+  .compare-section{max-width:900px;margin:0 auto 72px;padding:0 24px;}
+  .compare-section h2{text-align:center;font-size:1.6rem;margin-bottom:32px;}
+
+  .compare-table{width:100%;border-collapse:collapse;}
+  .compare-table th{background:#0D1421;padding:14px 16px;
+    font-family:'IBM Plex Mono';font-size:.7rem;color:#8899BB;
+    letter-spacing:.1em;text-align:left;border-bottom:1px solid #1A2A44;}
+  .compare-table th:not(:first-child){text-align:center;}
+  .compare-table td{padding:12px 16px;border-bottom:1px solid #0D1421;
+    font-size:.88rem;color:#8899BB;}
+  .compare-table td:first-child{color:#C0CCE0;}
+  .compare-table td:not(:first-child){text-align:center;}
+  .compare-table tr:hover td{background:#0D1421;}
+  .check-green{color:#00FF88;font-size:1rem;}
+  .check-no{color:#2A3A55;}
+
+  .faq{max-width:720px;margin:0 auto 72px;padding:0 24px;}
+  .faq h2{text-align:center;font-size:1.6rem;margin-bottom:36px;}
+  .faq-item{border-bottom:1px solid #1A2A44;padding:20px 0;}
+  .faq-q{font-weight:600;font-size:.95rem;margin-bottom:8px;color:#E0E8FF;}
+  .faq-a{font-size:.88rem;color:#8899BB;line-height:1.6;}
+
+  .cta-section{text-align:center;background:#0D1421;
+    border-top:1px solid #1A2A44;border-bottom:1px solid #1A2A44;
+    padding:64px 24px;margin-bottom:64px;}
+  .cta-section h2{font-size:1.8rem;font-weight:800;margin-bottom:12px;}
+  .cta-section p{color:#8899BB;margin-bottom:32px;}
+  .cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{background:#00FF88;color:#070B14;padding:14px 32px;
+    border-radius:8px;font-weight:700;text-decoration:none;font-size:.95rem;}
+  .btn-secondary{background:transparent;color:#E0E8FF;padding:14px 32px;
+    border-radius:8px;font-weight:600;text-decoration:none;font-size:.95rem;
+    border:1px solid #1A2A44;}
+
+  footer{text-align:center;padding:32px;color:#3A4A6A;font-size:.8rem;}
+  footer a{color:#3A4A6A;text-decoration:none;}
+
+  @media(max-width:768px){
+    .plans{grid-template-columns:1fr;}
+    nav{padding:16px 20px;}
+    .hero h1{font-size:2rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">CINEOS</div>
+  <div class="nav-links">
+    <a href="cineos_landing.html">Home</a>
+    <a href="cineos_platform.html">Platform</a>
+    <a href="mailto:yugandhar@cineos.in">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag mono">TRANSPARENT PRICING</div>
+  <h1>Intelligence that pays<br>for itself in week one</h1>
+  <p>Every plan includes real data, real sellers, real channels.
+     No setup fees. Cancel anytime.</p>
+</div>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px 72px;">
+  <div class="plans" style="max-width:100%;padding:0;">
+
+    <!-- BRAND PROTECTION -->
+    <div class="plan">
+      <div class="plan-name">Brand Protection</div>
+      <div class="plan-price" style="color:#FF8C00;">Rs 10L</div>
+      <div class="plan-period">per brand / per year</div>
+      <div class="plan-desc">
+        For FMCG, footwear and electronics brands fighting
+        counterfeit sellers on IndiaMART and Meesho.
+      </div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span><span class="feat-text">Weekly counterfeit seller report — company names, cities, GST</span></li>
+        <li><span class="check">✓</span><span class="feat-text">0–100 risk score per seller with evidence breakdown</span></li>
+        <li><span class="check">✓</span><span class="feat-text">India heatmap — geographic distribution of counterfeits</span></li>
+        <li><span class="check">✓</span><span class="feat-text">GST validation — report fake GST sellers to GST Council</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Court-grade evidence PDF per seller — IT Act 65B</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Instagram + WhatsApp counterfeit monitoring</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Monday morning report — automated, no manual work</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Email support — 24 hour response</span></li>
+      </ul>
+      <a href="mailto:yugandhar@cineos.in?subject=Brand Protection Plan Enquiry"
+         class="plan-btn secondary">Get Started</a>
+    </div>
+
+    <!-- FRAUD INTELLIGENCE — POPULAR -->
+    <div class="plan popular">
+      <div class="popular-badge">MOST POPULAR</div>
+      <div class="plan-name">Fraud Intelligence</div>
+      <div class="plan-price" style="color:#00FF88;">Rs 25L</div>
+      <div class="plan-period">per year</div>
+      <div class="plan-desc">
+        For stock brokers, insurance companies and fintech
+        fighting brand impersonation and investment fraud.
+      </div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span><span class="feat-text">Everything in Brand Protection</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Daily Telegram scan — 354 channels, 6 languages</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Real-time alerts — new fake channel detected in minutes</span></li>
+        <li><span class="check">✓</span><span class="feat-text">SEBI SCORES complaint — pre-formatted, ready to file</span></li>
+        <li><span class="check">✓</span><span class="feat-text">API access — integrate alerts into your security system</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Webhook alerts — POST to your URL within minutes</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Misinformation monitoring — fake brand news detection</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Monthly executive briefing call — 30 minutes</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Priority support — 4 hour response</span></li>
+      </ul>
+      <a href="mailto:yugandhar@cineos.in?subject=Fraud Intelligence Plan Enquiry"
+         class="plan-btn primary">Get Started</a>
+    </div>
+
+    <!-- GOVERNMENT / ENTERPRISE -->
+    <div class="plan">
+      <div class="plan-name">Government / Enterprise</div>
+      <div class="plan-price" style="color:#B060FF;">Custom</div>
+      <div class="plan-period">Rs 50L – 2Cr / year</div>
+      <div class="plan-desc">
+        For SEBI, MHA, TRAI, OTT platforms and large enterprises
+        needing daily intelligence at scale.
+      </div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span><span class="feat-text">Everything in Fraud Intelligence</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Daily automated intelligence feed — all 354+ channels</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Full API access — all 16 endpoints</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Dark web monitoring — paste sites and leak detection</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Supply chain QR verification system</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Custom report format — match your internal templates</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Dedicated account manager</span></li>
+        <li><span class="check">✓</span><span class="feat-text">Weekly briefing call with intelligence team</span></li>
+        <li><span class="check">✓</span><span class="feat-text">SLA — 99.9% uptime, 1 hour critical response</span></li>
+        <li><span class="check">✓</span><span class="feat-text">On-site demo and integration support</span></li>
+      </ul>
+      <a href="mailto:yugandhar@cineos.in?subject=Enterprise Plan Enquiry"
+         class="plan-btn secondary">Contact Us</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- COMPARISON TABLE -->
+<div class="compare-section">
+  <h2>What's included in each plan</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th style="width:40%">Feature</th>
+        <th>Brand</th>
+        <th>Fraud Intel</th>
+        <th>Enterprise</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="4" style="color:#00FF88;font-weight:600;font-size:.8rem;padding-top:16px;">DETECTION</td></tr>
+      <tr><td>IndiaMART counterfeit seller scan</td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Telegram channel monitoring</td><td><span class="check-no">—</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Instagram fraud scan</td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>WhatsApp group detection</td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Dark web / paste site monitoring</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Multilingual (6 Indian languages)</td><td><span class="check-no">—</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+
+      <tr><td colspan="4" style="color:#00FF88;font-weight:600;font-size:.8rem;padding-top:16px;">INTELLIGENCE</td></tr>
+      <tr><td>Seller risk scores (0-100)</td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>GST number validation</td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Geographic heatmap</td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Court-grade evidence (IT Act 65B)</td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Real-time alerts</td><td><span class="check-no">—</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Webhook API integration</td><td><span class="check-no">—</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+
+      <tr><td colspan="4" style="color:#00FF88;font-weight:600;font-size:.8rem;padding-top:16px;">REPORTING</td></tr>
+      <tr><td>Weekly PDF report</td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Daily automated digest</td><td><span class="check-no">—</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>SEBI complaint ready</td><td><span class="check-no">—</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Custom report format</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-green">✓</span></td></tr>
+
+      <tr><td colspan="4" style="color:#00FF88;font-weight:600;font-size:.8rem;padding-top:16px;">SUPPORT</td></tr>
+      <tr><td>Email support</td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Monthly briefing call</td><td><span class="check-no">—</span></td><td><span class="check-green">✓</span></td><td><span class="check-green">✓</span></td></tr>
+      <tr><td>Dedicated account manager</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-green">✓</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FAQ -->
+<div class="faq">
+  <h2>Common questions</h2>
+  <div class="faq-item">
+    <div class="faq-q">How quickly do reports arrive?</div>
+    <div class="faq-a">Brand Protection clients receive a report every Monday morning by 9am IST automatically. Fraud Intelligence clients receive daily digests and real-time alerts within minutes of detection.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Is the data legally admissible?</div>
+    <div class="faq-a">Yes. All evidence is SHA-256 hashed, HMAC signed and timestamped in compliance with IT Act 2000 Section 65B. Evidence packages are accepted for SEBI SCORES complaints, GST Council reports and police FIRs.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What platforms do you monitor?</div>
+    <div class="faq-a">Telegram (354 channels), IndiaMART, Meesho, Instagram, WhatsApp, Reddit, Discord, dark web paste sites and 103+ piracy websites. All in English, Hindi, Telugu, Tamil, Kannada and Malayalam.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How is pricing structured?</div>
+    <div class="faq-a">Annual contracts paid quarterly or annually. Brand Protection is per brand — if you have 3 brands (e.g. Dove, Dettol, Surf), that is 3 × Rs 10L = Rs 30L/year. Government and OTT contracts are custom priced based on scope.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What happens in the first week?</div>
+    <div class="faq-a">Day 1: Onboarding call (30 min). Day 2: First intelligence report delivered. Day 7: Platform access enabled. Week 2: First weekly report. You see real data before the first month invoice.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Can we try before signing a contract?</div>
+    <div class="faq-a">Yes. We provide a free sample intelligence report specific to your brand before any contract. You see exactly what you are paying for. Email yugandhar@cineos.in to request a sample.</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Ready to see your brand's<br>counterfeit exposure?</h2>
+  <p>We send a free sample intelligence report before any contract.<br>
+     No sales call required. Real data, immediately.</p>
+  <div class="cta-btns">
+    <a href="mailto:yugandhar@cineos.in?subject=Free Sample Report Request"
+       class="btn-primary">Request Free Sample Report</a>
+    <a href="cineos_platform.html" class="btn-secondary">View Live Platform</a>
+  </div>
+</div>
+
+<footer>
+  <p>CINEOS Intelligence Platform  ·  cineos.in  ·  yugandhar@cineos.in<br>
+  US Provisional Patent 64/049,190  ·
+  <a href="cineos_landing.html">Home</a>  ·
+  <a href="cineos_platform.html">Platform</a></p>
+</footer>
+
+</body>
+</html>

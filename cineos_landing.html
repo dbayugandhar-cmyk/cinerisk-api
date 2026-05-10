@@ -3,1556 +3,402 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="CINEOS — India's Trust Intelligence Network. Real-time detection of piracy, counterfeit sellers, financial fraud and misinformation across 354 Telegram channels, 11 million subscribers, 6 Indian languages. Trusted by brands, OTT platforms and government agencies.">>>
 <title>CINEOS — India's Trust Intelligence Network</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="description" content="CINEOS — India's Trust Intelligence Network. Real-time fraud detection across 1,077 Telegram channels, 61M subscribers, 6 Indian languages.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --black: #050508;
-  --bg2: #0c0c12;
-  --bg3: #13131c;
-  --border: rgba(255,255,255,.07);
-  --border2: rgba(255,255,255,.12);
-  --green: #00e87a;
-  --green2: #00ff88;
-  --red: #ff3355;
-  --orange: #ff8c00;
-  --blue: #3d7fff;
-  --purple: #b060ff;
-  --text: #eeeef5;
-  --text2: #8888aa;
-  --text3: #55556a;
-  --mono: 'IBM Plex Mono', monospace;
-  --sans: 'IBM Plex Sans', sans-serif;
-  --display: 'Syne', sans-serif;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--black);
-  background-image: radial-gradient(ellipse at 20% 50%, rgba(0,232,122,.03) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(61,127,255,.03) 0%, transparent 60%);
-  color: var(--text);
-  font-family: var(--sans);
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-
-/* ── NOISE TEXTURE ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: .4;
-}
-
-/* ── GRID BACKGROUND ── */
-.grid-bg {
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0,232,122,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,232,122,.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ── NAV ── */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 1rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(5,5,8,.8);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-}
-
-.nav-logo {
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: 1.4rem;
-  color: var(--green);
-  letter-spacing: -.02em;
-  text-decoration: none;
-}
-
-.nav-logo span {
-  color: var(--text3);
-  font-weight: 400;
-  font-size: .75rem;
-  display: block;
-  font-family: var(--mono);
-  letter-spacing: .1em;
-  margin-top: -2px;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  list-style: none;
-}
-
-.nav-links a {
-  color: var(--text2);
-  text-decoration: none;
-  font-size: .85rem;
-  font-family: var(--mono);
-  transition: color .2s;
-}
-
-.nav-links a:hover { color: var(--text); }
-
-.nav-cta {
-  display: flex;
-  gap: .8rem;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  padding: .6rem 1.2rem;
-  border-radius: 6px;
-  font-family: var(--mono);
-  font-size: .75rem;
-  font-weight: 500;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all .2s;
-  border: none;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-}
-
-.btn-primary {
-  background: var(--green);
-  color: #000;
-}
-.btn-primary:hover { background: var(--green2); transform: translateY(-1px); }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--text2);
-  border: 1px solid var(--border2);
-}
-.btn-ghost:hover { color: var(--text); border-color: var(--text2); }
-
-.btn-outline {
-  background: transparent;
-  color: var(--green);
-  border: 1px solid rgba(0,232,122,.3);
-}
-.btn-outline:hover { background: rgba(0,232,122,.08); }
-
-/* ── HERO ── */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 7rem 2rem 4rem;
-  text-align: center;
-  z-index: 1;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  background: rgba(0,232,122,.06);
-  border: 1px solid rgba(0,232,122,.2);
-  border-radius: 100px;
-  padding: .35rem 1rem;
-  font-family: var(--mono);
-  font-size: .65rem;
-  color: var(--green);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-  animation: fadeDown .6s ease both;
-}
-
-.hero-badge::before {
-  content: '';
-  width: 6px; height: 6px;
-  background: var(--green);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: .5; transform: scale(.8); }
-}
-
-.hero h1 {
-  font-family: var(--display);
-  font-size: clamp(2.8rem, 6vw, 5.5rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -.03em;
-  max-width: 900px;
-  animation: fadeUp .7s ease .1s both;
-}
-
-.hero h1 .accent { color: var(--green); }
-.hero h1 .dim { color: var(--text3); }
-
-.hero-sub {
-  margin-top: 1.5rem;
-  font-size: 1.1rem;
-  color: var(--text2);
-  max-width: 600px;
-  line-height: 1.7;
-  font-weight: 300;
-  animation: fadeUp .7s ease .2s both;
-}
-
-.hero-actions {
-  margin-top: 2.5rem;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  animation: fadeUp .7s ease .3s both;
-}
-
-.hero-actions .btn { padding: .8rem 1.8rem; font-size: .8rem; }
-
-.hero-patent {
-  margin-top: 1.5rem;
-  font-family: var(--mono);
-  font-size: .65rem;
-  color: var(--text3);
-  letter-spacing: .1em;
-  animation: fadeUp .7s ease .4s both;
-}
-
-/* ── LIVE TICKER ── */
-.ticker-wrap {
-  position: relative;
-  z-index: 1;
-  margin: 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: rgba(0,232,122,.03);
-  overflow: hidden;
-  padding: .7rem 0;
-}
-
-.ticker-label {
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  display: flex;
-  align-items: center;
-  padding: 0 1.5rem;
-  background: var(--green);
-  color: #000;
-  font-family: var(--mono);
-  font-size: .6rem;
-  font-weight: 600;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  z-index: 2;
-  white-space: nowrap;
-}
-
-.ticker-track {
-  display: flex;
-  gap: 3rem;
-  animation: ticker 30s linear infinite;
-  padding-left: 160px;
-  white-space: nowrap;
-}
-
-.ticker-item {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  font-family: var(--mono);
-  font-size: .7rem;
-  color: var(--text2);
-}
-
-.ticker-item .tag {
-  padding: .1rem .4rem;
-  border-radius: 3px;
-  font-size: .58rem;
-  font-weight: 600;
-  letter-spacing: .06em;
-}
-
-.tag-cam { background: rgba(255,51,85,.15); color: var(--red); border: 1px solid rgba(255,51,85,.2); }
-.tag-hd { background: rgba(255,140,0,.15); color: var(--orange); border: 1px solid rgba(255,140,0,.2); }
-.tag-live { background: rgba(0,232,122,.15); color: var(--green); border: 1px solid rgba(0,232,122,.2); }
-.tag-ott { background: rgba(61,127,255,.15); color: var(--blue); border: 1px solid rgba(61,127,255,.2); }
-
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* ── SECTIONS ── */
-section {
-  position: relative;
-  z-index: 1;
-  padding: 6rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.section-label {
-  font-family: var(--mono);
-  font-size: .65rem;
-  color: var(--green);
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-
-.section-title {
-  font-family: var(--display);
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -.02em;
-  margin-bottom: 1rem;
-}
-
-.section-sub {
-  color: var(--text2);
-  font-size: 1rem;
-  max-width: 560px;
-  line-height: 1.7;
-  font-weight: 300;
-}
-
-/* ── STATS BAR ── */
-.stats-bar {
-  position: relative;
-  z-index: 1;
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 2.5rem 2rem;
-}
-
-.stats-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background: var(--border);
-}
-
-.stat-item {
-  background: var(--bg2);
-  padding: 1.8rem 1.5rem;
-  text-align: center;
-}
-
-.stat-val {
-  font-family: var(--display);
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: var(--green);
-  line-height: 1;
-  margin-bottom: .3rem;
-}
-
-.stat-label {
-  font-family: var(--mono);
-  font-size: .6rem;
-  color: var(--text3);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-/* ── FEATURE GRID ── */
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  margin-top: 3rem;
-}
-
-.feature-card {
-  background: var(--bg2);
-  padding: 2rem;
-  transition: background .2s;
-  position: relative;
-  overflow: hidden;
-}
-
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--card-color, var(--green));
-  opacity: 0;
-  transition: opacity .2s;
-}
-
-.feature-card:hover { background: var(--bg3); }
-.feature-card:hover::before { opacity: 1; }
-
-.feature-icon {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-.feature-title {
-  font-family: var(--display);
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: .5rem;
-  color: var(--text);
-}
-
-.feature-desc {
-  font-size: .85rem;
-  color: var(--text2);
-  line-height: 1.6;
-}
-
-.feature-tag {
-  display: inline-block;
-  margin-top: .8rem;
-  font-family: var(--mono);
-  font-size: .58rem;
-  color: var(--card-color, var(--green));
-  background: rgba(0,232,122,.06);
-  border: 1px solid rgba(0,232,122,.15);
-  padding: .2rem .5rem;
-  border-radius: 3px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-/* ── HOW IT WORKS ── */
-.how-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin-top: 3rem;
-}
-
-.how-step {
-  position: relative;
-}
-
-.how-step::after {
-  content: '→';
-  position: absolute;
-  top: 1.5rem;
-  right: -1rem;
-  color: var(--text3);
-  font-family: var(--mono);
-  font-size: .8rem;
-}
-
-.how-step:last-child::after { display: none; }
-
-.how-num {
-  font-family: var(--display);
-  font-size: 3rem;
-  font-weight: 800;
-  color: rgba(0,232,122,.1);
-  line-height: 1;
-  margin-bottom: .5rem;
-}
-
-.how-title {
-  font-family: var(--display);
-  font-size: .95rem;
-  font-weight: 700;
-  margin-bottom: .4rem;
-  color: var(--green);
-}
-
-.how-desc {
-  font-size: .8rem;
-  color: var(--text2);
-  line-height: 1.6;
-}
-
-/* ── LIVE SCAN DEMO ── */
-.demo-box {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  margin-top: 3rem;
-}
-
-.demo-header {
-  background: var(--bg3);
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-}
-
-.demo-dots { display: flex; gap: .4rem; }
-.demo-dots span {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-}
-.demo-dots span:nth-child(1) { background: #ff5f57; }
-.demo-dots span:nth-child(2) { background: #ffbd2e; }
-.demo-dots span:nth-child(3) { background: #28c940; }
-
-.demo-title {
-  font-family: var(--mono);
-  font-size: .7rem;
-  color: var(--text3);
-}
-
-.demo-body {
-  padding: 1.5rem;
-}
-
-.demo-input-row {
-  display: flex;
-  gap: .8rem;
-  margin-bottom: 1.5rem;
-}
-
-.demo-input {
-  flex: 1;
-  background: var(--bg3);
-  border: 1px solid var(--border2);
-  border-radius: 6px;
-  padding: .7rem 1rem;
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: .8rem;
-  outline: none;
-  transition: border-color .2s;
-}
-
-.demo-input:focus { border-color: var(--green); }
-
-.demo-scan-btn {
-  background: var(--green);
-  color: #000;
-  border: none;
-  border-radius: 6px;
-  padding: .7rem 1.4rem;
-  font-family: var(--mono);
-  font-size: .75rem;
-  font-weight: 600;
-  cursor: pointer;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  transition: all .2s;
-}
-
-.demo-scan-btn:hover { background: var(--green2); }
-.demo-scan-btn.loading { opacity: .7; cursor: wait; }
-
-.demo-results { min-height: 120px; }
-
-.demo-result-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: .6rem .8rem;
-  border-radius: 6px;
-  margin-bottom: .4rem;
-  background: rgba(255,255,255,.02);
-  font-family: var(--mono);
-  font-size: .72rem;
-  animation: slideIn .3s ease both;
-}
-
-.demo-result-row .url {
-  color: var(--green);
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.demo-result-row .platform {
-  color: var(--text3);
-  font-size: .65rem;
-  min-width: 80px;
-}
-
-.demo-empty {
-  text-align: center;
-  padding: 2rem;
-  color: var(--text3);
-  font-family: var(--mono);
-  font-size: .75rem;
-}
-
-.demo-scanning {
-  display: flex;
-  align-items: center;
-  gap: .8rem;
-  padding: 1.5rem;
-  font-family: var(--mono);
-  font-size: .75rem;
-  color: var(--green);
-}
-
-.scanning-dots span {
-  display: inline-block;
-  width: 6px; height: 6px;
-  background: var(--green);
-  border-radius: 50%;
-  margin: 0 2px;
-  animation: scanDot 1.2s ease infinite;
-}
-.scanning-dots span:nth-child(2) { animation-delay: .2s; }
-.scanning-dots span:nth-child(3) { animation-delay: .4s; }
-
-@keyframes scanDot {
-  0%, 80%, 100% { transform: scale(0); opacity: .3; }
-  40% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-8px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-/* ── UNIQUE ADVANTAGES ── */
-.adv-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 3rem;
-}
-
-.adv-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.adv-card.featured {
-  border-color: rgba(0,232,122,.25);
-  background: rgba(0,232,122,.03);
-}
-
-.adv-card.featured::before {
-  content: 'PATENTED';
-  position: absolute;
-  top: 1rem; right: 1rem;
-  font-family: var(--mono);
-  font-size: .55rem;
-  color: var(--green);
-  background: rgba(0,232,122,.1);
-  border: 1px solid rgba(0,232,122,.2);
-  padding: .2rem .5rem;
-  border-radius: 3px;
-  letter-spacing: .1em;
-}
-
-.adv-title {
-  font-family: var(--display);
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: .6rem;
-  color: var(--text);
-}
-
-.adv-desc {
-  font-size: .85rem;
-  color: var(--text2);
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-.adv-vs {
-  display: flex;
-  gap: 1rem;
-}
-
-.adv-vs-item {
-  flex: 1;
-  padding: .8rem;
-  border-radius: 6px;
-  font-family: var(--mono);
-  font-size: .65rem;
-}
-
-.adv-vs-item.us {
-  background: rgba(0,232,122,.06);
-  border: 1px solid rgba(0,232,122,.15);
-  color: var(--green);
-}
-
-.adv-vs-item.them {
-  background: rgba(255,51,85,.04);
-  border: 1px solid rgba(255,51,85,.1);
-  color: var(--text3);
-}
-
-.adv-vs-label {
-  font-size: .58rem;
-  opacity: .6;
-  margin-bottom: .3rem;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-}
-
-/* ── DETECTION TABLE ── */
-.detections {
-  margin-top: 3rem;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.det-header {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-  gap: 0;
-  background: var(--bg3);
-  padding: .8rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.det-header span {
-  font-family: var(--mono);
-  font-size: .6rem;
-  color: var(--text3);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-.det-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  align-items: center;
-  transition: background .15s;
-}
-
-.det-row:hover { background: rgba(255,255,255,.02); }
-.det-row:last-child { border-bottom: none; }
-
-.det-film { font-family: var(--display); font-size: .9rem; font-weight: 600; }
-.det-lang .badge {
-  font-family: var(--mono);
-  font-size: .58rem;
-  padding: .15rem .4rem;
-  border-radius: 3px;
-  background: rgba(255,255,255,.05);
-  border: 1px solid var(--border2);
-  color: var(--text2);
-}
-
-.det-sites { font-family: var(--mono); font-size: .8rem; color: var(--red); font-weight: 600; }
-.det-type .tag { font-size: .6rem; }
-.det-time { font-family: var(--mono); font-size: .72rem; color: var(--text3); }
-
-/* ── PRICING ── */
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 3rem;
-}
-
-.price-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 2rem;
-  position: relative;
-  transition: transform .2s;
-}
-
-.price-card:hover { transform: translateY(-4px); }
-
-.price-card.featured {
-  border-color: rgba(0,232,122,.3);
-  background: rgba(0,232,122,.03);
-}
-
-.price-card.featured::before {
-  content: 'MOST POPULAR';
-  position: absolute;
-  top: -1px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--green);
-  color: #000;
-  font-family: var(--mono);
-  font-size: .55rem;
-  font-weight: 600;
-  padding: .25rem 1rem;
-  border-radius: 0 0 6px 6px;
-  letter-spacing: .1em;
-}
-
-.price-tier {
-  font-family: var(--mono);
-  font-size: .65rem;
-  color: var(--text3);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  margin-bottom: .8rem;
-}
-
-.price-val {
-  font-family: var(--display);
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: var(--text);
-  line-height: 1;
-  margin-bottom: .3rem;
-}
-
-.price-val span { font-size: 1rem; color: var(--text3); font-weight: 400; }
-.price-desc { font-size: .8rem; color: var(--text2); margin-bottom: 1.5rem; }
-
-.price-features { list-style: none; margin-bottom: 1.5rem; }
-.price-features li {
-  font-size: .82rem;
-  color: var(--text2);
-  padding: .4rem 0;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-.price-features li::before { content: '✓'; color: var(--green); font-size: .7rem; }
-.price-features li.no::before { content: '✗'; color: var(--text3); }
-.price-features li.no { color: var(--text3); }
-
-/* ── CTA SECTION ── */
-.cta-section {
-  position: relative;
-  z-index: 1;
-  padding: 6rem 2rem;
-  text-align: center;
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
-}
-
-.cta-section::before {
-  content: '';
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(0,232,122,.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.cta-section h2 {
-  font-family: var(--display);
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 800;
-  letter-spacing: -.02em;
-  margin-bottom: 1rem;
-  position: relative;
-}
-
-.cta-section p {
-  color: var(--text2);
-  font-size: 1rem;
-  max-width: 480px;
-  margin: 0 auto 2rem;
-  font-weight: 300;
-  position: relative;
-}
-
-.cta-section .btn-group {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  position: relative;
-}
-
-.cta-section .btn { padding: .9rem 2rem; font-size: .82rem; }
-
-/* ── FOOTER ── */
-footer {
-  position: relative;
-  z-index: 1;
-  padding: 3rem 2rem;
-  border-top: 1px solid var(--border);
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.footer-left .logo {
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: 1.1rem;
-  color: var(--green);
-}
-
-.footer-left p {
-  font-family: var(--mono);
-  font-size: .65rem;
-  color: var(--text3);
-  margin-top: .3rem;
-  letter-spacing: .05em;
-}
-
-.footer-links {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-}
-
-.footer-links a {
-  font-family: var(--mono);
-  font-size: .7rem;
-  color: var(--text3);
-  text-decoration: none;
-  transition: color .2s;
-}
-
-.footer-links a:hover { color: var(--text2); }
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity .6s ease, transform .6s ease;
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* ── MOBILE ── */
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .stats-inner { grid-template-columns: repeat(2, 1fr); }
-  .feature-grid { grid-template-columns: 1fr; }
-  .how-grid { grid-template-columns: 1fr 1fr; }
-  .adv-grid { grid-template-columns: 1fr; }
-  .pricing-grid { grid-template-columns: 1fr; }
-  .det-header, .det-row { grid-template-columns: 2fr 1fr 1fr; }
-  .det-lang, .det-time { display: none; }
+:root{--bg:#04080F;--bg2:#080E1A;--bg3:#0C1525;--border:#12203A;--green:#00E87A;--gd:rgba(0,232,122,0.08);--red:#FF2D55;--orange:#FF6B35;--blue:#2D7FFF;--purple:#9B51E0;--yellow:#FFD700;--text:#C8D8F0;--text2:#5A7A9A;--white:#FFFFFF;--mono:'JetBrains Mono',monospace;--display:'Syne',sans-serif;--body:'Space Grotesk',sans-serif;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.6;overflow-x:hidden;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:16px 48px;background:rgba(4,8,15,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--green);text-decoration:none;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:0.82rem;color:var(--text2);text-decoration:none;font-family:var(--mono);transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{background:var(--green)!important;color:var(--bg)!important;padding:8px 20px!important;border-radius:6px;font-weight:600!important;font-family:var(--body)!important;}
+.nav-badge{font-size:0.62rem;color:var(--text2);border:1px solid var(--border);padding:4px 10px;border-radius:20px;}
+
+.ticker-wrap{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 0;overflow:hidden;position:fixed;top:57px;left:0;right:0;z-index:99;}
+.ticker{display:flex;gap:80px;animation:ticker 50s linear infinite;white-space:nowrap;}
+@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.tick{font-family:var(--mono);font-size:0.68rem;color:var(--text2);display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.dot{width:5px;height:5px;border-radius:50%;animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:160px 48px 80px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;top:-150px;right:-150px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,232,122,0.05) 0%,transparent 70%);pointer-events:none;}
+.hero::before{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(45,127,255,0.04) 0%,transparent 70%);pointer-events:none;}
+
+.live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,232,122,0.08);border:1px solid rgba(0,232,122,0.25);border-radius:20px;padding:5px 14px;font-family:var(--mono);font-size:0.63rem;color:var(--green);letter-spacing:0.1em;margin-bottom:24px;width:fit-content;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;}
+
+.hero h1{font-family:var(--display);font-size:clamp(3.2rem,7vw,6.8rem);font-weight:800;line-height:1.0;letter-spacing:-0.03em;color:var(--white);margin-bottom:6px;}
+.accent{color:var(--green);}
+.dim{color:var(--text2);}
+
+.hero-sub{font-size:1rem;color:var(--text2);max-width:540px;margin:24px 0 44px;line-height:1.75;}
+.hero-sub strong{color:var(--text);}
+
+.stats-bar{display:flex;border:1px solid var(--border);border-radius:12px;overflow:hidden;max-width:860px;background:var(--bg2);}
+.si{flex:1;padding:20px 22px;border-right:1px solid var(--border);position:relative;}
+.si:last-child{border-right:none;}
+.si::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.si.g::before{background:var(--green);}
+.si.r::before{background:var(--red);}
+.si.o::before{background:var(--orange);}
+.si.b::before{background:var(--blue);}
+.si.p::before{background:var(--purple);}
+.sn{font-family:var(--display);font-size:1.75rem;font-weight:800;line-height:1;margin-bottom:4px;}
+.si.g .sn{color:var(--green);}
+.si.r .sn{color:var(--red);}
+.si.o .sn{color:var(--orange);}
+.si.b .sn{color:var(--blue);}
+.si.p .sn{color:var(--purple);}
+.sl{font-family:var(--mono);font-size:0.62rem;color:var(--text2);letter-spacing:0.08em;text-transform:uppercase;}
+
+section{padding:72px 48px;position:relative;z-index:1;}
+.sec-tag{font-family:var(--mono);font-size:0.63rem;color:var(--green);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:14px;}
+.sec-title{font-family:var(--display);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;color:var(--white);letter-spacing:-0.02em;margin-bottom:10px;}
+.sec-sub{font-size:0.9rem;color:var(--text2);max-width:480px;margin-bottom:44px;}
+
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border) 20%,var(--border) 80%,transparent);margin:0 48px;}
+
+/* INTEL GRID */
+.igrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.icard{background:var(--bg2);padding:28px;transition:background 0.2s;}
+.icard:hover{background:var(--bg3);}
+.iicon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:18px;}
+.icard h3{font-family:var(--display);font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:7px;}
+.icard p{font-size:0.82rem;color:var(--text2);line-height:1.6;}
+.istat{font-family:var(--mono);font-size:0.68rem;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;}
+
+/* PLATFORM PREVIEW */
+.ppreview{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;max-width:880px;}
+.pbar{background:var(--bg3);border-bottom:1px solid var(--border);padding:11px 18px;display:flex;align-items:center;gap:12px;}
+.pdots{display:flex;gap:5px;}
+.pdot{width:9px;height:9px;border-radius:50%;}
+.purl{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:5px 12px;font-family:var(--mono);font-size:0.68rem;color:var(--text2);text-align:center;}
+.pbody{padding:20px;display:grid;grid-template-columns:170px 1fr;gap:18px;min-height:260px;}
+.ptabs{display:flex;flex-direction:column;gap:3px;}
+.ptab{padding:7px 11px;border-radius:5px;font-size:0.72rem;font-family:var(--mono);color:var(--text2);cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:7px;}
+.ptab.a{background:var(--gd);color:var(--green);border-left:2px solid var(--green);}
+.pcontent{background:var(--bg3);border-radius:8px;padding:18px;}
+.presult{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:10px 14px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;}
+.prn{font-size:0.78rem;color:var(--text);font-family:var(--mono);}
+.prs{font-family:var(--mono);font-size:0.72rem;font-weight:600;padding:3px 8px;border-radius:4px;}
+.crit{background:rgba(255,45,85,0.12);color:var(--red);}
+.high{background:rgba(255,107,53,0.12);color:var(--orange);}
+.med{background:rgba(255,215,0,0.12);color:var(--yellow);}
+
+/* COMPARE */
+.ctable{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+.ctable th{background:var(--bg2);padding:15px 18px;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);text-align:left;border-bottom:1px solid var(--border);}
+.ctable th:not(:first-child){text-align:center;}
+.ctable td{padding:13px 18px;border-bottom:1px solid var(--border);font-size:0.83rem;color:var(--text2);}
+.ctable td:first-child{color:var(--text);font-weight:500;}
+.ctable td:not(:first-child){text-align:center;}
+.ctable tr:last-child td{border-bottom:none;}
+.ctable tr:hover td{background:var(--bg2);}
+.cy{color:var(--green);font-size:1rem;}
+.cn{color:var(--border);font-size:1rem;}
+.cc{color:var(--green);font-weight:700;}
+
+/* CLIENT CARDS */
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.ccard{background:var(--bg2);border:1px solid var(--border);border-radius:11px;padding:26px;}
+.ccard .icon{font-size:1.4rem;margin-bottom:11px;}
+.ccard h3{font-family:var(--display);font-weight:700;color:var(--white);font-size:0.95rem;margin-bottom:5px;}
+.ccard p{font-size:0.78rem;color:var(--text2);margin-bottom:14px;}
+.cprice{font-family:var(--mono);font-size:0.72rem;font-weight:600;}
+
+/* CTA */
+.cta{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:64px;text-align:center;position:relative;overflow:hidden;}
+.cta::before{content:'';position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:350px;height:350px;background:radial-gradient(circle,rgba(0,232,122,0.06) 0%,transparent 70%);pointer-events:none;}
+.cta h2{font-family:var(--display);font-size:2.3rem;font-weight:800;color:var(--white);margin-bottom:10px;letter-spacing:-0.02em;}
+.cta p{color:var(--text2);margin-bottom:32px;font-size:0.92rem;}
+.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.bp{background:var(--green);color:var(--bg);padding:13px 30px;border-radius:7px;font-weight:700;text-decoration:none;font-size:0.88rem;transition:opacity 0.2s;}
+.bp:hover{opacity:0.9;}
+.bs{background:transparent;color:var(--text);padding:13px 30px;border-radius:7px;font-weight:600;text-decoration:none;font-size:0.88rem;border:1px solid var(--border);transition:border-color 0.2s;}
+.bs:hover{border-color:var(--text2);}
+
+footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+footer p{font-family:var(--mono);font-size:0.68rem;color:var(--text2);}
+footer a{color:var(--text2);text-decoration:none;}
+footer a:hover{color:var(--text);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.fu{animation:fadeUp 0.7s ease forwards;opacity:0;}
+.fu:nth-child(1){animation-delay:0.1s;}
+.fu:nth-child(2){animation-delay:0.2s;}
+.fu:nth-child(3){animation-delay:0.3s;}
+.fu:nth-child(4){animation-delay:0.4s;}
+
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .nav-links a:not(.nav-cta){display:none;}
+  .hero{padding:120px 20px 60px;}
+  section{padding:52px 20px;}
+  .divider{margin:0 20px;}
+  .igrid{grid-template-columns:1fr;}
+  .stats-bar{flex-direction:column;}
+  .si{border-right:none;border-bottom:1px solid var(--border);}
+  .pbody{grid-template-columns:1fr;}
+  .ptabs{flex-direction:row;flex-wrap:wrap;}
+  .cgrid{grid-template-columns:1fr;}
+  .cta{padding:36px 20px;}
+  footer{flex-direction:column;text-align:center;}
 }
 </style>
 </head>
 <body>
 
-  <!-- Live intelligence stats bar -->
-  <div style="background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);
-    border-radius:8px;padding:12px 20px;margin:20px 0;
-    display:flex;gap:24px;flex-wrap:wrap;justify-content:center;">
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#00ff88;">1,077</div>
-      <div style="font-size:.7rem;color:#8899bb;">Telegram Channels</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#ff3355;">61M+</div>
-      <div style="font-size:.7rem;color:#8899bb;">Subscriber Reach</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#ff8c00;">79</div>
-      <div style="font-size:.7rem;color:#8899bb;">Counterfeit Sellers</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#b060ff;">13</div>
-      <div style="font-size:.7rem;color:#8899bb;">Platforms Monitored</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#3d7fff;">1,090+</div>
-      <div style="font-size:.7rem;color:#8899bb;">Total Fraud Items</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#00ff88;">6</div>
-      <div style="font-size:.7rem;color:#8899bb;">Indian Languages</div>
-    </div>
-  </div>
-    <div style="font-size:.7rem;color:#8899bb;">Telegram Channels</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#ff3355;">11M+</div>
-      <div style="font-size:.7rem;color:#8899bb;">Subscriber Reach</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#ff8c00;">79</div>
-      <div style="font-size:.7rem;color:#8899bb;">Counterfeit Sellers</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#b060ff;">13</div>
-      <div style="font-size:.7rem;color:#8899bb;">Platforms Monitored</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#3d7fff;">1,090</div>
-      <div style="font-size:.7rem;color:#8899bb;">Total Fraud Items</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#00ff88;">6</div>
-      <div style="font-size:.7rem;color:#8899bb;">Indian Languages</div>
-    </div>
-  </div>
-      <div style="font-size:.7rem;color:#8899bb;">Telegram Channels</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#ff3355;">11M+</div>
-      <div style="font-size:.7rem;color:#8899bb;">Subscriber Reach</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#ff8c00;">59</div>
-      <div style="font-size:.7rem;color:#8899bb;">Counterfeit Sellers</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#b060ff;">6</div>
-      <div style="font-size:.7rem;color:#8899bb;">Indian Languages</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#3d7fff;">47</div>
-      <div style="font-size:.7rem;color:#8899bb;">Reports Generated</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:1.4rem;font-weight:700;color:#00ff88;">May 2026</div>
-      <div style="font-size:.7rem;color:#8899bb;">Last Updated</div>
-    </div>
-  </div>
-
-<div class="grid-bg"></div>
-
-<!-- NAV -->
 <nav>
-  <a href="/" class="nav-logo">
-    CINEOS
-    <span>ANTI-PIRACY INTELLIGENCE</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#features">Features</a></li>
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#detections">Live Data</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-  </ul>
-  <div class="nav-cta">
-    <a href="cineos_dashboard.html" class="btn btn-ghost">Dashboard</a>
-    <a href="cineos_platform.html" class="btn btn-primary">Try Platform →</a>
+  <a href="#" class="nav-logo">CINEOS</a>
+  <div class="nav-links">
+    <a href="cineos_platform.html">Platform</a>
+    <a href="cineos_pricing.html">Pricing</a>
+    <a href="cineos_dashboard.html">Dashboard</a>
+    <span class="nav-badge">Patent 64/049,190</span>
+    <a href="mailto:yugandhar@cineos.in" class="nav-cta">Get Report</a>
   </div>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-badge">India's Trust Intelligence Network</div>
-  <h1>
-    India's Trust<br>
-    <span class="accent">Intelligence Network.</span><br>
-    <span class="dim">Detect. Attribute. Stop.</span>
-  </h1>
-  <p class="hero-sub">
-    Piracy · Counterfeits · Financial Fraud · Misinformation<br>
-    354 Telegram channels · 11M subscribers · 6 Indian languages · Real-time
-  </p>
-  <div class="hero-actions">
-    <a href="cineos_platform.html" class="btn btn-primary">🔍 Try Live Scan</a>
-    <a href="cineos_dashboard.html" class="btn btn-outline">📊 Live Dashboard</a>
-    <a href="mailto:yugandhar@cineos.in" class="btn btn-ghost">Book Demo</a>
-  </div>
-  <div class="hero-patent">US Provisional Patent 64/049,190 &nbsp;·&nbsp; Built in India &nbsp;·&nbsp; Zero False Positives</div>
-</div>
-
-<!-- LIVE TICKER -->
 <div class="ticker-wrap">
-  <div class="ticker-label">Live Detections</div>
-  <div class="ticker-track">
-    <div class="ticker-item"><span class="tag tag-cam">CAM</span> Retro (2025) — TamilBlasters, Movierulz, Filmyzilla detected</div>
-    <div class="ticker-item"><span class="tag tag-live">LIVE</span> IPL 2026 — 62 illegal Telegram streams active right now</div>
-    <div class="ticker-item"><span class="tag tag-hd">HDRIP</span> Devara — ibomma, movierulz confirmed • Telugu, Tamil</div>
-    <div class="ticker-item"><span class="tag tag-ott">OTT</span> 53 piracy channels detected — Netflix/Hotstar/Prime leaks</div>
-    <div class="ticker-item"><span class="tag tag-live">BETTING</span> 5 channels detected with IPL betting + stream signals</div>
-    <div class="ticker-item"><span class="tag tag-cam">CAM</span> Retro (2025) — TamilBlasters, Movierulz, Filmyzilla detected</div>
-    <div class="ticker-item"><span class="tag tag-live">LIVE</span> IPL 2026 — 62 illegal Telegram streams active right now</div>
-    <div class="ticker-item"><span class="tag tag-hd">HDRIP</span> Devara — ibomma, movierulz confirmed • Telugu, Tamil</div>
-    <div class="ticker-item"><span class="tag tag-ott">OTT</span> 53 piracy channels detected — Netflix/Hotstar/Prime leaks</div>
-    <div class="ticker-item"><span class="tag tag-live">BETTING</span> 5 channels detected with IPL betting + stream signals</div>
+  <div class="ticker">
+    <span class="tick"><span class="dot" style="background:var(--red)"></span>@Anuragt_bookqc_Malikc — 1.7M subs — Reddy Anna Book — CRITICAL</span>
+    <span class="tick"><span class="dot" style="background:var(--orange)"></span>@Groww_Tips_Zerodha_Upstox — 540K subs — Fake broker channel</span>
+    <span class="tick"><span class="dot" style="background:var(--red)"></span>@Thamil_Rockers_Movies_2026 — 624K subs — Active piracy channel</span>
+    <span class="tick"><span class="dot" style="background:var(--purple)"></span>@Colourc_Predictc_daddy — 1.2M subs — Illegal colour prediction</span>
+    <span class="tick"><span class="dot" style="background:var(--red)"></span>@satta_king_disawar_13 — 743K subs — Satta King Faridabad</span>
+    <span class="tick"><span class="dot" style="background:var(--orange)"></span>@Crypto_Pump_Signal_Binance — 941K subs — Crypto pump scam</span>
+    <span class="tick"><span class="dot" style="background:var(--red)"></span>@Mahadevsd_Bookuoo — 863K subs — Mahadev Book (Active ED case)</span>
+    <span class="tick"><span class="dot" style="background:var(--blue)"></span>CINEOS — 1,077 channels monitored — 61.3M subscribers — Real time</span>
+    <span class="tick"><span class="dot" style="background:var(--red)"></span>@Anuragt_bookqc_Malikc — 1.7M subs — Reddy Anna Book — CRITICAL</span>
+    <span class="tick"><span class="dot" style="background:var(--orange)"></span>@Groww_Tips_Zerodha_Upstox — 540K subs — Fake broker channel</span>
+    <span class="tick"><span class="dot" style="background:var(--red)"></span>@Thamil_Rockers_Movies_2026 — 624K subs — Active piracy channel</span>
+    <span class="tick"><span class="dot" style="background:var(--purple)"></span>@Colourc_Predictc_daddy — 1.2M subs — Illegal colour prediction</span>
+    <span class="tick"><span class="dot" style="background:var(--red)"></span>@satta_king_disawar_13 — 743K subs — Satta King Faridabad</span>
+    <span class="tick"><span class="dot" style="background:var(--orange)"></span>@Crypto_Pump_Signal_Binance — 941K subs — Crypto pump scam</span>
+    <span class="tick"><span class="dot" style="background:var(--red)"></span>@Mahadevsd_Bookuoo — 863K subs — Mahadev Book (Active ED case)</span>
+    <span class="tick"><span class="dot" style="background:var(--blue)"></span>CINEOS — 1,077 channels monitored — 61.3M subscribers — Real time</span>
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat-item">
-      <div class="stat-val">103+</div>
-      <div class="stat-label">India Piracy Sites</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-val">135</div>
-      <div class="stat-label">Telegram Channels</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-val">8s</div>
-      <div class="stat-label">Detection Speed</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-val">0</div>
-      <div class="stat-label">False Positives</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-val">5+</div>
-      <div class="stat-label">Languages Covered</div>
-    </div>
+<div class="hero">
+  <div class="live-badge fu"><span class="live-dot"></span>LIVE INTELLIGENCE — UPDATED DAILY</div>
+  <h1 class="fu">India's Trust<br><span class="accent">Intelligence</span><br><span class="dim">Network.</span></h1>
+  <p class="hero-sub fu"><strong>Detect. Attribute. Stop.</strong><br>
+  Real-time fraud across piracy, counterfeits, financial fraud and misinformation —
+  <strong>1,077 Telegram channels</strong>, <strong>61M subscribers</strong>, <strong>6 Indian languages</strong>.
+  No global competitor covers this.</p>
+  <div class="stats-bar fu">
+    <div class="si g"><div class="sn">1,077</div><div class="sl">Telegram Channels</div></div>
+    <div class="si r"><div class="sn">61M+</div><div class="sl">Subscriber Reach</div></div>
+    <div class="si o"><div class="sn">79</div><div class="sl">Counterfeit Sellers</div></div>
+    <div class="si b"><div class="sn">13</div><div class="sl">Platforms Monitored</div></div>
+    <div class="si p"><div class="sn">6</div><div class="sl">Indian Languages</div></div>
   </div>
 </div>
 
-<!-- FEATURES -->
-<section id="features">
-  <div class="reveal">
-    <div class="section-label">What CINEOS Does</div>
-    <h2 class="section-title">Piracy. Counterfeits. Fraud. Misinformation. One platform.</h2>
-    <p class="section-sub">Seven intelligence modules covering every piracy vector — from CAM recordings to OTT leaks to live sports streams.</p>
-  </div>
-  <div class="feature-grid reveal">
-    <div class="feature-card" style="--card-color:#00e87a">
-      <div class="feature-icon">🎬</div>
-      <div class="feature-title">Film Intelligence</div>
-      <div class="feature-desc">Scans 111 global piracy sites for any film within 8 seconds. Detects CAM copies, HDRip leaks, WEB-DL copies across multiple languages simultaneously.</div>
-      <div class="feature-tag">111 Sites • 8 Seconds</div>
+<div class="divider"></div>
+
+<section>
+  <div class="sec-tag">Intelligence Coverage</div>
+  <h2 class="sec-title">Every threat. Every platform.</h2>
+  <p class="sec-sub">10 fraud categories monitored simultaneously — India's only complete intelligence network.</p>
+  <div class="igrid">
+    <div class="icard">
+      <div class="iicon" style="background:rgba(255,45,85,0.1)">🎬</div>
+      <h3>Piracy Intelligence</h3>
+      <p>Film, OTT and live sports piracy. 103+ websites and 175 Telegram channels. Same-day CAM leak detection for every OTT release.</p>
+      <div class="istat"><span style="color:var(--text2)">Active channels</span><span style="color:var(--red);font-weight:600">175</span></div>
     </div>
-    <div class="feature-card" style="--card-color:#ff8c00">
-      <div class="feature-icon">🇮🇳</div>
-      <div class="feature-title">India Deep Scan</div>
-      <div class="feature-desc">103 India-specific piracy platforms — TamilBlasters, Movierulz, iBomma, Moviesda, Filmyzilla. Telugu, Tamil, Hindi, Malayalam coverage. Nobody else has this depth.</div>
-      <div class="feature-tag">India Exclusive • 5 Languages</div>
+    <div class="icard">
+      <div class="iicon" style="background:rgba(255,107,53,0.1)">🏷️</div>
+      <h3>Brand Intelligence</h3>
+      <p>Counterfeit sellers on IndiaMART and Meesho. Nike, Samsung, Dove, boAt. GST validated. IT Act 65B court-grade evidence.</p>
+      <div class="istat"><span style="color:var(--text2)">Sellers confirmed</span><span style="color:var(--orange);font-weight:600">79 sellers, 28 cities</span></div>
     </div>
-    <div class="feature-card" style="--card-color:#3d7fff">
-      <div class="feature-icon">🛡️</div>
-      <div class="feature-title">Live Shield</div>
-      <div class="feature-desc">Monitors 135 Telegram channels in real-time. Detects illegal cricket/IPL streams, OTT leaks, and betting-linked piracy — a patented dual detection nobody else has.</div>
-      <div class="feature-tag" style="background:rgba(61,127,255,.06);border-color:rgba(61,127,255,.2);color:var(--blue)">Patented • 135 Channels</div>
+    <div class="icard">
+      <div class="iicon" style="background:rgba(255,45,85,0.1)">🚨</div>
+      <h3>Financial Fraud</h3>
+      <p>437 illegal betting channels. Mahadev Book, Reddy Anna, fake Zerodha/Groww. 61.3M subscriber reach across all fraud channels.</p>
+      <div class="istat"><span style="color:var(--text2)">Betting channels</span><span style="color:var(--red);font-weight:600">437</span></div>
     </div>
-    <div class="feature-card" style="--card-color:#ff3355">
-      <div class="feature-icon">⚖️</div>
-      <div class="feature-title">Evidence Package</div>
-      <div class="feature-desc">Court-ready PDF reports with WHOIS data, infringing URLs, timestamps, and legal references. 1-click MIB filing to nodalofficer@meity.gov.in. Built for lawyers.</div>
-      <div class="feature-tag" style="background:rgba(255,51,85,.06);border-color:rgba(255,51,85,.2);color:var(--red)">Legal Grade • 1-Click MIB</div>
+    <div class="icard">
+      <div class="iicon" style="background:rgba(0,232,122,0.1)">🐷</div>
+      <h3>Pig Butchering</h3>
+      <p>Task fraud → investment fraud pipeline. Rs 6,000 Cr India loss 2024. 105 detection patterns across 6 Indian languages.</p>
+      <div class="istat"><span style="color:var(--text2)">India loss 2024</span><span style="color:var(--green);font-weight:600">Rs 6,000 Cr</span></div>
     </div>
-    <div class="feature-card" style="--card-color:#b060ff">
-      <div class="feature-icon">🔀</div>
-      <div class="feature-title">Mirror Propagation</div>
-      <div class="feature-desc">Tracks how piracy spreads from source to aggregator to mirror sites. Shows confirmed spread + predicts which sites will pick it up next — with estimated timeline.</div>
-      <div class="feature-tag" style="background:rgba(176,96,255,.06);border-color:rgba(176,96,255,.2);color:var(--purple)">Predictive Intelligence</div>
+    <div class="icard">
+      <div class="iicon" style="background:rgba(155,81,224,0.1)">🎭</div>
+      <h3>Digital Arrest Fraud</h3>
+      <p>Fake CBI/ED/TRAI video call officers. Rs 22.92 Cr single victim confirmed. PM Modi warned about this. CJI expressed concern.</p>
+      <div class="istat"><span style="color:var(--text2)">Cases detected</span><span style="color:var(--purple);font-weight:600">67</span></div>
     </div>
-    <div class="feature-card" style="--card-color:#00e87a">
-      <div class="feature-icon">📧</div>
-      <div class="feature-title">Automated Alerts</div>
-      <div class="feature-desc">Email alerts the moment piracy is detected. Weekly intelligence reports auto-sent every Monday. Mirror propagation notifications. Your team acts before it spreads.</div>
-      <div class="feature-tag">Real-time Alerts • Weekly Reports</div>
+    <div class="icard">
+      <div class="iicon" style="background:rgba(45,127,255,0.1)">🎤</div>
+      <h3>Voice Clone & Deepfake</h3>
+      <p>Fake audio/video of Nithin Kamath, Modi, celebrities promoting scams. 2,300 India cases Q4 2025. 450% YoY increase.</p>
+      <div class="istat"><span style="color:var(--text2)">Findings detected</span><span style="color:var(--blue);font-weight:600">204</span></div>
+    </div>
+    <div class="icard">
+      <div class="iicon" style="background:rgba(255,215,0,0.1)">🎰</div>
+      <h3>Colour Prediction Fraud</h3>
+      <p>BigDaddy, Yaarwin, Daman — illegal lottery as colour games. 41 channels, 5M+ subscribers. No RBI/SEBI registration.</p>
+      <div class="istat"><span style="color:var(--text2)">Channels (NEW)</span><span style="color:var(--yellow);font-weight:600">41</span></div>
+    </div>
+    <div class="icard">
+      <div class="iicon" style="background:rgba(0,232,122,0.1)">📱</div>
+      <h3>QR & Payment Fraud</h3>
+      <p>Fake UPI QR stickers on merchant terminals. Fake PhonePe/Paytm payment screenshots. Tool distribution channels tracked.</p>
+      <div class="istat"><span style="color:var(--text2)">Incidents mapped</span><span style="color:var(--green);font-weight:600">23</span></div>
+    </div>
+    <div class="icard">
+      <div class="iicon" style="background:rgba(255,107,53,0.1)">🌐</div>
+      <h3>Misinformation</h3>
+      <p>Health, financial, election and product misinfo. 118 active URLs. Fake RBI/SEBI announcements going viral on WhatsApp daily.</p>
+      <div class="istat"><span style="color:var(--text2)">Active URLs</span><span style="color:var(--orange);font-weight:600">118</span></div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section id="how" style="background:var(--bg2);max-width:100%;padding:6rem 2rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div class="reveal">
-      <div class="section-label">How It Works</div>
-      <h2 class="section-title">354 Telegram channels. 11M subscribers. 6 Indian languages.</h2>
-      <p class="section-sub">No setup. No integration. Type a film title or event name and get actionable intelligence instantly.</p>
-    </div>
-    <div class="how-grid reveal">
-      <div class="how-step">
-        <div class="how-num">01</div>
-        <div class="how-title">Enter Title</div>
-        <div class="how-desc">Type any film, series, game, or sports event. CINEOS identifies the right scan profile automatically.</div>
-      </div>
-      <div class="how-step">
-        <div class="how-num">02</div>
-        <div class="how-title">Parallel Scan</div>
-        <div class="how-desc">103+ India sites scanned simultaneously in 8 seconds. Direct URL checks + DDG search hybrid engine.</div>
-      </div>
-      <div class="how-step">
-        <div class="how-num">03</div>
-        <div class="how-title">Intelligence Report</div>
-        <div class="how-desc">Confirmed URLs, quality info, language, platform type, WHOIS data, propagation timeline — all in one report.</div>
-      </div>
-      <div class="how-step">
-        <div class="how-num">04</div>
-        <div class="how-title">Take Action</div>
-        <div class="how-desc">Download court-ready PDF. File MIB complaint in 1 click. Send DMCA. Share with legal team. Done.</div>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="divider"></div>
 
-<!-- LIVE DEMO -->
-<section id="demo">
-  <div class="reveal">
-    <div class="section-label">Try It Now</div>
-    <h2 class="section-title">Real-time intelligence — verified data, not estimates.</h2>
-    <p class="section-sub">Type any Indian film title and see real piracy data from our live API. This is actual detection, not a demo.</p>
-  </div>
-  <div class="demo-box reveal">
-    <div class="demo-header">
-      <div class="demo-dots"><span></span><span></span><span></span></div>
-      <div class="demo-title">CINEOS India Scanner — Live API</div>
-      <div style="font-family:var(--mono);font-size:.6rem;color:var(--green)">● CONNECTED</div>
+<section>
+  <div class="sec-tag">Live Platform</div>
+  <h2 class="sec-title">16 intelligence tabs. One platform.</h2>
+  <p class="sec-sub">From film piracy to digital arrest — everything India-specific in one place.</p>
+  <div class="ppreview">
+    <div class="pbar">
+      <div class="pdots">
+        <div class="pdot" style="background:#FF5F56"></div>
+        <div class="pdot" style="background:#FFBD2E"></div>
+        <div class="pdot" style="background:#27C93F"></div>
+      </div>
+      <div class="purl">cineos.in/cineos_platform.html</div>
     </div>
-    <div class="demo-body">
-      <div class="demo-input-row">
-        <input class="demo-input" id="demoInput" type="text" placeholder="Try: Retro, Devara, Lucky Bhaskar, Kalki 2898 AD..." 
-          onkeydown="if(event.key==='Enter')runDemo()">
-        <button class="demo-scan-btn" id="demoBtn" onclick="runDemo()">⚡ Scan Now</button>
+    <div class="pbody">
+      <div class="ptabs">
+        <div class="ptab a">🎬 Film</div>
+        <div class="ptab">🇮🇳 India</div>
+        <div class="ptab">⚡ Sports</div>
+        <div class="ptab">🚨 Fraud Intel</div>
+        <div class="ptab">🏷️ Brand Intel</div>
+        <div class="ptab">🕵️ Dark Intel</div>
+        <div class="ptab">▶ YouTube</div>
+        <div class="ptab">𝕏 Twitter</div>
+        <div class="ptab">🛍 Meesho</div>
+        <div class="ptab" style="color:var(--text2);font-size:0.68rem">+ 7 more tabs</div>
       </div>
-      <div class="demo-results" id="demoResults">
-        <div class="demo-empty">Enter a film title above and click Scan Now — results come from our live Railway API in real time</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHAT MAKES US DIFFERENT -->
-<section id="unique" style="background:var(--bg2);max-width:100%;padding:6rem 2rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div class="reveal">
-      <div class="section-label">Why CINEOS</div>
-      <h2 class="section-title">No competitor monitors India's full digital threat landscape.</h2>
-      <p class="section-sub">MUSO charges $5,000/month for global data. AiPlex does manual enforcement. CINEOS is the only platform with real-time India-specific intelligence and Telegram monitoring.</p>
-    </div>
-    <div class="adv-grid reveal">
-      <div class="adv-card featured">
-        <div class="adv-title">Betting + Stream Dual Detection</div>
-        <div class="adv-desc">The only platform in the world that detects when a Telegram channel is simultaneously streaming pirated content AND linking to illegal betting sites. Critical for IPL season. Patented.</div>
-        <div class="adv-vs">
-          <div class="adv-vs-item us">
-            <div class="adv-vs-label">CINEOS</div>
-            Detects both piracy stream + betting link in same scan
-          </div>
-          <div class="adv-vs-item them">
-            <div class="adv-vs-label">Competitors</div>
-            Only detect one or the other — never both together
-          </div>
-        </div>
-      </div>
-      <div class="adv-card">
-        <div class="adv-title">India-Specific Intelligence</div>
-        <div class="adv-desc">103 India piracy platforms monitored. Telugu, Tamil, Hindi, Malayalam separate analysis. Regional piracy networks that global tools completely miss.</div>
-        <div class="adv-vs">
-          <div class="adv-vs-item us">
-            <div class="adv-vs-label">CINEOS</div>
-            TamilBlasters, iBomma, Moviesda, Movierulz — all monitored
-          </div>
-          <div class="adv-vs-item them">
-            <div class="adv-vs-label">MUSO / Global Tools</div>
-            Misses most Indian regional piracy networks entirely
-          </div>
-        </div>
-      </div>
-      <div class="adv-card">
-        <div class="adv-title">Mirror Propagation Prediction</div>
-        <div class="adv-desc">Shows not just where piracy exists today — but where it will spread next. Predicts mirror sites before they pick up the content. Nobody else does predictive propagation.</div>
-        <div class="adv-vs">
-          <div class="adv-vs-item us">
-            <div class="adv-vs-label">CINEOS</div>
-            Confirmed sites + predicted next mirrors with timeline
-          </div>
-          <div class="adv-vs-item them">
-            <div class="adv-vs-label">Others</div>
-            Only report what's already there — no prediction
-          </div>
-        </div>
-      </div>
-      <div class="adv-card">
-        <div class="adv-title">Instant Evidence Package</div>
-        <div class="adv-desc">1-click court-ready PDF with WHOIS data, timestamps, legal references under Copyright Act 1957, IT Act 2000 and DMCA. Plus direct MIB filing. Most tools give you a URL list and nothing else.</div>
-        <div class="adv-vs">
-          <div class="adv-vs-item us">
-            <div class="adv-vs-label">CINEOS</div>
-            PDF + WHOIS + MIB filing + DMCA template in seconds
-          </div>
-          <div class="adv-vs-item them">
-            <div class="adv-vs-label">AiPlex / Manual</div>
-            Manual evidence collection takes days and costs extra
-          </div>
-        </div>
+      <div class="pcontent">
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);margin-bottom:10px;letter-spacing:0.1em">LIVE — BRAND INTELLIGENCE SCAN RESULTS</div>
+        <div class="presult"><span class="prn">BUDDY_HOUSE — NIKE AIR JORDAN 1 [COPY]  ·  Sirsa, Haryana</span><span class="prs crit">77/100 CRITICAL</span></div>
+        <div class="presult"><span class="prn">Cold Fusion Zone — Samsung Galaxy Buds Mastercopy  ·  Mysore</span><span class="prs crit">77/100 CRITICAL</span></div>
+        <div class="presult"><span class="prn">Next Wave — Nike Air Force One (copy)  ·  Amritsar</span><span class="prs crit">77/100 CRITICAL</span></div>
+        <div class="presult"><span class="prn">Mahakali Copy Center — Dettol Antiseptic  ·  Bengaluru</span><span class="prs high">57/100 HIGH</span></div>
+        <div class="presult"><span class="prn">N Star Enterprise — Samsung Galaxy  ·  Delhi</span><span class="prs med">47/100 MED</span></div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text2);margin-top:10px">79 sellers confirmed · 28 cities · GST validated · IT Act 65B evidence ready</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LIVE DETECTIONS TABLE -->
-<section id="detections">
-  <div class="reveal">
-    <div class="section-label">Real Detections — Real Data</div>
-    <h2 class="section-title">What CINEOS found this week</h2>
-    <p class="section-sub">This is actual scan data from our India scanner — not simulated or demo data.</p>
-  </div>
-  <div class="detections reveal">
-    <div class="det-header">
-      <span>Film</span>
-      <span>Language</span>
-      <span>Sites Found</span>
-      <span>Type</span>
-      <span>Scan Time</span>
+<div class="divider"></div>
+
+<section>
+  <div class="sec-tag">Competitive Position</div>
+  <h2 class="sec-title">The India gap nobody filled.</h2>
+  <p class="sec-sub">Global platforms raised hundreds of millions. None monitor IndiaMART, ShareChat, or Telugu fraud channels.</p>
+  <table class="ctable">
+    <thead>
+      <tr>
+        <th>Capability</th>
+        <th>Doppel ($129M)</th>
+        <th>ZeroFox ($350M)</th>
+        <th>Bolster ($35M)</th>
+        <th style="color:var(--green)">CINEOS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>IndiaMART counterfeit detection</td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cc">✓</span></td></tr>
+      <tr><td>Telegram — 1,000+ channels</td><td><span class="cy">Partial</span></td><td><span class="cy">Partial</span></td><td><span class="cn">✗</span></td><td><span class="cc">✓ 1,077</span></td></tr>
+      <tr><td>Telugu / Tamil / Kannada fraud</td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cc">✓</span></td></tr>
+      <tr><td>ShareChat vernacular (200M users)</td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cc">✓</span></td></tr>
+      <tr><td>Pig butchering detection (6 languages)</td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cc">✓ 105 patterns</span></td></tr>
+      <tr><td>Digital arrest fraud scanning</td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cc">✓</span></td></tr>
+      <tr><td>Court-grade evidence (IT Act 65B)</td><td><span class="cn">✗</span></td><td><span class="cy">✓</span></td><td><span class="cn">✗</span></td><td><span class="cc">✓</span></td></tr>
+      <tr><td>GST number validation + reporting</td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cn">✗</span></td><td><span class="cc">✓</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="sec-tag">Clients</div>
+  <h2 class="sec-title">Who pays for this intelligence.</h2>
+  <p class="sec-sub">Six segments. Government to enterprise.</p>
+  <div class="cgrid">
+    <div class="ccard" style="border-top:2px solid var(--red)">
+      <div class="icon">🏛️</div>
+      <h3>Government</h3>
+      <p>SEBI, MHA, I4C, TRAI, RBI, GST Council</p>
+      <div class="cprice" style="color:var(--red)">Rs 1–5 Cr/year</div>
     </div>
-    <div class="det-row">
-      <div class="det-film">Retro (2025)</div>
-      <div class="det-lang"><span class="badge">Telugu</span> <span class="badge">Tamil</span></div>
-      <div class="det-sites">5 sites</div>
-      <div class="det-type"><span class="tag tag-hd">HDRip</span></div>
-      <div class="det-time">8.2s</div>
+    <div class="ccard" style="border-top:2px solid var(--blue)">
+      <div class="icon">📺</div>
+      <h3>OTT Platforms</h3>
+      <p>JioHotstar, Netflix, Amazon, ZEE5, SonyLIV</p>
+      <div class="cprice" style="color:var(--blue)">Rs 50L–2 Cr/year</div>
     </div>
-    <div class="det-row">
-      <div class="det-film">Devara (2024)</div>
-      <div class="det-lang"><span class="badge">Telugu</span></div>
-      <div class="det-sites">3 sites</div>
-      <div class="det-type"><span class="tag tag-hd">HDRip</span></div>
-      <div class="det-time">7.9s</div>
+    <div class="ccard" style="border-top:2px solid var(--green)">
+      <div class="icon">📈</div>
+      <h3>Stock Brokers</h3>
+      <p>Zerodha, Groww, Angel One, Upstox</p>
+      <div class="cprice" style="color:var(--green)">Rs 10–25 L/month</div>
     </div>
-    <div class="det-row">
-      <div class="det-film">Kalki 2898 AD</div>
-      <div class="det-lang"><span class="badge">Telugu</span> <span class="badge">Hindi</span></div>
-      <div class="det-sites">1 site</div>
-      <div class="det-type"><span class="tag tag-hd">WEB-DL</span></div>
-      <div class="det-time">8.1s</div>
+    <div class="ccard" style="border-top:2px solid var(--purple)">
+      <div class="icon">🛡️</div>
+      <h3>Insurance</h3>
+      <p>HDFC ERGO, Bajaj, ICICI Lombard, Tata AIG</p>
+      <div class="cprice" style="color:var(--purple)">Rs 25–100 L/year</div>
     </div>
-    <div class="det-row">
-      <div class="det-film">RRR (2022)</div>
-      <div class="det-lang"><span class="badge">Telugu</span> <span class="badge">Hindi</span></div>
-      <div class="det-sites">16 sites</div>
-      <div class="det-type"><span class="tag tag-hd">Multiple</span></div>
-      <div class="det-time">8.4s</div>
+    <div class="ccard" style="border-top:2px solid var(--orange)">
+      <div class="icon">🏷️</div>
+      <h3>FMCG & Brands</h3>
+      <p>Nike, HUL, P&G, Reckitt, Samsung, Marico</p>
+      <div class="cprice" style="color:var(--orange)">Rs 10–50 L/brand/year</div>
     </div>
-    <div class="det-row">
-      <div class="det-film">IPL 2026 (Live)</div>
-      <div class="det-lang"><span class="badge">Live</span></div>
-      <div class="det-sites">62 streams</div>
-      <div class="det-type"><span class="tag tag-live">LIVE</span></div>
-      <div class="det-time">6.7s</div>
-    </div>
-    <div class="det-row">
-      <div class="det-film">Lucky Bhaskar</div>
-      <div class="det-lang"><span class="badge">Telugu</span></div>
-      <div class="det-sites">0 sites</div>
-      <div class="det-type"><span class="tag tag-ott" style="color:var(--green);background:rgba(0,232,122,.1);border-color:rgba(0,232,122,.2)">CLEAN</span></div>
-      <div class="det-time">7.8s</div>
+    <div class="ccard" style="border-top:2px solid var(--red)">
+      <div class="icon">🏏</div>
+      <h3>Cricket & Sports</h3>
+      <p>BCCI, Dream11, IPL franchises, PhonePe</p>
+      <div class="cprice" style="color:var(--red)">Rs 25L–1 Cr/year</div>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
-<section id="pricing" style="background:var(--bg2);max-width:100%;padding:6rem 2rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div class="reveal">
-      <div class="section-label">Pricing</div>
-      <h2 class="section-title">Simple, transparent pricing</h2>
-      <p class="section-sub">No setup fees. No long contracts. Cancel anytime. Fraction of what MUSO charges.</p>
-    </div>
-    <div class="pricing-grid reveal">
-      <div class="price-card">
-        <div class="price-tier">Studio Plan</div>
-        <div class="price-val">Rs 75,000<span>/mo</span></div>
-        <div class="price-desc">For producers and studios protecting film releases</div>
-        <ul class="price-features">
-          <li>Up to 5 films monitored/month</li>
-          <li>India scan — 103 platforms</li>
-          <li>Telugu / Tamil / Hindi coverage</li>
-          <li>Weekly intelligence email report</li>
-          <li>Court-ready evidence PDF + WHOIS</li>
-          <li>1-click MIB filing button</li>
-          <li>Mirror propagation tracker</li>
-          <li class="no">Live Shield — Telegram streams</li>
-          <li class="no">Betting detection</li>
-        </ul>
-        <a href="mailto:yugandhar@cineos.in?subject=CINEOS Studio Plan" class="btn btn-ghost" style="width:100%;justify-content:center;">Get Started</a>
-      </div>
-      <div class="price-card featured">
-        <div class="price-tier">OTT / Broadcaster</div>
-        <div class="price-val">Rs 3,00,000<span>/mo</span></div>
-        <div class="price-desc">For OTT platforms, broadcasters and production houses</div>
-        <ul class="price-features">
-          <li>Unlimited films monitored</li>
-          <li>India scan + global scan</li>
-          <li>Live Shield — 135 Telegram channels</li>
-          <li>OTT leak detection — Netflix/Hotstar/Prime/AHA</li>
-          <li>Mirror propagation + prediction</li>
-          <li>Real-time piracy alerts</li>
-          <li>Evidence PDF + WHOIS data</li>
-          <li>Weekly intelligence report</li>
-          <li class="no">Sports betting detection</li>
-        </ul>
-        <a href="mailto:yugandhar@cineos.in?subject=CINEOS OTT Plan" class="btn btn-primary" style="width:100%;justify-content:center;">Get Started</a>
-      </div>
-      <div class="price-card">
-        <div class="price-tier">Sports / Enterprise</div>
-        <div class="price-val">Rs 5L+<span>/mo</span></div>
-        <div class="price-desc">For BCCI, IPL, sports leagues and major broadcasters</div>
-        <ul class="price-features">
-          <li>Live stream detection — all 135 channels</li>
-          <li>Betting + stream dual detection (patented)</li>
-          <li>PMLA 2002 reporting framework</li>
-          <li>ED-reportable betting intelligence</li>
-          <li>Real-time match monitoring</li>
-          <li>Full platform + API access</li>
-          <li>White-label option available</li>
-          <li>Dedicated legal team support</li>
-          <li>SLA + custom integrations</li>
-        </ul>
-        <a href="mailto:yugandhar@cineos.in?subject=CINEOS Sports Enterprise" class="btn btn-outline" style="width:100%;justify-content:center;">Contact Us</a>
-      </div>
+<section>
+  <div class="cta">
+    <h2>See your brand's<br>threat exposure today.</h2>
+    <p>Free sample intelligence report before any contract. Real data. No sales call required.</p>
+    <div class="btns">
+      <a href="mailto:yugandhar@cineos.in?subject=Free Sample Report Request" class="bp">Request Free Report</a>
+      <a href="cineos_platform.html" class="bs">View Platform</a>
+      <a href="cineos_pricing.html" class="bs">See Pricing</a>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<div class="cta-section">
-  <h2 class="reveal">Ready to protect your content?</h2>
-  <p class="reveal">Book a 15-minute demo. We'll run a live scan on your latest release and show you exactly what's being pirated right now.</p>
-  <div class="btn-group reveal">
-    <a href="cineos_platform.html" class="btn btn-primary">🔍 Try Free Scan</a>
-    <a href="cineos_dashboard.html" class="btn btn-outline">📊 See Dashboard</a>
-    <a href="mailto:yugandhar@cineos.in?subject=CINEOS Demo Request" class="btn btn-ghost">Book Demo →</a>
-  </div>
-</div>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-left">
-    <div class="logo">CINEOS</div>
-    <p>US Provisional Patent 64/049,190 · yugandhar@cineos.in · cineos.in</p>
-  </div>
-  <ul class="footer-links">
-    <li><a href="cineos_platform.html">Platform</a></li>
-    <li><a href="cineos_dashboard.html">Dashboard</a></li>
-    <li><a href="cineos_velocity.html">Velocity</a></li>
-    <li><a href="mailto:yugandhar@cineos.in">Contact</a></li>
-  </ul>
+  <p>© 2026 CINEOS — India's Trust Intelligence Network · <a href="mailto:yugandhar@cineos.in">yugandhar@cineos.in</a> · cineos.in</p>
+  <p>US Provisional Patent 64/049,190 · <a href="cineos_platform.html">Platform</a> · <a href="cineos_pricing.html">Pricing</a> · <a href="cineos_dashboard.html">Dashboard</a></p>
 </footer>
 
-<script>
-// ── LIVE DEMO ──────────────────────────────────────────
-async function runDemo() {
-  const input = document.getElementById('demoInput');
-  const results = document.getElementById('demoResults');
-  const btn = document.getElementById('demoBtn');
-  const film = input.value.trim();
-  if (!film) { input.focus(); return; }
-
-  btn.textContent = 'Scanning...';
-  btn.classList.add('loading');
-  btn.disabled = true;
-
-  results.innerHTML = `<div class="demo-scanning">
-    <div class="scanning-dots"><span></span><span></span><span></span></div>
-    Scanning 103 India platforms for "${film}"...
-  </div>`;
-
-  try {
-    const r = await fetch('https://cinerisk-api-production.up.railway.app/v1/scan', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({title: film, category: 'india'})
-    });
-    const raw = await r.json();
-    const d = raw.data || raw;
-    const hits = d.hits || [];
-    const verdict = d.verdict || 'CLEAN';
-
-    if (!hits.length) {
-      results.innerHTML = `<div class="demo-empty" style="color:var(--green)">
-        ✓ No piracy detected for "${film}" — content appears clean across 103 India platforms
-      </div>`;
-    } else {
-      const verdictColor = verdict.includes('CAM') ? 'var(--red)' : 'var(--orange)';
-      let html = `<div style="font-family:var(--mono);font-size:.65rem;padding:.5rem .8rem;
-        background:rgba(255,51,85,.06);border:1px solid rgba(255,51,85,.15);
-        border-radius:6px;color:var(--red);margin-bottom:.8rem;">
-        ⚠ ${verdict} — ${hits.length} infringing URLs found
-      </div>`;
-      hits.slice(0,6).forEach(h => {
-        const url = h.url || h;
-        const platform = h.platform || '';
-        const lang = h.language || '';
-        html += `<div class="demo-result-row">
-          <span class="url">${url}</span>
-          <span class="platform">${platform}</span>
-          <span style="font-family:var(--mono);font-size:.6rem;color:var(--text3)">${lang}</span>
-        </div>`;
-      });
-      html += `<div style="margin-top:.8rem;display:flex;gap:.6rem;flex-wrap:wrap;">
-        <a href="cineos_platform.html" style="font-family:var(--mono);font-size:.65rem;
-          color:var(--green);background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.2);
-          padding:.35rem .8rem;border-radius:4px;text-decoration:none;">
-          View Full Report →
-        </a>
-        <a href="mailto:nodalofficer@meity.gov.in" style="font-family:var(--mono);font-size:.65rem;
-          color:var(--red);background:rgba(255,51,85,.06);border:1px solid rgba(255,51,85,.15);
-          padding:.35rem .8rem;border-radius:4px;text-decoration:none;">
-          File MIB Complaint →
-        </a>
-      </div>`;
-      results.innerHTML = html;
-    }
-  } catch(e) {
-    results.innerHTML = `<div class="demo-empty" style="color:var(--red)">
-      API error — try opening the platform directly: <a href="cineos_platform.html" style="color:var(--green)">cineos_platform.html</a>
-    </div>`;
-  } finally {
-    btn.textContent = '⚡ Scan Now';
-    btn.classList.remove('loading');
-    btn.disabled = false;
-  }
-}
-
-// ── SCROLL REVEAL ──────────────────────────────────────
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
 </body>
 </html>

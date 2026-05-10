@@ -207,7 +207,7 @@ class FraudIntelligenceGraph:
                     'created':      node['added_at'],
                     'modified':     node['added_at'],
                     'name':         f"India fraud phone: +91-{node['identifier']}",
-                    'pattern':      f"[phone-number:value = '+91{node[\"identifier\"]}']",
+                    'pattern':      "[phone-number:value = '+91" + node['identifier'] + "']",
                     'pattern_type': 'stix',
                     'valid_from':   node['added_at'],
                     'indicator_types': ['malicious-activity'],

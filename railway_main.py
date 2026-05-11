@@ -426,9 +426,7 @@ def get_top10():
     today   = ist_now().strftime('%Y-%m-%d')
     scored  = []
     for a in ALERTS:
-        d = a.get('detected_at', '')[:10]
-        if d == today or a.get('severity') == 'critical':
-            scored.append((severity_score(a), a))
+        scored.append((severity_score(a), a))
 
     scored.sort(key=lambda x: -x[0])
     top10 = [public_signal(a) for _, a in scored[:10]]

@@ -1,0 +1,798 @@
+[
+  {
+    "id": "e0c62a67d2899ed2",
+    "title": "Investment fraud syndicate \u2014 5 fake platforms, same registrant",
+    "category": "investment_fraud",
+    "severity": "medium",
+    "platform": "Telegram \u00b7 Web",
+    "detail": "WHOIS links 5 fake trading platforms to one registrant \u2014 syndicate confirmed",
+    "chain": {
+      "channels_found": [
+        "[25 channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "guaranteed returns",
+        "sebi registered",
+        "100% profit"
+      ],
+      "reach": 340000,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "[5 domains \u2014 internal]",
+      "whois_registrant": "[Registrant \u2014 internal]",
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "j0k1l2m3n4o5p6"
+      ],
+      "legal_basis": "SEBI IA Regulations 2013 + IT Act \u00a765B",
+      "captured_at": "2026-05-11T16:40:08.618192",
+      "recommended_action": "SEBI SCORES complaint + platform takedown",
+      "report_to": [
+        "SEBI",
+        "I4C",
+        "Telegram"
+      ]
+    },
+    "detected_at": "2026-05-11T16:40:08.618196",
+    "status": "active",
+    "published": false
+  },
+  {
+    "id": "9d303226bb956100",
+    "title": "Mahadev Book \u2014 41 channels, 2.2M reach, active ED case",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Largest mapped betting operator. Active ED investigation. Dubai financial link.",
+    "chain": {
+      "channels_found": [
+        "[41 channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "mahadev book",
+        "cricket bet",
+        "ipl bet"
+      ],
+      "reach": 2200000,
+      "phones": [],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": "Mahadev Book",
+      "operator_network": "Lotus365 \u00b7 Dubai link",
+      "evidence_hashes": [
+        "i9j0k1l2m3n4o5"
+      ],
+      "legal_basis": "Public Gambling Act 1867 + IT Act \u00a765B",
+      "captured_at": "2026-05-11T16:40:08.617616",
+      "recommended_action": "Intelligence to ED + Cyber Crime Portal",
+      "report_to": [
+        "ED",
+        "NOGC",
+        "Cyber Crime Portal"
+      ]
+    },
+    "detected_at": "2026-05-11T16:40:08.617620",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "77c6cf248ab74af5",
+    "title": "15 pharma channels \u2014 Unitel Pharma modus operandi",
+    "category": "counterfeit_pharma",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Pattern matches Rs 10 Cr Unitel bust \u2014 CGHS diversion, packaging mimicry",
+    "chain": {
+      "channels_found": [
+        "[15 channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "medicine wholesale",
+        "pharma agent",
+        "below mrp"
+      ],
+      "reach": 85000,
+      "phones": [],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "h8i9j0k1l2m3n4"
+      ],
+      "legal_basis": "Drugs and Cosmetics Act 1940 + IT Act \u00a765B",
+      "captured_at": "2026-05-11T16:40:08.617039",
+      "recommended_action": "Intelligence to CDSCO + Sun Pharma/Cipla after deep scan",
+      "report_to": [
+        "CDSCO",
+        "Delhi Police Crime Branch",
+        "Sun Pharma"
+      ]
+    },
+    "detected_at": "2026-05-11T16:40:08.617043",
+    "status": "active",
+    "published": false
+  },
+  {
+    "id": "5852b675e27fefe0",
+    "title": "148 counterfeit listings \u2014 Amazon India + Flipkart",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Amazon \u00b7 Flipkart",
+    "detail": "Explicit counterfeit keywords in product titles \u2014 defensible evidence",
+    "chain": {
+      "channels_found": [
+        "Amazon India",
+        "Flipkart"
+      ],
+      "keywords_matched": [
+        "first copy",
+        "replica",
+        "master copy",
+        "duplicate brand"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "c3d4e5f6a7b8c9"
+      ],
+      "legal_basis": "Trade Marks Act 1999 \u00a729 + IT Act \u00a765B",
+      "captured_at": "2026-05-11T16:40:08.616513",
+      "recommended_action": "Brand takedown notices to Amazon/Flipkart + seller suspension",
+      "report_to": [
+        "Amazon Brand Registry",
+        "Flipkart Legal",
+        "Brand owners"
+      ]
+    },
+    "detected_at": "2026-05-11T16:40:08.616517",
+    "status": "active",
+    "published": false
+  },
+  {
+    "id": "989f29966b66c5fa",
+    "title": "91CLUB colour prediction \u2014 1M+ subscribers, Chinese-origin app",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "91CLUB AVIATOR channel: 1,008,905 subscribers \u2014 largest single fraud channel",
+    "chain": {
+      "channels_found": [
+        "[channel \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "91club",
+        "aviator",
+        "colour prediction",
+        "wingo"
+      ],
+      "reach": 1008905,
+      "phones": [],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "g7h8i9j0k1l2m3"
+      ],
+      "legal_basis": "Online Gaming Act 2025 + IT Act \u00a765B",
+      "captured_at": "2026-05-11T16:40:08.616006",
+      "recommended_action": "Report to NOGC + DoT for channel blocking",
+      "report_to": [
+        "NOGC",
+        "MeitY",
+        "DoT"
+      ]
+    },
+    "detected_at": "2026-05-11T16:40:08.616013",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "94a7aeffcd9772dc",
+    "title": "UPI mule recruitment \u2014 Gujarat network pattern active",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Bank account kit offers matching Rs 77 Cr bust modus \u2014 network still active",
+    "chain": {
+      "channels_found": [
+        "[active channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "bank account kit",
+        "sim card",
+        "earn commission"
+      ],
+      "reach": 12000,
+      "phones": [],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": null,
+      "operator_network": "Gujarat-Dubai corridor",
+      "evidence_hashes": [
+        "f6a7b8c9d0e1f2"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + IPC \u00a7420",
+      "captured_at": "2026-05-11T16:40:08.615466",
+      "recommended_action": "Intelligence to HDFC/ICICI risk teams + I4C",
+      "report_to": [
+        "NPCI",
+        "HDFC",
+        "ICICI",
+        "I4C"
+      ]
+    },
+    "detected_at": "2026-05-11T16:40:08.615470",
+    "status": "active",
+    "published": false
+  },
+  {
+    "id": "0a26870209cdbc96",
+    "title": "BCCI impersonator \u2014 2 operator phones confirmed",
+    "category": "impersonation",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Phones publicly posted in BCCI fake channels \u2014 95% confidence",
+    "chain": {
+      "channels_found": [
+        "[2 channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "bcci",
+        "toss fixer",
+        "match prediction"
+      ],
+      "reach": 45000,
+      "phones": [
+        "+91-8306154335",
+        "+91-9216328940"
+      ],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": "Reddy Anna Book",
+      "operator_network": "Play99 affiliate",
+      "evidence_hashes": [
+        "d4e5f6a7b8c9d0"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + \u00a765B",
+      "captured_at": "2026-05-11T16:40:08.614983",
+      "recommended_action": "FIR under IT Act \u00a766D \u2014 phones and channel evidence ready",
+      "report_to": [
+        "BCCI",
+        "Delhi Police",
+        "I4C"
+      ]
+    },
+    "detected_at": "2026-05-11T16:40:08.614987",
+    "status": "active",
+    "published": false
+  },
+  {
+    "id": "e0f18ad8410952bf",
+    "title": "jiohotstar.net \u2014 domain squat, registrant identified",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "WHOIS",
+    "detail": "Registered Jan 18 2026 \u2014 4 days after JioHotstar launch",
+    "chain": {
+      "channels_found": [
+        "jiohotstar.net"
+      ],
+      "keywords_matched": [
+        "jiohotstar"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "jiohotstar.net",
+      "whois_registrant": "muthyala naresh \u2014 muthyala19@gmail.com [INTERNAL]",
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "e5f6a7b8c9d0e1"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act \u00a729",
+      "captured_at": "2026-05-11T16:40:08.614509",
+      "recommended_action": "UDRP complaint + civil suit \u2014 registrant identified",
+      "report_to": [
+        "JioHotstar",
+        "BigRock",
+        "NIXI"
+      ]
+    },
+    "detected_at": "2026-05-11T16:40:08.614514",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "6474bffeaf1b5a02",
+    "title": "Fake payment APK \u2014 active credential theft site",
+    "category": "brand_impersonation",
+    "severity": "critical",
+    "platform": "Web \u00b7 APK",
+    "detail": "phonepes.com.in \u2014 fake PhonePe APK download, UAE registrant",
+    "chain": {
+      "channels_found": [
+        "phonepes.com.in"
+      ],
+      "keywords_matched": [
+        "phonepe apk",
+        "download",
+        "install"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "phonepes.com.in",
+      "whois_registrant": "[WHOIS archived \u2014 internal]",
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "a7f3c891d2e4b5"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + \u00a765B",
+      "captured_at": "2026-05-11T16:40:08.614015",
+      "recommended_action": "Report to CERT-In + PhonePe brand team + domain registrar",
+      "report_to": [
+        "PhonePe",
+        "CERT-In",
+        "Dynadot"
+      ]
+    },
+    "detected_at": "2026-05-11T16:40:08.614024",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "da13e7c222f60965",
+    "title": "IPL Match 53 \u2014 20 piracy streams detected",
+    "category": "piracy",
+    "severity": "critical",
+    "platform": "Telegram \u00b7 Web",
+    "detail": "20 illegal live streams during CSK vs LSG \u00b7 May 10 \u00b7 13:23 IST",
+    "chain": {
+      "channels_found": [
+        "[13 channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "ipl live",
+        "hotstar free",
+        "watch live"
+      ],
+      "reach": 35000000,
+      "phones": [
+        "+91-8306154335",
+        "+91-9216328940"
+      ],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": "Reddy Anna Book affiliate",
+      "operator_network": "Play99 network",
+      "evidence_hashes": [
+        "b4d2d638a9f1c2"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Copyright Act \u00a751",
+      "captured_at": "2026-05-11T16:40:08.613173",
+      "recommended_action": "IT Rules 2021 \u00a769A takedown notice to Telegram",
+      "report_to": [
+        "JioHotstar",
+        "BCCI",
+        "MIB"
+      ]
+    },
+    "detected_at": "2026-05-11T16:40:08.613198",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "b566e15955c66c13",
+    "title": "Investment fraud syndicate \u2014 5 fake platforms, same registrant",
+    "category": "investment_fraud",
+    "severity": "medium",
+    "platform": "Telegram \u00b7 Web",
+    "detail": "WHOIS links 5 fake trading platforms to one registrant \u2014 syndicate confirmed",
+    "chain": {
+      "channels_found": [
+        "[25 channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "guaranteed returns",
+        "sebi registered",
+        "100% profit"
+      ],
+      "reach": 340000,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "[5 domains \u2014 internal]",
+      "whois_registrant": "[Registrant \u2014 internal]",
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "j0k1l2m3n4o5p6"
+      ],
+      "legal_basis": "SEBI IA Regulations 2013 + IT Act \u00a765B",
+      "captured_at": "2026-05-11T16:39:32.954010",
+      "recommended_action": "SEBI SCORES complaint + platform takedown",
+      "report_to": [
+        "SEBI",
+        "I4C",
+        "Telegram"
+      ]
+    },
+    "detected_at": "2026-05-11T16:39:32.954015",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "90f8e030a37fc328",
+    "title": "Mahadev Book \u2014 41 channels, 2.2M reach, active ED case",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Largest mapped betting operator. Active ED investigation. Dubai financial link.",
+    "chain": {
+      "channels_found": [
+        "[41 channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "mahadev book",
+        "cricket bet",
+        "ipl bet"
+      ],
+      "reach": 2200000,
+      "phones": [],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": "Mahadev Book",
+      "operator_network": "Lotus365 \u00b7 Dubai link",
+      "evidence_hashes": [
+        "i9j0k1l2m3n4o5"
+      ],
+      "legal_basis": "Public Gambling Act 1867 + IT Act \u00a765B",
+      "captured_at": "2026-05-11T16:39:32.953393",
+      "recommended_action": "Intelligence to ED + Cyber Crime Portal",
+      "report_to": [
+        "ED",
+        "NOGC",
+        "Cyber Crime Portal"
+      ]
+    },
+    "detected_at": "2026-05-11T16:39:32.953404",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "73262f6fbf8d2d9c",
+    "title": "15 pharma channels \u2014 Unitel Pharma modus operandi",
+    "category": "counterfeit_pharma",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Pattern matches Rs 10 Cr Unitel bust \u2014 CGHS diversion, packaging mimicry",
+    "chain": {
+      "channels_found": [
+        "[15 channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "medicine wholesale",
+        "pharma agent",
+        "below mrp"
+      ],
+      "reach": 85000,
+      "phones": [],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "h8i9j0k1l2m3n4"
+      ],
+      "legal_basis": "Drugs and Cosmetics Act 1940 + IT Act \u00a765B",
+      "captured_at": "2026-05-11T16:39:32.952827",
+      "recommended_action": "Intelligence to CDSCO + Sun Pharma/Cipla after deep scan",
+      "report_to": [
+        "CDSCO",
+        "Delhi Police Crime Branch",
+        "Sun Pharma"
+      ]
+    },
+    "detected_at": "2026-05-11T16:39:32.952831",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "b04cefcbef6ab832",
+    "title": "148 counterfeit listings \u2014 Amazon India + Flipkart",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Amazon \u00b7 Flipkart",
+    "detail": "Explicit counterfeit keywords in product titles \u2014 defensible evidence",
+    "chain": {
+      "channels_found": [
+        "Amazon India",
+        "Flipkart"
+      ],
+      "keywords_matched": [
+        "first copy",
+        "replica",
+        "master copy",
+        "duplicate brand"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "c3d4e5f6a7b8c9"
+      ],
+      "legal_basis": "Trade Marks Act 1999 \u00a729 + IT Act \u00a765B",
+      "captured_at": "2026-05-11T16:39:32.952476",
+      "recommended_action": "Brand takedown notices to Amazon/Flipkart + seller suspension",
+      "report_to": [
+        "Amazon Brand Registry",
+        "Flipkart Legal",
+        "Brand owners"
+      ]
+    },
+    "detected_at": "2026-05-11T16:39:32.952480",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "9c66b14996e9975c",
+    "title": "91CLUB colour prediction \u2014 1M+ subscribers, Chinese-origin app",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "91CLUB AVIATOR channel: 1,008,905 subscribers \u2014 largest single fraud channel",
+    "chain": {
+      "channels_found": [
+        "[channel \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "91club",
+        "aviator",
+        "colour prediction",
+        "wingo"
+      ],
+      "reach": 1008905,
+      "phones": [],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "g7h8i9j0k1l2m3"
+      ],
+      "legal_basis": "Online Gaming Act 2025 + IT Act \u00a765B",
+      "captured_at": "2026-05-11T16:39:32.952138",
+      "recommended_action": "Report to NOGC + DoT for channel blocking",
+      "report_to": [
+        "NOGC",
+        "MeitY",
+        "DoT"
+      ]
+    },
+    "detected_at": "2026-05-11T16:39:32.952144",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "c6d50a67e08d05bb",
+    "title": "UPI mule recruitment \u2014 Gujarat network pattern active",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Bank account kit offers matching Rs 77 Cr bust modus \u2014 network still active",
+    "chain": {
+      "channels_found": [
+        "[active channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "bank account kit",
+        "sim card",
+        "earn commission"
+      ],
+      "reach": 12000,
+      "phones": [],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": null,
+      "operator_network": "Gujarat-Dubai corridor",
+      "evidence_hashes": [
+        "f6a7b8c9d0e1f2"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + IPC \u00a7420",
+      "captured_at": "2026-05-11T16:39:32.951728",
+      "recommended_action": "Intelligence to HDFC/ICICI risk teams + I4C",
+      "report_to": [
+        "NPCI",
+        "HDFC",
+        "ICICI",
+        "I4C"
+      ]
+    },
+    "detected_at": "2026-05-11T16:39:32.951745",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "fa7bcab7a8f93bd6",
+    "title": "BCCI impersonator \u2014 2 operator phones confirmed",
+    "category": "impersonation",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Phones publicly posted in BCCI fake channels \u2014 95% confidence",
+    "chain": {
+      "channels_found": [
+        "[2 channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "bcci",
+        "toss fixer",
+        "match prediction"
+      ],
+      "reach": 45000,
+      "phones": [
+        "+91-8306154335",
+        "+91-9216328940"
+      ],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": "Reddy Anna Book",
+      "operator_network": "Play99 affiliate",
+      "evidence_hashes": [
+        "d4e5f6a7b8c9d0"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + \u00a765B",
+      "captured_at": "2026-05-11T16:39:32.950905",
+      "recommended_action": "FIR under IT Act \u00a766D \u2014 phones and channel evidence ready",
+      "report_to": [
+        "BCCI",
+        "Delhi Police",
+        "I4C"
+      ]
+    },
+    "detected_at": "2026-05-11T16:39:32.950914",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "f431395e6cf9e226",
+    "title": "jiohotstar.net \u2014 domain squat, registrant identified",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "WHOIS",
+    "detail": "Registered Jan 18 2026 \u2014 4 days after JioHotstar launch",
+    "chain": {
+      "channels_found": [
+        "jiohotstar.net"
+      ],
+      "keywords_matched": [
+        "jiohotstar"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "jiohotstar.net",
+      "whois_registrant": "muthyala naresh \u2014 muthyala19@gmail.com [INTERNAL]",
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "e5f6a7b8c9d0e1"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act \u00a729",
+      "captured_at": "2026-05-11T16:39:32.950535",
+      "recommended_action": "UDRP complaint + civil suit \u2014 registrant identified",
+      "report_to": [
+        "JioHotstar",
+        "BigRock",
+        "NIXI"
+      ]
+    },
+    "detected_at": "2026-05-11T16:39:32.950540",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "ccdd9ee620706943",
+    "title": "Fake payment APK \u2014 active credential theft site",
+    "category": "brand_impersonation",
+    "severity": "critical",
+    "platform": "Web \u00b7 APK",
+    "detail": "phonepes.com.in \u2014 fake PhonePe APK download, UAE registrant",
+    "chain": {
+      "channels_found": [
+        "phonepes.com.in"
+      ],
+      "keywords_matched": [
+        "phonepe apk",
+        "download",
+        "install"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "phonepes.com.in",
+      "whois_registrant": "[WHOIS archived \u2014 internal]",
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "a7f3c891d2e4b5"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + \u00a765B",
+      "captured_at": "2026-05-11T16:39:32.950105",
+      "recommended_action": "Report to CERT-In + PhonePe brand team + domain registrar",
+      "report_to": [
+        "PhonePe",
+        "CERT-In",
+        "Dynadot"
+      ]
+    },
+    "detected_at": "2026-05-11T16:39:32.950113",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "cac709a1e15b85ba",
+    "title": "IPL Match 53 \u2014 20 piracy streams detected",
+    "category": "piracy",
+    "severity": "critical",
+    "platform": "Telegram \u00b7 Web",
+    "detail": "20 illegal live streams during CSK vs LSG \u00b7 May 10 \u00b7 13:23 IST",
+    "chain": {
+      "channels_found": [
+        "[13 channels \u2014 internal]"
+      ],
+      "keywords_matched": [
+        "ipl live",
+        "hotstar free",
+        "watch live"
+      ],
+      "reach": 35000000,
+      "phones": [
+        "+91-8306154335",
+        "+91-9216328940"
+      ],
+      "upis": [],
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": "Reddy Anna Book affiliate",
+      "operator_network": "Play99 network",
+      "evidence_hashes": [
+        "b4d2d638a9f1c2"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Copyright Act \u00a751",
+      "captured_at": "2026-05-11T16:39:32.949677",
+      "recommended_action": "IT Rules 2021 \u00a769A takedown notice to Telegram",
+      "report_to": [
+        "JioHotstar",
+        "BCCI",
+        "MIB"
+      ]
+    },
+    "detected_at": "2026-05-11T16:39:32.949746",
+    "status": "active",
+    "published": true
+  }
+]

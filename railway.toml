@@ -1,0 +1,10 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "gunicorn railway_main:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120 --keep-alive 5"
+restartPolicyType = "always"
+
+[healthcheck]
+path = "/health"
+timeout = 30

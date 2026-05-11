@@ -9,19 +9,18 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#0F172A;--b:#475569;--m:#94A3B8;--bo:#E2E8F0;--s:#F8FAFC;--w:#FFFFFF;
   --g:#166534;--gm:#15803D;--gt:#F0FDF4;--gb:#BBF7D0;--gl:#DCFCE7;
-  /* Each fraud category has its own colour identity */
-  --betting:#DC2626;       --betting-bg:#FEF2F2;    --betting-br:#FECACA;
-  --piracy:#D97706;        --piracy-bg:#FFFBEB;     --piracy-br:#FDE68A;
-  --colour:#7C3AED;        --colour-bg:#F5F3FF;     --colour-br:#DDD6FE;
-  --investment:#2563EB;    --investment-bg:#EFF6FF; --investment-br:#BFDBFE;
-  --pharma:#059669;        --pharma-bg:#ECFDF5;     --pharma-br:#A7F3D0;
-  --mule:#EA580C;          --mule-bg:#FFF7ED;       --mule-br:#FED7AA;
-  --market:#E11D48;        --market-bg:#FFF1F2;     --market-br:#FECDD3;
-  --impersonation:#0891B2; --impersonation-bg:#ECFEFF; --impersonation-br:#A5F3FC;
-  --domain:#7C3AED;        --domain-bg:#F5F3FF;     --domain-br:#DDD6FE;
-  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif;
+  --ink:#0F172A;--b:#475569;--m:#94A3B8;--bo:#E2E8F0;--s:#F8FAFC;--w:#FFFFFF;
+  --betting:#DC2626;--betting-bg:#FEF2F2;--betting-br:#FECACA;
+  --piracy:#D97706;--piracy-bg:#FFFBEB;--piracy-br:#FDE68A;
+  --colour:#7C3AED;--colour-bg:#F5F3FF;--colour-br:#DDD6FE;
+  --investment:#2563EB;--investment-bg:#EFF6FF;--investment-br:#BFDBFE;
+  --pharma:#059669;--pharma-bg:#ECFDF5;--pharma-br:#A7F3D0;
+  --mule:#EA580C;--mule-bg:#FFF7ED;--mule-br:#FED7AA;
+  --market:#E11D48;--market-bg:#FFF1F2;--market-br:#FECDD3;
+  --impersonation:#0891B2;--impersonation-bg:#ECFEFF;--impersonation-br:#A5F3FC;
+  --domain:#7C3AED;--domain-bg:#F5F3FF;--domain-br:#DDD6FE;
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;
 }
 html,body{height:100%;overflow:hidden}
 body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px;display:flex;flex-direction:column}
@@ -51,11 +50,14 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
 .ta{font-size:11px;color:var(--m);background:var(--s);border:1px solid var(--bo);padding:5px 10px;border-radius:5px;text-decoration:none;transition:all .15s}
 .ta:hover{border-color:var(--g);color:var(--g)}
 .talert-ct{font-family:var(--mono);font-size:11px;background:var(--gt);color:var(--g);border:1px solid var(--gb);padding:4px 10px;border-radius:20px;font-weight:500}
+.railway-status{font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:20px;display:flex;align-items:center;gap:4px}
+.rs-ok{background:var(--gt);color:var(--g);border:1px solid var(--gb)}
+.rs-err{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA}
+.rs-ok::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--g)}
+.rs-err::before{content:'';width:5px;height:5px;border-radius:50%;background:#DC2626}
 
 /* LAYOUT */
 .layout{display:flex;flex:1;overflow:hidden}
-
-/* SIDEBAR */
 .sb{width:192px;flex-shrink:0;background:var(--w);border-right:1px solid var(--bo);display:flex;flex-direction:column;overflow-y:auto}
 .sbs{padding:13px 13px 4px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--m)}
 .sbi{display:flex;align-items:center;gap:8px;padding:8px 13px;font-size:12px;font-weight:500;color:var(--b);cursor:pointer;transition:all .12s;border-left:2px solid transparent}
@@ -84,7 +86,7 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
 .ks{font-size:11px;color:var(--m);margin-top:2px}
 .cg{color:var(--g)}.cr{color:#DC2626}.ca{color:#D97706}
 
-/* ALERT TOOLBAR */
+/* TOOLBAR */
 .toolbar{display:flex;gap:8px;align-items:center;background:var(--w);border:1px solid var(--bo);border-radius:8px;padding:10px 14px;margin-bottom:10px;flex-wrap:wrap}
 .search-wrap{display:flex;align-items:center;gap:8px;flex:1;min-width:220px}
 .sico{color:var(--m);font-size:14px;flex-shrink:0}
@@ -96,15 +98,15 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
 .chip{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:20px;cursor:pointer;border:1px solid var(--bo);background:var(--s);color:var(--b);transition:all .12s;white-space:nowrap}
 .chip:hover{border-color:var(--g);color:var(--g)}
 .chip.on{background:var(--g);color:#fff;border-color:var(--g)}
-.chip.on[data-c="betting"]{background:var(--betting);border-color:var(--betting)}
-.chip.on[data-c="piracy"]{background:var(--piracy);border-color:var(--piracy)}
-.chip.on[data-c="colour_prediction"]{background:var(--colour);border-color:var(--colour)}
-.chip.on[data-c="investment_fraud"]{background:var(--investment);border-color:var(--investment)}
-.chip.on[data-c="counterfeit_pharma"]{background:var(--pharma);border-color:var(--pharma)}
-.chip.on[data-c="upi_mule"]{background:var(--mule);border-color:var(--mule)}
-.chip.on[data-c="counterfeit_marketplace"]{background:var(--market);border-color:var(--market)}
-.chip.on[data-c="impersonation"],.chip.on[data-c="brand_impersonation"]{background:var(--impersonation);border-color:var(--impersonation)}
-.chip.on[data-c="domain_squat"]{background:var(--domain);border-color:var(--domain)}
+.chip.on[data-c="betting"]{background:#DC2626;border-color:#DC2626}
+.chip.on[data-c="piracy"]{background:#D97706;border-color:#D97706}
+.chip.on[data-c="colour_prediction"]{background:#7C3AED;border-color:#7C3AED}
+.chip.on[data-c="investment_fraud"]{background:#2563EB;border-color:#2563EB}
+.chip.on[data-c="counterfeit_pharma"]{background:#059669;border-color:#059669}
+.chip.on[data-c="upi_mule"]{background:#EA580C;border-color:#EA580C}
+.chip.on[data-c="counterfeit_marketplace"]{background:#E11D48;border-color:#E11D48}
+.chip.on[data-c="impersonation"],.chip.on[data-c="brand_impersonation"]{background:#0891B2;border-color:#0891B2}
+.chip.on[data-c="domain_squat"]{background:#7C3AED;border-color:#7C3AED}
 .sev-chip{font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:20px;cursor:pointer;border:1px solid var(--bo);background:var(--s);color:var(--b);transition:all .12s}
 .sev-chip.on[data-s="all"]{background:var(--g);color:#fff;border-color:var(--g)}
 .sev-chip.on[data-s="critical"]{background:#FEF2F2;color:#DC2626;border-color:#FECACA}
@@ -118,8 +120,6 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
 .aitem:last-child{border-bottom:none}
 .aitem:hover{background:var(--s)}
 .aitem.open{background:var(--gt)}
-
-/* Alert row grid: stripe | severity | title+detail | platform | time | cat-tag | expand */
 .arow{display:grid;grid-template-columns:4px 78px 1fr 100px 78px 90px 24px;gap:8px;align-items:center;padding:11px 14px}
 .astripe{width:4px;border-radius:2px;align-self:stretch;min-height:30px}
 .asev{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:3px 7px;border-radius:20px;white-space:nowrap;display:inline-block}
@@ -133,24 +133,17 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
 .atime{font-family:var(--mono);font-size:10px;color:var(--m)}
 .cattag{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:20px;white-space:nowrap;display:inline-block}
 .expbtn{width:22px;height:22px;border-radius:5px;background:var(--s);border:1px solid var(--bo);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--m);user-select:none;transition:all .12s;flex-shrink:0}
-.aitem:hover .expbtn{background:var(--g);color:#fff;border-color:var(--g)}
-.aitem.open .expbtn{background:var(--g);color:#fff;border-color:var(--g)}
-
-/* ATTRIBUTION DRAWER */
+.aitem:hover .expbtn,.aitem.open .expbtn{background:var(--g);color:#fff;border-color:var(--g)}
 .drawer{display:none;padding:14px 14px 12px;border-top:1px solid var(--gb);background:linear-gradient(to bottom,var(--gt),var(--w))}
 .drawer.open{display:block}
 .dhead{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
 .dhead-l::before{content:'// INTERNAL — DETECT → ATTRIBUTE → EVIDENCE → END STEP'}
-
-/* PDF buttons */
 .pdfbtns{display:flex;gap:5px}
 .pdfbtn{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:5px;cursor:pointer;border:none;transition:all .12s;display:flex;align-items:center;gap:3px}
 .pdf-pub{background:var(--gt);color:var(--g);border:1px solid var(--gb)}
 .pdf-pub:hover{background:var(--g);color:#fff}
 .pdf-full{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA}
 .pdf-full:hover{background:#DC2626;color:#fff}
-
-/* Chain */
 .chain{display:flex;align-items:flex-start;overflow-x:auto;padding-bottom:4px}
 .cnode{display:flex;flex-direction:column;align-items:center;min-width:108px;flex-shrink:0}
 .cdot{width:26px;height:26px;border-radius:50%;border:2px solid var(--gb);background:var(--w);display:flex;align-items:center;justify-content:center;font-size:12px}
@@ -162,21 +155,16 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
 .cval{font-size:11px;font-weight:600;color:var(--ink);text-align:center;line-height:1.3;padding:0 4px}
 .csub{font-family:var(--mono);font-size:9px;color:var(--m);text-align:center;margin-top:2px;padding:0 4px}
 .carr{flex-shrink:0;align-self:center;margin:0 2px;padding-bottom:22px;color:var(--gb);font-size:13px;font-weight:700}
-
-/* Evidence row */
 .evrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--gb)}
 .evl{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--m);margin-bottom:3px}
 .evv{font-size:11px;color:var(--b);line-height:1.4}
 .evv.g{color:var(--g);font-weight:600}.evv.r{color:#DC2626}.evv.a{color:#D97706}.evv.p{color:#7C3AED}
 .itag{font-family:var(--mono);font-size:9px;background:#F5F3FF;color:#7C3AED;border:1px solid #DDD6FE;padding:2px 5px;border-radius:4px;display:inline-block;margin:1px}
-
 .noresult{padding:28px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--m)}
-
-/* Status bar */
 .statusbar{flex-shrink:0;height:26px;background:var(--w);border-top:1px solid var(--bo);display:flex;align-items:center;gap:14px;padding:0 16px}
 .si{display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px;color:var(--m)}
 .sd{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.sdg{background:var(--g)}.sda{background:#D97706}
+.sdg{background:var(--g)}.sda{background:#D97706}.sdr{background:#DC2626}
 </style>
 </head>
 <body>
@@ -198,8 +186,9 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
   <div class="tint">Full attribution</div>
   <div class="tlive">Live</div>
   <div class="tclk" id="clk">—</div>
+  <div id="railway-indicator" class="railway-status rs-err" style="display:none">Railway API</div>
   <div class="tright">
-    <span class="talert-ct" id="total-ct">0 alerts</span>
+    <span class="talert-ct" id="total-ct">loading...</span>
     <a class="ta" href="cineos_landing.html" target="_blank">Public ↗</a>
     <a class="ta" href="cineos_today.html" target="_blank">Today ↗</a>
   </div>
@@ -212,7 +201,6 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
     <div class="sbi" onclick="showTab('alerts',this)"><span class="sbi-ic">⚡</span>Live alerts<span class="sbi-ct hot" id="sb-ct">0</span></div>
     <div class="sbi" onclick="showTab('whois',this)"><span class="sbi-ic">🌐</span>WHOIS<span class="sbi-ct">7</span></div>
     <div class="sbi" onclick="showTab('operators',this)"><span class="sbi-ic">👤</span>Operators<span class="sbi-ct">15</span></div>
-    <div class="sbi" onclick="showTab('ipl',this)"><span class="sbi-ic">🏏</span>IPL live</div>
     <div class="sbs">By category</div>
     <div class="sbi" onclick="goCat('betting')"><span class="sbi-ic">🎯</span>Betting<span class="catdot" style="background:#DC2626"></span></div>
     <div class="sbi" onclick="goCat('piracy')"><span class="sbi-ic">📺</span>Piracy<span class="catdot" style="background:#D97706"></span></div>
@@ -230,21 +218,33 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
     <!-- OVERVIEW -->
     <div class="panel on" id="p-overview">
       <div class="kpis">
-        <div class="kpi"><div class="kl">Channels</div><div class="kv cg">1,245</div><div class="ks cg">+130 this week</div></div>
-        <div class="kpi"><div class="kl">Reach</div><div class="kv">40M</div><div class="ks">Subscribers</div></div>
+        <div class="kpi"><div class="kl">Channels</div><div class="kv cg" id="ov-ch">1,245</div><div class="ks cg">+130 this week</div></div>
+        <div class="kpi"><div class="kl">Reach</div><div class="kv" id="ov-reach">40M</div><div class="ks">Subscribers</div></div>
         <div class="kpi"><div class="kl">Graph nodes</div><div class="kv">1,290</div><div class="ks">+131 overnight</div></div>
         <div class="kpi"><div class="kl">Live alerts</div><div class="kv cr" id="ov-ct">—</div><div class="ks ca">loading</div></div>
         <div class="kpi"><div class="kl">Evidence</div><div class="kv cg" style="font-size:13px;padding-top:4px">IT Act §65B</div><div class="ks">Court admissible</div></div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div class="card"><div class="ph"><div class="ph-t">Channel growth</div><div class="ph-m">Last 7 days</div></div><div style="height:140px"><canvas id="gc"></canvas></div></div>
-        <div class="card"><div class="ph"><div class="ph-t">Alerts by category</div></div><div id="cat-bd" style="margin-top:4px"></div></div>
+        <div class="card"><div class="ph"><div class="ph-t">Alerts by category</div><div class="ph-m" id="last-scan-time">Railway scanning 24/7</div></div><div id="cat-bd" style="margin-top:4px"></div></div>
       </div>
-      <div class="card" style="margin-top:12px;background:#FEF2F2;border-color:#FECACA">
-        <div style="font-family:var(--mono);font-size:11px;color:#DC2626;line-height:1.9">
-          <b>⚠ Gmail: 2 JioHotstar emails unread</b> — anil.lale@jiostar.com is back this week — send follow-up email NOW<br>
-          ⚠ Telegram rate limited — resets 8am IST — do not run any scans tonight<br>
-          ✓ LaunchD daily: fixed ✓ Keepalive: Railway 200 ✓ Alert engine: 40 alerts seeded
+      <div class="card" style="margin-top:12px">
+        <div style="font-family:var(--mono);font-size:11px;line-height:1.9">
+          <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px">Railway API — 24/7 Intelligence</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+            <div>
+              <div style="color:var(--m);font-size:9px;text-transform:uppercase;margin-bottom:4px">API endpoint</div>
+              <div style="color:var(--g);word-break:break-all">cinerisk-api-production.up.railway.app</div>
+            </div>
+            <div>
+              <div style="color:var(--m);font-size:9px;text-transform:uppercase;margin-bottom:4px">Scans per day</div>
+              <div id="scans-today" style="font-size:20px;font-weight:700;color:var(--g)">4</div>
+            </div>
+            <div>
+              <div style="color:var(--m);font-size:9px;text-transform:uppercase;margin-bottom:4px">Schedule (IST)</div>
+              <div style="color:var(--b)">08:00 · 12:00 · 18:00 · 22:00</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -280,32 +280,20 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
         </div>
       </div>
       <div class="alert-meta">
-        <span id="rct">Loading...</span>
-        <span>Click row for full attribution · 📄 Public PDF · 🔒 Full PDF · Auto-refresh 30s</span>
+        <span id="rct">Loading alerts from Railway API...</span>
+        <span>Live from Railway · Updates every 30s · Click row for full attribution · 📄 Public · 🔒 Full PDF</span>
       </div>
-      <div class="alist" id="alist"><div class="noresult">Loading intelligence...</div></div>
+      <div class="alist" id="alist"><div class="noresult">Connecting to Railway API...</div></div>
     </div>
 
     <!-- WHOIS -->
     <div class="panel" id="p-whois">
       <div class="ph"><div class="ph-t">WHOIS intelligence — 7 domains · full registrant data</div></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="card" style="border-left:3px solid #DC2626">
-          <div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#DC2626;margin-bottom:10px">jiohotstar.net</div>
-          <div style="font-size:12px;color:var(--b);line-height:1.9">Registrant: <b style="color:#7C3AED">muthyala naresh</b><br>Email: <b style="color:#7C3AED">muthyala19@gmail.com</b><br>Registered: <b style="color:#DC2626">Jan 18 2026 — 4 days after launch</b><br>Registrar: BigRock Solutions · India<br>Risk: <b style="color:#DC2626">CRITICAL — domain squat confirmed</b></div>
-        </div>
-        <div class="card" style="border-left:3px solid #DC2626">
-          <div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#DC2626;margin-bottom:10px">phonepes.com.in</div>
-          <div style="font-size:12px;color:var(--b);line-height:1.9">Registrant: <b style="color:#7C3AED">Privacy protected</b><br>Registrar: Dynadot LLC · UAE<br>Registered: <b style="color:#DC2626">January 2026</b><br>Risk: <b style="color:#DC2626">CRITICAL — active APK theft site</b></div>
-        </div>
-        <div class="card" style="border-left:3px solid #D97706">
-          <div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#D97706;margin-bottom:10px">jiohotstar.co</div>
-          <div style="font-size:12px;color:var(--b);line-height:1.9">Registrar: GoDaddy · US<br>Registered: <b>October 2024</b><br>Risk: <b style="color:#D97706">HIGH — pre-launch squat</b></div>
-        </div>
-        <div class="card" style="border-left:3px solid #D97706">
-          <div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#D97706;margin-bottom:10px">jio-hotstar.com</div>
-          <div style="font-size:12px;color:var(--b);line-height:1.9">Registrar: Namefinger · US<br>Registered: <b style="color:#DC2626">January 2026</b><br>Privacy: Cloudflare protected<br>Risk: <b style="color:#DC2626">CRITICAL</b></div>
-        </div>
+        <div class="card" style="border-left:3px solid #DC2626"><div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#DC2626;margin-bottom:10px">jiohotstar.net</div><div style="font-size:12px;color:var(--b);line-height:1.9">Registrant: <b style="color:#7C3AED">muthyala naresh</b><br>Email: <b style="color:#7C3AED">muthyala19@gmail.com</b><br>Registered: <b style="color:#DC2626">Jan 18 2026 — 4 days after launch</b><br>Registrar: BigRock Solutions · India<br>Risk: <b style="color:#DC2626">CRITICAL</b></div></div>
+        <div class="card" style="border-left:3px solid #DC2626"><div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#DC2626;margin-bottom:10px">phonepes.com.in</div><div style="font-size:12px;color:var(--b);line-height:1.9">Registrant: <b style="color:#7C3AED">Privacy protected</b><br>Registrar: Dynadot LLC · UAE<br>Registered: <b style="color:#DC2626">January 2026</b><br>Risk: <b style="color:#DC2626">CRITICAL — active APK</b></div></div>
+        <div class="card" style="border-left:3px solid #D97706"><div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#D97706;margin-bottom:10px">jiohotstar.co</div><div style="font-size:12px;color:var(--b);line-height:1.9">Registrar: GoDaddy · US<br>Registered: October 2024<br>Risk: <b style="color:#D97706">HIGH — pre-launch squat</b></div></div>
+        <div class="card" style="border-left:3px solid #D97706"><div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#D97706;margin-bottom:10px">jio-hotstar.com</div><div style="font-size:12px;color:var(--b);line-height:1.9">Registrar: Namefinger · US<br>Registered: January 2026<br>Risk: <b style="color:#DC2626">CRITICAL</b></div></div>
       </div>
     </div>
 
@@ -313,31 +301,10 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
     <div class="panel" id="p-operators">
       <div class="ph"><div class="ph-t">Operator profiles — 15 identified · full attribution</div></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="card" style="border-left:3px solid #DC2626"><b>Mahadev Book</b><br><span style="font-family:var(--mono);font-size:9px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;padding:2px 7px;border-radius:20px;display:inline-block;margin:6px 0 10px">Tier 1 — Active ED case</span><br><span style="font-size:12px;color:var(--b);line-height:2">Channels: <b>41</b> · Reach: <b>2.2M</b><br>Network: <b style="color:#7C3AED">Lotus365 · Dubai link</b><br>Legal: <b style="color:#DC2626">Active ED investigation</b></span></div>
-        <div class="card" style="border-left:3px solid #DC2626"><b>Reddy Anna Book</b><br><span style="font-family:var(--mono);font-size:9px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;padding:2px 7px;border-radius:20px;display:inline-block;margin:6px 0 10px">Tier 1 — Active police case</span><br><span style="font-size:12px;color:var(--b);line-height:2">Phone 1: <b style="color:#7C3AED">+91-8306154335</b><br>Phone 2: <b style="color:#7C3AED">+91-9216328940</b><br>Affiliate: <b>Play99 · BCCI fake</b></span></div>
-        <div class="card" style="border-left:3px solid #7C3AED"><b>BigDaddy</b><br><span style="font-family:var(--mono);font-size:9px;background:#FFFBEB;color:#D97706;border:1px solid #FDE68A;padding:2px 7px;border-radius:20px;display:inline-block;margin:6px 0 10px">Tier 2 — Monitoring</span><br><span style="font-size:12px;color:var(--b);line-height:2">Channels: <b>33</b> · Reach: <b>1.8M</b><br>Focus: <b>Colour prediction</b></span></div>
+        <div class="card" style="border-left:3px solid #DC2626"><b>Mahadev Book</b><br><span style="font-family:var(--mono);font-size:9px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;padding:2px 7px;border-radius:20px;display:inline-block;margin:6px 0 10px">Tier 1 — Active ED case</span><br><span style="font-size:12px;color:var(--b);line-height:2">Channels: <b>41</b> · Reach: <b>2.2M</b><br>Network: <b style="color:#7C3AED">Lotus365 · Dubai</b></span></div>
+        <div class="card" style="border-left:3px solid #DC2626"><b>Reddy Anna Book</b><br><span style="font-family:var(--mono);font-size:9px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;padding:2px 7px;border-radius:20px;display:inline-block;margin:6px 0 10px">Tier 1 — Active police case</span><br><span style="font-size:12px;color:var(--b);line-height:2">Phone 1: <b style="color:#7C3AED">+91-8306154335</b><br>Phone 2: <b style="color:#7C3AED">+91-9216328940</b><br>Affiliate: <b>Play99</b></span></div>
+        <div class="card" style="border-left:3px solid #7C3AED"><b>BigDaddy</b><br><span style="font-family:var(--mono);font-size:9px;background:#FFFBEB;color:#D97706;border:1px solid #FDE68A;padding:2px 7px;border-radius:20px;display:inline-block;margin:6px 0 10px">Tier 2 — Monitoring</span><br><span style="font-size:12px;color:var(--b);line-height:2">Channels: <b>33</b> · Reach: <b>1.8M</b><br>Colour prediction focus</span></div>
         <div class="card" style="border-left:3px solid #DC2626"><b>Fair786</b><br><span style="font-family:var(--mono);font-size:9px;background:#FFFBEB;color:#D97706;border:1px solid #FDE68A;padding:2px 7px;border-radius:20px;display:inline-block;margin:6px 0 10px">Tier 2 — Monitoring</span><br><span style="font-size:12px;color:var(--b);line-height:2">Channels: <b>8</b> · Reach: <b>450K</b><br>Link: <b style="color:#7C3AED">MURUGAN_FIXER_LONDON1</b></span></div>
-      </div>
-    </div>
-
-    <!-- IPL -->
-    <div class="panel" id="p-ipl">
-      <div class="ph"><div class="ph-t">IPL 2026 — Live fraud monitoring</div></div>
-      <div class="card" style="border-left:3px solid var(--g);margin-bottom:12px">
-        <div style="font-size:14px;font-weight:700;margin-bottom:8px">PBKS vs DC — Match 54 · Mohali · May 11 2026</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-family:var(--mono);font-size:11px;color:var(--b);line-height:2">
-          <div><div style="font-size:20px;font-weight:700;color:var(--g)">PBKS 70/0</div>4.6 overs · RR 13.74<br>Priyansh Arya: <b>50*(24)</b> · 6 sixes</div>
-          <div><b style="color:#D97706">⚠ Rate limited until 8am IST</b><br>Match 54: scan incomplete<br>Match 53: 20 streams confirmed</div>
-        </div>
-      </div>
-      <div class="card">
-        <div style="font-weight:600;margin-bottom:10px">Match 53 evidence — complete</div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-family:var(--mono);font-size:11px">
-          <div><div style="color:var(--m);font-size:9px;text-transform:uppercase;margin-bottom:3px">Piracy</div><div style="font-size:20px;font-weight:700;color:#DC2626">20</div></div>
-          <div><div style="color:var(--m);font-size:9px;text-transform:uppercase;margin-bottom:3px">Betting</div><div style="font-size:20px;font-weight:700;color:#D97706">13</div></div>
-          <div><div style="color:var(--m);font-size:9px;text-transform:uppercase;margin-bottom:3px">Reach</div><div style="font-size:20px;font-weight:700;color:var(--g)">35M</div></div>
-          <div><div style="color:var(--m);font-size:9px;text-transform:uppercase;margin-bottom:3px">Evidence</div><div style="font-size:13px;font-weight:700;color:var(--g);padding-top:3px">IT Act §65B</div></div>
-        </div>
       </div>
     </div>
 
@@ -345,154 +312,183 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
 </div>
 
 <div class="statusbar">
-  <div class="si"><span class="sd sda"></span>Telegram rate limited · resets 8am IST</div>
+  <div class="si"><span class="sd" id="railway-dot" style="background:#D97706"></span>Railway API <span id="railway-status-text">connecting...</span></div>
   <div class="si"><span class="sd sdg"></span>Graph 1,290 nodes · 169 edges</div>
-  <div class="si"><span class="sd sdg"></span>Channels 1,245 · Reach 40M</div>
-  <div class="si"><span class="sd sdg"></span>LaunchD daily ✓ keepalive ✓</div>
+  <div class="si"><span class="sd sdg"></span>Scans: 08:00 · 12:00 · 18:00 · 22:00 IST</div>
   <div class="si" style="margin-left:auto;color:#DC2626">⚠ JioHotstar 2 emails unread · send Anil email</div>
 </div>
 
 <script>
-const PW='YOURNEWPASSWORD';
+const PW = 'cineos2026'; // change this
+const RAILWAY_API = 'https://cinerisk-api-production.up.railway.app';
+
 function doLogin(){
-  if(document.getElementById('pw').value===PW){
-    document.getElementById('login').style.display='none';
+  if(document.getElementById('pw').value === PW){
+    document.getElementById('login').style.display = 'none';
     init();
   } else {
-    document.getElementById('pwe').style.display='block';
-    document.getElementById('pw').value='';
+    document.getElementById('pwe').style.display = 'block';
+    document.getElementById('pw').value = '';
   }
 }
+
 function updateClock(){
-  const ist=new Date(Date.now()+5.5*3600000);
-  document.getElementById('clk').textContent=ist.toISOString().replace('T',' ').slice(0,19)+' IST';
+  const ist = new Date(Date.now() + 5.5 * 3600000);
+  document.getElementById('clk').textContent = ist.toISOString().replace('T',' ').slice(0,19) + ' IST';
 }
-updateClock();setInterval(updateClock,30000);
+updateClock(); setInterval(updateClock, 30000);
 
-// Category colour map
-const CATS={
-  'betting':              {l:'Betting',      c:'#DC2626',bg:'#FEF2F2',br:'#FECACA'},
-  'illegal_betting':      {l:'Betting',      c:'#DC2626',bg:'#FEF2F2',br:'#FECACA'},
-  'piracy':               {l:'Piracy',       c:'#D97706',bg:'#FFFBEB',br:'#FDE68A'},
-  'colour_prediction':    {l:'Colour Pred',  c:'#7C3AED',bg:'#F5F3FF',br:'#DDD6FE'},
-  'investment_fraud':     {l:'Investment',   c:'#2563EB',bg:'#EFF6FF',br:'#BFDBFE'},
-  'counterfeit_pharma':   {l:'Pharma',       c:'#059669',bg:'#ECFDF5',br:'#A7F3D0'},
-  'upi_mule':             {l:'UPI Mule',     c:'#EA580C',bg:'#FFF7ED',br:'#FED7AA'},
+const CATS = {
+  'betting':               {l:'Betting',    c:'#DC2626', bg:'#FEF2F2', br:'#FECACA'},
+  'illegal_betting':       {l:'Betting',    c:'#DC2626', bg:'#FEF2F2', br:'#FECACA'},
+  'piracy':                {l:'Piracy',     c:'#D97706', bg:'#FFFBEB', br:'#FDE68A'},
+  'colour_prediction':     {l:'Colour',     c:'#7C3AED', bg:'#F5F3FF', br:'#DDD6FE'},
+  'investment_fraud':      {l:'Investment', c:'#2563EB', bg:'#EFF6FF', br:'#BFDBFE'},
+  'counterfeit_pharma':    {l:'Pharma',     c:'#059669', bg:'#ECFDF5', br:'#A7F3D0'},
+  'upi_mule':              {l:'UPI Mule',   c:'#EA580C', bg:'#FFF7ED', br:'#FED7AA'},
   'counterfeit_marketplace':{l:'Counterfeit',c:'#E11D48',bg:'#FFF1F2',br:'#FECDD3'},
-  'impersonation':        {l:'Impersonation',c:'#0891B2',bg:'#ECFEFF',br:'#A5F3FC'},
-  'brand_impersonation':  {l:'Brand Fake',   c:'#0891B2',bg:'#ECFEFF',br:'#A5F3FC'},
-  'domain_squat':         {l:'Domain Squat', c:'#7C3AED',bg:'#F5F3FF',br:'#DDD6FE'},
-  'job_scam':             {l:'Job Scam',     c:'#9333EA',bg:'#FAF5FF',br:'#E9D5FF'},
+  'impersonation':         {l:'Impersonation',c:'#0891B2',bg:'#ECFEFF',br:'#A5F3FC'},
+  'brand_impersonation':   {l:'Brand Fake', c:'#0891B2', bg:'#ECFEFF', br:'#A5F3FC'},
+  'domain_squat':          {l:'Domain',     c:'#7C3AED', bg:'#F5F3FF', br:'#DDD6FE'},
 };
-const gc=c=>CATS[c]||{l:c,c:'#64748B',bg:'#F8FAFC',br:'#E2E8F0'};
-const scls=s=>({critical:'sc',high:'sh',medium:'sm',low:'sl'}[s]||'sl');
+const gc2 = c => CATS[c] || {l:c, c:'#64748B', bg:'#F8FAFC', br:'#E2E8F0'};
+const scls = s => ({critical:'sc', high:'sh', medium:'sm', low:'sl'}[s] || 'sl');
 
-let ALL=[],cur='all',sev='all',openId=null;
+let ALL = [], cur = 'all', sev = 'all', openId = null;
+let railwayOk = false;
 
-const SEED=[
-  {id:'b4d2d6',title:'IPL Match 53 — 20 piracy streams detected',category:'piracy',severity:'critical',platform:'Telegram / Web',detail:'20 illegal live streams CSK vs LSG · May 10 13:23 IST · 35M+ reach',detected_at:'2026-05-10T13:23:00',chain:{channels_found:['13 channels (internal)'],keywords_matched:['ipl live','hotstar free','watch live'],reach:35000000,phones:['+91-8306154335','+91-9216328940'],operator_name:'Reddy Anna Book affiliate',operator_network:'Play99 network',evidence_hashes:['b4d2d638a9f1c2'],legal_basis:'IT Act 2000 S.65B + Copyright Act S.51',recommended_action:'IT Rules 2021 S.69A takedown notice to Telegram',report_to:['JioHotstar','BCCI','MIB']}},
-  {id:'a7f3c8',title:'Fake PhonePe APK — active credential theft site',category:'brand_impersonation',severity:'critical',platform:'Web / APK',detail:'phonepes.com.in — fake PhonePe APK · UAE registrant · Jan 2026',detected_at:'2026-05-10T09:14:00',chain:{channels_found:['phonepes.com.in'],keywords_matched:['phonepe apk','download'],reach:0,whois_domain:'phonepes.com.in',whois_registrant:'UAE registrant (full WHOIS internal)',evidence_hashes:['a7f3c891d2e4b5'],legal_basis:'IT Act 2000 S.66D + S.65B',recommended_action:'Report to CERT-In + PhonePe + registrar',report_to:['PhonePe','CERT-In','Dynadot']}},
-  {id:'e5f6a7',title:'jiohotstar.net — domain squat · registrant identified',category:'domain_squat',severity:'critical',platform:'WHOIS',detail:'Registered Jan 18 2026 — 4 days after JioHotstar launch · muthyala naresh',detected_at:'2026-05-10T06:00:00',chain:{channels_found:['jiohotstar.net'],keywords_matched:['jiohotstar'],reach:0,whois_domain:'jiohotstar.net',whois_registrant:'muthyala naresh — muthyala19@gmail.com',evidence_hashes:['e5f6a7b8c9d0e1'],legal_basis:'IT Act S.65B + Trade Marks Act S.29',recommended_action:'UDRP complaint + civil suit',report_to:['JioHotstar','BigRock','NIXI']}},
-  {id:'d4e5f6',title:'BCCI impersonator — 2 operator phones confirmed',category:'impersonation',severity:'high',platform:'Telegram',detail:'Phones publicly posted in fake BCCI channels · 95% confidence',detected_at:'2026-05-10T07:00:00',chain:{channels_found:['2 channels (internal)'],keywords_matched:['bcci','toss fixer'],reach:45000,phones:['+91-8306154335','+91-9216328940'],operator_name:'Reddy Anna Book',operator_network:'Play99 affiliate',evidence_hashes:['d4e5f6a7b8c9d0'],legal_basis:'IT Act S.66D + S.65B',recommended_action:'FIR under IT Act S.66D',report_to:['BCCI','Delhi Police','I4C']}},
-  {id:'g7h8i9',title:'91CLUB — 1,008,905 subscribers · illegal colour prediction',category:'colour_prediction',severity:'high',platform:'Telegram',detail:'Largest single fraud channel · Chinese-origin app · Online Gaming Act violation',detected_at:'2026-05-11T08:00:00',chain:{channels_found:['1 channel (internal)'],keywords_matched:['91club','aviator','colour prediction'],reach:1008905,evidence_hashes:['g7h8i9j0k1l2'],legal_basis:'Online Gaming Act 2025 + IT Act S.65B',recommended_action:'Report to NOGC + DoT for blocking',report_to:['NOGC','MeitY','DoT']}},
-  {id:'f6a7b8',title:'UPI mule recruitment — Gujarat Rs 77Cr network active',category:'upi_mule',severity:'high',platform:'Telegram',detail:'Bank account kit offers · Gujarat bust modus · Dubai link confirmed',detected_at:'2026-05-10T00:15:00',chain:{channels_found:['active channels (internal)'],keywords_matched:['bank account kit','sim card','earn commission'],reach:12000,operator_network:'Gujarat-Dubai corridor',evidence_hashes:['f6a7b8c9d0e1f2'],legal_basis:'IT Act S.65B + IPC S.420',recommended_action:'Intelligence to HDFC/ICICI + I4C',report_to:['NPCI','HDFC','ICICI','I4C']}},
-  {id:'c3d4e5',title:'148 counterfeit listings — Amazon India + Flipkart',category:'counterfeit_marketplace',severity:'high',platform:'Amazon / Flipkart',detail:'Explicit counterfeit keywords in product titles · 3-tier verified · defensible',detected_at:'2026-05-10T08:00:00',chain:{channels_found:['Amazon India','Flipkart'],keywords_matched:['first copy','replica','master copy'],reach:0,evidence_hashes:['c3d4e5f6a7b8c9'],legal_basis:'Trade Marks Act S.29 + IT Act S.65B',recommended_action:'Brand takedown notices to Amazon/Flipkart',report_to:['Amazon Brand Registry','Flipkart Legal']}},
-  {id:'h8i9j0',title:'15 pharma channels — Unitel Pharma modus operandi',category:'counterfeit_pharma',severity:'high',platform:'Telegram',detail:'Matches Rs 10Cr Unitel bust · CGHS diversion · packaging mimicry',detected_at:'2026-05-09T22:00:00',chain:{channels_found:['15 channels (internal)'],keywords_matched:['medicine wholesale','pharma agent','below mrp'],reach:85000,evidence_hashes:['h8i9j0k1l2m3n4'],legal_basis:'Drugs and Cosmetics Act 1940 + IT Act S.65B',recommended_action:'Intelligence to CDSCO + pharma brands',report_to:['CDSCO','Delhi Police','Sun Pharma']}},
-  {id:'i9j0k1',title:'Mahadev Book — 41 channels · 2.2M reach · active ED case',category:'betting',severity:'high',platform:'Telegram',detail:'Largest betting operator · Active ED investigation · Dubai financial link',detected_at:'2026-05-10T06:00:00',chain:{channels_found:['41 channels (internal)'],keywords_matched:['mahadev book','cricket bet','ipl bet'],reach:2200000,operator_name:'Mahadev Book',operator_network:'Lotus365 / Dubai',evidence_hashes:['i9j0k1l2m3n4o5'],legal_basis:'Public Gambling Act 1867 + IT Act S.65B',recommended_action:'Intelligence to ED + Cyber Crime Portal',report_to:['ED','NOGC','Cyber Crime Portal']}},
-  {id:'j0k1l2',title:'Investment fraud syndicate — 5 fake platforms · 1 registrant',category:'investment_fraud',severity:'medium',platform:'Telegram / Web',detail:'WHOIS links 5 fake trading platforms to one registrant · syndicate confirmed',detected_at:'2026-05-10T08:00:00',chain:{channels_found:['25 channels (internal)'],keywords_matched:['guaranteed returns','sebi registered','100% profit'],reach:340000,whois_domain:'5 domains (internal)',whois_registrant:'Registrant identified (internal)',evidence_hashes:['j0k1l2m3n4o5p6'],legal_basis:'SEBI IA Regulations 2013 + IT Act S.65B',recommended_action:'SEBI SCORES complaint + platform takedown',report_to:['SEBI','I4C','Telegram']}},
-];
-
+// Fetch from Railway API — falls back to static JSON
 async function loadAlerts(){
-  try{
-    const r=await fetch('reports/alerts/live_alerts.json?t='+Date.now());
-    if(r.ok) ALL=await r.json();
-    else ALL=SEED;
-  }catch(e){ALL=SEED;}
+  try {
+    const r = await fetch(`${RAILWAY_API}/api/alerts?limit=100`, {
+      signal: AbortSignal.timeout(8000)
+    });
+    if(r.ok){
+      const data = await r.json();
+      ALL = data.alerts || [];
+      setRailwayStatus(true, `${ALL.length} alerts`);
+      // Update stats from Railway
+      const stats = await fetch(`${RAILWAY_API}/api/stats`).then(r=>r.json()).catch(()=>({}));
+      if(stats.scans_today !== undefined){
+        document.getElementById('scans-today').textContent = stats.scans_today;
+      }
+      if(stats.last_scan){
+        document.getElementById('last-scan-time').textContent = 
+          'Last scan: ' + stats.last_scan.slice(11,16) + ' IST';
+      }
+    } else {
+      throw new Error('Railway returned ' + r.status);
+    }
+  } catch(e) {
+    // Fallback: try static JSON from GitHub Pages
+    setRailwayStatus(false, 'using static data');
+    try {
+      const r2 = await fetch('reports/alerts/live_alerts.json?t=' + Date.now());
+      if(r2.ok) ALL = await r2.json();
+      else ALL = SEED;
+    } catch(e2) {
+      ALL = SEED;
+    }
+  }
   updateCounts();
   filter();
 }
 
-function updateCounts(){
-  const n=ALL.length;
-  document.getElementById('total-ct').textContent=n+' alerts';
-  document.getElementById('sb-ct').textContent=n;
-  document.getElementById('ov-ct').textContent=n;
-  // Category breakdown
-  const cats={};
-  ALL.forEach(a=>{cats[a.category]=(cats[a.category]||0)+1});
-  const bd=document.getElementById('cat-bd');
-  if(bd){
-    bd.innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([cat,cnt])=>{
-      const m=gc(cat);
-      const pct=Math.round(cnt/ALL.length*100);
-      return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <div style="width:8px;height:8px;border-radius:50%;background:${m.c};flex-shrink:0"></div>
-        <div style="font-size:11px;color:var(--b);flex:1">${m.l}</div>
-        <div style="font-family:var(--mono);font-size:10px;color:var(--m)">${cnt}</div>
-        <div style="width:60px;height:4px;background:var(--bo);border-radius:2px"><div style="width:${pct}%;height:100%;background:${m.c};border-radius:2px"></div></div>
-      </div>`;
-    }).join('');
+function setRailwayStatus(ok, msg){
+  railwayOk = ok;
+  const dot = document.getElementById('railway-dot');
+  const txt = document.getElementById('railway-status-text');
+  const ind = document.getElementById('railway-indicator');
+  dot.style.background = ok ? '#166534' : '#D97706';
+  txt.textContent = ok ? '✓ ' + msg : '⚠ ' + msg;
+  if(ind){
+    ind.style.display = 'flex';
+    ind.className = 'railway-status ' + (ok ? 'rs-ok' : 'rs-err');
+    ind.textContent = ok ? '✓ Railway' : '⚠ Railway';
   }
 }
 
-function setSev(s,el){sev=s;document.querySelectorAll('.sev-chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');filter();}
-function setCat(c,el){cur=c;document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));el.classList.add('on');filter();}
-function goCat(c){
-  showTab('alerts',document.querySelector('.sbi[onclick*="alerts"]'));
-  const chip=document.querySelector(`.chip[data-c="${c}"]`);
-  if(chip)setCat(c,chip);
+// Seed data (used when Railway and static JSON both unreachable)
+const SEED = [
+  {id:'b4d2d6',title:'IPL Match 53 — 20 piracy streams detected',category:'piracy',severity:'critical',platform:'Telegram / Web',detail:'20 illegal live streams CSK vs LSG · May 10 13:23 IST · 35M+ reach',detected_at:'2026-05-10T13:23:00',chain:{channels_found:['13 channels (internal)'],keywords_matched:['ipl live','hotstar free','watch live'],reach:35000000,phones:['+91-8306154335','+91-9216328940'],operator_name:'Reddy Anna Book affiliate',operator_network:'Play99 network',evidence_hashes:['b4d2d638a9f1c2'],legal_basis:'IT Act 2000 S.65B + Copyright Act S.51',recommended_action:'IT Rules 2021 S.69A takedown to Telegram',report_to:['JioHotstar','BCCI','MIB']}},
+  {id:'a7f3c8',title:'Fake PhonePe APK — active credential theft site',category:'brand_impersonation',severity:'critical',platform:'Web / APK',detail:'phonepes.com.in — fake PhonePe APK · UAE registrant · Jan 2026',detected_at:'2026-05-10T09:14:00',chain:{channels_found:['phonepes.com.in'],keywords_matched:['phonepe apk','download'],reach:0,whois_domain:'phonepes.com.in',whois_registrant:'UAE registrant (internal)',evidence_hashes:['a7f3c891d2e4b5'],legal_basis:'IT Act S.66D + S.65B',recommended_action:'CERT-In + PhonePe + registrar',report_to:['PhonePe','CERT-In','Dynadot']}},
+  {id:'e5f6a7',title:'jiohotstar.net — domain squat · registrant identified',category:'domain_squat',severity:'critical',platform:'WHOIS',detail:'Registered Jan 18 2026 — 4 days after JioHotstar launch · muthyala naresh',detected_at:'2026-05-10T06:00:00',chain:{channels_found:['jiohotstar.net'],keywords_matched:['jiohotstar'],reach:0,whois_domain:'jiohotstar.net',whois_registrant:'muthyala naresh — muthyala19@gmail.com',evidence_hashes:['e5f6a7b8c9d0e1'],legal_basis:'IT Act S.65B + TM Act S.29',recommended_action:'UDRP complaint + civil suit',report_to:['JioHotstar','BigRock','NIXI']}},
+  {id:'d4e5f6',title:'BCCI impersonator — 2 operator phones confirmed',category:'impersonation',severity:'high',platform:'Telegram',detail:'Phones publicly posted in fake BCCI channels · 95% confidence',detected_at:'2026-05-10T07:00:00',chain:{channels_found:['2 channels (internal)'],keywords_matched:['bcci','toss fixer'],reach:45000,phones:['+91-8306154335','+91-9216328940'],operator_name:'Reddy Anna Book',operator_network:'Play99 affiliate',evidence_hashes:['d4e5f6a7b8c9d0'],legal_basis:'IT Act S.66D + S.65B',recommended_action:'FIR under IT Act S.66D',report_to:['BCCI','Delhi Police','I4C']}},
+  {id:'g7h8i9',title:'91CLUB — 1,008,905 subscribers · illegal colour prediction',category:'colour_prediction',severity:'high',platform:'Telegram',detail:'Largest single fraud channel · Chinese-origin app',detected_at:'2026-05-11T08:00:00',chain:{channels_found:['1 channel (internal)'],keywords_matched:['91club','aviator','colour prediction'],reach:1008905,evidence_hashes:['g7h8i9j0k1l2'],legal_basis:'Online Gaming Act 2025 + IT Act S.65B',recommended_action:'Report to NOGC + DoT',report_to:['NOGC','MeitY','DoT']}},
+  {id:'i9j0k1',title:'Mahadev Book — 41 channels · 2.2M reach · active ED case',category:'illegal_betting',severity:'high',platform:'Telegram',detail:'Largest betting operator · Active ED investigation · Dubai link',detected_at:'2026-05-10T06:00:00',chain:{channels_found:['41 channels (internal)'],keywords_matched:['mahadev book','cricket bet'],reach:2200000,operator_name:'Mahadev Book',operator_network:'Lotus365 / Dubai',evidence_hashes:['i9j0k1l2m3n4o5'],legal_basis:'Public Gambling Act + IT Act S.65B',recommended_action:'ED + Cyber Crime Portal',report_to:['ED','NOGC']}},
+];
+
+function updateCounts(){
+  const n = ALL.length;
+  document.getElementById('total-ct').textContent = n + ' alerts';
+  document.getElementById('sb-ct').textContent = n;
+  document.getElementById('ov-ct').textContent = n;
+  const cats = {};
+  ALL.forEach(a => { cats[a.category] = (cats[a.category]||0)+1; });
+  const bd = document.getElementById('cat-bd');
+  if(bd) bd.innerHTML = Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([cat,cnt])=>{
+    const m = gc2(cat);
+    const pct = Math.round(cnt/ALL.length*100);
+    return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+      <div style="width:8px;height:8px;border-radius:50%;background:${m.c};flex-shrink:0"></div>
+      <div style="font-size:11px;color:var(--b);flex:1">${m.l}</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--m)">${cnt}</div>
+      <div style="width:60px;height:4px;background:var(--bo);border-radius:2px"><div style="width:${pct}%;height:100%;background:${m.c};border-radius:2px"></div></div>
+    </div>`;
+  }).join('');
 }
 
+function setSev(s,el){ sev=s; document.querySelectorAll('.sev-chip').forEach(c=>c.classList.remove('on')); el.classList.add('on'); filter(); }
+function setCat(c,el){ cur=c; document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); el.classList.add('on'); filter(); }
+function goCat(c){ showTab('alerts',document.querySelector('.sbi[onclick*="alerts"]')); const chip=document.querySelector(`.chip[data-c="${c}"]`); if(chip) setCat(c,chip); }
+
 function filter(){
-  const q=(document.getElementById('sq')?.value||'').toLowerCase();
-  const res=ALL.filter(a=>{
-    if(sev!=='all'&&a.severity!==sev)return false;
-    if(cur!=='all'&&a.category!==cur)return false;
+  const q = (document.getElementById('sq')?.value||'').toLowerCase();
+  const res = ALL.filter(a=>{
+    if(sev!=='all' && a.severity!==sev) return false;
+    if(cur!=='all' && a.category!==cur) return false;
     if(q){
-      const h=[a.title,a.detail,a.category,a.platform,a.severity,
+      const h = [a.title,a.detail,a.category,a.platform,a.severity,
         ...(a.chain?.phones||[]),...(a.chain?.upis||[]),
         a.chain?.operator_name||'',a.chain?.operator_network||'',
-        a.chain?.whois_registrant||'',a.chain?.whois_domain||'',
-        ...(a.chain?.keywords_matched||[]),...(a.chain?.report_to||[])
-      ].join(' ').toLowerCase();
-      if(!h.includes(q))return false;
+        a.chain?.whois_registrant||'',...(a.chain?.keywords_matched||[]),
+        ...(a.chain?.report_to||[])].join(' ').toLowerCase();
+      if(!h.includes(q)) return false;
     }
     return true;
   });
-  const rct=document.getElementById('rct');
-  if(rct)rct.textContent=`${res.length} alert${res.length!==1?'s':''}${res.length<ALL.length?' (filtered from '+ALL.length+')':''}`;
+  const rct = document.getElementById('rct');
+  if(rct) rct.textContent = `${res.length} alert${res.length!==1?'s':''}${res.length<ALL.length?' (filtered from '+ALL.length+')':''}`;
   renderList(res);
 }
 
-function chain(ch){
-  if(!ch)return '';
-  const steps=[];
-  const nc=ch.channels_found?.length||0,nk=ch.keywords_matched?.length||0;
+function buildChain(ch){
+  if(!ch) return '';
+  const steps = [];
+  const nc=ch.channels_found?.length||0, nk=ch.keywords_matched?.length||0;
   steps.push({icon:'📡',cls:'cd-g',lbl:'Detect',val:`${nc} channel${nc!==1?'s':''}`,sub:`${nk} keyword signals`});
   const r=ch.reach||0;
-  if(r>0)steps.push({icon:'👁',cls:'cd-a',lbl:'Reach',val:r>999999?`${(r/1e6).toFixed(1)}M subs`:`${r.toLocaleString()}`,sub:'subscriber exposure'});
+  if(r>0) steps.push({icon:'👁',cls:'cd-a',lbl:'Reach',val:r>999999?`${(r/1e6).toFixed(1)}M subs`:`${r.toLocaleString()}`,sub:'subscriber exposure'});
   const op=ch.operator_name||ch.whois_registrant||'';
   const ph=ch.phones||[];
-  if(op||ph.length)steps.push({icon:'👤',cls:'cd-p',lbl:'Attribute',val:op?(op.length>20?op.slice(0,20)+'…':op):(ph.length+' phone'+(ph.length!==1?'s':'')),sub:ph.length?ph[0]:(ch.operator_network||'Network mapped')});
+  if(op||ph.length) steps.push({icon:'👤',cls:'cd-p',lbl:'Attribute',val:op?(op.length>20?op.slice(0,20)+'…':op):(ph.length+' phone'+(ph.length!==1?'s':'')),sub:ph.length?ph[0]:(ch.operator_network||'Network mapped')});
   const hh=ch.evidence_hashes||[];
   steps.push({icon:'⚖',cls:'cd-g',lbl:'Evidence',val:(ch.legal_basis||'IT Act S.65B').split('+')[0].trim(),sub:hh.length?hh[0].slice(0,14)+'…':'Hashed at capture'});
   const ac=ch.recommended_action||'';
-  if(ac)steps.push({icon:'📋',cls:'cd-b',lbl:'End step',val:ac.length>28?ac.slice(0,28)+'…':ac,sub:(ch.report_to||[]).slice(0,2).join(' · ')});
+  if(ac) steps.push({icon:'📋',cls:'cd-b',lbl:'End step',val:ac.length>28?ac.slice(0,28)+'…':ac,sub:(ch.report_to||[]).slice(0,2).join(' · ')});
 
   let h='<div class="chain">';
   steps.forEach((s,i)=>{
     h+=`<div class="cnode"><div class="cdot ${s.cls}">${s.icon}</div><div class="clbl">${s.lbl}</div><div class="cval">${s.val}</div><div class="csub">${s.sub}</div></div>`;
-    if(i<steps.length-1)h+='<div class="carr">→</div>';
+    if(i<steps.length-1) h+='<div class="carr">→</div>';
   });
   h+='</div>';
-
-  // Evidence row
   h+='<div class="evrow">';
-  h+=`<div><div class="evl">Captured at</div><div class="evv g">${(ch.captured_at||ch.detected_at||'').slice(0,16)||'—'}</div></div>`;
+  h+=`<div><div class="evl">Captured at</div><div class="evv g">${(ch.captured_at||'').slice(0,16)||'—'}</div></div>`;
   h+=`<div><div class="evl">Legal basis</div><div class="evv">${ch.legal_basis||'IT Act S.65B'}</div></div>`;
   const phones=ch.phones||[];
-  if(phones.length)h+=`<div><div class="evl">Phones (internal)</div><div class="evv p">${phones.map(p=>`<span class="itag">${p}</span>`).join('')}</div></div>`;
-  else if(ch.whois_registrant)h+=`<div><div class="evl">WHOIS registrant</div><div class="evv p">${ch.whois_registrant.slice(0,40)}</div></div>`;
+  if(phones.length) h+=`<div><div class="evl">Phones (internal)</div><div class="evv p">${phones.map(p=>`<span class="itag">${p}</span>`).join('')}</div></div>`;
+  else if(ch.whois_registrant) h+=`<div><div class="evl">WHOIS registrant</div><div class="evv p">${ch.whois_registrant.slice(0,40)}</div></div>`;
   else h+=`<div><div class="evl">Channels found</div><div class="evv g">${(ch.channels_found||[]).length} in database</div></div>`;
   h+=`<div><div class="evl">Report to</div><div class="evv a">${(ch.report_to||[]).join(', ')||'—'}</div></div>`;
   h+='</div>';
@@ -500,10 +496,10 @@ function chain(ch){
 }
 
 function renderList(alerts){
-  const el=document.getElementById('alist');
-  if(!alerts.length){el.innerHTML='<div class="noresult">No alerts match. Try clearing filters or search.</div>';return;}
-  el.innerHTML=alerts.map(a=>{
-    const m=gc(a.category);
+  const el = document.getElementById('alist');
+  if(!alerts.length){ el.innerHTML='<div class="noresult">No alerts match. Try clearing filters or search.</div>'; return; }
+  el.innerHTML = alerts.map(a=>{
+    const m=gc2(a.category);
     const sc_=scls(a.severity);
     const dt=(a.detected_at||'').slice(5,16).replace('T',' ');
     const isOpen=a.id===openId;
@@ -525,7 +521,7 @@ function renderList(alerts){
             <button class="pdfbtn pdf-full" onclick="event.stopPropagation();pdf('${a.id}','full')">🔒 Full Report</button>
           </div>
         </div>
-        ${chain(a.chain||{})}
+        ${buildChain(a.chain||{})}
       </div>
     </div>`;
   }).join('');
@@ -534,13 +530,12 @@ function renderList(alerts){
 function tog(id){
   openId=(openId===id)?null:id;
   filter();
-  if(openId){setTimeout(()=>{const e=document.getElementById('ai_'+openId);if(e)e.scrollIntoView({behavior:'smooth',block:'nearest'});},50);}
+  if(openId){ setTimeout(()=>{ const e=document.getElementById('ai_'+openId); if(e) e.scrollIntoView({behavior:'smooth',block:'nearest'}); },50); }
 }
 
 function pdf(id,type){
   const note=document.createElement('div');
-  const col=type==='public'?'var(--g)':'#DC2626';
-  note.style.cssText=`position:fixed;bottom:36px;right:18px;z-index:1000;background:${col};color:#fff;padding:12px 16px;border-radius:8px;font-family:var(--mono);font-size:11px;max-width:360px;line-height:1.7;box-shadow:0 4px 20px rgba(0,0,0,.25)`;
+  note.style.cssText=`position:fixed;bottom:36px;right:18px;z-index:1000;background:${type==='public'?'#166534':'#DC2626'};color:#fff;padding:12px 16px;border-radius:8px;font-family:var(--mono);font-size:11px;max-width:360px;line-height:1.7;box-shadow:0 4px 20px rgba(0,0,0,.25)`;
   note.innerHTML=`<b>${type==='public'?'📄 PUBLIC REPORT':'🔒 FULL REPORT (signed agreement only)'}</b><br>Generate on your Mac:<br><code style="opacity:.8;font-size:10px">python3 cineos_pdf_generator.py</code><br><small>PDFs saved to reports/pdfs/</small>`;
   document.body.appendChild(note);
   setTimeout(()=>note.remove(),5000);
@@ -550,12 +545,12 @@ function showTab(id,el){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.sbi').forEach(t=>t.classList.remove('on'));
   document.getElementById('p-'+id).classList.add('on');
-  if(el)el.classList.add('on');
+  if(el) el.classList.add('on');
 }
 
 function init(){
   loadAlerts();
-  setInterval(loadAlerts,30000);
+  setInterval(loadAlerts, 30000); // refresh every 30s from Railway
   new Chart(document.getElementById('gc'),{
     type:'line',
     data:{labels:['4 May','5 May','6 May','7 May','8 May','9 May','10 May'],datasets:[{data:[1115,1130,1152,1178,1198,1221,1245],borderColor:'#166534',backgroundColor:'rgba(22,101,52,.06)',fill:true,tension:.4,pointRadius:3,pointBackgroundColor:'#166534',borderWidth:2,pointBorderColor:'#fff',pointBorderWidth:2}]},

@@ -237,6 +237,7 @@ SEED_ALERTS = [
     },
 ]
 
+# Auto-seed on import (gunicorn workers need this)
 def init_alerts():
     global ALERTS
     ALERTS = list(SEED_ALERTS)
@@ -376,6 +377,10 @@ def scheduler_loop():
         time.sleep(60)  # Check every minute
 
 # ── API ROUTES ────────────────────────────────────────────
+
+# Seed on module load
+if not ALERTS:
+    ALERTS.extend(SEED_ALERTS)
 
 @app.route('/health')
 def health():

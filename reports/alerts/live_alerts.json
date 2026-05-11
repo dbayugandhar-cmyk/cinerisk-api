@@ -1,5 +1,318 @@
 [
   {
+    "id": "ipl54live",
+    "title": "IPL Match 54 \u2014 PBKS vs DC \u00b7 fraud monitoring active",
+    "category": "piracy",
+    "severity": "high",
+    "platform": "Telegram \u00b7 Web",
+    "detail": "PBKS 70/0 after 4.6 overs \u00b7 Priyansh Arya 50*(24) \u00b7 Telegram scan rate limited",
+    "detected_at": "2026-05-11T19:30:00",
+    "source": "ipl_monitoring",
+    "chain": {
+      "channels_found": [
+        "Match 54 monitoring active"
+      ],
+      "keywords_matched": [
+        "pbks",
+        "dc",
+        "ipl live",
+        "match 54"
+      ],
+      "reach": 35000000,
+      "evidence_hashes": [
+        "ipl54live01"
+      ],
+      "legal_basis": "IT Act 2000 S.65B + Copyright Act S.51",
+      "recommended_action": "Complete scan at Telegram rate limit reset 8am IST",
+      "report_to": [
+        "JioHotstar",
+        "BCCI",
+        "MIB"
+      ],
+      "captured_at": "2026-05-11T19:30:00"
+    }
+  },
+  {
+    "id": "0e58afff",
+    "title": "\ud83d\udcb0\ud83d\udcb0 BIGDADDY CRYPTO \ud83d\udcb0\ud83d\udcb0 \u2014 376,318 subscribers",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Category: colour_prediction \u00b7 376,318 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976574",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "BdgWin_Wingo_Ok_Game"
+      ],
+      "keywords_matched": [
+        "colour_prediction"
+      ],
+      "reach": 376318,
+      "evidence_hashes": [
+        "0e58afff"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 376,318 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976576"
+    }
+  },
+  {
+    "id": "98be9df1",
+    "title": "\ud83c\udfc6DAMAN\ud83c\udfc6 \u2014 383,707 subscribers",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Category: colour_prediction \u00b7 383,707 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976571",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "Crypto_91club_jai_club"
+      ],
+      "keywords_matched": [
+        "colour_prediction"
+      ],
+      "reach": 383707,
+      "evidence_hashes": [
+        "98be9df1"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 383,707 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976572"
+    }
+  },
+  {
+    "id": "6f468704",
+    "title": "Download Movies \u2014 398,025 subscribers",
+    "category": "piracy",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Category: piracy \u00b7 398,025 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976563",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "Download_Movies_cinema_films_HD"
+      ],
+      "keywords_matched": [
+        "piracy"
+      ],
+      "reach": 398025,
+      "evidence_hashes": [
+        "6f468704"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan piracy channel \u2014 398,025 subscriber reach",
+      "report_to": [
+        "Internal"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976565"
+    }
+  },
+  {
+    "id": "6f864223",
+    "title": "BDG Game \u2014 413,976 subscribers",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Category: colour_prediction \u00b7 413,976 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976559",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "Vip_Prediction_Daman_Game_Sikkim"
+      ],
+      "keywords_matched": [
+        "colour_prediction"
+      ],
+      "reach": 413976,
+      "evidence_hashes": [
+        "6f864223"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 413,976 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976560"
+    }
+  },
+  {
+    "id": "5587a4c6",
+    "title": "IPL MATCH PREDICTION \u2014 607,237 subscribers",
+    "category": "betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Category: betting \u00b7 607,237 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976553",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "malik_mumbai_matchs"
+      ],
+      "keywords_matched": [
+        "betting"
+      ],
+      "reach": 607237,
+      "evidence_hashes": [
+        "5587a4c6"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan betting channel \u2014 607,237 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976556"
+    }
+  },
+  {
+    "id": "9d4e17ee",
+    "title": "Crypto Jaiclub Agents \ud83e\udd1d \u2014 686,679 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Category: colour_prediction \u00b7 686,679 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976549",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "crypto_jaiclub_91club_jalwa"
+      ],
+      "keywords_matched": [
+        "colour_prediction"
+      ],
+      "reach": 686679,
+      "evidence_hashes": [
+        "9d4e17ee"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 686,679 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976551"
+    }
+  },
+  {
+    "id": "190bb4cc",
+    "title": "JALWA GAME PREDICTION \u2014 725,635 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Category: colour_prediction \u00b7 725,635 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976540",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "Ok_win_Jalwa_tashan_prediction"
+      ],
+      "keywords_matched": [
+        "colour_prediction"
+      ],
+      "reach": 725635,
+      "evidence_hashes": [
+        "190bb4cc"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 725,635 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976542"
+    }
+  },
+  {
+    "id": "fcc03aa0",
+    "title": "OKWIN Game OK WIN \u2014 814,348 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Category: colour_prediction \u00b7 814,348 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976536",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "colour_trading_ok_win_game_okwin"
+      ],
+      "keywords_matched": [
+        "colour_prediction"
+      ],
+      "reach": 814348,
+      "evidence_hashes": [
+        "fcc03aa0"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 814,348 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976538"
+    }
+  },
+  {
+    "id": "e050cb3f",
+    "title": "\ud83d\ude80\ud83d\ude80OKWIN LUCKYJET\ud83d\ude80\ud83d\ude80 \u2014 820,200 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Category: colour_prediction \u00b7 820,200 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976530",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "Dream11F_winaddac_sportsc"
+      ],
+      "keywords_matched": [
+        "colour_prediction"
+      ],
+      "reach": 820200,
+      "evidence_hashes": [
+        "e050cb3f"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 820,200 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976533"
+    }
+  },
+  {
+    "id": "7c69bbcc",
+    "title": "\ud83d\ude80\ud83d\ude8091CLUB\ud83d\ude80\ud83d\ude80AVIATOR\ud83d\ude80\ud83d\ude80 \u2014 1,008,905 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Category: colour_prediction \u00b7 1,008,905 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976461",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "Aviatorc_lotteryzc_tirangac"
+      ],
+      "keywords_matched": [
+        "colour_prediction"
+      ],
+      "reach": 1008905,
+      "evidence_hashes": [
+        "7c69bbcc"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 1,008,905 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976513"
+    }
+  },
+  {
     "id": "e0e8e4f9fcf74103",
     "title": "Investment fraud syndicate \u2014 5 fake platforms, 1 registrant",
     "category": "investment_fraud",

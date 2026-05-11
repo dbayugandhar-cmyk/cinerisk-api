@@ -378,9 +378,15 @@ def scheduler_loop():
 
 # ── API ROUTES ────────────────────────────────────────────
 
-# Seed on module load
-if not ALERTS:
-    ALERTS.extend(SEED_ALERTS)
+# Seed on module load — runs for both gunicorn and direct
+ALERTS.extend(SEED_ALERTS)
+print(f'CINEOS: {len(ALERTS)} alerts seeded')
+
+# Start scheduler for gunicorn (runs 24/7 even when Mac is off)
+import threading as _t
+_sched = _t.Thread(target=scheduler_loop, daemon=True)
+_sched.start()
+print('Scheduler started: 08:00 12:00 18:00 22:00 IST')
 
 @app.route('/health')
 def health():

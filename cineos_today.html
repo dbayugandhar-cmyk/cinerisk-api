@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="CINEOS Today — India's daily fraud intelligence brief. Top 10 active fraud signals. Updated every morning. Free and public.">
+<title>CINEOS Today — India Fraud Intelligence Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1A1208;
+  --ink2:#2D2416;
+  --body:#4A3F2F;
+  --muted:#8B7D6B;
+  --border:#D4C9B8;
+  --border2:#E8E0D4;
+  --bg:#FAF7F2;
+  --white:#FFFFFF;
+  --green:#1A5C2E;
+  --green-light:#EBF5EE;
+  --green-border:#A8D5B5;
+  --red:#8B1A1A;
+  --red-light:#FDF0F0;
+  --amber:#7A4F00;
+  --amber-light:#FDF5E6;
+  --serif:'Playfair Display',serif;
+  --body-serif:'Source Serif 4',serif;
+  --mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--body-serif);
+  font-size:16px;
+  line-height:1.65;
+}
+
+/* ── MASTHEAD ── */
+.masthead{
+  border-bottom:3px double var(--ink);
+  padding:24px 48px 16px;
+  text-align:center;
+  position:relative;
+}
+.masthead-top{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:12px;
+  font-family:var(--mono);font-size:10px;
+  color:var(--muted);letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.masthead-name{
+  font-family:var(--serif);
+  font-size:clamp(36px,6vw,72px);
+  font-weight:900;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  line-height:1;
+  margin-bottom:8px;
+}
+.masthead-sub{
+  font-family:var(--body-serif);
+  font-size:13px;font-weight:300;
+  color:var(--muted);font-style:italic;
+  letter-spacing:.04em;
+  margin-bottom:12px;
+}
+.masthead-rule{
+  border:none;border-top:1px solid var(--border);
+  margin-bottom:10px;
+}
+.masthead-tags{
+  display:flex;gap:0;justify-content:center;
+  font-family:var(--mono);font-size:10px;
+  color:var(--muted);letter-spacing:.06em;
+}
+.masthead-tag{
+  padding:0 16px;border-right:1px solid var(--border);
+  text-transform:uppercase;
+}
+.masthead-tag:last-child{border-right:none}
+.masthead-tag.live{color:var(--green);font-weight:500}
+
+/* ── TICKER ── */
+.ticker-bar{
+  background:var(--ink);
+  overflow:hidden;padding:8px 0;
+}
+.ticker-inner{
+  display:flex;animation:scroll 50s linear infinite;
+  white-space:nowrap;
+}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:0 28px;
+  font-family:var(--mono);font-size:10px;
+  color:rgba(255,255,255,.6);
+  letter-spacing:.08em;text-transform:uppercase;
+  border-right:1px solid rgba(255,255,255,.1);
+  flex-shrink:0;
+}
+.tick .pip{width:4px;height:4px;border-radius:50%;flex-shrink:0}
+.pip-r{background:#FF6B6B}.pip-a{background:#FFB347}.pip-g{background:#69DB7C}
+
+/* ── LAYOUT ── */
+.page{max-width:1100px;margin:0 auto;padding:0 32px}
+
+/* ── BRIEFING HEADER ── */
+.brief-header{
+  padding:32px 0 24px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:48px;
+}
+.brief-date{
+  flex-shrink:0;
+  font-family:var(--serif);
+  font-size:13px;color:var(--muted);
+  font-style:italic;
+}
+.brief-headline{
+  flex:1;
+}
+.brief-hed{
+  font-family:var(--serif);
+  font-size:clamp(22px,3vw,32px);
+  font-weight:700;line-height:1.1;
+  color:var(--ink);margin-bottom:8px;
+}
+.brief-deck{
+  font-size:15px;font-weight:300;
+  color:var(--body);line-height:1.6;
+  max-width:580px;
+}
+.brief-stats{
+  flex-shrink:0;
+  display:flex;flex-direction:column;gap:8px;
+  min-width:180px;
+}
+.bs-item{
+  display:flex;align-items:baseline;
+  gap:8px;padding:10px 14px;
+  border:1px solid var(--border);
+  border-left:3px solid var(--green);
+  background:var(--white);
+}
+.bs-num{
+  font-family:var(--serif);font-size:24px;font-weight:700;
+  color:var(--green);line-height:1;
+}
+.bs-label{
+  font-family:var(--mono);font-size:9px;
+  color:var(--muted);letter-spacing:.08em;text-transform:uppercase;
+}
+
+/* ── MAIN GRID ── */
+.main-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:0;
+  padding:24px 0;
+  border-bottom:1px solid var(--border);
+}
+.col-main{padding-right:32px;border-right:1px solid var(--border)}
+.col-side{padding-left:28px}
+
+/* ── SECTION LABEL ── */
+.sec-label{
+  font-family:var(--mono);font-size:10px;
+  font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--white);
+  background:var(--ink);
+  display:inline-block;
+  padding:3px 10px;margin-bottom:16px;
+}
+.sec-label.red{background:var(--red)}
+.sec-label.green{background:var(--green)}
+.sec-label.amber{background:var(--amber)}
+
+/* ── SIGNAL CARDS ── */
+.signal{
+  padding:18px 0;
+  border-bottom:1px solid var(--border2);
+  display:grid;grid-template-columns:32px 1fr auto;
+  gap:14px;align-items:start;
+}
+.signal:last-child{border-bottom:none}
+.signal-rank{
+  font-family:var(--serif);font-size:28px;
+  font-weight:900;color:var(--border);
+  line-height:1;text-align:center;
+  padding-top:2px;
+}
+.signal-rank.hot{color:var(--red)}
+.signal-title{
+  font-family:var(--serif);
+  font-size:17px;font-weight:700;
+  line-height:1.2;color:var(--ink);
+  margin-bottom:5px;
+}
+.signal-body{
+  font-size:13px;color:var(--body);
+  line-height:1.6;margin-bottom:8px;
+}
+.signal-meta{
+  display:flex;gap:12px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:10px;
+  color:var(--muted);letter-spacing:.04em;
+}
+.sm-item{display:flex;align-items:center;gap:4px}
+.sm-item::before{content:'▸';color:var(--border)}
+.signal-badge{
+  font-family:var(--mono);font-size:9px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:4px 10px;white-space:nowrap;align-self:flex-start;
+  border:1px solid;
+}
+.sb-crit{border-color:var(--red);color:var(--red);background:var(--red-light)}
+.sb-high{border-color:var(--amber);color:var(--amber);background:var(--amber-light)}
+.sb-active{border-color:var(--green);color:var(--green);background:var(--green-light)}
+
+/* ── SIDEBAR ── */
+.sidebar-block{margin-bottom:28px}
+.sb-title{
+  font-family:var(--serif);font-size:15px;font-weight:700;
+  color:var(--ink);margin-bottom:12px;padding-bottom:8px;
+  border-bottom:2px solid var(--ink);
+}
+.sb-stat{
+  padding:12px 0;border-bottom:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.sb-stat:last-child{border-bottom:none}
+.sb-stat-label{
+  font-size:13px;color:var(--body);
+}
+.sb-stat-val{
+  font-family:var(--mono);font-size:13px;
+  font-weight:500;color:var(--ink);
+}
+.sb-stat-val.red{color:var(--red)}
+.sb-stat-val.green{color:var(--green)}
+
+/* TREND ITEM */
+.trend-item{
+  padding:10px 0;border-bottom:1px solid var(--border2);
+  font-size:13px;
+}
+.trend-item:last-child{border-bottom:none}
+.trend-cat{
+  font-family:var(--mono);font-size:10px;
+  color:var(--muted);letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:3px;
+}
+.trend-text{color:var(--body);line-height:1.5}
+.trend-num{
+  font-family:var(--serif);font-size:18px;
+  font-weight:700;color:var(--green);float:right;
+  margin-left:8px;
+}
+
+/* ── EVIDENCE STANDARD ── */
+.evidence-bar{
+  background:var(--ink);
+  padding:14px 48px;
+  display:flex;gap:32px;flex-wrap:wrap;
+  align-items:center;
+}
+.ev-item{
+  font-family:var(--mono);font-size:10px;
+  color:rgba(255,255,255,.5);letter-spacing:.06em;
+  display:flex;align-items:center;gap:7px;
+}
+.ev-item .ck{color:#69DB7C;font-size:12px}
+
+/* ── METHODOLOGY NOTE ── */
+.method-strip{
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:var(--green-light);
+  padding:16px 48px;
+  font-size:13px;color:var(--green);
+  font-style:italic;
+  display:flex;gap:12px;align-items:center;
+}
+.method-strip::before{
+  content:'§';
+  font-family:var(--serif);font-size:28px;
+  font-weight:700;color:var(--green-border);
+  flex-shrink:0;
+}
+
+/* ── SECOND GRID — CATEGORIES ── */
+.cat-grid{
+  padding:24px 0;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+  margin-bottom:24px;
+}
+.cat-cell{
+  background:var(--bg);
+  padding:20px 18px;
+  transition:background .15s;
+}
+.cat-cell:hover{background:var(--white)}
+.cc-num{
+  font-family:var(--serif);font-size:32px;
+  font-weight:900;color:var(--ink);
+  letter-spacing:-.02em;line-height:1;
+  margin-bottom:4px;
+}
+.cc-label{
+  font-family:var(--mono);font-size:10px;
+  color:var(--muted);letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:8px;
+}
+.cc-bar{
+  height:3px;background:var(--border);
+  border-radius:2px;overflow:hidden;
+}
+.cc-fill{height:100%;border-radius:2px;transition:width .8s ease}
+.cc-desc{font-size:12px;color:var(--body);margin-top:8px;line-height:1.5}
+
+/* ── ABOUT + CTA ── */
+.about-strip{
+  display:grid;grid-template-columns:2fr 1fr;
+  gap:0;border-top:2px solid var(--ink);
+  border-bottom:1px solid var(--border);
+  padding:28px 0;margin-bottom:0;
+}
+.about-left{padding-right:32px;border-right:1px solid var(--border)}
+.about-right{padding-left:28px}
+.about-title{
+  font-family:var(--serif);font-size:18px;font-weight:700;
+  color:var(--ink);margin-bottom:10px;
+}
+.about-text{font-size:13px;color:var(--body);line-height:1.7}
+.cta-box{
+  background:var(--green);
+  padding:20px;border-radius:0;
+  text-align:center;
+}
+.cta-title{
+  font-family:var(--serif);font-size:16px;font-weight:700;
+  color:#fff;margin-bottom:8px;
+}
+.cta-sub{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:16px;line-height:1.5}
+.cta-btn{
+  display:block;background:#fff;color:var(--green);
+  padding:10px 20px;
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;margin-bottom:8px;
+  transition:opacity .15s;
+}
+.cta-btn:hover{opacity:.9}
+.cta-btn.outline{
+  background:transparent;color:#fff;
+  border:1px solid rgba(255,255,255,.4);
+}
+
+/* ── FOOTER ── */
+footer{
+  border-top:3px double var(--ink);
+  padding:20px 48px;
+  display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.footer-left{
+  font-family:var(--serif);font-size:18px;
+  font-weight:900;color:var(--ink);
+}
+.footer-mid{
+  font-family:var(--mono);font-size:10px;
+  color:var(--muted);letter-spacing:.06em;
+  text-align:center;
+}
+.footer-right{display:flex;gap:16px}
+.footer-right a{
+  font-family:var(--mono);font-size:10px;
+  color:var(--muted);text-decoration:none;
+  letter-spacing:.04em;transition:color .15s;
+  text-transform:uppercase;
+}
+.footer-right a:hover{color:var(--green)}
+
+@media(max-width:800px){
+  .masthead,.evidence-bar,.method-strip,footer{padding-left:20px;padding-right:20px}
+  .page{padding:0 20px}
+  .brief-header{flex-direction:column;gap:20px}
+  .brief-stats{flex-direction:row;flex-wrap:wrap}
+  .main-grid{grid-template-columns:1fr}
+  .col-main{padding-right:0;border-right:none;border-bottom:1px solid var(--border);padding-bottom:24px}
+  .col-side{padding-left:0;padding-top:24px}
+  .cat-grid{grid-template-columns:1fr 1fr}
+  .about-strip{grid-template-columns:1fr}
+  .about-left{padding-right:0;border-right:none;padding-bottom:20px}
+  .about-right{padding-left:0}
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="masthead-top">
+    <span>cineos.in/today</span>
+    <span id="date-display">—</span>
+    <span>India · Public Intelligence Brief</span>
+  </div>
+  <div class="masthead-name">CINEOS TODAY</div>
+  <div class="masthead-sub">India's daily fraud intelligence brief · Updated every morning · Free and public</div>
+  <hr class="masthead-rule">
+  <div class="masthead-tags">
+    <div class="masthead-tag live">● Live monitoring</div>
+    <div class="masthead-tag">1,245 channels tracked</div>
+    <div class="masthead-tag">40M subscriber reach</div>
+    <div class="masthead-tag">IT Act §65B certified</div>
+    <div class="masthead-tag">Patent 64/049,190</div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-inner">
+    <span class="tick"><span class="pip pip-r"></span>Illegal betting · 437 channels active today</span>
+    <span class="tick"><span class="pip pip-a"></span>IPL piracy · Match 54 PBKS vs DC · streams detected</span>
+    <span class="tick"><span class="pip pip-r"></span>Colour prediction fraud · 41 channels · 4.1M reach</span>
+    <span class="tick"><span class="pip pip-a"></span>Counterfeit marketplace · 148 verified listings</span>
+    <span class="tick"><span class="pip pip-r"></span>Fake payment APK · Active download site</span>
+    <span class="tick"><span class="pip pip-a"></span>UPI mule recruitment · Gujarat network pattern</span>
+    <span class="tick"><span class="pip pip-r"></span>Pharma counterfeit · 15 medicine channels monitored</span>
+    <span class="tick"><span class="pip pip-a"></span>Investment fraud · 25 pig butchering channels</span>
+    <span class="tick"><span class="pip pip-r"></span>Illegal betting · 437 channels active today</span>
+    <span class="tick"><span class="pip pip-a"></span>IPL piracy · Match 54 PBKS vs DC · streams detected</span>
+    <span class="tick"><span class="pip pip-r"></span>Colour prediction fraud · 41 channels · 4.1M reach</span>
+    <span class="tick"><span class="pip pip-a"></span>Counterfeit marketplace · 148 verified listings</span>
+    <span class="tick"><span class="pip pip-r"></span>Fake payment APK · Active download site</span>
+    <span class="tick"><span class="pip pip-a"></span>UPI mule recruitment · Gujarat network pattern</span>
+    <span class="tick"><span class="pip pip-r"></span>Pharma counterfeit · 15 medicine channels monitored</span>
+    <span class="tick"><span class="pip pip-a"></span>Investment fraud · 25 pig butchering channels</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- BRIEFING HEADER -->
+  <div class="brief-header">
+    <div class="brief-date">
+      Monday<br>May 11, 2026<br>Edition No. 42
+    </div>
+    <div class="brief-headline">
+      <div class="brief-hed">Illegal betting networks and piracy operations continue during IPL 2026 — CINEOS maps 437 active channels across 13 platforms</div>
+      <p class="brief-deck">Daily automated scan of 1,245 public Telegram channels and indexed web sources. Findings classified by signal strength and legal standard. No channel names or operator identities shown in public brief — full intelligence available under signed agreement.</p>
+    </div>
+    <div class="brief-stats">
+      <div class="bs-item">
+        <div class="bs-num">437</div>
+        <div class="bs-label">Betting channels<br>active today</div>
+      </div>
+      <div class="bs-item">
+        <div class="bs-num">40M</div>
+        <div class="bs-label">Combined reach<br>monitored</div>
+      </div>
+      <div class="bs-item">
+        <div class="bs-num">1,290</div>
+        <div class="bs-label">Graph nodes<br>mapped</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- LEFT COLUMN — TOP 10 SIGNALS -->
+    <div class="col-main">
+      <div class="sec-label red">Today's top fraud signals</div>
+
+      <div class="signal">
+        <div class="signal-rank hot">1</div>
+        <div>
+          <div class="signal-title">IPL Match 54 piracy — live streams detected during PBKS vs DC</div>
+          <p class="signal-body">Multiple illegal live streams detected distributing copyrighted IPL broadcast without authorisation. Pattern consistent with Match 53 (CSK vs LSG, May 10) where 20 streams were timestamped and hashed. PBKS vs DC is a lower-profile match — activity approximately 30–40% of CSK match volume.</p>
+          <div class="signal-meta">
+            <span class="sm-item">Telegram · Web</span>
+            <span class="sm-item">IT Act §65B evidence</span>
+            <span class="sm-item">May 11 2026</span>
+          </div>
+        </div>
+        <div class="signal-badge sb-crit">Critical</div>
+      </div>
+
+      <div class="signal">
+        <div class="signal-rank hot">2</div>
+        <div>
+          <div class="signal-title">Colour prediction fraud network — 41 channels, 4.1M reach</div>
+          <p class="signal-body">Colour prediction fraud channels — apps including 91CLUB, OKWIN, JALWA and similar Chinese-origin platforms — show the largest individual subscriber counts in the CINEOS database. Top single channel exceeds 1 million subscribers. These platforms operate as illegal money gaming in violation of India's online gaming regulations.</p>
+          <div class="signal-meta">
+            <span class="sm-item">Telegram</span>
+            <span class="sm-item">Chinese-origin platforms</span>
+            <span class="sm-item">Online Gaming Act 2025</span>
+          </div>
+        </div>
+        <div class="signal-badge sb-crit">Critical</div>
+      </div>
+
+      <div class="signal">
+        <div class="signal-rank">3</div>
+        <div>
+          <div class="signal-title">Illegal betting network — 437 channels operating in IPL season</div>
+          <p class="signal-body">437 illegal betting channels monitored across satta, match prediction, exchange betting and toss fixing categories. IPL season correlates with elevated activity — approximately 3× normal volume for high-profile matches. 15 operator networks identified and mapped in connected graph. Operator attribution available under signed intelligence agreement.</p>
+          <div class="signal-meta">
+            <span class="sm-item">437 channels</span>
+            <span class="sm-item">12.4M reach</span>
+            <span class="sm-item">15 networks mapped</span>
+          </div>
+        </div>
+        <div class="signal-badge sb-crit">Critical</div>
+      </div>
+
+      <div class="signal">
+        <div class="signal-rank">4</div>
+        <div>
+          <div class="signal-title">Fake payment app APK — active credential theft site detected</div>
+          <p class="signal-body">A fake payment application APK download site was confirmed active. Domain registered January 2026. Registrar: UAE. Site impersonates a legitimate Indian payment application and harvests credentials from victims who install the fake APK. Evidence archived per IT Act §65B. Registrant identity available under signed agreement.</p>
+          <div class="signal-meta">
+            <span class="sm-item">Active APK site</span>
+            <span class="sm-item">UAE registrant</span>
+            <span class="sm-item">IT Act §65B archived</span>
+          </div>
+        </div>
+        <div class="signal-badge sb-crit">Critical</div>
+      </div>
+
+      <div class="signal">
+        <div class="signal-rank">5</div>
+        <div>
+          <div class="signal-title">Counterfeit marketplace — 148 verified listings on Amazon India and Flipkart</div>
+          <p class="signal-body">148 marketplace listings with explicit counterfeit keywords in product titles — the only category of listing that passes CINEOS three-tier quality audit. Filtered from 856 raw findings. Seller networks traced from Telegram wholesale channels to marketplace listings. Evidence meets Trade Marks Act §29 standard for brand enforcement action.</p>
+          <div class="signal-meta">
+            <span class="sm-item">Amazon India</span>
+            <span class="sm-item">Flipkart</span>
+            <span class="sm-item">TM Act §29 standard</span>
+          </div>
+        </div>
+        <div class="signal-badge sb-high">High</div>
+      </div>
+
+      <div class="signal">
+        <div class="signal-rank">6</div>
+        <div>
+          <div class="signal-title">UPI mule recruitment — Gujarat network pattern active post-arrest</div>
+          <p class="signal-body">Recruitment channels offering bank account kits and SIM cards continue to operate matching the Gujarat Rs 77 Crore mule network modus operandi — despite 16 arrests in April 2026. Only a portion of the network was arrested. Shared UPI identifiers across channels identify active network nodes. Dubai coordination pattern documented.</p>
+          <div class="signal-meta">
+            <span class="sm-item">Gujarat bust pattern</span>
+            <span class="sm-item">Rs 77 Cr reference case</span>
+            <span class="sm-item">Dubai link confirmed</span>
+          </div>
+        </div>
+        <div class="signal-badge sb-high">High</div>
+      </div>
+
+      <div class="signal">
+        <div class="signal-rank">7</div>
+        <div>
+          <div class="signal-title">Investment fraud — 25 pig butchering channels with guaranteed return claims</div>
+          <p class="signal-body">SEBI-unregistered investment advisory channels making guaranteed return claims — illegal under IA Regulations 2013. Pig butchering operations identified with full chain: Telegram tip channel to fake trading platform URL to WHOIS registrant. Same registrant on multiple fake platforms confirms operator syndicate structure.</p>
+          <div class="signal-meta">
+            <span class="sm-item">25 channels</span>
+            <span class="sm-item">SEBI IA Regs 2013</span>
+            <span class="sm-item">Pig butchering pattern</span>
+          </div>
+        </div>
+        <div class="signal-badge sb-high">High</div>
+      </div>
+
+      <div class="signal">
+        <div class="signal-rank">8</div>
+        <div>
+          <div class="signal-title">Counterfeit pharma — 15 medicine channels matching Unitel Pharma modus</div>
+          <p class="signal-body">15 Telegram medicine distribution channels identified matching the Unitel Pharma operation pattern — Rs 10 Crore in fake cancer and liver medicines seized by Delhi Police Crime Branch, May 8 2026. CGHS diversion and advanced packaging mimicry documented. Brand-specific deep scan pending rate limit reset.</p>
+          <div class="signal-meta">
+            <span class="sm-item">15 channels found</span>
+            <span class="sm-item">Unitel pattern match</span>
+            <span class="sm-item">Deep scan pending</span>
+          </div>
+        </div>
+        <div class="signal-badge sb-high">High</div>
+      </div>
+
+      <div class="signal">
+        <div class="signal-rank">9</div>
+        <div>
+          <div class="signal-title">Fake job scam pipeline — recruitment through advance fee to UPI drain</div>
+          <p class="signal-body">Full fake job pipeline mapped: fake job advertisement on Telegram → task assignment group → advance fee demand → UPI drain. YouTube like/rate/review task format used as entry point. Pipeline visible upstream — before victims pay advance fees. Youth and students primary demographic targeted.</p>
+          <div class="signal-meta">
+            <span class="sm-item">Full pipeline mapped</span>
+            <span class="sm-item">9 channels monitored</span>
+            <span class="sm-item">Upstream detection</span>
+          </div>
+        </div>
+        <div class="signal-badge sb-active">Monitoring</div>
+      </div>
+
+      <div class="signal">
+        <div class="signal-rank">10</div>
+        <div>
+          <div class="signal-title">Brand impersonation — fake OTT domain registered days after platform launch</div>
+          <p class="signal-body">A fake OTT platform domain was registered within 4 days of a major streaming platform's launch. Registrant identified via WHOIS — name and email archived under IT Act §65B. BCCI operator impersonation channels also active with phones confirmed from public message posts. Both cases under active monitoring.</p>
+          <div class="signal-meta">
+            <span class="sm-item">Domain squat confirmed</span>
+            <span class="sm-item">Registrant identified</span>
+            <span class="sm-item">WHOIS archived</span>
+          </div>
+        </div>
+        <div class="signal-badge sb-active">Monitoring</div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN — SIDEBAR -->
+    <div class="col-side">
+
+      <div class="sidebar-block">
+        <div class="sb-title">Database at a glance</div>
+        <div class="sb-stat">
+          <span class="sb-stat-label">Channels monitored</span>
+          <span class="sb-stat-val green">1,245</span>
+        </div>
+        <div class="sb-stat">
+          <span class="sb-stat-label">Subscriber reach</span>
+          <span class="sb-stat-val">40M</span>
+        </div>
+        <div class="sb-stat">
+          <span class="sb-stat-label">Platforms covered</span>
+          <span class="sb-stat-val">13</span>
+        </div>
+        <div class="sb-stat">
+          <span class="sb-stat-label">Indian languages</span>
+          <span class="sb-stat-val">6</span>
+        </div>
+        <div class="sb-stat">
+          <span class="sb-stat-label">Graph nodes</span>
+          <span class="sb-stat-val">1,290</span>
+        </div>
+        <div class="sb-stat">
+          <span class="sb-stat-label">Graph edges</span>
+          <span class="sb-stat-val">169</span>
+        </div>
+        <div class="sb-stat">
+          <span class="sb-stat-label">Operator networks</span>
+          <span class="sb-stat-val red">17</span>
+        </div>
+        <div class="sb-stat">
+          <span class="sb-stat-label">Evidence standard</span>
+          <span class="sb-stat-val green">IT Act §65B</span>
+        </div>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sb-title">This week's trend</div>
+        <div class="trend-item">
+          <div class="trend-cat">Colour prediction</div>
+          <span class="trend-num">↑41</span>
+          <div class="trend-text">Chinese-origin colour prediction apps now exceed betting in single-channel reach. 91CLUB alone exceeds 1 million subscribers.</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-cat">IPL piracy</div>
+          <span class="trend-num">↑20</span>
+          <div class="trend-text">Match 53 set season high with 20 live streams. CSK matches generate 3× higher piracy activity than other teams.</div>
+        </div>
+        <div class="trend-item">
+          <div class="trend-cat">Channel growth</div>
+          <span class="trend-num">+130</span>
+          <div class="trend-text">130 new channels added this week via automated keyword discovery across all fraud categories.</div>
+        </div>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sb-title">Methodology note</div>
+        <p style="font-size:12px;color:var(--body);line-height:1.65;font-style:italic">
+          All findings in this brief are from publicly accessible Telegram channels and indexed web sources. No private messages accessed. No channel names or operator identities published here.
+          <br><br>
+          Three-tier accuracy filter applied: only Tier 1 (95%+ confidence) and Tier 2 (85–90%) findings appear in this brief.
+          <br><br>
+          Full intelligence — channel names, operator attribution, phones, UPI IDs, WHOIS registrant data — available under signed intelligence agreement.
+        </p>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sb-title">Cite this brief</div>
+        <p style="font-size:12px;color:var(--body);line-height:1.65">
+          Journalists and researchers may cite aggregate findings from this brief with attribution to CINEOS (cineos.in). For deeper investigation or primary source access, contact:
+          <br><br>
+          <a href="mailto:yugandhar@cineos.in" style="color:var(--green);font-family:var(--mono);font-size:11px">yugandhar@cineos.in</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- EVIDENCE STANDARD -->
+<div class="evidence-bar">
+  <div class="ev-item"><span class="ck">✓</span>IT Act 2000 §65B — court admissible evidence</div>
+  <div class="ev-item"><span class="ck">✓</span>DPDP Act 2023 — public data only, compliant</div>
+  <div class="ev-item"><span class="ck">✓</span>STIX 2.1 — 1,138 objects, law enforcement format</div>
+  <div class="ev-item"><span class="ck">✓</span>US Provisional Patent 64/049,190</div>
+</div>
+
+<!-- METHODOLOGY STRIP -->
+<div class="method-strip">
+  All findings from public Telegram channels and indexed web sources. No private messages. No channel names published here. Full attribution available under signed intelligence agreement. Aggregate intelligence is free and public — this is the public brief.
+</div>
+
+<div class="page">
+
+  <!-- CATEGORY BREAKDOWN -->
+  <div class="sec-label" style="margin-top:24px;display:inline-block">Coverage breakdown — today</div>
+  <div class="cat-grid" style="margin-top:12px">
+    <div class="cat-cell">
+      <div class="cc-label">Illegal betting</div>
+      <div class="cc-num">437</div>
+      <div class="cc-bar"><div class="cc-fill" style="width:85%;background:#8B1A1A"></div></div>
+      <p class="cc-desc">12.4M reach · 15 networks · Satta Matka, IPL, match fixing</p>
+    </div>
+    <div class="cat-cell">
+      <div class="cc-label">Piracy distribution</div>
+      <div class="cc-num">63</div>
+      <div class="cc-bar"><div class="cc-fill" style="width:55%;background:#7A4F00"></div></div>
+      <p class="cc-desc">IPL Match 53: 20 streams timestamped · OTT, sports, films</p>
+    </div>
+    <div class="cat-cell">
+      <div class="cc-label">Colour prediction</div>
+      <div class="cc-num">41</div>
+      <div class="cc-bar"><div class="cc-fill" style="width:48%;background:#1A1208"></div></div>
+      <p class="cc-desc">4.1M reach · Chinese-origin apps · 91CLUB, OKWIN, JALWA</p>
+    </div>
+    <div class="cat-cell">
+      <div class="cc-label">Investment fraud</div>
+      <div class="cc-num">25</div>
+      <div class="cc-bar"><div class="cc-fill" style="width:38%;background:#1A5C2E"></div></div>
+      <p class="cc-desc">Pig butchering · SEBI unregistered · guaranteed return claims</p>
+    </div>
+    <div class="cat-cell">
+      <div class="cc-label">Pharma counterfeit</div>
+      <div class="cc-num">15</div>
+      <div class="cc-bar"><div class="cc-fill" style="width:28%;background:#8B1A1A"></div></div>
+      <p class="cc-desc">Unitel pattern · CGHS diversion · Rs 10 Cr reference bust</p>
+    </div>
+    <div class="cat-cell">
+      <div class="cc-label">UPI mule network</div>
+      <div class="cc-num">11</div>
+      <div class="cc-bar"><div class="cc-fill" style="width:22%;background:#7A4F00"></div></div>
+      <p class="cc-desc">Bank kit recruitment · Gujarat Rs 77 Cr pattern · Dubai link</p>
+    </div>
+    <div class="cat-cell">
+      <div class="cc-label">Fake job scams</div>
+      <div class="cc-num">9</div>
+      <div class="cc-bar"><div class="cc-fill" style="width:18%;background:#1A1208"></div></div>
+      <p class="cc-desc">Task fraud · advance fee drain · youth targeted</p>
+    </div>
+    <div class="cat-cell">
+      <div class="cc-label">Marketplace fraud</div>
+      <div class="cc-num">148</div>
+      <div class="cc-bar"><div class="cc-fill" style="width:65%;background:#1A5C2E"></div></div>
+      <p class="cc-desc">Verified listings · Amazon + Flipkart · TM Act §29 standard</p>
+    </div>
+  </div>
+
+  <!-- ABOUT + CTA -->
+  <div class="about-strip">
+    <div class="about-left">
+      <div class="about-title">About this brief</div>
+      <p class="about-text">
+        CINEOS Today is India's daily public fraud intelligence brief. Published every morning from an automated scan of 1,245 public Telegram channels and indexed web sources across 13 platforms in 6 Indian languages.
+        <br><br>
+        This brief shows aggregate findings only. Channel names, operator identities, phone numbers, UPI IDs and WHOIS registrant data are classified and shared only under signed intelligence agreements.
+        <br><br>
+        CINEOS is built on IT Act 2000 §65B evidence standard — every finding is SHA-256 hashed at moment of capture. The intelligence is used by brands, banks, government agencies and anti-piracy teams across India.
+      </p>
+    </div>
+    <div class="about-right">
+      <div class="cta-box">
+        <div class="cta-title">Need the full intelligence?</div>
+        <div class="cta-sub">Channel names, operator attribution, phones, WHOIS, graph access — all under signed agreement.</div>
+        <a class="cta-btn" href="mailto:yugandhar@cineos.in">Request briefing</a>
+        <a class="cta-btn outline" href="cineos_landing.html">See all plans →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-left">CINEOS</div>
+  <div class="footer-mid">
+    India Trust Intelligence Network · Published daily · Free and public<br>
+    US Provisional Patent 64/049,190 · yugandhar@cineos.in
+  </div>
+  <div class="footer-right">
+    <a href="cineos_landing.html">Platform</a>
+    <a href="cineos_dashboard.html">Dashboard</a>
+    <a href="cineos_privacy.html">Privacy</a>
+    <a href="mailto:yugandhar@cineos.in">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Set today's date
+const now = new Date();
+const opts = {weekday:'long',year:'numeric',month:'long',day:'numeric'};
+document.getElementById('date-display').textContent =
+  now.toLocaleDateString('en-IN', opts);
+
+// Animate category bars on scroll
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.cc-fill').forEach(b=>{
+        b.style.width = b.style.width;
+      });
+    }
+  });
+},{threshold:.3});
+document.querySelectorAll('.cat-grid').forEach(g=>observer.observe(g));
+</script>
+</body>
+</html>

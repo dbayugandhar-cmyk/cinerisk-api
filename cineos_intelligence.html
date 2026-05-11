@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CINEOS Intelligence — Paid Plans</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A0F1E;--ink2:#141929;--panel:#1A2035;--panel2:#202540;
+  --rim:#2A3250;--rim2:#333D60;
+  --green:#22C55E;--green-dim:#166534;--green-lo:rgba(34,197,94,.1);--green-border:rgba(34,197,94,.25);
+  --blue:#60A5FA;--blue-lo:rgba(96,165,250,.1);
+  --amber:#FCD34D;--amber-lo:rgba(252,211,77,.1);
+  --text:#F0F4FF;--text2:#8892B0;--text3:#4A5578;
+  --serif:'Syne',sans-serif;--body:'Epilogue',sans-serif;--mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;height:56px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,15,30,.95);border-bottom:1px solid var(--rim);backdrop-filter:blur(16px)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-sq{width:30px;height:30px;background:var(--green);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--ink);font-weight:500}
+.logo-name{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.1em;color:var(--text)}
+.nav-r{display:flex;gap:20px;align-items:center}
+.nav-link{font-size:13px;color:var(--text2);text-decoration:none;transition:color .15s}
+.nav-link:hover{color:var(--text)}
+.nav-btn{background:var(--green);color:var(--ink);padding:7px 18px;border-radius:4px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-decoration:none;transition:opacity .15s}
+.nav-btn:hover{opacity:.85}
+
+/* HERO */
+.hero{padding:88px 40px 64px;max-width:1100px;margin:0 auto;text-align:center}
+.hero-tag{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:8px}
+.hero-tag::before,.hero-tag::after{content:'';width:32px;height:1px;background:var(--green)}
+h1{font-family:var(--serif);font-size:clamp(36px,5vw,64px);font-weight:800;line-height:1.0;letter-spacing:-.025em;margin-bottom:20px}
+h1 .g{color:var(--green)}
+.hero-sub{font-size:17px;font-weight:300;color:var(--text2);max-width:560px;margin:0 auto 48px;line-height:1.75}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-g{background:var(--green);color:var(--ink);padding:13px 32px;border-radius:6px;font-size:14px;font-weight:700;text-decoration:none;transition:opacity .15s}
+.btn-g:hover{opacity:.85}
+.btn-o{border:1px solid var(--rim2);color:var(--text2);padding:13px 32px;border-radius:6px;font-size:14px;font-weight:500;text-decoration:none;transition:all .15s}
+.btn-o:hover{border-color:var(--green);color:var(--text)}
+
+/* FEATURE STRIP */
+.feat-strip{background:var(--ink2);border-top:1px solid var(--rim);border-bottom:1px solid var(--rim);padding:20px 40px;display:flex;gap:0;justify-content:center;flex-wrap:wrap}
+.feat-item{padding:0 28px;border-right:1px solid var(--rim);display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--text3);letter-spacing:.06em}
+.feat-item:last-child{border-right:none}
+.feat-item .ic{font-size:14px}
+
+/* SECTION */
+.sec{padding:80px 40px;max-width:1100px;margin:0 auto}
+.stag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.stag::before{content:'//'}
+h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
+.sec-sub{font-size:16px;font-weight:300;color:var(--text2);max-width:500px;line-height:1.7;margin-bottom:52px}
+
+/* PLANS */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rim);border:1px solid var(--rim);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.plan{background:var(--ink2);padding:32px 28px;position:relative;transition:background .15s}
+.plan:hover{background:var(--panel)}
+.plan.featured{background:var(--panel2);border:2px solid var(--green);margin:-1px;border-radius:0}
+.plan-tag{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.plan-tag.hot{color:var(--green)}
+.plan-name{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--text);margin-bottom:6px}
+.plan-price{font-family:var(--serif);font-size:36px;font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1;margin-bottom:4px}
+.plan-price .unit{font-size:14px;font-weight:400;color:var(--text2);font-family:var(--body)}
+.plan-period{font-size:13px;color:var(--text3);margin-bottom:24px;font-family:var(--mono)}
+.plan-cta{display:block;text-align:center;padding:11px 20px;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;margin-bottom:24px;transition:all .15s}
+.pcta-g{background:var(--green);color:var(--ink)}
+.pcta-g:hover{opacity:.85}
+.pcta-o{border:1px solid var(--rim2);color:var(--text2)}
+.pcta-o:hover{border-color:var(--green);color:var(--text)}
+.plan-features{display:flex;flex-direction:column;gap:0}
+.pf{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--rim);font-size:13px;color:var(--text2)}
+.pf:last-child{border-bottom:none}
+.pf .ck{color:var(--green);flex-shrink:0;font-size:13px}
+.pf .xk{color:var(--text3);flex-shrink:0}
+.featured-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--green);color:var(--ink);font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 14px;border-radius:0 0 6px 6px}
+
+/* FEATURE GRID */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feat-card{background:var(--ink2);border:1px solid var(--rim);border-radius:8px;padding:24px;border-top:2px solid var(--rim);transition:all .15s}
+.feat-card:hover{border-top-color:var(--green);background:var(--panel)}
+.feat-icon{font-size:24px;margin-bottom:14px}
+.feat-title{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px}
+.feat-desc{font-size:13px;color:var(--text2);line-height:1.65}
+
+/* COMPARISON */
+.comp-wrap{border:1px solid var(--rim);border-radius:8px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead{background:var(--panel)}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:13px 18px;text-align:left;border-bottom:1px solid var(--rim)}
+td{padding:12px 18px;border-bottom:1px solid var(--rim);color:var(--text2)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--panel)}
+td:first-child{color:var(--text)}
+.y{color:var(--green);font-weight:600}.n{color:var(--text3)}
+.g-col{color:var(--green)!important;font-weight:600}
+
+/* CLIENTS */
+.client-logos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.cl-card{border:1px solid var(--rim);background:var(--ink2);border-radius:8px;padding:20px 24px}
+.cl-type{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.cl-name{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px}
+.cl-val{font-family:var(--mono);font-size:11px;color:var(--green);background:var(--green-lo);border:1px solid var(--green-border);padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:8px}
+.cl-desc{font-size:12px;color:var(--text2);line-height:1.6}
+
+/* CTA BOTTOM */
+.cta-bottom{background:var(--panel2);border:1px solid var(--green-border);border-radius:12px;padding:48px;text-align:center;margin:0 40px 80px}
+.cta-bottom h2{margin-bottom:12px}
+.cta-bottom p{font-size:16px;color:var(--text2);max-width:480px;margin:0 auto 32px;line-height:1.7}
+
+footer{padding:28px 40px;border-top:1px solid var(--rim);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-logo{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--green)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:12px;color:var(--text3);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:var(--text2)}
+
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .hero,.sec{padding-left:20px;padding-right:20px}
+  .feat-strip{padding:16px 20px}
+  .plans{grid-template-columns:1fr}
+  .plan.featured{margin:0}
+  .feat-grid,.client-logos{grid-template-columns:1fr}
+  .cta-bottom{margin:0 20px 60px;padding:32px 24px}
+  footer{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="cineos_landing.html">
+    <div class="logo-sq">CI</div>
+    <span class="logo-name">CINEOS</span>
+  </a>
+  <div class="nav-r">
+    <a class="nav-link" href="cineos_today.html">Today's brief</a>
+    <a class="nav-link" href="cineos_landing.html">Overview</a>
+    <a class="nav-link" href="cineos_enterprise.html">Enterprise</a>
+    <a class="nav-btn" href="mailto:yugandhar@cineos.in">Get access</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Intelligence Plans</div>
+  <h1>The intelligence<br>India's fraud problem<br>actually <span class="g">demands</span></h1>
+  <p class="hero-sub">1,245 channels. 40M reach. IT Act §65B evidence on every finding. Full attribution, real-time alerts and API access — for brands, banks and government.</p>
+  <div class="hero-actions">
+    <a class="btn-g" href="mailto:yugandhar@cineos.in">Start with a briefing call</a>
+    <a class="btn-o" href="cineos_today.html">See today's free brief →</a>
+  </div>
+</div>
+
+<div class="feat-strip">
+  <div class="feat-item"><span class="ic">📡</span>1,245 channels monitored</div>
+  <div class="feat-item"><span class="ic">👁</span>40M subscriber reach</div>
+  <div class="feat-item"><span class="ic">🕸</span>1,290 graph nodes</div>
+  <div class="feat-item"><span class="ic">⚖</span>IT Act §65B certified</div>
+  <div class="feat-item"><span class="ic">🔄</span>Daily automated scan</div>
+  <div class="feat-item"><span class="ic">🇮🇳</span>6 Indian languages</div>
+</div>
+
+<!-- PLANS -->
+<div class="sec" id="plans">
+  <div class="stag">Choose your plan</div>
+  <h2>Simple, transparent pricing</h2>
+  <p class="sec-sub">All plans include IT Act §65B certified evidence. Start with a 30-minute demo call — no commitment required.</p>
+
+  <div class="plans">
+
+    <!-- STARTER -->
+    <div class="plan">
+      <div class="plan-tag">Starter</div>
+      <div class="plan-name">Brand Alert</div>
+      <div class="plan-price">Rs 50K <span class="unit">/ month</span></div>
+      <div class="plan-period">Billed annually · Rs 6L/year</div>
+      <a class="plan-cta pcta-o" href="mailto:yugandhar@cineos.in?subject=Brand Alert plan enquiry">Get started</a>
+      <div class="plan-features">
+        <div class="pf"><span class="ck">✓</span><span>1 brand monitored across all channels</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Weekly intelligence report (PDF)</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Marketplace counterfeit alerts</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Domain squat monitoring</span></div>
+        <div class="pf"><span class="ck">✓</span><span>IT Act §65B evidence on every finding</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Takedown notice generation</span></div>
+        <div class="pf"><span class="xk">—</span><span style="color:var(--text3)">Operator attribution</span></div>
+        <div class="pf"><span class="xk">—</span><span style="color:var(--text3)">API access</span></div>
+        <div class="pf"><span class="xk">—</span><span style="color:var(--text3)">Real-time alerts</span></div>
+      </div>
+    </div>
+
+    <!-- PROFESSIONAL — FEATURED -->
+    <div class="plan featured">
+      <div class="featured-badge">Most popular</div>
+      <div class="plan-tag hot">Professional</div>
+      <div class="plan-name">Intelligence Feed</div>
+      <div class="plan-price">Rs 1.5Cr <span class="unit">/ year</span></div>
+      <div class="plan-period">Full intelligence access · 12 months</div>
+      <a class="plan-cta pcta-g" href="mailto:yugandhar@cineos.in?subject=Intelligence Feed plan enquiry">Request demo</a>
+      <div class="plan-features">
+        <div class="pf"><span class="ck">✓</span><span>3 brands monitored</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Daily intelligence reports</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Full operator attribution database</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Real-time alerts (email + webhook)</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Dashboard access — full view</span></div>
+        <div class="pf"><span class="ck">✓</span><span>API access — 1,000 calls/day</span></div>
+        <div class="pf"><span class="ck">✓</span><span>WHOIS attribution on all domains</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Phone + UPI intelligence</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Takedown notice generation</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Monthly strategy call</span></div>
+      </div>
+    </div>
+
+    <!-- ENTERPRISE LINK -->
+    <div class="plan">
+      <div class="plan-tag">Enterprise</div>
+      <div class="plan-name">Graph Access</div>
+      <div class="plan-price">Rs 2Cr+ <span class="unit">/ year</span></div>
+      <div class="plan-period">Custom · Full graph + API</div>
+      <a class="plan-cta pcta-o" href="cineos_enterprise.html">See enterprise →</a>
+      <div class="plan-features">
+        <div class="pf"><span class="ck">✓</span><span>Everything in Professional</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Full fraud graph access</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Entity resolution queries</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Historical pattern analysis</span></div>
+        <div class="pf"><span class="ck">✓</span><span>STIX 2.1 intelligence feeds</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Fraud family tree reports</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Unlimited API access</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Dedicated analyst support</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Custom integrations</span></div>
+        <div class="pf"><span class="ck">✓</span><span>Law enforcement format output</span></div>
+      </div>
+    </div>
+
+  </div>
+  <p style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:center">
+    All plans require a signed intelligence agreement · Operator data is classified until agreement signed · No trial — 30-minute demo call instead
+  </p>
+</div>
+
+<!-- FEATURES -->
+<div style="background:var(--ink2);border-top:1px solid var(--rim);border-bottom:1px solid var(--rim)">
+  <div class="sec">
+    <div class="stag">What you get</div>
+    <h2>Intelligence, not just data</h2>
+    <p class="sec-sub">Every finding packaged for immediate action — not raw dumps requiring internal analysis.</p>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon">📡</div>
+        <div class="feat-title">Daily channel scan</div>
+        <p class="feat-desc">1,245 channels scanned every morning. New channels discovered and added automatically. You wake up to a brief covering what changed overnight.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⚡</div>
+        <div class="feat-title">Real-time alerts</div>
+        <p class="feat-desc">Webhook or email alert when your brand, domain or keyword appears in a monitored channel. Detected within minutes of posting.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🕸</div>
+        <div class="feat-title">Operator attribution</div>
+        <p class="feat-desc">Connected graph maps operators across channels, phones, UPI IDs and domains. The same operator running 12 channels shows as one node.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⚖️</div>
+        <div class="feat-title">Court-ready evidence</div>
+        <p class="feat-desc">Every finding SHA-256 hashed at detection. Chain of custody maintained. IT Act §65B format accepted by Indian courts and law enforcement.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🌐</div>
+        <div class="feat-title">WHOIS intelligence</div>
+        <p class="feat-desc">Fake domain registrant identification. Domain squat detection. Same registrant on multiple fake domains confirms operator syndicate.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📄</div>
+        <div class="feat-title">Takedown notices</div>
+        <p class="feat-desc">IT Rules 2021 compliant takedown notices generated automatically. Send to Telegram, platform operators and law enforcement from one place.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARISON -->
+<div class="sec">
+  <div class="stag">How we compare</div>
+  <h2>The India gap nobody else fills</h2>
+  <p class="sec-sub">Global platforms cover global threats. CINEOS covers India's specific fraud ecosystem — the channels, the languages, the evidence standard.</p>
+  <div class="comp-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th>CloudSEK</th>
+          <th>Cyble</th>
+          <th>Group-IB</th>
+          <th class="g-col">CINEOS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1,000+ India fraud Telegram channels</td><td class="n">Partial</td><td class="n">Partial</td><td class="n">Partial</td><td class="y g-col">✓ 1,245</td></tr>
+        <tr><td>Illegal betting operator attribution</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y g-col">✓</td></tr>
+        <tr><td>Satta / colour prediction fraud</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y g-col">✓</td></tr>
+        <tr><td>Hindi / Telugu / Tamil monitoring</td><td class="n">Partial</td><td class="n">Partial</td><td class="n">✗</td><td class="y g-col">✓ 6 languages</td></tr>
+        <tr><td>IT Act §65B certified evidence</td><td class="n">✗</td><td class="n">✗</td><td class="n">Partial</td><td class="y g-col">✓ Every finding</td></tr>
+        <tr><td>IndiaMART + marketplace detection</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y g-col">✓</td></tr>
+        <tr><td>IPL piracy real-time detection</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y g-col">✓ Match 53: 20 streams</td></tr>
+        <tr><td>NOGC / Online Gaming Act 2025</td><td class="n">✗</td><td class="n">✗</td><td class="n">✗</td><td class="y g-col">✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CLIENTS -->
+<div style="background:var(--ink2);border-top:1px solid var(--rim);border-bottom:1px solid var(--rim)">
+  <div class="sec">
+    <div class="stag">Who uses CINEOS</div>
+    <h2>Intelligence for every segment</h2>
+    <div class="client-logos">
+      <div class="cl-card"><div class="cl-type">Government</div><div class="cl-name">NOGC / MeitY / I4C</div><div class="cl-val">Rs 1 – 5 Cr / year</div><p class="cl-desc">Online Gaming Act 2025 enforcement mandate with no intelligence tool. CINEOS provides the data layer.</p></div>
+      <div class="cl-card"><div class="cl-type">Pharmaceutical</div><div class="cl-name">Sun Pharma · Cipla · Mankind</div><div class="cl-val">Rs 50L – 5 Cr / year</div><p class="cl-desc">Rs 8,000 Cr counterfeit medicine market. 15 Telegram channels matching Unitel Pharma modus identified.</p></div>
+      <div class="cl-card"><div class="cl-type">Banking + Payments</div><div class="cl-name">HDFC · ICICI · NPCI</div><div class="cl-val">Rs 1 – 5 Cr / year</div><p class="cl-desc">Rs 4,245 Cr UPI fraud FY25. Mule recruitment mapped upstream before accounts activate.</p></div>
+      <div class="cl-card"><div class="cl-type">Media + OTT</div><div class="cl-name">JioHotstar · Sony LIV · BCCI</div><div class="cl-val">Rs 25L – 1 Cr / year</div><p class="cl-desc">Real-time IPL piracy detection. 20 streams timestamped during Match 53. Domain squat intelligence.</p></div>
+      <div class="cl-card"><div class="cl-type">E-commerce + FMCG</div><div class="cl-name">HUL · Reckitt · Amazon Brand</div><div class="cl-val">Rs 50L – 2 Cr / year</div><p class="cl-desc">148 verified counterfeit listings. Seller networks traced from Telegram to marketplace.</p></div>
+      <div class="cl-card"><div class="cl-type">Stock broking</div><div class="cl-name">Zerodha · Groww · Angel One</div><div class="cl-val">Rs 25L – 1 Cr / year</div><p class="cl-desc">SEBI-unregistered tip channels. Pig butchering fake platform detection and syndicate mapping.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-bottom">
+  <div class="stag" style="justify-content:center">Get started</div>
+  <h2>Start with a 30-minute demo</h2>
+  <p>No commitment. We show you what we have found about your brand, your category or your market. You decide if the intelligence is worth subscribing to.</p>
+  <div class="hero-actions">
+    <a class="btn-g" href="mailto:yugandhar@cineos.in?subject=Demo request">Book a demo call</a>
+    <a class="btn-o" href="cineos_enterprise.html">Enterprise plans →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">CINEOS</div>
+  <div class="footer-links">
+    <a href="cineos_today.html">Today's brief</a>
+    <a href="cineos_landing.html">Overview</a>
+    <a href="cineos_enterprise.html">Enterprise</a>
+    <a href="cineos_privacy.html">Privacy</a>
+    <a href="mailto:yugandhar@cineos.in">Contact</a>
+  </div>
+  <div style="font-family:var(--mono);font-size:10px;color:var(--text3)">US Prov. Patent 64/049,190</div>
+</footer>
+</body>
+</html>

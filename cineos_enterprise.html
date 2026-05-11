@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CINEOS Enterprise — Fraud Graph Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#04080F;--panel:#080F1A;--panel2:#0D1525;
+  --rim:#152040;--rim2:#1E2E50;
+  --blue:#3B82F6;--blue-lo:rgba(59,130,246,.1);--blue-b:rgba(59,130,246,.25);
+  --cyan:#06B6D4;--green:#10B981;--green-lo:rgba(16,185,129,.1);
+  --amber:#F59E0B;--amber-lo:rgba(245,158,11,.08);--red:#EF4444;
+  --text:#E8F0FF;--text2:#7B93BC;--text3:#3D5070;
+  --serif:'Fraunces',serif;--body:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.65;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(var(--rim) 1px,transparent 1px),linear-gradient(90deg,var(--rim) 1px,transparent 1px);background-size:48px 48px;opacity:.2;pointer-events:none}
+
+nav{position:sticky;top:0;z-index:100;height:56px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(4,8,15,.95);border-bottom:1px solid var(--rim);backdrop-filter:blur(16px)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-sq{width:30px;height:30px;background:var(--blue);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:#fff;font-weight:500}
+.logo-n{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--text)}
+.nav-r{display:flex;gap:20px;align-items:center}
+.nl{font-size:12px;color:var(--text3);text-decoration:none;transition:color .15s}
+.nl:hover{color:var(--text2)}
+.nb{border:1px solid var(--blue-b);color:var(--blue);padding:7px 18px;border-radius:4px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-decoration:none;transition:all .15s}
+.nb:hover{background:var(--blue-lo)}
+
+.hero{padding:100px 48px 60px;max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:32px;height:1px;background:var(--blue)}
+h1{font-family:var(--serif);font-size:clamp(40px,6vw,76px);font-weight:900;line-height:.98;letter-spacing:-.025em;color:var(--text);max-width:700px;margin-bottom:24px}
+h1 .b{color:var(--blue)}.h1 .d{color:var(--text3);font-style:italic;font-weight:300}
+.hsub{font-size:17px;font-weight:300;color:var(--text2);max-width:540px;line-height:1.75;margin-bottom:44px}
+.acts{display:flex;gap:14px;flex-wrap:wrap}
+.abtn{background:var(--blue);color:#fff;padding:13px 32px;border-radius:4px;font-size:14px;font-weight:600;text-decoration:none;transition:opacity .15s}
+.abtn:hover{opacity:.85}
+.obtn{border:1px solid var(--rim2);color:var(--text2);padding:13px 32px;border-radius:4px;font-size:14px;font-weight:400;text-decoration:none;transition:all .15s}
+.obtn:hover{border-color:var(--blue);color:var(--text)}
+
+/* GRAPH CANVAS */
+.gv-wrap{margin:56px 0;background:var(--panel);border:1px solid var(--rim);border-radius:8px;overflow:hidden;height:300px;position:relative}
+canvas#gv{width:100%;height:100%}
+.gv-label{position:absolute;bottom:14px;left:18px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em}
+
+.sec{padding:72px 48px;max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.stag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.stag::before{content:'//'}
+h2{font-family:var(--serif);font-size:clamp(26px,4vw,44px);font-weight:700;letter-spacing:-.025em;line-height:1.1;color:var(--text);margin-bottom:14px}
+.ssub{font-size:16px;font-weight:300;color:var(--text2);max-width:500px;line-height:1.7;margin-bottom:48px}
+
+/* ENTITY RESOLUTION */
+.er{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.er-steps{display:flex;flex-direction:column;gap:0}
+.er-step{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--rim)}
+.er-step:last-child{border-bottom:none}
+.er-n{width:30px;height:30px;border-radius:50%;border:1px solid var(--blue-b);background:var(--blue-lo);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--blue);flex-shrink:0}
+.er-step h4{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.er-step p{font-size:13px;color:var(--text2);line-height:1.6}
+.code-box{background:var(--panel2);border:1px solid var(--rim);border-radius:8px;padding:22px;font-family:var(--mono);font-size:11px;line-height:1.9;overflow-x:auto}
+.cg{color:var(--green)}.cb{color:var(--blue)}.ca{color:var(--amber)}.cd{color:var(--text3)}
+
+/* CAPS */
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cap{background:var(--panel);border:1px solid var(--rim);border-radius:8px;padding:22px;border-left:3px solid var(--rim);transition:all .15s}
+.cap:hover{border-left-color:var(--blue)}
+.cap-icon{font-size:22px;margin-bottom:12px}
+.cap-title{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px}
+.cap-desc{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* CASES */
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cc{background:var(--panel);border:1px solid var(--rim);border-radius:8px;padding:24px}
+.cc-tag{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:inline-block;padding:2px 8px;border-radius:4px}
+.t-b{background:var(--blue-lo);color:var(--blue);border:1px solid var(--blue-b)}
+.t-g{background:var(--green-lo);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.t-a{background:var(--amber-lo);color:var(--amber);border:1px solid rgba(245,158,11,.3)}
+.t-c{background:rgba(6,182,212,.08);color:var(--cyan);border:1px solid rgba(6,182,212,.3)}
+.cc-title{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.2}
+.cc-chain{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.cc-step{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;color:var(--text2)}
+.arr{color:var(--blue);flex-shrink:0}
+.cc-result{font-size:12px;color:var(--text2);background:var(--panel2);border:1px solid var(--rim);border-left:2px solid var(--blue);padding:10px 12px;border-radius:0 4px 4px 0;line-height:1.5}
+
+/* STIX */
+.stix{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.stix-feats{display:flex;flex-direction:column;gap:16px}
+.sfi{display:flex;gap:12px}
+.sfd{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:6px}
+.sfi h4{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.sfi p{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* PRICING */
+.ep{background:var(--panel2);border:1px solid var(--rim);border-radius:12px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.ep-price{font-family:var(--serif);font-size:52px;font-weight:900;color:var(--text);letter-spacing:-.03em;line-height:1;margin-bottom:6px}
+.ep-price .u{font-size:16px;font-weight:300;color:var(--text2)}
+.ep-per{font-size:13px;color:var(--text3);margin-bottom:22px;font-family:var(--mono)}
+.epf{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--rim);font-size:13px;color:var(--text2)}
+.epf:last-child{border-bottom:none}
+.epf .ck{color:var(--blue);flex-shrink:0}
+.ep-cta{display:block;background:var(--blue);color:#fff;padding:15px 28px;border-radius:6px;font-size:15px;font-weight:600;text-decoration:none;text-align:center;margin-bottom:12px;transition:opacity .15s}
+.ep-cta:hover{opacity:.85}
+.ep-note{font-family:var(--mono);font-size:11px;color:var(--text3);line-height:1.7;text-align:center}
+
+.alt{background:var(--panel);border-top:1px solid var(--rim);border-bottom:1px solid var(--rim)}
+footer{padding:28px 48px;border-top:1px solid var(--rim);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:relative;z-index:1}
+.fl{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--blue)}
+.flinks{display:flex;gap:20px}
+.flinks a{font-size:12px;color:var(--text3);text-decoration:none;transition:color .15s}
+.flinks a:hover{color:var(--text2)}
+
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .hero,.sec{padding-left:20px;padding-right:20px}
+  h1{font-size:clamp(36px,8vw,52px)}
+  .er,.cap-grid,.cases,.stix,.ep{grid-template-columns:1fr}
+  .ep{padding:24px}
+  footer{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="cineos_landing.html">
+    <div class="logo-sq">CI</div>
+    <span class="logo-n">CINEOS</span>
+  </a>
+  <div class="nav-r">
+    <a class="nl" href="cineos_today.html">Today's brief</a>
+    <a class="nl" href="cineos_intelligence.html">Plans</a>
+    <a class="nl" href="cineos_landing.html">Overview</a>
+    <a class="nb" href="mailto:yugandhar@cineos.in">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow">Enterprise Graph Intelligence · Layer 3</div>
+  <h1>The fraud <span class="b">graph</span><br>is the moat.</h1>
+  <p class="hsub">Many platforms detect signals. Very few build the historical graph that maps repeat offenders, alias linking, cross-platform migration and fraud family trees. That graph becomes irreplaceable infrastructure.</p>
+  <div class="acts">
+    <a class="abtn" href="mailto:yugandhar@cineos.in?subject=Enterprise graph enquiry">Request enterprise briefing</a>
+    <a class="obtn" href="cineos_intelligence.html">See all plans</a>
+  </div>
+  <div class="gv-wrap">
+    <canvas id="gv"></canvas>
+    <div class="gv-label">CINEOS fraud intelligence graph · 1,290 nodes · 169 edges · Updated May 11 2026</div>
+  </div>
+</div>
+
+<!-- ENTITY RESOLUTION -->
+<div class="alt">
+<div class="sec">
+  <div class="stag">Entity resolution</div>
+  <h2>One operator across twelve channels — found automatically</h2>
+  <p class="ssub">The same phone, UPI or domain appearing across channels is not coincidence. The graph finds the operator across every alias and every platform.</p>
+  <div class="er">
+    <div class="er-steps">
+      <div class="er-step"><div class="er-n">01</div><div><h4>Channel discovery</h4><p>1,245 public Telegram channels read daily. Every phone, UPI, domain and identifier extracted and hashed at capture.</p></div></div>
+      <div class="er-step"><div class="er-n">02</div><div><h4>Identity linking</h4><p>Shared identifiers across channels become graph edges. Same phone in three channels = one operator node. Automatic, no manual review needed.</p></div></div>
+      <div class="er-step"><div class="er-n">03</div><div><h4>Temporal analysis</h4><p>Channel closed and reopened under a new name. Same phone appears in new channel. Graph connects old and new identity automatically.</p></div></div>
+      <div class="er-step"><div class="er-n">04</div><div><h4>Fraud family tree</h4><p>Complete lineage from first channel to today. Every alias, platform, phone and accomplice. The tree that makes investigation tractable.</p></div></div>
+    </div>
+    <div class="code-box">
+<span class="cd">// Entity resolution in action</span>
+
+<span class="cd">// Oct 2024 — Channel detected</span>
+channel_A.phone = <span class="cg">+91-83XXXXXXXX</span>
+channel_A.upi   = <span class="cg">name@okaxis</span>
+
+<span class="cd">// Jan 2025 — Channel closed</span>
+channel_A.status = <span class="ca">CLOSED</span>
+
+<span class="cd">// Feb 2025 — New channel appears</span>
+channel_B.phone = <span class="cg">+91-83XXXXXXXX</span>
+
+<span class="cd">// Graph resolves identity</span>
+channel_B.operator = <span class="cb">SAME_AS channel_A</span>
+confidence = <span class="cg">94%</span>
+
+<span class="cd">// May 2026 — UPI reused on job scam</span>
+job_channel.upi = <span class="cg">name@okaxis</span>
+graph.link      = <span class="cb">operator_A</span>
+
+<span class="cd">// Fraud family tree:</span>
+<span class="cd">// betting (2024) → piracy (2025)</span>
+<span class="cd">// → job scam (2026)</span>
+<span class="cd">// → 3 platforms, 1 operator</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CAPABILITIES -->
+<div class="sec">
+  <div class="stag">What enterprise graph access gives you</div>
+  <h2>Built for investigations</h2>
+  <div class="cap-grid">
+    <div class="cap"><div class="cap-icon">🌳</div><div class="cap-title">Fraud family trees</div><p class="cap-desc">Complete operator lineage — every channel, phone, UPI, domain and alias from first detection to today. Generated on demand.</p></div>
+    <div class="cap"><div class="cap-icon">🔗</div><div class="cap-title">Alias linking</div><p class="cap-desc">Operators who close channels and reopen under new names are linked automatically via shared phones, UPIs or registrant emails.</p></div>
+    <div class="cap"><div class="cap-icon">📱</div><div class="cap-title">Device and wallet fingerprinting</div><p class="cap-desc">Phone reuse, UPI wallet patterns, domain registrant clusters. Fingerprints that survive channel migration across platforms.</p></div>
+    <div class="cap"><div class="cap-icon">📈</div><div class="cap-title">Trend prediction</div><p class="cap-desc">Historical patterns identify which fraud categories are growing. IPL correlation. New app distribution patterns. Emerging scam types before they scale.</p></div>
+    <div class="cap"><div class="cap-icon">🌐</div><div class="cap-title">Cross-platform migration tracking</div><p class="cap-desc">Operators migrate from Telegram to WhatsApp to Instagram when a platform acts. The graph follows them across all 13 monitored platforms.</p></div>
+    <div class="cap"><div class="cap-icon">⚖️</div><div class="cap-title">Automated evidence packaging</div><p class="cap-desc">Every node in every family tree is IT Act §65B certified. Complete evidence package for law enforcement — one request, court-ready.</p></div>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="alt">
+<div class="sec">
+  <div class="stag">Intelligence chains — anonymised</div>
+  <h2>How the graph maps operators</h2>
+  <div class="cases">
+    <div class="cc">
+      <div class="cc-tag t-b">Betting operator</div>
+      <div class="cc-title">41 channels. One operator. Active ED case.</div>
+      <div class="cc-chain">
+        <div class="cc-step"><span class="arr">→</span>First channel detected via keyword</div>
+        <div class="cc-step"><span class="arr">→</span>Phone extracted from public message</div>
+        <div class="cc-step"><span class="arr">→</span>Same phone in 8 other channels</div>
+        <div class="cc-step"><span class="arr">→</span>Graph maps all 41 channels to one operator</div>
+        <div class="cc-step"><span class="arr">→</span>Cross-border link via message pattern</div>
+      </div>
+      <div class="cc-result">41 channels, 2.2M reach, cross-border financial link mapped. Active ED investigation ongoing.</div>
+    </div>
+    <div class="cc">
+      <div class="cc-tag t-g">Domain squat</div>
+      <div class="cc-title">OTT domain registered 4 days after launch. Registrant identified.</div>
+      <div class="cc-chain">
+        <div class="cc-step"><span class="arr">→</span>New OTT platform launched</div>
+        <div class="cc-step"><span class="arr">→</span>Brand name variants monitored automatically</div>
+        <div class="cc-step"><span class="arr">→</span>Fake domain detected — 4 days after launch</div>
+        <div class="cc-step"><span class="arr">→</span>WHOIS: registrant name + email archived</div>
+        <div class="cc-step"><span class="arr">→</span>IT Act §65B evidence packaged</div>
+      </div>
+      <div class="cc-result">Registrant identified. Evidence archived. Available for legal action under signed agreement.</div>
+    </div>
+    <div class="cc">
+      <div class="cc-tag t-a">UPI mule network</div>
+      <div class="cc-title">Gujarat pattern. 16 arrested. Remnants still active.</div>
+      <div class="cc-chain">
+        <div class="cc-step"><span class="arr">→</span>Recruitment post: "bank account kits"</div>
+        <div class="cc-step"><span class="arr">→</span>Matches Gujarat Rs 77 Cr bust modus</div>
+        <div class="cc-step"><span class="arr">→</span>Dubai coordination documented</div>
+        <div class="cc-step"><span class="arr">→</span>Shared UPI across channels — network node</div>
+        <div class="cc-step"><span class="arr">→</span>XHelper pyramid structure mapped</div>
+      </div>
+      <div class="cc-result">Active network post-arrest. UPI + phone intelligence for bank account flagging under agreement.</div>
+    </div>
+    <div class="cc">
+      <div class="cc-tag t-c">Investment syndicate</div>
+      <div class="cc-title">Same registrant on 5 fake trading platforms.</div>
+      <div class="cc-chain">
+        <div class="cc-step"><span class="arr">→</span>Telegram tip channel — guaranteed returns</div>
+        <div class="cc-step"><span class="arr">→</span>Fake trading platform URL extracted</div>
+        <div class="cc-step"><span class="arr">→</span>WHOIS — registrant identified</div>
+        <div class="cc-step"><span class="arr">→</span>Same registrant email on 4 more domains</div>
+        <div class="cc-step"><span class="arr">→</span>Syndicate confirmed — 5 platforms, 1 operator</div>
+      </div>
+      <div class="cc-result">Investment fraud syndicate fully mapped. All 5 platforms + registrant + Telegram network.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- STIX -->
+<div class="sec">
+  <div class="stag">Law enforcement integration</div>
+  <h2>1,138 STIX 2.1 objects — ready today</h2>
+  <p class="ssub">Compatible with CERT-In, I4C and international law enforcement systems. The intelligence in the format investigators already use.</p>
+  <div class="stix">
+    <div class="code-box">
+<span class="cd">// STIX 2.1 threat actor</span>
+{
+  <span class="cb">"type"</span>: <span class="cg">"threat-actor"</span>,
+  <span class="cb">"id"</span>: <span class="cg">"threat-actor--[internal]"</span>,
+  <span class="cb">"name"</span>: <span class="cg">"[under agreement]"</span>,
+  <span class="cb">"threat_actor_types"</span>: [
+    <span class="cg">"crime-syndicate"</span>
+  ],
+  <span class="cb">"sophistication"</span>: <span class="cg">"intermediate"</span>,
+  <span class="cb">"aliases"</span>: [<span class="cg">"12 aliases"</span>],
+  <span class="cb">"goals"</span>: [
+    <span class="cg">"illegal-betting"</span>,
+    <span class="cg">"piracy"</span>
+  ],
+  <span class="cb">"confidence"</span>: <span class="ca">95</span>,
+  <span class="cb">"labels"</span>: [<span class="cg">"india"</span>],
+  <span class="cb">"object_marking_refs"</span>: [
+    <span class="cg">"IT-Act-2000-65B"</span>
+  ]
+}
+<span class="cd">// 1,138 objects total</span>
+<span class="cd">// Daily incremental export</span>
+    </div>
+    <div class="stix-feats">
+      <div class="sfi"><div class="sfd"></div><div><h4>1,138 STIX 2.1 objects ready</h4><p>Threat actors, campaigns, indicators, relationships — all from the CINEOS graph in STIX 2.1 format.</p></div></div>
+      <div class="sfi"><div class="sfd"></div><div><h4>CERT-In and I4C compatible</h4><p>India's national cybercrime coordination uses STIX-compatible systems. Integrates directly.</p></div></div>
+      <div class="sfi"><div class="sfd"></div><div><h4>Daily incremental export</h4><p>New objects added daily from automated scan. Subscribe to a daily feed of new intelligence.</p></div></div>
+      <div class="sfi"><div class="sfd"></div><div><h4>IT Act §65B on every object</h4><p>Every STIX object references SHA-256 hashed evidence. Chain of custody from detection to law enforcement.</p></div></div>
+      <div class="sfi"><div class="sfd"></div><div><h4>TAXII 2.1 server on request</h4><p>Receive intelligence via TAXII 2.1 — the standard protocol for automated threat intelligence sharing.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="alt">
+<div class="sec">
+  <div class="ep">
+    <div>
+      <div class="stag">Enterprise pricing</div>
+      <div class="ep-price">Rs 2 Cr<span class="u"> + / year</span></div>
+      <div class="ep-per">Custom scope · 12-month contract</div>
+      <div class="epf"><span class="ck">✓</span><span>Everything in Intelligence Feed plan</span></div>
+      <div class="epf"><span class="ck">✓</span><span>Full fraud graph — all 1,290 nodes</span></div>
+      <div class="epf"><span class="ck">✓</span><span>Entity resolution — unlimited queries</span></div>
+      <div class="epf"><span class="ck">✓</span><span>Historical analysis — full archive</span></div>
+      <div class="epf"><span class="ck">✓</span><span>STIX 2.1 feed — daily</span></div>
+      <div class="epf"><span class="ck">✓</span><span>TAXII 2.1 server access</span></div>
+      <div class="epf"><span class="ck">✓</span><span>Fraud family tree reports on demand</span></div>
+      <div class="epf"><span class="ck">✓</span><span>Unlimited API + custom endpoints</span></div>
+      <div class="epf"><span class="ck">✓</span><span>Dedicated analyst — 4hr response SLA</span></div>
+      <div class="epf"><span class="ck">✓</span><span>Law enforcement liaison support</span></div>
+      <div class="epf"><span class="ck">✓</span><span>Signed intelligence agreement</span></div>
+    </div>
+    <div style="text-align:center">
+      <a class="ep-cta" href="mailto:yugandhar@cineos.in?subject=Enterprise graph access">Request enterprise briefing</a>
+      <div class="ep-note">
+        45-minute briefing call<br>
+        We demonstrate the graph, show family trees,<br>
+        walk through entity resolution on a real case.<br>
+        No commitment required.<br><br>
+        <span style="color:var(--text2)">yugandhar@cineos.in</span><br>
+        US Provisional Patent 64/049,190
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>
+  <div class="fl">CINEOS</div>
+  <div class="flinks">
+    <a href="cineos_today.html">Today's brief</a>
+    <a href="cineos_intelligence.html">Plans</a>
+    <a href="cineos_landing.html">Overview</a>
+    <a href="cineos_privacy.html">Privacy</a>
+    <a href="mailto:yugandhar@cineos.in">Contact</a>
+  </div>
+  <div style="font-family:var(--mono);font-size:10px;color:var(--text3)">US Prov. Patent 64/049,190</div>
+</footer>
+
+<script>
+const canvas=document.getElementById('gv');
+function draw(){
+  const W=canvas.parentElement.offsetWidth;
+  const H=300;
+  canvas.width=W;canvas.height=H;
+  const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#080F1A';
+  ctx.fillRect(0,0,W,H);
+  const N=[
+    {x:.1,y:.3,r:14,c:'#EF4444'},{x:.2,y:.65,r:10,c:'#F59E0B'},
+    {x:.16,y:.12,r:8,c:'#F59E0B'},{x:.3,y:.45,r:12,c:'#3B82F6'},
+    {x:.26,y:.8,r:8,c:'#10B981'},{x:.42,y:.22,r:10,c:'#EF4444'},
+    {x:.5,y:.58,r:8,c:'#F59E0B'},{x:.4,y:.82,r:8,c:'#3B82F6'},
+    {x:.6,y:.32,r:12,c:'#10B981'},{x:.66,y:.65,r:8,c:'#F59E0B'},
+    {x:.73,y:.2,r:10,c:'#3B82F6'},{x:.76,y:.52,r:8,c:'#10B981'},
+    {x:.83,y:.35,r:8,c:'#EF4444'},{x:.87,y:.72,r:6,c:'#3B82F6'},
+    {x:.53,y:.08,r:6,c:'#F59E0B'},
+  ].map(n=>({...n,x:n.x*W,y:n.y*H}));
+  const E=[[0,3],[0,1],[0,2],[1,4],[3,5],[3,7],[5,6],[6,7],[8,9],[8,14],[9,12],[10,11],[10,3],[11,12],[13,9],[14,0]];
+  E.forEach(([a,b])=>{
+    const g=ctx.createLinearGradient(N[a].x,N[a].y,N[b].x,N[b].y);
+    g.addColorStop(0,N[a].c+'44');g.addColorStop(1,N[b].c+'44');
+    ctx.beginPath();ctx.moveTo(N[a].x,N[a].y);ctx.lineTo(N[b].x,N[b].y);
+    ctx.strokeStyle=g;ctx.lineWidth=1;ctx.stroke();
+  });
+  N.forEach(n=>{
+    ctx.beginPath();ctx.arc(n.x,n.y,n.r+4,0,Math.PI*2);
+    ctx.fillStyle=n.c+'15';ctx.fill();
+    ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle=n.c+'22';ctx.fill();
+    ctx.strokeStyle=n.c+'88';ctx.lineWidth=1.5;ctx.stroke();
+  });
+  let f=0;
+  function anim(){
+    f++;
+    [0,8,10].forEach(i=>{
+      const n=N[i];
+      const p=Math.sin(f*.05+i)*.5+.5;
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r+5+p*4,0,Math.PI*2);
+      ctx.strokeStyle=n.c+Math.floor(p*50+8).toString(16).padStart(2,'0');
+      ctx.lineWidth=1;ctx.stroke();
+    });
+    requestAnimationFrame(anim);
+  }
+  anim();
+}
+window.addEventListener('load',draw);
+window.addEventListener('resize',draw);
+</script>
+</body>
+</html>

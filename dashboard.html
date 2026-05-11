@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINEOS Dashboard — Live Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04080F;--bg2:#080E1A;--bg3:#0C1525;--border:#12203A;--green:#00E87A;--gd:rgba(0,232,122,0.08);--red:#FF2D55;--orange:#FF6B35;--blue:#2D7FFF;--purple:#9B51E0;--yellow:#FFD700;--text:#C8D8F0;--text2:#5A7A9A;--white:#FFFFFF;--mono:'JetBrains Mono',monospace;--display:'Syne',sans-serif;--body:'Space Grotesk',sans-serif;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.5;overflow-x:hidden;display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{width:220px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:50;}
+.sb-logo{padding:24px 20px;border-bottom:1px solid var(--border);}
+.sb-logo a{font-family:var(--display);font-size:1.2rem;font-weight:800;color:var(--green);text-decoration:none;}
+.sb-logo span{font-family:var(--mono);font-size:0.58rem;color:var(--text2);display:block;margin-top:2px;letter-spacing:0.08em;}
+
+.sb-section{padding:16px 12px 4px;font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.15em;text-transform:uppercase;}
+.sb-link{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:7px;font-size:0.82rem;color:var(--text2);text-decoration:none;margin:1px 8px;transition:all 0.15s;cursor:pointer;}
+.sb-link:hover{background:var(--bg3);color:var(--text);}
+.sb-link.active{background:var(--gd);color:var(--green);}
+.sb-link .ic{font-size:0.9rem;width:18px;text-align:center;}
+.sb-link .badge{margin-left:auto;background:var(--red);color:var(--white);font-family:var(--mono);font-size:0.58rem;padding:1px 6px;border-radius:8px;}
+.sb-link .badge.g{background:var(--green);color:var(--bg);}
+
+.sb-footer{margin-top:auto;padding:16px;border-top:1px solid var(--border);}
+.sb-user{display:flex;align-items:center;gap:10px;}
+.sb-avatar{width:30px;height:30px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75rem;color:var(--bg);}
+.sb-name{font-size:0.78rem;color:var(--text);}
+.sb-role{font-family:var(--mono);font-size:0.6rem;color:var(--text2);}
+
+/* MAIN */
+.main{margin-left:220px;flex:1;display:flex;flex-direction:column;}
+
+/* TOPBAR */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:40;}
+.tb-title{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--white);}
+.tb-right{display:flex;align-items:center;gap:16px;}
+.live-pill{display:flex;align-items:center;gap:6px;background:var(--gd);border:1px solid rgba(0,232,122,0.25);border-radius:20px;padding:4px 12px;font-family:var(--mono);font-size:0.62rem;color:var(--green);}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+.tb-date{font-family:var(--mono);font-size:0.68rem;color:var(--text2);}
+.tb-btn{background:var(--green);color:var(--bg);border:none;padding:7px 16px;border-radius:6px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:var(--body);}
+
+/* CONTENT */
+.content{padding:24px 28px;flex:1;}
+
+/* KPI ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:20px;}
+.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:10px 10px 0 0;}
+.kpi.g::before{background:var(--green);}
+.kpi.r::before{background:var(--red);}
+.kpi.o::before{background:var(--orange);}
+.kpi.b::before{background:var(--blue);}
+.kpi.p::before{background:var(--purple);}
+.kpi.y::before{background:var(--yellow);}
+.kpi-val{font-family:var(--display);font-size:1.5rem;font-weight:800;line-height:1;margin-bottom:4px;}
+.kpi.g .kpi-val{color:var(--green);}
+.kpi.r .kpi-val{color:var(--red);}
+.kpi.o .kpi-val{color:var(--orange);}
+.kpi.b .kpi-val{color:var(--blue);}
+.kpi.p .kpi-val{color:var(--purple);}
+.kpi.y .kpi-val{color:var(--yellow);}
+.kpi-label{font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.06em;text-transform:uppercase;}
+.kpi-delta{font-family:var(--mono);font-size:0.6rem;margin-top:6px;}
+.kpi-delta.up{color:var(--green);}
+.kpi-delta.dn{color:var(--red);}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.grid-3{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;}
+
+/* CARD */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.card-hdr{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-title{font-size:0.82rem;font-weight:600;color:var(--white);}
+.card-tag{font-family:var(--mono);font-size:0.58rem;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;}
+.card-action{font-family:var(--mono);font-size:0.62rem;color:var(--green);cursor:pointer;text-decoration:none;}
+.card-body{padding:16px 18px;}
+
+/* CHART BARS */
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:90px;padding-bottom:20px;position:relative;}
+.chart-bars::after{content:'';position:absolute;bottom:20px;left:0;right:0;height:1px;background:var(--border);}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.bar{width:100%;border-radius:3px 3px 0 0;transition:opacity 0.2s;cursor:pointer;}
+.bar:hover{opacity:0.8;}
+.bar-label{font-family:var(--mono);font-size:0.55rem;color:var(--text2);}
+
+/* FEED */
+.feed-item{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);}
+.feed-item:last-child{border-bottom:none;}
+.feed-sev{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.feed-sev.crit{background:var(--red);}
+.feed-sev.high{background:var(--orange);}
+.feed-sev.med{background:var(--yellow);}
+.feed-sev.low{background:var(--blue);}
+.feed-main{flex:1;min-width:0;}
+.feed-title{font-size:0.8rem;color:var(--text);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.feed-meta{font-family:var(--mono);font-size:0.6rem;color:var(--text2);margin-top:2px;}
+.feed-badge{font-family:var(--mono);font-size:0.6rem;padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;}
+.fb-crit{background:rgba(255,45,85,0.12);color:var(--red);}
+.fb-high{background:rgba(255,107,53,0.12);color:var(--orange);}
+.fb-med{background:rgba(255,215,0,0.12);color:var(--yellow);}
+.fb-low{background:rgba(45,127,255,0.12);color:var(--blue);}
+
+/* MAP PLACEHOLDER */
+.map-ph{background:var(--bg3);border-radius:8px;height:220px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.map-ph::before{content:'INDIA — FRAUD OPERATOR HEATMAP';font-family:var(--mono);font-size:0.62rem;color:var(--text2);letter-spacing:0.1em;position:absolute;top:12px;left:14px;}
+/* Dot clusters for cities */
+.mdot{position:absolute;width:8px;height:8px;border-radius:50%;animation:mpulse 2s infinite;}
+.mdot::after{content:'';position:absolute;inset:-4px;border-radius:50%;animation:mring 2s infinite;}
+@keyframes mpulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+@keyframes mring{0%{transform:scale(1);opacity:0.6;}100%{transform:scale(2.5);opacity:0;}}
+
+/* TABLE */
+.dtable{width:100%;border-collapse:collapse;}
+.dtable th{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.dtable td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:0.78rem;color:var(--text2);}
+.dtable td:first-child{color:var(--text);font-weight:500;}
+.dtable tr:last-child td{border-bottom:none;}
+.dtable tr:hover td{background:var(--bg3);}
+.dscore{font-family:var(--mono);font-size:0.72rem;font-weight:600;padding:2px 7px;border-radius:4px;}
+
+/* PLATFORM BREAKDOWN */
+.plat-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.plat-name{font-size:0.78rem;color:var(--text);width:90px;flex-shrink:0;}
+.plat-bar-wrap{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.plat-bar{height:100%;border-radius:3px;}
+.plat-val{font-family:var(--mono);font-size:0.65rem;color:var(--text2);width:40px;text-align:right;flex-shrink:0;}
+
+/* STAT ROWS */
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);}
+.stat-row:last-child{border-bottom:none;}
+.sr-label{font-size:0.8rem;color:var(--text2);}
+.sr-val{font-family:var(--mono);font-size:0.8rem;font-weight:600;color:var(--text);}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-logo">
+    <a href="cineos_landing.html">CINEOS</a>
+    <span>INTELLIGENCE DASHBOARD</span>
+  </div>
+
+  <div class="sb-section">Overview</div>
+  <a href="#" class="sb-link active"><span class="ic">⊞</span> Dashboard</a>
+  <a href="#" class="sb-link"><span class="ic">📡</span> Live Feed<span class="badge">12</span></a>
+  <a href="#" class="sb-link"><span class="ic">📊</span> Analytics</a>
+
+  <div class="sb-section">Intelligence</div>
+  <a href="cineos_platform.html" class="sb-link"><span class="ic">🎬</span> Film / OTT</a>
+  <a href="cineos_platform.html" class="sb-link"><span class="ic">🏷️</span> Brand<span class="badge g">3</span></a>
+  <a href="cineos_platform.html" class="sb-link"><span class="ic">🚨</span> Fraud<span class="badge">8</span></a>
+  <a href="cineos_platform.html" class="sb-link"><span class="ic">🐷</span> Pig Butcher</a>
+  <a href="cineos_platform.html" class="sb-link"><span class="ic">🎭</span> Digital Arrest</a>
+  <a href="cineos_platform.html" class="sb-link"><span class="ic">🎤</span> Voice Clone</a>
+  <a href="cineos_platform.html" class="sb-link"><span class="ic">🎰</span> Colour Predict</a>
+
+  <div class="sb-section">Reports</div>
+  <a href="#" class="sb-link"><span class="ic">📄</span> Reports</a>
+  <a href="#" class="sb-link"><span class="ic">🔗</span> API Access</a>
+  <a href="#" class="sb-link"><span class="ic">⚙️</span> Settings</a>
+
+  <div class="sb-footer">
+    <div class="sb-user">
+      <div class="sb-avatar">Y</div>
+      <div>
+        <div class="sb-name">Yugandhar M.</div>
+        <div class="sb-role">ADMIN · CINEOS</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="tb-title">Intelligence Overview</div>
+    <div class="tb-right">
+      <div class="live-pill"><span class="live-dot"></span>LIVE — Auto-refreshing</div>
+      <div class="tb-date" id="dateEl">Sunday, May 10, 2026</div>
+      <button class="tb-btn" onclick="exportReport()">Export Report</button>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- KPI ROW -->
+    <div class="kpi-row">
+      <div class="kpi g">
+        <div class="kpi-val">1,077</div>
+        <div class="kpi-label">Channels Tracked</div>
+        <div class="kpi-delta up">↑ 723 this session</div>
+      </div>
+      <div class="kpi r">
+        <div class="kpi-val">61.3M</div>
+        <div class="kpi-label">Subscriber Reach</div>
+        <div class="kpi-delta up">↑ 50.3M this session</div>
+      </div>
+      <div class="kpi o">
+        <div class="kpi-val">79</div>
+        <div class="kpi-label">Counterfeit Sellers</div>
+        <div class="kpi-delta up">↑ 8 confirmed today</div>
+      </div>
+      <div class="kpi b">
+        <div class="kpi-val">13</div>
+        <div class="kpi-label">Platforms Active</div>
+        <div class="kpi-delta up">↑ 5 added today</div>
+      </div>
+      <div class="kpi p">
+        <div class="kpi-val">204</div>
+        <div class="kpi-label">Deepfake Findings</div>
+        <div class="kpi-delta dn">↑ 450% YoY India</div>
+      </div>
+      <div class="kpi y">
+        <div class="kpi-val">67</div>
+        <div class="kpi-label">Digital Arrest Cases</div>
+        <div class="kpi-delta dn">Rs 22.92 Cr max loss</div>
+      </div>
+    </div>
+
+    <!-- ROW 1 -->
+    <div class="grid-2">
+
+      <!-- LIVE ALERTS FEED -->
+      <div class="card">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">🔴 Live Alert Feed</div>
+            <div class="card-tag">Real-time · Auto-refresh 60s</div>
+          </div>
+          <a href="cineos_platform.html" class="card-action">View all →</a>
+        </div>
+        <div class="card-body" id="alertFeed">
+          <div class="feed-item">
+            <div class="feed-sev crit"></div>
+            <div class="feed-main">
+              <div class="feed-title">@Anuragt_bookqc_Malikc — Reddy Anna Book [ACTIVE]</div>
+              <div class="feed-meta">Telegram · Betting · 1,725,383 subs · Just now</div>
+            </div>
+            <div class="feed-badge fb-crit">CRITICAL</div>
+          </div>
+          <div class="feed-item">
+            <div class="feed-sev crit"></div>
+            <div class="feed-main">
+              <div class="feed-title">BUDDY_HOUSE — Nike Air Jordan 1 Copy · Sirsa HR</div>
+              <div class="feed-meta">IndiaMART · Counterfeit · Score 77/100 · 2 min ago</div>
+            </div>
+            <div class="feed-badge fb-crit">77/100</div>
+          </div>
+          <div class="feed-item">
+            <div class="feed-sev high"></div>
+            <div class="feed-main">
+              <div class="feed-title">@Groww_Tips_Zerodha_Upstox — Fake broker channel</div>
+              <div class="feed-meta">Telegram · Investment fraud · 540,284 subs · 5 min ago</div>
+            </div>
+            <div class="feed-badge fb-high">HIGH</div>
+          </div>
+          <div class="feed-item">
+            <div class="feed-sev crit"></div>
+            <div class="feed-main">
+              <div class="feed-title">@Colourc_Predictc_daddy — BigDaddy illegal lottery</div>
+              <div class="feed-meta">Telegram · Colour predict · 1,200,000 subs · 8 min ago</div>
+            </div>
+            <div class="feed-badge fb-crit">CRITICAL</div>
+          </div>
+          <div class="feed-item">
+            <div class="feed-sev high"></div>
+            <div class="feed-main">
+              <div class="feed-title">Nithin Kamath name — 113 fraud channel mentions detected</div>
+              <div class="feed-meta">Web + Telegram · Voice clone risk · 12 min ago</div>
+            </div>
+            <div class="feed-badge fb-high">HIGH</div>
+          </div>
+          <div class="feed-item">
+            <div class="feed-sev high"></div>
+            <div class="feed-main">
+              <div class="feed-title">Fake PhonePe screenshot tool — Telegram channel active</div>
+              <div class="feed-meta">Telegram · Payment fraud · 38 findings · 18 min ago</div>
+            </div>
+            <div class="feed-badge fb-high">HIGH</div>
+          </div>
+          <div class="feed-item">
+            <div class="feed-sev med"></div>
+            <div class="feed-main">
+              <div class="feed-title">@Thamil_Rockers_Movies_2026 — New release posted</div>
+              <div class="feed-meta">Telegram · Piracy · 624K subs · 22 min ago</div>
+            </div>
+            <div class="feed-badge fb-med">MONITOR</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY BREAKDOWN -->
+      <div class="card">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">📊 Fraud Category Breakdown</div>
+            <div class="card-tag">1,077 channels total</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-bars" style="margin-bottom:8px">
+            <div class="bar-wrap"><div class="bar" style="height:85%;background:var(--red);opacity:0.85" title="437 channels"></div><div class="bar-label">Bet</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:55%;background:var(--orange)" title="238 channels"></div><div class="bar-label">Crypto</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:40%;background:var(--blue)" title="175 channels"></div><div class="bar-label">Piracy</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:28%;background:var(--purple)" title="120 channels"></div><div class="bar-label">Task</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:10%;background:var(--yellow)" title="41 channels"></div><div class="bar-label">Colour</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:8%;background:var(--green)" title="32 channels"></div><div class="bar-label">Lottery</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:3%;background:var(--text2)" title="10 channels"></div><div class="bar-label">Loan</div></div>
+          </div>
+          <div style="margin-top:8px">
+            <div class="stat-row"><span class="sr-label">🔴 Betting / Satta</span><span class="sr-val" style="color:var(--red)">437 channels</span></div>
+            <div class="stat-row"><span class="sr-label">🟠 Crypto / Investment fraud</span><span class="sr-val" style="color:var(--orange)">238 channels</span></div>
+            <div class="stat-row"><span class="sr-label">🔵 Piracy (OTT / Film)</span><span class="sr-val" style="color:var(--blue)">175 channels</span></div>
+            <div class="stat-row"><span class="sr-label">🟣 Task / Job / Pig Butchering</span><span class="sr-val" style="color:var(--purple)">120 channels</span></div>
+            <div class="stat-row"><span class="sr-label">🟡 Colour Prediction (NEW)</span><span class="sr-val" style="color:var(--yellow)">41 channels</span></div>
+            <div class="stat-row"><span class="sr-label">🟢 Lottery Fraud</span><span class="sr-val" style="color:var(--green)">32 channels</span></div>
+            <div class="stat-row"><span class="sr-label">⚪ Loan App Fraud</span><span class="sr-val">10 channels</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="grid-3">
+
+      <!-- TOP CHANNELS TABLE -->
+      <div class="card">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">📡 Top Channels by Subscriber Reach</div>
+            <div class="card-tag">Sorted by impact · 61.3M total reach</div>
+          </div>
+          <a href="cineos_platform.html" class="card-action">Full list →</a>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table class="dtable">
+            <thead>
+              <tr><th>Channel</th><th>Category</th><th>Subscribers</th><th>Risk</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>@Anuragt_bookqc_Malikc</td><td>Betting</td><td>1.73M</td><td><span class="dscore" style="background:rgba(255,45,85,0.12);color:var(--red)">CRITICAL</span></td></tr>
+              <tr><td>@News_Crypto5</td><td>Betting</td><td>1.73M</td><td><span class="dscore" style="background:rgba(255,45,85,0.12);color:var(--red)">CRITICAL</span></td></tr>
+              <tr><td>@Colourc_Predictc_daddy</td><td>Colour Predict</td><td>1.20M</td><td><span class="dscore" style="background:rgba(155,81,224,0.12);color:var(--purple)">HIGH</span></td></tr>
+              <tr><td>@Trading_Share_Market_28</td><td>Investment</td><td>1.13M</td><td><span class="dscore" style="background:rgba(255,45,85,0.12);color:var(--red)">CRITICAL</span></td></tr>
+              <tr><td>@CRYPTO_book_lotus365</td><td>Betting</td><td>1.06M</td><td><span class="dscore" style="background:rgba(255,45,85,0.12);color:var(--red)">CRITICAL</span></td></tr>
+              <tr><td>@Tennis_Tips_King_Football</td><td>Betting</td><td>1.04M</td><td><span class="dscore" style="background:rgba(255,107,53,0.12);color:var(--orange)">HIGH</span></td></tr>
+              <tr><td>@Crypto_Pump_Signal_Binance</td><td>Crypto Pump</td><td>941K</td><td><span class="dscore" style="background:rgba(255,45,85,0.12);color:var(--red)">CRITICAL</span></td></tr>
+              <tr><td>@wingox_dmwin_official</td><td>Colour Predict</td><td>924K</td><td><span class="dscore" style="background:rgba(255,107,53,0.12);color:var(--orange)">HIGH</span></td></tr>
+              <tr><td>@gold365_lotus3655</td><td>Betting</td><td>874K</td><td><span class="dscore" style="background:rgba(255,45,85,0.12);color:var(--red)">CRITICAL</span></td></tr>
+              <tr><td>@Groww_Tips_Zerodha_Upstox</td><td>Fake Broker</td><td>540K</td><td><span class="dscore" style="background:rgba(255,45,85,0.12);color:var(--red)">CRITICAL</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:16px">
+
+        <!-- PLATFORM BREAKDOWN -->
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">🌐 Platform Coverage</div>
+          </div>
+          <div class="card-body">
+            <div class="plat-row">
+              <div class="plat-name">Telegram</div>
+              <div class="plat-bar-wrap"><div class="plat-bar" style="width:100%;background:var(--red)"></div></div>
+              <div class="plat-val">1,077</div>
+            </div>
+            <div class="plat-row">
+              <div class="plat-name">Twitter/X</div>
+              <div class="plat-bar-wrap"><div class="plat-bar" style="width:9%;background:var(--blue)"></div></div>
+              <div class="plat-val">99</div>
+            </div>
+            <div class="plat-row">
+              <div class="plat-name">ShareChat</div>
+              <div class="plat-bar-wrap"><div class="plat-bar" style="width:5%;background:var(--orange)"></div></div>
+              <div class="plat-val">53</div>
+            </div>
+            <div class="plat-row">
+              <div class="plat-name">App Store</div>
+              <div class="plat-bar-wrap"><div class="plat-bar" style="width:6%;background:var(--purple)"></div></div>
+              <div class="plat-val">67</div>
+            </div>
+            <div class="plat-row">
+              <div class="plat-name">IndiaMART</div>
+              <div class="plat-bar-wrap"><div class="plat-bar" style="width:5%;background:var(--green)"></div></div>
+              <div class="plat-val">59</div>
+            </div>
+            <div class="plat-row">
+              <div class="plat-name">Instagram</div>
+              <div class="plat-bar-wrap"><div class="plat-bar" style="width:12%;background:var(--yellow)"></div></div>
+              <div class="plat-val">127</div>
+            </div>
+            <div class="plat-row">
+              <div class="plat-name">Dark Web</div>
+              <div class="plat-bar-wrap"><div class="plat-bar" style="width:14%;background:var(--text2)"></div></div>
+              <div class="plat-val">146</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OUTREACH STATUS -->
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">📧 Outreach Status</div>
+          </div>
+          <div class="card-body">
+            <div class="stat-row"><span class="sr-label">MHA Cyber Crime</span><span class="sr-val" style="color:var(--green)">✓ Sent</span></div>
+            <div class="stat-row"><span class="sr-label">SEBI Enforcement</span><span class="sr-val" style="color:var(--green)">✓ Sent ×4</span></div>
+            <div class="stat-row"><span class="sr-label">Zerodha / Nithin K.</span><span class="sr-val" style="color:var(--green)">✓ Sent</span></div>
+            <div class="stat-row"><span class="sr-label">BCCI Integrity</span><span class="sr-val" style="color:var(--green)">✓ Sent</span></div>
+            <div class="stat-row"><span class="sr-label">JioHotstar</span><span class="sr-val" style="color:var(--green)">✓ Sent</span></div>
+            <div class="stat-row"><span class="sr-label">PhonePe (Rahul C.)</span><span class="sr-val" style="color:var(--green)">✓ Sent</span></div>
+            <div class="stat-row"><span class="sr-label">Media ×7</span><span class="sr-val" style="color:var(--green)">✓ Sent</span></div>
+            <div class="stat-row"><span class="sr-label">Nike (replied ✓)</span><span class="sr-val" style="color:var(--yellow)">⟳ Follow up</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ROW 3 — COUNTERFEIT + NEW CATEGORY -->
+    <div class="grid-2">
+
+      <!-- COUNTERFEIT SELLERS -->
+      <div class="card">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">🏷️ Confirmed Counterfeit Sellers</div>
+            <div class="card-tag">IndiaMART · IT Act 65B evidence ready</div>
+          </div>
+          <span class="card-action">79 total</span>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table class="dtable">
+            <thead><tr><th>Seller</th><th>Brand</th><th>City</th><th>Score</th></tr></thead>
+            <tbody>
+              <tr><td>BUDDY_HOUSE</td><td>Nike</td><td>Sirsa, HR</td><td><span class="dscore" style="background:rgba(255,45,85,0.12);color:var(--red)">77/100</span></td></tr>
+              <tr><td>Cold Fusion Zone</td><td>Samsung</td><td>Mysore, KA</td><td><span class="dscore" style="background:rgba(255,45,85,0.12);color:var(--red)">77/100</span></td></tr>
+              <tr><td>Next Wave</td><td>Nike</td><td>Amritsar, PB</td><td><span class="dscore" style="background:rgba(255,45,85,0.12);color:var(--red)">77/100</span></td></tr>
+              <tr><td>Mahakali Copy Center</td><td>Dettol</td><td>Bengaluru, KA</td><td><span class="dscore" style="background:rgba(255,107,53,0.12);color:var(--orange)">57/100</span></td></tr>
+              <tr><td>N Star Enterprise</td><td>Samsung</td><td>Delhi</td><td><span class="dscore" style="background:rgba(255,215,0,0.12);color:var(--yellow)">47/100</span></td></tr>
+              <tr><td>Rapid Enterprise</td><td>Dove</td><td>Mumbai, MH</td><td><span class="dscore" style="background:rgba(255,215,0,0.12);color:var(--yellow)">47/100</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- NEW CATEGORY: COLOUR PREDICTION -->
+      <div class="card">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">🎰 Colour Prediction Fraud — NEW CATEGORY</div>
+            <div class="card-tag">BigDaddy · Yaarwin · Daman · Tiranga · 91Club</div>
+          </div>
+          <span class="feed-badge fb-crit" style="align-self:center">BREAKTHROUGH</span>
+        </div>
+        <div class="card-body">
+          <div style="background:rgba(255,45,85,0.06);border:1px solid rgba(255,45,85,0.15);border-radius:8px;padding:12px;margin-bottom:14px;font-size:0.8rem;color:var(--text2);line-height:1.6">
+            Illegal lottery disguised as colour prediction games. <strong style="color:var(--text)">No RBI/SEBI registration.</strong> Targets youth with small deposits escalating to large losses. 41 channels with 5M+ combined subscribers — <strong style="color:var(--red)">nobody was monitoring this before CINEOS.</strong>
+          </div>
+          <div class="feed-item">
+            <div class="feed-sev crit"></div>
+            <div class="feed-main"><div class="feed-title">@Colourc_Predictc_daddy — BigDaddy Bdgwin</div><div class="feed-meta">Colour predict · 1,200,000 subs · No RBI reg</div></div>
+            <div class="feed-badge fb-crit">1.2M</div>
+          </div>
+          <div class="feed-item">
+            <div class="feed-sev crit"></div>
+            <div class="feed-main"><div class="feed-title">@wingox_dmwin_official — Yaarwin Crypto</div><div class="feed-meta">Colour predict · 924,000 subs · Active</div></div>
+            <div class="feed-badge fb-crit">924K</div>
+          </div>
+          <div class="feed-item">
+            <div class="feed-sev high"></div>
+            <div class="feed-main"><div class="feed-title">@Lottery_Tiranga_91Club_82_Daman</div><div class="feed-meta">Colour predict · 350,000 subs · Active</div></div>
+            <div class="feed-badge fb-high">350K</div>
+          </div>
+          <div class="feed-item">
+            <div class="feed-sev high"></div>
+            <div class="feed-main"><div class="feed-title">@daman_55clubs_BigDaddy — OKWIN Yaarwin</div><div class="feed-meta">Colour predict · 330,000 subs · Active</div></div>
+            <div class="feed-badge fb-high">330K</div>
+          </div>
+          <div style="font-family:var(--mono);font-size:0.65rem;color:var(--text2);margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+            Sent to RBI grievances@rbi.org.in · 41 channels · 5M+ subscribers · Awaiting response
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER ROW -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px">
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">🏛️ Government Contacts</div></div>
+        <div class="card-body">
+          <div class="stat-row"><span class="sr-label">MHA / I4C</span><span class="sr-val" style="font-size:0.7rem">011-2343 8207</span></div>
+          <div class="stat-row"><span class="sr-label">Cybercrime Helpline</span><span class="sr-val">1930</span></div>
+          <div class="stat-row"><span class="sr-label">SEBI SCORES</span><span class="sr-val" style="font-size:0.7rem">scores.sebi.gov.in</span></div>
+          <div class="stat-row"><span class="sr-label">RBI Grievances</span><span class="sr-val" style="font-size:0.65rem">grievances@rbi.org.in</span></div>
+          <div class="stat-row"><span class="sr-label">NPCI</span><span class="sr-val" style="font-size:0.7rem">npci@npci.org.in</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">📞 Phone Attribution</div></div>
+        <div class="card-body">
+          <div class="stat-row"><span class="sr-label">+91-8441916068</span><span class="sr-val" style="color:var(--red);font-size:0.7rem">2 IPL bet channels</span></div>
+          <div class="stat-row"><span class="sr-label">+91-6378542162</span><span class="sr-val" style="color:var(--orange);font-size:0.7rem">Satta Matka ch.</span></div>
+          <div class="stat-row"><span class="sr-label">+91-8696206466</span><span class="sr-val" style="color:var(--orange);font-size:0.7rem">Deep scan</span></div>
+          <div class="stat-row"><span class="sr-label">+91-9911919102</span><span class="sr-val" style="color:var(--orange);font-size:0.7rem">Deep scan</span></div>
+          <div class="stat-row"><span class="sr-label">Linked channels</span><span class="sr-val">109 mapped</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">🔑 API Status</div></div>
+        <div class="card-body">
+          <div class="stat-row"><span class="sr-label">Railway API</span><span class="sr-val" style="color:var(--green)">● LIVE</span></div>
+          <div class="stat-row"><span class="sr-label">Endpoints</span><span class="sr-val">18 active</span></div>
+          <div class="stat-row"><span class="sr-label">Uptime</span><span class="sr-val" style="color:var(--green)">99.9%</span></div>
+          <div class="stat-row"><span class="sr-label">GitHub</span><span class="sr-val" style="font-size:0.65rem">cinerisk-api</span></div>
+          <div class="stat-row"><span class="sr-label">Patent</span><span class="sr-val" style="font-size:0.65rem">64/049,190</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+// Date
+document.getElementById('dateEl').textContent =
+  new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+// Simulate live feed updates
+const alerts = [
+  {sev:'crit',title:'@KALYAN_SRIDEVI_DPBOSS_MATAKA — Satta Matka active',meta:'Telegram · Satta · 685,296 subs',badge:'CRITICAL',cls:'fb-crit'},
+  {sev:'high',title:'boAt MAGNEET FIRST COPY Bluetooth — Meesho listing',meta:'Meesho · Counterfeit · Rs 299',badge:'HIGH',cls:'fb-high'},
+  {sev:'crit',title:'Digital arrest fraud — Delhi victim Rs 14 Crore reported',meta:'Digital Arrest · CJI concerned · MHA alert',badge:'CRITICAL',cls:'fb-crit'},
+  {sev:'high',title:'@Crypto_Pump_Money_Daytrade — 631K subscribers active',meta:'Telegram · Crypto pump · 631,683 subs',badge:'HIGH',cls:'fb-high'},
+  {sev:'med',title:'Fake RBI scheme viral on WhatsApp — Rs 10,000 scheme',meta:'WhatsApp · Misinfo · Financial fraud',badge:'MONITOR',cls:'fb-med'},
+];
+
+let idx = 0;
+setInterval(() => {
+  const feed = document.getElementById('alertFeed');
+  const a = alerts[idx % alerts.length];
+  const el = document.createElement('div');
+  el.className = 'feed-item';
+  el.style.animation = 'fadeUp 0.4s ease forwards';
+  el.innerHTML = `
+    <div class="feed-sev ${a.sev}"></div>
+    <div class="feed-main">
+      <div class="feed-title">${a.title}</div>
+      <div class="feed-meta">${a.meta} · Just now</div>
+    </div>
+    <div class="feed-badge ${a.cls}">${a.badge}</div>`;
+  feed.insertBefore(el, feed.firstChild);
+  if (feed.children.length > 8) feed.removeChild(feed.lastChild);
+  idx++;
+}, 8000);
+
+function exportReport() {
+  alert('Generating intelligence report PDF...\nCheck your email at yugandhar@cineos.in');
+}
+</script>
+
+</body>
+</html>

@@ -39,3 +39,4 @@ CineRisk_*.pdf
 # Misc
 cineos_logo_500.png
 cineos_openapi.json
+cineos_session*.session-journal

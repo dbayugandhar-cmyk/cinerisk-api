@@ -464,6 +464,23 @@ def get_stats():
 
 @app.route('/api/alert', methods=['POST'])
 def add_alert():
+    # Deduplication check — reject alerts with existing ID or identical title+category
+    try:
+        incoming = request.get_json(force=True) or {}
+        inc_id    = incoming.get('id','')
+        inc_title = incoming.get('title','')[:60]
+        inc_cat   = incoming.get('category','')
+        title_key = f"{inc_title}|{inc_cat}"
+
+        existing_ids    = {a.get('id','') for a in ALERTS}
+        existing_titles = {f"{a.get('title','')[:60]}|{a.get('category','')}" for a in ALERTS}
+
+        if inc_id and inc_id in existing_ids:
+            return jsonify({'status':'duplicate','message':'Alert ID already exists'}), 200
+        if title_key in existing_titles:
+            return jsonify({'status':'duplicate','message':'Alert title+category already exists'}), 200
+    except:
+        pass  # Fall through to normal processing if check fails
     """Add a new alert from scanner (authenticated)."""
     # Simple API key auth
     api_key = request.headers.get('X-API-Key', '')

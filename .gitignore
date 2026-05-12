@@ -61,7 +61,7 @@ reports/pdfs/
 
 # All PDFs and sensitive reports
 *.pdf
-*.txt
+# *.txt removed — too aggressive, breaks requirements.txt
 reports/CINEOS_*.pdf
 reports/CINEOS_*.txt
 reports/SEBI_*.txt

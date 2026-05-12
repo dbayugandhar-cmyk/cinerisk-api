@@ -39,3 +39,22 @@ CineRisk_*.pdf
 cineos_logo_500.png
 cineos_openapi.json
 cineos_session*.session-journal
+
+# Sensitive intelligence files - never push publicly
+reports/evidence_packages/
+reports/pdfs/
+reports/takedowns/
+reports/CINEOS_I4C_*
+reports/CINEOS_SEBI_*
+reports/CINEOS_JioHotstar_*
+reports/CINEOS_TRAI_*
+reports/CINEOS_NPCI_*
+reports/CINEOS_NOGC_*
+reports/phone_attribution_*
+reports/court_evidence_*
+reports/upi_attribution_*
+reports/mule_network_*
+reports/deep_intelligence*
+reports/smart_attribution*
+reports/*.pdf
+reports/pdfs/

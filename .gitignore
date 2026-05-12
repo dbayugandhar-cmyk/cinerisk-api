@@ -58,3 +58,15 @@ reports/deep_intelligence*
 reports/smart_attribution*
 reports/*.pdf
 reports/pdfs/
+
+# All PDFs and sensitive reports
+*.pdf
+*.txt
+reports/CINEOS_*.pdf
+reports/CINEOS_*.txt
+reports/SEBI_*.txt
+reports/*_Partnership.*
+reports/*_Proposal.*
+reports/*_Intelligence.*
+reports/*_Evidence.*
+reports/*_Counterfeit.*

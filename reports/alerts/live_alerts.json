@@ -36,7 +36,16 @@
     },
     "detected_at": "2026-05-11T16:43:06.864893",
     "status": "active",
-    "published": true
+    "published": true,
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "WHOIS_archived",
+      "completeness": "1/5 fields"
+    }
   },
   {
     "id": "49e6ea6fa6dc2d0d",
@@ -78,7 +87,16 @@
     },
     "detected_at": "2026-05-11T17:11:58.682117",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "Reddy Anna Book affiliate",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "operator_graph",
+      "completeness": "1/5 fields"
+    }
   },
   {
     "id": "af2b23757c4c36fa",
@@ -117,7 +135,16 @@
     },
     "detected_at": "2026-05-11T17:11:58.683398",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "[UAE registrant",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "WHOIS",
+      "completeness": "1/5 fields"
+    }
   },
   {
     "id": "36c7a952af0c6b07",
@@ -154,7 +181,16 @@
     },
     "detected_at": "2026-05-11T17:11:58.684433",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "muthyala naresh",
+      "email": "muthyala19@gmail.com",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "WHOIS",
+      "completeness": "2/5 fields"
+    }
   },
   {
     "id": "7c69bbcc",
@@ -182,6 +218,15 @@
         "NOGC"
       ],
       "captured_at": "2026-05-11T19:00:57.976513"
+    },
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
     }
   },
   {
@@ -210,6 +255,15 @@
         "NOGC"
       ],
       "captured_at": "2026-05-11T19:00:57.976533"
+    },
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
     }
   },
   {
@@ -238,6 +292,15 @@
         "NOGC"
       ],
       "captured_at": "2026-05-11T19:00:57.976538"
+    },
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
     }
   },
   {
@@ -266,6 +329,15 @@
         "NOGC"
       ],
       "captured_at": "2026-05-11T19:00:57.976542"
+    },
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
     }
   },
   {
@@ -294,6 +366,15 @@
         "NOGC"
       ],
       "captured_at": "2026-05-11T19:00:57.976551"
+    },
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
     }
   },
   {
@@ -322,6 +403,15 @@
         "NOGC"
       ],
       "captured_at": "2026-05-11T19:00:57.976556"
+    },
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
     }
   },
   {
@@ -352,7 +442,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "#IPL2026 - Today's Match \ud83c\udfcf PBKS v DC \ud83d\udd62 7.30pm"
+    "title": "#IPL2026 - Today's Match \ud83c\udfcf PBKS v DC \ud83d\udd62 7.30pm",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -382,7 +481,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "Follow us for live updates on telegram #ipl2026 #prediction ..."
+    "title": "Follow us for live updates on telegram #ipl2026 #prediction ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -412,7 +520,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "IPL LIVE: DC vs PBKS | Today IPL Match Live | Live Cricket ..."
+    "title": "IPL LIVE: DC vs PBKS | Today IPL Match Live | Live Cricket ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -442,7 +559,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "How to Watch IPL Live Outside India for FREE Step-by-Step ..."
+    "title": "How to Watch IPL Live Outside India for FREE Step-by-Step ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -472,7 +598,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "Indian Premier League 2026 Live - Sunrisers Hyderabad vs ..."
+    "title": "Indian Premier League 2026 Live - Sunrisers Hyderabad vs ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -502,7 +637,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "SRH vs CSK LIVE \ud83d\udd34 IPL 2026 | Live Match + Join telegram ..."
+    "title": "SRH vs CSK LIVE \ud83d\udd34 IPL 2026 | Live Match + Join telegram ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -532,7 +676,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "IPL LIVE: PBKS vs SRH | Today IPL Match Live | Live Cricket ..."
+    "title": "IPL LIVE: PBKS vs SRH | Today IPL Match Live | Live Cricket ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -562,7 +715,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "cricket - Match day in Hyderabad \ud83c\udfdf\ufe0f Sunrisers ..."
+    "title": "cricket - Match day in Hyderabad \ud83c\udfdf\ufe0f Sunrisers ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -592,7 +754,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "1M+ Views \ud83d\ude33 IPL Lovers Already Joined! You're Missing ..."
+    "title": "1M+ Views \ud83d\ude33 IPL Lovers Already Joined! You're Missing ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -622,7 +793,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "How to Play IPL Live Stream (.m3u8) File in Desktop or MX ..."
+    "title": "How to Play IPL Live Stream (.m3u8) File in Desktop or MX ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "brand_impersonation",
@@ -652,7 +832,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "fake Phonepe APK Download App Fake Payment Receiption ..."
+    "title": "fake Phonepe APK Download App Fake Payment Receiption ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "brand_impersonation",
@@ -682,7 +871,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "Fake APK Fraud: Malicious Android Apps Used To Steal ..."
+    "title": "Fake APK Fraud: Malicious Android Apps Used To Steal ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "brand_impersonation",
@@ -712,7 +910,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "Free download Prank whats fake APK for Android"
+    "title": "Free download Prank whats fake APK for Android",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -742,7 +949,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "In which app I can watch IPL match for free?"
+    "title": "In which app I can watch IPL match for free?",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -772,7 +988,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "Live: CSK vs RCB, IPL 2026 11th T20 | Live Scores ..."
+    "title": "Live: CSK vs RCB, IPL 2026 11th T20 | Live Scores ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "piracy",
@@ -802,7 +1027,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "The exciting IPL clash between the Sunrisers Hyderabad and ..."
+    "title": "The exciting IPL clash between the Sunrisers Hyderabad and ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "brand_impersonation",
@@ -832,7 +1066,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "Government refutes fake SBI message claiming Aadhaar ..."
+    "title": "Government refutes fake SBI message claiming Aadhaar ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "brand_impersonation",
@@ -862,7 +1105,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "APK malware fraud: Hyderabad man duped by fake ..."
+    "title": "APK malware fraud: Hyderabad man duped by fake ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "brand_impersonation",
@@ -892,7 +1144,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "APMEPMA"
+    "title": "APMEPMA",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "brand_impersonation",
@@ -922,7 +1183,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "Safe Banking - Kotak Mahindra Bank"
+    "title": "Safe Banking - Kotak Mahindra Bank",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "brand_impersonation",
@@ -952,7 +1222,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "District Collector Office Nanded, Government of Maharashtra"
+    "title": "District Collector Office Nanded, Government of Maharashtra",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "brand_impersonation",
@@ -982,7 +1261,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "Slots Winner - APK Download | Get Signup Bonus \u20b955 To ..."
+    "title": "Slots Winner - APK Download | Get Signup Bonus \u20b955 To ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "brand_impersonation",
@@ -1012,7 +1300,16 @@
     "platform": "Web / Telegram",
     "severity": "critical",
     "source": "serpapi_scheduled",
-    "title": "8th Pay Commission: DA Hike for Central Government ..."
+    "title": "8th Pay Commission: DA Hike for Central Government ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "id": "5b34ec7ccc761dcc",
@@ -1052,7 +1349,16 @@
     },
     "detected_at": "2026-05-11T16:43:06.866957",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "id": "1fcfa12e8660a694",
@@ -1092,7 +1398,16 @@
     },
     "detected_at": "2026-05-11T16:43:06.867705",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "id": "2d424ce4521f9fcb",
@@ -1134,7 +1449,16 @@
     },
     "detected_at": "2026-05-11T17:11:58.685542",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "Reddy Anna Book",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "operator_graph",
+      "completeness": "1/5 fields"
+    }
   },
   {
     "id": "b5c9920a5542b852",
@@ -1173,7 +1497,16 @@
     },
     "detected_at": "2026-05-11T17:11:58.686557",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "id": "55992a4e26cc6596",
@@ -1213,7 +1546,16 @@
     },
     "detected_at": "2026-05-11T17:11:58.687613",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "id": "216fa68bb07616aa",
@@ -1253,7 +1595,16 @@
     },
     "detected_at": "2026-05-11T17:11:58.688728",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "id": "0c57dd2fe82761dd",
@@ -1292,7 +1643,16 @@
     },
     "detected_at": "2026-05-11T17:11:58.689730",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "id": "f292fd751c94d96b",
@@ -1331,7 +1691,16 @@
     },
     "detected_at": "2026-05-11T17:11:58.690866",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "Mahadev Book",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "operator_graph",
+      "completeness": "1/5 fields"
+    }
   },
   {
     "id": "6f864223",
@@ -1359,6 +1728,15 @@
         "NOGC"
       ],
       "captured_at": "2026-05-11T19:00:57.976560"
+    },
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
     }
   },
   {
@@ -1387,6 +1765,15 @@
         "Internal"
       ],
       "captured_at": "2026-05-11T19:00:57.976565"
+    },
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
     }
   },
   {
@@ -1415,6 +1802,15 @@
         "NOGC"
       ],
       "captured_at": "2026-05-11T19:00:57.976572"
+    },
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
     }
   },
   {
@@ -1443,6 +1839,15 @@
         "NOGC"
       ],
       "captured_at": "2026-05-11T19:00:57.976576"
+    },
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
     }
   },
   {
@@ -1476,6 +1881,15 @@
         "MIB"
       ],
       "captured_at": "2026-05-11T19:30:00"
+    },
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
     }
   },
   {
@@ -1506,7 +1920,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "SATTA MATKA GLOBAL STAR"
+    "title": "SATTA MATKA GLOBAL STAR",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "illegal_betting",
@@ -1536,7 +1959,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "View @SATTAMATKACOM"
+    "title": "View @SATTAMATKACOM",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "illegal_betting",
@@ -1566,7 +1998,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "MatkaGuru99 - Satta Matka News Channel"
+    "title": "MatkaGuru99 - Satta Matka News Channel",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "illegal_betting",
@@ -1596,7 +2037,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "Satta Matka OTC"
+    "title": "Satta Matka OTC",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "illegal_betting",
@@ -1626,7 +2076,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "SATTA MATKA BUSINESS"
+    "title": "SATTA MATKA BUSINESS",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "illegal_betting",
@@ -1656,7 +2115,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "JOHNNY SATTA MATKA"
+    "title": "JOHNNY SATTA MATKA",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "illegal_betting",
@@ -1686,7 +2154,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "LAXMI SATTA MATKA"
+    "title": "LAXMI SATTA MATKA",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "illegal_betting",
@@ -1716,7 +2193,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "IN KING SATTA MATKA ALL GAME"
+    "title": "IN KING SATTA MATKA ALL GAME",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "illegal_betting",
@@ -1746,7 +2232,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "TRISHUL SATTA MATKA - \u0924\u094d\u0930\u093f\u0936\u0942\u0932 \u0938\u091f\u094d\u091f\u093e \u092e\u091f\u0915\u093e"
+    "title": "TRISHUL SATTA MATKA - \u0924\u094d\u0930\u093f\u0936\u0942\u0932 \u0938\u091f\u094d\u091f\u093e \u092e\u091f\u0915\u093e",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "colour_prediction",
@@ -1776,7 +2271,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "91CLUB- BOT VIP1 SIGNAL BIG-SMALL (WINGO 1 MIN)"
+    "title": "91CLUB- BOT VIP1 SIGNAL BIG-SMALL (WINGO 1 MIN)",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "colour_prediction",
@@ -1806,7 +2310,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "colour trading number prediction"
+    "title": "colour trading number prediction",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "colour_prediction",
@@ -1836,7 +2349,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "View @RikuGamePredction"
+    "title": "View @RikuGamePredction",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "colour_prediction",
@@ -1866,7 +2388,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "Free Hacks colour prediction"
+    "title": "Free Hacks colour prediction",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "colour_prediction",
@@ -1896,7 +2427,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "91CLUB SPECIAL ACTIVITIES"
+    "title": "91CLUB SPECIAL ACTIVITIES",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "upi_mule",
@@ -1926,7 +2466,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "AlseerY-SofT"
+    "title": "AlseerY-SofT",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "upi_mule",
@@ -1956,7 +2505,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "My Mobile Solution"
+    "title": "My Mobile Solution",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "upi_mule",
@@ -1986,7 +2544,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "Sreedhar's CCE Official"
+    "title": "Sreedhar's CCE Official",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "upi_mule",
@@ -2016,7 +2583,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "SiM Unlocked"
+    "title": "SiM Unlocked",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "upi_mule",
@@ -2046,7 +2622,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "Contact @SingaporeAeroplane"
+    "title": "Contact @SingaporeAeroplane",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "upi_mule",
@@ -2076,7 +2661,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "Desi ITech"
+    "title": "Desi ITech",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "upi_mule",
@@ -2106,7 +2700,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "123 mobiles Hyderabad"
+    "title": "123 mobiles Hyderabad",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "upi_mule",
@@ -2136,7 +2739,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "G-TECH UNLIMITED"
+    "title": "G-TECH UNLIMITED",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "upi_mule",
@@ -2166,7 +2778,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "Sai Ponnamanda"
+    "title": "Sai Ponnamanda",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "counterfeit_pharma",
@@ -2196,7 +2817,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "Mrunal's Official Channel: General Studies, Current Affairs, ..."
+    "title": "Mrunal's Official Channel: General Studies, Current Affairs, ...",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "counterfeit_pharma",
@@ -2226,7 +2856,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "Rajesh Palviya"
+    "title": "Rajesh Palviya",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "illegal_betting",
@@ -2256,7 +2895,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "\ud835\udd4b\u211d\ud835\udd40\ud835\udd42\ud835\udd38\ud835\udd43 \ud835\udd4a\ud835\udd38\ud835\udd4b\ud835\udd4b\ud835\udd38 -\ud835\udd44\ud835\udd38\ud835\udd4b\ud835\udd42\ud835\udd38"
+    "title": "\ud835\udd4b\u211d\ud835\udd40\ud835\udd42\ud835\udd38\ud835\udd43 \ud835\udd4a\ud835\udd38\ud835\udd4b\ud835\udd4b\ud835\udd38 -\ud835\udd44\ud835\udd38\ud835\udd4b\ud835\udd42\ud835\udd38",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "colour_prediction",
@@ -2286,7 +2934,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "91club Colour & Number Prediction"
+    "title": "91club Colour & Number Prediction",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "colour_prediction",
@@ -2316,7 +2973,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "91CLUB PREDICTION WINGO GAME"
+    "title": "91CLUB PREDICTION WINGO GAME",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "colour_prediction",
@@ -2346,7 +3012,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "91CLUB Game Wingo VIP"
+    "title": "91CLUB Game Wingo VIP",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "colour_prediction",
@@ -2376,7 +3051,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "LuLumall Colour Prediction"
+    "title": "LuLumall Colour Prediction",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "upi_mule",
@@ -2406,7 +3090,16 @@
     "platform": "Web / Telegram",
     "severity": "high",
     "source": "serpapi_scheduled",
-    "title": "Poco X3 Pro \ud83c\uddee\ud83c\udde9 | NEW Channel"
+    "title": "Poco X3 Pro \ud83c\uddee\ud83c\udde9 | NEW Channel",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "id": "55faeea8a35a165a",
@@ -2445,7 +3138,16 @@
     },
     "detected_at": "2026-05-11T16:43:06.871043",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "[Registrant",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "WHOIS",
+      "completeness": "1/5 fields"
+    }
   },
   {
     "id": "e0e8e4f9fcf74103",
@@ -2484,7 +3186,16 @@
     },
     "detected_at": "2026-05-11T17:11:58.691902",
     "status": "active",
-    "published": false
+    "published": false,
+    "attribution": {
+      "name": "[Registrant identified",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "WHOIS",
+      "completeness": "1/5 fields"
+    }
   },
   {
     "category": "investment_fraud",
@@ -2514,7 +3225,16 @@
     "platform": "Web / Telegram",
     "severity": "medium",
     "source": "serpapi_scheduled",
-    "title": "TradePlus (SEBI Registered)"
+    "title": "TradePlus (SEBI Registered)",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "investment_fraud",
@@ -2544,7 +3264,16 @@
     "platform": "Web / Telegram",
     "severity": "medium",
     "source": "serpapi_scheduled",
-    "title": "Stock Gainers (SEBI Registered)"
+    "title": "Stock Gainers (SEBI Registered)",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "investment_fraud",
@@ -2574,7 +3303,16 @@
     "platform": "Web / Telegram",
     "severity": "medium",
     "source": "serpapi_scheduled",
-    "title": "Banking Wallah IBPS RRB , SBI , IBPS PO / Clerk"
+    "title": "Banking Wallah IBPS RRB , SBI , IBPS PO / Clerk",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "investment_fraud",
@@ -2604,7 +3342,16 @@
     "platform": "Web / Telegram",
     "severity": "medium",
     "source": "serpapi_scheduled",
-    "title": "StockYaari Premium (SEBI)"
+    "title": "StockYaari Premium (SEBI)",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "investment_fraud",
@@ -2634,7 +3381,16 @@
     "platform": "Web / Telegram",
     "severity": "medium",
     "source": "serpapi_scheduled",
-    "title": "CyberDost \u2013 Telegram"
+    "title": "CyberDost \u2013 Telegram",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "investment_fraud",
@@ -2664,7 +3420,16 @@
     "platform": "Web / Telegram",
     "severity": "medium",
     "source": "serpapi_scheduled",
-    "title": "Trade With Rahul Saraoge"
+    "title": "Trade With Rahul Saraoge",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "investment_fraud",
@@ -2694,7 +3459,16 @@
     "platform": "Web / Telegram",
     "severity": "medium",
     "source": "serpapi_scheduled",
-    "title": "SMT\u2122 (SEBI Registered) STOCK MARKET TODAY"
+    "title": "SMT\u2122 (SEBI Registered) STOCK MARKET TODAY",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "investment_fraud",
@@ -2724,7 +3498,16 @@
     "platform": "Web / Telegram",
     "severity": "medium",
     "source": "serpapi_scheduled",
-    "title": "LEAD IAS"
+    "title": "LEAD IAS",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   },
   {
     "category": "investment_fraud",
@@ -2754,6 +3537,15 @@
     "platform": "Web / Telegram",
     "severity": "medium",
     "source": "serpapi_scheduled",
-    "title": "CyberDost"
+    "title": "CyberDost",
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "",
+      "completeness": "0/5 fields"
+    }
   }
 ]

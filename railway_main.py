@@ -401,6 +401,11 @@ def _dedup_add(alert):
 
 for _a in SEED_ALERTS:
     _dedup_add(_a)
+
+# Load persisted alerts from GitHub (survives Railway restarts)
+for _ga in github_load():
+    _dedup_add(_ga)
+print(f'[STARTUP] {len(ALERTS)} alerts ready')
 # ─────────────────────────────────────────────────────────
 print(f'CINEOS: {len(ALERTS)} alerts seeded')
 
@@ -499,6 +504,8 @@ def add_alert():
         if not added:
             return jsonify({'status': 'duplicate', 'message': 'Alert already exists'}), 200
         ALERTS[:] = ALERTS[:500]  # cap at 500
+        if len(ALERTS) % 10 == 0:
+            threading.Thread(target=github_save, args=(ALERTS[:],), daemon=True).start()
         return jsonify({'status': 'ok', 'total': len(ALERTS)}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500

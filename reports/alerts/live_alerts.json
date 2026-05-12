@@ -1,259 +1,187 @@
 [
   {
-    "id": "ipl54live",
-    "title": "IPL Match 54 \u2014 PBKS vs DC \u00b7 fraud monitoring active",
-    "category": "piracy",
-    "severity": "high",
-    "platform": "Telegram \u00b7 Web",
-    "detail": "PBKS 70/0 after 4.6 overs \u00b7 Priyansh Arya 50*(24) \u00b7 Telegram scan rate limited",
-    "detected_at": "2026-05-11T19:30:00",
-    "source": "ipl_monitoring",
+    "id": "48029f346485bb96",
+    "title": "Fake payment APK \u2014 active credential theft site",
+    "category": "brand_impersonation",
+    "severity": "critical",
+    "platform": "Web \u00b7 APK",
+    "detail": "phonepes.com.in \u2014 fake PhonePe APK download, UAE registrant",
     "chain": {
       "channels_found": [
-        "Match 54 monitoring active"
+        "phonepes.com.in"
       ],
       "keywords_matched": [
-        "pbks",
-        "dc",
+        "phonepe apk",
+        "download",
+        "install"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "phonepes.com.in",
+      "whois_registrant": "[WHOIS archived \u2014 internal]",
+      "operator_name": null,
+      "operator_network": null,
+      "evidence_hashes": [
+        "a7f3c891d2e4b5"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + \u00a765B",
+      "captured_at": "2026-05-11T16:43:06.864883",
+      "recommended_action": "Report to CERT-In + PhonePe brand team + domain registrar",
+      "report_to": [
+        "PhonePe",
+        "CERT-In",
+        "Dynadot"
+      ]
+    },
+    "detected_at": "2026-05-11T16:43:06.864893",
+    "status": "active",
+    "published": true
+  },
+  {
+    "id": "49e6ea6fa6dc2d0d",
+    "title": "IPL Match 53 \u2014 20 piracy streams detected",
+    "category": "piracy",
+    "severity": "critical",
+    "platform": "Telegram / Web",
+    "detail": "20 illegal live streams during CSK vs LSG, May 10, 13:23 IST",
+    "chain": {
+      "channels_found": [
+        "13 channels (internal)"
+      ],
+      "keywords_matched": [
         "ipl live",
-        "match 54"
+        "hotstar free",
+        "watch live stream"
       ],
       "reach": 35000000,
+      "phones": [
+        "+91-8306154335",
+        "+91-9216328940"
+      ],
+      "upis": [],
+      "whois_domain": "",
+      "whois_registrant": "",
+      "operator_name": "Reddy Anna Book affiliate",
+      "operator_network": "Play99 network",
       "evidence_hashes": [
-        "ipl54live01"
+        "b4d2d638a9f1c2"
       ],
       "legal_basis": "IT Act 2000 S.65B + Copyright Act S.51",
-      "recommended_action": "Complete scan at Telegram rate limit reset 8am IST",
+      "recommended_action": "IT Rules 2021 S.69A takedown notice to Telegram",
       "report_to": [
         "JioHotstar",
         "BCCI",
         "MIB"
       ],
-      "captured_at": "2026-05-11T19:30:00"
-    }
+      "captured_at": "2026-05-11T17:11:58.682115"
+    },
+    "detected_at": "2026-05-11T17:11:58.682117",
+    "status": "active",
+    "published": false
   },
   {
-    "id": "0e58afff",
-    "title": "\ud83d\udcb0\ud83d\udcb0 BIGDADDY CRYPTO \ud83d\udcb0\ud83d\udcb0 \u2014 376,318 subscribers",
-    "category": "colour_prediction",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Category: colour_prediction \u00b7 376,318 subscribers \u00b7 deep scan needed",
-    "detected_at": "2026-05-11T19:00:57.976574",
-    "source": "high_reach_discovery",
-    "chain": {
-      "channels_found": [
-        "BdgWin_Wingo_Ok_Game"
-      ],
-      "keywords_matched": [
-        "colour_prediction"
-      ],
-      "reach": 376318,
-      "evidence_hashes": [
-        "0e58afff"
-      ],
-      "legal_basis": "IT Act 2000 S.65B",
-      "recommended_action": "Deep scan colour_prediction channel \u2014 376,318 subscriber reach",
-      "report_to": [
-        "NOGC"
-      ],
-      "captured_at": "2026-05-11T19:00:57.976576"
-    }
-  },
-  {
-    "id": "98be9df1",
-    "title": "\ud83c\udfc6DAMAN\ud83c\udfc6 \u2014 383,707 subscribers",
-    "category": "colour_prediction",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Category: colour_prediction \u00b7 383,707 subscribers \u00b7 deep scan needed",
-    "detected_at": "2026-05-11T19:00:57.976571",
-    "source": "high_reach_discovery",
-    "chain": {
-      "channels_found": [
-        "Crypto_91club_jai_club"
-      ],
-      "keywords_matched": [
-        "colour_prediction"
-      ],
-      "reach": 383707,
-      "evidence_hashes": [
-        "98be9df1"
-      ],
-      "legal_basis": "IT Act 2000 S.65B",
-      "recommended_action": "Deep scan colour_prediction channel \u2014 383,707 subscriber reach",
-      "report_to": [
-        "NOGC"
-      ],
-      "captured_at": "2026-05-11T19:00:57.976572"
-    }
-  },
-  {
-    "id": "6f468704",
-    "title": "Download Movies \u2014 398,025 subscribers",
-    "category": "piracy",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Category: piracy \u00b7 398,025 subscribers \u00b7 deep scan needed",
-    "detected_at": "2026-05-11T19:00:57.976563",
-    "source": "high_reach_discovery",
-    "chain": {
-      "channels_found": [
-        "Download_Movies_cinema_films_HD"
-      ],
-      "keywords_matched": [
-        "piracy"
-      ],
-      "reach": 398025,
-      "evidence_hashes": [
-        "6f468704"
-      ],
-      "legal_basis": "IT Act 2000 S.65B",
-      "recommended_action": "Deep scan piracy channel \u2014 398,025 subscriber reach",
-      "report_to": [
-        "Internal"
-      ],
-      "captured_at": "2026-05-11T19:00:57.976565"
-    }
-  },
-  {
-    "id": "6f864223",
-    "title": "BDG Game \u2014 413,976 subscribers",
-    "category": "colour_prediction",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Category: colour_prediction \u00b7 413,976 subscribers \u00b7 deep scan needed",
-    "detected_at": "2026-05-11T19:00:57.976559",
-    "source": "high_reach_discovery",
-    "chain": {
-      "channels_found": [
-        "Vip_Prediction_Daman_Game_Sikkim"
-      ],
-      "keywords_matched": [
-        "colour_prediction"
-      ],
-      "reach": 413976,
-      "evidence_hashes": [
-        "6f864223"
-      ],
-      "legal_basis": "IT Act 2000 S.65B",
-      "recommended_action": "Deep scan colour_prediction channel \u2014 413,976 subscriber reach",
-      "report_to": [
-        "NOGC"
-      ],
-      "captured_at": "2026-05-11T19:00:57.976560"
-    }
-  },
-  {
-    "id": "5587a4c6",
-    "title": "IPL MATCH PREDICTION \u2014 607,237 subscribers",
-    "category": "betting",
+    "id": "af2b23757c4c36fa",
+    "title": "Fake PhonePe APK \u2014 active credential theft site",
+    "category": "brand_impersonation",
     "severity": "critical",
-    "platform": "Telegram",
-    "detail": "Category: betting \u00b7 607,237 subscribers \u00b7 deep scan needed",
-    "detected_at": "2026-05-11T19:00:57.976553",
-    "source": "high_reach_discovery",
+    "platform": "Web / APK",
+    "detail": "phonepes.com.in \u2014 fake PhonePe APK, UAE registrant, Jan 2026",
     "chain": {
       "channels_found": [
-        "malik_mumbai_matchs"
+        "phonepes.com.in"
       ],
       "keywords_matched": [
-        "betting"
+        "phonepe apk",
+        "download",
+        "install"
       ],
-      "reach": 607237,
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "phonepes.com.in",
+      "whois_registrant": "[UAE registrant \u2014 full WHOIS internal]",
+      "operator_name": "",
+      "operator_network": "",
       "evidence_hashes": [
-        "5587a4c6"
+        "a7f3c891d2e4b5"
       ],
-      "legal_basis": "IT Act 2000 S.65B",
-      "recommended_action": "Deep scan betting channel \u2014 607,237 subscriber reach",
+      "legal_basis": "IT Act 2000 S.66D + S.65B",
+      "recommended_action": "Report to CERT-In + PhonePe + domain registrar",
       "report_to": [
-        "NOGC"
+        "PhonePe",
+        "CERT-In",
+        "Dynadot"
       ],
-      "captured_at": "2026-05-11T19:00:57.976556"
-    }
+      "captured_at": "2026-05-11T17:11:58.683397"
+    },
+    "detected_at": "2026-05-11T17:11:58.683398",
+    "status": "active",
+    "published": false
   },
   {
-    "id": "9d4e17ee",
-    "title": "Crypto Jaiclub Agents \ud83e\udd1d \u2014 686,679 subscribers",
+    "id": "36c7a952af0c6b07",
+    "title": "jiohotstar.net \u2014 domain squat, registrant identified",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "WHOIS",
+    "detail": "Registered Jan 18 2026 \u2014 4 days after JioHotstar launch",
+    "chain": {
+      "channels_found": [
+        "jiohotstar.net"
+      ],
+      "keywords_matched": [
+        "jiohotstar"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "jiohotstar.net",
+      "whois_registrant": "muthyala naresh \u2014 muthyala19@gmail.com",
+      "operator_name": "",
+      "operator_network": "",
+      "evidence_hashes": [
+        "e5f6a7b8c9d0e1"
+      ],
+      "legal_basis": "IT Act 2000 S.65B + Trade Marks Act S.29",
+      "recommended_action": "UDRP complaint + civil suit \u2014 registrant identified",
+      "report_to": [
+        "JioHotstar",
+        "BigRock",
+        "NIXI"
+      ],
+      "captured_at": "2026-05-11T17:11:58.684432"
+    },
+    "detected_at": "2026-05-11T17:11:58.684433",
+    "status": "active",
+    "published": false
+  },
+  {
+    "id": "7c69bbcc",
+    "title": "\ud83d\ude80\ud83d\ude8091CLUB\ud83d\ude80\ud83d\ude80AVIATOR\ud83d\ude80\ud83d\ude80 \u2014 1,008,905 subscribers",
     "category": "colour_prediction",
     "severity": "critical",
     "platform": "Telegram",
-    "detail": "Category: colour_prediction \u00b7 686,679 subscribers \u00b7 deep scan needed",
-    "detected_at": "2026-05-11T19:00:57.976549",
+    "detail": "Category: colour_prediction \u00b7 1,008,905 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976461",
     "source": "high_reach_discovery",
     "chain": {
       "channels_found": [
-        "crypto_jaiclub_91club_jalwa"
+        "Aviatorc_lotteryzc_tirangac"
       ],
       "keywords_matched": [
         "colour_prediction"
       ],
-      "reach": 686679,
+      "reach": 1008905,
       "evidence_hashes": [
-        "9d4e17ee"
+        "7c69bbcc"
       ],
       "legal_basis": "IT Act 2000 S.65B",
-      "recommended_action": "Deep scan colour_prediction channel \u2014 686,679 subscriber reach",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 1,008,905 subscriber reach",
       "report_to": [
         "NOGC"
       ],
-      "captured_at": "2026-05-11T19:00:57.976551"
-    }
-  },
-  {
-    "id": "190bb4cc",
-    "title": "JALWA GAME PREDICTION \u2014 725,635 subscribers",
-    "category": "colour_prediction",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "Category: colour_prediction \u00b7 725,635 subscribers \u00b7 deep scan needed",
-    "detected_at": "2026-05-11T19:00:57.976540",
-    "source": "high_reach_discovery",
-    "chain": {
-      "channels_found": [
-        "Ok_win_Jalwa_tashan_prediction"
-      ],
-      "keywords_matched": [
-        "colour_prediction"
-      ],
-      "reach": 725635,
-      "evidence_hashes": [
-        "190bb4cc"
-      ],
-      "legal_basis": "IT Act 2000 S.65B",
-      "recommended_action": "Deep scan colour_prediction channel \u2014 725,635 subscriber reach",
-      "report_to": [
-        "NOGC"
-      ],
-      "captured_at": "2026-05-11T19:00:57.976542"
-    }
-  },
-  {
-    "id": "fcc03aa0",
-    "title": "OKWIN Game OK WIN \u2014 814,348 subscribers",
-    "category": "colour_prediction",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "Category: colour_prediction \u00b7 814,348 subscribers \u00b7 deep scan needed",
-    "detected_at": "2026-05-11T19:00:57.976536",
-    "source": "high_reach_discovery",
-    "chain": {
-      "channels_found": [
-        "colour_trading_ok_win_game_okwin"
-      ],
-      "keywords_matched": [
-        "colour_prediction"
-      ],
-      "reach": 814348,
-      "evidence_hashes": [
-        "fcc03aa0"
-      ],
-      "legal_basis": "IT Act 2000 S.65B",
-      "recommended_action": "Deep scan colour_prediction channel \u2014 814,348 subscriber reach",
-      "report_to": [
-        "NOGC"
-      ],
-      "captured_at": "2026-05-11T19:00:57.976538"
+      "captured_at": "2026-05-11T19:00:57.976513"
     }
   },
   {
@@ -285,200 +213,817 @@
     }
   },
   {
-    "id": "7c69bbcc",
-    "title": "\ud83d\ude80\ud83d\ude8091CLUB\ud83d\ude80\ud83d\ude80AVIATOR\ud83d\ude80\ud83d\ude80 \u2014 1,008,905 subscribers",
+    "id": "fcc03aa0",
+    "title": "OKWIN Game OK WIN \u2014 814,348 subscribers",
     "category": "colour_prediction",
     "severity": "critical",
     "platform": "Telegram",
-    "detail": "Category: colour_prediction \u00b7 1,008,905 subscribers \u00b7 deep scan needed",
-    "detected_at": "2026-05-11T19:00:57.976461",
+    "detail": "Category: colour_prediction \u00b7 814,348 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976536",
     "source": "high_reach_discovery",
     "chain": {
       "channels_found": [
-        "Aviatorc_lotteryzc_tirangac"
+        "colour_trading_ok_win_game_okwin"
       ],
       "keywords_matched": [
         "colour_prediction"
       ],
-      "reach": 1008905,
+      "reach": 814348,
       "evidence_hashes": [
-        "7c69bbcc"
+        "fcc03aa0"
       ],
       "legal_basis": "IT Act 2000 S.65B",
-      "recommended_action": "Deep scan colour_prediction channel \u2014 1,008,905 subscriber reach",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 814,348 subscriber reach",
       "report_to": [
         "NOGC"
       ],
-      "captured_at": "2026-05-11T19:00:57.976513"
+      "captured_at": "2026-05-11T19:00:57.976538"
     }
   },
   {
-    "id": "e0e8e4f9fcf74103",
-    "title": "Investment fraud syndicate \u2014 5 fake platforms, 1 registrant",
-    "category": "investment_fraud",
-    "severity": "medium",
-    "platform": "Telegram / Web",
-    "detail": "WHOIS links 5 fake trading platforms to one registrant",
-    "chain": {
-      "channels_found": [
-        "25 channels (internal)"
-      ],
-      "keywords_matched": [
-        "guaranteed returns",
-        "sebi registered",
-        "100% profit"
-      ],
-      "reach": 340000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "5 domains (internal)",
-      "whois_registrant": "[Registrant identified \u2014 internal]",
-      "operator_name": "",
-      "operator_network": "",
-      "evidence_hashes": [
-        "j0k1l2m3n4o5p6"
-      ],
-      "legal_basis": "SEBI IA Regulations 2013 + IT Act S.65B",
-      "recommended_action": "SEBI SCORES complaint + platform takedown",
-      "report_to": [
-        "SEBI",
-        "I4C",
-        "Telegram"
-      ],
-      "captured_at": "2026-05-11T17:11:58.691901"
-    },
-    "detected_at": "2026-05-11T17:11:58.691902",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "f292fd751c94d96b",
-    "title": "Mahadev Book \u2014 41 channels, 2.2M reach, active ED case",
-    "category": "illegal_betting",
-    "severity": "high",
+    "id": "190bb4cc",
+    "title": "JALWA GAME PREDICTION \u2014 725,635 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
     "platform": "Telegram",
-    "detail": "Largest betting operator. Active ED investigation. Dubai link.",
+    "detail": "Category: colour_prediction \u00b7 725,635 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976540",
+    "source": "high_reach_discovery",
     "chain": {
       "channels_found": [
-        "41 channels (internal)"
+        "Ok_win_Jalwa_tashan_prediction"
       ],
       "keywords_matched": [
-        "mahadev book",
-        "cricket bet",
-        "ipl bet"
+        "colour_prediction"
       ],
-      "reach": 2200000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "",
-      "whois_registrant": "",
-      "operator_name": "Mahadev Book",
-      "operator_network": "Lotus365 / Dubai",
+      "reach": 725635,
       "evidence_hashes": [
-        "i9j0k1l2m3n4o5"
+        "190bb4cc"
       ],
-      "legal_basis": "Public Gambling Act 1867 + IT Act S.65B",
-      "recommended_action": "Intelligence to ED + Cyber Crime Portal",
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 725,635 subscriber reach",
       "report_to": [
-        "ED",
-        "NOGC",
-        "Cyber Crime Portal"
+        "NOGC"
       ],
-      "captured_at": "2026-05-11T17:11:58.690865"
-    },
-    "detected_at": "2026-05-11T17:11:58.690866",
-    "status": "active",
-    "published": false
+      "captured_at": "2026-05-11T19:00:57.976542"
+    }
   },
   {
-    "id": "0c57dd2fe82761dd",
-    "title": "15 pharma channels \u2014 Unitel Pharma modus operandi",
-    "category": "counterfeit_pharma",
-    "severity": "high",
+    "id": "9d4e17ee",
+    "title": "Crypto Jaiclub Agents \ud83e\udd1d \u2014 686,679 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
     "platform": "Telegram",
-    "detail": "Matches Rs 10Cr Unitel bust \u2014 CGHS diversion, packaging mimicry",
+    "detail": "Category: colour_prediction \u00b7 686,679 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976549",
+    "source": "high_reach_discovery",
     "chain": {
       "channels_found": [
-        "15 channels (internal)"
+        "crypto_jaiclub_91club_jalwa"
       ],
       "keywords_matched": [
-        "medicine wholesale",
-        "pharma agent",
-        "below mrp"
+        "colour_prediction"
       ],
-      "reach": 85000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "",
-      "whois_registrant": "",
-      "operator_name": "",
-      "operator_network": "",
+      "reach": 686679,
       "evidence_hashes": [
-        "h8i9j0k1l2m3n4"
+        "9d4e17ee"
       ],
-      "legal_basis": "Drugs and Cosmetics Act 1940 + IT Act S.65B",
-      "recommended_action": "Intelligence to CDSCO + pharma brands after deep scan",
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 686,679 subscriber reach",
       "report_to": [
-        "CDSCO",
-        "Delhi Police",
-        "Sun Pharma"
+        "NOGC"
       ],
-      "captured_at": "2026-05-11T17:11:58.689728"
-    },
-    "detected_at": "2026-05-11T17:11:58.689730",
-    "status": "active",
-    "published": false
+      "captured_at": "2026-05-11T19:00:57.976551"
+    }
   },
   {
-    "id": "216fa68bb07616aa",
-    "title": "148 counterfeit listings \u2014 Amazon India + Flipkart",
-    "category": "counterfeit_marketplace",
-    "severity": "high",
-    "platform": "Amazon / Flipkart",
-    "detail": "Explicit counterfeit keywords in product titles \u2014 3-tier verified",
+    "id": "5587a4c6",
+    "title": "IPL MATCH PREDICTION \u2014 607,237 subscribers",
+    "category": "betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Category: betting \u00b7 607,237 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976553",
+    "source": "high_reach_discovery",
     "chain": {
       "channels_found": [
-        "Amazon India",
-        "Flipkart"
+        "malik_mumbai_matchs"
       ],
       "keywords_matched": [
-        "first copy",
-        "replica",
-        "master copy",
-        "duplicate brand"
+        "betting"
       ],
+      "reach": 607237,
+      "evidence_hashes": [
+        "5587a4c6"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan betting channel \u2014 607,237 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976556"
+    }
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.facebook.com/IshrathImtiaz/posts/ipl2026-todays-match-pbks-v-dc-730pm-%EF%B8%8F-dharamshala/1398082215461369/"
+      ],
+      "evidence_hashes": [
+        "9365edc4"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
       "reach": 0,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "",
-      "whois_registrant": "",
-      "operator_name": "",
-      "operator_network": "",
-      "evidence_hashes": [
-        "c3d4e5f6a7b8c9"
-      ],
-      "legal_basis": "Trade Marks Act 1999 S.29 + IT Act S.65B",
-      "recommended_action": "Brand takedown notices to Amazon/Flipkart",
+      "recommended_action": "Verify and classify",
       "report_to": [
-        "Amazon Brand Registry",
-        "Flipkart Legal"
-      ],
-      "captured_at": "2026-05-11T17:11:58.688727"
+        "Internal review"
+      ]
     },
-    "detected_at": "2026-05-11T17:11:58.688728",
-    "status": "active",
-    "published": false
+    "detail": "... 2026 Live Match Watch-along ipl live stream in india ipl live stream in nepal ipl live live ipl match By the way giv",
+    "detected_at": "2026-05-12T08:00:29.075382+05:30",
+    "id": "9365edc4",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "#IPL2026 - Today's Match \ud83c\udfcf PBKS v DC \ud83d\udd62 7.30pm"
   },
   {
-    "id": "55992a4e26cc6596",
-    "title": "UPI mule recruitment \u2014 Gujarat Rs 77Cr network active",
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/reel/DXi1qQQkc_S/"
+      ],
+      "evidence_hashes": [
+        "6f47ab82"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "IPL 2026 Live Match Watch-along ipl live stream in India ipl live stream in Nepal ipl live live ipl match. By the way Li",
+    "detected_at": "2026-05-12T08:00:29.075536+05:30",
+    "id": "6f47ab82",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "Follow us for live updates on telegram #ipl2026 #prediction ..."
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.youtube.com/watch?v=urhhGsAHY90"
+      ],
+      "evidence_hashes": [
+        "09fb91e6"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "... 2026** Date & Time: **Monday, 11 May, 2026, at 7:30 PM IST ... ipl live stream,** **ipl live cricket match today,** ",
+    "detected_at": "2026-05-12T08:00:29.075548+05:30",
+    "id": "09fb91e6",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "IPL LIVE: DC vs PBKS | Today IPL Match Live | Live Cricket ..."
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.youtube.com/watch?v=qbMkJDouFTc"
+      ],
+      "evidence_hashes": [
+        "9b744bf9"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "... Telegram Channel: https://t.me/+boXIxmrN3hljNGJk ... 2026 IPL live stream free worldwide how to unblock IPL streamin",
+    "detected_at": "2026-05-12T08:00:29.075574+05:30",
+    "id": "9b744bf9",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "How to Watch IPL Live Outside India for FREE Step-by-Step ..."
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.facebook.com/61574453792003/videos/indian-premier-league-2026-live-sunrisers-hyderabad-vs-kolkata-knight-riders-45t/843823658140021/"
+      ],
+      "evidence_hashes": [
+        "a73c842d"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "... 2026 | Live Cricket Match | Hyderabad vs Kolkata Live| IPL ... ipl live stream in India ipl live stream in Nepal ipl",
+    "detected_at": "2026-05-12T08:00:29.075581+05:30",
+    "id": "a73c842d",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "Indian Premier League 2026 Live - Sunrisers Hyderabad vs ..."
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.youtube.com/watch?v=kwIVeNT-fOY"
+      ],
+      "evidence_hashes": [
+        "520a04ea"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "... ipl live stream srh vs csk srh vs csk live csk vs srh live ipl 2026 ... SRH vs CSK LIVE IPL 2026 | Live Match + Join",
+    "detected_at": "2026-05-12T08:00:29.075586+05:30",
+    "id": "520a04ea",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "SRH vs CSK LIVE \ud83d\udd34 IPL 2026 | Live Match + Join telegram ..."
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.youtube.com/watch?v=nxuShXv6z5M"
+      ],
+      "evidence_hashes": [
+        "0d77b14c"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "... Telegram https://t.me/OriginalcricketG Live Cricket Match Live ... ipl live stream, ipl live cricket match today, ip",
+    "detected_at": "2026-05-12T08:00:29.075592+05:30",
+    "id": "0d77b14c",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "IPL LIVE: PBKS vs SRH | Today IPL Match Live | Live Cricket ..."
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.facebook.com/photo.php?fbid=122172478958815126&set=a.122131419716815126&id=61574453792003"
+      ],
+      "evidence_hashes": [
+        "0277e21e"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Telegram: Join Group Chat. 1h. Recent Posts. cricket speed. 1h ... 2026 live kaise dekhe ipl live kaise dekhe ipl live s",
+    "detected_at": "2026-05-12T08:00:29.075598+05:30",
+    "id": "0277e21e",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "cricket - Match day in Hyderabad \ud83c\udfdf\ufe0f Sunrisers ..."
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/p/DXuoZ5kkyEv/"
+      ],
+      "evidence_hashes": [
+        "790af992"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "... Telegram now #IPL2026 #CricketLive #MatchUpdates ... ipl live stream in india ipl live stream in nepal ipl live live",
+    "detected_at": "2026-05-12T08:00:29.075603+05:30",
+    "id": "790af992",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "1M+ Views \ud83d\ude33 IPL Lovers Already Joined! You're Missing ..."
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.bigtricks.in/play-m3u8-live-stream-chrome/"
+      ],
+      "evidence_hashes": [
+        "be2bfad6"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "How to Play IPL Live Stream (.m3u8) File in Desktop or MX Player \u00b7 1. Click on the Link & Open the Extension. \u00b7 2. Insta",
+    "detected_at": "2026-05-12T08:00:29.075610+05:30",
+    "id": "be2bfad6",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "How to Play IPL Live Stream (.m3u8) File in Desktop or MX ..."
+  },
+  {
+    "category": "brand_impersonation",
+    "chain": {
+      "channels_found": [
+        "https://phonepes.com.in/"
+      ],
+      "evidence_hashes": [
+        "9166d974"
+      ],
+      "keywords_matched": [
+        "\"fake\"",
+        "\"apk\"",
+        "download",
+        "site:*.in"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Fake PhonePe APK apps are fraudulent tools designed to trick people during digital transactions. These applications copy",
+    "detected_at": "2026-05-12T08:00:38.146381+05:30",
+    "id": "9166d974",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "fake Phonepe APK Download App Fake Payment Receiption ..."
+  },
+  {
+    "category": "brand_impersonation",
+    "chain": {
+      "channels_found": [
+        "https://the420.in/fake-apk-fraud-malicious-android-apps-cybercrime-india/"
+      ],
+      "evidence_hashes": [
+        "87d9d143"
+      ],
+      "keywords_matched": [
+        "\"fake\"",
+        "\"apk\"",
+        "download",
+        "site:*.in"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Cybercriminals are spreading malicious APK files through SMS and WhatsApp to steal OTPs and banking data. Here's how fak",
+    "detected_at": "2026-05-12T08:00:38.146418+05:30",
+    "id": "87d9d143",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "Fake APK Fraud: Malicious Android Apps Used To Steal ..."
+  },
+  {
+    "category": "brand_impersonation",
+    "chain": {
+      "channels_found": [
+        "https://prank-whats-fake.apkcafe.in/"
+      ],
+      "evidence_hashes": [
+        "63c8b209"
+      ],
+      "keywords_matched": [
+        "\"fake\"",
+        "\"apk\"",
+        "download",
+        "site:*.in"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Hi, There you can download APK file \"WHATSFAKE\" for Android free, apk file ... with Prank whats fake app you Create fake",
+    "detected_at": "2026-05-12T08:00:38.146430+05:30",
+    "id": "63c8b209",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "Free download Prank whats fake APK for Android"
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.quora.com/In-which-app-I-can-watch-IPL-match-for-free"
+      ],
+      "evidence_hashes": [
+        "45c70213"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "In which app I can watch IPL match for free?",
+    "detected_at": "2026-05-12T12:00:46.315277+05:30",
+    "id": "45c70213",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "In which app I can watch IPL match for free?"
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.youtube.com/watch?v=elscTNlgN2c"
+      ],
+      "evidence_hashes": [
+        "fee6c948"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "... Telegram [https://t.me/OriginalcricketG] ... ipl live stream,** **ipl live cricket match today,** **ipl 2026 live ..",
+    "detected_at": "2026-05-12T12:00:46.315323+05:30",
+    "id": "fee6c948",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "Live: CSK vs RCB, IPL 2026 11th T20 | Live Scores ..."
+  },
+  {
+    "category": "piracy",
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/reel/DXZWRccDwzV/"
+      ],
+      "evidence_hashes": [
+        "d4d04b0d"
+      ],
+      "keywords_matched": [
+        "\"ipl",
+        "live",
+        "stream\"",
+        "telegram"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "IPL 2026 Live Match Watch-along ipl live stream in India ipl live stream in Nepal ipl live live ipl match. By the way Li",
+    "detected_at": "2026-05-12T12:00:46.315333+05:30",
+    "id": "d4d04b0d",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "The exciting IPL clash between the Sunrisers Hyderabad and ..."
+  },
+  {
+    "category": "brand_impersonation",
+    "chain": {
+      "channels_found": [
+        "https://www.newsonair.gov.in/government-refutes-fake-sbi-message-claiming-aadhaar-update-via-apk/"
+      ],
+      "evidence_hashes": [
+        "b3fb69b3"
+      ],
+      "keywords_matched": [
+        "\"fake\"",
+        "\"apk\"",
+        "download",
+        "site:*.in"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Government refutes fake SBI message claiming Aadhaar update via APK ... download and install an APK file to update their",
+    "detected_at": "2026-05-12T12:00:52.368950+05:30",
+    "id": "b3fb69b3",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "Government refutes fake SBI message claiming Aadhaar ..."
+  },
+  {
+    "category": "brand_impersonation",
+    "chain": {
+      "channels_found": [
+        "https://newsmeter.in/crime/apk-malware-fraud-hyderabad-man-duped-by-fake-doctors-appointment-loses-over-rs-4-lakh-762137"
+      ],
+      "evidence_hashes": [
+        "cc2c0467"
+      ],
+      "keywords_matched": [
+        "\"fake\"",
+        "\"apk\"",
+        "download",
+        "site:*.in"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "APK malware fraud: Hyderabad man duped by fake doctor's appointment, loses over Rs 4 lakh \u00b7 The victim said he was sent ",
+    "detected_at": "2026-05-12T12:00:52.368987+05:30",
+    "id": "cc2c0467",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "APK malware fraud: Hyderabad man duped by fake ..."
+  },
+  {
+    "category": "brand_impersonation",
+    "chain": {
+      "channels_found": [
+        "https://www.apmepma.gov.in/"
+      ],
+      "evidence_hashes": [
+        "7ede1428"
+      ],
+      "keywords_matched": [
+        "\"fake\"",
+        "\"apk\"",
+        "download",
+        "site:*.in"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Mahilaaksham apk download \u00b7 Population Management Policy. H E L P D E S k. H E L ... This avoids the chances of fake loa",
+    "detected_at": "2026-05-12T12:00:52.368998+05:30",
+    "id": "7ede1428",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "APMEPMA"
+  },
+  {
+    "category": "brand_impersonation",
+    "chain": {
+      "channels_found": [
+        "https://www.kotak.bank.in/en/safe-banking.html"
+      ],
+      "evidence_hashes": [
+        "9ec3d47b"
+      ],
+      "keywords_matched": [
+        "\"fake\"",
+        "\"apk\"",
+        "download",
+        "site:*.in"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Wedding Invite asking you to download an APK or click a link? wedding-invite ... Fake Job Offer. fake-job-v. Gaming Frau",
+    "detected_at": "2026-05-12T12:00:52.369005+05:30",
+    "id": "9ec3d47b",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "Safe Banking - Kotak Mahindra Bank"
+  },
+  {
+    "category": "brand_impersonation",
+    "chain": {
+      "channels_found": [
+        "https://nanded.gov.in/en/"
+      ],
+      "evidence_hashes": [
+        "59204549"
+      ],
+      "keywords_matched": [
+        "\"fake\"",
+        "\"apk\"",
+        "download",
+        "site:*.in"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Press note regarding citizens being alert about fake websites, mobile apps (APK), and fraudulent e-Challan links related",
+    "detected_at": "2026-05-12T12:00:52.369027+05:30",
+    "id": "59204549",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "District Collector Office Nanded, Government of Maharashtra"
+  },
+  {
+    "category": "brand_impersonation",
+    "chain": {
+      "channels_found": [
+        "https://topyonoapps.in/slots-winner/"
+      ],
+      "evidence_hashes": [
+        "96929e6f"
+      ],
+      "keywords_matched": [
+        "\"fake\"",
+        "\"apk\"",
+        "download",
+        "site:*.in"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Is Slots Winner a fake or real app? It is very easy to withdraw money from the Slopts-Winner APK. You can withdraw money",
+    "detected_at": "2026-05-12T12:00:52.369036+05:30",
+    "id": "96929e6f",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "Slots Winner - APK Download | Get Signup Bonus \u20b955 To ..."
+  },
+  {
+    "category": "brand_impersonation",
+    "chain": {
+      "channels_found": [
+        "https://www.bajajfinserv.in/8th-pay-commission"
+      ],
+      "evidence_hashes": [
+        "734fb33a"
+      ],
+      "keywords_matched": [
+        "\"fake\"",
+        "\"apk\"",
+        "download",
+        "site:*.in"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "According to official warnings, employees have been receiving links labelled as salary calculators that encourage them t",
+    "detected_at": "2026-05-12T12:00:52.369045+05:30",
+    "id": "734fb33a",
+    "platform": "Web / Telegram",
+    "severity": "critical",
+    "source": "serpapi_scheduled",
+    "title": "8th Pay Commission: DA Hike for Central Government ..."
+  },
+  {
+    "id": "5b34ec7ccc761dcc",
+    "title": "UPI mule recruitment \u2014 Gujarat network pattern active",
     "category": "upi_mule",
     "severity": "high",
     "platform": "Telegram",
-    "detail": "Bank account kit offers \u2014 Gujarat bust modus, Dubai link confirmed",
+    "detail": "Bank account kit offers matching Rs 77 Cr bust modus \u2014 network still active",
     "chain": {
       "channels_found": [
-        "active channels (internal)"
+        "[active channels \u2014 internal]"
       ],
       "keywords_matched": [
         "bank account kit",
@@ -488,63 +1033,64 @@
       "reach": 12000,
       "phones": [],
       "upis": [],
-      "whois_domain": "",
-      "whois_registrant": "",
-      "operator_name": "",
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": null,
       "operator_network": "Gujarat-Dubai corridor",
       "evidence_hashes": [
         "f6a7b8c9d0e1f2"
       ],
-      "legal_basis": "IT Act 2000 S.65B + IPC S.420",
+      "legal_basis": "IT Act 2000 \u00a765B + IPC \u00a7420",
+      "captured_at": "2026-05-11T16:43:06.866952",
       "recommended_action": "Intelligence to HDFC/ICICI risk teams + I4C",
       "report_to": [
         "NPCI",
         "HDFC",
         "ICICI",
         "I4C"
-      ],
-      "captured_at": "2026-05-11T17:11:58.687612"
+      ]
     },
-    "detected_at": "2026-05-11T17:11:58.687613",
+    "detected_at": "2026-05-11T16:43:06.866957",
     "status": "active",
     "published": false
   },
   {
-    "id": "b5c9920a5542b852",
-    "title": "91CLUB \u2014 1,008,905 subscribers, illegal colour prediction",
+    "id": "1fcfa12e8660a694",
+    "title": "91CLUB colour prediction \u2014 1M+ subscribers, Chinese-origin app",
     "category": "colour_prediction",
     "severity": "high",
     "platform": "Telegram",
-    "detail": "Largest single fraud channel in database \u2014 Chinese-origin app",
+    "detail": "91CLUB AVIATOR channel: 1,008,905 subscribers \u2014 largest single fraud channel",
     "chain": {
       "channels_found": [
-        "1 channel (internal)"
+        "[channel \u2014 internal]"
       ],
       "keywords_matched": [
         "91club",
         "aviator",
-        "colour prediction"
+        "colour prediction",
+        "wingo"
       ],
       "reach": 1008905,
       "phones": [],
       "upis": [],
-      "whois_domain": "",
-      "whois_registrant": "",
-      "operator_name": "",
-      "operator_network": "",
+      "whois_domain": null,
+      "whois_registrant": null,
+      "operator_name": null,
+      "operator_network": null,
       "evidence_hashes": [
-        "g7h8i9j0k1l2"
+        "g7h8i9j0k1l2m3"
       ],
-      "legal_basis": "Online Gaming Act 2025 + IT Act S.65B",
+      "legal_basis": "Online Gaming Act 2025 + IT Act \u00a765B",
+      "captured_at": "2026-05-11T16:43:06.867694",
       "recommended_action": "Report to NOGC + DoT for channel blocking",
       "report_to": [
         "NOGC",
         "MeitY",
         "DoT"
-      ],
-      "captured_at": "2026-05-11T17:11:58.686555"
+      ]
     },
-    "detected_at": "2026-05-11T17:11:58.686557",
+    "detected_at": "2026-05-11T16:43:06.867705",
     "status": "active",
     "published": false
   },
@@ -591,122 +1137,1276 @@
     "published": false
   },
   {
-    "id": "36c7a952af0c6b07",
-    "title": "jiohotstar.net \u2014 domain squat, registrant identified",
-    "category": "domain_squat",
-    "severity": "critical",
-    "platform": "WHOIS",
-    "detail": "Registered Jan 18 2026 \u2014 4 days after JioHotstar launch",
+    "id": "b5c9920a5542b852",
+    "title": "91CLUB \u2014 1,008,905 subscribers, illegal colour prediction",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Largest single fraud channel in database \u2014 Chinese-origin app",
     "chain": {
       "channels_found": [
-        "jiohotstar.net"
+        "1 channel (internal)"
       ],
       "keywords_matched": [
-        "jiohotstar"
+        "91club",
+        "aviator",
+        "colour prediction"
       ],
-      "reach": 0,
+      "reach": 1008905,
       "phones": [],
-      "upis": [],
-      "whois_domain": "jiohotstar.net",
-      "whois_registrant": "muthyala naresh \u2014 muthyala19@gmail.com",
-      "operator_name": "",
-      "operator_network": "",
-      "evidence_hashes": [
-        "e5f6a7b8c9d0e1"
-      ],
-      "legal_basis": "IT Act 2000 S.65B + Trade Marks Act S.29",
-      "recommended_action": "UDRP complaint + civil suit \u2014 registrant identified",
-      "report_to": [
-        "JioHotstar",
-        "BigRock",
-        "NIXI"
-      ],
-      "captured_at": "2026-05-11T17:11:58.684432"
-    },
-    "detected_at": "2026-05-11T17:11:58.684433",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "af2b23757c4c36fa",
-    "title": "Fake PhonePe APK \u2014 active credential theft site",
-    "category": "brand_impersonation",
-    "severity": "critical",
-    "platform": "Web / APK",
-    "detail": "phonepes.com.in \u2014 fake PhonePe APK, UAE registrant, Jan 2026",
-    "chain": {
-      "channels_found": [
-        "phonepes.com.in"
-      ],
-      "keywords_matched": [
-        "phonepe apk",
-        "download",
-        "install"
-      ],
-      "reach": 0,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "phonepes.com.in",
-      "whois_registrant": "[UAE registrant \u2014 full WHOIS internal]",
-      "operator_name": "",
-      "operator_network": "",
-      "evidence_hashes": [
-        "a7f3c891d2e4b5"
-      ],
-      "legal_basis": "IT Act 2000 S.66D + S.65B",
-      "recommended_action": "Report to CERT-In + PhonePe + domain registrar",
-      "report_to": [
-        "PhonePe",
-        "CERT-In",
-        "Dynadot"
-      ],
-      "captured_at": "2026-05-11T17:11:58.683397"
-    },
-    "detected_at": "2026-05-11T17:11:58.683398",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "49e6ea6fa6dc2d0d",
-    "title": "IPL Match 53 \u2014 20 piracy streams detected",
-    "category": "piracy",
-    "severity": "critical",
-    "platform": "Telegram / Web",
-    "detail": "20 illegal live streams during CSK vs LSG, May 10, 13:23 IST",
-    "chain": {
-      "channels_found": [
-        "13 channels (internal)"
-      ],
-      "keywords_matched": [
-        "ipl live",
-        "hotstar free",
-        "watch live stream"
-      ],
-      "reach": 35000000,
-      "phones": [
-        "+91-8306154335",
-        "+91-9216328940"
-      ],
       "upis": [],
       "whois_domain": "",
       "whois_registrant": "",
-      "operator_name": "Reddy Anna Book affiliate",
-      "operator_network": "Play99 network",
+      "operator_name": "",
+      "operator_network": "",
       "evidence_hashes": [
-        "b4d2d638a9f1c2"
+        "g7h8i9j0k1l2"
+      ],
+      "legal_basis": "Online Gaming Act 2025 + IT Act S.65B",
+      "recommended_action": "Report to NOGC + DoT for channel blocking",
+      "report_to": [
+        "NOGC",
+        "MeitY",
+        "DoT"
+      ],
+      "captured_at": "2026-05-11T17:11:58.686555"
+    },
+    "detected_at": "2026-05-11T17:11:58.686557",
+    "status": "active",
+    "published": false
+  },
+  {
+    "id": "55992a4e26cc6596",
+    "title": "UPI mule recruitment \u2014 Gujarat Rs 77Cr network active",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Bank account kit offers \u2014 Gujarat bust modus, Dubai link confirmed",
+    "chain": {
+      "channels_found": [
+        "active channels (internal)"
+      ],
+      "keywords_matched": [
+        "bank account kit",
+        "sim card",
+        "earn commission"
+      ],
+      "reach": 12000,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "",
+      "whois_registrant": "",
+      "operator_name": "",
+      "operator_network": "Gujarat-Dubai corridor",
+      "evidence_hashes": [
+        "f6a7b8c9d0e1f2"
+      ],
+      "legal_basis": "IT Act 2000 S.65B + IPC S.420",
+      "recommended_action": "Intelligence to HDFC/ICICI risk teams + I4C",
+      "report_to": [
+        "NPCI",
+        "HDFC",
+        "ICICI",
+        "I4C"
+      ],
+      "captured_at": "2026-05-11T17:11:58.687612"
+    },
+    "detected_at": "2026-05-11T17:11:58.687613",
+    "status": "active",
+    "published": false
+  },
+  {
+    "id": "216fa68bb07616aa",
+    "title": "148 counterfeit listings \u2014 Amazon India + Flipkart",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Amazon / Flipkart",
+    "detail": "Explicit counterfeit keywords in product titles \u2014 3-tier verified",
+    "chain": {
+      "channels_found": [
+        "Amazon India",
+        "Flipkart"
+      ],
+      "keywords_matched": [
+        "first copy",
+        "replica",
+        "master copy",
+        "duplicate brand"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "",
+      "whois_registrant": "",
+      "operator_name": "",
+      "operator_network": "",
+      "evidence_hashes": [
+        "c3d4e5f6a7b8c9"
+      ],
+      "legal_basis": "Trade Marks Act 1999 S.29 + IT Act S.65B",
+      "recommended_action": "Brand takedown notices to Amazon/Flipkart",
+      "report_to": [
+        "Amazon Brand Registry",
+        "Flipkart Legal"
+      ],
+      "captured_at": "2026-05-11T17:11:58.688727"
+    },
+    "detected_at": "2026-05-11T17:11:58.688728",
+    "status": "active",
+    "published": false
+  },
+  {
+    "id": "0c57dd2fe82761dd",
+    "title": "15 pharma channels \u2014 Unitel Pharma modus operandi",
+    "category": "counterfeit_pharma",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Matches Rs 10Cr Unitel bust \u2014 CGHS diversion, packaging mimicry",
+    "chain": {
+      "channels_found": [
+        "15 channels (internal)"
+      ],
+      "keywords_matched": [
+        "medicine wholesale",
+        "pharma agent",
+        "below mrp"
+      ],
+      "reach": 85000,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "",
+      "whois_registrant": "",
+      "operator_name": "",
+      "operator_network": "",
+      "evidence_hashes": [
+        "h8i9j0k1l2m3n4"
+      ],
+      "legal_basis": "Drugs and Cosmetics Act 1940 + IT Act S.65B",
+      "recommended_action": "Intelligence to CDSCO + pharma brands after deep scan",
+      "report_to": [
+        "CDSCO",
+        "Delhi Police",
+        "Sun Pharma"
+      ],
+      "captured_at": "2026-05-11T17:11:58.689728"
+    },
+    "detected_at": "2026-05-11T17:11:58.689730",
+    "status": "active",
+    "published": false
+  },
+  {
+    "id": "f292fd751c94d96b",
+    "title": "Mahadev Book \u2014 41 channels, 2.2M reach, active ED case",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Largest betting operator. Active ED investigation. Dubai link.",
+    "chain": {
+      "channels_found": [
+        "41 channels (internal)"
+      ],
+      "keywords_matched": [
+        "mahadev book",
+        "cricket bet",
+        "ipl bet"
+      ],
+      "reach": 2200000,
+      "phones": [],
+      "upis": [],
+      "whois_domain": "",
+      "whois_registrant": "",
+      "operator_name": "Mahadev Book",
+      "operator_network": "Lotus365 / Dubai",
+      "evidence_hashes": [
+        "i9j0k1l2m3n4o5"
+      ],
+      "legal_basis": "Public Gambling Act 1867 + IT Act S.65B",
+      "recommended_action": "Intelligence to ED + Cyber Crime Portal",
+      "report_to": [
+        "ED",
+        "NOGC",
+        "Cyber Crime Portal"
+      ],
+      "captured_at": "2026-05-11T17:11:58.690865"
+    },
+    "detected_at": "2026-05-11T17:11:58.690866",
+    "status": "active",
+    "published": false
+  },
+  {
+    "id": "6f864223",
+    "title": "BDG Game \u2014 413,976 subscribers",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Category: colour_prediction \u00b7 413,976 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976559",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "Vip_Prediction_Daman_Game_Sikkim"
+      ],
+      "keywords_matched": [
+        "colour_prediction"
+      ],
+      "reach": 413976,
+      "evidence_hashes": [
+        "6f864223"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 413,976 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976560"
+    }
+  },
+  {
+    "id": "6f468704",
+    "title": "Download Movies \u2014 398,025 subscribers",
+    "category": "piracy",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Category: piracy \u00b7 398,025 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976563",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "Download_Movies_cinema_films_HD"
+      ],
+      "keywords_matched": [
+        "piracy"
+      ],
+      "reach": 398025,
+      "evidence_hashes": [
+        "6f468704"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan piracy channel \u2014 398,025 subscriber reach",
+      "report_to": [
+        "Internal"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976565"
+    }
+  },
+  {
+    "id": "98be9df1",
+    "title": "\ud83c\udfc6DAMAN\ud83c\udfc6 \u2014 383,707 subscribers",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Category: colour_prediction \u00b7 383,707 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976571",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "Crypto_91club_jai_club"
+      ],
+      "keywords_matched": [
+        "colour_prediction"
+      ],
+      "reach": 383707,
+      "evidence_hashes": [
+        "98be9df1"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 383,707 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976572"
+    }
+  },
+  {
+    "id": "0e58afff",
+    "title": "\ud83d\udcb0\ud83d\udcb0 BIGDADDY CRYPTO \ud83d\udcb0\ud83d\udcb0 \u2014 376,318 subscribers",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Category: colour_prediction \u00b7 376,318 subscribers \u00b7 deep scan needed",
+    "detected_at": "2026-05-11T19:00:57.976574",
+    "source": "high_reach_discovery",
+    "chain": {
+      "channels_found": [
+        "BdgWin_Wingo_Ok_Game"
+      ],
+      "keywords_matched": [
+        "colour_prediction"
+      ],
+      "reach": 376318,
+      "evidence_hashes": [
+        "0e58afff"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "recommended_action": "Deep scan colour_prediction channel \u2014 376,318 subscriber reach",
+      "report_to": [
+        "NOGC"
+      ],
+      "captured_at": "2026-05-11T19:00:57.976576"
+    }
+  },
+  {
+    "id": "ipl54live",
+    "title": "IPL Match 54 \u2014 PBKS vs DC \u00b7 fraud monitoring active",
+    "category": "piracy",
+    "severity": "high",
+    "platform": "Telegram \u00b7 Web",
+    "detail": "PBKS 70/0 after 4.6 overs \u00b7 Priyansh Arya 50*(24) \u00b7 Telegram scan rate limited",
+    "detected_at": "2026-05-11T19:30:00",
+    "source": "ipl_monitoring",
+    "chain": {
+      "channels_found": [
+        "Match 54 monitoring active"
+      ],
+      "keywords_matched": [
+        "pbks",
+        "dc",
+        "ipl live",
+        "match 54"
+      ],
+      "reach": 35000000,
+      "evidence_hashes": [
+        "ipl54live01"
       ],
       "legal_basis": "IT Act 2000 S.65B + Copyright Act S.51",
-      "recommended_action": "IT Rules 2021 S.69A takedown notice to Telegram",
+      "recommended_action": "Complete scan at Telegram rate limit reset 8am IST",
       "report_to": [
         "JioHotstar",
         "BCCI",
         "MIB"
       ],
-      "captured_at": "2026-05-11T17:11:58.682115"
+      "captured_at": "2026-05-11T19:30:00"
+    }
+  },
+  {
+    "category": "illegal_betting",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/sattamatka_globalstar"
+      ],
+      "evidence_hashes": [
+        "42651175"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"satta",
+        "matka\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
     },
-    "detected_at": "2026-05-11T17:11:58.682117",
-    "status": "active",
-    "published": false
+    "detail": "SATTA MATKA GLOBAL STAR. *\u2600\ufe0f DAY MARKET GAME PASSING RECORD \u270f\ufe0f ... SATTA MATKA GLOBAL STAR. *RAJDHANI DAY OPEN SHOOT FIX",
+    "detected_at": "2026-05-12T08:00:10.603700+05:30",
+    "id": "42651175",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "SATTA MATKA GLOBAL STAR"
+  },
+  {
+    "category": "illegal_betting",
+    "chain": {
+      "channels_found": [
+        "https://t.me/SATTAMATKACOM"
+      ],
+      "evidence_hashes": [
+        "24b53eb6"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"satta",
+        "matka\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "SATTA MATKA RESULTS. 168 members, 2 online. Satta Matka Results, Fastest Results, Best Tezz Live Results Ke Liye, Pin Ka",
+    "detected_at": "2026-05-12T08:00:10.603781+05:30",
+    "id": "24b53eb6",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "View @SATTAMATKACOM"
+  },
+  {
+    "category": "illegal_betting",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/sattamatkaguru99?before=33"
+      ],
+      "evidence_hashes": [
+        "93d5f006"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"satta",
+        "matka\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Best Satta Matka App | Online Matka Play No. 1 | Kalyan Satta Matka Online Play Matka [ \u0939\u093f\u0902\u0926\u0940 Me ] Download Link - https",
+    "detected_at": "2026-05-12T08:00:10.603790+05:30",
+    "id": "93d5f006",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "MatkaGuru99 - Satta Matka News Channel"
+  },
+  {
+    "category": "illegal_betting",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/sattamatkaji?before=159"
+      ],
+      "evidence_hashes": [
+        "b186141c"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"satta",
+        "matka\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "1.97K viewsSatta Matka Ji, 22:40. August 7, 2023. Satta Matka OTC \u00b7 https://t.me/sattamatkaji \u00b7 Telegram. Satta Matka OT",
+    "detected_at": "2026-05-12T08:00:10.603799+05:30",
+    "id": "b186141c",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "Satta Matka OTC"
+  },
+  {
+    "category": "illegal_betting",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/sattamatka_business?after=6864"
+      ],
+      "evidence_hashes": [
+        "cf1346a1"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"satta",
+        "matka\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "SATTA MATKA BUSINESS. BIG CONGRATS MEMBERS Fix Single open---- 8PASS ... 02:48. January 21, 2025. SATTA MATKA BUSINESS. ",
+    "detected_at": "2026-05-12T08:00:10.603811+05:30",
+    "id": "cf1346a1",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "SATTA MATKA BUSINESS"
+  },
+  {
+    "category": "illegal_betting",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/usbsjzbsksbzj?before=161"
+      ],
+      "evidence_hashes": [
+        "fb63c4c0"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"satta",
+        "matka\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Platform \u00b7 Join \u00b7 JOHNNY SATTA MATKA. 99 subscribers \u00b7 JOHNNY SATTA MATKA. KALYAN 26/09/2022. FIXXXXXXXXXXXXXXX FIX OPEN",
+    "detected_at": "2026-05-12T08:00:10.603820+05:30",
+    "id": "fb63c4c0",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "JOHNNY SATTA MATKA"
+  },
+  {
+    "category": "illegal_betting",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/lacmi123?before=492"
+      ],
+      "evidence_hashes": [
+        "8ec6e53f"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"satta",
+        "matka\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "LAXMI SATTA MATKA. kalyan 23/09/2023 | \u0938\u0941\u092a\u0930 \u091c\u094b\u0921\u0940 \u0932\u093e\u0907\u0928 | Kalyan satta matka trick | Sattamatka |\u0915\u0932\u094d\u092f\u093e\u0923 | KALYAN | Today 2",
+    "detected_at": "2026-05-12T08:00:10.603827+05:30",
+    "id": "8ec6e53f",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "LAXMI SATTA MATKA"
+  },
+  {
+    "category": "illegal_betting",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/INKINGSATTAMATKA?before=8851"
+      ],
+      "evidence_hashes": [
+        "05f3009b"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"satta",
+        "matka\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "IN KING SATTA MATKA ALL GAME. MAIN BAZAR OTC 15/07/2024. SINGLE----8-- SUPPORT ... 07:59. July 15, 2024. IN KING SATTA M",
+    "detected_at": "2026-05-12T08:00:10.603844+05:30",
+    "id": "05f3009b",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "IN KING SATTA MATKA ALL GAME"
+  },
+  {
+    "category": "illegal_betting",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/sridevi_kalyan_no1?before=25283"
+      ],
+      "evidence_hashes": [
+        "0e832826"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"satta",
+        "matka\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "08:38. April 17. TRISHUL SATTA MATKA \u00b7 TRISHUL SATTA MATKA. Photo. BIG CONGRATULATIONS \u26a1\ufe0f \u26a1\ufe0f MILAN NIGHT \u26a1\ufe0f OPEN PASS ..",
+    "detected_at": "2026-05-12T08:00:10.603855+05:30",
+    "id": "0e832826",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "TRISHUL SATTA MATKA - \u0924\u094d\u0930\u093f\u0936\u0942\u0932 \u0938\u091f\u094d\u091f\u093e \u092e\u091f\u0915\u093e"
+  },
+  {
+    "category": "colour_prediction",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/botvipsignal1_bigsmall_91club?before=2579739"
+      ],
+      "evidence_hashes": [
+        "a2cb1fad"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"colour",
+        "prediction\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "91CLUB- BOT VIP1 SIGNAL BIG-SMALL (WINGO 1 MIN). Result: Win. 835 views 05:49. January 11. 91CLUB- BOT VIP1 SIGNAL BIG-S",
+    "detected_at": "2026-05-12T08:00:16.882728+05:30",
+    "id": "a2cb1fad",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "91CLUB- BOT VIP1 SIGNAL BIG-SMALL (WINGO 1 MIN)"
+  },
+  {
+    "category": "colour_prediction",
+    "chain": {
+      "channels_found": [
+        "https://t.me/colourpredictionhack91"
+      ],
+      "evidence_hashes": [
+        "4d7a5bb8"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"colour",
+        "prediction\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "We provide trusted & accurate colour prediction tips. https://www.jaiclub48.com/#/register?invitationCode=26256783762",
+    "detected_at": "2026-05-12T08:00:16.882759+05:30",
+    "id": "4d7a5bb8",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "colour trading number prediction"
+  },
+  {
+    "category": "colour_prediction",
+    "chain": {
+      "channels_found": [
+        "https://t.me/RikuGamePredction"
+      ],
+      "evidence_hashes": [
+        "bb973c46"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"colour",
+        "prediction\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "#colourwalagame #colourgame. View in Telegram \u00b7 Preview channel. If you have Telegram, you can view and join. Best colou",
+    "detected_at": "2026-05-12T08:00:16.882765+05:30",
+    "id": "bb973c46",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "View @RikuGamePredction"
+  },
+  {
+    "category": "colour_prediction",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/colourfreehack?before=6496"
+      ],
+      "evidence_hashes": [
+        "4c427d3f"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"colour",
+        "prediction\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Free Hacks colour prediction \u00b7 Free Hacks colour prediction. \u0905\u092c Trade \u0939\u0941\u0906 \u0906\u0938\u093e\u0928! 51 Full Guide + Winning Proofs \u0926\u0947\u0916\u094b \u0905\u092d\u0940!",
+    "detected_at": "2026-05-12T08:00:16.882780+05:30",
+    "id": "4c427d3f",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "Free Hacks colour prediction"
+  },
+  {
+    "category": "colour_prediction",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/activitiesspecial91club?before=288"
+      ],
+      "evidence_hashes": [
+        "5ecb3811"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"colour",
+        "prediction\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Join 91CLUB for Exclusive Holiday Rewards! From December 25th to January 1st, enjoy an extra bonus of 1% to 5% on every ",
+    "detected_at": "2026-05-12T08:00:16.882790+05:30",
+    "id": "5ecb3811",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "91CLUB SPECIAL ACTIVITIES"
+  },
+  {
+    "category": "upi_mule",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/alseery_soft?after=2616"
+      ],
+      "evidence_hashes": [
+        "f678dd94"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"bank",
+        "account",
+        "kit\""
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "AlseerY-UnLocker V 1.1.4 : \u00b7 Unlock SIM Card | LG L555DL | TRACFONE | BY-AlseerY-Unlocker \u00b7 Unlock SIM Card | LG L355DL ",
+    "detected_at": "2026-05-12T08:00:25.331731+05:30",
+    "id": "f678dd94",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "AlseerY-SofT"
+  },
+  {
+    "category": "upi_mule",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/mymobilesolution?before=351"
+      ],
+      "evidence_hashes": [
+        "05a13e8d"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"bank",
+        "account",
+        "kit\""
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "In this Video Tutorial You Can Learn How Fix No sim card problem |No service Problem | Emergency calls only problem fix ",
+    "detected_at": "2026-05-12T08:00:25.331770+05:30",
+    "id": "05a13e8d",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "My Mobile Solution"
+  },
+  {
+    "category": "upi_mule",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/SreedharsCCE/27018"
+      ],
+      "evidence_hashes": [
+        "252882fa"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"bank",
+        "account",
+        "kit\""
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Local SIM card of the visiting country. 8%. Mobile device with internet connectivity. 2.01K voters17.4K views 20:27. Dec",
+    "detected_at": "2026-05-12T08:00:25.331781+05:30",
+    "id": "252882fa",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "Sreedhar's CCE Official"
+  },
+  {
+    "category": "upi_mule",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/simunlocked?before=622"
+      ],
+      "evidence_hashes": [
+        "4b83d6a0"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"bank",
+        "account",
+        "kit\""
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "... SiM card) bypass MDM lock Remote Management iPhone iPad Macbook unlock SiM ... SiM card) bypass iCloud iPad Air to i",
+    "detected_at": "2026-05-12T08:00:25.331791+05:30",
+    "id": "4b83d6a0",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "SiM Unlocked"
+  },
+  {
+    "category": "upi_mule",
+    "chain": {
+      "channels_found": [
+        "https://t.me/SingaporeAeroplane"
+      ],
+      "evidence_hashes": [
+        "2a9a869e"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"bank",
+        "account",
+        "kit\""
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "SG Pre-Registered SIM Card. @SingaporeAeroplane. \u65b0\u52a0\u5761SIM\u5361/OTP @sgsimcards \u00b7 Send Message. If you have Telegram, you can c",
+    "detected_at": "2026-05-12T08:00:25.331801+05:30",
+    "id": "2a9a869e",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "Contact @SingaporeAeroplane"
+  },
+  {
+    "category": "upi_mule",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/DesiItech?before=1224"
+      ],
+      "evidence_hashes": [
+        "3192ec7b"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"bank",
+        "account",
+        "kit\""
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "\u0907\u0938 \u0935\u0940\u0921\u093f\u092f\u094b \u092e\u0947\u0902 \u092e\u0948\u0902\u0928\u0947 step-by-step \u092c\u0924\u093e\u092f\u093e \u0939\u0948 \u0915\u093f \u0915\u0948\u0938\u0947 \u0906\u092a \u0915\u093f\u0938\u0940 \u092d\u0940 telecom network \u091c\u0948\u0938\u0947 Airtel, Jio, VI \u092f\u093e BSNL \u0915\u093e SIM card \u0906\u0938",
+    "detected_at": "2026-05-12T08:00:25.331811+05:30",
+    "id": "3192ec7b",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "Desi ITech"
+  },
+  {
+    "category": "upi_mule",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/elegant_mobile?before=14428"
+      ],
+      "evidence_hashes": [
+        "2bd50f58"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"bank",
+        "account",
+        "kit\""
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Single sim card. Opne box unused phones. Like new condition. Olny Rs.27500 ... Single sim card. All accessories availabl",
+    "detected_at": "2026-05-12T08:00:25.331820+05:30",
+    "id": "2bd50f58",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "123 mobiles Hyderabad"
+  },
+  {
+    "category": "upi_mule",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/gunlimitedchannel?q=%23HotDataPlan&before=2086"
+      ],
+      "evidence_hashes": [
+        "a859c5de"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"bank",
+        "account",
+        "kit\""
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "How To Activate MTN 10GB For #2000. Here is another complete guide on how you can activate a whooping sum 10GB for N2000",
+    "detected_at": "2026-05-12T08:00:25.331888+05:30",
+    "id": "a859c5de",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "G-TECH UNLIMITED"
+  },
+  {
+    "category": "upi_mule",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/saiponnamandaYT?before=83"
+      ],
+      "evidence_hashes": [
+        "51eb28c3"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"bank",
+        "account",
+        "kit\""
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Is your Android device showing \"No SIM Card\", \"No Network\", or \"IMEI not available\" errors? You're not alone! This video",
+    "detected_at": "2026-05-12T08:00:25.331902+05:30",
+    "id": "51eb28c3",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "Sai Ponnamanda"
+  },
+  {
+    "category": "counterfeit_pharma",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/mrunalorg?before=857"
+      ],
+      "evidence_hashes": [
+        "3d0940d3"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"medicine",
+        "wholesale\"",
+        "\"below"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "\u2192 WHOLESALE PRICE index (Prepared by OFFICE OF THE ECONOMIC ADVISER under DEPARTMENT FOR PROMOTION OF INDUSTRY AND INTER",
+    "detected_at": "2026-05-12T08:00:35.147585+05:30",
+    "id": "3d0940d3",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "Mrunal's Official Channel: General Studies, Current Affairs, ..."
+  },
+  {
+    "category": "counterfeit_pharma",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/RPtechnicals?before=99"
+      ],
+      "evidence_hashes": [
+        "131dda3a"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"medicine",
+        "wholesale\"",
+        "\"below"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Bulk/Block: CCL - buy - Govt Pension Fund (2m shrs @Rs199); sell - Small Cap World Fund (6.5m shrs @Rs203). Srides Arcol",
+    "detected_at": "2026-05-12T08:00:35.147625+05:30",
+    "id": "131dda3a",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "Rajesh Palviya"
+  },
+  {
+    "category": "illegal_betting",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/KHABRIWALEsattamatka?before=8385"
+      ],
+      "evidence_hashes": [
+        "dc4d6a60"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"satta",
+        "matka\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "T\u211dIKAL SATTA -MATKA. SUPRIME DAY OPEN PENEL CUT 224- CUT -247. CLOSE 5555 PASSS. 598 views 05:35. April 13, 2025. T\u211dIKAL",
+    "detected_at": "2026-05-12T12:00:40.240368+05:30",
+    "id": "dc4d6a60",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "\ud835\udd4b\u211d\ud835\udd40\ud835\udd42\ud835\udd38\ud835\udd43 \ud835\udd4a\ud835\udd38\ud835\udd4b\ud835\udd4b\ud835\udd38 -\ud835\udd44\ud835\udd38\ud835\udd4b\ud835\udd42\ud835\udd38"
+  },
+  {
+    "category": "colour_prediction",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/colour_prediction91club?before=269"
+      ],
+      "evidence_hashes": [
+        "17608ebc"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"colour",
+        "prediction\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "91club Colour & Number Prediction. INDIAN PREMIER LEAGUE 2026. MATCH NO. 48TH ... 91club Colour & Number Prediction. 70-",
+    "detected_at": "2026-05-12T12:00:42.269809+05:30",
+    "id": "17608ebc",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "91club Colour & Number Prediction"
+  },
+  {
+    "category": "colour_prediction",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/wingo91clubprediction?before=18512"
+      ],
+      "evidence_hashes": [
+        "0a2d6872"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"colour",
+        "prediction\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "91CLUB PREDICTION WINGO GAME. \u27a1\ufe0f \u23f8 \u2b05\ufe0f 5min Big_Small Period: 20230921030124 \u2b06\ufe0f Buy : Small \u091b\u094b\u091f\u093e chhota \u2b06\ufe0f Multiple: x1 \u2b06",
+    "detected_at": "2026-05-12T12:00:42.269866+05:30",
+    "id": "0a2d6872",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "91CLUB PREDICTION WINGO GAME"
+  },
+  {
+    "category": "colour_prediction",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/Official_91CLUB_Game?before=189128"
+      ],
+      "evidence_hashes": [
+        "8f35a427"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"colour",
+        "prediction\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "EXCITING NEWS! ATTENDANCE REWARDS FOR OUR ACTIVE MEMBERS ARE NOW AVAILABLE AT 91CLUB ; Recharge daily to unlock a bonus ",
+    "detected_at": "2026-05-12T12:00:42.269883+05:30",
+    "id": "8f35a427",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "91CLUB Game Wingo VIP"
+  },
+  {
+    "category": "colour_prediction",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/Lullumallofficial?before=42112"
+      ],
+      "evidence_hashes": [
+        "17065697"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"colour",
+        "prediction\"",
+        "OR"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "LuLumall Colour Prediction. India's No.1 Trading ... LULU MALL Colour Prediction App Fastest Withdrawal - 10 Minutes BAN",
+    "detected_at": "2026-05-12T12:00:42.269893+05:30",
+    "id": "17065697",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "LuLumall Colour Prediction"
+  },
+  {
+    "category": "upi_mule",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/pocox3proindonesiaupdate?q=%23FadyOS&before=6449"
+      ],
+      "evidence_hashes": [
+        "1ed5e7c1"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"bank",
+        "account",
+        "kit\""
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "PixelDrain. Screenshots: HERE Changelog: \u2022 Ported from Poco F3 (alioth) \u2022 Based on HyperOS V2.0.214.0 CN \u2022 Added 130Hz \u2022",
+    "detected_at": "2026-05-12T12:00:44.291192+05:30",
+    "id": "1ed5e7c1",
+    "platform": "Web / Telegram",
+    "severity": "high",
+    "source": "serpapi_scheduled",
+    "title": "Poco X3 Pro \ud83c\uddee\ud83c\udde9 | NEW Channel"
   },
   {
     "id": "55faeea8a35a165a",
@@ -748,374 +2448,15 @@
     "published": false
   },
   {
-    "id": "3a4cc811901b57cf",
-    "title": "Mahadev Book \u2014 41 channels, 2.2M reach, active ED case",
-    "category": "illegal_betting",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Largest mapped betting operator. Active ED investigation. Dubai financial link.",
-    "chain": {
-      "channels_found": [
-        "[41 channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "mahadev book",
-        "cricket bet",
-        "ipl bet"
-      ],
-      "reach": 2200000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": "Mahadev Book",
-      "operator_network": "Lotus365 \u00b7 Dubai link",
-      "evidence_hashes": [
-        "i9j0k1l2m3n4o5"
-      ],
-      "legal_basis": "Public Gambling Act 1867 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:43:06.870158",
-      "recommended_action": "Intelligence to ED + Cyber Crime Portal",
-      "report_to": [
-        "ED",
-        "NOGC",
-        "Cyber Crime Portal"
-      ]
-    },
-    "detected_at": "2026-05-11T16:43:06.870162",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "ce9c878ccbc3f5d0",
-    "title": "15 pharma channels \u2014 Unitel Pharma modus operandi",
-    "category": "counterfeit_pharma",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Pattern matches Rs 10 Cr Unitel bust \u2014 CGHS diversion, packaging mimicry",
-    "chain": {
-      "channels_found": [
-        "[15 channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "medicine wholesale",
-        "pharma agent",
-        "below mrp"
-      ],
-      "reach": 85000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "h8i9j0k1l2m3n4"
-      ],
-      "legal_basis": "Drugs and Cosmetics Act 1940 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:43:06.869368",
-      "recommended_action": "Intelligence to CDSCO + Sun Pharma/Cipla after deep scan",
-      "report_to": [
-        "CDSCO",
-        "Delhi Police Crime Branch",
-        "Sun Pharma"
-      ]
-    },
-    "detected_at": "2026-05-11T16:43:06.869373",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "dfcf5b2de0d111a1",
-    "title": "148 counterfeit listings \u2014 Amazon India + Flipkart",
-    "category": "counterfeit_marketplace",
-    "severity": "high",
-    "platform": "Amazon \u00b7 Flipkart",
-    "detail": "Explicit counterfeit keywords in product titles \u2014 defensible evidence",
-    "chain": {
-      "channels_found": [
-        "Amazon India",
-        "Flipkart"
-      ],
-      "keywords_matched": [
-        "first copy",
-        "replica",
-        "master copy",
-        "duplicate brand"
-      ],
-      "reach": 0,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "c3d4e5f6a7b8c9"
-      ],
-      "legal_basis": "Trade Marks Act 1999 \u00a729 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:43:06.868544",
-      "recommended_action": "Brand takedown notices to Amazon/Flipkart + seller suspension",
-      "report_to": [
-        "Amazon Brand Registry",
-        "Flipkart Legal",
-        "Brand owners"
-      ]
-    },
-    "detected_at": "2026-05-11T16:43:06.868549",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "1fcfa12e8660a694",
-    "title": "91CLUB colour prediction \u2014 1M+ subscribers, Chinese-origin app",
-    "category": "colour_prediction",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "91CLUB AVIATOR channel: 1,008,905 subscribers \u2014 largest single fraud channel",
-    "chain": {
-      "channels_found": [
-        "[channel \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "91club",
-        "aviator",
-        "colour prediction",
-        "wingo"
-      ],
-      "reach": 1008905,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "g7h8i9j0k1l2m3"
-      ],
-      "legal_basis": "Online Gaming Act 2025 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:43:06.867694",
-      "recommended_action": "Report to NOGC + DoT for channel blocking",
-      "report_to": [
-        "NOGC",
-        "MeitY",
-        "DoT"
-      ]
-    },
-    "detected_at": "2026-05-11T16:43:06.867705",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "5b34ec7ccc761dcc",
-    "title": "UPI mule recruitment \u2014 Gujarat network pattern active",
-    "category": "upi_mule",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Bank account kit offers matching Rs 77 Cr bust modus \u2014 network still active",
-    "chain": {
-      "channels_found": [
-        "[active channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "bank account kit",
-        "sim card",
-        "earn commission"
-      ],
-      "reach": 12000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": "Gujarat-Dubai corridor",
-      "evidence_hashes": [
-        "f6a7b8c9d0e1f2"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + IPC \u00a7420",
-      "captured_at": "2026-05-11T16:43:06.866952",
-      "recommended_action": "Intelligence to HDFC/ICICI risk teams + I4C",
-      "report_to": [
-        "NPCI",
-        "HDFC",
-        "ICICI",
-        "I4C"
-      ]
-    },
-    "detected_at": "2026-05-11T16:43:06.866957",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "691f1c1abb8cf312",
-    "title": "BCCI impersonator \u2014 2 operator phones confirmed",
-    "category": "impersonation",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Phones publicly posted in BCCI fake channels \u2014 95% confidence",
-    "chain": {
-      "channels_found": [
-        "[2 channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "bcci",
-        "toss fixer",
-        "match prediction"
-      ],
-      "reach": 45000,
-      "phones": [
-        "+91-8306154335",
-        "+91-9216328940"
-      ],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": "Reddy Anna Book",
-      "operator_network": "Play99 affiliate",
-      "evidence_hashes": [
-        "d4e5f6a7b8c9d0"
-      ],
-      "legal_basis": "IT Act 2000 \u00a766D + \u00a765B",
-      "captured_at": "2026-05-11T16:43:06.866261",
-      "recommended_action": "FIR under IT Act \u00a766D \u2014 phones and channel evidence ready",
-      "report_to": [
-        "BCCI",
-        "Delhi Police",
-        "I4C"
-      ]
-    },
-    "detected_at": "2026-05-11T16:43:06.866265",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "0bbc8260f182fac0",
-    "title": "jiohotstar.net \u2014 domain squat, registrant identified",
-    "category": "domain_squat",
-    "severity": "critical",
-    "platform": "WHOIS",
-    "detail": "Registered Jan 18 2026 \u2014 4 days after JioHotstar launch",
-    "chain": {
-      "channels_found": [
-        "jiohotstar.net"
-      ],
-      "keywords_matched": [
-        "jiohotstar"
-      ],
-      "reach": 0,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "jiohotstar.net",
-      "whois_registrant": "muthyala naresh \u2014 muthyala19@gmail.com [INTERNAL]",
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "e5f6a7b8c9d0e1"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act \u00a729",
-      "captured_at": "2026-05-11T16:43:06.865562",
-      "recommended_action": "UDRP complaint + civil suit \u2014 registrant identified",
-      "report_to": [
-        "JioHotstar",
-        "BigRock",
-        "NIXI"
-      ]
-    },
-    "detected_at": "2026-05-11T16:43:06.865567",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "48029f346485bb96",
-    "title": "Fake payment APK \u2014 active credential theft site",
-    "category": "brand_impersonation",
-    "severity": "critical",
-    "platform": "Web \u00b7 APK",
-    "detail": "phonepes.com.in \u2014 fake PhonePe APK download, UAE registrant",
-    "chain": {
-      "channels_found": [
-        "phonepes.com.in"
-      ],
-      "keywords_matched": [
-        "phonepe apk",
-        "download",
-        "install"
-      ],
-      "reach": 0,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "phonepes.com.in",
-      "whois_registrant": "[WHOIS archived \u2014 internal]",
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "a7f3c891d2e4b5"
-      ],
-      "legal_basis": "IT Act 2000 \u00a766D + \u00a765B",
-      "captured_at": "2026-05-11T16:43:06.864883",
-      "recommended_action": "Report to CERT-In + PhonePe brand team + domain registrar",
-      "report_to": [
-        "PhonePe",
-        "CERT-In",
-        "Dynadot"
-      ]
-    },
-    "detected_at": "2026-05-11T16:43:06.864893",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "a75d4d5235ed4e52",
-    "title": "IPL Match 53 \u2014 20 piracy streams detected",
-    "category": "piracy",
-    "severity": "critical",
-    "platform": "Telegram \u00b7 Web",
-    "detail": "20 illegal live streams during CSK vs LSG \u00b7 May 10 \u00b7 13:23 IST",
-    "chain": {
-      "channels_found": [
-        "[13 channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "ipl live",
-        "hotstar free",
-        "watch live"
-      ],
-      "reach": 35000000,
-      "phones": [
-        "+91-8306154335",
-        "+91-9216328940"
-      ],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": "Reddy Anna Book affiliate",
-      "operator_network": "Play99 network",
-      "evidence_hashes": [
-        "b4d2d638a9f1c2"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Copyright Act \u00a751",
-      "captured_at": "2026-05-11T16:43:06.863469",
-      "recommended_action": "IT Rules 2021 \u00a769A takedown notice to Telegram",
-      "report_to": [
-        "JioHotstar",
-        "BCCI",
-        "MIB"
-      ]
-    },
-    "detected_at": "2026-05-11T16:43:06.863502",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "e0c62a67d2899ed2",
-    "title": "Investment fraud syndicate \u2014 5 fake platforms, same registrant",
+    "id": "e0e8e4f9fcf74103",
+    "title": "Investment fraud syndicate \u2014 5 fake platforms, 1 registrant",
     "category": "investment_fraud",
     "severity": "medium",
-    "platform": "Telegram \u00b7 Web",
-    "detail": "WHOIS links 5 fake trading platforms to one registrant \u2014 syndicate confirmed",
+    "platform": "Telegram / Web",
+    "detail": "WHOIS links 5 fake trading platforms to one registrant",
     "chain": {
       "channels_found": [
-        "[25 channels \u2014 internal]"
+        "25 channels (internal)"
       ],
       "keywords_matched": [
         "guaranteed returns",
@@ -1125,781 +2466,294 @@
       "reach": 340000,
       "phones": [],
       "upis": [],
-      "whois_domain": "[5 domains \u2014 internal]",
-      "whois_registrant": "[Registrant \u2014 internal]",
-      "operator_name": null,
-      "operator_network": null,
+      "whois_domain": "5 domains (internal)",
+      "whois_registrant": "[Registrant identified \u2014 internal]",
+      "operator_name": "",
+      "operator_network": "",
       "evidence_hashes": [
         "j0k1l2m3n4o5p6"
       ],
-      "legal_basis": "SEBI IA Regulations 2013 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:40:08.618192",
+      "legal_basis": "SEBI IA Regulations 2013 + IT Act S.65B",
       "recommended_action": "SEBI SCORES complaint + platform takedown",
       "report_to": [
         "SEBI",
         "I4C",
         "Telegram"
-      ]
+      ],
+      "captured_at": "2026-05-11T17:11:58.691901"
     },
-    "detected_at": "2026-05-11T16:40:08.618196",
+    "detected_at": "2026-05-11T17:11:58.691902",
     "status": "active",
     "published": false
   },
   {
-    "id": "9d303226bb956100",
-    "title": "Mahadev Book \u2014 41 channels, 2.2M reach, active ED case",
-    "category": "illegal_betting",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Largest mapped betting operator. Active ED investigation. Dubai financial link.",
-    "chain": {
-      "channels_found": [
-        "[41 channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "mahadev book",
-        "cricket bet",
-        "ipl bet"
-      ],
-      "reach": 2200000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": "Mahadev Book",
-      "operator_network": "Lotus365 \u00b7 Dubai link",
-      "evidence_hashes": [
-        "i9j0k1l2m3n4o5"
-      ],
-      "legal_basis": "Public Gambling Act 1867 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:40:08.617616",
-      "recommended_action": "Intelligence to ED + Cyber Crime Portal",
-      "report_to": [
-        "ED",
-        "NOGC",
-        "Cyber Crime Portal"
-      ]
-    },
-    "detected_at": "2026-05-11T16:40:08.617620",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "77c6cf248ab74af5",
-    "title": "15 pharma channels \u2014 Unitel Pharma modus operandi",
-    "category": "counterfeit_pharma",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Pattern matches Rs 10 Cr Unitel bust \u2014 CGHS diversion, packaging mimicry",
-    "chain": {
-      "channels_found": [
-        "[15 channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "medicine wholesale",
-        "pharma agent",
-        "below mrp"
-      ],
-      "reach": 85000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "h8i9j0k1l2m3n4"
-      ],
-      "legal_basis": "Drugs and Cosmetics Act 1940 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:40:08.617039",
-      "recommended_action": "Intelligence to CDSCO + Sun Pharma/Cipla after deep scan",
-      "report_to": [
-        "CDSCO",
-        "Delhi Police Crime Branch",
-        "Sun Pharma"
-      ]
-    },
-    "detected_at": "2026-05-11T16:40:08.617043",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "5852b675e27fefe0",
-    "title": "148 counterfeit listings \u2014 Amazon India + Flipkart",
-    "category": "counterfeit_marketplace",
-    "severity": "high",
-    "platform": "Amazon \u00b7 Flipkart",
-    "detail": "Explicit counterfeit keywords in product titles \u2014 defensible evidence",
-    "chain": {
-      "channels_found": [
-        "Amazon India",
-        "Flipkart"
-      ],
-      "keywords_matched": [
-        "first copy",
-        "replica",
-        "master copy",
-        "duplicate brand"
-      ],
-      "reach": 0,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "c3d4e5f6a7b8c9"
-      ],
-      "legal_basis": "Trade Marks Act 1999 \u00a729 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:40:08.616513",
-      "recommended_action": "Brand takedown notices to Amazon/Flipkart + seller suspension",
-      "report_to": [
-        "Amazon Brand Registry",
-        "Flipkart Legal",
-        "Brand owners"
-      ]
-    },
-    "detected_at": "2026-05-11T16:40:08.616517",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "989f29966b66c5fa",
-    "title": "91CLUB colour prediction \u2014 1M+ subscribers, Chinese-origin app",
-    "category": "colour_prediction",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "91CLUB AVIATOR channel: 1,008,905 subscribers \u2014 largest single fraud channel",
-    "chain": {
-      "channels_found": [
-        "[channel \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "91club",
-        "aviator",
-        "colour prediction",
-        "wingo"
-      ],
-      "reach": 1008905,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "g7h8i9j0k1l2m3"
-      ],
-      "legal_basis": "Online Gaming Act 2025 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:40:08.616006",
-      "recommended_action": "Report to NOGC + DoT for channel blocking",
-      "report_to": [
-        "NOGC",
-        "MeitY",
-        "DoT"
-      ]
-    },
-    "detected_at": "2026-05-11T16:40:08.616013",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "94a7aeffcd9772dc",
-    "title": "UPI mule recruitment \u2014 Gujarat network pattern active",
-    "category": "upi_mule",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Bank account kit offers matching Rs 77 Cr bust modus \u2014 network still active",
-    "chain": {
-      "channels_found": [
-        "[active channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "bank account kit",
-        "sim card",
-        "earn commission"
-      ],
-      "reach": 12000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": "Gujarat-Dubai corridor",
-      "evidence_hashes": [
-        "f6a7b8c9d0e1f2"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + IPC \u00a7420",
-      "captured_at": "2026-05-11T16:40:08.615466",
-      "recommended_action": "Intelligence to HDFC/ICICI risk teams + I4C",
-      "report_to": [
-        "NPCI",
-        "HDFC",
-        "ICICI",
-        "I4C"
-      ]
-    },
-    "detected_at": "2026-05-11T16:40:08.615470",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "0a26870209cdbc96",
-    "title": "BCCI impersonator \u2014 2 operator phones confirmed",
-    "category": "impersonation",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Phones publicly posted in BCCI fake channels \u2014 95% confidence",
-    "chain": {
-      "channels_found": [
-        "[2 channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "bcci",
-        "toss fixer",
-        "match prediction"
-      ],
-      "reach": 45000,
-      "phones": [
-        "+91-8306154335",
-        "+91-9216328940"
-      ],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": "Reddy Anna Book",
-      "operator_network": "Play99 affiliate",
-      "evidence_hashes": [
-        "d4e5f6a7b8c9d0"
-      ],
-      "legal_basis": "IT Act 2000 \u00a766D + \u00a765B",
-      "captured_at": "2026-05-11T16:40:08.614983",
-      "recommended_action": "FIR under IT Act \u00a766D \u2014 phones and channel evidence ready",
-      "report_to": [
-        "BCCI",
-        "Delhi Police",
-        "I4C"
-      ]
-    },
-    "detected_at": "2026-05-11T16:40:08.614987",
-    "status": "active",
-    "published": false
-  },
-  {
-    "id": "e0f18ad8410952bf",
-    "title": "jiohotstar.net \u2014 domain squat, registrant identified",
-    "category": "domain_squat",
-    "severity": "critical",
-    "platform": "WHOIS",
-    "detail": "Registered Jan 18 2026 \u2014 4 days after JioHotstar launch",
-    "chain": {
-      "channels_found": [
-        "jiohotstar.net"
-      ],
-      "keywords_matched": [
-        "jiohotstar"
-      ],
-      "reach": 0,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "jiohotstar.net",
-      "whois_registrant": "muthyala naresh \u2014 muthyala19@gmail.com [INTERNAL]",
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "e5f6a7b8c9d0e1"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act \u00a729",
-      "captured_at": "2026-05-11T16:40:08.614509",
-      "recommended_action": "UDRP complaint + civil suit \u2014 registrant identified",
-      "report_to": [
-        "JioHotstar",
-        "BigRock",
-        "NIXI"
-      ]
-    },
-    "detected_at": "2026-05-11T16:40:08.614514",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "6474bffeaf1b5a02",
-    "title": "Fake payment APK \u2014 active credential theft site",
-    "category": "brand_impersonation",
-    "severity": "critical",
-    "platform": "Web \u00b7 APK",
-    "detail": "phonepes.com.in \u2014 fake PhonePe APK download, UAE registrant",
-    "chain": {
-      "channels_found": [
-        "phonepes.com.in"
-      ],
-      "keywords_matched": [
-        "phonepe apk",
-        "download",
-        "install"
-      ],
-      "reach": 0,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "phonepes.com.in",
-      "whois_registrant": "[WHOIS archived \u2014 internal]",
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "a7f3c891d2e4b5"
-      ],
-      "legal_basis": "IT Act 2000 \u00a766D + \u00a765B",
-      "captured_at": "2026-05-11T16:40:08.614015",
-      "recommended_action": "Report to CERT-In + PhonePe brand team + domain registrar",
-      "report_to": [
-        "PhonePe",
-        "CERT-In",
-        "Dynadot"
-      ]
-    },
-    "detected_at": "2026-05-11T16:40:08.614024",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "da13e7c222f60965",
-    "title": "IPL Match 53 \u2014 20 piracy streams detected",
-    "category": "piracy",
-    "severity": "critical",
-    "platform": "Telegram \u00b7 Web",
-    "detail": "20 illegal live streams during CSK vs LSG \u00b7 May 10 \u00b7 13:23 IST",
-    "chain": {
-      "channels_found": [
-        "[13 channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "ipl live",
-        "hotstar free",
-        "watch live"
-      ],
-      "reach": 35000000,
-      "phones": [
-        "+91-8306154335",
-        "+91-9216328940"
-      ],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": "Reddy Anna Book affiliate",
-      "operator_network": "Play99 network",
-      "evidence_hashes": [
-        "b4d2d638a9f1c2"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Copyright Act \u00a751",
-      "captured_at": "2026-05-11T16:40:08.613173",
-      "recommended_action": "IT Rules 2021 \u00a769A takedown notice to Telegram",
-      "report_to": [
-        "JioHotstar",
-        "BCCI",
-        "MIB"
-      ]
-    },
-    "detected_at": "2026-05-11T16:40:08.613198",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "b566e15955c66c13",
-    "title": "Investment fraud syndicate \u2014 5 fake platforms, same registrant",
     "category": "investment_fraud",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/thetradeplus?before=33759"
+      ],
+      "evidence_hashes": [
+        "8c0515f4"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"guaranteed",
+        "returns\"",
+        "SEBI"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "Anyone claiming to offer guaranteed returns, sure-shot profits, or high accuracy with assured outcomes is misleading you",
+    "detected_at": "2026-05-12T08:00:31.912208+05:30",
+    "id": "8c0515f4",
+    "platform": "Web / Telegram",
     "severity": "medium",
-    "platform": "Telegram \u00b7 Web",
-    "detail": "WHOIS links 5 fake trading platforms to one registrant \u2014 syndicate confirmed",
-    "chain": {
-      "channels_found": [
-        "[25 channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "guaranteed returns",
-        "sebi registered",
-        "100% profit"
-      ],
-      "reach": 340000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "[5 domains \u2014 internal]",
-      "whois_registrant": "[Registrant \u2014 internal]",
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "j0k1l2m3n4o5p6"
-      ],
-      "legal_basis": "SEBI IA Regulations 2013 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:39:32.954010",
-      "recommended_action": "SEBI SCORES complaint + platform takedown",
-      "report_to": [
-        "SEBI",
-        "I4C",
-        "Telegram"
-      ]
-    },
-    "detected_at": "2026-05-11T16:39:32.954015",
-    "status": "active",
-    "published": true
+    "source": "serpapi_scheduled",
+    "title": "TradePlus (SEBI Registered)"
   },
   {
-    "id": "90f8e030a37fc328",
-    "title": "Mahadev Book \u2014 41 channels, 2.2M reach, active ED case",
-    "category": "illegal_betting",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Largest mapped betting operator. Active ED investigation. Dubai financial link.",
+    "category": "investment_fraud",
     "chain": {
       "channels_found": [
-        "[41 channels \u2014 internal]"
+        "https://t.me/s/STOCKGAINERSS?before=135612"
       ],
-      "keywords_matched": [
-        "mahadev book",
-        "cricket bet",
-        "ipl bet"
-      ],
-      "reach": 2200000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": "Mahadev Book",
-      "operator_network": "Lotus365 \u00b7 Dubai link",
       "evidence_hashes": [
-        "i9j0k1l2m3n4o5"
-      ],
-      "legal_basis": "Public Gambling Act 1867 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:39:32.953393",
-      "recommended_action": "Intelligence to ED + Cyber Crime Portal",
-      "report_to": [
-        "ED",
-        "NOGC",
-        "Cyber Crime Portal"
-      ]
-    },
-    "detected_at": "2026-05-11T16:39:32.953404",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "73262f6fbf8d2d9c",
-    "title": "15 pharma channels \u2014 Unitel Pharma modus operandi",
-    "category": "counterfeit_pharma",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Pattern matches Rs 10 Cr Unitel bust \u2014 CGHS diversion, packaging mimicry",
-    "chain": {
-      "channels_found": [
-        "[15 channels \u2014 internal]"
+        "f2cd7648"
       ],
       "keywords_matched": [
-        "medicine wholesale",
-        "pharma agent",
-        "below mrp"
+        "site:t.me",
+        "\"guaranteed",
+        "returns\"",
+        "SEBI"
       ],
-      "reach": 85000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "h8i9j0k1l2m3n4"
-      ],
-      "legal_basis": "Drugs and Cosmetics Act 1940 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:39:32.952827",
-      "recommended_action": "Intelligence to CDSCO + Sun Pharma/Cipla after deep scan",
-      "report_to": [
-        "CDSCO",
-        "Delhi Police Crime Branch",
-        "Sun Pharma"
-      ]
-    },
-    "detected_at": "2026-05-11T16:39:32.952831",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "b04cefcbef6ab832",
-    "title": "148 counterfeit listings \u2014 Amazon India + Flipkart",
-    "category": "counterfeit_marketplace",
-    "severity": "high",
-    "platform": "Amazon \u00b7 Flipkart",
-    "detail": "Explicit counterfeit keywords in product titles \u2014 defensible evidence",
-    "chain": {
-      "channels_found": [
-        "Amazon India",
-        "Flipkart"
-      ],
-      "keywords_matched": [
-        "first copy",
-        "replica",
-        "master copy",
-        "duplicate brand"
-      ],
+      "legal_basis": "IT Act 2000 S.65B",
       "reach": 0,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "c3d4e5f6a7b8c9"
-      ],
-      "legal_basis": "Trade Marks Act 1999 \u00a729 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:39:32.952476",
-      "recommended_action": "Brand takedown notices to Amazon/Flipkart + seller suspension",
+      "recommended_action": "Verify and classify",
       "report_to": [
-        "Amazon Brand Registry",
-        "Flipkart Legal",
-        "Brand owners"
+        "Internal review"
       ]
     },
-    "detected_at": "2026-05-11T16:39:32.952480",
-    "status": "active",
-    "published": true
+    "detail": "There is nothing like guaranteed returns or sure-shot profits. Stay Away from analysts who misguide and give false hopes",
+    "detected_at": "2026-05-12T08:00:31.912253+05:30",
+    "id": "f2cd7648",
+    "platform": "Web / Telegram",
+    "severity": "medium",
+    "source": "serpapi_scheduled",
+    "title": "Stock Gainers (SEBI Registered)"
   },
   {
-    "id": "9c66b14996e9975c",
-    "title": "91CLUB colour prediction \u2014 1M+ subscribers, Chinese-origin app",
-    "category": "colour_prediction",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "91CLUB AVIATOR channel: 1,008,905 subscribers \u2014 largest single fraud channel",
+    "category": "investment_fraud",
     "chain": {
       "channels_found": [
-        "[channel \u2014 internal]"
+        "https://t.me/s/pwbankingwallah?before=17848"
       ],
-      "keywords_matched": [
-        "91club",
-        "aviator",
-        "colour prediction",
-        "wingo"
-      ],
-      "reach": 1008905,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": null,
       "evidence_hashes": [
-        "g7h8i9j0k1l2m3"
-      ],
-      "legal_basis": "Online Gaming Act 2025 + IT Act \u00a765B",
-      "captured_at": "2026-05-11T16:39:32.952138",
-      "recommended_action": "Report to NOGC + DoT for channel blocking",
-      "report_to": [
-        "NOGC",
-        "MeitY",
-        "DoT"
-      ]
-    },
-    "detected_at": "2026-05-11T16:39:32.952144",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "c6d50a67e08d05bb",
-    "title": "UPI mule recruitment \u2014 Gujarat network pattern active",
-    "category": "upi_mule",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Bank account kit offers matching Rs 77 Cr bust modus \u2014 network still active",
-    "chain": {
-      "channels_found": [
-        "[active channels \u2014 internal]"
+        "3f6c83d2"
       ],
       "keywords_matched": [
-        "bank account kit",
-        "sim card",
-        "earn commission"
+        "site:t.me",
+        "\"guaranteed",
+        "returns\"",
+        "SEBI"
       ],
-      "reach": 12000,
-      "phones": [],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": null,
-      "operator_network": "Gujarat-Dubai corridor",
-      "evidence_hashes": [
-        "f6a7b8c9d0e1f2"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + IPC \u00a7420",
-      "captured_at": "2026-05-11T16:39:32.951728",
-      "recommended_action": "Intelligence to HDFC/ICICI risk teams + I4C",
-      "report_to": [
-        "NPCI",
-        "HDFC",
-        "ICICI",
-        "I4C"
-      ]
-    },
-    "detected_at": "2026-05-11T16:39:32.951745",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "fa7bcab7a8f93bd6",
-    "title": "BCCI impersonator \u2014 2 operator phones confirmed",
-    "category": "impersonation",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Phones publicly posted in BCCI fake channels \u2014 95% confidence",
-    "chain": {
-      "channels_found": [
-        "[2 channels \u2014 internal]"
-      ],
-      "keywords_matched": [
-        "bcci",
-        "toss fixer",
-        "match prediction"
-      ],
-      "reach": 45000,
-      "phones": [
-        "+91-8306154335",
-        "+91-9216328940"
-      ],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": "Reddy Anna Book",
-      "operator_network": "Play99 affiliate",
-      "evidence_hashes": [
-        "d4e5f6a7b8c9d0"
-      ],
-      "legal_basis": "IT Act 2000 \u00a766D + \u00a765B",
-      "captured_at": "2026-05-11T16:39:32.950905",
-      "recommended_action": "FIR under IT Act \u00a766D \u2014 phones and channel evidence ready",
-      "report_to": [
-        "BCCI",
-        "Delhi Police",
-        "I4C"
-      ]
-    },
-    "detected_at": "2026-05-11T16:39:32.950914",
-    "status": "active",
-    "published": true
-  },
-  {
-    "id": "f431395e6cf9e226",
-    "title": "jiohotstar.net \u2014 domain squat, registrant identified",
-    "category": "domain_squat",
-    "severity": "critical",
-    "platform": "WHOIS",
-    "detail": "Registered Jan 18 2026 \u2014 4 days after JioHotstar launch",
-    "chain": {
-      "channels_found": [
-        "jiohotstar.net"
-      ],
-      "keywords_matched": [
-        "jiohotstar"
-      ],
+      "legal_basis": "IT Act 2000 S.65B",
       "reach": 0,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "jiohotstar.net",
-      "whois_registrant": "muthyala naresh \u2014 muthyala19@gmail.com [INTERNAL]",
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "e5f6a7b8c9d0e1"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act \u00a729",
-      "captured_at": "2026-05-11T16:39:32.950535",
-      "recommended_action": "UDRP complaint + civil suit \u2014 registrant identified",
+      "recommended_action": "Verify and classify",
       "report_to": [
-        "JioHotstar",
-        "BigRock",
-        "NIXI"
+        "Internal review"
       ]
     },
-    "detected_at": "2026-05-11T16:39:32.950540",
-    "status": "active",
-    "published": true
+    "detail": "Safe investment with guaranteed returns \u2713 Purpose: To earn higher, fixed, risk-free returns for a fixed time. 4\ufe0f\u20e3 Recurr",
+    "detected_at": "2026-05-12T08:00:31.912269+05:30",
+    "id": "3f6c83d2",
+    "platform": "Web / Telegram",
+    "severity": "medium",
+    "source": "serpapi_scheduled",
+    "title": "Banking Wallah IBPS RRB , SBI , IBPS PO / Clerk"
   },
   {
-    "id": "ccdd9ee620706943",
-    "title": "Fake payment APK \u2014 active credential theft site",
-    "category": "brand_impersonation",
-    "severity": "critical",
-    "platform": "Web \u00b7 APK",
-    "detail": "phonepes.com.in \u2014 fake PhonePe APK download, UAE registrant",
+    "category": "investment_fraud",
     "chain": {
       "channels_found": [
-        "phonepes.com.in"
+        "https://t.me/s/stockyaaripremium?before=823"
+      ],
+      "evidence_hashes": [
+        "16e6b53b"
       ],
       "keywords_matched": [
-        "phonepe apk",
-        "download",
-        "install"
+        "site:t.me",
+        "\"guaranteed",
+        "returns\"",
+        "SEBI"
       ],
+      "legal_basis": "IT Act 2000 S.65B",
       "reach": 0,
-      "phones": [],
-      "upis": [],
-      "whois_domain": "phonepes.com.in",
-      "whois_registrant": "[WHOIS archived \u2014 internal]",
-      "operator_name": null,
-      "operator_network": null,
-      "evidence_hashes": [
-        "a7f3c891d2e4b5"
-      ],
-      "legal_basis": "IT Act 2000 \u00a766D + \u00a765B",
-      "captured_at": "2026-05-11T16:39:32.950105",
-      "recommended_action": "Report to CERT-In + PhonePe brand team + domain registrar",
+      "recommended_action": "Verify and classify",
       "report_to": [
-        "PhonePe",
-        "CERT-In",
-        "Dynadot"
+        "Internal review"
       ]
     },
-    "detected_at": "2026-05-11T16:39:32.950113",
-    "status": "active",
-    "published": true
+    "detail": "We have been informed about a FAKE Telegram channel falsely using our name \u201cStock Yaari Premium\u201d to mislead people with ",
+    "detected_at": "2026-05-12T08:00:31.912277+05:30",
+    "id": "16e6b53b",
+    "platform": "Web / Telegram",
+    "severity": "medium",
+    "source": "serpapi_scheduled",
+    "title": "StockYaari Premium (SEBI)"
   },
   {
-    "id": "cac709a1e15b85ba",
-    "title": "IPL Match 53 \u2014 20 piracy streams detected",
-    "category": "piracy",
-    "severity": "critical",
-    "platform": "Telegram \u00b7 Web",
-    "detail": "20 illegal live streams during CSK vs LSG \u00b7 May 10 \u00b7 13:23 IST",
+    "category": "investment_fraud",
     "chain": {
       "channels_found": [
-        "[13 channels \u2014 internal]"
+        "https://t.me/s/cyberdosti4c/2616?q=%23InvestmentFraud"
+      ],
+      "evidence_hashes": [
+        "553b744b"
       ],
       "keywords_matched": [
-        "ipl live",
-        "hotstar free",
-        "watch live"
+        "site:t.me",
+        "\"guaranteed",
+        "returns\"",
+        "SEBI"
       ],
-      "reach": 35000000,
-      "phones": [
-        "+91-8306154335",
-        "+91-9216328940"
-      ],
-      "upis": [],
-      "whois_domain": null,
-      "whois_registrant": null,
-      "operator_name": "Reddy Anna Book affiliate",
-      "operator_network": "Play99 network",
-      "evidence_hashes": [
-        "b4d2d638a9f1c2"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Copyright Act \u00a751",
-      "captured_at": "2026-05-11T16:39:32.949677",
-      "recommended_action": "IT Rules 2021 \u00a769A takedown notice to Telegram",
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
       "report_to": [
-        "JioHotstar",
-        "BCCI",
-        "MIB"
+        "Internal review"
       ]
     },
-    "detected_at": "2026-05-11T16:39:32.949746",
-    "status": "active",
-    "published": true
+    "detail": "... SEBI. 4 ... Ankush Mishra, Deputy SP Special Task Force/Cyber Uttarakhand in our 7th #CyberSafeLive session. Topic: ",
+    "detected_at": "2026-05-12T08:00:31.912293+05:30",
+    "id": "553b744b",
+    "platform": "Web / Telegram",
+    "severity": "medium",
+    "source": "serpapi_scheduled",
+    "title": "CyberDost \u2013 Telegram"
+  },
+  {
+    "category": "investment_fraud",
+    "chain": {
+      "channels_found": [
+        "https://t.me/+w22xhgt5s_A0MmM1"
+      ],
+      "evidence_hashes": [
+        "ac3b4c74"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"guaranteed",
+        "returns\"",
+        "SEBI"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "SEBI-registered Research Analyst (INH000020004). No guaranteed returns. Contact :- 91 6387497277. Disclaimer & Disclosur",
+    "detected_at": "2026-05-12T08:00:31.912310+05:30",
+    "id": "ac3b4c74",
+    "platform": "Web / Telegram",
+    "severity": "medium",
+    "source": "serpapi_scheduled",
+    "title": "Trade With Rahul Saraoge"
+  },
+  {
+    "category": "investment_fraud",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/SMTStockMarketToday?after=78292"
+      ],
+      "evidence_hashes": [
+        "363b2f14"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"guaranteed",
+        "returns\"",
+        "SEBI"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "No guaranteed returns. \u276427. 10.2K views 05:26. May 7. SMT\u2122 (SEBI Registered) STOCK MARKET TODAY |SEBI Registered Researc",
+    "detected_at": "2026-05-12T12:00:48.333246+05:30",
+    "id": "363b2f14",
+    "platform": "Web / Telegram",
+    "severity": "medium",
+    "source": "serpapi_scheduled",
+    "title": "SMT\u2122 (SEBI Registered) STOCK MARKET TODAY"
+  },
+  {
+    "category": "investment_fraud",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/Lead_IAS?before=10478"
+      ],
+      "evidence_hashes": [
+        "4b378e5e"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"guaranteed",
+        "returns\"",
+        "SEBI"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "The SEBI regulates the issuance and trading of municipal bonds in India. ... Mutual funds offer guaranteed returns. 19%.",
+    "detected_at": "2026-05-12T12:00:48.333287+05:30",
+    "id": "4b378e5e",
+    "platform": "Web / Telegram",
+    "severity": "medium",
+    "source": "serpapi_scheduled",
+    "title": "LEAD IAS"
+  },
+  {
+    "category": "investment_fraud",
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/cyberdosti4c?before=4151"
+      ],
+      "evidence_hashes": [
+        "9a90af54"
+      ],
+      "keywords_matched": [
+        "site:t.me",
+        "\"guaranteed",
+        "returns\"",
+        "SEBI"
+      ],
+      "legal_basis": "IT Act 2000 S.65B",
+      "reach": 0,
+      "recommended_action": "Verify and classify",
+      "report_to": [
+        "Internal review"
+      ]
+    },
+    "detail": "\u2022 \u201cGuaranteed returns\u201d are often designed to override caution \u2022 One careless click on a malicious link can lead to finan",
+    "detected_at": "2026-05-12T12:00:48.333297+05:30",
+    "id": "9a90af54",
+    "platform": "Web / Telegram",
+    "severity": "medium",
+    "source": "serpapi_scheduled",
+    "title": "CyberDost"
   }
 ]

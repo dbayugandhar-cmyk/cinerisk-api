@@ -1,0 +1,156 @@
+{
+  "generated_at": "2026-05-10T03:38:49.796341",
+  "source": "CINEOS Intelligence Platform",
+  "patent": "US Provisional Patent 64/049,190",
+  "contact": "yugandhar@cineos.in",
+  "total_suspects": 10,
+  "platforms_monitored": [
+    "Telegram (354 channels)",
+    "IndiaMART (59 sellers)",
+    "Instagram (127 posts)",
+    "WhatsApp (6 groups)",
+    "YouTube (16 channels)",
+    "ShareChat (53 posts)",
+    "Meesho (20 listings)"
+  ],
+  "suspects": [
+    {
+      "identifier": "+91-8441916068",
+      "type": "phone",
+      "found_in": [
+        "@IPLBetting",
+        "@ipltossmatchsessionn"
+      ],
+      "fraud_type": "illegal_betting",
+      "channels": 2,
+      "combined_subscribers": 19220,
+      "evidence": "Same phone in 2 IPL betting channels \u2014 operator confirmed",
+      "severity": "CRITICAL"
+    },
+    {
+      "identifier": "+91-6378542162",
+      "type": "phone",
+      "found_in": [
+        "@Satta_khaiwal_gali_dishwar"
+      ],
+      "fraud_type": "satta_matka",
+      "channels": 1,
+      "combined_subscribers": 0,
+      "evidence": "Satta Matka promotion channel",
+      "severity": "HIGH"
+    },
+    {
+      "identifier": "https://www.indiamart.com/proddetail/nike-air-jordan-1-copy-2850866244991.html?srsltid=AfmBOoo1v2st8-t4525wGn8BbAqb0yzGr46wJ1U4QY0UekZcF9KJaSvK",
+      "type": "indiamart_listing",
+      "company": "BUDDY_HOUSE",
+      "city": "Sirsa",
+      "brand_counterfeited": "Nike",
+      "found_in": [
+        "IndiaMART"
+      ],
+      "fraud_type": "confirmed_counterfeit",
+      "auth_score": 77,
+      "evidence": "Auth score 77/100 \u2014 CONFIRMED COUNTERFEIT",
+      "severity": "CRITICAL"
+    },
+    {
+      "identifier": "https://www.indiamart.com/proddetail/nike-air-force-one-men%E2%80%99s-casual-shoes-copy-2854457721288.html?srsltid=AfmBOopQLvhdwQfwI8FDCnoqf1grAcSjSQCDwSGi0xKInPReEx4eG0lK",
+      "type": "indiamart_listing",
+      "company": "Next Wave",
+      "city": "Amritsar",
+      "brand_counterfeited": "Nike",
+      "found_in": [
+        "IndiaMART"
+      ],
+      "fraud_type": "confirmed_counterfeit",
+      "auth_score": 77,
+      "evidence": "Auth score 77/100 \u2014 CONFIRMED COUNTERFEIT",
+      "severity": "CRITICAL"
+    },
+    {
+      "identifier": "https://www.indiamart.com/proddetail/nike-air-jordan-1-copy-2850866261488.html?srsltid=AfmBOorp-Uir0jffiWLHkuf2poxO9exizu4rBz0unHb_cPhJCIQBDSQV",
+      "type": "indiamart_listing",
+      "company": "BUDDY_HOUSE",
+      "city": "Sirsa",
+      "brand_counterfeited": "Nike",
+      "found_in": [
+        "IndiaMART"
+      ],
+      "fraud_type": "confirmed_counterfeit",
+      "auth_score": 77,
+      "evidence": "Auth score 77/100 \u2014 CONFIRMED COUNTERFEIT",
+      "severity": "CRITICAL"
+    },
+    {
+      "identifier": "https://www.indiamart.com/proddetail/nike-air-jordan-1-copy-2850866257648.html?srsltid=AfmBOooOD3Fkd6X3gCqKcrtZaGPWOAsDrcWA7ZzTiVy-Qxl8wjceZxcx",
+      "type": "indiamart_listing",
+      "company": "BUDDY_HOUSE",
+      "city": "Sirsa",
+      "brand_counterfeited": "Nike",
+      "found_in": [
+        "IndiaMART"
+      ],
+      "fraud_type": "confirmed_counterfeit",
+      "auth_score": 77,
+      "evidence": "Auth score 77/100 \u2014 CONFIRMED COUNTERFEIT",
+      "severity": "CRITICAL"
+    },
+    {
+      "identifier": "https://www.indiamart.com/proddetail/air-nike-copy-shoes-20296217955.html?srsltid=AfmBOooK_Akjmtg0TEGMGkzQTh-h3HEAqHT8LEDS4qHEZX0F8YaHCW8S",
+      "type": "indiamart_listing",
+      "company": "Aster Shoes",
+      "city": "Karnal",
+      "brand_counterfeited": "Nike",
+      "found_in": [
+        "IndiaMART"
+      ],
+      "fraud_type": "confirmed_counterfeit",
+      "auth_score": 77,
+      "evidence": "Auth score 77/100 \u2014 CONFIRMED COUNTERFEIT",
+      "severity": "CRITICAL"
+    },
+    {
+      "identifier": "https://www.indiamart.com/proddetail/samsung-galaxy-buds-2-pro-earbuds-mastercopy-2852176919388.html?srsltid=AfmBOopeHkY0fGvIiilN2gI9HzygqOoj0WI-i2vw_Zo7P42ZF9s42-JL",
+      "type": "indiamart_listing",
+      "company": "Cold Fusion Zone",
+      "city": "Mysore",
+      "brand_counterfeited": "Samsung Galaxy",
+      "found_in": [
+        "IndiaMART"
+      ],
+      "fraud_type": "confirmed_counterfeit",
+      "auth_score": 77,
+      "evidence": "Auth score 77/100 \u2014 CONFIRMED COUNTERFEIT",
+      "severity": "CRITICAL"
+    },
+    {
+      "identifier": "https://www.indiamart.com/proddetail/samsung-galaxy-active-2-smartwatch-copy-2852677087033.html?srsltid=AfmBOorbqa2F5q_oeDOkqN69uLOpbnrG1Y1T23igdTqTcB7gxyamrPgd",
+      "type": "indiamart_listing",
+      "company": "Gadget-Hub",
+      "city": "Bharuch",
+      "brand_counterfeited": "Samsung Galaxy",
+      "found_in": [
+        "IndiaMART"
+      ],
+      "fraud_type": "confirmed_counterfeit",
+      "auth_score": 77,
+      "evidence": "Auth score 77/100 \u2014 CONFIRMED COUNTERFEIT",
+      "severity": "CRITICAL"
+    },
+    {
+      "identifier": "https://www.indiamart.com/proddetail/samsung-galaxy-buds-2-pro-earbuds-mastercopy-2852176919388.html?srsltid=AfmBOorGSvJylZTEFSQRxlzpw6kTCUxJzXXm4a9ZewLTffeEY8EbqJZI",
+      "type": "indiamart_listing",
+      "company": "Cold Fusion Zone",
+      "city": "Mysore",
+      "brand_counterfeited": "Samsung Galaxy",
+      "found_in": [
+        "IndiaMART"
+      ],
+      "fraud_type": "confirmed_counterfeit",
+      "auth_score": 77,
+      "evidence": "Auth score 77/100 \u2014 CONFIRMED COUNTERFEIT",
+      "severity": "CRITICAL"
+    }
+  ],
+  "pitch_to_i4c": "CINEOS provides the social media intelligence layer that I4C's Suspect Registry lacks. Banks provide transaction data. CINEOS provides Telegram channel data. Combined = complete fraud operator picture. Proposed partnership: CINEOS daily feed into I4C Suspect Registry. Contract: Rs 1-5 Cr/year."
+}

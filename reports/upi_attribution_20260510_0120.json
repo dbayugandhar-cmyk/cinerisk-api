@@ -1,0 +1,15 @@
+{
+  "scanned_at": "2026-05-10T01:20:11.028896",
+  "channels_scanned": 14,
+  "upi_ids": {},
+  "phone_numbers": {
+    "6378542162": [
+      "Satta_khaiwal_gali_dishwar"
+    ]
+  },
+  "crypto_wallets": {},
+  "mule_patterns": {
+    "upi_mules": {},
+    "phone_mules": {}
+  }
+}

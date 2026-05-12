@@ -1,0 +1,226 @@
+{
+  "generated_at": "2026-05-10T13:38:25.373317",
+  "match": "CSK vs LSG \u2014 IPL 2026",
+  "targets": 13,
+  "graph": {
+    "nodes": {
+      "BCCI_TOSS_MATCH_FIXER1": {
+        "username": "BCCI_TOSS_MATCH_FIXER1",
+        "title": "BCCI TOSS MATCH FIXER",
+        "subscribers": 0,
+        "phones": [],
+        "upis": [],
+        "linked_channels": [],
+        "forwarded_from": [],
+        "bots_used": [],
+        "admin_hints": [],
+        "price_points": [],
+        "whatsapp_numbers": [],
+        "payment_qr": [],
+        "creation_signals": [],
+        "language": [
+          "hindi"
+        ],
+        "timing_pattern": [],
+        "msg_templates": [],
+        "peak_hours_IST": [
+          "18:00-19:00",
+          "19:00-20:00",
+          "8:00-9:00"
+        ]
+      },
+      "BCCI_MATCH_TOSS_FIXER0": {
+        "username": "BCCI_MATCH_TOSS_FIXER0",
+        "title": "BCCI TOSS MATCH FIXER",
+        "subscribers": 0,
+        "phones": [
+          "8306154335",
+          "9216328940"
+        ],
+        "upis": [],
+        "linked_channels": [
+          "reddyanna888_io",
+          "reddyanna888_support"
+        ],
+        "forwarded_from": [],
+        "bots_used": [],
+        "admin_hints": [],
+        "price_points": [],
+        "whatsapp_numbers": [
+          "8306154335",
+          "8306154335",
+          "9216328940",
+          "9216328940",
+          "9216328940"
+        ],
+        "payment_qr": [],
+        "creation_signals": [],
+        "language": [
+          "hindi"
+        ],
+        "timing_pattern": [],
+        "msg_templates": [
+          "**Match fees N/-\n\nSession Fees N/-\n\nSure shot report only paid \ud83d\udd25\ud83d\udd25 \n\n****https://wa.me/+N",
+          "**N MATCH FEES -N /-RS (FIX)\n\nN MATCH SESSION FEES - N / RS (FIX)\n\nJust Msg Paid And Take Sure",
+          "**\ud83c\uddf1\ud83c\uddfb CHENNAI \ud83c\uddf1\ud83c\uddfb WON THE TOSS OPTED TO BOWL FIRST PASS \u2705**"
+        ],
+        "peak_hours_IST": [
+          "18:00-19:00",
+          "22:00-23:00",
+          "9:00-10:00"
+        ]
+      },
+      "session_cricket_tips": {
+        "username": "session_cricket_tips",
+        "title": "IPL MATCH PREDICTION",
+        "subscribers": 0,
+        "phones": [],
+        "upis": [],
+        "linked_channels": [
+          "fair786guide",
+          "FAIR786FAMILY"
+        ],
+        "forwarded_from": [],
+        "bots_used": [],
+        "admin_hints": [],
+        "price_points": [],
+        "whatsapp_numbers": [],
+        "payment_qr": [],
+        "creation_signals": [],
+        "language": [],
+        "timing_pattern": [],
+        "msg_templates": [
+          "**Delhi Capitals Win Pass\u2764\ufe0f\ud83d\udc95**",
+          "**JOCKPOT MATCH PASS ENJOY \u2764\ufe0f\ud83d\ude18**",
+          "**Chennai Super Kings Win Pass\u2764\ufe0f\ud83d\udc95**"
+        ],
+        "peak_hours_IST": [
+          "19:00-20:00",
+          "21:00-22:00",
+          "20:00-21:00"
+        ]
+      },
+      "MURUGAN_FIXER_LONDON1": {
+        "username": "MURUGAN_FIXER_LONDON1",
+        "title": "TOSS KING FIXER\u2122\ud83d\udc51",
+        "subscribers": 0,
+        "phones": [],
+        "upis": [],
+        "linked_channels": [
+          "Playgames9999",
+          "play99_support"
+        ],
+        "forwarded_from": [],
+        "bots_used": [],
+        "admin_hints": [],
+        "price_points": [],
+        "whatsapp_numbers": [],
+        "payment_qr": [],
+        "creation_signals": [],
+        "language": [
+          "hindi"
+        ],
+        "timing_pattern": [],
+        "msg_templates": [
+          "\ud83c\uddee\ud83c\uddf3** RAJASTHAN (RR) ****\ud83c\uddee\ud83c\uddf3**** WON THE TOSS AND\u00a0 OPTED TO BOWL FIRST \u2714\ufe0f\u2714\ufe0f\n\n****\ud83d\udca5****BOMM ****\ud83d\udca5****BO",
+          "******TOSS \u27a1\ufe0f****#RAJASTHAN****\n\n\u27a5 OverSure Toss ...\u2714\ufe0f\u2714\ufe0f\n\u27a5 Play Double Limit Toss...\u2714\ufe0f\u2714\ufe0f* \n\nN% FIX",
+          "**N \ud83c\udd7f\ufe0f\ud83c\udd70****\ud83d\udcb5****\ud83d\udcb5****\u2714\ufe0f****\n\nNk Limit Plus...****\u2764\ufe0f\u200d\ud83d\udd25****\n\nN Over Sure Session Pass.****\u2764\ufe0f\u200d\ud83d\udd25**"
+        ],
+        "peak_hours_IST": [
+          "18:00-19:00",
+          "19:00-20:00",
+          "22:00-23:00"
+        ]
+      }
+    },
+    "edges": [
+      {
+        "from": "BCCI_MATCH_TOSS_FIXER0",
+        "to": "reddyanna888_io",
+        "type": "mentions"
+      },
+      {
+        "from": "BCCI_MATCH_TOSS_FIXER0",
+        "to": "reddyanna888_support",
+        "type": "mentions"
+      },
+      {
+        "from": "session_cricket_tips",
+        "to": "FAIR786FAMILY",
+        "type": "mentions"
+      },
+      {
+        "from": "session_cricket_tips",
+        "to": "fair786guide",
+        "type": "mentions"
+      },
+      {
+        "from": "session_cricket_tips",
+        "to": "fair786guide",
+        "type": "mentions"
+      },
+      {
+        "from": "MURUGAN_FIXER_LONDON1",
+        "to": "Playgames9999",
+        "type": "mentions"
+      },
+      {
+        "from": "MURUGAN_FIXER_LONDON1",
+        "to": "play99_support",
+        "type": "mentions"
+      }
+    ],
+    "operators": [],
+    "phones": {
+      "8306154335": [
+        "BCCI_MATCH_TOSS_FIXER0"
+      ],
+      "9216328940": [
+        "BCCI_MATCH_TOSS_FIXER0"
+      ]
+    },
+    "upis": {},
+    "admins": {},
+    "bots": {},
+    "links": {}
+  },
+  "attributions": [
+    {
+      "channel": "BCCI_MATCH_TOSS_FIXER0",
+      "confidence": 95,
+      "signals": [
+        "Phone: 8306154335",
+        "WhatsApp: 8306154335",
+        "Links 2 channels",
+        "Scripted templates"
+      ]
+    },
+    {
+      "channel": "session_cricket_tips",
+      "confidence": 25,
+      "signals": [
+        "Links 2 channels",
+        "Scripted templates"
+      ]
+    },
+    {
+      "channel": "MURUGAN_FIXER_LONDON1",
+      "confidence": 25,
+      "signals": [
+        "Links 2 channels",
+        "Scripted templates"
+      ]
+    },
+    {
+      "channel": "BCCI_TOSS_MATCH_FIXER1",
+      "confidence": 0,
+      "signals": []
+    }
+  ],
+  "all_phones": [
+    "9216328940",
+    "8306154335"
+  ],
+  "all_upis": [],
+  "legal_note": "All data from public Telegram channels. IT Act 65B compliant."
+}

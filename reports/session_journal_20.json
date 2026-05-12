@@ -1,0 +1,73 @@
+{
+  "session_end": "2026-05-10T19:22:52.361107",
+  "session_label": "Sessions 19-20 \u2014 Pharma + UPI + Novel Fraud",
+  "what_was_built": [
+    "4 novel fraud scanners (surface web)",
+    "Pharma brand intelligence builder",
+    "IndiaMART seller verification (59 URLs)",
+    "Quality filter \u2014 3-tier system",
+    "Genuine novel intelligence (XHelper, Gujarat, Naza)",
+    "Connected intelligence engine \u2014 5 layers",
+    "SerpApi channel expander",
+    "Dark web intelligence scanner",
+    "Brand impersonation scanner",
+    "Marketplace scanner (Amazon+Flipkart+Snapdeal+JioMart)"
+  ],
+  "what_was_found": {
+    "genuine_fraud_channels": 1,
+    "name": "@loanpaybharat",
+    "phone": "+91-6320782284",
+    "type": "Fake loan app promotion",
+    "verified": true
+  },
+  "what_was_proven": [
+    "Surface web finds discussion not operations",
+    "Telegram API finds actual fraud (100x better)",
+    "Quality filter correctly blocked 856 false positives",
+    "Quality filter correctly blocked 57 fake sellers",
+    "Unitel bust: verified public intelligence",
+    "Gujarat Rs 77Cr: verified public intelligence",
+    "Naza Medica: verified public intelligence"
+  ],
+  "tomorrow_exact": {
+    "8am": "Daily scanner auto-runs \u2014 medicine channels",
+    "manual": [
+      "Check Gmail for PhonePe/JioHotstar/Amazon replies",
+      "Review medicine channel Telegram scan results",
+      "If Sun Pharma brand found: draft email immediately",
+      "Check @loanpaybharat loan app links",
+      "Add loan app names to RBI banned list check"
+    ]
+  },
+  "cineos_actual_state": {
+    "channels": 1115,
+    "graph_nodes": 1159,
+    "graph_edges": 142,
+    "evidence_standard": "IT Act 65B on every finding",
+    "emails_sent": [
+      "PhonePe \u2014 3 fake APK sites",
+      "JioHotstar \u2014 20 piracy streams + WHOIS",
+      "Amazon India \u2014 148 counterfeit listings",
+      "Flipkart \u2014 counterfeit listings"
+    ],
+    "emails_pending": [
+      "Sun Pharma \u2014 after medicine channel scan",
+      "HDFC Bank \u2014 after mule channel scan",
+      "NPCI \u2014 after UPI mule data confirmed"
+    ]
+  },
+  "permanent_standards": {
+    "internal": "Everything \u2014 names, WHOIS, phones, graphs",
+    "external": "Only what passes 3 questions",
+    "q1": "Credible \u2014 can defend every finding",
+    "q2": "Monetary \u2014 their cost, their number",
+    "q3": "Immediate \u2014 threat live, time pressure",
+    "never_send": [
+      "WHOIS registrant data without signed agreement",
+      "Raw phone numbers without attribution proof",
+      "Raw UPI IDs without context",
+      "News articles as intelligence findings",
+      "IndiaMART directories as counterfeit evidence"
+    ]
+  }
+}

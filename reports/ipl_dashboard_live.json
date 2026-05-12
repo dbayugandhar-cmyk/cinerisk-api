@@ -1,0 +1,54 @@
+{
+  "live_match": "CSK vs LSG \u2014 IPL 2026 Match 53",
+  "scan_time": "2026-05-10T13:30:02.309239",
+  "status": "LIVE",
+  "total_fraud_items": 84,
+  "telegram_live": 13,
+  "piracy_streams": 20,
+  "betting_sites": 20,
+  "social_posts": 31,
+  "bcci_impersonators": 2,
+  "overseas_operators": 1,
+  "copy_paste_ops": 7,
+  "fire_findings": [
+    {
+      "rank": 1,
+      "type": "BCCI NAME IMPERSONATION",
+      "detail": "2 channels using BCCI name while betting on BCCI matches",
+      "legal": "IT Act 66D \u2014 Cheating by personation",
+      "channels": [
+        "BCCI_TOSS_MATCH_FIXER1",
+        "BCCI_MATCH_TOSS_FIXER0"
+      ]
+    },
+    {
+      "rank": 2,
+      "type": "MOST ACTIVE LIVE OPERATOR",
+      "detail": "@session_cricket_tips \u2014 13 messages this match",
+      "legal": "Public Gambling Act 1867 + IT Act 2000"
+    },
+    {
+      "rank": 3,
+      "type": "OVERSEAS OPERATOR \u2014 INDIA VICTIMS",
+      "detail": "1 channels claiming London base targeting India users",
+      "legal": "FEMA 1999 + ED jurisdiction",
+      "channels": [
+        "MURUGAN_FIXER_LONDON1"
+      ]
+    },
+    {
+      "rank": 4,
+      "type": "COPY-PASTE BULK OPERATION",
+      "detail": "7 channels posting wrong match content \u2014 same script, one operator",
+      "legal": "Proves coordinated criminal operation under BNS 2023"
+    }
+  ],
+  "who_to_alert": {
+    "BCCI_Integrity": "2 channels using BCCI name",
+    "JioHotstar": "20 streams stealing content",
+    "MHA_I4C": "Overseas operator confirmed \u2014 ED jurisdiction",
+    "SEBI": "Investment fraud posts during match excitement"
+  },
+  "ready_to_send": false,
+  "emails_sent": 0
+}

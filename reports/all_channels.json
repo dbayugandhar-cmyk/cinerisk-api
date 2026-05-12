@@ -489,10 +489,11 @@
     "discovered_by": "forex signal",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:36.391293",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Cinema_Villa_Movies_Malayalam",
@@ -755,10 +756,11 @@
     "discovered_by": "bitcoin pump",
     "discovered_at": "2026-05-10T03:51:44.895124",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "newupdts",
@@ -1018,10 +1020,11 @@
     "discovered_by": "crypto signal",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:35.953240",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "crypto_signalf",
@@ -1030,10 +1033,11 @@
     "discovered_by": "crypto signal",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:35.953413",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "MAHADEVBOOK_MHADEV",
@@ -1090,10 +1094,11 @@
     "discovered_by": "goexch",
     "discovered_at": "2026-05-10T04:03:39.193730",
     "round": 4,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "hollywood_news_Bollywood_Movies",
@@ -1114,10 +1119,11 @@
     "discovered_by": "crypto pump",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:56.984765",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Lotusbook365_Lotus365_Gold365",
@@ -1771,10 +1777,11 @@
     "discovered_by": "forex signal",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:36.391300",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "MURUGAN_LONDON_FIXER_IPL",
@@ -1831,10 +1838,11 @@
     "discovered_by": "pump signal",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:36.174489",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "vegamovies_orignal",
@@ -1891,10 +1899,11 @@
     "discovered_by": "pump signal",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:36.174503",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "radhe_exch_crypto",
@@ -1903,7 +1912,7 @@
     "discovered_by": "radhe exchange",
     "discovered_at": "2026-05-10T03:51:04.701440",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
     "days_tracked": 0,
@@ -1956,7 +1965,8 @@
       "+916404503688",
       "+916998493962",
       "+919854580800"
-    ]
+    ],
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "ipl_tips_best_betting_cricket",
@@ -2884,10 +2894,11 @@
     "discovered_by": "options tips",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:55.343559",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "world777_goexch",
@@ -2990,10 +3001,11 @@
     "discovered_by": "radhe exchange",
     "discovered_at": "2026-05-10T03:51:04.701407",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "crypto_Star_Sports_Toss_Match",
@@ -3107,10 +3119,11 @@
     "discovered_by": "radhe exchange",
     "discovered_at": "2026-05-10T03:51:04.701416",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "FARIDABAD_SINGLE_SATTA_Crypto",
@@ -3176,14 +3189,15 @@
     "username": "Indian_Forex_Gold_Btcusd_Signals",
     "title": "INDIAN FOREX GOLD BTCUSD SIGNALS",
     "subscribers": 28247,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "discovered_by": "forex signal india",
     "platform": "telegram",
     "found_at": "2026-05-10T20:42:10.362122",
     "evidence_hash": "1c39118e0a3bf0b566922ff811ec174d94107cc4cfe1fbfd1d1c84ca50bada3f",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "ambani_online_book_ambanibook",
@@ -3312,10 +3326,11 @@
     "discovered_by": "mahadev book new",
     "discovered_at": "2026-05-10T04:09:19.309435",
     "round": 5,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "sarkarichakriwb",
@@ -3671,10 +3686,11 @@
     "discovered_by": "options tips",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:55.343574",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "IN_MOVIESGAYVm",
@@ -3814,10 +3830,11 @@
     "discovered_by": "crypto 100x",
     "discovered_at": "2026-05-10T03:51:46.375777",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Goexchange_id",
@@ -3826,10 +3843,11 @@
     "discovered_by": "goexch",
     "discovered_at": "2026-05-10T04:03:39.193704",
     "round": 4,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "OLD_TamilYogi_Yogi_Movies_Dubbed",
@@ -3977,10 +3995,11 @@
     "discovered_by": "goexch",
     "discovered_at": "2026-05-10T04:03:39.193817",
     "round": 4,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "CancerCureStory",
@@ -4240,10 +4259,11 @@
     "discovered_by": "forex signal",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:36.391306",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Kalayan_kaliyan_klyan_kalyana",
@@ -5215,10 +5235,11 @@
     "discovered_by": "crypto 100x",
     "discovered_at": "2026-05-10T03:51:46.375702",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "AMBANI_BOOK_FAMILY",
@@ -5733,10 +5754,11 @@
     "discovered_by": "bitcoin investment",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:48:19.510514",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "MAHAKAL_BLACK_SATTA_KING",
@@ -5816,10 +5838,11 @@
     "discovered_by": "forex signal",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:36.391288",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "sultan_satta_fixer_0",
@@ -6101,10 +6124,11 @@
     "discovered_by": "bitcoin tips",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:56.625444",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "dpboss_matka_satta",
@@ -6411,10 +6435,11 @@
     "discovered_by": "crypto pump",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:56.984794",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "SONGS_RAJASTHANI_SONGS",
@@ -6576,10 +6601,11 @@
     "discovered_by": "crypto pump",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:56.984805",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "winmatch_Tez888",
@@ -6656,14 +6682,15 @@
     "username": "Indian_forex_Gold_XAUUSD_SIGNALS",
     "title": "Indian forex Gold XAUUSD BTCUSD SIGNALS",
     "subscribers": 5834,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "discovered_by": "forex signal india",
     "platform": "telegram",
     "found_at": "2026-05-10T20:42:10.362136",
     "evidence_hash": "981e9014aec534354e35393306840220d40008a8d25c74412c6ee5a9e6111e48",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "match_predictionu",
@@ -7097,10 +7124,11 @@
     "discovered_by": "share market tips",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:54.955916",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Kalyan_Chart_Sridevi_Satta_Matka",
@@ -7133,10 +7161,11 @@
     "discovered_by": "notcoin earn",
     "discovered_at": "2026-05-10T04:05:24.612900",
     "round": 4,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "jobs_in_India_USDT",
@@ -7145,10 +7174,11 @@
     "discovered_by": "usdt trading india",
     "discovered_at": "2026-05-10T03:58:46.021503",
     "round": 3,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "kalyan_day_matka_chart_fixx",
@@ -7487,10 +7517,11 @@
     "discovered_by": "notcoin earn",
     "discovered_at": "2026-05-10T04:05:24.612845",
     "round": 4,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "usedphoneseller21",
@@ -7829,10 +7860,11 @@
     "discovered_by": "usdt trading india",
     "discovered_at": "2026-05-10T03:58:46.021498",
     "round": 3,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "rksl2",
@@ -8136,10 +8168,11 @@
     "discovered_by": "telegram members add",
     "discovered_at": "2026-05-10T04:09:59.153870",
     "round": 5,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Tamilblasters25",
@@ -8468,10 +8501,11 @@
     "discovered_by": "nifty tips",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:55.771106",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Nifty_optioncalls",
@@ -8505,10 +8539,11 @@
     "discovered_by": "\u0915\u094d\u0930\u093f\u092a\u094d\u091f\u094b \u0938\u093f\u0917\u094d\u0928\u0932",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:57.421438",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "BALAJI_VIP_SATTA_KING_RESULT",
@@ -8842,10 +8877,11 @@
     "discovered_by": "\u0915\u094d\u0930\u093f\u092a\u094d\u091f\u094b \u0938\u093f\u0917\u094d\u0928\u0932",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:57.421499",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "free_banknifty_stock_option_guru",
@@ -9382,10 +9418,11 @@
     "discovered_by": "crypto 100x",
     "discovered_at": "2026-05-10T03:51:46.375758",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "MovieRulz_Kannada",
@@ -9491,10 +9528,11 @@
     "discovered_by": "task earn",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:47:15.749257",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "tamilplaynett",
@@ -9585,10 +9623,11 @@
     "discovered_by": "usdt trading india",
     "discovered_at": "2026-05-10T03:58:46.021455",
     "round": 3,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "kolkataFFF_Tips",
@@ -9740,10 +9779,11 @@
     "discovered_by": "crypto otc india",
     "discovered_at": "2026-05-10T03:58:46.271422",
     "round": 3,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "channelmemberspro",
@@ -9867,10 +9907,11 @@
     "discovered_by": "\u0939\u093f\u0902\u0926\u0940 \u0915\u094d\u0930\u093f\u092a\u094d\u091f\u094b",
     "discovered_at": "2026-05-10T03:59:06.648682",
     "round": 3,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Banknifty_Nifty_Optionstockcrude",
@@ -9916,10 +9957,11 @@
     "discovered_by": "crypto airdrop india",
     "discovered_at": "2026-05-10T03:52:03.539613",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "hyderabadhotchat",
@@ -9939,10 +9981,11 @@
     "discovered_by": "whatsapp investment",
     "discovered_at": "2026-05-10T03:53:31.954849",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "increase_votes_views_members",
@@ -9986,10 +10029,11 @@
     "discovered_by": "crypto doubler",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:48:19.271040",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "moviesflixmm",
@@ -10123,10 +10167,11 @@
     "discovered_by": "ton coin earn",
     "discovered_at": "2026-05-10T04:05:24.422293",
     "round": 4,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "freefollowersgroup_10",
@@ -10157,10 +10202,11 @@
     "discovered_by": "p2p crypto india",
     "discovered_at": "2026-05-10T03:51:47.120736",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Delhi_Police_UPSI",
@@ -10253,10 +10299,11 @@
     "discovered_by": "crypto pump vip",
     "discovered_at": "2026-05-10T03:51:44.705271",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "new_telugu_movies_songs",
@@ -10618,10 +10665,11 @@
     "discovered_by": "crypto pump vip",
     "discovered_at": "2026-05-10T03:51:44.705316",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "youtube80001",
@@ -10675,10 +10723,11 @@
     "discovered_by": "first copy",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:47:39.175703",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "mlmallindiagroup",
@@ -10945,10 +10994,11 @@
     "discovered_by": "crypto 100x",
     "discovered_at": "2026-05-10T03:51:46.375771",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "SkymoviesHD",
@@ -10969,10 +11019,11 @@
     "discovered_by": "bitcoin tips",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:56.625434",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "lfodsfs",
@@ -10981,10 +11032,11 @@
     "discovered_by": "bitcoin tips",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:56.625383",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Crypto_freefire_diamond_ff_india",
@@ -11005,10 +11057,11 @@
     "discovered_by": "ambani online",
     "discovered_at": "2026-05-10T03:56:56.990957",
     "round": 3,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "O2_bodmas_Academia",
@@ -11266,10 +11319,11 @@
     "discovered_by": "bitcoin pump",
     "discovered_at": "2026-05-10T03:51:44.895146",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "IPL_LIVE_FREE_TV_JIO_HOTSTAR",
@@ -11288,14 +11342,15 @@
     "username": "Public_forex_Signal",
     "title": "Account management Work & Forex and Indian Stock's Signals Warm welcome NON SEBI Registered research analyst",
     "subscribers": 977,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "discovered_by": "forex signal india",
     "platform": "telegram",
     "found_at": "2026-05-10T20:42:10.362130",
     "evidence_hash": "37e887b3472200608e75043ca80621fd32656d81dd6dc2c71cf7dc7e8723a896",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "KALYAN_MATKA_SATTA_GROUP",
@@ -11316,10 +11371,11 @@
     "discovered_by": "shitcoin pump",
     "discovered_at": "2026-05-10T03:51:46.138359",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "GOOGLE_TASK04",
@@ -11530,10 +11586,11 @@
     "discovered_by": "crypto 100x",
     "discovered_at": "2026-05-10T03:51:46.375763",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "delhi_bajar_satta_king_bazar",
@@ -11554,10 +11611,11 @@
     "discovered_by": "binance pump vip",
     "discovered_at": "2026-05-10T03:51:44.525280",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "dpbossj",
@@ -11848,10 +11906,11 @@
     "discovered_by": "\u0d2e\u0d32\u0d2f\u0d3e\u0d33\u0d02 \u0d15\u0d4d\u0d30\u0d3f\u0d2a\u0d4d\u0d31\u0d4d\u0d31\u0d4b",
     "discovered_at": "2026-05-10T03:59:07.266204",
     "round": 3,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "kalyan_milan_fix_jodi",
@@ -12193,10 +12252,11 @@
     "discovered_by": "nft india earn",
     "discovered_at": "2026-05-10T03:51:46.882990",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Baqirghallu1332Earning",
@@ -12276,14 +12336,15 @@
     "username": "onsgldghjkjhgxzzvhpo",
     "title": "\ud83c\udfc6Signal gold bitcoin vip\ud83c\udfc6",
     "subscribers": 637,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "discovered_by": "bitcoin signal vip",
     "platform": "telegram",
     "found_at": "2026-05-10T20:42:08.682812",
     "evidence_hash": "73c607aff8ee4d006c3fc90bea2dfa8ad4c88c85ab16f50d711453fc87a1eb45",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "binance_crypto_vip_signals_pump",
@@ -12292,10 +12353,11 @@
     "discovered_by": "binance pump vip",
     "discovered_at": "2026-05-10T03:51:44.525287",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "howtoincreaseheight",
@@ -12377,10 +12439,11 @@
     "discovered_by": "crypto pump vip",
     "discovered_at": "2026-05-10T03:51:44.705326",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "tamilblasters_win",
@@ -12484,10 +12547,11 @@
     "discovered_by": "binance pump vip",
     "discovered_at": "2026-05-10T03:51:44.525257",
     "round": 2,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "winzox",
@@ -12627,10 +12691,11 @@
     "discovered_by": "notcoin earn",
     "discovered_at": "2026-05-10T04:05:24.612894",
     "round": 4,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Googlemap7",
@@ -12953,14 +13018,15 @@
     "username": "Forex_india_Free_Signals",
     "title": "FOREX TRADING \ud83c\uddee\ud83c\uddf3 FREE SIGNALS\ud83d\udea6",
     "subscribers": 257,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "discovered_by": "forex signal india",
     "platform": "telegram",
     "found_at": "2026-05-10T20:42:10.362146",
     "evidence_hash": "b9d8862127e6362cf2b3eeaec8e046e59205c1fad9d9a11c104810446189ab2b",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "earningClub_VIP",
@@ -12992,14 +13058,15 @@
     "username": "FreeSignalVIPBitcoinIndonesia",
     "title": "Free Signal, Analysis, Predict VIP Bitcoin Indonesia",
     "subscribers": 220,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "discovered_by": "bitcoin signal vip",
     "platform": "telegram",
     "found_at": "2026-05-10T20:42:08.682820",
     "evidence_hash": "79bb6517659c6b0ae4a3716df276d9b90453d6effad1f9df041442c662e18e85",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "match_predictiona",
@@ -13031,14 +13098,15 @@
     "username": "forexsignalfxx",
     "title": "FOREX Signal India - Forex trading",
     "subscribers": 195,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "discovered_by": "forex signal india",
     "platform": "telegram",
     "found_at": "2026-05-10T20:42:10.362071",
     "evidence_hash": "3b3791e281fa38f684110b37c0ecbbc8544b338c526805742b994244cb8c2966",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "bollyhdhub0",
@@ -13057,14 +13125,15 @@
     "username": "crypto_1btc",
     "title": "VIP SIGNALS BINANCE | BITCOIN | CRYPTO | IQ OPTIONS",
     "subscribers": 190,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "discovered_by": "bitcoin signal vip",
     "platform": "telegram",
     "found_at": "2026-05-10T20:42:08.682755",
     "evidence_hash": "31be0533419d7554fd1a3e1bc9f5897fe57b256197e326f00a9592a91d3b4494",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "ASJKUNMANFROST",
@@ -13470,14 +13539,15 @@
     "username": "Bankniftysensexandgoldking",
     "title": "INDIAN AND FOREX SIGNAL",
     "subscribers": 110,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "discovered_by": "forex signal india",
     "platform": "telegram",
     "found_at": "2026-05-10T20:42:10.362142",
     "evidence_hash": "5e27b0fd631a26c9e1282c684bd4ba0b8ce7a7de00405128552bea3412d109c1",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "toss_fixert",
@@ -13665,12 +13735,13 @@
     "discovered_by": "crypto pump",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:56.984570",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
     "days_tracked": 0,
     "subscribers_previous": 241164,
-    "last_updated": "2026-05-12T08:11:19.174733"
+    "last_updated": "2026-05-12T08:11:19.174733",
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "reddybook_group_reddyanna",
@@ -13693,12 +13764,13 @@
     "discovered_by": "yaarwin",
     "discovered_at": "2026-05-10T04:08:55.730169",
     "round": 5,
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
     "days_tracked": 0,
     "subscribers_previous": 230122,
-    "last_updated": "2026-05-12T08:11:19.256364"
+    "last_updated": "2026-05-12T08:11:19.256364",
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "kannada_movies_telugu_tamil_HD",
@@ -13749,12 +13821,13 @@
     "discovered_by": "pump signal",
     "relevance_score": 0,
     "discovered_at": "2026-05-10T03:46:36.174327",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
     "days_tracked": 0,
     "subscribers_previous": 210870,
-    "last_updated": "2026-05-12T08:22:12.353630"
+    "last_updated": "2026-05-12T08:22:12.353630",
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Malayalam_Marathi_Mallu_Movies",
@@ -14168,10 +14241,11 @@
     "discovered_at": "2026-05-10T03:46:36.174472",
     "subscribers_previous": 940772,
     "last_updated": "2026-05-10T05:42:32.708882",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "wingox_dmwin_official",
@@ -14252,10 +14326,11 @@
     "discovered_at": "2026-05-10T03:46:36.391186",
     "subscribers_previous": 771658,
     "last_updated": "2026-05-10T05:42:33.073890",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "satta_king_disawar_13",
@@ -14336,10 +14411,11 @@
     "round": 2,
     "subscribers_previous": 631683,
     "last_updated": "2026-05-10T05:42:33.422448",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "Thamil_Rockers_Movies_2026",
@@ -14546,10 +14622,11 @@
     "round": 3,
     "subscribers_previous": 411121,
     "last_updated": "2026-05-10T05:42:34.231931",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "TOSS_IPL_SESSION_MATCH",
@@ -14920,10 +14997,11 @@
     "source_url": "https://t.me/s/OfficiaLCryptoindia",
     "fraud_signal": true,
     "discovered_at": "2026-05-10T15:33:06.037189",
-    "category": "investment_fraud",
+    "category": "crypto_fraud",
     "first_seen": "2026-05-11",
     "last_seen": "2026-05-11",
-    "days_tracked": 0
+    "days_tracked": 0,
+    "subcategory": "telegram_recruitment"
   },
   {
     "username": "UniversalSignals",

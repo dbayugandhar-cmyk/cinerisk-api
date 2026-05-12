@@ -1,0 +1,65 @@
+FORMAL TAKEDOWN NOTICE
+Under Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021
+Rule 4(2) — Grievance by Affected Party
+
+Date: May 10, 2026
+To: Telegram Messenger (abuse@telegram.org)
+From: CINEOS Intelligence Platform
+       Yugandhar Mallavarapu, Founder
+       yugandhar@cineos.in | cineos.in
+       US Provisional Patent 64/049,190
+
+SUBJECT: Immediate removal of illegal channel @Aryan_betting_guruji_cricket_tip
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. CHANNEL DETAILS
+   Username:     @Aryan_betting_guruji_cricket_tip
+   Display name: BETTING ARYAN GURUJI
+   Subscribers:  241,231
+   Category:     cricket bet
+   Platform:     Telegram
+
+2. NATURE OF VIOLATION
+   This channel operates an illegal gambling/betting operation targeting Indian users.
+   It violates:
+   a) The Public Gambling Act, 1867
+   b) Information Technology Act, 2000 — Section 66D (cheating by personation)
+   c) Bharatiya Nyaya Sanhita, 2023 — Section 318 (cheating)
+   d) FEMA, 1999 (illegal foreign exchange transactions via betting)
+
+3. EVIDENCE — IT ACT 2000 SECTION 65B COMPLIANT
+   SHA-256 Hash:    d436b1e9f7f4096c0ae7d6b52c44170a2fe79181c884ea18f9740a8abd6528c0
+   HMAC Signature:  50e602e2e0cdbecf7a441c04aaa7ec88457228fa23926e61d3c5c935e58f297c
+   Captured at:     2026-05-10T10:27:26.550576+00:00
+   
+   I certify that this electronic record was captured from
+   the publicly accessible Telegram channel @Aryan_betting_guruji_cricket_tip and
+   that this certificate is issued in compliance with
+   Section 65B of the Indian Evidence Act, 1872.
+
+4. LEGAL BASIS FOR REMOVAL
+   Under IT Rules 2021 Rule 3(1)(b), Telegram is required to
+   remove content that is "grossly harmful", "promotes gambling"
+   or "threatens public order" within 36 hours of receipt of
+   this notice.
+
+   Failure to act within 36 hours will result in:
+   a) Escalation to Ministry of Electronics and IT (MeitY)
+   b) Referral to I4C (Indian Cybercrime Coordination Centre)
+   c) Potential loss of safe harbour protection under IT Act Section 79
+
+5. REQUESTED ACTION
+   a) Immediate suspension of channel @Aryan_betting_guruji_cricket_tip
+   b) Preservation of channel metadata for law enforcement
+   c) Written acknowledgement within 36 hours
+   d) Confirmation of removal within 36 hours
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Yugandhar Mallavarapu
+Founder, CINEOS — India's Trust Intelligence Network
+yugandhar@cineos.in | cineos.in
+US Provisional Patent 64/049,190
+
+This notice is filed on May 10, 2026.

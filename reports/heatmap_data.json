@@ -1,0 +1,443 @@
+[
+  {
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "lat": 12.97,
+    "lng": 77.59,
+    "sellers": [
+      "Shri Sai Enterprises",
+      "Miracle Soaps And Detergents",
+      "Augend And Addend",
+      "Susheel Healthcare Private Limited",
+      "Celebrate Wellness"
+    ],
+    "brands": [
+      "Dove",
+      "Dettol"
+    ],
+    "listings": 12,
+    "confirmed": true,
+    "color": "#b060ff"
+  },
+  {
+    "city": "New Delhi",
+    "state": "",
+    "lat": 28.66,
+    "lng": 77.22,
+    "sellers": [
+      "Refueled Manufacturers",
+      "Sarvagunaushdhi Private Limited",
+      "Rigil Enterprises",
+      "Mobilebies",
+      "Ridhi Industries"
+    ],
+    "brands": [
+      "Dove",
+      "Nike",
+      "Samsung Galaxy"
+    ],
+    "listings": 6,
+    "confirmed": true,
+    "color": "#b060ff"
+  },
+  {
+    "city": "Sirsa",
+    "state": "Haryana",
+    "lat": 29.53,
+    "lng": 75.02,
+    "sellers": [
+      "BUDDY_HOUSE"
+    ],
+    "brands": [
+      "Nike"
+    ],
+    "listings": 3,
+    "confirmed": true,
+    "color": "#ff3355"
+  },
+  {
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "lat": 19.08,
+    "lng": 72.88,
+    "sellers": [
+      "Invogue Collection",
+      "Manthan Inc",
+      "Branded Shoes"
+    ],
+    "brands": [
+      "Dettol",
+      "Nike",
+      "Samsung Galaxy"
+    ],
+    "listings": 3,
+    "confirmed": true,
+    "color": "#b060ff"
+  },
+  {
+    "city": "Amritsar",
+    "state": "Punjab",
+    "lat": 31.63,
+    "lng": 74.87,
+    "sellers": [
+      "Next Wave"
+    ],
+    "brands": [
+      "Nike"
+    ],
+    "listings": 3,
+    "confirmed": true,
+    "color": "#ff3355"
+  },
+  {
+    "city": "Surat",
+    "state": "Gujarat",
+    "lat": 21.17,
+    "lng": 72.83,
+    "sellers": [
+      "Unique shoes",
+      "Jin Tex \\u0026 Madhur Traders"
+    ],
+    "brands": [
+      "Dove",
+      "Nike"
+    ],
+    "listings": 2,
+    "confirmed": true,
+    "color": "#b060ff"
+  },
+  {
+    "city": "Ghaziabad",
+    "state": "Uttar Pradesh",
+    "lat": 28.67,
+    "lng": 77.45,
+    "sellers": [
+      "Ajay Enterprises",
+      "Cellova Lifesciences"
+    ],
+    "brands": [
+      "Nike",
+      "Crocin"
+    ],
+    "listings": 2,
+    "confirmed": true,
+    "color": "#b060ff"
+  },
+  {
+    "city": "Mysore",
+    "state": "Karnataka",
+    "lat": 12.3,
+    "lng": 76.65,
+    "sellers": [
+      "Cold Fusion Zone"
+    ],
+    "brands": [
+      "Samsung Galaxy"
+    ],
+    "listings": 2,
+    "confirmed": true,
+    "color": "#ff8c00"
+  },
+  {
+    "city": "Thane",
+    "state": "Maharashtra",
+    "lat": 19.22,
+    "lng": 72.97,
+    "sellers": [
+      "Concentric Circles LLP",
+      "J K Machine Tools"
+    ],
+    "brands": [
+      "Dove",
+      "Samsung Galaxy"
+    ],
+    "listings": 2,
+    "confirmed": true,
+    "color": "#b060ff"
+  },
+  {
+    "city": "Kosamba",
+    "state": "Gujarat",
+    "lat": 21.47,
+    "lng": 72.95,
+    "sellers": [
+      "N Star Enterprise"
+    ],
+    "brands": [
+      "Samsung Galaxy"
+    ],
+    "listings": 2,
+    "confirmed": true,
+    "color": "#ff8c00"
+  },
+  {
+    "city": "Ahmedabad",
+    "state": "Gujarat",
+    "lat": 23.02,
+    "lng": 72.57,
+    "sellers": [
+      "Hometown Enterprise"
+    ],
+    "brands": [
+      "Samsung Galaxy"
+    ],
+    "listings": 2,
+    "confirmed": true,
+    "color": "#ff8c00"
+  },
+  {
+    "city": "Agra",
+    "state": "Uttar Pradesh",
+    "lat": 27.18,
+    "lng": 78.01,
+    "sellers": [
+      "Dove Ventures LLP"
+    ],
+    "brands": [
+      "Dove"
+    ],
+    "listings": 2,
+    "confirmed": true,
+    "color": "#00b060"
+  },
+  {
+    "city": "Noida",
+    "state": "Uttar Pradesh",
+    "lat": 28.54,
+    "lng": 77.39,
+    "sellers": [
+      "NoWorry ( A Brand of Aikm Pharma Private Limited )"
+    ],
+    "brands": [
+      "Dove"
+    ],
+    "listings": 2,
+    "confirmed": true,
+    "color": "#00b060"
+  },
+  {
+    "city": "Delhi",
+    "state": "",
+    "lat": 28.66,
+    "lng": 77.22,
+    "sellers": [
+      "JD Collection \\u0026 Surgical Mask"
+    ],
+    "brands": [
+      "Nike"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#ff3355"
+  },
+  {
+    "city": "Pathankot",
+    "state": "Punjab",
+    "lat": 32.27,
+    "lng": 75.65,
+    "sellers": [
+      "S.P. Traders"
+    ],
+    "brands": [
+      "Nike"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#ff3355"
+  },
+  {
+    "city": "Perinthalmanna",
+    "state": "Kerala",
+    "lat": 10.97,
+    "lng": 76.22,
+    "sellers": [
+      "Valtrex WholeSalers"
+    ],
+    "brands": [
+      "Nike"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#ff3355"
+  },
+  {
+    "city": "Karnal",
+    "state": "Haryana",
+    "lat": 29.69,
+    "lng": 76.99,
+    "sellers": [
+      "Aster Shoes"
+    ],
+    "brands": [
+      "Nike"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#ff3355"
+  },
+  {
+    "city": "Gurgaon",
+    "state": "Haryana",
+    "lat": 28.46,
+    "lng": 77.03,
+    "sellers": [
+      "lola Enterprises"
+    ],
+    "brands": [
+      "Samsung Galaxy"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#ff8c00"
+  },
+  {
+    "city": "Jodhpur",
+    "state": "Rajasthan",
+    "lat": 26.29,
+    "lng": 73.02,
+    "sellers": [
+      "SFC Company"
+    ],
+    "brands": [
+      "Samsung Galaxy"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#ff8c00"
+  },
+  {
+    "city": "Nagpur",
+    "state": "Maharashtra",
+    "lat": 21.15,
+    "lng": 79.09,
+    "sellers": [
+      "K. K. International"
+    ],
+    "brands": [
+      "Samsung Galaxy"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#ff8c00"
+  },
+  {
+    "city": "Una-Diu",
+    "state": "Gujarat",
+    "lat": 20.82,
+    "lng": 71.03,
+    "sellers": [
+      "Sagar Mart"
+    ],
+    "brands": [
+      "Samsung Galaxy"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#ff8c00"
+  },
+  {
+    "city": "Bharuch",
+    "state": "Gujarat",
+    "lat": 21.7,
+    "lng": 72.99,
+    "sellers": [
+      "Gadget-Hub"
+    ],
+    "brands": [
+      "Samsung Galaxy"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#ff8c00"
+  },
+  {
+    "city": "Coimbatore",
+    "state": "Tamil Nadu",
+    "lat": 11.02,
+    "lng": 76.97,
+    "sellers": [
+      "Bluebull Agencies"
+    ],
+    "brands": [
+      "Dettol"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#3d7fff"
+  },
+  {
+    "city": "Indore",
+    "state": "Madhya Pradesh",
+    "lat": 22.72,
+    "lng": 75.86,
+    "sellers": [
+      "Navya Sanitary House"
+    ],
+    "brands": [
+      "Dettol"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#3d7fff"
+  },
+  {
+    "city": "Wayanad",
+    "state": "Kerala",
+    "lat": 11.61,
+    "lng": 76.08,
+    "sellers": [
+      "Nector Lab Associates"
+    ],
+    "brands": [
+      "Dettol"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#3d7fff"
+  },
+  {
+    "city": "Rampur",
+    "state": "Uttar Pradesh",
+    "lat": 28.81,
+    "lng": 79.02,
+    "sellers": [
+      "Quality Enterprises"
+    ],
+    "brands": [
+      "Dove"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#00b060"
+  },
+  {
+    "city": "Kolhapur",
+    "state": "Maharashtra",
+    "lat": 16.7,
+    "lng": 74.24,
+    "sellers": [
+      "Rameshlal Jiyaldas"
+    ],
+    "brands": [
+      "Dove"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#00b060"
+  },
+  {
+    "city": "Rajkot",
+    "state": "Gujarat",
+    "lat": 22.3,
+    "lng": 70.8,
+    "sellers": [
+      "Eczicure (OPC) Private Limited"
+    ],
+    "brands": [
+      "Crocin"
+    ],
+    "listings": 1,
+    "confirmed": true,
+    "color": "#b060ff"
+  }
+]

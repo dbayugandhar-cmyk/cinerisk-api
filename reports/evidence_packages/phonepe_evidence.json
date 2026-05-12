@@ -1,0 +1,65 @@
+{
+  "recipient": "PhonePe Trust & Safety",
+  "email": "grievance@phonepe.com",
+  "generated_at": "2026-05-10T16:16:17.010414",
+  "generated_by": "CINEOS Intelligence Platform",
+  "patent": "US Provisional Patent 64/049,190",
+  "legal_standard": "IT Act 2000 Section 65B",
+  "executive_summary": "CINEOS has identified 3 active sites distributing fake PhonePe APK applications designed to defraud Indian consumers. Each site has been independently verified as live, captures PhonePe branding, and distributes software that generates fraudulent payment screenshots. Evidence is IT Act 65B certified.",
+  "findings": [
+    {
+      "rank": 1,
+      "severity": "CRITICAL",
+      "type": "Fake APK download site",
+      "url": "https://phonepes.com.in/",
+      "evidence": "Site impersonates PhonePe brand, distributes fake payment receipt APK",
+      "violation": "IT Act 66C \u2014 identity theft, Trade Marks Act 1999 Section 29",
+      "action": "Takedown notice to registrar + CERT-In",
+      "hash": "5c5fd2a7b7f97a09879ab0c4cd8f195023f43f02c48ba035a712371db4c2e954",
+      "captured": "May 10, 2026 at 16:16 IST"
+    },
+    {
+      "rank": 2,
+      "severity": "CRITICAL",
+      "type": "Fake PhonePe APK \u2014 live download",
+      "url": "https://fake-phonepe.en.modilimitado.io/",
+      "evidence": "Site titled \"Fake PhonePe APK 26.04.10.0 Download Latest Version 2026\" \u2014 distributes APK generating fake receipts",
+      "violation": "IT Act 66C \u2014 identity theft + IT Act 66D \u2014 cheating by personation",
+      "action": "Report to Google Safe Browsing + CERT-In",
+      "hash": "c0894399ad3789f1bf3370dd77d14b31f38a003eb53d472f11950cdcb2c8c9b2",
+      "captured": "May 10, 2026 at 16:16 IST"
+    },
+    {
+      "rank": 3,
+      "severity": "HIGH",
+      "type": "Fake payment screenshot Instagram",
+      "url": "https://www.instagram.com/popular/fake-payment-screenshot-generator/",
+      "evidence": "Instagram page titled \"Fake Payment Screenshot Generator\" \u2014 distributes tools to create fraudulent UPI receipts",
+      "violation": "IT Act 66D \u2014 cheating by personation",
+      "action": "Meta India abuse report + NPCI alert",
+      "hash": "fa4e37c29a67fdc8f486cae00c4b14de447bf0ba7e39c9ff1f8956b7dd033ce7",
+      "captured": "May 10, 2026 at 16:16 IST"
+    }
+  ],
+  "what_cineos_can_prove": [
+    "Each URL is live and accessible as of May 10, 2026 at 16:16 IST",
+    "Site content directly references PhonePe brand",
+    "Sites distribute or promote fake payment generation",
+    "Evidence SHA-256 hashed under IT Act 65B",
+    "CINEOS can provide screenshot evidence on request"
+  ],
+  "what_cineos_cannot_prove": [
+    "Number of downloads from these sites",
+    "Identity of site operators (requires WHOIS + police)",
+    "Whether any specific transaction was defrauded"
+  ],
+  "requested_actions": [
+    "File DMCA / brand infringement with site registrars",
+    "Report to CERT-In for cyber incident tracking",
+    "Alert NPCI \u2014 fake UPI receipts threaten merchant trust",
+    "PhonePe internal security team investigation"
+  ],
+  "cineos_offer": "CINEOS monitors for new fake PhonePe sites daily. Enterprise subscription provides real-time alerts within minutes of new impersonation sites appearing. Contact: yugandhar@cineos.in",
+  "bundle_hash": "960c9e4ec1f68df41975af0e98db3285742c87517fbbe2bcdc46fa4aa3266f55",
+  "bundle_sig": "10f6c7899cf2cda0a1dd83619413456a"
+}

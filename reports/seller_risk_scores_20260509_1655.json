@@ -1,0 +1,1338 @@
+[
+  {
+    "seller": "Next Wave",
+    "city": "Amritsar",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 63,
+    "verdict": "HIGH \u2014 Very likely counterfeit",
+    "breakdown": {
+      "price_gap": 30,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "Price Rs 699 is 91% below retail Rs 8,000 \u2014 confirms counterfeit",
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/nike-air-force-one-men%E2%80%99s-casual-shoes-copy-2854457721288.html?srsltid=AfmBOopQLvhdwQfwI8FDCnoqf1grAcSjSQCDwSGi0xKInPReEx4eG0lK",
+    "gst": "",
+    "price": 699,
+    "scored_at": "2026-05-09T16:55:05.631883"
+  },
+  {
+    "seller": "Aster Shoes",
+    "city": "Karnal",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 63,
+    "verdict": "HIGH \u2014 Very likely counterfeit",
+    "breakdown": {
+      "price_gap": 30,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "Price Rs 450 is 94% below retail Rs 8,000 \u2014 confirms counterfeit",
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/air-nike-copy-shoes-20296217955.html?srsltid=AfmBOooK_Akjmtg0TEGMGkzQTh-h3HEAqHT8LEDS4qHEZX0F8YaHCW8S",
+    "gst": "",
+    "price": 450,
+    "scored_at": "2026-05-09T16:55:05.631927"
+  },
+  {
+    "seller": "Cold Fusion Zone",
+    "city": "Mysore",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 60,
+    "verdict": "HIGH \u2014 Very likely counterfeit",
+    "breakdown": {
+      "price_gap": 30,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 1,499 is 93% below retail Rs 20,000 \u2014 confirms counterfeit",
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-galaxy-buds-2-pro-earbuds-mastercopy-2852176919388.html?srsltid=AfmBOopeHkY0fGvIiilN2gI9HzygqOoj0WI-i2vw_Zo7P42ZF9s42-JL",
+    "gst": "",
+    "price": 1499,
+    "scored_at": "2026-05-09T16:55:05.631938"
+  },
+  {
+    "seller": "Gadget-Hub",
+    "city": "Bharuch",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 60,
+    "verdict": "HIGH \u2014 Very likely counterfeit",
+    "breakdown": {
+      "price_gap": 30,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 1,500 is 92% below retail Rs 20,000 \u2014 confirms counterfeit",
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-galaxy-active-2-smartwatch-copy-2852677087033.html?srsltid=AfmBOorbqa2F5q_oeDOkqN69uLOpbnrG1Y1T23igdTqTcB7gxyamrPgd",
+    "gst": "",
+    "price": 1500,
+    "scored_at": "2026-05-09T16:55:05.631999"
+  },
+  {
+    "seller": "Cold Fusion Zone",
+    "city": "Mysore",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 60,
+    "verdict": "HIGH \u2014 Very likely counterfeit",
+    "breakdown": {
+      "price_gap": 30,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 1,499 is 93% below retail Rs 20,000 \u2014 confirms counterfeit",
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-galaxy-buds-2-pro-earbuds-mastercopy-2852176919388.html?srsltid=AfmBOorGSvJylZTEFSQRxlzpw6kTCUxJzXXm4a9ZewLTffeEY8EbqJZI",
+    "gst": "",
+    "price": 1499,
+    "scored_at": "2026-05-09T16:55:05.632005"
+  },
+  {
+    "seller": "BUDDY_HOUSE",
+    "city": "Sirsa",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 58,
+    "verdict": "HIGH \u2014 Very likely counterfeit",
+    "breakdown": {
+      "price_gap": 25,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "Price Rs 800 is 90% below retail",
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/nike-air-jordan-1-copy-2850866244991.html?srsltid=AfmBOoo1v2st8-t4525wGn8BbAqb0yzGr46wJ1U4QY0UekZcF9KJaSvK",
+    "gst": "",
+    "price": 800,
+    "scored_at": "2026-05-09T16:55:05.631798"
+  },
+  {
+    "seller": "Next Wave",
+    "city": "Amritsar",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 58,
+    "verdict": "HIGH \u2014 Very likely counterfeit",
+    "breakdown": {
+      "price_gap": 25,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "Price Rs 1,149 is 86% below retail",
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/nike-air-force-1-casual-shoes-copy-2854547220491.html?srsltid=AfmBOoopnfIO8QcTp3lDMFvOZOHFQp34cLve8s2Mim5Q1vk5koItrgcl",
+    "gst": "",
+    "price": 1149,
+    "scored_at": "2026-05-09T16:55:05.631866"
+  },
+  {
+    "seller": "BUDDY_HOUSE",
+    "city": "Sirsa",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 58,
+    "verdict": "HIGH \u2014 Very likely counterfeit",
+    "breakdown": {
+      "price_gap": 25,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "Price Rs 800 is 90% below retail",
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/nike-air-jordan-1-copy-2850866261488.html?srsltid=AfmBOorp-Uir0jffiWLHkuf2poxO9exizu4rBz0unHb_cPhJCIQBDSQV",
+    "gst": "",
+    "price": 800,
+    "scored_at": "2026-05-09T16:55:05.631889"
+  },
+  {
+    "seller": "BUDDY_HOUSE",
+    "city": "Sirsa",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 58,
+    "verdict": "HIGH \u2014 Very likely counterfeit",
+    "breakdown": {
+      "price_gap": 25,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "Price Rs 800 is 90% below retail",
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/nike-air-jordan-1-copy-2850866257648.html?srsltid=AfmBOooOD3Fkd6X3gCqKcrtZaGPWOAsDrcWA7ZzTiVy-Qxl8wjceZxcx",
+    "gst": "",
+    "price": 800,
+    "scored_at": "2026-05-09T16:55:05.631905"
+  },
+  {
+    "seller": "Next Wave",
+    "city": "Amritsar",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 58,
+    "verdict": "HIGH \u2014 Very likely counterfeit",
+    "breakdown": {
+      "price_gap": 25,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "Price Rs 1,149 is 86% below retail",
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/nike-air-force-1-casual-shoes-copy-2854547220491.html?srsltid=AfmBOooSgAgFylwmKU1Q7sckiYBof1inYceL9l6niTif87eTrb32ey83",
+    "gst": "",
+    "price": 1149,
+    "scored_at": "2026-05-09T16:55:05.631911"
+  },
+  {
+    "seller": "JD Collection \\u0026 Surgical Mask",
+    "city": "Delhi",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 48,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 30,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "Price Rs 129 is 98% below retail Rs 8,000 \u2014 confirms counterfeit",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/nike-slippers-23813644897.html?srsltid=AfmBOopChi8qkwBlWzyuoyheVPjxxlrQvHmf0cgNUj6IJgv4QTS3qg-s",
+    "gst": "",
+    "price": 129,
+    "scored_at": "2026-05-09T16:55:05.631855"
+  },
+  {
+    "seller": "Refueled Manufacturers",
+    "city": "New Delhi",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 48,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 30,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "Price Rs 180 is 98% below retail Rs 8,000 \u2014 confirms counterfeit",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/men-lower-21925202273.html?srsltid=AfmBOoqC9m2la158nEqP1aAdTYjq5IFKT1mbfd7vESAg8KWjEPwYLG2z",
+    "gst": "",
+    "price": 180,
+    "scored_at": "2026-05-09T16:55:05.631921"
+  },
+  {
+    "seller": "Mobilebies",
+    "city": "New Delhi",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 45,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 30,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 1,899 is 91% below retail Rs 20,000 \u2014 confirms counterfeit",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-galaxy-s24-ultra-anti-shock-and-anti-drop-protection-electroplated-leather-phone-case-2854450425248.html?srsltid=AfmBOorM0oaQw3ECgdJawWBp4gk26ZYaj98ymQBUGoboKBxlcBGJRtI-",
+    "gst": "",
+    "price": 1899,
+    "scored_at": "2026-05-09T16:55:05.631933"
+  },
+  {
+    "seller": "Invogue Collection",
+    "city": "Mumbai",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 45,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 30,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 1,300 is 94% below retail Rs 20,000 \u2014 confirms counterfeit",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-galaxy-active-2-smart-watch-2850958781612.html?srsltid=AfmBOopEwN5uEixGA5y0k0Bn1OYB4dy5jPHcqAaj2snj6Wb4UXDD_sSc",
+    "gst": "",
+    "price": 1300,
+    "scored_at": "2026-05-09T16:55:05.631960"
+  },
+  {
+    "seller": "Hometown Enterprise",
+    "city": "Ahmedabad",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 45,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 30,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 1,999 is 90% below retail Rs 20,000 \u2014 confirms counterfeit",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/galaxy-watch-6-classic-2854560811912.html?srsltid=AfmBOorfpG2s9xE4a9pCGTJ8rScI_r2L2s7roDfyor-ZbVhLEH1Q2t-d",
+    "gst": "",
+    "price": 1999,
+    "scored_at": "2026-05-09T16:55:05.631988"
+  },
+  {
+    "seller": "Hometown Enterprise",
+    "city": "Ahmedabad",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 40,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 25,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 2,999 is 85% below retail",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/galaxy-watch-7-2854744357773.html?srsltid=AfmBOopkKjlcgwhoz5ThCTi3mqtXszBKeeoC3JKEjmVJyHh5OruE2ez5",
+    "gst": "",
+    "price": 2999,
+    "scored_at": "2026-05-09T16:55:05.631954"
+  },
+  {
+    "seller": "lola Enterprises",
+    "city": "Gurgaon",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 40,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 25,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 3,999 is 80% below retail",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-s23-ultra-mini-26008986255.html?srsltid=AfmBOoqfbQactZx-3j_cYYtRDSby-Ecc48KHr1Ri3C2PctYqAqmwczHR",
+    "gst": "",
+    "price": 3999,
+    "scored_at": "2026-05-09T16:55:05.631964"
+  },
+  {
+    "seller": "SFC Company",
+    "city": "Jodhpur",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 40,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 25,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 2,199 is 89% below retail",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-galaxy-ultra-smart-watch-2854799416355.html?srsltid=AfmBOorTTETqOzOFtOqn26pthpgEP2eXfiRXqSKeLKst4W8sX2QGajj4",
+    "gst": "",
+    "price": 2199,
+    "scored_at": "2026-05-09T16:55:05.631969"
+  },
+  {
+    "seller": "Mahakali Copy Center",
+    "city": "Bengaluru",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 40,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 10,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/5l-dettol-liquid-hand-wash-2854491233333.html?srsltid=AfmBOoq4XkJ_tNacLJoNIz5WB3ijjUMnXcY_N_UvJgpCjvEfbRPbYOmO",
+    "gst": "",
+    "price": 70,
+    "scored_at": "2026-05-09T16:55:05.632019"
+  },
+  {
+    "seller": "Cellova Lifesciences",
+    "city": "Ghaziabad",
+    "brand": "Crocin",
+    "platform": "IndiaMART",
+    "risk_score": 40,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 25,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 10 is 80% below retail",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/neomol-80-injection-24316233112.html?srsltid=AfmBOopvO-zDRmlFG4_37OfQkQMAQ8epwVJPmPlBftoqJODYTNckjmsQ",
+    "gst": "",
+    "price": 10,
+    "scored_at": "2026-05-09T16:55:05.632139"
+  },
+  {
+    "seller": "Rigil Enterprises",
+    "city": "New Delhi",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 36,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 18,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "Price Rs 3,100 significantly below retail",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/nike-kobe-shoes-21742179433.html?srsltid=AfmBOorR3_q6bhhg013HG6-zSkx_MvMgwc0e52jl3qQo19glwUvwyCfJ",
+    "gst": "",
+    "price": 3100,
+    "scored_at": "2026-05-09T16:55:05.631768"
+  },
+  {
+    "seller": "Valtrex WholeSalers",
+    "city": "Perinthalmanna",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 36,
+    "verdict": "MEDIUM \u2014 Suspicious listing",
+    "breakdown": {
+      "price_gap": 18,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "Price Rs 2,499 significantly below retail",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/nike-sb-dunk-why-so-sad-2852296597112.html?srsltid=AfmBOorB_Q8-svTvC4YvtxXrt45PQTXvj_BPe4nyCZpMI16DphPK4JNY",
+    "gst": "",
+    "price": 2499,
+    "scored_at": "2026-05-09T16:55:05.631900"
+  },
+  {
+    "seller": "N Star Enterprise",
+    "city": "Kosamba",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 33,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-s25-ultra-copy-2856482609812.html?srsltid=AfmBOoqPuPuSpM-55SKv_lK7cTZlx_O7mTySzOSh_jftSZAC2awKiQnp",
+    "gst": "",
+    "price": 13000,
+    "scored_at": "2026-05-09T16:55:05.631949"
+  },
+  {
+    "seller": "Aggarwal Telecom",
+    "city": "New Delhi",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 33,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 18,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 6,500 significantly below retail",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-galaxy-m31s-2855314255333.html?srsltid=AfmBOooN2rkkztyp9q1QcjagNvYwAFtjdZIOH9NIDwHM8uAb3uqHt0ss",
+    "gst": "",
+    "price": 6500,
+    "scored_at": "2026-05-09T16:55:05.631983"
+  },
+  {
+    "seller": "N Star Enterprise",
+    "city": "Kosamba",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 33,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 15,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Counterfeit signals: ['copy']",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-s25-ultra-copy-2856482609812.html?srsltid=AfmBOooU7I9X1fqK-IBBif2NVDzRRfHN2hCB7hSQBZeyIIrlQP7-2umr",
+    "gst": "",
+    "price": 13000,
+    "scored_at": "2026-05-09T16:55:05.631993"
+  },
+  {
+    "seller": "Navya Sanitary House",
+    "city": "Indore",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 33,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 18,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 50 significantly below retail",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/hand-sanitizers-22324874833.html?srsltid=AfmBOors3pzCcanqkk3zPsZMZAZnMHwZAcOMzbrwRC13O-zdub1oyyKx",
+    "gst": "",
+    "price": 50,
+    "scored_at": "2026-05-09T16:55:05.632034"
+  },
+  {
+    "seller": "NoWorry ( A Brand of Aikm Pharma Private Limited )",
+    "city": "Noida",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 33,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 18,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 75 significantly below retail",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/l-oreal-paris-shampoo-total-repair-5-75ml-bottle-2854290784397.html?srsltid=AfmBOoqpzB0foeT-C1aWnw9YkL7ouY0HfoBbBFdWK7DvvC9LQsbCK22r",
+    "gst": "",
+    "price": 75,
+    "scored_at": "2026-05-09T16:55:05.632104"
+  },
+  {
+    "seller": "NoWorry ( A Brand of Aikm Pharma Private Limited )",
+    "city": "Noida",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 33,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 18,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "Price Rs 64 significantly below retail",
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/l-oreal-paris-total-repair-5-shampoo-5-5ml-sachet-pack-of-16-2854290884697.html?srsltid=AfmBOopVkmSvxCCRcUpaxiL2anU_IHxMbTj4BQ-1Sr9gfscGB3n9EhzY",
+    "gst": "",
+    "price": 64,
+    "scored_at": "2026-05-09T16:55:05.632117"
+  },
+  {
+    "seller": "Branded Shoes",
+    "city": "Mumbai",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 28,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 10,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/new-balance-9060-2853227215691.html?srsltid=AfmBOopRg3rbehZVOFvFBbCRmsx8HlAQFvPqBf3eXO2th5xisH70Ig3f",
+    "gst": "",
+    "price": 3500,
+    "scored_at": "2026-05-09T16:55:05.631832"
+  },
+  {
+    "seller": "Unique shoes",
+    "city": "Surat",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 28,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 10,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/adidas-yeezy-foam-runner-with-free-shipping-26738075862.html?srsltid=AfmBOorf1YN_CinqnslPeeWapSKShvKd8c9_cgH-3JKa8U8b7tvSyEDY",
+    "gst": "",
+    "price": 3300,
+    "scored_at": "2026-05-09T16:55:05.631894"
+  },
+  {
+    "seller": "Ajay Enterprises",
+    "city": "Ghaziabad",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 28,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 10,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/nike-air-more-uptempo-96-2853098402248.html?srsltid=AfmBOorPafetWJJA7251NJxiS6VSxMIMZr9PZFKU8LVb6zGyd76I0V2w",
+    "gst": "",
+    "price": 3299,
+    "scored_at": "2026-05-09T16:55:05.631915"
+  },
+  {
+    "seller": "Concentric Circles LLP",
+    "city": "Thane",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 25,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 10,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-galaxy-smart-watch-4-black-26862431697.html?srsltid=AfmBOoo9GEQFtpbGXeGmOKrFcqGsiZGzjYyL6TAVFku_E_oybXT7ad6x",
+    "gst": "",
+    "price": 11000,
+    "scored_at": "2026-05-09T16:55:05.631943"
+  },
+  {
+    "seller": "Celebrate Wellness",
+    "city": "Bengaluru",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 25,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 10,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://m.indiamart.com/proddetail/dettol-gold-liquid-hand-wash-classic-clean-19089443362.html",
+    "gst": "",
+    "price": 70,
+    "scored_at": "2026-05-09T16:55:05.632038"
+  },
+  {
+    "seller": "Satyam Office Needs",
+    "city": "Bengaluru",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 25,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 10,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/dettol-antiseptic-liquid-2849774198691.html?srsltid=AfmBOors8snqpwQXDv2HYw0twAhaPf_9_5AebbFS32_dZW3iyq5eDVdH",
+    "gst": "",
+    "price": 66,
+    "scored_at": "2026-05-09T16:55:05.632064"
+  },
+  {
+    "seller": "Celebrate Wellness",
+    "city": "Bengaluru",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 25,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 10,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://m.indiamart.com/proddetail/dettol-sensitive-ph-balanced-hand-wash-19089423888.html",
+    "gst": "",
+    "price": 69,
+    "scored_at": "2026-05-09T16:55:05.632073"
+  },
+  {
+    "seller": "Jin Tex \\u0026 Madhur Traders",
+    "city": "Surat",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 25,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 10,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/bathing-soap-25169099491.html?srsltid=AfmBOoqJZjEkp5a8xKOuWQLvMRYi0SbL70fgHqbgSr3X42tStj331V4u",
+    "gst": "",
+    "price": 80,
+    "scored_at": "2026-05-09T16:55:05.632125"
+  },
+  {
+    "seller": "S.P. Traders",
+    "city": "Pathankot",
+    "brand": "Nike",
+    "platform": "IndiaMART",
+    "risk_score": 21,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 5
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/off-white-sneakers-2858768957255.html?srsltid=AfmBOoqi9jjWLrzEalp6a-_kkPl0rFhx4Fqz4pb2sYY0UMj8Fty4xzZv",
+    "gst": "",
+    "price": 21999,
+    "scored_at": "2026-05-09T16:55:05.631875"
+  },
+  {
+    "seller": "K. K. International",
+    "city": "Nagpur",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-galaxy-s23-fe-5g-128gb-smart-phone-2855613080762.html?srsltid=AfmBOoqng-_OZUGI43f_6EC2dFeMTRkfupFlmrTykf9L7cKDx7w5Fe-h",
+    "gst": "",
+    "price": 29790,
+    "scored_at": "2026-05-09T16:55:05.631974"
+  },
+  {
+    "seller": "Sagar Mart",
+    "city": "Una-Diu",
+    "brand": "Samsung Galaxy",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/samsung-galaxy-s10-plus-mobile-phone-21059293362.html?srsltid=AfmBOoqiVj18W9Pzr62o5vIt_9TqG3Q--qzV17yWIERLsGcmFad7RSL0",
+    "gst": "",
+    "price": 25999,
+    "scored_at": "2026-05-09T16:55:05.631978"
+  },
+  {
+    "seller": "Bluebull Agencies",
+    "city": "Coimbatore",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/250-ml-himalaya-hand-sanitizer-22290370291.html?srsltid=AfmBOoqXfW-RHmnxXT9wbRqecx566PT35bwpTDma9wpgpI6K2R3P3J2L",
+    "gst": "",
+    "price": 100,
+    "scored_at": "2026-05-09T16:55:05.632009"
+  },
+  {
+    "seller": "Sunshine E Office Solutions",
+    "city": "Bengaluru",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/60ml-dettol-antiseptic-liquid-2849598178273.html?srsltid=AfmBOorvJJnztSDLHVuE6zvxNzHEKfEVDI4hjkMQ3efHD9x3K00MqdP5",
+    "gst": "",
+    "price": 103,
+    "scored_at": "2026-05-09T16:55:05.632014"
+  },
+  {
+    "seller": "Shri Sai Enterprises",
+    "city": "Bengaluru",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/dettol-antiseptic-liquid-27048171197.html?srsltid=AfmBOorSlvxbzUwVAf8pwz9kVyk5yiz3RyIddOC5PCqiPLcu9bt1SdU1",
+    "gst": "",
+    "price": 214,
+    "scored_at": "2026-05-09T16:55:05.632024"
+  },
+  {
+    "seller": "Shri Sai Enterprises",
+    "city": "Bengaluru",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/dettol-antiseptic-liquid-for-first-aid-surface-disinfection-and-personal-hygiene-27539312833.html?srsltid=AfmBOopyUyyGJb6DFFACEefuU_QXKr5m2u8VGN_MMsEm_rOmb_QATNyc",
+    "gst": "",
+    "price": 204,
+    "scored_at": "2026-05-09T16:55:05.632029"
+  },
+  {
+    "seller": "2p Hills",
+    "city": "Bengaluru",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/1-5-l-lifebuoy-total-10-hand-wash-refill-22778220333.html?srsltid=AfmBOoq6BiUPdKkzFXmaRxI9ARcV3zpoATK1-VoVFZ0uTI_fxkVA0aHz",
+    "gst": "",
+    "price": 650,
+    "scored_at": "2026-05-09T16:55:05.632042"
+  },
+  {
+    "seller": "Susheel Healthcare Private Limited",
+    "city": "Bengaluru",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/dettol-antiseptic-liquid-5ltrs-2854570609897.html?srsltid=AfmBOor_wG3HteLg_V621iDlBeUjpme-I-AULV_gzA-rx2TdBzjiidQt",
+    "gst": "",
+    "price": 195,
+    "scored_at": "2026-05-09T16:55:05.632047"
+  },
+  {
+    "seller": "Miracle Soaps And Detergents",
+    "city": "Bengaluru",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/leading-germ-protection-soap-18017541162.html?srsltid=AfmBOoqcSm-_leiRfEVzS0l6dUnDJDLT3MSod5cmU1-zWh7UhaOmYslg",
+    "gst": "",
+    "price": 331,
+    "scored_at": "2026-05-09T16:55:05.632051"
+  },
+  {
+    "seller": "Augend And Addend",
+    "city": "Bengaluru",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/dettol-5-litre-disinfectant-antispectic-liquid-23524568712.html?srsltid=AfmBOooTR_hR9QDMUm-N9yjAVoDDJvqxWXHJM553w7YDeB6XO6GyvP8l",
+    "gst": "",
+    "price": 1680,
+    "scored_at": "2026-05-09T16:55:05.632056"
+  },
+  {
+    "seller": "Manthan Inc",
+    "city": "Mumbai",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/first-aid-kit-1210576212.html?srsltid=AfmBOoqvD011gYtQxd8i0ip0lSkp1O7uVv9KOWLphoehlcnAbMnFHSNw",
+    "gst": "",
+    "price": 1450,
+    "scored_at": "2026-05-09T16:55:05.632060"
+  },
+  {
+    "seller": "Nector Lab Associates",
+    "city": "Wayanad",
+    "brand": "Dettol",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/vittol-a-4450144612.html?srsltid=AfmBOoqQcsf7C66cZ0q85qW4mINzs91st2aJcoqZuc0WiKIDFaY9a4l3",
+    "gst": "",
+    "price": 1680,
+    "scored_at": "2026-05-09T16:55:05.632069"
+  },
+  {
+    "seller": "Quality Enterprises",
+    "city": "Rampur",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/lifebuoy-soap-20142530833.html?srsltid=AfmBOooTOHpByB25aeyRMtJka-ON2xWaZp1XV-tLCCiLX5fhI-R66eBg",
+    "gst": "",
+    "price": 135,
+    "scored_at": "2026-05-09T16:55:05.632077"
+  },
+  {
+    "seller": "Dove Ventures LLP",
+    "city": "Agra",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/mens-casual-jeans-19568284797.html?srsltid=AfmBOoqSztMY8RR1sjKJGblj47lMr5EPckf8-Vjyv_p1_N2-XyCWv9mQ",
+    "gst": "",
+    "price": 400,
+    "scored_at": "2026-05-09T16:55:05.632081"
+  },
+  {
+    "seller": "Dove Ventures LLP",
+    "city": "Agra",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/male-slim-fit-denim-100-cotton-knitted-jeans-20277761688.html?srsltid=AfmBOorAegxmOk9Bhov5VTnhBcgeyOyFC3FXG1eNJ7kvdCHjr7wHuNRD",
+    "gst": "",
+    "price": 600,
+    "scored_at": "2026-05-09T16:55:05.632086"
+  },
+  {
+    "seller": "Ridhi Industries",
+    "city": "New Delhi",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/walker-blue-strips-tape-21557043173.html?srsltid=AfmBOoptJfuDCmnMpL-Wxpynj6NZtEFSPmmiTzNcREJd_8K76Vk2lKQi",
+    "gst": "",
+    "price": 120,
+    "scored_at": "2026-05-09T16:55:05.632090"
+  },
+  {
+    "seller": "Modern Machine Tool Industries",
+    "city": "",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/3-d-pantograph-milling-machine-6832678862.html?srsltid=AfmBOoo5TY1C75zGufPPsl7GwaWySOwlbZPbp_heVeu6jUBMozxTlsZ5",
+    "gst": "",
+    "price": 200000,
+    "scored_at": "2026-05-09T16:55:05.632095"
+  },
+  {
+    "seller": "Rameshlal Jiyaldas",
+    "city": "Kolhapur",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/super-candy-yellow-round-neck-t-shirt-26509957488.html?srsltid=AfmBOorMNNOSFQxUftvc6i4UyjDhrgndDFwq7fyk4_4dZPl-WZ_sQrqD",
+    "gst": "",
+    "price": 325,
+    "scored_at": "2026-05-09T16:55:05.632099"
+  },
+  {
+    "seller": "Miracle Soaps And Detergents",
+    "city": "Bengaluru",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/leading-germ-protection-soap-18017541162.html?srsltid=AfmBOopWNuEg7xw9iefI5AuHqEp_UYeD9hrhkVQAx8xge-tC0SB1LMc3",
+    "gst": "",
+    "price": 331,
+    "scored_at": "2026-05-09T16:55:05.632109"
+  },
+  {
+    "seller": "Sarvagunaushdhi Private Limited",
+    "city": "New Delhi",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/100ml-evalife-hair-grow-gel-23019229673.html?srsltid=AfmBOorPqrDHWn1_BcSqY8EPsFvJH5VgmIZUqj7vxCnpJfXeTot1EBJz",
+    "gst": "",
+    "price": 288,
+    "scored_at": "2026-05-09T16:55:05.632121"
+  },
+  {
+    "seller": "J K Machine Tools",
+    "city": "Thane",
+    "brand": "Dove",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/universal-engraving-cum-milling-machine-2255879988.html?srsltid=AfmBOoogXpDgohaMr8EbZETTMgM8Yp-6-5JtBKRkwfebLRzIUhBglngH",
+    "gst": "",
+    "price": 72000,
+    "scored_at": "2026-05-09T16:55:05.632130"
+  },
+  {
+    "seller": "Eczicure (OPC) Private Limited",
+    "city": "Rajkot",
+    "brand": "Crocin",
+    "platform": "IndiaMART",
+    "risk_score": 18,
+    "verdict": "LOW \u2014 Monitor",
+    "breakdown": {
+      "price_gap": 3,
+      "explicit_signals": 0,
+      "gst_invalid": 8,
+      "platform_risk": 5,
+      "brand_risk": 2
+    },
+    "evidence": [
+      "No GST number provided"
+    ],
+    "url": "https://www.indiamart.com/proddetail/combiflam-tablet-250-mg-24294520948.html?srsltid=AfmBOoqPW45Bq64Huv0Fvtouz4etodOeqhp3mLtCeytOCR3T84Tw-a0y",
+    "gst": "",
+    "price": 55,
+    "scored_at": "2026-05-09T16:55:05.632135"
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "scanner": "counterfeit_ecommerce",
+  "channels": [
+    {
+      "username": "first_copy_store",
+      "title": "Wholesale Mart India",
+      "subs": 803,
+      "signals": [
+        "WHOLESALE_NETWORK"
+      ],
+      "term": "first copy wholesale",
+      "hash": "6554cb811d0cb0a37ea0e3e45c09af2af2054e975d10888148b266d915e095b4",
+      "phones": [],
+      "upis": [],
+      "domains": [],
+      "platforms": [],
+      "prices": [
+        "399",
+        "699",
+        "980",
+        "7",
+        "950"
+      ],
+      "msg_count": 200
+    }
+  ],
+  "total_channels": 1,
+  "whois": {},
+  "generated_at": "2026-05-10T20:57:16.260552"
+}

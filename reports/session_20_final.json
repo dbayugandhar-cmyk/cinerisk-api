@@ -1,0 +1,17 @@
+{
+  "session": "20",
+  "ended_at": "2026-05-10T23:01:28.659825",
+  "database": 1245,
+  "six_scanner_status": "INCOMPLETE \u2014 rate limit hit at Scanner 2",
+  "tomorrow_first_action": "python3 cineos_six_scanner_intelligence.py",
+  "tomorrow_second_action": "python3 cineos_pharma_intelligence_builder.py",
+  "emails_to_send": [
+    "NOGC proposal to MeitY",
+    "Research report to The420.in"
+  ],
+  "do_not_do": [
+    "Do not retry six scanner tonight",
+    "Do not run channel expander again tonight",
+    "Do not send JioHotstar any more emails"
+  ]
+}

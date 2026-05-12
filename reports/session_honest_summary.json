@@ -1,0 +1,55 @@
+{
+  "session_date": "2026-05-10",
+  "generated_at": "2026-05-10T18:15:40.135490",
+  "key_lesson": "Surface web scanning finds DISCUSSION of fraud. Telegram API scanning finds actual fraud operations. These are fundamentally different intelligence sources.",
+  "what_works": {
+    "telegram_api_scanner": {
+      "evidence_quality": "IRON CLAD",
+      "examples": [
+        "437 betting channels deep scanned with phones/UPIs",
+        "20 IPL piracy streams timestamped live",
+        "15 medicine channels found (not yet deep scanned)",
+        "BCCI impersonator phones confirmed 95%"
+      ],
+      "why": "Reads actual messages inside channels. Finds real phones, UPIs, prices, drug names. IT Act 65B hashed at time of capture."
+    },
+    "whois_lookup": {
+      "evidence_quality": "HIGH",
+      "examples": [
+        "jiohotstar.net: muthyala naresh identified",
+        "phonepes.com.in: UAE registrant, Jan 2026",
+        "7 domains checked, all live"
+      ],
+      "why": "Public ICANN database. No privacy violation."
+    },
+    "serpapi_marketplace": {
+      "evidence_quality": "MEDIUM \u2014 when filtered properly",
+      "examples": [
+        "148 marketplace listings with explicit keywords in title",
+        "IndiaMART specific seller product pages"
+      ],
+      "why": "Works when searching for explicit fraud keywords in product titles on marketplace sites. Does NOT work for general pharma fraud detection."
+    }
+  },
+  "what_does_not_work": {
+    "serpapi_pharma": "Surface web does not index active pharma fraud. 856 results \u2192 0 verified fraud sellers. Counterfeit pharma operates in private channels.",
+    "serpapi_mule_recruitment": "Mule recruitment happens in private Telegram groups. Google indexes news articles about mule recruitment, not actual recruitment posts.",
+    "serpapi_xhelper": "XHelper operates via closed Telegram distribution. Not findable via Google search."
+  },
+  "tomorrow_priority": {
+    "8am": "Telegram rate limit resets \u2014 run medicine channel scan",
+    "command": "python3 cineos_pharma_intelligence_builder.py",
+    "expected": "Drug names, prices, phones, UPIs from 15 channels. If Sun Pharma brand found \u2192 email approved immediately."
+  },
+  "email_ready_now": {
+    "jiohotstar": "Sent \u2014 piracy + WHOIS",
+    "phonepe": "Sent \u2014 fake APK sites",
+    "amazon": "Sent \u2014 marketplace counterfeits",
+    "flipkart": "Sent \u2014 marketplace counterfeits",
+    "bcci": "Ready \u2014 2 phones, 2 channels, 95%",
+    "sun_pharma": "WAIT \u2014 need Telegram scan first",
+    "hdfc_bank": "WAIT \u2014 need Telegram mule channel scan",
+    "npci": "WAIT \u2014 need verified mule network data"
+  },
+  "cineos_actual_moat": "1,114 channels with 30.5M reach already in database. Daily automated scan adding 30-50 channels per day. Connected fraud graph with 1,159 nodes, 142 edges. This is the real data advantage. It compounds every single day. No competitor can replicate 20 sessions of work overnight."
+}

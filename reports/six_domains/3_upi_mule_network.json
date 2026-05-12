@@ -1,0 +1,10 @@
+{
+  "scanner": "upi_mule_network",
+  "channels": [],
+  "upi_map": {},
+  "phone_map": {},
+  "shared_upis": {},
+  "shared_phones": {},
+  "mule_networks": 0,
+  "generated_at": "2026-05-10T21:20:36.518483"
+}

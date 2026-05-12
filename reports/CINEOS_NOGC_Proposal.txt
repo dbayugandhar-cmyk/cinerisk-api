@@ -1,0 +1,73 @@
+CINEOS INTELLIGENCE PROPOSAL
+National Online Gaming Commission (NOGC)
+MeitY, Government of India
+
+SUBMITTED BY:
+Yugandhar Mallavarapu, Founder
+CINEOS — India Trust Intelligence Network
+yugandhar@cineos.in | cineos.in
+US Provisional Patent 64/049,190
+
+DATE: May 2026
+
+═══════════════════════════════════════════════════
+
+THE PROBLEM NOGC FACES
+
+The Online Gaming Act 2025 enacted August 22.
+5.4 billion visits to illegal gambling platforms
+continue monthly. Operators migrated to Telegram —
+decentralised, fast-moving, beyond manual tracking.
+8,400 websites blocked. Channels multiply daily.
+Enforcement cannot keep pace manually.
+
+THE CINEOS SOLUTION
+
+CINEOS has built India's only automated Telegram-based
+illegal gambling intelligence system — operational today.
+
+SCALE OF DATABASE (May 2026):
+
+  1,115 channels monitored across 13 platforms
+  30.5 million combined subscriber reach
+  6 Indian languages covered
+  15 fraud operator networks identified
+  Daily: 30-50 new channels discovered automatically
+  Connected network graph: 1,159 nodes, 142 edges
+  IT Act 65B evidence on every finding
+  STIX 2.1 export for law enforcement systems
+
+INTELLIGENCE CATEGORIES:
+
+  Illegal betting channels:  437 channels mapped
+  Piracy distribution:        63 channels mapped
+  Colour prediction fraud:    41 channels mapped
+  Crypto investment fraud:    26 channels mapped
+  Counterfeit marketplace:   148 defensible findings
+
+WHAT NOGC GETS UNDER CONTRACT:
+
+  Daily intelligence feed — new illegal channels
+  Network graph — how operators connect
+  IT Act 65B certified evidence for prosecution
+  STIX 2.1 format for law enforcement integration
+  IT Rules 2021 takedown notice generation
+  API access for NOGC internal systems
+  Monthly intelligence briefings
+
+WHAT CINEOS DOES NOT SHARE IN THIS PROPOSAL:
+
+  Specific operator names — under signed agreement only
+  Phone numbers — under signed agreement only
+  Network attribution data — under signed agreement only
+  Full channel database — under signed agreement only
+
+  This intelligence exists and is verified.
+  It is shared under a signed intelligence agreement
+  to protect ongoing investigations.
+
+PROPOSED CONTRACT: Rs 1 Crore/year
+
+REQUEST: 30-minute briefing call.
+
+yugandhar@cineos.in | cineos.in | Patent 64/049,190

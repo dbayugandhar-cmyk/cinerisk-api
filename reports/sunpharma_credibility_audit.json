@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-05-10T17:12:58.519155",
+  "medicine_channels": 15,
+  "web_findings": 96,
+  "upi_findings": 73,
+  "credible_for_email": true,
+  "credible_claims": [
+    "15 Telegram medicine fraud channels monitored",
+    "Rs 10 Cr Unitel bust pattern matches digital channels",
+    "5 modus operandi patterns documented",
+    "Distributors still free \u2014 network will resume digitally"
+  ],
+  "not_yet_credible": [
+    "Sun Pharma brand specifically counterfeited \u2014 not yet verified",
+    "Specific Sun Pharma drugs on Telegram \u2014 scan needed"
+  ],
+  "next_steps": [
+    "Brand-specific Telegram scan tomorrow 8am",
+    "IndiaMART brand scan for Sun Pharma drugs",
+    "UPI mule map for medicine channels",
+    "WHOIS on medicine fraud websites"
+  ]
+}

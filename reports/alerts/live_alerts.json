@@ -1,5 +1,909 @@
 [
   {
+    "id": "6307bf34",
+    "title": "Fake crypto platform \u2014 goldbooker.com",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Web \u00b7 Telegram",
+    "detail": "ED confirmed fake crypto platform \u00b7 ED enforcement action confirmed",
+    "detected_at": "2026-05-13T01:41:59.000610+05:30",
+    "source": "ED_public_record",
+    "evidence_hash": "6307bf34e7bc4ad5",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Step 1 \u2014 Domain goldbooker.com confirmed in ED chargesheet \u2014 evidence preserved",
+      "Step 2 \u2014 File WHOIS lookup and archive registrant details",
+      "Step 3 \u2014 Check if domain still active \u2014 report to CERT-In if live",
+      "Step 4 \u2014 Cross-reference with Telegram channels promoting this platform",
+      "Step 5 \u2014 Report to FIU-IND under PMLA for crypto transaction tracking"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "CERT-In",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "SEBI SCORES"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "ED_filing"
+    },
+    "chain": {
+      "channels_found": [
+        "goldbooker.com"
+      ],
+      "keywords_matched": [
+        "fake crypto",
+        "ED enforcement",
+        "PMLA"
+      ],
+      "reach": 0,
+      "evidence_hashes": [
+        "6307bf34e7bc4ad5"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B",
+      "recommended_action": "Cross-reference with Telegram promotion channels",
+      "report_to": [
+        "ED",
+        "CERT-In",
+        "FIU-IND"
+      ],
+      "captured_at": "2026-05-13T01:41:59.000615+05:30"
+    }
+  },
+  {
+    "id": "e9e9e860",
+    "title": "Fake crypto platform \u2014 cryptobrite.com",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Web \u00b7 Telegram",
+    "detail": "ED confirmed fake crypto platform \u00b7 ED enforcement action confirmed",
+    "detected_at": "2026-05-13T01:41:59.000626+05:30",
+    "source": "ED_public_record",
+    "evidence_hash": "e9e9e860dd47060f",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Step 1 \u2014 Domain cryptobrite.com confirmed in ED chargesheet \u2014 evidence preserved",
+      "Step 2 \u2014 File WHOIS lookup and archive registrant details",
+      "Step 3 \u2014 Check if domain still active \u2014 report to CERT-In if live",
+      "Step 4 \u2014 Cross-reference with Telegram channels promoting this platform",
+      "Step 5 \u2014 Report to FIU-IND under PMLA for crypto transaction tracking"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "CERT-In",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "SEBI SCORES"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "ED_filing"
+    },
+    "chain": {
+      "channels_found": [
+        "cryptobrite.com"
+      ],
+      "keywords_matched": [
+        "fake crypto",
+        "ED enforcement",
+        "PMLA"
+      ],
+      "reach": 0,
+      "evidence_hashes": [
+        "e9e9e860dd47060f"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B",
+      "recommended_action": "Cross-reference with Telegram promotion channels",
+      "report_to": [
+        "ED",
+        "CERT-In",
+        "FIU-IND"
+      ],
+      "captured_at": "2026-05-13T01:41:59.000629+05:30"
+    }
+  },
+  {
+    "id": "0ac55d77",
+    "title": "Fake crypto platform \u2014 bitcodeals.com",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Web \u00b7 Telegram",
+    "detail": "ED confirmed fake crypto platform \u00b7 ED enforcement action confirmed",
+    "detected_at": "2026-05-13T01:41:59.000634+05:30",
+    "source": "ED_public_record",
+    "evidence_hash": "0ac55d77cb80e1a6",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Step 1 \u2014 Domain bitcodeals.com confirmed in ED chargesheet \u2014 evidence preserved",
+      "Step 2 \u2014 File WHOIS lookup and archive registrant details",
+      "Step 3 \u2014 Check if domain still active \u2014 report to CERT-In if live",
+      "Step 4 \u2014 Cross-reference with Telegram channels promoting this platform",
+      "Step 5 \u2014 Report to FIU-IND under PMLA for crypto transaction tracking"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "CERT-In",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "SEBI SCORES"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "ED_filing"
+    },
+    "chain": {
+      "channels_found": [
+        "bitcodeals.com"
+      ],
+      "keywords_matched": [
+        "fake crypto",
+        "ED enforcement",
+        "PMLA"
+      ],
+      "reach": 0,
+      "evidence_hashes": [
+        "0ac55d77cb80e1a6"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B",
+      "recommended_action": "Cross-reference with Telegram promotion channels",
+      "report_to": [
+        "ED",
+        "CERT-In",
+        "FIU-IND"
+      ],
+      "captured_at": "2026-05-13T01:41:59.000637+05:30"
+    }
+  },
+  {
+    "id": "3450830d",
+    "title": "Fake crypto platform \u2014 cubigains.com",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Web \u00b7 Telegram",
+    "detail": "ED confirmed fake crypto platform \u00b7 ED enforcement action confirmed",
+    "detected_at": "2026-05-13T01:41:59.000641+05:30",
+    "source": "ED_public_record",
+    "evidence_hash": "3450830d865909ee",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Step 1 \u2014 Domain cubigains.com confirmed in ED chargesheet \u2014 evidence preserved",
+      "Step 2 \u2014 File WHOIS lookup and archive registrant details",
+      "Step 3 \u2014 Check if domain still active \u2014 report to CERT-In if live",
+      "Step 4 \u2014 Cross-reference with Telegram channels promoting this platform",
+      "Step 5 \u2014 Report to FIU-IND under PMLA for crypto transaction tracking"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "CERT-In",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "SEBI SCORES"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "ED_filing"
+    },
+    "chain": {
+      "channels_found": [
+        "cubigains.com"
+      ],
+      "keywords_matched": [
+        "fake crypto",
+        "ED enforcement",
+        "PMLA"
+      ],
+      "reach": 0,
+      "evidence_hashes": [
+        "3450830d865909ee"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B",
+      "recommended_action": "Cross-reference with Telegram promotion channels",
+      "report_to": [
+        "ED",
+        "CERT-In",
+        "FIU-IND"
+      ],
+      "captured_at": "2026-05-13T01:41:59.000643+05:30"
+    }
+  },
+  {
+    "id": "393b761f",
+    "title": "Fake crypto platform \u2014 turbominers.com",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Web \u00b7 Telegram",
+    "detail": "ED confirmed fake crypto platform \u00b7 ED enforcement action confirmed",
+    "detected_at": "2026-05-13T01:41:59.000662+05:30",
+    "source": "ED_public_record",
+    "evidence_hash": "393b761fd0ec83be",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Step 1 \u2014 Domain turbominers.com confirmed in ED chargesheet \u2014 evidence preserved",
+      "Step 2 \u2014 File WHOIS lookup and archive registrant details",
+      "Step 3 \u2014 Check if domain still active \u2014 report to CERT-In if live",
+      "Step 4 \u2014 Cross-reference with Telegram channels promoting this platform",
+      "Step 5 \u2014 Report to FIU-IND under PMLA for crypto transaction tracking"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "CERT-In",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "SEBI SCORES"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "ED_filing"
+    },
+    "chain": {
+      "channels_found": [
+        "turbominers.com"
+      ],
+      "keywords_matched": [
+        "fake crypto",
+        "ED enforcement",
+        "PMLA"
+      ],
+      "reach": 0,
+      "evidence_hashes": [
+        "393b761fd0ec83be"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B",
+      "recommended_action": "Cross-reference with Telegram promotion channels",
+      "report_to": [
+        "ED",
+        "CERT-In",
+        "FIU-IND"
+      ],
+      "captured_at": "2026-05-13T01:41:59.000664+05:30"
+    }
+  },
+  {
+    "id": "af817877",
+    "title": "Fake crypto platform \u2014 metaaibox.com",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Web \u00b7 Telegram",
+    "detail": "ED confirmed fake crypto platform \u00b7 ED enforcement action confirmed",
+    "detected_at": "2026-05-13T01:41:59.000669+05:30",
+    "source": "ED_public_record",
+    "evidence_hash": "af817877e32eea3d",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Step 1 \u2014 Domain metaaibox.com confirmed in ED chargesheet \u2014 evidence preserved",
+      "Step 2 \u2014 File WHOIS lookup and archive registrant details",
+      "Step 3 \u2014 Check if domain still active \u2014 report to CERT-In if live",
+      "Step 4 \u2014 Cross-reference with Telegram channels promoting this platform",
+      "Step 5 \u2014 Report to FIU-IND under PMLA for crypto transaction tracking"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "CERT-In",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "SEBI SCORES"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "ED_filing"
+    },
+    "chain": {
+      "channels_found": [
+        "metaaibox.com"
+      ],
+      "keywords_matched": [
+        "fake crypto",
+        "ED enforcement",
+        "PMLA"
+      ],
+      "reach": 0,
+      "evidence_hashes": [
+        "af817877e32eea3d"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B",
+      "recommended_action": "Cross-reference with Telegram promotion channels",
+      "report_to": [
+        "ED",
+        "CERT-In",
+        "FIU-IND"
+      ],
+      "captured_at": "2026-05-13T01:41:59.000671+05:30"
+    }
+  },
+  {
+    "id": "5a6ab27d",
+    "title": "Fake crypto platform \u2014 wozur.com",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Web \u00b7 Telegram",
+    "detail": "ED confirmed fake crypto platform \u00b7 ED enforcement action confirmed",
+    "detected_at": "2026-05-13T01:41:59.000675+05:30",
+    "source": "ED_public_record",
+    "evidence_hash": "5a6ab27d7d2b7179",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Step 1 \u2014 Domain wozur.com confirmed in ED chargesheet \u2014 evidence preserved",
+      "Step 2 \u2014 File WHOIS lookup and archive registrant details",
+      "Step 3 \u2014 Check if domain still active \u2014 report to CERT-In if live",
+      "Step 4 \u2014 Cross-reference with Telegram channels promoting this platform",
+      "Step 5 \u2014 Report to FIU-IND under PMLA for crypto transaction tracking"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "CERT-In",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "SEBI SCORES"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "ED_filing"
+    },
+    "chain": {
+      "channels_found": [
+        "wozur.com"
+      ],
+      "keywords_matched": [
+        "fake crypto",
+        "ED enforcement",
+        "PMLA"
+      ],
+      "reach": 0,
+      "evidence_hashes": [
+        "5a6ab27d7d2b7179"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B",
+      "recommended_action": "Cross-reference with Telegram promotion channels",
+      "report_to": [
+        "ED",
+        "CERT-In",
+        "FIU-IND"
+      ],
+      "captured_at": "2026-05-13T01:41:59.000677+05:30"
+    }
+  },
+  {
+    "id": "0c5d8d30",
+    "title": "Fake crypto platform \u2014 pc.fxprogroup.cc",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Web \u00b7 Telegram",
+    "detail": "Pig butchering platform \u2014 Khammam case \u00b7 ED enforcement action confirmed",
+    "detected_at": "2026-05-13T01:41:59.000682+05:30",
+    "source": "ED_public_record",
+    "evidence_hash": "0c5d8d3096b39c57",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Step 1 \u2014 Domain pc.fxprogroup.cc confirmed in ED chargesheet \u2014 evidence preserved",
+      "Step 2 \u2014 File WHOIS lookup and archive registrant details",
+      "Step 3 \u2014 Check if domain still active \u2014 report to CERT-In if live",
+      "Step 4 \u2014 Cross-reference with Telegram channels promoting this platform",
+      "Step 5 \u2014 Report to FIU-IND under PMLA for crypto transaction tracking"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "CERT-In",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "SEBI SCORES"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "ED_filing"
+    },
+    "chain": {
+      "channels_found": [
+        "pc.fxprogroup.cc"
+      ],
+      "keywords_matched": [
+        "fake crypto",
+        "ED enforcement",
+        "PMLA"
+      ],
+      "reach": 0,
+      "evidence_hashes": [
+        "0c5d8d3096b39c57"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B",
+      "recommended_action": "Cross-reference with Telegram promotion channels",
+      "report_to": [
+        "ED",
+        "CERT-In",
+        "FIU-IND"
+      ],
+      "captured_at": "2026-05-13T01:41:59.000684+05:30"
+    }
+  },
+  {
+    "id": "a9bb4888",
+    "title": "Operator phone identified \u2014 laser247/my99exch network",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "+91-8881448108 \u00b7 posted 266x in channel messages \u00b7 WhatsApp confirmed",
+    "detected_at": "2026-05-13T01:32:14.664662+05:30",
+    "source": "telegram_deep_scan",
+    "attribution": {
+      "phone": "+91-8881448108",
+      "name": "",
+      "email": "",
+      "upi": "",
+      "source": "telegram_message_extraction",
+      "completeness": "1/5 fields"
+    },
+    "evidence_hash": "a9bb4888e527339f",
+    "legal_basis": "IT Act 2000 \u00a765B + \u00a766D \u00b7 Phone publicly posted in fraud channel",
+    "next_steps": [
+      "Step 1 \u2014 Evidence: phone +91-8881448108 appears 266x in messages \u2014 SHA-256 hashed",
+      "Step 2 \u2014 Truecaller lookup: identify name and address linked to this number",
+      "Step 3 \u2014 WhatsApp Business API: check if active fraud operation account",
+      "Step 4 \u2014 Share with bank fraud desk: flag any account linked to this phone",
+      "Step 5 \u2014 File FIR with cybercrime PS: IT Act \u00a766D + relevant gaming/betting law"
+    ],
+    "report_to": [
+      "I4C \u2014 1930",
+      "State cybercrime cell",
+      "NOGC \u2014 nogc.gov.in",
+      "Relevant bank fraud desk"
+    ],
+    "chain": {
+      "channels_found": [
+        "laser247/my99exch network"
+      ],
+      "keywords_matched": [
+        "operator phone",
+        "fraud contact"
+      ],
+      "reach": 0,
+      "phones": [
+        "+91-8881448108"
+      ],
+      "upis": [],
+      "evidence_hashes": [
+        "a9bb4888e527339f"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B",
+      "recommended_action": "Truecaller lookup + FIR filing for +91-8881448108",
+      "report_to": [
+        "I4C",
+        "NOGC",
+        "State cybercrime cell"
+      ],
+      "captured_at": "2026-05-13T01:32:14.665025+05:30"
+    }
+  },
+  {
+    "id": "cc43d6f3",
+    "title": "Operator phone identified \u2014 my99exch/cricbet99 network",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "+91-8808843584 \u00b7 posted 134x in channel messages \u00b7 WhatsApp confirmed",
+    "detected_at": "2026-05-13T01:32:14.665033+05:30",
+    "source": "telegram_deep_scan",
+    "attribution": {
+      "phone": "+91-8808843584",
+      "name": "",
+      "email": "",
+      "upi": "",
+      "source": "telegram_message_extraction",
+      "completeness": "1/5 fields"
+    },
+    "evidence_hash": "cc43d6f3e6d389f9",
+    "legal_basis": "IT Act 2000 \u00a765B + \u00a766D \u00b7 Phone publicly posted in fraud channel",
+    "next_steps": [
+      "Step 1 \u2014 Evidence: phone +91-8808843584 appears 134x in messages \u2014 SHA-256 hashed",
+      "Step 2 \u2014 Truecaller lookup: identify name and address linked to this number",
+      "Step 3 \u2014 WhatsApp Business API: check if active fraud operation account",
+      "Step 4 \u2014 Share with bank fraud desk: flag any account linked to this phone",
+      "Step 5 \u2014 File FIR with cybercrime PS: IT Act \u00a766D + relevant gaming/betting law"
+    ],
+    "report_to": [
+      "I4C \u2014 1930",
+      "State cybercrime cell",
+      "NOGC \u2014 nogc.gov.in",
+      "Relevant bank fraud desk"
+    ],
+    "chain": {
+      "channels_found": [
+        "my99exch/cricbet99 network"
+      ],
+      "keywords_matched": [
+        "operator phone",
+        "fraud contact"
+      ],
+      "reach": 0,
+      "phones": [
+        "+91-8808843584"
+      ],
+      "upis": [],
+      "evidence_hashes": [
+        "cc43d6f3e6d389f9"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B",
+      "recommended_action": "Truecaller lookup + FIR filing for +91-8808843584",
+      "report_to": [
+        "I4C",
+        "NOGC",
+        "State cybercrime cell"
+      ],
+      "captured_at": "2026-05-13T01:32:14.665037+05:30"
+    }
+  },
+  {
+    "id": "0813a46d",
+    "title": "Operator phone identified \u2014 allpanel betting network",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "+91-9217943375 \u00b7 posted 92x in channel messages \u00b7 WhatsApp confirmed",
+    "detected_at": "2026-05-13T01:32:14.665040+05:30",
+    "source": "telegram_deep_scan",
+    "attribution": {
+      "phone": "+91-9217943375",
+      "name": "",
+      "email": "",
+      "upi": "",
+      "source": "telegram_message_extraction",
+      "completeness": "1/5 fields"
+    },
+    "evidence_hash": "0813a46d16fc1056",
+    "legal_basis": "IT Act 2000 \u00a765B + \u00a766D \u00b7 Phone publicly posted in fraud channel",
+    "next_steps": [
+      "Step 1 \u2014 Evidence: phone +91-9217943375 appears 92x in messages \u2014 SHA-256 hashed",
+      "Step 2 \u2014 Truecaller lookup: identify name and address linked to this number",
+      "Step 3 \u2014 WhatsApp Business API: check if active fraud operation account",
+      "Step 4 \u2014 Share with bank fraud desk: flag any account linked to this phone",
+      "Step 5 \u2014 File FIR with cybercrime PS: IT Act \u00a766D + relevant gaming/betting law"
+    ],
+    "report_to": [
+      "I4C \u2014 1930",
+      "State cybercrime cell",
+      "NOGC \u2014 nogc.gov.in",
+      "Relevant bank fraud desk"
+    ],
+    "chain": {
+      "channels_found": [
+        "allpanel betting network"
+      ],
+      "keywords_matched": [
+        "operator phone",
+        "fraud contact"
+      ],
+      "reach": 0,
+      "phones": [
+        "+91-9217943375"
+      ],
+      "upis": [],
+      "evidence_hashes": [
+        "0813a46d16fc1056"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B",
+      "recommended_action": "Truecaller lookup + FIR filing for +91-9217943375",
+      "report_to": [
+        "I4C",
+        "NOGC",
+        "State cybercrime cell"
+      ],
+      "captured_at": "2026-05-13T01:32:14.665043+05:30"
+    }
+  },
+  {
+    "id": "d30c8d84",
+    "title": "Operator phone identified \u2014 cricbet99/cricbuzz betting",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "+91-9274673985 \u00b7 posted 45x in channel messages \u00b7 WhatsApp confirmed",
+    "detected_at": "2026-05-13T01:32:14.665045+05:30",
+    "source": "telegram_deep_scan",
+    "attribution": {
+      "phone": "+91-9274673985",
+      "name": "",
+      "email": "",
+      "upi": "",
+      "source": "telegram_message_extraction",
+      "completeness": "1/5 fields"
+    },
+    "evidence_hash": "d30c8d842f95eccd",
+    "legal_basis": "IT Act 2000 \u00a765B + \u00a766D \u00b7 Phone publicly posted in fraud channel",
+    "next_steps": [
+      "Step 1 \u2014 Evidence: phone +91-9274673985 appears 45x in messages \u2014 SHA-256 hashed",
+      "Step 2 \u2014 Truecaller lookup: identify name and address linked to this number",
+      "Step 3 \u2014 WhatsApp Business API: check if active fraud operation account",
+      "Step 4 \u2014 Share with bank fraud desk: flag any account linked to this phone",
+      "Step 5 \u2014 File FIR with cybercrime PS: IT Act \u00a766D + relevant gaming/betting law"
+    ],
+    "report_to": [
+      "I4C \u2014 1930",
+      "State cybercrime cell",
+      "NOGC \u2014 nogc.gov.in",
+      "Relevant bank fraud desk"
+    ],
+    "chain": {
+      "channels_found": [
+        "cricbet99/cricbuzz betting"
+      ],
+      "keywords_matched": [
+        "operator phone",
+        "fraud contact"
+      ],
+      "reach": 0,
+      "phones": [
+        "+91-9274673985"
+      ],
+      "upis": [],
+      "evidence_hashes": [
+        "d30c8d842f95eccd"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B",
+      "recommended_action": "Truecaller lookup + FIR filing for +91-9274673985",
+      "report_to": [
+        "I4C",
+        "NOGC",
+        "State cybercrime cell"
+      ],
+      "captured_at": "2026-05-13T01:32:14.665047+05:30"
+    }
+  },
+  {
+    "id": "14f96483",
+    "title": "Operator phone identified \u2014 IPL piracy operator (WhatsApp)",
+    "category": "piracy",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "+91-8306154335 \u00b7 posted 95x in channel messages \u00b7 WhatsApp confirmed",
+    "detected_at": "2026-05-13T01:32:14.665050+05:30",
+    "source": "telegram_deep_scan",
+    "attribution": {
+      "phone": "+91-8306154335",
+      "name": "",
+      "email": "",
+      "upi": "",
+      "source": "telegram_message_extraction",
+      "completeness": "1/5 fields"
+    },
+    "evidence_hash": "14f9648382c70537",
+    "legal_basis": "IT Act 2000 \u00a765B + \u00a766D \u00b7 Phone publicly posted in fraud channel",
+    "next_steps": [
+      "Step 1 \u2014 Evidence: phone +91-8306154335 appears 95x in messages \u2014 SHA-256 hashed",
+      "Step 2 \u2014 Truecaller lookup: identify name and address linked to this number",
+      "Step 3 \u2014 WhatsApp Business API: check if active fraud operation account",
+      "Step 4 \u2014 Share with bank fraud desk: flag any account linked to this phone",
+      "Step 5 \u2014 File FIR with cybercrime PS: IT Act \u00a766D + relevant gaming/betting law"
+    ],
+    "report_to": [
+      "I4C \u2014 1930",
+      "State cybercrime cell",
+      "NOGC \u2014 nogc.gov.in",
+      "Relevant bank fraud desk"
+    ],
+    "chain": {
+      "channels_found": [
+        "IPL piracy operator (WhatsApp)"
+      ],
+      "keywords_matched": [
+        "operator phone",
+        "fraud contact"
+      ],
+      "reach": 0,
+      "phones": [
+        "+91-8306154335"
+      ],
+      "upis": [],
+      "evidence_hashes": [
+        "14f9648382c70537"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B",
+      "recommended_action": "Truecaller lookup + FIR filing for +91-8306154335",
+      "report_to": [
+        "I4C",
+        "NOGC",
+        "State cybercrime cell"
+      ],
+      "captured_at": "2026-05-13T01:32:14.665052+05:30"
+    }
+  },
+  {
+    "id": "bc2f789b",
+    "title": "Operator phone identified \u2014 IPL piracy operator (WhatsApp)",
+    "category": "piracy",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "+91-9216328940 \u00b7 posted 95x in channel messages \u00b7 WhatsApp confirmed",
+    "detected_at": "2026-05-13T01:32:14.665056+05:30",
+    "source": "telegram_deep_scan",
+    "attribution": {
+      "phone": "+91-9216328940",
+      "name": "",
+      "email": "",
+      "upi": "",
+      "source": "telegram_message_extraction",
+      "completeness": "1/5 fields"
+    },
+    "evidence_hash": "bc2f789b6542242d",
+    "legal_basis": "IT Act 2000 \u00a765B + \u00a766D \u00b7 Phone publicly posted in fraud channel",
+    "next_steps": [
+      "Step 1 \u2014 Evidence: phone +91-9216328940 appears 95x in messages \u2014 SHA-256 hashed",
+      "Step 2 \u2014 Truecaller lookup: identify name and address linked to this number",
+      "Step 3 \u2014 WhatsApp Business API: check if active fraud operation account",
+      "Step 4 \u2014 Share with bank fraud desk: flag any account linked to this phone",
+      "Step 5 \u2014 File FIR with cybercrime PS: IT Act \u00a766D + relevant gaming/betting law"
+    ],
+    "report_to": [
+      "I4C \u2014 1930",
+      "State cybercrime cell",
+      "NOGC \u2014 nogc.gov.in",
+      "Relevant bank fraud desk"
+    ],
+    "chain": {
+      "channels_found": [
+        "IPL piracy operator (WhatsApp)"
+      ],
+      "keywords_matched": [
+        "operator phone",
+        "fraud contact"
+      ],
+      "reach": 0,
+      "phones": [
+        "+91-9216328940"
+      ],
+      "upis": [],
+      "evidence_hashes": [
+        "bc2f789b6542242d"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B",
+      "recommended_action": "Truecaller lookup + FIR filing for +91-9216328940",
+      "report_to": [
+        "I4C",
+        "NOGC",
+        "State cybercrime cell"
+      ],
+      "captured_at": "2026-05-13T01:32:14.665059+05:30"
+    }
+  },
+  {
+    "id": "e14878df",
+    "title": "Operator phone identified \u2014 91CLUB/OKWIN colour prediction",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "+91-9249708406 \u00b7 posted 80x in channel messages \u00b7 WhatsApp confirmed",
+    "detected_at": "2026-05-13T01:32:14.665061+05:30",
+    "source": "telegram_deep_scan",
+    "attribution": {
+      "phone": "+91-9249708406",
+      "name": "",
+      "email": "",
+      "upi": "",
+      "source": "telegram_message_extraction",
+      "completeness": "1/5 fields"
+    },
+    "evidence_hash": "e14878df9a255eef",
+    "legal_basis": "IT Act 2000 \u00a765B + \u00a766D \u00b7 Phone publicly posted in fraud channel",
+    "next_steps": [
+      "Step 1 \u2014 Evidence: phone +91-9249708406 appears 80x in messages \u2014 SHA-256 hashed",
+      "Step 2 \u2014 Truecaller lookup: identify name and address linked to this number",
+      "Step 3 \u2014 WhatsApp Business API: check if active fraud operation account",
+      "Step 4 \u2014 Share with bank fraud desk: flag any account linked to this phone",
+      "Step 5 \u2014 File FIR with cybercrime PS: IT Act \u00a766D + relevant gaming/betting law"
+    ],
+    "report_to": [
+      "I4C \u2014 1930",
+      "State cybercrime cell",
+      "NOGC \u2014 nogc.gov.in",
+      "Relevant bank fraud desk"
+    ],
+    "chain": {
+      "channels_found": [
+        "91CLUB/OKWIN colour prediction"
+      ],
+      "keywords_matched": [
+        "operator phone",
+        "fraud contact"
+      ],
+      "reach": 0,
+      "phones": [
+        "+91-9249708406"
+      ],
+      "upis": [],
+      "evidence_hashes": [
+        "e14878df9a255eef"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B",
+      "recommended_action": "Truecaller lookup + FIR filing for +91-9249708406",
+      "report_to": [
+        "I4C",
+        "NOGC",
+        "State cybercrime cell"
+      ],
+      "captured_at": "2026-05-13T01:32:14.665064+05:30"
+    }
+  },
+  {
+    "id": "746bda35",
+    "title": "Operator phone identified \u2014 91CLUB/JALWA operator",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "+91-7261139814 \u00b7 posted 75x in channel messages \u00b7 WhatsApp confirmed",
+    "detected_at": "2026-05-13T01:32:14.665066+05:30",
+    "source": "telegram_deep_scan",
+    "attribution": {
+      "phone": "+91-7261139814",
+      "name": "",
+      "email": "",
+      "upi": "",
+      "source": "telegram_message_extraction",
+      "completeness": "1/5 fields"
+    },
+    "evidence_hash": "746bda354e971832",
+    "legal_basis": "IT Act 2000 \u00a765B + \u00a766D \u00b7 Phone publicly posted in fraud channel",
+    "next_steps": [
+      "Step 1 \u2014 Evidence: phone +91-7261139814 appears 75x in messages \u2014 SHA-256 hashed",
+      "Step 2 \u2014 Truecaller lookup: identify name and address linked to this number",
+      "Step 3 \u2014 WhatsApp Business API: check if active fraud operation account",
+      "Step 4 \u2014 Share with bank fraud desk: flag any account linked to this phone",
+      "Step 5 \u2014 File FIR with cybercrime PS: IT Act \u00a766D + relevant gaming/betting law"
+    ],
+    "report_to": [
+      "I4C \u2014 1930",
+      "State cybercrime cell",
+      "NOGC \u2014 nogc.gov.in",
+      "Relevant bank fraud desk"
+    ],
+    "chain": {
+      "channels_found": [
+        "91CLUB/JALWA operator"
+      ],
+      "keywords_matched": [
+        "operator phone",
+        "fraud contact"
+      ],
+      "reach": 0,
+      "phones": [
+        "+91-7261139814"
+      ],
+      "upis": [],
+      "evidence_hashes": [
+        "746bda354e971832"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B",
+      "recommended_action": "Truecaller lookup + FIR filing for +91-7261139814",
+      "report_to": [
+        "I4C",
+        "NOGC",
+        "State cybercrime cell"
+      ],
+      "captured_at": "2026-05-13T01:32:14.665069+05:30"
+    }
+  },
+  {
     "id": "48029f346485bb96",
     "title": "Fake payment APK \u2014 active credential theft site",
     "category": "brand_impersonation",

@@ -1,0 +1,149 @@
+[
+  {
+    "domain": "jiohotstar.net",
+    "brand": "jiohotstar",
+    "company": "JioHotstar",
+    "is_live": true,
+    "registrar": "BigRock Solutions Ltd",
+    "created": "2026-01-18T12:33:31Z",
+    "expires": "2027-01-18T12:33:31Z",
+    "name_servers": [
+      "DNS1.BIGROCK.IN",
+      "DNS2.BIGROCK.IN",
+      "DNS3.BIGROCK.IN"
+    ],
+    "registrant": "muthyala naresh",
+    "reg_org": "N/A",
+    "reg_email": "muthyala19@gmail.com",
+    "reg_country": "IN",
+    "status": "clientTransferProhibited https://icann.org/epp#clientTransfe",
+    "queried_at": "2026-05-10T16:29:39.171420",
+    "raw_length": 4922
+  },
+  {
+    "domain": "jiohotstar.co",
+    "brand": "jiohotstar",
+    "company": "JioHotstar",
+    "is_live": true,
+    "registrar": "GoDaddy.com, LLC",
+    "created": "2024-10-23T17:08:54.0Z",
+    "expires": "2026-10-23T23:59:59.0Z",
+    "name_servers": [
+      "NS1.AFTERNIC.COM",
+      "NS2.AFTERNIC.COM",
+      "NS1.AFTERNIC.COM"
+    ],
+    "registrant": "Registration Private",
+    "reg_org": "Domains By Proxy, LLC",
+    "reg_email": "Please query the RDDS service of the Registrar of Record identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name.",
+    "reg_country": "US",
+    "status": "clientRenewProhibited https://icann.org/epp#clientRenewProhi",
+    "queried_at": "2026-05-10T16:29:39.927625",
+    "raw_length": 5401
+  },
+  {
+    "domain": "jio-hotstar.com",
+    "brand": "jiohotstar",
+    "company": "JioHotstar",
+    "is_live": true,
+    "registrar": "Namefinger.com LLC",
+    "created": "2026-01-10T19:06:36Z",
+    "expires": "2027-01-10T19:06:36Z",
+    "name_servers": [
+      "NS15.ABOVEDOMAINS.COM",
+      "NS16.ABOVEDOMAINS.COM",
+      "ns15.abovedomains.com"
+    ],
+    "registrant": "PERFECT PRIVACY, LLC",
+    "reg_org": "Registrant Street: 5335 Gate Parkway",
+    "reg_email": "170gsnnm8uipkbc4n80cdjvhgi@domaindiscreet.com",
+    "reg_country": "US",
+    "status": "ok https://icann.org/epp#ok",
+    "queried_at": "2026-05-10T16:29:40.760487",
+    "raw_length": 4217
+  },
+  {
+    "domain": "zerodha.co",
+    "brand": "zerodha",
+    "company": "Zerodha",
+    "is_live": true,
+    "registrar": "NameCheap, Inc.",
+    "created": "2016-01-18T04:41:03.0Z",
+    "expires": "2029-01-17T23:59:59.0Z",
+    "name_servers": [
+      "KARA.NS.CLOUDFLARE.COM",
+      "KEN.NS.CLOUDFLARE.COM",
+      "kara.ns.cloudflare.com"
+    ],
+    "registrant": "Redacted for Privacy",
+    "reg_org": "Privacy service provided by Withheld for Privacy ehf",
+    "reg_email": "Please query the RDDS service of the Registrar of Record identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name.",
+    "reg_country": "IS",
+    "status": "ok https://icann.org/epp#ok",
+    "queried_at": "2026-05-10T16:29:42.688879",
+    "raw_length": 5204
+  },
+  {
+    "domain": "zerodha.net",
+    "brand": "zerodha",
+    "company": "Zerodha",
+    "is_live": true,
+    "registrar": "Cloudflare, Inc.",
+    "created": "2010-02-17T12:26:37Z",
+    "expires": "2032-02-17T12:26:37Z",
+    "name_servers": [
+      "KARA.NS.CLOUDFLARE.COM",
+      "KEN.NS.CLOUDFLARE.COM",
+      "kara.ns.cloudflare.com"
+    ],
+    "registrant": "DATA REDACTED",
+    "reg_org": "DATA REDACTED",
+    "reg_email": "https://domaincontact.registrar.cloudflare.com/zerodha.net",
+    "reg_country": "IN",
+    "status": "clientTransferProhibited https://icann.org/epp#clientTransfe",
+    "queried_at": "2026-05-10T16:29:43.135643",
+    "raw_length": 5507
+  },
+  {
+    "domain": "phonepes.com.in",
+    "brand": "phonepe",
+    "company": "PhonePe",
+    "is_live": true,
+    "registrar": "Dynadot, LLC",
+    "created": "2026-01-22T08:07:18.315Z",
+    "expires": "2027-01-22T08:07:18.315Z",
+    "name_servers": [
+      "annabel.ns.cloudflare.com",
+      "vern.ns.cloudflare.com",
+      "annabel.ns.cloudflare.com"
+    ],
+    "registrant": "REDACTED FOR PRIVACY",
+    "reg_org": "Registrant Street: REDACTED FOR PRIVACY",
+    "reg_email": "Please query the RDDS service of the Registrar of Record identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name.",
+    "reg_country": "AE",
+    "status": "clientTransferProhibited https://icann.org/epp#clientTransfe",
+    "queried_at": "2026-05-10T16:29:44.412962",
+    "raw_length": 6416
+  },
+  {
+    "domain": "paytmsupport.in",
+    "brand": "paytm",
+    "company": "Paytm",
+    "is_live": true,
+    "registrar": "GoDaddy",
+    "created": "2015-11-15T03:56:22.441Z",
+    "expires": "2027-11-15T03:56:22.441Z",
+    "name_servers": [
+      "ns41.domaincontrol.com",
+      "ns42.domaincontrol.com",
+      "NS41.DOMAINCONTROL.COM"
+    ],
+    "registrant": "REDACTED FOR PRIVACY",
+    "reg_org": "One97 Communications Limited",
+    "reg_email": "Please query the RDDS service of the Registrar of Record identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name.",
+    "reg_country": "IN",
+    "status": "clientRenewProhibited https://icann.org/epp#clientRenewProhi",
+    "queried_at": "2026-05-10T16:29:45.162853",
+    "raw_length": 6096
+  }
+]

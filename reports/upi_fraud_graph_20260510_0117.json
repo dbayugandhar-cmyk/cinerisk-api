@@ -1,0 +1,190 @@
+{
+  "nodes": [
+    {
+      "id": "9056060b3730",
+      "type": "channel",
+      "value": "Crypto_IPL_Bettingolgy_Tatah",
+      "metadata": {
+        "subscribers": 0,
+        "title": "Crypto IPL Report \ud83c\udfcf",
+        "url": "https://t.me/Crypto_IPL_Bettingolgy_Tatah"
+      },
+      "risk_score": 50,
+      "seen_count": 1,
+      "connections": 0
+    },
+    {
+      "id": "54d5707f1cdc",
+      "type": "channel",
+      "value": "MATKA_KALYAN_MILAN_SATTA",
+      "metadata": {
+        "subscribers": 0,
+        "title": "KALYAN DP BOSS",
+        "url": "https://t.me/MATKA_KALYAN_MILAN_SATTA"
+      },
+      "risk_score": 50,
+      "seen_count": 1,
+      "connections": 0
+    },
+    {
+      "id": "c9f372e2b0c1",
+      "type": "channel",
+      "value": "CricketBetting",
+      "metadata": {
+        "subscribers": 0,
+        "title": "CricBets",
+        "url": "https://t.me/CricketBetting"
+      },
+      "risk_score": 50,
+      "seen_count": 1,
+      "connections": 0
+    },
+    {
+      "id": "e527bc7d6064",
+      "type": "channel",
+      "value": "IPLBetting",
+      "metadata": {
+        "subscribers": 0,
+        "title": "IPL TOSS MATCH SESSION",
+        "url": "https://t.me/IPLBetting"
+      },
+      "risk_score": 60,
+      "seen_count": 1,
+      "connections": 1
+    },
+    {
+      "id": "589696c6069f",
+      "type": "phone",
+      "value": "8441916068",
+      "metadata": {
+        "first_seen": "2026-04-27T09:57:18+00:00"
+      },
+      "risk_score": 56,
+      "seen_count": 2,
+      "connections": 2
+    },
+    {
+      "id": "f11b0535efe0",
+      "type": "channel",
+      "value": "ipltossmatchsessionn",
+      "metadata": {
+        "subscribers": 0,
+        "title": "IPL TOSS MATCH SESSION",
+        "url": "https://t.me/ipltossmatchsessionn"
+      },
+      "risk_score": 60,
+      "seen_count": 1,
+      "connections": 1
+    },
+    {
+      "id": "34c30fa23329",
+      "type": "channel",
+      "value": "rajveer_betbook247_mahakal",
+      "metadata": {
+        "subscribers": 0,
+        "title": "\u2764\ufe0f MahadevBook fairplay\u2764\ufe0f",
+        "url": "https://t.me/rajveer_betbook247_mahakal"
+      },
+      "risk_score": 50,
+      "seen_count": 1,
+      "connections": 0
+    },
+    {
+      "id": "ae5d6c6787de",
+      "type": "channel",
+      "value": "SATTA_MATKA_SATKA_DP_BOSS",
+      "metadata": {
+        "subscribers": 0,
+        "title": "KALYAN MATKA",
+        "url": "https://t.me/SATTA_MATKA_SATKA_DP_BOSS"
+      },
+      "risk_score": 50,
+      "seen_count": 1,
+      "connections": 0
+    },
+    {
+      "id": "6f0428685452",
+      "type": "channel",
+      "value": "MATKA_SRIDEVI_DPBOSS_KALYAN",
+      "metadata": {
+        "subscribers": 0,
+        "title": "KALYAN SATTA MATKA",
+        "url": "https://t.me/MATKA_SRIDEVI_DPBOSS_KALYAN"
+      },
+      "risk_score": 50,
+      "seen_count": 1,
+      "connections": 0
+    },
+    {
+      "id": "98eeccd818a9",
+      "type": "channel",
+      "value": "ipl_match_free_tips0",
+      "metadata": {
+        "subscribers": 0,
+        "title": "RAFTAAR DUBAI",
+        "url": "https://t.me/ipl_match_free_tips0"
+      },
+      "risk_score": 50,
+      "seen_count": 1,
+      "connections": 0
+    },
+    {
+      "id": "760244dab9b7",
+      "type": "channel",
+      "value": "ipl_tips_best_betting1",
+      "metadata": {
+        "subscribers": 0,
+        "title": "IPL BEST BETTING",
+        "url": "https://t.me/ipl_tips_best_betting1"
+      },
+      "risk_score": 50,
+      "seen_count": 1,
+      "connections": 0
+    },
+    {
+      "id": "7ea49a3636c7",
+      "type": "channel",
+      "value": "ipl_best_cricket_betting_tips",
+      "metadata": {
+        "subscribers": 0,
+        "title": "ipl best cricket betting tips",
+        "url": "https://t.me/ipl_best_cricket_betting_tips"
+      },
+      "risk_score": 50,
+      "seen_count": 1,
+      "connections": 0
+    }
+  ],
+  "edges": [
+    {
+      "from": "e527bc7d6064",
+      "to": "589696c6069f",
+      "relation": "shares_phone",
+      "evidence": "Found in @IPLBetting",
+      "timestamp": "2026-05-10T01:16:51.921957"
+    },
+    {
+      "from": "f11b0535efe0",
+      "to": "589696c6069f",
+      "relation": "shares_phone",
+      "evidence": "Found in @ipltossmatchsessionn",
+      "timestamp": "2026-05-10T01:16:52.664169"
+    }
+  ],
+  "stats": {
+    "total_nodes": 12,
+    "total_edges": 2,
+    "upi_nodes": 0,
+    "phone_nodes": 1,
+    "channel_nodes": 11,
+    "mule_patterns": 0
+  },
+  "mule_patterns": {},
+  "clusters": [
+    [
+      "e527bc7d6064",
+      "589696c6069f",
+      "f11b0535efe0"
+    ]
+  ]
+}

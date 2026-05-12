@@ -1,0 +1,102 @@
+COMPLAINT TO SECURITIES AND EXCHANGE BOARD OF INDIA
+====================================================
+SCORES Portal: scores.sebi.gov.in
+Cyber Crime: cybercrime.gov.in
+
+Date: May 09, 2026
+Complainant: Yugandhar Mallavarapu
+Platform: CINEOS Financial Fraud Intelligence (cineos.in)
+Patent: US Provisional Patent Application 64/049,190
+Email: yugandhar@cineos.in
+
+SUBJECT: Illegal Gambling and Investment Fraud Channels on
+Telegram and Instagram Operating Openly in India
+
+SUMMARY
+-------
+CINEOS detected 6 public Telegram channels and
+6 Instagram posts promoting illegal gambling
+and investment fraud to Indian citizens.
+
+Confirmed subscriber reach: 24,268 users
+Detection date: 2026-05-09
+
+TELEGRAM CHANNELS — CONFIRMED ACTIVE
+--------------------------------------
+
+1. @CricketBetting
+   URL: https://t.me/CricketBetting
+   Subscribers: 14,600
+   Violation: ILLEGAL_BETTING
+   Evidence: 58 betting signal posts detected
+
+2. @IPLBetting
+   URL: https://t.me/IPLBetting
+   Subscribers: 9,610
+   Violation: ILLEGAL_BETTING
+   Evidence: IPL match betting odds posted publicly
+
+3. @CricketOdds
+   URL: https://t.me/CricketOdds
+   Subscribers: 58
+   Violation: ILLEGAL_BETTING
+   Evidence: Cricket match odds and betting tips
+
+4. @sattamatkaji2026India
+   URL: https://t.me/sattamatkaji2026India
+   Subscribers: 0
+   Violation: ILLEGAL_GAMBLING
+   Evidence: Satta matka gambling promotion
+
+5. @India_1xbetofficial1xBet
+   URL: https://t.me/India_1xbetofficial1xBet
+   Subscribers: 0
+   Violation: ILLEGAL_BETTING
+   Evidence: 1xBet illegal gambling promotion
+
+6. @ReddyAnnaBookOfficialReddy
+   URL: https://t.me/ReddyAnnaBookOfficialReddy
+   Subscribers: 23,785 (per Google indexed data)
+   Violation: ILLEGAL_BETTING
+   Evidence: Reddy Anna illegal book promotion
+
+INSTAGRAM FRAUD CONTENT
+-----------------------
+1. https://www.instagram.com/reel/DXesWX7gGQq/
+2. https://www.instagram.com/p/DVIWyKRDeax/
+3. https://www.instagram.com/reel/DWQ5GC3kutP/
+4. https://www.instagram.com/reel/DMur4i0gXe-/
+5. https://www.instagram.com/reel/DVSVxfNDLyO/
+6. https://www.instagram.com/reel/DVxdP6EANd1/
+
+VIOLATIONS
+----------
+1. Public Gambling Act 1867 — Sections 3, 4, 12
+2. SEBI (PFUTP) Regulations 2003
+3. IT Act 2000 Section 66D — Cheating by personation
+4. IPC Section 420 — Cheating
+5. Foreign Exchange Management Act — 1xbet/Bet365 
+   accepting Indian rupees is FEMA violation
+
+REQUESTED ACTIONS
+-----------------
+1. Direct MeitY to block Telegram channels above
+2. Direct Instagram/Meta to remove fraud reels
+3. Investigate payment gateways used
+4. Issue public advisory
+5. Share intelligence with state Cyber Crime cells
+
+ABOUT CINEOS
+------------
+CINEOS is India's first automated digital threat 
+intelligence platform. We detect piracy, financial 
+fraud and illegal gambling using patented technology.
+US Provisional Patent Application 64/049,190.
+
+This complaint is filed in public interest.
+All evidence collected from publicly accessible sources.
+No unauthorized access was performed.
+
+Yugandhar Mallavarapu
+yugandhar@cineos.in | cineos.in
+May 09, 2026

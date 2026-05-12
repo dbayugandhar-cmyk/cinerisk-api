@@ -1,0 +1,238 @@
+{
+  "total_nodes": 15,
+  "by_type": {
+    "source": 1,
+    "mirror": 5,
+    "telegram": 2,
+    "cdn": 1,
+    "reseller": 3,
+    "social": 3
+  },
+  "nodes": [
+    {
+      "url": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "domain": "5movierulz.markets",
+      "type": "source",
+      "title": "Retro",
+      "subscribers": 0,
+      "parent": null,
+      "children": 7,
+      "discovered_at": "2026-05-08T17:51:07.262681"
+    },
+    {
+      "url": "https://www.freepik.com/icons/retro-mirror",
+      "domain": "freepik.com",
+      "type": "mirror",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.929763"
+    },
+    {
+      "url": "https://www.freepik.com/free-photos-vectors/retro-mirror-illustration",
+      "domain": "freepik.com",
+      "type": "mirror",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.929910"
+    },
+    {
+      "url": "https://in.pinterest.com/pin/christian-retro-mirror-png-faithbased-affirmation-instant-download--4600638236820972032/",
+      "domain": "in.pinterest.com",
+      "type": "mirror",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.929934"
+    },
+    {
+      "url": "https://in.pinterest.com/pin/155303888221818940/",
+      "domain": "in.pinterest.com",
+      "type": "mirror",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.929948"
+    },
+    {
+      "url": "https://www.vecteezy.com/free-vector/retro-mirror?page=66",
+      "domain": "vecteezy.com",
+      "type": "mirror",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.929962"
+    },
+    {
+      "url": "https://t.me/NX_Tools",
+      "domain": "t.me",
+      "type": "telegram",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.930005"
+    },
+    {
+      "url": "https://t.me/demoscenecracktros",
+      "domain": "t.me",
+      "type": "telegram",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.930030"
+    },
+    {
+      "url": "cdn://Cloudflare/104.21.35.46",
+      "domain": "cloudflare",
+      "type": "cdn",
+      "title": "Cloudflare (Dynadot Inc)",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.930056"
+    },
+    {
+      "url": "https://www.dailymotion.com/video/x9s2o4q",
+      "domain": "dailymotion.com",
+      "type": "social",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.930090"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=hm_EKX7OObY",
+      "domain": "youtube.com",
+      "type": "social",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.930114"
+    },
+    {
+      "url": "https://www.dailymotion.com/video/x9loiza",
+      "domain": "dailymotion.com",
+      "type": "social",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.930132"
+    },
+    {
+      "url": "https://iptvlevelup.com/wr/channels-list/",
+      "domain": "iptvlevelup.com",
+      "type": "reseller",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.930148"
+    },
+    {
+      "url": "https://www.reddit.com/r/Souldiersgame/comments/1rj3g2a/looking_for_the_best_iptv_subscription_my_honest/",
+      "domain": "reddit.com",
+      "type": "reseller",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.930222"
+    },
+    {
+      "url": "https://www.scribd.com/document/479846564/www-geturiptv-com-IPTV-Channels-List",
+      "domain": "scribd.com",
+      "type": "reseller",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:51:13.930416"
+    }
+  ],
+  "edges": [
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.freepik.com/icons/retro-mirror",
+      "type": "mirror"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.freepik.com/free-photos-vectors/retro-mirror-illustration",
+      "type": "mirror"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://in.pinterest.com/pin/christian-retro-mirror-png-faithbased-affirmation-instant-download--4600638236820972032/",
+      "type": "mirror"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://in.pinterest.com/pin/155303888221818940/",
+      "type": "mirror"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.vecteezy.com/free-vector/retro-mirror?page=66",
+      "type": "mirror"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://t.me/NX_Tools",
+      "type": "telegram"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://t.me/demoscenecracktros",
+      "type": "telegram"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "cdn://Cloudflare/104.21.35.46",
+      "type": "cdn"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.dailymotion.com/video/x9s2o4q",
+      "type": "social"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.youtube.com/watch?v=hm_EKX7OObY",
+      "type": "social"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.dailymotion.com/video/x9loiza",
+      "type": "social"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://iptvlevelup.com/wr/channels-list/",
+      "type": "reseller"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.reddit.com/r/Souldiersgame/comments/1rj3g2a/looking_for_the_best_iptv_subscription_my_honest/",
+      "type": "reseller"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.scribd.com/document/479846564/www-geturiptv-com-IPTV-Channels-List",
+      "type": "reseller"
+    }
+  ],
+  "title": "Retro",
+  "seed_url": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+  "scan_time": 11.6
+}

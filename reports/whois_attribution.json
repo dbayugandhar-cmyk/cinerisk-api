@@ -1,0 +1,162 @@
+{
+  "generated_at": "2026-05-10T16:32:11.513448",
+  "source": "CINEOS WHOIS Intelligence",
+  "legal_basis": "Public WHOIS record \u2014 no privacy violation",
+  "standard": "IT Act 2000 Section 65B",
+  "domains": [
+    {
+      "domain": "jiohotstar.net",
+      "brand": "jiohotstar",
+      "company": "JioHotstar",
+      "is_live": true,
+      "registrant": "muthyala naresh",
+      "email": "muthyala19@gmail.com",
+      "country": "IN",
+      "created": "2026-01-18T12:33:31Z",
+      "registrar": "BigRock Solutions Ltd",
+      "confidence": 95,
+      "attribution": "IDENTIFIED \u2014 real name in public WHOIS",
+      "action": "Cease & desist to muthyala19@gmail.com directly. Police complaint with registrant details.",
+      "flags": {
+        "named_registrant": true,
+        "recent": true,
+        "foreign": false,
+        "cloudflare_masked": false
+      },
+      "evidence_hash": "331ed59134a5a74ff2ae6e699521084d0906be5c9e7483deadf36aa51cab1e34",
+      "legal_note": "WHOIS data is public record. No privacy laws violated in collection. IT Act 65B certified."
+    },
+    {
+      "domain": "jiohotstar.co",
+      "brand": "jiohotstar",
+      "company": "JioHotstar",
+      "is_live": true,
+      "registrant": "Registration Private",
+      "email": "Please query the RDDS service of the Registrar of Record identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name.",
+      "country": "US",
+      "created": "2024-10-23T17:08:54.0Z",
+      "registrar": "GoDaddy.com, LLC",
+      "confidence": 95,
+      "attribution": "IDENTIFIED \u2014 real name in public WHOIS",
+      "action": "Cease & desist to Please query the RDDS service of the Registrar of Record identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name. directly. Police complaint with registrant details.",
+      "flags": {
+        "named_registrant": true,
+        "recent": true,
+        "foreign": true,
+        "cloudflare_masked": false
+      },
+      "evidence_hash": "037a4a306a10a38cc344235ea67acb21c42d18ebdcd328f095aff314f3d51ab9",
+      "legal_note": "WHOIS data is public record. No privacy laws violated in collection. IT Act 65B certified."
+    },
+    {
+      "domain": "jio-hotstar.com",
+      "brand": "jiohotstar",
+      "company": "JioHotstar",
+      "is_live": true,
+      "registrant": "PERFECT PRIVACY, LLC",
+      "email": "170gsnnm8uipkbc4n80cdjvhgi@domaindiscreet.com",
+      "country": "US",
+      "created": "2026-01-10T19:06:36Z",
+      "registrar": "Namefinger.com LLC",
+      "confidence": 75,
+      "attribution": "ANONYMOUS \u2014 foreign privacy-shielded",
+      "action": "UDRP complaint to registrar. Registrar legal process for unmasking.",
+      "flags": {
+        "named_registrant": false,
+        "recent": true,
+        "foreign": true,
+        "cloudflare_masked": false
+      },
+      "evidence_hash": "190fe6d80681ad8d027e380672b0e5f96621a26814c59622a967642a652a092f",
+      "legal_note": "WHOIS data is public record. No privacy laws violated in collection. IT Act 65B certified."
+    },
+    {
+      "domain": "zerodha.co",
+      "brand": "zerodha",
+      "company": "Zerodha",
+      "is_live": true,
+      "registrant": "Redacted for Privacy",
+      "email": "Please query the RDDS service of the Registrar of Record identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name.",
+      "country": "IS",
+      "created": "2016-01-18T04:41:03.0Z",
+      "registrar": "NameCheap, Inc.",
+      "confidence": 50,
+      "attribution": "ANONYMOUS \u2014 old registration",
+      "action": "UDRP complaint if active threat.",
+      "flags": {
+        "named_registrant": false,
+        "recent": false,
+        "foreign": true,
+        "cloudflare_masked": true
+      },
+      "evidence_hash": "ca47844971e80f86e4e54d7503ee8370afa53c32878ed578ae2211d11c57a93d",
+      "legal_note": "WHOIS data is public record. No privacy laws violated in collection. IT Act 65B certified."
+    },
+    {
+      "domain": "zerodha.net",
+      "brand": "zerodha",
+      "company": "Zerodha",
+      "is_live": true,
+      "registrant": "DATA REDACTED",
+      "email": "https://domaincontact.registrar.cloudflare.com/zerodha.net",
+      "country": "IN",
+      "created": "2010-02-17T12:26:37Z",
+      "registrar": "Cloudflare, Inc.",
+      "confidence": 50,
+      "attribution": "ANONYMOUS \u2014 old registration",
+      "action": "UDRP complaint if active threat.",
+      "flags": {
+        "named_registrant": false,
+        "recent": false,
+        "foreign": false,
+        "cloudflare_masked": true
+      },
+      "evidence_hash": "bfd382c1e7da997206a69c927bccaf8aae208ab69951a9e34433ffe490b64682",
+      "legal_note": "WHOIS data is public record. No privacy laws violated in collection. IT Act 65B certified."
+    },
+    {
+      "domain": "phonepes.com.in",
+      "brand": "phonepe",
+      "company": "PhonePe",
+      "is_live": true,
+      "registrant": "REDACTED FOR PRIVACY",
+      "email": "Please query the RDDS service of the Registrar of Record identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name.",
+      "country": "AE",
+      "created": "2026-01-22T08:07:18.315Z",
+      "registrar": "Dynadot, LLC",
+      "confidence": 75,
+      "attribution": "ANONYMOUS \u2014 foreign privacy-shielded",
+      "action": "UDRP complaint to registrar. Registrar legal process for unmasking.",
+      "flags": {
+        "named_registrant": false,
+        "recent": true,
+        "foreign": true,
+        "cloudflare_masked": true
+      },
+      "evidence_hash": "9d24120c5545d7d8e67389b454af46c6d9e93879218ef7095e91e8c54e6df765",
+      "legal_note": "WHOIS data is public record. No privacy laws violated in collection. IT Act 65B certified."
+    },
+    {
+      "domain": "paytmsupport.in",
+      "brand": "paytm",
+      "company": "Paytm",
+      "is_live": true,
+      "registrant": "REDACTED FOR PRIVACY",
+      "email": "Please query the RDDS service of the Registrar of Record identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name.",
+      "country": "IN",
+      "created": "2015-11-15T03:56:22.441Z",
+      "registrar": "GoDaddy",
+      "confidence": 50,
+      "attribution": "ANONYMOUS \u2014 old registration",
+      "action": "UDRP complaint if active threat.",
+      "flags": {
+        "named_registrant": false,
+        "recent": false,
+        "foreign": false,
+        "cloudflare_masked": false
+      },
+      "evidence_hash": "4a6a9bda1ffa7e68daa22c05113173f7568013f770905d4cbf1d040d5f110078",
+      "legal_note": "WHOIS data is public record. No privacy laws violated in collection. IT Act 65B certified."
+    }
+  ]
+}

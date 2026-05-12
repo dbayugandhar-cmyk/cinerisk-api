@@ -1,0 +1,80 @@
+{
+  "recipient": "BCCI Integrity Unit",
+  "email": "integrity@bcci.tv",
+  "generated_at": "2026-05-10T16:16:17.010414",
+  "generated_by": "CINEOS Intelligence Platform",
+  "patent": "US Provisional Patent 64/049,190",
+  "legal_standard": "IT Act 2000 Section 65B",
+  "executive_summary": "CINEOS has identified 2 Telegram channels using 'BCCI' in their names to operate illegal IPL match betting during live matches. Operator phone numbers have been confirmed from publicly posted messages. These channels are linked to the Reddy Anna Book network, subject to active Enforcement Directorate investigation.",
+  "operator_profile": {
+    "confidence": "95%",
+    "phones": [
+      {
+        "number": "+91-8306154335",
+        "source": "Publicly posted WhatsApp number in channel",
+        "channels": [
+          "BCCI_MATCH_TOSS_FIXER0",
+          "BCCI_TOSS_MATCH_FIXER1"
+        ],
+        "hash": "11a2ca67497dbc88a7644fbc498f162b984381cfcdf5af3a1f429cd9e39fc23d"
+      },
+      {
+        "number": "+91-9216328940",
+        "source": "Publicly posted WhatsApp number in channel",
+        "channels": [
+          "BCCI_MATCH_TOSS_FIXER0",
+          "BCCI_TOSS_MATCH_FIXER1"
+        ],
+        "hash": "db73f74b44c88c267751a22a0850307b1d5d98f3517a9195cdceeffd2d1be0b1"
+      }
+    ],
+    "channels": [
+      {
+        "username": "@BCCI_MATCH_TOSS_FIXER0",
+        "evidence": "Posted \"CSK VS LSG 4/4 SESSION PASS COMPLETE\" during Match 53 live",
+        "live_messages": 7,
+        "violation": "IT Act 66D \u2014 cheating by personation of BCCI"
+      },
+      {
+        "username": "@BCCI_TOSS_MATCH_FIXER1",
+        "evidence": "Posted live betting rates during Match 53",
+        "live_messages": 1,
+        "violation": "IT Act 66D + Public Gambling Act 1867"
+      }
+    ],
+    "network": "Reddy Anna Book \u2014 affiliate operator",
+    "linked_channels": [
+      "reddyanna888_io",
+      "reddyanna888_support"
+    ],
+    "ed_case_reference": "Reddy Anna Book active ED investigation"
+  },
+  "what_cineos_can_prove": [
+    "Both channels use BCCI name without authorisation",
+    "Phones +91-8306154335 and +91-9216328940 publicly posted",
+    "Live betting content posted during CSK vs LSG",
+    "Network link to Reddy Anna Book confirmed via public channel links",
+    "All evidence SHA-256 hashed, IT Act 65B certified",
+    "Evidence hash: b4d2d6381e9a816b464f5f84c9364b40060df643"
+  ],
+  "what_cineos_cannot_prove": [
+    "Legal name of phone owner (requires DoT \u2014 police authority)",
+    "Amount collected from bettors",
+    "Physical location of operator"
+  ],
+  "requested_actions": [
+    "File FIR under IT Act 66D \u2014 cheating by personation of BCCI",
+    "Forward phone numbers to I4C for DoT subscriber lookup",
+    "Cross-reference with ED Reddy Anna Book investigation",
+    "Report to abuse@telegram.org with IT Act 65B evidence"
+  ],
+  "fir_sections": [
+    "IT Act 2000 Section 66D \u2014 cheating by personation",
+    "IT Act 2000 Section 66   \u2014 fraudulent electronic communication",
+    "Public Gambling Act 1867 \u2014 illegal betting operation",
+    "BNS 2023 Section 318    \u2014 cheating"
+  ],
+  "cineos_offer": "CINEOS monitors all IPL match days for BCCI name impersonation. Real-time alerts when new channels appear using BCCI branding. Intelligence feed for BCCI Integrity Unit: Rs 25L/year. Contact: yugandhar@cineos.in",
+  "bundle_hash": "9196c6b1ab2bc4609cf030a2b23a5cd36bbd6e2c8425ce4ea436ae8d294a25f5",
+  "bundle_sig": "287be23690da77b8a31931e51b9e548e"
+}

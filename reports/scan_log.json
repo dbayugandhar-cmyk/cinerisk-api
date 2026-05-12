@@ -1,0 +1,31 @@
+{
+  "scans": [
+    {
+      "date": "2026-05-10",
+      "started_at": "2026-05-10T05:42:31.642520",
+      "platforms_scanned": 13,
+      "success": true,
+      "total_channels": 1077,
+      "total_reach": 30533301,
+      "new_findings": 30,
+      "alerts": 0,
+      "completed_at": "2026-05-10T05:43:10.883149",
+      "duration_seconds": 39.240629
+    },
+    {
+      "date": "2026-05-12",
+      "started_at": "2026-05-12T08:11:16.934207",
+      "platforms_scanned": 13,
+      "success": true,
+      "total_channels": 1245,
+      "total_reach": 31230091,
+      "new_findings": 40,
+      "alerts": 0,
+      "completed_at": "2026-05-12T09:11:17.213580",
+      "duration_seconds": 3600.279373
+    }
+  ],
+  "created_at": "2026-05-10T05:43:10.885648",
+  "last_scan": "2026-05-12T09:11:17.213580",
+  "total_scans": 2
+}

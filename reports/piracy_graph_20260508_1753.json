@@ -1,0 +1,163 @@
+{
+  "total_nodes": 10,
+  "by_type": {
+    "source": 1,
+    "mirror": 0,
+    "telegram": 2,
+    "cdn": 1,
+    "reseller": 3,
+    "social": 3
+  },
+  "nodes": [
+    {
+      "url": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "domain": "5movierulz.markets",
+      "type": "source",
+      "title": "Retro",
+      "subscribers": 0,
+      "parent": null,
+      "children": 2,
+      "discovered_at": "2026-05-08T17:53:10.553206"
+    },
+    {
+      "url": "https://t.me/demoscenecracktros",
+      "domain": "t.me",
+      "type": "telegram",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:53:13.941111"
+    },
+    {
+      "url": "https://t.me/NX_Tools",
+      "domain": "t.me",
+      "type": "telegram",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:53:13.941256"
+    },
+    {
+      "url": "cdn://Cloudflare/104.21.35.46",
+      "domain": "cloudflare",
+      "type": "cdn",
+      "title": "Cloudflare (Dynadot Inc)",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:53:13.941286"
+    },
+    {
+      "url": "https://www.dailymotion.com/video/x9s2o4q",
+      "domain": "dailymotion.com",
+      "type": "social",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:53:13.941306"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=hm_EKX7OObY",
+      "domain": "youtube.com",
+      "type": "social",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:53:13.941328"
+    },
+    {
+      "url": "https://www.dailymotion.com/video/x9loiza",
+      "domain": "dailymotion.com",
+      "type": "social",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:53:13.941342"
+    },
+    {
+      "url": "https://iptvlevelup.com/wr/channels-list/",
+      "domain": "iptvlevelup.com",
+      "type": "reseller",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:53:13.941356"
+    },
+    {
+      "url": "https://www.reddit.com/r/Souldiersgame/comments/1rj3g2a/looking_for_the_best_iptv_subscription_my_honest/",
+      "domain": "reddit.com",
+      "type": "reseller",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:53:13.941369"
+    },
+    {
+      "url": "https://www.scribd.com/document/479846564/www-geturiptv-com-IPTV-Channels-List",
+      "domain": "scribd.com",
+      "type": "reseller",
+      "title": "",
+      "subscribers": 0,
+      "parent": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "children": 0,
+      "discovered_at": "2026-05-08T17:53:13.941382"
+    }
+  ],
+  "edges": [
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://t.me/demoscenecracktros",
+      "type": "telegram"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://t.me/NX_Tools",
+      "type": "telegram"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "cdn://Cloudflare/104.21.35.46",
+      "type": "cdn"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.dailymotion.com/video/x9s2o4q",
+      "type": "social"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.youtube.com/watch?v=hm_EKX7OObY",
+      "type": "social"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.dailymotion.com/video/x9loiza",
+      "type": "social"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://iptvlevelup.com/wr/channels-list/",
+      "type": "reseller"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.reddit.com/r/Souldiersgame/comments/1rj3g2a/looking_for_the_best_iptv_subscription_my_honest/",
+      "type": "reseller"
+    },
+    {
+      "from": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+      "to": "https://www.scribd.com/document/479846564/www-geturiptv-com-IPTV-Channels-List",
+      "type": "reseller"
+    }
+  ],
+  "title": "Retro",
+  "seed_url": "https://www.5movierulz.markets/retro-2025-tamil/movie-watch-online-free/",
+  "scan_time": 3.4
+}

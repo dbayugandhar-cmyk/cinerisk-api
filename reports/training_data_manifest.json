@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "created_at": "2026-05-10T15:01:08.178938",
+  "source": "CINEOS India Fraud Intelligence",
+  "total_channels": 1080,
+  "labeled": 501,
+  "label_rate": 46.4,
+  "distribution": {
+    "colour_prediction": 32,
+    "illegal_betting": 351,
+    "fake_investment": 1,
+    "piracy": 63,
+    "crypto_investment_fraud": 26,
+    "lottery_fraud": 31,
+    "loan_fraud": 2,
+    "task_job_fraud": 2
+  }
+}

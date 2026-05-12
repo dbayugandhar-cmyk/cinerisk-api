@@ -1,0 +1,114 @@
+{
+  "findings": [
+    {
+      "channel": "Anuragt_bookqc_Malikc",
+      "upi_ids": [],
+      "phones": [],
+      "qr_mentions": 0,
+      "payment_links": [],
+      "messages_scanned": 200
+    },
+    {
+      "channel": "News_Crypto5",
+      "upi_ids": [],
+      "phones": [],
+      "qr_mentions": 0,
+      "payment_links": [],
+      "messages_scanned": 9
+    },
+    {
+      "channel": "Mahadevsd_Bookuoo",
+      "upi_ids": [],
+      "phones": [],
+      "qr_mentions": 0,
+      "payment_links": [],
+      "messages_scanned": 35
+    },
+    {
+      "channel": "CRYPTO_reddy_annag",
+      "upi_ids": [],
+      "phones": [],
+      "qr_mentions": 0,
+      "payment_links": [],
+      "messages_scanned": 18
+    },
+    {
+      "channel": "Crypto_IPL_Bettingolgy_Tatah",
+      "upi_ids": [],
+      "phones": [],
+      "qr_mentions": 0,
+      "payment_links": [],
+      "messages_scanned": 200
+    },
+    {
+      "channel": "Crypto_Prediction_Baazigar",
+      "upi_ids": [],
+      "phones": [],
+      "qr_mentions": 0,
+      "payment_links": [],
+      "messages_scanned": 99
+    },
+    {
+      "channel": "MATKA_KALYAN_MILAN_SATTA",
+      "upi_ids": [],
+      "phones": [
+        "9180032405"
+      ],
+      "qr_mentions": 0,
+      "payment_links": [],
+      "messages_scanned": 200
+    },
+    {
+      "channel": "Free_Crypto_Pumps_Signals_Vip",
+      "upi_ids": [],
+      "phones": [],
+      "qr_mentions": 0,
+      "payment_links": [],
+      "messages_scanned": 200
+    },
+    {
+      "channel": "rajveer_betbook247_mahakal",
+      "upi_ids": [],
+      "phones": [
+        "9188088992",
+        "8888888888",
+        "7474787129",
+        "7474787965",
+        "9188813494",
+        "9188088710",
+        "7474789194",
+        "9188084086",
+        "9177538177"
+      ],
+      "qr_mentions": 0,
+      "payment_links": [],
+      "messages_scanned": 200
+    },
+    {
+      "channel": "Trading_Trader_Free",
+      "upi_ids": [],
+      "phones": [],
+      "qr_mentions": 0,
+      "payment_links": [],
+      "messages_scanned": 200
+    }
+  ],
+  "mules": [],
+  "summary": {
+    "channels_scanned": 10,
+    "unique_upi": [],
+    "unique_phones": [
+      "9188088992",
+      "8888888888",
+      "9177538177",
+      "7474787129",
+      "7474787965",
+      "9188813494",
+      "9188088710",
+      "9188084086",
+      "7474789194",
+      "9180032405"
+    ],
+    "mule_patterns": []
+  }
+}

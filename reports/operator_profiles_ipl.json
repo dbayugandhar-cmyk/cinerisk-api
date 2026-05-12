@@ -1,0 +1,64 @@
+{
+  "generated_at": "2026-05-10T13:40:59.711447",
+  "match": "CSK vs LSG \u2014 IPL 2026 Match 53",
+  "operators": [
+    {
+      "id": "OP001",
+      "name": "BCCI Impersonator",
+      "confidence": 95,
+      "phones": [
+        "+91-8306154335",
+        "+91-9216328940"
+      ],
+      "channels": [
+        "BCCI_MATCH_TOSS_FIXER0",
+        "BCCI_TOSS_MATCH_FIXER1"
+      ],
+      "network": [
+        "reddyanna888_io",
+        "reddyanna888_support"
+      ],
+      "violations": [
+        "IT Act 66D",
+        "PGA 1867",
+        "BNS 318"
+      ],
+      "evidence_sha256": "b4d2d6381e9a816b464f5f84c9364b40060df643335ae5632c8d7b1653b5054f"
+    },
+    {
+      "id": "OP002",
+      "name": "Murugan / Play99 Operator",
+      "confidence": 45,
+      "phones": [],
+      "channels": [
+        "MURUGAN_FIXER_LONDON1"
+      ],
+      "network": [
+        "Playgames9999",
+        "play99_support"
+      ],
+      "violations": [
+        "PGA 1867",
+        "IT Act 66"
+      ]
+    },
+    {
+      "id": "OP003",
+      "name": "Fair786 Agent",
+      "confidence": 35,
+      "phones": [],
+      "channels": [
+        "session_cricket_tips"
+      ],
+      "network": [
+        "fair786guide",
+        "FAIR786FAMILY"
+      ],
+      "violations": [
+        "PGA 1867",
+        "IT Act 66"
+      ]
+    }
+  ],
+  "legal_note": "All from public Telegram. IT Act 65B. For law enforcement use."
+}

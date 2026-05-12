@@ -20378,6 +20378,86 @@
       "added_at": "2026-05-13T01:27:51.984987+05:30",
       "source": "task_channel_scan",
       "evidence_hash": "deee1ecbd18e6f62f9bff2866d4fc3c27b58279bb7f436b7e4af7d12b23d4d88"
+    },
+    "DOMAIN_19f0d2a1e79a": {
+      "id": "DOMAIN_19f0d2a1e79a",
+      "type": "DOMAIN",
+      "label": "goldbooker.com",
+      "domain": "goldbooker.com",
+      "note": "ED confirmed fake crypto platform",
+      "source": "ED_enforcement_action",
+      "added_at": "2026-05-13T01:41:59.000009+05:30",
+      "evidence_hash": "6307bf34e7bc4ad576562d2f6d03fbdc21803e2da630611dc6e7722a192941c2"
+    },
+    "DOMAIN_2b3e8ffef9ac": {
+      "id": "DOMAIN_2b3e8ffef9ac",
+      "type": "DOMAIN",
+      "label": "cryptobrite.com",
+      "domain": "cryptobrite.com",
+      "note": "ED confirmed fake crypto platform",
+      "source": "ED_enforcement_action",
+      "added_at": "2026-05-13T01:41:59.000622+05:30",
+      "evidence_hash": "e9e9e860dd47060f1bdd12f7d4bf6a2c64bd7530c4b64104aa7782d45c77964d"
+    },
+    "DOMAIN_253b5211ecda": {
+      "id": "DOMAIN_253b5211ecda",
+      "type": "DOMAIN",
+      "label": "bitcodeals.com",
+      "domain": "bitcodeals.com",
+      "note": "ED confirmed fake crypto platform",
+      "source": "ED_enforcement_action",
+      "added_at": "2026-05-13T01:41:59.000632+05:30",
+      "evidence_hash": "0ac55d77cb80e1a61ca3632b181c230adc155599d0038a3b0aa8de2a26fc014b"
+    },
+    "DOMAIN_68269c039663": {
+      "id": "DOMAIN_68269c039663",
+      "type": "DOMAIN",
+      "label": "cubigains.com",
+      "domain": "cubigains.com",
+      "note": "ED confirmed fake crypto platform",
+      "source": "ED_enforcement_action",
+      "added_at": "2026-05-13T01:41:59.000639+05:30",
+      "evidence_hash": "3450830d865909eeabd7d1c7ef30d3dca226c12b451306b9d4b9b4138d4dfb7c"
+    },
+    "DOMAIN_e918a7302ee7": {
+      "id": "DOMAIN_e918a7302ee7",
+      "type": "DOMAIN",
+      "label": "turbominers.com",
+      "domain": "turbominers.com",
+      "note": "ED confirmed fake crypto platform",
+      "source": "ED_enforcement_action",
+      "added_at": "2026-05-13T01:41:59.000645+05:30",
+      "evidence_hash": "393b761fd0ec83be18b9d12350e70bfc49a7ab564fd48dd5d52dbcc3f350d1da"
+    },
+    "DOMAIN_dfe55146c101": {
+      "id": "DOMAIN_dfe55146c101",
+      "type": "DOMAIN",
+      "label": "metaaibox.com",
+      "domain": "metaaibox.com",
+      "note": "ED confirmed fake crypto platform",
+      "source": "ED_enforcement_action",
+      "added_at": "2026-05-13T01:41:59.000667+05:30",
+      "evidence_hash": "af817877e32eea3dadb0730f963dd059a6dfce76f16b9954ea77bd9d5a46414e"
+    },
+    "DOMAIN_dec5a3443af6": {
+      "id": "DOMAIN_dec5a3443af6",
+      "type": "DOMAIN",
+      "label": "wozur.com",
+      "domain": "wozur.com",
+      "note": "ED confirmed fake crypto platform",
+      "source": "ED_enforcement_action",
+      "added_at": "2026-05-13T01:41:59.000673+05:30",
+      "evidence_hash": "5a6ab27d7d2b7179f937d1b73682614147bf0e5779c26bb935a2ca01b56f7df7"
+    },
+    "DOMAIN_a3e0f60b30cc": {
+      "id": "DOMAIN_a3e0f60b30cc",
+      "type": "DOMAIN",
+      "label": "pc.fxprogroup.cc",
+      "domain": "pc.fxprogroup.cc",
+      "note": "Pig butchering platform \u2014 Khammam case",
+      "source": "ED_enforcement_action",
+      "added_at": "2026-05-13T01:41:59.000679+05:30",
+      "evidence_hash": "0c5d8d3096b39c5787a79351b5f4c380d56c341991b0a8b33edcf6128b5f8e28"
     }
   },
   "edges": [
@@ -26859,7 +26939,7 @@
     }
   },
   "stats": {
-    "total_nodes": 1361,
+    "total_nodes": 1369,
     "total_edges": 169,
     "by_type": {
       "NETWORK": 17,

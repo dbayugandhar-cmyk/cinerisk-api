@@ -1,0 +1,90 @@
+
+COMPLAINT TO SECURITIES AND EXCHANGE BOARD OF INDIA (SEBI)
+===========================================================
+Date: May 09, 2026
+Platform: CINEOS Financial Fraud Intelligence
+Contact: Yugandhar Mallavarapu
+Email: yugandhar@cineos.in | dba.yugandhar@gmail.com
+Website: cineos.in
+Patent: US Provisional Patent Application 64/049,190
+
+SUBJECT: Illegal Investment Promotion and Gambling Channels 
+         Operating Publicly on Telegram in India
+
+EXECUTIVE SUMMARY
+-----------------
+CINEOS automated monitoring detected 4 public Telegram 
+channels operating illegal investment promotion and online gambling 
+services in India. Combined subscriber reach: 0 users.
+
+These channels violate:
+- Securities and Exchange Board of India Act, 1992
+- SEBI (Prohibition of Fraudulent and Unfair Trade Practices) 2003
+- Public Gambling Act, 1867
+- Information Technology Act 2000 Section 66D
+- Indian Penal Code Sections 420, 294A
+
+EVIDENCE
+--------
+
+1. Channel: @sattamatkaji2026India
+   URL: https://t.me/sattamatkaji2026India
+   Subscribers: 0
+   Fraud Type: ILLEGAL_BETTING
+   Severity: MEDIUM
+   Description: 
+   Detection Date: 2026-05-09 01:50 IST
+
+2. Channel: @India_1xbetofficial1xBet
+   URL: https://t.me/India_1xbetofficial1xBet
+   Subscribers: 0
+   Fraud Type: ILLEGAL_BETTING
+   Severity: MEDIUM
+   Description: 
+   Detection Date: 2026-05-09 01:50 IST
+
+3. Channel: @ReddyAnnaBookOfficialReddy
+   URL: https://t.me/ReddyAnnaBookOfficialReddy
+   Subscribers: 0
+   Fraud Type: UNKNOWN
+   Severity: MEDIUM
+   Description: 
+   Detection Date: 2026-05-09 01:50 IST
+
+4. Channel: @partners1xbetRegister
+   URL: https://t.me/partners1xbetRegister
+   Subscribers: 0
+   Fraud Type: ILLEGAL_BETTING
+   Severity: MEDIUM
+   Description: 
+   Detection Date: 2026-05-09 01:50 IST
+
+
+RECOMMENDED ACTIONS
+-------------------
+1. Issue emergency orders to block above Telegram channels
+2. Request Telegram (via Ministry of Electronics) to remove channels
+3. Investigate payment gateways used by these operators
+4. FIR filing with Cyber Crime cells in respective states
+5. Public advisory warning investors about these channels
+
+LEGAL BASIS FOR IMMEDIATE ACTION
+---------------------------------
+SEBI Circular No. SEBI/HO/ENFORCEMENT/ENF/P/CIR/2023/0003
+IT Act 2000 Section 69A — Power to block public access
+MeitY can direct Telegram to block these channels
+
+CERTIFICATION
+-------------
+I certify that all information above was collected via automated 
+monitoring of publicly accessible Telegram channels. No private 
+data or unauthorized access was involved.
+
+This complaint is filed in public interest to protect Indian 
+investors from financial fraud.
+
+Yugandhar Mallavarapu
+Founder, CINEOS
+yugandhar@cineos.in
+cineos.in
+May 09, 2026

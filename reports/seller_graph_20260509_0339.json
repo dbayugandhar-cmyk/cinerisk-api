@@ -1,0 +1,70 @@
+{
+  "total_sellers": 2,
+  "repeat_offenders": 2,
+  "sellers": [
+    {
+      "name": "UAE Dirham",
+      "platform": "Instagram/Facebook",
+      "location": "",
+      "contact": "",
+      "brands": [
+        "Dove",
+        "Dettol",
+        "Nike",
+        "Samsung Galaxy",
+        "Crocin"
+      ],
+      "listings": [
+        "https://www.instagram.com/reel/DR_-2RLD4UQ/",
+        "https://www.instagram.com/p/DTFD58oieMw/",
+        "https://www.instagram.com/reel/DXH2t53T1MP/"
+      ],
+      "threat_score": 125
+    },
+    {
+      "name": "VideoPlayerNextgendashWorkerEntrypointBundle",
+      "platform": "Instagram/Facebook",
+      "location": "",
+      "contact": "",
+      "brands": [
+        "Dettol",
+        "Samsung Galaxy",
+        "Crocin"
+      ],
+      "listings": [
+        "https://www.facebook.com/groups/493823947479846/posts/1763121103883451/",
+        "https://www.facebook.com/CJvijayTv/videos/-samsung-galaxy-s25-ultra-at-just-500-yuan-in-china-its-a-first-copy-%EF%B8%8F/957861043651421/",
+        "https://www.facebook.com/EconomicTimes/posts/the-drugs-controller-general-of-india-dcgi-has-directed-the-drugs-controllers-of/709484087874169/"
+      ],
+      "threat_score": 75
+    }
+  ],
+  "high_threat": [
+    {
+      "name": "UAE Dirham",
+      "platform": "Instagram/Facebook",
+      "location": "",
+      "brands_count": 5,
+      "brands": [
+        "Dove",
+        "Dettol",
+        "Nike",
+        "Samsung Galaxy",
+        "Crocin"
+      ],
+      "threat_score": 125
+    },
+    {
+      "name": "VideoPlayerNextgendashWorkerEntrypointBundle",
+      "platform": "Instagram/Facebook",
+      "location": "",
+      "brands_count": 3,
+      "brands": [
+        "Dettol",
+        "Samsung Galaxy",
+        "Crocin"
+      ],
+      "threat_score": 75
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "match": "CSK vs LSG \u2014 IPL 2026 Match 53",
+  "scan_time": "2026-05-10T13:27:51.954796",
+  "telegram_live": 13,
+  "piracy_streams": 20,
+  "betting_sites": 20,
+  "social_posts": 31,
+  "total_fraud": 84,
+  "breakthroughs": 2,
+  "top_channels": [
+    {
+      "channel": "ipl_predictions_toss",
+      "subscribers": 0,
+      "live_msgs": 1,
+      "risk": "HIGH",
+      "phones": []
+    },
+    {
+      "channel": "toss_fixer_tips7",
+      "subscribers": 0,
+      "live_msgs": 1,
+      "risk": "HIGH",
+      "phones": []
+    },
+    {
+      "channel": "session_cricket_tips",
+      "subscribers": 0,
+      "live_msgs": 13,
+      "risk": "HIGH",
+      "phones": []
+    },
+    {
+      "channel": "Online_cricket_id_cricbuzz",
+      "subscribers": 0,
+      "live_msgs": 1,
+      "risk": "HIGH",
+      "phones": []
+    },
+    {
+      "channel": "PSL_MATCH_REPORT1",
+      "subscribers": 0,
+      "live_msgs": 5,
+      "risk": "HIGH",
+      "phones": []
+    }
+  ],
+  "breakthrough_details": [
+    {
+      "type": "IPL_PIRACY_STREAMS",
+      "priority": "HIGH",
+      "finding": "20 illegal IPL live streams found \u2014 JioHotstar content",
+      "action": "Send to JioHotstar anti-piracy team",
+      "data": [
+        {
+          "title": "Live: CSK vs LSG, 53rd Match IPL 2026 | Live Cricket Match ...",
+          "url": "https://www.youtube.com/watch?v=l2edsZfdm0I",
+          "snippet": "Live: CSK vs LSG, 53rd Match IPL 2026 | Live Cricket Match Today | Chennai vs Lucknow| IPL Match \u00b7 By The Way \u00b7 \u0dbd\u0d9a\u0dca\u0db1\u0dc0\u0dca-\u0da0",
+          "category": "piracy_stream",
+          "query": "IPL 2026 live match today streaming free"
+        },
+        {
+          "title": "IPL Match : Bengaluru vs Mumbai, 54th Match 2026 | Live ...",
+          "url": "https://www.youtube.com/watch?v=STomwfGNL3g",
+          "snippet": "IPL Match : Bengaluru vs Mumbai, 54th Match 2026 | Live Cricket Match Today | RCV vs MI Live ; LIVE \u00b7 Go to channel Iqba",
+          "category": "piracy_stream",
+          "query": "IPL 2026 live match today streaming free"
+        },
+        {
+          "title": "LIVE- CSK vs LSGIPL 2026CHENNAI vs LUCKNOWCRICKET ...",
+          "url": "https://www.youtube.com/watch?v=ANGMawFQiHI",
+          "snippet": "LIVE : Csk vs Lsg Ipl 53th T20 | Ipl Live Score & Commentary | Lucknow vs Chennai Live \u00b7 Live Ipl RCB vs MI Match| TATA ",
+          "category": "piracy_stream",
+          "query": "IPL 2026 live match today streaming free"
+        },
+        {
+          "title": "Live: RR vs GT, 52nd Match IPL 2026 | Live Cricket Match ...",
+          "url": "https://www.youtube.com/watch?v=zELSA-ML5Qw",
+          "snippet": "Live: RR vs GT, 52nd Match IPL 2026 | Live Cricket Match Today | Gujarat vs Rajasthan | IPL Match \u00b7 Comments.",
+          "category": "piracy_stream",
+          "query": "IPL 2026 live match today streaming free"
+        },
+        {
+          "title": "Sky Sports Cricket Live Stream | Watch TV & Video Online",
+          "url": "https://www.skysports.com/watch/sky-sports-cricket",
+          "snippet": "Home of Sky Sports Cricket - tune in to Sky Sports 2 live stream to watch football, cricket, rugby and video clips from ",
+          "category": "piracy_stream",
+          "query": "IPL 2026 live match today streaming free"
+        }
+      ]
+    },
+    {
+      "type": "MASS_LIVE_BETTING_DURING_MATCH",
+      "priority": "CRITICAL",
+      "finding": "13 Telegram betting channels ACTIVE LIVE during IPL match. Total reach: 0.0M subscribers receiving illegal betting rates RIGHT NOW.",
+      "action": "Send to BCCI Integrity Unit + MHA immediately",
+      "data": [
+        "ipl_predictions_toss",
+        "toss_fixer_tips7",
+        "session_cricket_tips",
+        "Online_cricket_id_cricbuzz",
+        "PSL_MATCH_REPORT1",
+        "IPL_MATCH_REPORT0",
+        "Zain_Cbtf_Bazzigar_Cricket_tips",
+        "ambani_fairplay_11xplay_trusted",
+        "baba_Gambler_mastan",
+        "MURUGAN_FIXER_LONDON1"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-05-10T14:01:17.833706",
+  "channel_data": {
+    "BCCI_MATCH_TOSS_FIXER0": {
+      "username": "BCCI_MATCH_TOSS_FIXER0",
+      "category": "betting",
+      "subscribers": 0,
+      "phones": [
+        "8306154335",
+        "9216328940"
+      ],
+      "whatsapp": [
+        "8306154335",
+        "9216328940"
+      ],
+      "upis": [],
+      "links": [
+        "reddyanna888_support",
+        "reddyanna888_io"
+      ],
+      "medicines": [],
+      "prices": [],
+      "payment": [],
+      "sebi_false_claim": false,
+      "guaranteed_returns": [],
+      "msg_count": 200
+    },
+    "BCCI_TOSS_MATCH_FIXER1": {
+      "username": "BCCI_TOSS_MATCH_FIXER1",
+      "category": "betting",
+      "subscribers": 0,
+      "phones": [],
+      "whatsapp": [],
+      "upis": [],
+      "links": [],
+      "medicines": [],
+      "prices": [],
+      "payment": [],
+      "sebi_false_claim": false,
+      "guaranteed_returns": [],
+      "msg_count": 200
+    }
+  },
+  "phone_map": {
+    "8306154335": [
+      "BCCI_MATCH_TOSS_FIXER0",
+      "BCCI_MATCH_TOSS_FIXER0"
+    ],
+    "9216328940": [
+      "BCCI_MATCH_TOSS_FIXER0",
+      "BCCI_MATCH_TOSS_FIXER0"
+    ]
+  },
+  "upi_map": {},
+  "shared_phones": {
+    "8306154335": [
+      "BCCI_MATCH_TOSS_FIXER0",
+      "BCCI_MATCH_TOSS_FIXER0"
+    ],
+    "9216328940": [
+      "BCCI_MATCH_TOSS_FIXER0",
+      "BCCI_MATCH_TOSS_FIXER0"
+    ]
+  },
+  "shared_upis": {},
+  "mule_confirmed": true
+}

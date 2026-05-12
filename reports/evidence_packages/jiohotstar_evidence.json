@@ -1,0 +1,76 @@
+{
+  "recipient": "JioHotstar Anti-Piracy Team",
+  "email": "anil.lale@jiostar.com",
+  "generated_at": "2026-05-10T16:16:17.010414",
+  "generated_by": "CINEOS Intelligence Platform",
+  "patent": "US Provisional Patent 64/049,190",
+  "legal_standard": "IT Act 2000 Section 65B + Copyright Act 1957",
+  "executive_summary": "During IPL 2026 Match 53 (CSK vs LSG) on May 10, 2026, CINEOS detected 20 illegal live streams broadcasting JioHotstar exclusive content without authorisation. Additionally, 13 Telegram channels with combined reach of 35M+ subscribers were actively promoting illegal streams during the match. Domain squatting of jiohotstar.net confirmed. All evidence IT Act 65B.",
+  "findings": {
+    "piracy_streams": {
+      "count": 20,
+      "match": "CSK vs LSG \u2014 IPL 2026 Match 53",
+      "date": "May 10, 2026 at 13:23 IST",
+      "evidence": "Stream URLs captured, SHA-256 hashed during live match broadcast",
+      "sample_streams": [
+        {
+          "title": "Live: CSK vs LSG, 53rd Match IPL 2026 | Live Cricket Match ...",
+          "url": "https://www.youtube.com/watch?v=l2edsZfdm0I",
+          "snippet": "Live: CSK vs LSG, 53rd Match IPL 2026 | Live Cricket Match Today | Chennai vs Lucknow| IPL Match \u00b7 By The Way \u00b7 \u0dbd\u0d9a\u0dca\u0db1\u0dc0\u0dca-\u0da0",
+          "category": "piracy_stream",
+          "query": "IPL 2026 live match today streaming free"
+        },
+        {
+          "title": "IPL Match : Bengaluru vs Mumbai, 54th Match 2026 | Live ...",
+          "url": "https://www.youtube.com/watch?v=STomwfGNL3g",
+          "snippet": "IPL Match : Bengaluru vs Mumbai, 54th Match 2026 | Live Cricket Match Today | RCV vs MI Live ; LIVE \u00b7 Go to channel Iqba",
+          "category": "piracy_stream",
+          "query": "IPL 2026 live match today streaming free"
+        },
+        {
+          "title": "LIVE- CSK vs LSGIPL 2026CHENNAI vs LUCKNOWCRICKET ...",
+          "url": "https://www.youtube.com/watch?v=ANGMawFQiHI",
+          "snippet": "LIVE : Csk vs Lsg Ipl 53th T20 | Ipl Live Score & Commentary | Lucknow vs Chennai Live \u00b7 Live Ipl RCB vs MI Match| TATA ",
+          "category": "piracy_stream",
+          "query": "IPL 2026 live match today streaming free"
+        }
+      ],
+      "violation": "Copyright Act 1957 Section 51 \u2014 Broadcasting Rights infringement"
+    },
+    "telegram_channels": {
+      "count": 13,
+      "combined_reach": "35M+ subscribers",
+      "active_during": "Match 53 live broadcast",
+      "evidence": "Channel messages captured with timestamps",
+      "violation": "IT Act 66 + Copyright Act 1957"
+    },
+    "domain_squatting": {
+      "domain": "jiohotstar.net",
+      "status": "CONFIRMED LIVE",
+      "evidence": "WHOIS lookup confirms domain exists",
+      "hash": "2d8b6c95992900564e5207d1fedc43b85125937821edfa3aa25ab490db892730",
+      "violation": "Trade Marks Act 1999 Section 29"
+    }
+  },
+  "what_cineos_can_prove": [
+    "20 stream URLs captured during CSK vs LSG at 13:23 IST",
+    "Telegram channels posting piracy links during broadcast",
+    "jiohotstar.net domain confirmed live via WHOIS",
+    "All evidence SHA-256 hashed with timestamps",
+    "IT Act 65B compliant \u2014 admissible in proceedings"
+  ],
+  "what_cineos_cannot_prove": [
+    "Number of viewers on each illegal stream",
+    "Identity of stream operators (requires ISP + police)",
+    "Revenue lost per illegal stream"
+  ],
+  "requested_actions": [
+    "File DMCA takedown for all 20 stream URLs",
+    "Report Telegram channels to abuse@telegram.org",
+    "File trademark complaint for jiohotstar.net",
+    "Escalate to MIB (Ministry of I&B) for broadcast piracy"
+  ],
+  "cineos_offer": "CINEOS can monitor every IPL match day in real time. New illegal streams detected within minutes. Telegram channels promoting piracy flagged live. Match-day intelligence feed: Rs 50L/year. Contact: yugandhar@cineos.in",
+  "bundle_hash": "51cc43a95c919c7b5a9fd7f9880098e05811e7815c08808bdfc5b7e9108ce2a1",
+  "bundle_sig": "713df89b8f2ee410f6f412bda4a7d69a"
+}

@@ -26,9 +26,13 @@ CORS(app)  # Allow cineos.in dashboard to fetch
 
 # ── IN-MEMORY STORE ───────────────────────────────────────
 # Railway has ephemeral storage — we keep alerts in memory
-# and sync to GitHub via API on every write
+# Dedup enforced: no two alerts share the same id OR title+category
 
 ALERTS    = []
+ALERT_IDS     = set()   # fast dedup by id
+ALERT_TITLES  = set()   # fast dedup by title+category
+last_scan_time = None   # updated after every scheduler run
+
 STATS     = {
     'channels':     1245,
     'reach':        40000000,
@@ -379,7 +383,25 @@ def scheduler_loop():
 # ── API ROUTES ────────────────────────────────────────────
 
 # Seed on module load — runs for both gunicorn and direct
-ALERTS.extend(SEED_ALERTS)
+# ── DEDUP-AWARE SEED ─────────────────────────────────────
+def _dedup_add(alert):
+    """Add alert only if id and title+category are unique."""
+    global ALERTS, ALERT_IDS, ALERT_TITLES
+    aid       = str(alert.get('id', ''))
+    title_key = f"{str(alert.get('title',''))[:60]}|{alert.get('category','')}"
+    if aid and aid in ALERT_IDS:
+        return False
+    if title_key in ALERT_TITLES:
+        return False
+    ALERTS.insert(0, alert)
+    if aid:
+        ALERT_IDS.add(aid)
+    ALERT_TITLES.add(title_key)
+    return True
+
+for _a in SEED_ALERTS:
+    _dedup_add(_a)
+# ─────────────────────────────────────────────────────────
 print(f'CINEOS: {len(ALERTS)} alerts seeded')
 
 # Start scheduler for gunicorn (runs 24/7 even when Mac is off)
@@ -464,23 +486,22 @@ def get_stats():
 
 @app.route('/api/alert', methods=['POST'])
 def add_alert():
-    # Deduplication check — reject alerts with existing ID or identical title+category
+    """Add a new alert — server-side dedup by id and title+category."""
+    global ALERTS, ALERT_IDS, ALERT_TITLES, last_scan_time
+    api_key = request.headers.get('X-API-Key','')
+    if api_key != os.environ.get('CINEOS_API_KEY', 'cineos_internal_2026'):
+        return jsonify({'error': 'Unauthorized'}), 401
     try:
-        incoming = request.get_json(force=True) or {}
-        inc_id    = incoming.get('id','')
-        inc_title = incoming.get('title','')[:60]
-        inc_cat   = incoming.get('category','')
-        title_key = f"{inc_title}|{inc_cat}"
-
-        existing_ids    = {a.get('id','') for a in ALERTS}
-        existing_titles = {f"{a.get('title','')[:60]}|{a.get('category','')}" for a in ALERTS}
-
-        if inc_id and inc_id in existing_ids:
-            return jsonify({'status':'duplicate','message':'Alert ID already exists'}), 200
-        if title_key in existing_titles:
-            return jsonify({'status':'duplicate','message':'Alert title+category already exists'}), 200
-    except:
-        pass  # Fall through to normal processing if check fails
+        alert = request.get_json(force=True) or {}
+        if not alert.get('title'):
+            return jsonify({'error': 'Missing title'}), 400
+        added = _dedup_add(alert)
+        if not added:
+            return jsonify({'status': 'duplicate', 'message': 'Alert already exists'}), 200
+        ALERTS[:] = ALERTS[:500]  # cap at 500
+        return jsonify({'status': 'ok', 'total': len(ALERTS)}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
     """Add a new alert from scanner (authenticated)."""
     # Simple API key auth
     api_key = request.headers.get('X-API-Key', '')
@@ -545,6 +566,21 @@ def add_cors(response):
     return response
 
 # ── STARTUP ───────────────────────────────────────────────
+
+@app.route('/api/reset', methods=['POST'])
+def reset_alerts():
+    """Clear all alerts and reseed from SEED_ALERTS. Admin only."""
+    global ALERTS, ALERT_IDS, ALERT_TITLES
+    api_key = request.headers.get('X-API-Key','')
+    if api_key != os.environ.get('CINEOS_API_KEY', 'cineos_internal_2026'):
+        return jsonify({'error': 'Unauthorized'}), 401
+    ALERTS.clear()
+    ALERT_IDS.clear()
+    ALERT_TITLES.clear()
+    for a in SEED_ALERTS:
+        _dedup_add(a)
+    return jsonify({'status': 'reset', 'seeded': len(ALERTS)}), 200
+
 if __name__ == '__main__':
     init_alerts()
     print(f"CINEOS Intelligence API starting...")

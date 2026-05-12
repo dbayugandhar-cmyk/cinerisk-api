@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CINEOS — Internal Workspace</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -20,12 +20,12 @@
   --market:#E11D48;--market-bg:#FFF1F2;--market-br:#FECDD3;
   --impersonation:#0891B2;--impersonation-bg:#ECFEFF;--impersonation-br:#A5F3FC;
   --domain:#7C3AED;--domain-bg:#F5F3FF;--domain-br:#DDD6FE;
+  --crypto:#F59E0B;--crypto-bg:#FFFBEB;--crypto-br:#FDE68A;
+  --ai:#8B5CF6;--ai-bg:#F5F3FF;--ai-br:#C4B5FD;
   --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;
 }
 html,body{height:100%;overflow:hidden}
 body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px;display:flex;flex-direction:column}
-
-/* LOGIN */
 #login{position:fixed;inset:0;z-index:9999;background:var(--g);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px}
 .lb{background:var(--w);border-radius:12px;padding:36px;width:320px;text-align:center}
 .ll{font-family:var(--mono);font-size:15px;font-weight:500;letter-spacing:.1em;color:var(--g);margin-bottom:4px}
@@ -36,526 +36,849 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
 .lbtn:hover{background:var(--gm)}
 .le{font-size:11px;color:#DC2626;margin-top:6px;display:none}
 .ln{font-size:10px;color:rgba(255,255,255,.4);margin-top:10px;font-family:var(--mono);letter-spacing:.06em}
-
-/* TOPBAR */
-.topbar{height:48px;flex-shrink:0;background:var(--w);border-bottom:1px solid var(--bo);display:flex;align-items:center;padding:0 18px;gap:10px}
+.topbar{height:48px;flex-shrink:0;background:var(--w);border-bottom:1px solid var(--bo);display:flex;align-items:center;padding:0 18px;gap:10px;z-index:100}
 .tlogo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.1em;color:var(--g)}
 .tbadge{font-family:var(--mono);font-size:9px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;padding:2px 7px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase}
-.tint{font-family:var(--mono);font-size:9px;background:#FFFBEB;color:#D97706;border:1px solid #FDE68A;padding:2px 7px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase}
+.tint{font-family:var(--mono);font-size:9px;background:#FFFBEB;color:#D97706;border:1px solid #FDE68A;padding:2px 7px;border-radius:20px}
 .tlive{font-family:var(--mono);font-size:9px;background:var(--gt);color:var(--g);border:1px solid var(--gb);padding:3px 8px;border-radius:20px;display:flex;align-items:center;gap:4px}
 .tlive::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--g);animation:blink 1.5s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .tclk{font-family:var(--mono);font-size:11px;color:var(--m)}
 .tright{margin-left:auto;display:flex;gap:8px;align-items:center}
 .ta{font-size:11px;color:var(--m);background:var(--s);border:1px solid var(--bo);padding:5px 10px;border-radius:5px;text-decoration:none;transition:all .15s}
-.ta:hover{border-color:var(--g);color:var(--g)}
-.talert-ct{font-family:var(--mono);font-size:11px;background:var(--gt);color:var(--g);border:1px solid var(--gb);padding:4px 10px;border-radius:20px;font-weight:500}
-.railway-status{font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:20px;display:flex;align-items:center;gap:4px}
-.rs-ok{background:var(--gt);color:var(--g);border:1px solid var(--gb)}
-.rs-err{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA}
-.rs-ok::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--g)}
-.rs-err::before{content:'';width:5px;height:5px;border-radius:50%;background:#DC2626}
+.ta:hover{background:var(--gl);color:var(--g);border-color:var(--gb)}
+.main-tabs{display:flex;align-items:center;gap:0;background:var(--w);border-bottom:2px solid var(--bo);padding:0 18px;flex-shrink:0}
+.main-tab{padding:10px 18px;font-size:12px;font-weight:500;color:var(--m);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.main-tab:hover{color:var(--g)}
+.main-tab.active{color:var(--g);border-bottom-color:var(--g);font-weight:600}
+.tab-badge{font-family:var(--mono);font-size:9px;background:var(--gl);color:var(--g);border:1px solid var(--gb);padding:1px 5px;border-radius:10px}
+.shell{flex:1;overflow:hidden;display:flex;flex-direction:column}
+.tab-view{display:none;flex:1;overflow:hidden}
+.tab-view.active{display:flex;flex-direction:column;overflow:hidden}
 
-/* LAYOUT */
-.layout{display:flex;flex:1;overflow:hidden}
-.sb{width:192px;flex-shrink:0;background:var(--w);border-right:1px solid var(--bo);display:flex;flex-direction:column;overflow-y:auto}
-.sbs{padding:13px 13px 4px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--m)}
-.sbi{display:flex;align-items:center;gap:8px;padding:8px 13px;font-size:12px;font-weight:500;color:var(--b);cursor:pointer;transition:all .12s;border-left:2px solid transparent}
-.sbi:hover{background:var(--gt);color:var(--g)}
-.sbi.on{background:var(--gt);color:var(--g);border-left-color:var(--g)}
-.sbi-ic{width:15px;text-align:center;flex-shrink:0;font-size:13px}
-.sbi-ct{margin-left:auto;font-family:var(--mono);font-size:9px;background:var(--s);color:var(--m);padding:1px 5px;border-radius:10px}
-.sbi-ct.hot{background:#FEF2F2;color:#DC2626}
-.catdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-left:auto}
+/* WORKSPACE */
+.workspace-layout{display:flex;flex:1;overflow:hidden}
+.sidebar{width:240px;flex-shrink:0;background:var(--w);border-right:1px solid var(--bo);display:flex;flex-direction:column;overflow:hidden}
+.sidebar-sec{padding:12px 14px 8px;border-bottom:1px solid var(--bo)}
+.sidebar-title{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:8px}
+.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ov-card{background:var(--s);border:1px solid var(--bo);border-radius:6px;padding:8px 10px}
+.ov-n{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--ink);line-height:1}
+.ov-n.green{color:var(--g)}.ov-n.red{color:#DC2626}.ov-n.amber{color:#D97706}.ov-n.blue{color:#2563EB}.ov-n.purple{color:#7C3AED}
+.ov-l{font-size:9px;color:var(--m);margin-top:3px;line-height:1.3}
+.cat-list{overflow-y:auto;flex:1;padding:8px 0}
+.cat-item{display:flex;align-items:center;gap:8px;padding:6px 14px;cursor:pointer;transition:background .12s;border-left:3px solid transparent}
+.cat-item:hover{background:var(--s)}
+.cat-item.active{background:var(--gt);border-left-color:var(--g)}
+.cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cat-name{font-size:12px;color:var(--b);flex:1}
+.cat-count{font-family:var(--mono);font-size:10px;color:var(--m)}
+.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.toolbar{padding:10px 16px;border-bottom:1px solid var(--bo);background:var(--w);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.search-wrap{flex:1;position:relative}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--m);font-size:12px}
+.search-in{width:100%;padding:7px 10px 7px 30px;border:1px solid var(--bo);border-radius:6px;font-family:var(--sans);font-size:12px;background:var(--s);color:var(--ink);outline:none}
+.search-in:focus{border-color:var(--g);background:var(--w)}
+.sev-filters{display:flex;gap:4px}
+.sev-btn{font-family:var(--mono);font-size:9px;padding:4px 8px;border-radius:4px;cursor:pointer;border:1px solid var(--bo);background:var(--s);color:var(--m);transition:all .12s}
+.sev-btn.a-all{background:var(--gl);color:var(--g);border-color:var(--gb)}
+.sev-btn.a-critical{background:#FEF2F2;color:#DC2626;border-color:#FECACA}
+.sev-btn.a-high{background:#FFFBEB;color:#D97706;border-color:#FDE68A}
+.sev-btn.a-medium{background:#EFF6FF;color:#2563EB;border-color:#BFDBFE}
+.refresh-btn{font-family:var(--mono);font-size:10px;padding:6px 10px;border:1px solid var(--bo);border-radius:5px;background:var(--s);color:var(--m);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s}
+.refresh-btn:hover{background:var(--gl);color:var(--g)}
+.ar-wrap{font-family:var(--mono);font-size:9px;color:var(--m);display:flex;align-items:center;gap:4px}
+.ar-dot{width:4px;height:4px;border-radius:50%;background:var(--g);animation:blink 2s infinite}
+.rcount{font-family:var(--mono);font-size:10px;color:var(--m);white-space:nowrap}
+.alert-table-wrap{flex:1;overflow-y:auto}
+table{width:100%;border-collapse:collapse}
+thead th{background:var(--s);padding:8px 12px;text-align:left;font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--m);border-bottom:2px solid var(--bo);position:sticky;top:0;z-index:10;white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--bo);cursor:pointer;transition:background .1s}
+tbody tr:hover{background:var(--gt)}
+tbody td{padding:10px 12px;vertical-align:middle}
+td:first-child{padding:0;width:3px}
+.ss{width:3px;display:block;height:100%;min-height:40px}
+.at{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.ad{font-size:11px;color:var(--m);line-height:1.4}
+.sb{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;font-weight:500;text-transform:uppercase}
+.cb{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px}
+.pv{font-family:var(--mono);font-size:10px;color:#DC2626;display:block;line-height:1.5}
+.uv{font-family:var(--mono);font-size:10px;color:#059669;display:block;line-height:1.5}
+.ae{font-family:var(--mono);font-size:9px;color:var(--m);font-style:italic}
+.ts{font-family:var(--mono);font-size:10px;color:var(--m)}
+.reach{font-family:var(--mono);font-size:10px;color:var(--g);font-weight:500}
+.exp-row{display:none}
+.exp-row.open{display:table-row}
+.exp-cell{padding:0!important;background:var(--gt)}
+.exp-inner{padding:14px 20px;border-top:1px solid var(--gb)}
+.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.cb2{background:var(--w);border:1px solid var(--bo);border-radius:6px;padding:10px 12px}
+.cl{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.cv{font-size:12px;color:var(--ink);line-height:1.5}
+.cv.mono{font-family:var(--mono);font-size:10px}.cv.green{color:var(--g)}
+.sch{display:flex;gap:0;margin-top:10px}
+.sb2{flex:1;background:var(--w);border:1px solid var(--bo);padding:8px 10px;text-align:center;position:relative}
+.sb2:not(:last-child)::after{content:'→';position:absolute;right:-9px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--g);z-index:1;background:var(--w);padding:0 2px}
+.sl{font-family:var(--mono);font-size:8px;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.sv{font-size:11px;color:var(--ink);font-weight:500}
+.ea{display:flex;gap:8px;margin-top:12px}
+.abtn{font-size:11px;padding:6px 12px;border-radius:5px;cursor:pointer;font-family:var(--mono);font-weight:500;transition:all .15s;border:1px solid}
+.abtn-pub{background:var(--w);color:var(--g);border-color:var(--gb)}.abtn-pub:hover{background:var(--gl)}
+.abtn-full{background:var(--g);color:#fff;border-color:var(--g)}.abtn-full:hover{background:var(--gm)}
+.abtn-copy{background:var(--s);color:var(--b);border-color:var(--bo)}
+.nsl{margin-top:8px}
+.nsi{font-size:11px;color:var(--b);padding:3px 0;border-bottom:1px solid var(--bo);display:flex;gap:8px}
+.nsi:last-child{border-bottom:none}
+.nsn{font-family:var(--mono);font-size:10px;color:var(--g);min-width:20px;font-weight:500}
+.rp{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:2px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;margin:2px;display:inline-block}
 
-/* MAIN */
-.main{flex:1;overflow-y:auto}
-.mi{padding:16px;display:flex;flex-direction:column;gap:12px}
-.panel{display:none}.panel.on{display:block}
-.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.ph-t{font-size:14px;font-weight:600}
-.ph-m{font-family:var(--mono);font-size:10px;color:var(--m)}
-.card{background:var(--w);border:1px solid var(--bo);border-radius:8px;padding:14px}
+/* INVESTIGATION */
+.inv-layout{flex:1;overflow:hidden;display:flex;flex-direction:column}
+.inv-stabs{display:flex;gap:0;background:var(--w);border-bottom:1px solid var(--bo);padding:0 18px;flex-shrink:0}
+.inv-stab{padding:8px 14px;font-size:11px;font-weight:500;color:var(--m);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+.inv-stab:hover{color:var(--g)}
+.inv-stab.active{color:var(--g);border-bottom-color:var(--g)}
+.inv-content{flex:1;overflow:hidden;display:flex}
+.inv-panel{display:none;flex:1;overflow-y:auto;padding:20px 24px}
+.inv-panel.active{display:block}
+.sh-label{font-family:var(--mono);font-size:10px;color:var(--m);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.sh-bar{display:flex;gap:0;margin-bottom:8px}
+.sh-in{flex:1;padding:11px 14px;border:1.5px solid var(--bo);border-right:none;border-radius:6px 0 0 6px;font-family:var(--mono);font-size:13px;background:var(--s);color:var(--ink);outline:none}
+.sh-in:focus{border-color:var(--g)}
+.sh-btn{background:var(--g);border:none;color:#fff;font-family:var(--mono);font-size:11px;font-weight:600;padding:11px 18px;border-radius:0 6px 6px 0;cursor:pointer}
+.qchips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.qchip{font-family:var(--mono);font-size:10px;padding:3px 8px;border:1px solid var(--bo);border-radius:3px;cursor:pointer;color:var(--m);transition:all .12s}
+.qchip:hover{border-color:var(--gb);color:var(--g);background:var(--gt)}
+.rg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.rc{background:var(--w);border:1px solid var(--bo);border-radius:6px;padding:12px;cursor:pointer;transition:all .15s}
+.rc:hover{border-color:var(--gb)}
+.rc.top{border-color:var(--gb);background:var(--gt)}
+.rct{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.rcd{width:5px;height:5px;border-radius:50%}
+.rcn{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.rcde{font-size:11px;color:var(--m);line-height:1.5;margin-bottom:6px}
+.rctags{display:flex;gap:3px;flex-wrap:wrap}
+.rtag{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px}
+.tr{background:#FEF2F2;color:#DC2626}.ta2{background:#FFFBEB;color:#D97706}
+.tg{background:var(--gl);color:var(--g)}.tb{background:#EFF6FF;color:#2563EB}
+.gwrap{display:grid;grid-template-columns:200px 1fr;height:100%;overflow:hidden}
+.gleg{border-right:1px solid var(--bo);padding:14px;overflow-y:auto;background:var(--w)}
+.glt{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.gsr{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bo);font-size:11px}
+.gsr:last-child{border-bottom:none}
+.gsl{color:var(--m)}.gsv{font-family:var(--mono);font-weight:500;color:var(--ink)}
+.gli{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:11px;color:var(--m)}
+.gld{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.gcw{position:relative;overflow:hidden;background:var(--ink)}
+#graph-svg{width:100%;height:100%}
+.gctrl{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:3px}
+.gcb{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:4px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center}
+.gcb:hover{background:rgba(255,255,255,.2)}
+.ntt{position:absolute;background:rgba(15,23,42,.95);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:10px 12px;pointer-events:none;z-index:100;display:none;max-width:200px}
+.ntt-type{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:3px}
+.ntt-name{font-size:12px;font-weight:600;color:#fff;margin-bottom:3px}
+.ntt-detail{font-size:11px;color:rgba(255,255,255,.6)}
+.geow{display:grid;grid-template-columns:1fr 220px;height:100%;overflow:hidden}
+.geom{position:relative;background:var(--ink);overflow:hidden}
+#india-map{width:100%;height:100%}
+.geos{border-left:1px solid var(--bo);background:var(--w);overflow-y:auto;padding:14px}
+.hi{padding:6px 0;border-bottom:1px solid var(--bo);cursor:pointer}
+.hi:last-child{border-bottom:none}
+.hstate{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.hbw{display:flex;align-items:center;gap:6px}
+.hbar{height:3px;border-radius:2px;background:var(--g);transition:width .3s}
+.hcount{font-family:var(--mono);font-size:9px;color:var(--m)}
 
-/* KPIS */
-.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
-.kpi{background:var(--w);border:1px solid var(--bo);border-radius:8px;padding:12px;border-top:3px solid var(--bo);transition:border-top-color .15s}
-.kpi:hover{border-top-color:var(--g)}
-.kl{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:6px}
-.kv{font-size:20px;font-weight:700;letter-spacing:-.02em}
-.ks{font-size:11px;color:var(--m);margin-top:2px}
-.cg{color:var(--g)}.cr{color:#DC2626}.ca{color:#D97706}
-
-/* TOOLBAR */
-.toolbar{display:flex;gap:8px;align-items:center;background:var(--w);border:1px solid var(--bo);border-radius:8px;padding:10px 14px;margin-bottom:10px;flex-wrap:wrap}
-.search-wrap{display:flex;align-items:center;gap:8px;flex:1;min-width:220px}
-.sico{color:var(--m);font-size:14px;flex-shrink:0}
-.sinput{flex:1;border:none;outline:none;font-family:var(--sans);font-size:13px;background:transparent;color:var(--ink)}
-.sinput::placeholder{color:var(--m)}
-.tdiv{width:1px;height:22px;background:var(--bo);flex-shrink:0}
-.chips{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
-.chips-label{font-family:var(--mono);font-size:9px;color:var(--m);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
-.chip{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:20px;cursor:pointer;border:1px solid var(--bo);background:var(--s);color:var(--b);transition:all .12s;white-space:nowrap}
-.chip:hover{border-color:var(--g);color:var(--g)}
-.chip.on{background:var(--g);color:#fff;border-color:var(--g)}
-.chip.on[data-c="betting"]{background:#DC2626;border-color:#DC2626}
-.chip.on[data-c="piracy"]{background:#D97706;border-color:#D97706}
-.chip.on[data-c="colour_prediction"]{background:#7C3AED;border-color:#7C3AED}
-.chip.on[data-c="investment_fraud"]{background:#2563EB;border-color:#2563EB}
-.chip.on[data-c="counterfeit_pharma"]{background:#059669;border-color:#059669}
-.chip.on[data-c="upi_mule"]{background:#EA580C;border-color:#EA580C}
-.chip.on[data-c="counterfeit_marketplace"]{background:#E11D48;border-color:#E11D48}
-.chip.on[data-c="impersonation"],.chip.on[data-c="brand_impersonation"]{background:#0891B2;border-color:#0891B2}
-.chip.on[data-c="domain_squat"]{background:#7C3AED;border-color:#7C3AED}
-.sev-chip{font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:20px;cursor:pointer;border:1px solid var(--bo);background:var(--s);color:var(--b);transition:all .12s}
-.sev-chip.on[data-s="all"]{background:var(--g);color:#fff;border-color:var(--g)}
-.sev-chip.on[data-s="critical"]{background:#FEF2F2;color:#DC2626;border-color:#FECACA}
-.sev-chip.on[data-s="high"]{background:#FFFBEB;color:#D97706;border-color:#FDE68A}
-.sev-chip.on[data-s="medium"]{background:#EFF6FF;color:#2563EB;border-color:#BFDBFE}
-
-/* ALERT LIST */
-.alert-meta{font-family:var(--mono);font-size:10px;color:var(--m);margin-bottom:6px;display:flex;justify-content:space-between}
-.alist{display:flex;flex-direction:column;background:var(--w);border:1px solid var(--bo);border-radius:8px;overflow:hidden}
-.aitem{border-bottom:1px solid var(--bo);cursor:pointer;transition:background .1s}
-.aitem:last-child{border-bottom:none}
-.aitem:hover{background:var(--s)}
-.aitem.open{background:var(--gt)}
-.arow{display:grid;grid-template-columns:4px 78px 1fr 100px 78px 90px 24px;gap:8px;align-items:center;padding:11px 14px}
-.astripe{width:4px;border-radius:2px;align-self:stretch;min-height:30px}
-.asev{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:3px 7px;border-radius:20px;white-space:nowrap;display:inline-block}
-.sc{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA}
-.sh{background:#FFFBEB;color:#D97706;border:1px solid #FDE68A}
-.sm{background:#EFF6FF;color:#2563EB;border:1px solid #BFDBFE}
-.sl{background:var(--gt);color:var(--g);border:1px solid var(--gb)}
-.atitle{font-size:12px;font-weight:600;color:var(--ink);line-height:1.3}
-.adetail{font-size:10px;color:var(--m);margin-top:2px}
-.aplat{font-family:var(--mono);font-size:10px;color:var(--b)}
-.atime{font-family:var(--mono);font-size:10px;color:var(--m)}
-.cattag{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:20px;white-space:nowrap;display:inline-block}
-.expbtn{width:22px;height:22px;border-radius:5px;background:var(--s);border:1px solid var(--bo);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--m);user-select:none;transition:all .12s;flex-shrink:0}
-.aitem:hover .expbtn,.aitem.open .expbtn{background:var(--g);color:#fff;border-color:var(--g)}
-.drawer{display:none;padding:14px 14px 12px;border-top:1px solid var(--gb);background:linear-gradient(to bottom,var(--gt),var(--w))}
-.drawer.open{display:block}
-.dhead{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.dhead-l::before{content:'// INTERNAL — DETECT → ATTRIBUTE → EVIDENCE → END STEP'}
-.pdfbtns{display:flex;gap:5px}
-.pdfbtn{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:5px;cursor:pointer;border:none;transition:all .12s;display:flex;align-items:center;gap:3px}
-.pdf-pub{background:var(--gt);color:var(--g);border:1px solid var(--gb)}
-.pdf-pub:hover{background:var(--g);color:#fff}
-.pdf-full{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA}
-.pdf-full:hover{background:#DC2626;color:#fff}
-.chain{display:flex;align-items:flex-start;overflow-x:auto;padding-bottom:4px}
-.cnode{display:flex;flex-direction:column;align-items:center;min-width:108px;flex-shrink:0}
-.cdot{width:26px;height:26px;border-radius:50%;border:2px solid var(--gb);background:var(--w);display:flex;align-items:center;justify-content:center;font-size:12px}
-.cd-g{border-color:var(--g);background:var(--gl)}
-.cd-a{border-color:#D97706;background:#FFFBEB}
-.cd-p{border-color:#7C3AED;background:#F5F3FF}
-.cd-b{border-color:#2563EB;background:#EFF6FF}
-.clbl{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--m);text-align:center;margin-top:6px;margin-bottom:2px}
-.cval{font-size:11px;font-weight:600;color:var(--ink);text-align:center;line-height:1.3;padding:0 4px}
-.csub{font-family:var(--mono);font-size:9px;color:var(--m);text-align:center;margin-top:2px;padding:0 4px}
-.carr{flex-shrink:0;align-self:center;margin:0 2px;padding-bottom:22px;color:var(--gb);font-size:13px;font-weight:700}
-.evrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--gb)}
-.evl{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--m);margin-bottom:3px}
-.evv{font-size:11px;color:var(--b);line-height:1.4}
-.evv.g{color:var(--g);font-weight:600}.evv.r{color:#DC2626}.evv.a{color:#D97706}.evv.p{color:#7C3AED}
-.itag{font-family:var(--mono);font-size:9px;background:#F5F3FF;color:#7C3AED;border:1px solid #DDD6FE;padding:2px 5px;border-radius:4px;display:inline-block;margin:1px}
-.noresult{padding:28px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--m)}
-.statusbar{flex-shrink:0;height:26px;background:var(--w);border-top:1px solid var(--bo);display:flex;align-items:center;gap:14px;padding:0 16px}
-.si{display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px;color:var(--m)}
-.sd{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.sdg{background:var(--g)}.sda{background:#D97706}.sdr{background:#DC2626}
+/* ALERT INTELLIGENCE */
+.ail{flex:1;overflow:hidden;display:grid;grid-template-columns:300px 1fr}
+.ail-list{border-right:1px solid var(--bo);overflow-y:auto;background:var(--w)}
+.ailh{padding:10px 14px;border-bottom:1px solid var(--bo);display:flex;align-items:center;justify-content:space-between;background:var(--s)}
+.ailht{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.1em}
+.ailhc{font-family:var(--mono);font-size:10px;color:var(--g)}
+.ails{padding:8px 10px;border-bottom:1px solid var(--bo)}
+.ails-in{width:100%;padding:6px 10px;border:1px solid var(--bo);border-radius:5px;font-family:var(--mono);font-size:11px;background:var(--s);color:var(--ink);outline:none}
+.ails-in:focus{border-color:var(--g)}
+.aic{padding:10px 14px;border-bottom:1px solid var(--bo);cursor:pointer;transition:background .1s;display:flex;gap:8px}
+.aic:hover{background:var(--gt)}
+.aic.active{background:var(--gl);border-left:2px solid var(--g)}
+.aic-bar{width:3px;border-radius:2px;flex-shrink:0;align-self:stretch;min-height:36px}
+.aic-body{flex:1;min-width:0}
+.aic-top{display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.aic-title{font-size:11px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.aic-meta{font-size:10px;color:var(--m);display:flex;gap:8px}
+.aid{flex:1;overflow-y:auto;background:var(--s)}
+.aid-empty{display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:10px;color:var(--m)}
+.aid-hdr{padding:16px 20px;background:var(--w);border-bottom:1px solid var(--bo)}
+.aid-sr{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.aid-title{font-size:16px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:4px}
+.aid-sub{font-size:12px;color:var(--m)}
+.aid-strip{display:flex;border-bottom:1px solid var(--bo);background:var(--w)}
+.aid-stat{flex:1;padding:10px 14px;border-right:1px solid var(--bo)}
+.aid-stat:last-child{border-right:none}
+.aid-sl{font-family:var(--mono);font-size:8px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.aid-sv{font-size:16px;font-weight:600;font-family:var(--mono)}
+.aid-body{padding:16px 20px;display:flex;flex-direction:column;gap:14px}
+.aid-st{font-family:var(--mono);font-size:9px;color:var(--g);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.aid-st::after{content:'';flex:1;height:1px;background:var(--bo)}
+.aid-box{border:1px solid var(--bo);border-radius:6px;overflow:hidden;background:var(--w)}
+.aid-row{display:flex;align-items:flex-start;padding:8px 12px;border-bottom:1px solid var(--bo);gap:10px}
+.aid-row:last-child{border-bottom:none}
+.aid-k{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.06em;min-width:100px;flex-shrink:0;padding-top:2px}
+.aid-v{font-size:12px;color:var(--ink);line-height:1.5;flex:1}
+.aid-v.green{color:var(--g)}.aid-v.mono{font-family:var(--mono);font-size:11px}.aid-v.red{color:#DC2626}
+.hd{font-family:var(--mono);font-size:10px;color:var(--g);background:var(--gt);border:1px solid var(--gb);padding:5px 8px;border-radius:4px;display:flex;align-items:center;justify-content:space-between;gap:8px;word-break:break-all}
+.hdcp{font-size:9px;color:var(--m);cursor:pointer;padding:2px 5px;border:1px solid var(--bo);border-radius:2px;background:var(--w);font-family:var(--mono);white-space:nowrap;flex-shrink:0}
+.hdcp:hover{color:var(--g)}
+.att{display:flex;flex-wrap:wrap;gap:4px}
+.at2{font-family:var(--mono);font-size:10px;padding:3px 7px;border-radius:3px;border:1px solid}
+.at-n{color:var(--ink);border-color:var(--bo);background:var(--s)}
+.at-e{color:#2563EB;border-color:#BFDBFE;background:#EFF6FF}
+.at-p{color:#DC2626;border-color:#FECACA;background:#FEF2F2}
+.at-u{color:#059669;border-color:#A7F3D0;background:#ECFDF5}
+.at-m{color:var(--m);border-color:var(--bo);background:var(--s);font-style:italic}
+.str{display:flex;gap:8px;padding:7px 12px;border-bottom:1px solid var(--bo);align-items:flex-start}
+.str:last-child{border-bottom:none}
+.stn{font-family:var(--mono);font-size:9px;font-weight:600;color:var(--g);background:var(--gl);border:1px solid var(--gb);width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.stt{font-size:11px;color:var(--b);line-height:1.5;flex:1}
+.rpp{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:2px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;margin:2px;display:inline-block}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bo);border-radius:2px}
+.empty{padding:40px;text-align:center;color:var(--m);font-size:12px}
 </style>
 </head>
 <body>
-
 <div id="login">
   <div class="lb">
     <div class="ll">CINEOS</div>
-    <div class="ls">Internal Intelligence Workspace<br>Not for public sharing</div>
-    <input class="li" type="password" id="pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="lbtn" onclick="doLogin()">Enter workspace</button>
-    <div class="le" id="pwe">Incorrect password</div>
+    <div class="ls">Internal Workspace · Authorised Access Only</div>
+    <input class="li" type="password" id="pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="lbtn" onclick="doLogin()">Access Workspace</button>
+    <div class="le" id="lerr">Incorrect password</div>
   </div>
-  <div class="ln">INTERNAL · NOT FOR PUBLIC SHARING · PATENT 64/049,190</div>
+  <div class="ln">CINEOS · India Trust Intelligence Network · Patent 64/049,190</div>
 </div>
-
-<div class="topbar">
-  <div class="tlogo">CINEOS</div>
-  <div class="tbadge">Internal</div>
-  <div class="tint">Full attribution</div>
-  <div class="tlive">Live</div>
-  <div class="tclk" id="clk">—</div>
-  <div id="railway-indicator" class="railway-status rs-err" style="display:none">Railway API</div>
+<div class="topbar" id="topbar" style="display:none">
+  <span class="tlogo">CINEOS</span>
+  <span class="tbadge" id="top-crit">— CRITICAL</span>
+  <span class="tint" id="top-high">— HIGH</span>
+  <span class="tlive" id="top-live">Live</span>
+  <span class="tclk" id="top-clock"></span>
   <div class="tright">
-    <span class="talert-ct" id="total-ct">loading...</span>
-    <a class="ta" href="cineos_landing.html" target="_blank">Public ↗</a>
-    <a class="ta" href="cineos_today.html" target="_blank">Today ↗</a>
+    <span style="font-family:var(--mono);font-size:9px;color:var(--m)">Auto-refresh: 30s · <span id="nxt">30s</span></span>
+    <a class="ta" href="cineos_today.html" target="_blank">Today's Brief</a>
+    <a class="ta" href="cineos_intelligence.html" target="_blank">Plans</a>
   </div>
 </div>
+<div class="main-tabs" id="main-tabs" style="display:none">
+  <div class="main-tab active" onclick="switchTab('workspace',this)">Workspace <span class="tab-badge" id="tb-ws">—</span></div>
+  <div class="main-tab" onclick="switchTab('investigation',this)">Investigation <span class="tab-badge">Graph · Geo · Search</span></div>
+  <div class="main-tab" onclick="switchTab('intelligence',this)">Alert Intelligence <span class="tab-badge" id="tb-ai">—</span></div>
+</div>
+<div class="shell" id="shell" style="display:none">
 
-<div class="layout">
-  <div class="sb">
-    <div class="sbs">Workspace</div>
-    <div class="sbi on" onclick="showTab('overview',this)"><span class="sbi-ic">◈</span>Overview</div>
-    <div class="sbi" onclick="showTab('alerts',this)"><span class="sbi-ic">⚡</span>Live alerts<span class="sbi-ct hot" id="sb-ct">0</span></div>
-    <div class="sbi" onclick="showTab('whois',this)"><span class="sbi-ic">🌐</span>WHOIS<span class="sbi-ct">7</span></div>
-    <div class="sbi" onclick="showTab('operators',this)"><span class="sbi-ic">👤</span>Operators<span class="sbi-ct">15</span></div>
-    <div class="sbs">By category</div>
-    <div class="sbi" onclick="goCat('betting')"><span class="sbi-ic">🎯</span>Betting<span class="catdot" style="background:#DC2626"></span></div>
-    <div class="sbi" onclick="goCat('piracy')"><span class="sbi-ic">📺</span>Piracy<span class="catdot" style="background:#D97706"></span></div>
-    <div class="sbi" onclick="goCat('colour_prediction')"><span class="sbi-ic">🎨</span>Colour pred.<span class="catdot" style="background:#7C3AED"></span></div>
-    <div class="sbi" onclick="goCat('investment_fraud')"><span class="sbi-ic">📈</span>Investment<span class="catdot" style="background:#2563EB"></span></div>
-    <div class="sbi" onclick="goCat('counterfeit_pharma')"><span class="sbi-ic">💊</span>Pharma<span class="catdot" style="background:#059669"></span></div>
-    <div class="sbi" onclick="goCat('upi_mule')"><span class="sbi-ic">📱</span>UPI mule<span class="catdot" style="background:#EA580C"></span></div>
-    <div class="sbi" onclick="goCat('counterfeit_marketplace')"><span class="sbi-ic">🏪</span>Counterfeit<span class="catdot" style="background:#E11D48"></span></div>
-    <div class="sbi" onclick="goCat('impersonation')"><span class="sbi-ic">🎭</span>Impersonation<span class="catdot" style="background:#0891B2"></span></div>
-    <div class="sbi" onclick="goCat('domain_squat')"><span class="sbi-ic">🔗</span>Domain squat<span class="catdot" style="background:#7C3AED"></span></div>
+<!-- TAB 1: WORKSPACE -->
+<div class="tab-view active" id="tab-workspace">
+<div class="workspace-layout">
+<div class="sidebar">
+  <div class="sidebar-sec">
+    <div class="sidebar-title">Overview</div>
+    <div class="ov-grid">
+      <div class="ov-card"><div class="ov-n green" id="ov-total">—</div><div class="ov-l">Total Alerts</div></div>
+      <div class="ov-card"><div class="ov-n red" id="ov-crit">—</div><div class="ov-l">Critical</div></div>
+      <div class="ov-card"><div class="ov-n amber" id="ov-high">—</div><div class="ov-l">High</div></div>
+      <div class="ov-card"><div class="ov-n blue" id="ov-med">—</div><div class="ov-l">Medium</div></div>
+      <div class="ov-card"><div class="ov-n red" id="ov-phones">74</div><div class="ov-l">Phone Nodes</div></div>
+      <div class="ov-card"><div class="ov-n" style="color:#059669" id="ov-upis">3</div><div class="ov-l">UPI IDs</div></div>
+      <div class="ov-card" style="grid-column:1/-1"><div class="ov-n purple" id="ov-ch">1,245</div><div class="ov-l">Channels · <span id="ov-reach">40M</span> reach</div></div>
+    </div>
   </div>
+  <div class="sidebar-sec" style="padding-bottom:4px"><div class="sidebar-title">Categories</div></div>
+  <div class="cat-list" id="cat-list"></div>
+</div>
+<div class="main-area">
+  <div class="toolbar">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-in" id="search" placeholder="Search alerts, channels, operators, phones, UPIs, domains..." oninput="filterAlerts()">
+    </div>
+    <div class="sev-filters">
+      <button class="sev-btn a-all" onclick="setSev('all',this)">All</button>
+      <button class="sev-btn" onclick="setSev('critical',this)">Critical</button>
+      <button class="sev-btn" onclick="setSev('high',this)">High</button>
+      <button class="sev-btn" onclick="setSev('medium',this)">Medium</button>
+    </div>
+    <button class="refresh-btn" id="rfbtn" onclick="fetchAlerts(true)">↻ Refresh</button>
+    <div class="ar-wrap"><div class="ar-dot"></div><span id="nxt2">30s</span></div>
+    <span class="rcount" id="rcount">— alerts</span>
+  </div>
+  <div class="alert-table-wrap">
+    <table>
+      <thead><tr>
+        <th style="width:3px"></th>
+        <th>Alert / Detail</th>
+        <th>Severity</th>
+        <th>Category</th>
+        <th>Phone Numbers</th>
+        <th>UPI IDs</th>
+        <th>Reach</th>
+        <th>Detected</th>
+      </tr></thead>
+      <tbody id="atbody"></tbody>
+    </table>
+    <div class="empty" id="empty" style="display:none">No alerts match filters</div>
+  </div>
+</div>
+</div>
+</div>
 
-  <div class="main"><div class="mi">
-
-    <!-- OVERVIEW -->
-    <div class="panel on" id="p-overview">
-      <div class="kpis">
-        <div class="kpi"><div class="kl">Channels</div><div class="kv cg" id="ov-ch">1,245</div><div class="ks cg">+130 this week</div></div>
-        <div class="kpi"><div class="kl">Reach</div><div class="kv" id="ov-reach">40M</div><div class="ks">Subscribers</div></div>
-        <div class="kpi"><div class="kl">Graph nodes</div><div class="kv">1,290</div><div class="ks">+131 overnight</div></div>
-        <div class="kpi"><div class="kl">Live alerts</div><div class="kv cr" id="ov-ct">—</div><div class="ks ca">loading</div></div>
-        <div class="kpi"><div class="kl">Evidence</div><div class="kv cg" style="font-size:13px;padding-top:4px">IT Act §65B</div><div class="ks">Court admissible</div></div>
+<!-- TAB 2: INVESTIGATION -->
+<div class="tab-view" id="tab-investigation">
+<div class="inv-layout">
+  <div class="inv-stabs">
+    <div class="inv-stab active" onclick="invTab('search',this)">Search</div>
+    <div class="inv-stab" onclick="invTab('graph',this)">Entity Graph</div>
+    <div class="inv-stab" onclick="invTab('geo',this)">Geo Patterns</div>
+  </div>
+  <div class="inv-content">
+    <div class="inv-panel active" id="inv-search">
+      <div style="margin-bottom:20px">
+        <div class="sh-label">Investigate · Search any brand, channel, operator, UPI, phone, domain</div>
+        <div class="sh-bar">
+          <input class="sh-in" id="inv-q" placeholder="e.g. Mahadev Book, 91CLUB, jiohotstar.net, crypto fraud, AI voice scam..." onkeydown="if(event.key==='Enter')invSearch()">
+          <button class="sh-btn" onclick="invSearch()">SEARCH →</button>
+        </div>
+        <div class="qchips">
+          <span class="qchip" onclick="qSearch('Mahadev Book')">Mahadev Book</span>
+          <span class="qchip" onclick="qSearch('91CLUB colour prediction')">91CLUB</span>
+          <span class="qchip" onclick="qSearch('jiohotstar domain squat')">jiohotstar.net</span>
+          <span class="qchip" onclick="qSearch('IPL piracy streams')">IPL piracy</span>
+          <span class="qchip" onclick="qSearch('Gujarat mule UPI')">Gujarat mule</span>
+          <span class="qchip" onclick="qSearch('crypto fraud pig butchering')">Crypto / Pig butchering</span>
+          <span class="qchip" onclick="qSearch('AI voice deepfake scam digital arrest')">AI voice / digital arrest</span>
+          <span class="qchip" onclick="qSearch('fake PhonePe APK')">Fake PhonePe</span>
+        </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="card"><div class="ph"><div class="ph-t">Channel growth</div><div class="ph-m">Last 7 days</div></div><div style="height:140px"><canvas id="gc"></canvas></div></div>
-        <div class="card"><div class="ph"><div class="ph-t">Alerts by category</div><div class="ph-m" id="last-scan-time">Railway scanning 24/7</div></div><div id="cat-bd" style="margin-top:4px"></div></div>
-      </div>
-      <div class="card" style="margin-top:12px">
-        <div style="font-family:var(--mono);font-size:11px;line-height:1.9">
-          <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px">Railway API — 24/7 Intelligence</div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-            <div>
-              <div style="color:var(--m);font-size:9px;text-transform:uppercase;margin-bottom:4px">API endpoint</div>
-              <div style="color:var(--g);word-break:break-all">cinerisk-api-production.up.railway.app</div>
-            </div>
-            <div>
-              <div style="color:var(--m);font-size:9px;text-transform:uppercase;margin-bottom:4px">Scans per day</div>
-              <div id="scans-today" style="font-size:20px;font-weight:700;color:var(--g)">4</div>
-            </div>
-            <div>
-              <div style="color:var(--m);font-size:9px;text-transform:uppercase;margin-bottom:4px">Schedule (IST)</div>
-              <div style="color:var(--b)">08:00 · 12:00 · 18:00 · 22:00</div>
-            </div>
+      <div id="inv-results"></div>
+    </div>
+    <div class="inv-panel" id="inv-graph" style="padding:0;overflow:hidden;display:none;height:100%">
+      <div class="gwrap" style="height:100%">
+        <div class="gleg">
+          <div class="glt">Graph Statistics</div>
+          <div class="gsr"><span class="gsl">Total nodes</span><span class="gsv" style="color:var(--g)">1,369</span></div>
+          <div class="gsr"><span class="gsl">Channels</span><span class="gsv">1,248</span></div>
+          <div class="gsr"><span class="gsl">Operators</span><span class="gsv" style="color:#D97706">15</span></div>
+          <div class="gsr"><span class="gsl">Phone nodes</span><span class="gsv" style="color:#DC2626">74</span></div>
+          <div class="gsr"><span class="gsl">UPI nodes</span><span class="gsv" style="color:#059669">3</span></div>
+          <div class="gsr"><span class="gsl">Alias groups</span><span class="gsv" style="color:#0891B2">115</span></div>
+          <div class="gsr"><span class="gsl">Edges</span><span class="gsv">169+</span></div>
+          <br>
+          <div class="glt">Node Types</div>
+          <div class="gli"><div class="gld" style="background:#D97706"></div>Operator</div>
+          <div class="gli"><div class="gld" style="background:#DC2626"></div>Betting channel</div>
+          <div class="gli"><div class="gld" style="background:#2563EB"></div>Piracy channel</div>
+          <div class="gli"><div class="gld" style="background:#7C3AED"></div>Colour prediction</div>
+          <div class="gli"><div class="gld" style="background:#F59E0B"></div>Crypto fraud</div>
+          <div class="gli"><div class="gld" style="background:#8B5CF6"></div>AI scam</div>
+          <div class="gli"><div class="gld" style="background:#ff6b9d"></div>Phone node</div>
+          <div class="gli"><div class="gld" style="background:#0891B2"></div>UPI / Domain</div>
+          <br>
+          <div id="ninfo" style="font-size:11px;color:var(--m);line-height:1.6">Click any node</div>
+        </div>
+        <div class="gcw">
+          <svg id="graph-svg"></svg>
+          <div class="gctrl">
+            <button class="gcb" onclick="gz(1.4)">+</button>
+            <button class="gcb" onclick="gz(0.7)">−</button>
+            <button class="gcb" onclick="gz(1)">⊙</button>
+          </div>
+          <div class="ntt" id="ntt">
+            <div class="ntt-type" id="ntt-type"></div>
+            <div class="ntt-name" id="ntt-name"></div>
+            <div class="ntt-detail" id="ntt-detail"></div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- ALERTS -->
-    <div class="panel" id="p-alerts">
-      <div class="toolbar">
-        <div class="search-wrap">
-          <span class="sico">🔍</span>
-          <input class="sinput" id="sq" type="text" placeholder="Search — keyword, operator, phone, category, platform..." oninput="filter()">
-        </div>
-        <div class="tdiv"></div>
-        <div class="chips">
-          <span class="chips-label">SEV:</span>
-          <span class="sev-chip on" data-s="all" onclick="setSev('all',this)">All</span>
-          <span class="sev-chip" data-s="critical" onclick="setSev('critical',this)">Critical</span>
-          <span class="sev-chip" data-s="high" onclick="setSev('high',this)">High</span>
-          <span class="sev-chip" data-s="medium" onclick="setSev('medium',this)">Medium</span>
-        </div>
-        <div class="tdiv"></div>
-        <div class="chips">
-          <span class="chips-label">CAT:</span>
-          <span class="chip on" data-c="all" onclick="setCat('all',this)">All</span>
-          <span class="chip" data-c="betting" onclick="setCat('betting',this)">Betting</span>
-          <span class="chip" data-c="piracy" onclick="setCat('piracy',this)">Piracy</span>
-          <span class="chip" data-c="colour_prediction" onclick="setCat('colour_prediction',this)">Colour</span>
-          <span class="chip" data-c="investment_fraud" onclick="setCat('investment_fraud',this)">Investment</span>
-          <span class="chip" data-c="counterfeit_pharma" onclick="setCat('counterfeit_pharma',this)">Pharma</span>
-          <span class="chip" data-c="upi_mule" onclick="setCat('upi_mule',this)">UPI mule</span>
-          <span class="chip" data-c="counterfeit_marketplace" onclick="setCat('counterfeit_marketplace',this)">Counterfeit</span>
-          <span class="chip" data-c="impersonation" onclick="setCat('impersonation',this)">Impersonation</span>
-          <span class="chip" data-c="domain_squat" onclick="setCat('domain_squat',this)">Domain</span>
+    <div class="inv-panel" id="inv-geo" style="padding:0;overflow:hidden;display:none;height:100%">
+      <div class="geow" style="height:100%">
+        <div class="geom"><svg id="india-map"></svg></div>
+        <div class="geos">
+          <div class="glt" style="margin-bottom:12px">Fraud Hotspots</div>
+          <div id="hlist"></div>
+          <br>
+          <div class="glt">Filter</div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-top:6px">
+            <label style="font-size:11px;color:var(--m);cursor:pointer;display:flex;align-items:center;gap:6px"><input type="radio" name="gc" value="all" checked onchange="geoF(this.value)" style="accent-color:var(--g)"> All</label>
+            <label style="font-size:11px;color:var(--m);cursor:pointer;display:flex;align-items:center;gap:6px"><input type="radio" name="gc" value="betting" onchange="geoF(this.value)" style="accent-color:#DC2626"> Betting</label>
+            <label style="font-size:11px;color:var(--m);cursor:pointer;display:flex;align-items:center;gap:6px"><input type="radio" name="gc" value="piracy" onchange="geoF(this.value)" style="accent-color:#D97706"> Piracy</label>
+            <label style="font-size:11px;color:var(--m);cursor:pointer;display:flex;align-items:center;gap:6px"><input type="radio" name="gc" value="crypto" onchange="geoF(this.value)" style="accent-color:#F59E0B"> Crypto fraud</label>
+          </div>
         </div>
       </div>
-      <div class="alert-meta">
-        <span id="rct">Loading alerts from Railway API...</span>
-        <span>Live from Railway · Updates every 30s · Click row for full attribution · 📄 Public · 🔒 Full PDF</span>
-      </div>
-      <div class="alist" id="alist"><div class="noresult">Connecting to Railway API...</div></div>
     </div>
-
-    <!-- WHOIS -->
-    <div class="panel" id="p-whois">
-      <div class="ph"><div class="ph-t">WHOIS intelligence — 7 domains · full registrant data</div></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="card" style="border-left:3px solid #DC2626"><div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#DC2626;margin-bottom:10px">jiohotstar.net</div><div style="font-size:12px;color:var(--b);line-height:1.9">Registrant: <b style="color:#7C3AED">muthyala naresh</b><br>Email: <b style="color:#7C3AED">muthyala19@gmail.com</b><br>Registered: <b style="color:#DC2626">Jan 18 2026 — 4 days after launch</b><br>Registrar: BigRock Solutions · India<br>Risk: <b style="color:#DC2626">CRITICAL</b></div></div>
-        <div class="card" style="border-left:3px solid #DC2626"><div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#DC2626;margin-bottom:10px">phonepes.com.in</div><div style="font-size:12px;color:var(--b);line-height:1.9">Registrant: <b style="color:#7C3AED">Privacy protected</b><br>Registrar: Dynadot LLC · UAE<br>Registered: <b style="color:#DC2626">January 2026</b><br>Risk: <b style="color:#DC2626">CRITICAL — active APK</b></div></div>
-        <div class="card" style="border-left:3px solid #D97706"><div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#D97706;margin-bottom:10px">jiohotstar.co</div><div style="font-size:12px;color:var(--b);line-height:1.9">Registrar: GoDaddy · US<br>Registered: October 2024<br>Risk: <b style="color:#D97706">HIGH — pre-launch squat</b></div></div>
-        <div class="card" style="border-left:3px solid #D97706"><div style="font-family:var(--mono);font-size:12px;font-weight:500;color:#D97706;margin-bottom:10px">jio-hotstar.com</div><div style="font-size:12px;color:var(--b);line-height:1.9">Registrar: Namefinger · US<br>Registered: January 2026<br>Risk: <b style="color:#DC2626">CRITICAL</b></div></div>
-      </div>
-    </div>
-
-    <!-- OPERATORS -->
-    <div class="panel" id="p-operators">
-      <div class="ph"><div class="ph-t">Operator profiles — 15 identified · full attribution</div></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="card" style="border-left:3px solid #DC2626"><b>Mahadev Book</b><br><span style="font-family:var(--mono);font-size:9px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;padding:2px 7px;border-radius:20px;display:inline-block;margin:6px 0 10px">Tier 1 — Active ED case</span><br><span style="font-size:12px;color:var(--b);line-height:2">Channels: <b>41</b> · Reach: <b>2.2M</b><br>Network: <b style="color:#7C3AED">Lotus365 · Dubai</b></span></div>
-        <div class="card" style="border-left:3px solid #DC2626"><b>Reddy Anna Book</b><br><span style="font-family:var(--mono);font-size:9px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;padding:2px 7px;border-radius:20px;display:inline-block;margin:6px 0 10px">Tier 1 — Active police case</span><br><span style="font-size:12px;color:var(--b);line-height:2">Phone 1: <b style="color:#7C3AED">+91-8306154335</b><br>Phone 2: <b style="color:#7C3AED">+91-9216328940</b><br>Affiliate: <b>Play99</b></span></div>
-        <div class="card" style="border-left:3px solid #7C3AED"><b>BigDaddy</b><br><span style="font-family:var(--mono);font-size:9px;background:#FFFBEB;color:#D97706;border:1px solid #FDE68A;padding:2px 7px;border-radius:20px;display:inline-block;margin:6px 0 10px">Tier 2 — Monitoring</span><br><span style="font-size:12px;color:var(--b);line-height:2">Channels: <b>33</b> · Reach: <b>1.8M</b><br>Colour prediction focus</span></div>
-        <div class="card" style="border-left:3px solid #DC2626"><b>Fair786</b><br><span style="font-family:var(--mono);font-size:9px;background:#FFFBEB;color:#D97706;border:1px solid #FDE68A;padding:2px 7px;border-radius:20px;display:inline-block;margin:6px 0 10px">Tier 2 — Monitoring</span><br><span style="font-size:12px;color:var(--b);line-height:2">Channels: <b>8</b> · Reach: <b>450K</b><br>Link: <b style="color:#7C3AED">MURUGAN_FIXER_LONDON1</b></span></div>
-      </div>
-    </div>
-
-  </div></div>
+  </div>
+</div>
 </div>
 
-<div class="statusbar">
-  <div class="si"><span class="sd" id="railway-dot" style="background:#D97706"></span>Railway API <span id="railway-status-text">connecting...</span></div>
-  <div class="si"><span class="sd sdg"></span>Graph 1,290 nodes · 169 edges</div>
-  <div class="si"><span class="sd sdg"></span>Scans: 08:00 · 12:00 · 18:00 · 22:00 IST</div>
-  <div class="si" style="margin-left:auto;color:#DC2626">⚠ JioHotstar 2 emails unread · send Anil email</div>
+<!-- TAB 3: ALERT INTELLIGENCE -->
+<div class="tab-view" id="tab-intelligence">
+<div class="ail">
+  <div class="ail-list">
+    <div class="ailh"><span class="ailht">All Alerts</span><span class="ailhc" id="ail-count">—</span></div>
+    <div class="ails"><input class="ails-in" id="ail-s" placeholder="Search..." oninput="ailFilter()"></div>
+    <div id="ail-list"></div>
+  </div>
+  <div class="aid" id="aid">
+    <div class="aid-empty"><div style="font-size:24px;opacity:.3">⬡</div><div style="font-family:var(--mono);font-size:11px">Select an alert</div></div>
+  </div>
+</div>
 </div>
 
+</div><!-- shell -->
 <script>
-const PW = 'cineos2026'; // change this
-const RAILWAY_API = 'https://cinerisk-api-production.up.railway.app';
-
-function doLogin(){
-  if(document.getElementById('pw').value === PW){
-    document.getElementById('login').style.display = 'none';
-    init();
-  } else {
-    document.getElementById('pwe').style.display = 'block';
-    document.getElementById('pw').value = '';
-  }
-}
-
-function updateClock(){
-  const ist = new Date(Date.now() + 5.5 * 3600000);
-  document.getElementById('clk').textContent = ist.toISOString().replace('T',' ').slice(0,19) + ' IST';
-}
-updateClock(); setInterval(updateClock, 30000);
-
-const CATS = {
-  'betting':               {l:'Betting',    c:'#DC2626', bg:'#FEF2F2', br:'#FECACA'},
-  'illegal_betting':       {l:'Betting',    c:'#DC2626', bg:'#FEF2F2', br:'#FECACA'},
-  'piracy':                {l:'Piracy',     c:'#D97706', bg:'#FFFBEB', br:'#FDE68A'},
-  'colour_prediction':     {l:'Colour',     c:'#7C3AED', bg:'#F5F3FF', br:'#DDD6FE'},
-  'investment_fraud':      {l:'Investment', c:'#2563EB', bg:'#EFF6FF', br:'#BFDBFE'},
-  'counterfeit_pharma':    {l:'Pharma',     c:'#059669', bg:'#ECFDF5', br:'#A7F3D0'},
-  'upi_mule':              {l:'UPI Mule',   c:'#EA580C', bg:'#FFF7ED', br:'#FED7AA'},
-  'counterfeit_marketplace':{l:'Counterfeit',c:'#E11D48',bg:'#FFF1F2',br:'#FECDD3'},
-  'impersonation':         {l:'Impersonation',c:'#0891B2',bg:'#ECFEFF',br:'#A5F3FC'},
-  'brand_impersonation':   {l:'Brand Fake', c:'#0891B2', bg:'#ECFEFF', br:'#A5F3FC'},
-  'domain_squat':          {l:'Domain',     c:'#7C3AED', bg:'#F5F3FF', br:'#DDD6FE'},
-};
-const gc2 = c => CATS[c] || {l:c, c:'#64748B', bg:'#F8FAFC', br:'#E2E8F0'};
-const scls = s => ({critical:'sc', high:'sh', medium:'sm', low:'sl'}[s] || 'sl');
-
-let ALL = [], cur = 'all', sev = 'all', openId = null;
-let railwayOk = false;
-
-// Fetch from Railway API — falls back to static JSON
-async function loadAlerts(){
-  try {
-    const r = await fetch(`${RAILWAY_API}/api/alerts?limit=100`, {
-      signal: AbortSignal.timeout(8000)
-    });
-    if(r.ok){
-      const data = await r.json();
-      ALL = data.alerts || [];
-      setRailwayStatus(true, `${ALL.length} alerts`);
-      // Update stats from Railway
-      const stats = await fetch(`${RAILWAY_API}/api/stats`).then(r=>r.json()).catch(()=>({}));
-      if(stats.scans_today !== undefined){
-        document.getElementById('scans-today').textContent = stats.scans_today;
-      }
-      if(stats.last_scan){
-        document.getElementById('last-scan-time').textContent = 
-          'Last scan: ' + stats.last_scan.slice(11,16) + ' IST';
-      }
-    } else {
-      throw new Error('Railway returned ' + r.status);
-    }
-  } catch(e) {
-    // Fallback: try static JSON from GitHub Pages
-    setRailwayStatus(false, 'using static data');
-    try {
-      const r2 = await fetch('reports/alerts/live_alerts.json?t=' + Date.now());
-      if(r2.ok) ALL = await r2.json();
-      else ALL = SEED;
-    } catch(e2) {
-      ALL = SEED;
-    }
-  }
-  updateCounts();
-  filter();
-}
-
-function setRailwayStatus(ok, msg){
-  railwayOk = ok;
-  const dot = document.getElementById('railway-dot');
-  const txt = document.getElementById('railway-status-text');
-  const ind = document.getElementById('railway-indicator');
-  dot.style.background = ok ? '#166534' : '#D97706';
-  txt.textContent = ok ? '✓ ' + msg : '⚠ ' + msg;
-  if(ind){
-    ind.style.display = 'flex';
-    ind.className = 'railway-status ' + (ok ? 'rs-ok' : 'rs-err');
-    ind.textContent = ok ? '✓ Railway' : '⚠ Railway';
-  }
-}
-
-// Seed data (used when Railway and static JSON both unreachable)
-const SEED = [
-  {id:'b4d2d6',title:'IPL Match 53 — 20 piracy streams detected',category:'piracy',severity:'critical',platform:'Telegram / Web',detail:'20 illegal live streams CSK vs LSG · May 10 13:23 IST · 35M+ reach',detected_at:'2026-05-10T13:23:00',chain:{channels_found:['13 channels (internal)'],keywords_matched:['ipl live','hotstar free','watch live'],reach:35000000,phones:['+91-8306154335','+91-9216328940'],operator_name:'Reddy Anna Book affiliate',operator_network:'Play99 network',evidence_hashes:['b4d2d638a9f1c2'],legal_basis:'IT Act 2000 S.65B + Copyright Act S.51',recommended_action:'IT Rules 2021 S.69A takedown to Telegram',report_to:['JioHotstar','BCCI','MIB']}},
-  {id:'a7f3c8',title:'Fake PhonePe APK — active credential theft site',category:'brand_impersonation',severity:'critical',platform:'Web / APK',detail:'phonepes.com.in — fake PhonePe APK · UAE registrant · Jan 2026',detected_at:'2026-05-10T09:14:00',chain:{channels_found:['phonepes.com.in'],keywords_matched:['phonepe apk','download'],reach:0,whois_domain:'phonepes.com.in',whois_registrant:'UAE registrant (internal)',evidence_hashes:['a7f3c891d2e4b5'],legal_basis:'IT Act S.66D + S.65B',recommended_action:'CERT-In + PhonePe + registrar',report_to:['PhonePe','CERT-In','Dynadot']}},
-  {id:'e5f6a7',title:'jiohotstar.net — domain squat · registrant identified',category:'domain_squat',severity:'critical',platform:'WHOIS',detail:'Registered Jan 18 2026 — 4 days after JioHotstar launch · muthyala naresh',detected_at:'2026-05-10T06:00:00',chain:{channels_found:['jiohotstar.net'],keywords_matched:['jiohotstar'],reach:0,whois_domain:'jiohotstar.net',whois_registrant:'muthyala naresh — muthyala19@gmail.com',evidence_hashes:['e5f6a7b8c9d0e1'],legal_basis:'IT Act S.65B + TM Act S.29',recommended_action:'UDRP complaint + civil suit',report_to:['JioHotstar','BigRock','NIXI']}},
-  {id:'d4e5f6',title:'BCCI impersonator — 2 operator phones confirmed',category:'impersonation',severity:'high',platform:'Telegram',detail:'Phones publicly posted in fake BCCI channels · 95% confidence',detected_at:'2026-05-10T07:00:00',chain:{channels_found:['2 channels (internal)'],keywords_matched:['bcci','toss fixer'],reach:45000,phones:['+91-8306154335','+91-9216328940'],operator_name:'Reddy Anna Book',operator_network:'Play99 affiliate',evidence_hashes:['d4e5f6a7b8c9d0'],legal_basis:'IT Act S.66D + S.65B',recommended_action:'FIR under IT Act S.66D',report_to:['BCCI','Delhi Police','I4C']}},
-  {id:'g7h8i9',title:'91CLUB — 1,008,905 subscribers · illegal colour prediction',category:'colour_prediction',severity:'high',platform:'Telegram',detail:'Largest single fraud channel · Chinese-origin app',detected_at:'2026-05-11T08:00:00',chain:{channels_found:['1 channel (internal)'],keywords_matched:['91club','aviator','colour prediction'],reach:1008905,evidence_hashes:['g7h8i9j0k1l2'],legal_basis:'Online Gaming Act 2025 + IT Act S.65B',recommended_action:'Report to NOGC + DoT',report_to:['NOGC','MeitY','DoT']}},
-  {id:'i9j0k1',title:'Mahadev Book — 41 channels · 2.2M reach · active ED case',category:'illegal_betting',severity:'high',platform:'Telegram',detail:'Largest betting operator · Active ED investigation · Dubai link',detected_at:'2026-05-10T06:00:00',chain:{channels_found:['41 channels (internal)'],keywords_matched:['mahadev book','cricket bet'],reach:2200000,operator_name:'Mahadev Book',operator_network:'Lotus365 / Dubai',evidence_hashes:['i9j0k1l2m3n4o5'],legal_basis:'Public Gambling Act + IT Act S.65B',recommended_action:'ED + Cyber Crime Portal',report_to:['ED','NOGC']}},
+const RAILWAY='https://cinerisk-api-production.up.railway.app';
+const PWD='cineos2026';
+const RI=30;
+let ALL=[],CAT='all',SEV='all',TIMER=null,CD=RI;
+const SC={critical:'#DC2626',high:'#D97706',medium:'#2563EB',low:'#94A3B8'};
+const CC={'illegal_betting':'#DC2626','piracy':'#D97706','colour_prediction':'#7C3AED','investment_fraud':'#2563EB','crypto_fraud':'#F59E0B','ai_scam':'#8B5CF6','upi_mule':'#EA580C','counterfeit_pharma':'#059669','counterfeit_marketplace':'#E11D48','brand_impersonation':'#0891B2','domain_squat':'#7C3AED','task_fraud':'#DC2626','loan_fraud':'#2563EB','unknown':'#94A3B8'};
+const CATS=[
+  {id:'all',label:'All Alerts',color:'#166534'},
+  {id:'illegal_betting',label:'Illegal Betting',color:'#DC2626'},
+  {id:'piracy',label:'Piracy',color:'#D97706'},
+  {id:'colour_prediction',label:'Colour Prediction',color:'#7C3AED'},
+  {id:'investment_fraud',label:'Investment Fraud',color:'#2563EB'},
+  {id:'crypto_fraud',label:'Crypto Fraud',color:'#F59E0B'},
+  {id:'ai_scam',label:'AI Scams (Voice/Video)',color:'#8B5CF6'},
+  {id:'upi_mule',label:'UPI Mule',color:'#EA580C'},
+  {id:'counterfeit_pharma',label:'Counterfeit Pharma',color:'#059669'},
+  {id:'counterfeit_marketplace',label:'Counterfeit Goods',color:'#E11D48'},
+  {id:'brand_impersonation',label:'Brand Impersonation',color:'#0891B2'},
+  {id:'domain_squat',label:'Domain Squat',color:'#7C3AED'},
+  {id:'task_fraud',label:'Task / Job Fraud',color:'#DC2626'},
+  {id:'loan_fraud',label:'Loan Fraud',color:'#2563EB'},
+  {id:'unknown',label:'Uncategorised',color:'#94A3B8'},
 ];
 
-function updateCounts(){
-  const n = ALL.length;
-  document.getElementById('total-ct').textContent = n + ' alerts';
-  document.getElementById('sb-ct').textContent = n;
-  document.getElementById('ov-ct').textContent = n;
-  const cats = {};
-  ALL.forEach(a => { cats[a.category] = (cats[a.category]||0)+1; });
-  const bd = document.getElementById('cat-bd');
-  if(bd) bd.innerHTML = Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([cat,cnt])=>{
-    const m = gc2(cat);
-    const pct = Math.round(cnt/ALL.length*100);
-    return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-      <div style="width:8px;height:8px;border-radius:50%;background:${m.c};flex-shrink:0"></div>
-      <div style="font-size:11px;color:var(--b);flex:1">${m.l}</div>
-      <div style="font-family:var(--mono);font-size:10px;color:var(--m)">${cnt}</div>
-      <div style="width:60px;height:4px;background:var(--bo);border-radius:2px"><div style="width:${pct}%;height:100%;background:${m.c};border-radius:2px"></div></div>
-    </div>`;
-  }).join('');
+function doLogin(){
+  if(document.getElementById('pwd').value===PWD){
+    document.getElementById('login').style.display='none';
+    ['topbar','main-tabs','shell'].forEach(id=>document.getElementById(id).style.display=id==='shell'?'flex':'flex');
+    buildCats();fetchAlerts(true);startClock();startAR();
+  } else {
+    document.getElementById('lerr').style.display='block';
+    document.getElementById('pwd').value='';
+  }
+}
+document.getElementById('pwd').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+
+function startClock(){
+  setInterval(()=>{
+    const ist=new Date(Date.now()+19800000);
+    document.getElementById('top-clock').textContent=ist.toUTCString().slice(17,22)+' IST';
+  },1000);
 }
 
-function setSev(s,el){ sev=s; document.querySelectorAll('.sev-chip').forEach(c=>c.classList.remove('on')); el.classList.add('on'); filter(); }
-function setCat(c,el){ cur=c; document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); el.classList.add('on'); filter(); }
-function goCat(c){ showTab('alerts',document.querySelector('.sbi[onclick*="alerts"]')); const chip=document.querySelector(`.chip[data-c="${c}"]`); if(chip) setCat(c,chip); }
+function startAR(){
+  CD=RI;clearInterval(TIMER);
+  TIMER=setInterval(()=>{
+    CD--;
+    document.getElementById('nxt').textContent=CD+'s';
+    document.getElementById('nxt2').textContent=CD+'s';
+    if(CD<=0){fetchAlerts(false);CD=RI;}
+  },1000);
+}
 
-function filter(){
-  const q = (document.getElementById('sq')?.value||'').toLowerCase();
-  const res = ALL.filter(a=>{
-    if(sev!=='all' && a.severity!==sev) return false;
-    if(cur!=='all' && a.category!==cur) return false;
-    if(q){
-      const h = [a.title,a.detail,a.category,a.platform,a.severity,
-        ...(a.chain?.phones||[]),...(a.chain?.upis||[]),
-        a.chain?.operator_name||'',a.chain?.operator_network||'',
-        a.chain?.whois_registrant||'',...(a.chain?.keywords_matched||[]),
-        ...(a.chain?.report_to||[])].join(' ').toLowerCase();
-      if(!h.includes(q)) return false;
-    }
-    return true;
+async function fetchAlerts(spin){
+  if(spin){const b=document.getElementById('rfbtn');b.textContent='↻ ...';setTimeout(()=>b.textContent='↻ Refresh',800);}
+  try{
+    const [ar,sr]=await Promise.all([
+      fetch(`${RAILWAY}/api/alerts`).then(r=>r.json()),
+      fetch(`${RAILWAY}/api/stats`).then(r=>r.json())
+    ]);
+    ALL=(ar.alerts||ar||[]).sort((a,b)=>({critical:0,high:1,medium:2,low:3}[a.severity]||3)-({critical:0,high:1,medium:2,low:3}[b.severity]||3));
+    updateOv(sr);updateTopbar(sr);renderAlerts();updateCatCounts();
+    renderAilList();
+    document.getElementById('tb-ws').textContent=ALL.length+' alerts';
+    document.getElementById('tb-ai').textContent=ALL.length+' alerts';
+    CD=RI;
+  }catch(e){document.getElementById('rcount').textContent='Offline';}
+}
+
+function updateTopbar(s){
+  const b=s.by_severity||{};
+  document.getElementById('top-crit').textContent=(b.critical||0)+' CRITICAL';
+  document.getElementById('top-high').textContent=(b.high||0)+' HIGH';
+  document.getElementById('top-live').textContent='Live · '+(s.alerts||ALL.length)+' alerts';
+}
+
+function updateOv(s){
+  const b=s.by_severity||{};
+  document.getElementById('ov-total').textContent=s.alerts||ALL.length;
+  document.getElementById('ov-crit').textContent=b.critical||0;
+  document.getElementById('ov-high').textContent=b.high||0;
+  document.getElementById('ov-med').textContent=b.medium||0;
+  document.getElementById('ov-phones').textContent=s.phone_nodes||74;
+  document.getElementById('ov-upis').textContent=s.upi_nodes||3;
+  document.getElementById('ov-ch').textContent=(s.channels||1245).toLocaleString();
+  const r=s.reach||40000000;
+  document.getElementById('ov-reach').textContent=r>=1000000?(r/1000000).toFixed(0)+'M':(r/1000).toFixed(0)+'K';
+}
+
+function buildCats(){
+  document.getElementById('cat-list').innerHTML=CATS.map(c=>`
+    <div class="cat-item ${c.id==='all'?'active':''}" id="cat-${c.id}" onclick="setCat('${c.id}')">
+      <div class="cat-dot" style="background:${c.color}"></div>
+      <span class="cat-name">${c.label}</span>
+      <span class="cat-count" id="cc-${c.id}"></span>
+    </div>`).join('');
+}
+
+function updateCatCounts(){
+  CATS.forEach(c=>{
+    const el=document.getElementById('cc-'+c.id);
+    if(!el)return;
+    const n=c.id==='all'?ALL.length:ALL.filter(a=>a.category===c.id).length;
+    el.textContent=n||'';
   });
-  const rct = document.getElementById('rct');
-  if(rct) rct.textContent = `${res.length} alert${res.length!==1?'s':''}${res.length<ALL.length?' (filtered from '+ALL.length+')':''}`;
-  renderList(res);
 }
 
-function buildChain(ch){
-  if(!ch) return '';
-  const steps = [];
-  const nc=ch.channels_found?.length||0, nk=ch.keywords_matched?.length||0;
-  steps.push({icon:'📡',cls:'cd-g',lbl:'Detect',val:`${nc} channel${nc!==1?'s':''}`,sub:`${nk} keyword signals`});
-  const r=ch.reach||0;
-  if(r>0) steps.push({icon:'👁',cls:'cd-a',lbl:'Reach',val:r>999999?`${(r/1e6).toFixed(1)}M subs`:`${r.toLocaleString()}`,sub:'subscriber exposure'});
-  const op=ch.operator_name||ch.whois_registrant||'';
-  const ph=ch.phones||[];
-  if(op||ph.length) steps.push({icon:'👤',cls:'cd-p',lbl:'Attribute',val:op?(op.length>20?op.slice(0,20)+'…':op):(ph.length+' phone'+(ph.length!==1?'s':'')),sub:ph.length?ph[0]:(ch.operator_network||'Network mapped')});
-  const hh=ch.evidence_hashes||[];
-  steps.push({icon:'⚖',cls:'cd-g',lbl:'Evidence',val:(ch.legal_basis||'IT Act S.65B').split('+')[0].trim(),sub:hh.length?hh[0].slice(0,14)+'…':'Hashed at capture'});
-  const ac=ch.recommended_action||'';
-  if(ac) steps.push({icon:'📋',cls:'cd-b',lbl:'End step',val:ac.length>28?ac.slice(0,28)+'…':ac,sub:(ch.report_to||[]).slice(0,2).join(' · ')});
+function setCat(c){
+  CAT=c;
+  document.querySelectorAll('.cat-item').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById('cat-'+c);
+  if(el)el.classList.add('active');
+  filterAlerts();
+}
 
-  let h='<div class="chain">';
-  steps.forEach((s,i)=>{
-    h+=`<div class="cnode"><div class="cdot ${s.cls}">${s.icon}</div><div class="clbl">${s.lbl}</div><div class="cval">${s.val}</div><div class="csub">${s.sub}</div></div>`;
-    if(i<steps.length-1) h+='<div class="carr">→</div>';
+function setSev(s,el){
+  SEV=s;
+  document.querySelectorAll('.sev-btn').forEach(b=>b.className='sev-btn');
+  el.className='sev-btn a-'+s;
+  filterAlerts();
+}
+
+function getFiltered(){
+  const q=document.getElementById('search').value.toLowerCase();
+  return ALL.filter(a=>{
+    const mc=CAT==='all'||a.category===CAT;
+    const ms=SEV==='all'||a.severity===SEV;
+    const mq=!q||JSON.stringify(a).toLowerCase().includes(q);
+    return mc&&ms&&mq;
   });
-  h+='</div>';
-  h+='<div class="evrow">';
-  h+=`<div><div class="evl">Captured at</div><div class="evv g">${(ch.captured_at||'').slice(0,16)||'—'}</div></div>`;
-  h+=`<div><div class="evl">Legal basis</div><div class="evv">${ch.legal_basis||'IT Act S.65B'}</div></div>`;
-  const phones=ch.phones||[];
-  if(phones.length) h+=`<div><div class="evl">Phones (internal)</div><div class="evv p">${phones.map(p=>`<span class="itag">${p}</span>`).join('')}</div></div>`;
-  else if(ch.whois_registrant) h+=`<div><div class="evl">WHOIS registrant</div><div class="evv p">${ch.whois_registrant.slice(0,40)}</div></div>`;
-  else h+=`<div><div class="evl">Channels found</div><div class="evv g">${(ch.channels_found||[]).length} in database</div></div>`;
-  h+=`<div><div class="evl">Report to</div><div class="evv a">${(ch.report_to||[]).join(', ')||'—'}</div></div>`;
-  h+='</div>';
-  return h;
 }
 
-function renderList(alerts){
-  const el = document.getElementById('alist');
-  if(!alerts.length){ el.innerHTML='<div class="noresult">No alerts match. Try clearing filters or search.</div>'; return; }
-  el.innerHTML = alerts.map(a=>{
-    const m=gc2(a.category);
-    const sc_=scls(a.severity);
-    const dt=(a.detected_at||'').slice(5,16).replace('T',' ');
-    const isOpen=a.id===openId;
-    return `<div class="aitem${isOpen?' open':''}" id="ai_${a.id}">
-      <div class="arow" onclick="tog('${a.id}')">
-        <div class="astripe" style="background:${m.c}"></div>
-        <span class="asev ${sc_}">${a.severity}</span>
-        <div><div class="atitle">${a.title}</div><div class="adetail">${a.detail.slice(0,75)}${a.detail.length>75?'…':''}</div></div>
-        <span class="aplat">${(a.platform||'').slice(0,16)}</span>
-        <span class="atime">${dt}</span>
-        <span class="cattag" style="background:${m.bg};color:${m.c};border:1px solid ${m.br}">${m.l}</span>
-        <div class="expbtn" id="eb_${a.id}">${isOpen?'⌄':'›'}</div>
-      </div>
-      <div class="drawer${isOpen?' open':''}" id="dr_${a.id}">
-        <div class="dhead">
-          <div class="dhead-l"></div>
-          <div class="pdfbtns">
-            <button class="pdfbtn pdf-pub" onclick="event.stopPropagation();pdf('${a.id}','public')">📄 Public Report</button>
-            <button class="pdfbtn pdf-full" onclick="event.stopPropagation();pdf('${a.id}','full')">🔒 Full Report</button>
+function filterAlerts(){renderAlerts(getFiltered());}
+
+function renderAlerts(list){
+  const alerts=list||ALL;
+  document.getElementById('rcount').textContent=alerts.length+' alerts';
+  if(!alerts.length){
+    document.getElementById('atbody').innerHTML='';
+    document.getElementById('empty').style.display='block';
+    return;
+  }
+  document.getElementById('empty').style.display='none';
+  document.getElementById('atbody').innerHTML=alerts.map((a,i)=>{
+    const sev=(a.severity||'medium').toLowerCase();
+    const cat=a.category||'unknown';
+    const chain=a.chain||{},attr=a.attribution||{};
+    const reach=chain.reach||0;
+    const phones=chain.phones||(attr.phone?[attr.phone]:[]);
+    const upis=chain.upis||(attr.upi?[attr.upi]:[]);
+    const ts=a.detected_at?new Date(a.detected_at).toLocaleDateString('en-IN',{day:'numeric',month:'short'}):'';
+    const rs=reach>1e6?(reach/1e6).toFixed(1)+'M':reach>1000?Math.round(reach/1000)+'K':reach||'—';
+    const sc=SC[sev]||'#94A3B8',cc=CC[cat]||'#94A3B8';
+    const ph=phones.length?phones.slice(0,2).map(p=>`<span class="pv">${p}</span>`).join(''):`<span class="ae">—</span>`;
+    const uh=upis.length?upis.slice(0,2).map(u=>`<span class="uv">${u}</span>`).join(''):`<span class="ae">—</span>`;
+    const steps=a.next_steps||[];
+    const rt=(a.report_to||[]).map(r=>`<span class="rp">${r}</span>`).join('');
+    const nsH=steps.map((s,si)=>`<div class="nsi"><span class="nsn">${si+1}</span><span>${s.replace(/^Step \d+ — /,'')}</span></div>`).join('');
+    return `
+    <tr onclick="toggleRow(${i})">
+      <td><span class="ss" style="background:${sc}"></span></td>
+      <td><div class="at">${a.title||'Untitled'}</div><div class="ad">${a.detail||''}</div></td>
+      <td><span class="sb" style="background:${sc}22;color:${sc};border:1px solid ${sc}44">${sev.toUpperCase()}</span></td>
+      <td><span class="cb" style="background:${cc}18;color:${cc};border:1px solid ${cc}33">${cat.replace(/_/g,' ')}</span></td>
+      <td>${ph}</td>
+      <td>${uh}</td>
+      <td class="reach">${rs}</td>
+      <td class="ts">${ts}</td>
+    </tr>
+    <tr class="exp-row" id="exp-${i}">
+      <td colspan="8" class="exp-cell">
+        <div class="exp-inner">
+          <div class="cg">
+            <div class="cb2"><div class="cl">Channels found</div><div class="cv mono">${(chain.channels_found||[]).slice(0,3).join('<br>')||'—'}</div></div>
+            <div class="cb2"><div class="cl">Attribution</div><div class="cv">
+              ${attr.name||chain.operator_name?`<b>${attr.name||chain.operator_name}</b><br>`:''}
+              ${phones.map(p=>`<span class="pv">📞 ${p}</span>`).join('')}
+              ${upis.map(u=>`<span class="uv">💳 ${u}</span>`).join('')}
+              ${!attr.name&&!phones.length&&!upis.length?'<span class="ae">Pending deep scan</span>':''}
+            </div></div>
+            <div class="cb2"><div class="cl">Evidence hash</div><div class="cv mono green" style="font-size:10px;word-break:break-all">${a.evidence_hash||'—'}</div><div style="font-size:10px;color:var(--m);margin-top:3px">IT Act §65B</div></div>
+            <div class="cb2"><div class="cl">Legal basis</div><div class="cv" style="font-size:11px">${a.legal_basis||chain.legal_basis||'IT Act 2000 §65B'}</div></div>
+          </div>
+          <div class="sch">
+            ${['Detect','Attribute','Evidence','Report','Defend'].map(s=>`<div class="sb2"><div class="sl">${s}</div><div class="sv">✓</div></div>`).join('')}
+          </div>
+          ${steps.length?`<div style="margin-top:12px"><div style="font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Next Steps</div><div class="nsl">${nsH}</div></div>`:''}
+          ${rt?`<div style="margin-top:10px"><div style="font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Report to</div>${rt}</div>`:''}
+          <div class="ea">
+            <button class="abtn abtn-pub" onclick="alert('PDF: '+${JSON.stringify((a.title||'').slice(0,40))}+' — use cineos_pdf_generator.py on your Mac')">📄 Public Report</button>
+            <button class="abtn abtn-full" onclick="alert('Full PDF: '+${JSON.stringify((a.title||'').slice(0,40))}+' — use cineos_pdf_generator.py on your Mac')">🔒 Full Report</button>
+            <button class="abtn abtn-copy" onclick="navigator.clipboard.writeText(${JSON.stringify(`CINEOS Evidence\nAlert: ${a.title||''}\nHash: ${a.evidence_hash||''}\nLegal: ${a.legal_basis||'IT Act §65B'}\nDetected: ${a.detected_at||''}`)}).catch(()=>{})">📋 Copy Evidence</button>
           </div>
         </div>
-        ${buildChain(a.chain||{})}
-      </div>
-    </div>`;
+      </td>
+    </tr>`;
   }).join('');
 }
 
-function tog(id){
-  openId=(openId===id)?null:id;
-  filter();
-  if(openId){ setTimeout(()=>{ const e=document.getElementById('ai_'+openId); if(e) e.scrollIntoView({behavior:'smooth',block:'nearest'}); },50); }
+function toggleRow(i){
+  const r=document.getElementById('exp-'+i);
+  if(r)r.classList.toggle('open');
 }
 
-function pdf(id,type){
-  const note=document.createElement('div');
-  note.style.cssText=`position:fixed;bottom:36px;right:18px;z-index:1000;background:${type==='public'?'#166534':'#DC2626'};color:#fff;padding:12px 16px;border-radius:8px;font-family:var(--mono);font-size:11px;max-width:360px;line-height:1.7;box-shadow:0 4px 20px rgba(0,0,0,.25)`;
-  note.innerHTML=`<b>${type==='public'?'📄 PUBLIC REPORT':'🔒 FULL REPORT (signed agreement only)'}</b><br>Generate on your Mac:<br><code style="opacity:.8;font-size:10px">python3 cineos_pdf_generator.py</code><br><small>PDFs saved to reports/pdfs/</small>`;
-  document.body.appendChild(note);
-  setTimeout(()=>note.remove(),5000);
+function switchTab(name,el){
+  document.querySelectorAll('.tab-view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  el.classList.add('active');
+  if(name==='investigation')setTimeout(()=>{initGraph();initGeo();},100);
 }
 
-function showTab(id,el){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.sbi').forEach(t=>t.classList.remove('on'));
-  document.getElementById('p-'+id).classList.add('on');
-  if(el) el.classList.add('on');
+function invTab(name,el){
+  document.querySelectorAll('.inv-stab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.inv-panel').forEach(p=>{p.style.display='none';p.classList.remove('active');});
+  el.classList.add('active');
+  const p=document.getElementById('inv-'+name);
+  if(p){p.style.display='block';p.classList.add('active');}
+  if(name==='graph')setTimeout(initGraph,50);
+  if(name==='geo')setTimeout(initGeo,50);
 }
 
-function init(){
-  loadAlerts();
-  setInterval(loadAlerts, 30000); // refresh every 30s from Railway
-  new Chart(document.getElementById('gc'),{
-    type:'line',
-    data:{labels:['4 May','5 May','6 May','7 May','8 May','9 May','10 May'],datasets:[{data:[1115,1130,1152,1178,1198,1221,1245],borderColor:'#166534',backgroundColor:'rgba(22,101,52,.06)',fill:true,tension:.4,pointRadius:3,pointBackgroundColor:'#166534',borderWidth:2,pointBorderColor:'#fff',pointBorderWidth:2}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#94A3B8',font:{size:10,family:'DM Mono'}},grid:{color:'#F1F5F9'},border:{color:'#E2E8F0'}},y:{ticks:{color:'#94A3B8',font:{size:10,family:'DM Mono'}},grid:{color:'#F1F5F9'},border:{color:'#E2E8F0'},min:1100,max:1280}}}
+// SEARCH DATA
+const SD=[
+  {type:'OPERATOR',color:'#D97706',name:'Mahadev Book',detail:'41 Telegram channels · 2.2M reach · Active ED investigation · Dubai USDT corridor',tags:['critical','betting','ed-case','crypto']},
+  {type:'CHANNEL',color:'#7C3AED',name:'91CLUB Colour Prediction',detail:'1,008,905 subscribers · Chinese-origin app · Online Gaming Act 2025 violation',tags:['critical','colour-pred','1M+']},
+  {type:'DOMAIN',color:'#0891B2',name:'jiohotstar.net',detail:'Registered 4 days after JioHotstar launch · Registrant: muthyala naresh · muthyala19@gmail.com',tags:['critical','domain-squat','whois-id']},
+  {type:'CHANNEL',color:'#2563EB',name:'IPL Piracy Network',detail:'20 illegal streams confirmed Match 53 · 35M+ reach · §65B hashed',tags:['critical','piracy','ipl']},
+  {type:'NETWORK',color:'#DC2626',name:'Gujarat UPI Mule Network',detail:'Rs 77 Cr · 16 arrested · +91-8881448108 seen 266x in channels',tags:['high','upi-mule','gujarat']},
+  {type:'CHANNEL',color:'#F59E0B',name:'Crypto / Pig Butchering',detail:'105 investment fraud channels · 8 ED-confirmed fake platforms: goldbooker.com, cryptobrite.com',tags:['critical','crypto','ed-pmla']},
+  {type:'CHANNEL',color:'#8B5CF6',name:'AI Voice / Video Scams',detail:'Digital arrest scams · AI voice cloning · Deepfake officials · WhatsApp + Telegram',tags:['critical','ai-scam','deepfake','voice-clone']},
+  {type:'OPERATOR',color:'#D97706',name:'Reddy Anna Book',detail:'28 channels · 1.8M reach · Cricket match fixing · FIRs filed',tags:['high','betting']},
+  {type:'DOMAIN',color:'#DC2626',name:'phonepes.com.in',detail:'Fake PhonePe APK · UAE registrant · Active credential theft',tags:['critical','fake-apk']},
+];
+
+function invSearch(){const q=document.getElementById('inv-q').value.toLowerCase().trim();if(q)showResults(q);}
+function qSearch(q){document.getElementById('inv-q').value=q;showResults(q.toLowerCase());}
+function showResults(q){
+  const w=q.split(' ').filter(x=>x.length>2);
+  const sc=SD.map(r=>({...r,sc:w.reduce((s,w)=>s+((r.name+r.detail+r.tags.join(' ')).toLowerCase().includes(w)?1:0),0)})).filter(r=>r.sc>0).sort((a,b)=>b.sc-a.sc);
+  const res=sc.length?sc:SD;
+  document.getElementById('inv-results').innerHTML=`
+    <div style="font-family:var(--mono);font-size:10px;color:var(--m);margin-bottom:12px">"${q}" · ${res.length} entities found</div>
+    <div class="rg">${res.map((r,i)=>`
+      <div class="rc ${i===0?'top':''}">
+        <div class="rct"><div class="rcd" style="background:${r.color}"></div>${r.type}</div>
+        <div class="rcn">${r.name}</div>
+        <div class="rcde">${r.detail}</div>
+        <div class="rctags">${r.tags.map(t=>`<span class="rtag ${t.includes('crit')?'tr':t.includes('high')?'ta2':t.includes('ed')||t.includes('§')?'tg':'tb'}">${t}</span>`).join('')}</div>
+      </div>`).join('')}
+    </div>`;
+}
+
+// GRAPH
+const GN=[
+  {id:'op1',type:'OPERATOR',label:'Mahadev\nBook',x:400,y:240,r:22,color:'#D97706',detail:'41 channels · ED case · Dubai'},
+  {id:'op2',type:'OPERATOR',label:'Reddy\nAnna',x:640,y:165,r:18,color:'#D97706',detail:'28 channels · match fixing'},
+  {id:'op3',type:'OPERATOR',label:'Play99',x:190,y:170,r:16,color:'#D97706',detail:'19 channels · satta'},
+  {id:'ch1',type:'CHANNEL',label:'MDB',x:315,y:150,r:12,color:'#DC2626',detail:'Betting · 320K'},
+  {id:'ch2',type:'CHANNEL',label:'MDB VIP',x:475,y:140,r:11,color:'#DC2626',detail:'Betting · 280K'},
+  {id:'ch3',type:'CHANNEL',label:'Betting',x:520,y:285,r:10,color:'#DC2626',detail:'Betting · 190K'},
+  {id:'ch4',type:'CHANNEL',label:'Cricket',x:295,y:335,r:10,color:'#DC2626',detail:'Betting · 155K'},
+  {id:'ch5',type:'CHANNEL',label:'IPL Bet',x:720,y:130,r:11,color:'#DC2626',detail:'Betting · 210K'},
+  {id:'ch6',type:'CHANNEL',label:'Satta',x:155,y:115,r:10,color:'#DC2626',detail:'Betting · 180K'},
+  {id:'ch7',type:'CHANNEL',label:'91CLUB',x:155,y:330,r:20,color:'#7C3AED',detail:'Colour pred · 1M'},
+  {id:'ch8',type:'CHANNEL',label:'OKWIN',x:95,y:235,r:16,color:'#7C3AED',detail:'Colour pred · 820K'},
+  {id:'ch9',type:'CHANNEL',label:'JALWA',x:75,y:370,r:13,color:'#7C3AED',detail:'Colour pred · 725K'},
+  {id:'ch10',type:'CHANNEL',label:'IPL Live',x:570,y:115,r:14,color:'#2563EB',detail:'Piracy · 420K'},
+  {id:'ch11',type:'CHANNEL',label:'Movies',x:640,y:330,r:11,color:'#2563EB',detail:'Piracy · 290K'},
+  {id:'ch12',type:'CHANNEL',label:'Crypto\nFraud',x:740,y:270,r:14,color:'#F59E0B',detail:'Crypto · 8 ED platforms'},
+  {id:'ch13',type:'CHANNEL',label:'AI Scam',x:810,y:180,r:12,color:'#8B5CF6',detail:'AI voice/video'},
+  {id:'ph1',type:'PHONE',label:'+91-8881\n448108',x:395,y:370,r:10,color:'#ff6b9d',detail:'Seen 266x · laser247'},
+  {id:'ph2',type:'PHONE',label:'+91-8808\n843584',x:490,y:390,r:9,color:'#ff6b9d',detail:'Seen 134x · cricbet99'},
+  {id:'upi1',type:'UPI',label:'sspglobal\njob@gmail',x:150,y:440,r:9,color:'#0891B2',detail:'Job scam UPI'},
+  {id:'dm1',type:'DOMAIN',label:'jiohotstar\n.net',x:710,y:410,r:10,color:'#0891B2',detail:'Domain squat'},
+  {id:'dm2',type:'DOMAIN',label:'goldbook\ner.com',x:810,y:360,r:9,color:'#F59E0B',detail:'ED-confirmed crypto'},
+  {id:'nw1',type:'NETWORK',label:'Gujarat\nMule',x:395,y:455,r:14,color:'#64748B',detail:'Rs 77Cr · 16 arrested'},
+];
+const GE=[
+  {s:'op1',t:'ch1'},{s:'op1',t:'ch2'},{s:'op1',t:'ch3'},{s:'op1',t:'ch4'},
+  {s:'op2',t:'ch5'},{s:'op2',t:'ch10'},{s:'op3',t:'ch6'},
+  {s:'op1',t:'ph1'},{s:'op1',t:'ph2'},{s:'ch1',t:'ph1'},{s:'ch3',t:'ph1'},
+  {s:'nw1',t:'ph1'},{s:'nw1',t:'ph2'},{s:'ch10',t:'dm1'},
+  {s:'ch12',t:'dm2'},{s:'ch7',t:'upi1'},{s:'ch12',t:'ch13'},
+];
+let gInited=false;
+function initGraph(){
+  if(gInited)return;gInited=true;
+  const c=document.querySelector('.gcw');if(!c)return;
+  const W=c.clientWidth||700,H=c.clientHeight||500;
+  const svg=d3.select('#graph-svg').attr('viewBox',`0 0 ${W} ${H}`)
+    .call(d3.zoom().scaleExtent([.3,3]).on('zoom',e=>g.attr('transform',e.transform)));
+  const g=svg.append('g').attr('id','gg');
+  const sx=d3.scaleLinear().domain([60,860]).range([40,W-40]);
+  const sy=d3.scaleLinear().domain([100,480]).range([40,H-40]);
+  GN.forEach(n=>{n.sx=sx(n.x);n.sy=sy(n.y);});
+  GE.forEach(e=>{
+    const na=GN.find(n=>n.id===e.s),nb=GN.find(n=>n.id===e.t);
+    if(!na||!nb)return;
+    g.append('line').attr('x1',na.sx).attr('y1',na.sy).attr('x2',nb.sx).attr('y2',nb.sy)
+      .attr('stroke','rgba(255,255,255,.12)').attr('stroke-width',1);
   });
+  const ngs=g.selectAll('.ng').data(GN).enter().append('g')
+    .attr('transform',d=>`translate(${d.sx},${d.sy})`).style('cursor','pointer')
+    .on('mouseover',(e,d)=>{
+      const tt=document.getElementById('ntt');
+      const r=c.getBoundingClientRect();
+      document.getElementById('ntt-type').textContent=d.type;
+      document.getElementById('ntt-name').textContent=d.label.replace('\n',' ');
+      document.getElementById('ntt-detail').textContent=d.detail;
+      tt.style.display='block';
+      tt.style.left=(e.clientX-r.left+12)+'px';
+      tt.style.top=(e.clientY-r.top+12)+'px';
+    })
+    .on('mouseout',()=>document.getElementById('ntt').style.display='none')
+    .on('click',(_,d)=>{
+      document.getElementById('ninfo').innerHTML=`<b style="color:var(--g)">${d.label.replace('\n',' ')}</b><br><span style="color:var(--m)">${d.type}</span><br>${d.detail}<br><span style="color:var(--m);font-size:10px">${GE.filter(e=>e.s===d.id||e.t===d.id).length} connections</span>`;
+    });
+  ngs.each(function(d){if(d.type==='OPERATOR')d3.select(this).append('circle').attr('r',d.r+8).attr('fill',d.color).attr('opacity',.1);});
+  ngs.append('circle').attr('r',d=>d.r).attr('fill',d=>d.color).attr('fill-opacity',.85).attr('stroke',d=>d.color).attr('stroke-width',1.5).attr('stroke-opacity',.4);
+  ngs.each(function(d){
+    const ls=d.label.split('\n');
+    if(ls.length===1){
+      d3.select(this).append('text').attr('text-anchor','middle').attr('dy','.35em').attr('fill','#fff').attr('font-size',Math.max(8,d.r*.55)).attr('font-family','DM Mono,monospace').attr('font-weight','500').text(ls[0]);
+    }else{
+      d3.select(this).append('text').attr('text-anchor','middle').attr('dy','-.2em').attr('fill','#fff').attr('font-size',Math.max(7,d.r*.5)).attr('font-family','DM Mono,monospace').attr('font-weight','500').text(ls[0]);
+      d3.select(this).append('text').attr('text-anchor','middle').attr('dy','.85em').attr('fill','rgba(255,255,255,.8)').attr('font-size',Math.max(7,d.r*.45)).attr('font-family','DM Mono,monospace').text(ls[1]);
+    }
+  });
+}
+function gz(s){d3.select('#graph-svg').transition().call(d3.zoom().scaleTo,s);}
+
+// GEO
+let geoInited=false,geoFilter='all';
+const SD2={Maharashtra:{total:187,betting:89,piracy:42,crypto:28},Gujarat:{total:143,betting:55,piracy:28,crypto:35},Telangana:{total:128,betting:72,piracy:18,crypto:22},Karnataka:{total:112,betting:48,piracy:35,crypto:18},'Tamil Nadu':{total:98,betting:61,piracy:14,crypto:12},'Andhra Pradesh':{total:87,betting:52,piracy:10,crypto:15},Delhi:{total:76,betting:22,piracy:31,crypto:14},Rajasthan:{total:64,betting:38,piracy:8,crypto:9},'Uttar Pradesh':{total:59,betting:31,piracy:12,crypto:8},'West Bengal':{total:47,betting:18,piracy:16,crypto:7}};
+function geoF(v){geoFilter=v;drawGeo();renderHS();}
+function initGeo(){if(!geoInited){geoInited=true;drawGeo();renderHS();}}
+function renderHS(){
+  const st=Object.entries(SD2).map(([s,d])=>({state:s,count:geoFilter==='all'?d.total:d[geoFilter]||0})).sort((a,b)=>b.count-a.count);
+  const max=st[0]?.count||1;
+  const bc=geoFilter==='betting'?'#DC2626':geoFilter==='piracy'?'#D97706':geoFilter==='crypto'?'#F59E0B':'var(--g)';
+  document.getElementById('hlist').innerHTML=st.map(s=>`<div class="hi"><div class="hstate">${s.state}</div><div class="hbw"><div class="hbar" style="width:${Math.round(s.count/max*100)}%;background:${bc}"></div><span class="hcount">${s.count}</span></div></div>`).join('');
+}
+function drawGeo(){
+  const c=document.querySelector('.geom');if(!c)return;
+  const W=c.clientWidth||600,H=c.clientHeight||400;
+  const svg=d3.select('#india-map').attr('viewBox',`0 0 ${W} ${H}`);svg.selectAll('*').remove();
+  const col=geoFilter==='all'?d3.scaleLinear().domain([0,200]).range(['#0d3320','#22c55e']):geoFilter==='betting'?d3.scaleLinear().domain([0,100]).range(['#2d1015','#DC2626']):geoFilter==='piracy'?d3.scaleLinear().domain([0,50]).range(['#0d1830','#D97706']):d3.scaleLinear().domain([0,40]).range(['#1c1000','#F59E0B']);
+  const shapes=[{name:'Maharashtra',path:'M 310 320 L 380 280 L 430 300 L 420 360 L 370 380 L 320 360 Z'},{name:'Gujarat',path:'M 240 240 L 310 220 L 340 260 L 310 300 L 260 290 L 240 270 Z'},{name:'Rajasthan',path:'M 240 180 L 320 160 L 360 200 L 340 260 L 280 270 L 240 240 Z'},{name:'Uttar Pradesh',path:'M 360 160 L 450 140 L 490 180 L 470 220 L 410 230 L 370 200 Z'},{name:'Karnataka',path:'M 300 380 L 360 360 L 390 400 L 370 440 L 310 430 L 290 410 Z'},{name:'Andhra Pradesh',path:'M 370 340 L 430 320 L 460 360 L 440 400 L 390 410 L 360 380 Z'},{name:'Telangana',path:'M 370 300 L 430 290 L 450 330 L 420 350 L 370 340 Z'},{name:'Tamil Nadu',path:'M 330 420 L 380 410 L 400 460 L 370 500 L 330 490 L 310 460 Z'},{name:'West Bengal',path:'M 490 200 L 540 190 L 560 230 L 540 270 L 490 260 L 475 230 Z'},{name:'Delhi',path:'M 340 170 L 365 165 L 368 185 L 345 188 Z'}];
+  const sx=d3.scaleLinear().domain([60,600]).range([40,W-40]),sy=d3.scaleLinear().domain([120,520]).range([30,H-30]);
+  const g=svg.append('g');
+  shapes.forEach(sh=>{
+    const d=SD2[sh.name];const val=d?(geoFilter==='all'?d.total:d[geoFilter]||0):0;
+    const pts=sh.path.match(/-?\d+\.?\d*/g).map(Number);
+    const sp='M'+pts.reduce((a,v,i)=>a+(i%2===0?' '+sx(v):' '+sy(v)),'').trim().replace(/M /,'M')+' Z';
+    g.append('path').attr('d',sp).attr('fill',val>0?col(val):'#1a2030').attr('stroke','rgba(255,255,255,.15)').attr('stroke-width',.5).style('cursor','pointer')
+      .on('mouseover',function(e){d3.select(this).attr('stroke','var(--g)').attr('stroke-width',1.5);svg.append('text').attr('id','geo-tip').attr('x',e.offsetX+10).attr('y',e.offsetY-8).attr('fill','#fff').attr('font-size',11).attr('font-family','DM Sans,sans-serif').text(`${sh.name}: ${val}`);})
+      .on('mouseout',function(){d3.select(this).attr('stroke','rgba(255,255,255,.15)').attr('stroke-width',.5);svg.select('#geo-tip').remove();});
+    if(val>20){const cx=pts.filter((_,i)=>i%2===0).reduce((a,b)=>a+b,0)/(pts.length/2);const cy=pts.filter((_,i)=>i%2!==0).reduce((a,b)=>a+b,0)/(pts.length/2);g.append('text').attr('x',sx(cx)).attr('y',sy(cy)+4).attr('text-anchor','middle').attr('fill','rgba(255,255,255,.7)').attr('font-size',9).attr('font-family','DM Mono,monospace').attr('pointer-events','none').text(val);}
+  });
+}
+
+// ALERT INTELLIGENCE
+function renderAilList(){
+  document.getElementById('ail-count').textContent=ALL.length+' total';
+  buildAilList(ALL);
+}
+function ailFilter(){
+  const q=document.getElementById('ail-s').value.toLowerCase();
+  buildAilList(q?ALL.filter(a=>JSON.stringify(a).toLowerCase().includes(q)):ALL);
+}
+function buildAilList(list){
+  document.getElementById('ail-list').innerHTML=list.map((a,i)=>{
+    const sev=(a.severity||'medium').toLowerCase();
+    const sc=SC[sev]||'#94A3B8';
+    const cat=(a.category||'').replace(/_/g,' ');
+    const ts=a.detected_at?new Date(a.detected_at).toLocaleDateString('en-IN',{day:'numeric',month:'short'}):'';
+    return `<div class="aic" id="aic-${i}" onclick="showAid(${i},this)">
+      <div class="aic-bar" style="background:${sc}"></div>
+      <div class="aic-body">
+        <div class="aic-top"><span class="sb" style="font-size:8px;padding:1px 4px;background:${sc}22;color:${sc};border:1px solid ${sc}44">${sev.toUpperCase()}</span><span style="font-family:var(--mono);font-size:9px;color:var(--m)">${cat}</span></div>
+        <div class="aic-title">${a.title||'Untitled'}</div>
+        <div class="aic-meta"><span>${ts}</span><span>${a.platform||''}</span></div>
+      </div>
+    </div>`;
+  }).join('')||'<div class="empty">No alerts</div>';
+}
+
+function showAid(idx,card){
+  document.querySelectorAll('.aic').forEach(c=>c.classList.remove('active'));
+  if(card)card.classList.add('active');
+  const a=ALL[idx];if(!a)return;
+  const chain=a.chain||{},attr=a.attribution||{};
+  const sev=(a.severity||'medium').toLowerCase();
+  const sc=SC[sev]||'#94A3B8';
+  const reach=chain.reach||0;
+  const rs=reach>1e6?(reach/1e6).toFixed(1)+'M subs':reach>1000?Math.round(reach/1000)+'K subs':reach?reach+' subs':'—';
+  const ts=a.detected_at?new Date(a.detected_at).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'})+' IST':'—';
+  const phones=chain.phones||(attr.phone?[attr.phone]:[]);
+  const upis=chain.upis||(attr.upi?[attr.upi]:[]);
+  const atH=`
+    ${attr.name||chain.operator_name?`<span class="at2 at-n">👤 ${attr.name||chain.operator_name}</span>`:''}
+    ${attr.email?`<span class="at2 at-e">✉ ${attr.email}</span>`:''}
+    ${phones.length?phones.map(p=>`<span class="at2 at-p">📞 ${p}</span>`).join(''):'<span class="at2 at-m">Phone: pending</span>'}
+    ${upis.length?upis.map(u=>`<span class="at2 at-u">💳 ${u}</span>`).join(''):'<span class="at2 at-m">UPI: pending</span>'}
+    ${chain.whois_domain?`<span class="at2 at-e">🌐 ${chain.whois_domain}</span>`:''}
+  `;
+  const steps=a.next_steps||[];
+  const rt=a.report_to||[];
+  const reasons={piracy:'Illegal stream/content — streaming piracy keyword pattern',illegal_betting:'Unlicensed betting — violates PGA + OGA 2025',colour_prediction:'Colour prediction gambling — no NOGC licence',investment_fraud:'SEBI-unregistered advisory — guaranteed returns',crypto_fraud:'Fake crypto platform or pig butchering — ED PMLA confirmed',ai_scam:'AI voice/video fraud — deepfake or digital arrest scam',upi_mule:'UPI mule recruitment — active solicitation',brand_impersonation:'Fake brand APK — credential theft',domain_squat:'Bad-faith domain registration — brand mimicry'};
+  document.getElementById('aid').innerHTML=`
+    <div class="aid-hdr">
+      <div class="aid-sr">
+        <span class="sb" style="background:${sc}22;color:${sc};border:1px solid ${sc}44">${sev.toUpperCase()}</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--m);padding:2px 7px;border:1px solid var(--bo);border-radius:3px">${a.platform||'Telegram'}</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--m);padding:2px 7px;border:1px solid var(--bo);border-radius:3px">${(a.category||'').replace(/_/g,' ')}</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--m)">${ts}</span>
+      </div>
+      <div class="aid-title">${a.title||'Untitled'}</div>
+      ${a.detail?`<div class="aid-sub">${a.detail}</div>`:''}
+    </div>
+    <div class="aid-strip">
+      <div class="aid-stat"><div class="aid-sl">Reach</div><div class="aid-sv" style="color:${reach>500000?'#DC2626':reach>100000?'#D97706':'var(--g)'}">${rs}</div></div>
+      <div class="aid-stat"><div class="aid-sl">Channels</div><div class="aid-sv">${(chain.channels_found||[]).length||'—'}</div></div>
+      <div class="aid-stat"><div class="aid-sl">Confidence</div><div class="aid-sv" style="color:var(--g)">${chain.confidence||85}%</div></div>
+      <div class="aid-stat"><div class="aid-sl">Source</div><div class="aid-sv" style="font-size:11px">${a.source||'scanner'}</div></div>
+    </div>
+    <div class="aid-body">
+      <div><div class="aid-st">Operator attribution</div><div class="aid-box">
+        <div class="aid-row"><span class="aid-k">Identifiers</span><div class="att">${atH}</div></div>
+        ${chain.operator_network?`<div class="aid-row"><span class="aid-k">Network</span><span class="aid-v">${chain.operator_network}</span></div>`:''}
+        ${(chain.channels_found||[]).length?`<div class="aid-row"><span class="aid-k">Channels</span><span class="aid-v mono">${chain.channels_found.slice(0,5).join(', ')}</span></div>`:''}
+      </div></div>
+      <div><div class="aid-st">Evidence & legal</div><div class="aid-box">
+        <div class="aid-row"><span class="aid-k">Evidence hash</span><div style="flex:1"><div class="hd">${a.evidence_hash||'—'}<button class="hdcp" onclick="navigator.clipboard.writeText('${a.evidence_hash||''}').catch(()=>{});this.textContent='Copied!'">Copy</button></div></div></div>
+        <div class="aid-row"><span class="aid-k">Standard</span><span class="aid-v green">IT Act 2000 §65B · SHA-256 · Court admissible</span></div>
+        <div class="aid-row"><span class="aid-k">Legal basis</span><span class="aid-v">${a.legal_basis||chain.legal_basis||'—'}</span></div>
+        <div class="aid-row"><span class="aid-k">Why alerted</span><span class="aid-v">${reasons[a.category]||a.detail||'Pattern match on fraud signature'}</span></div>
+      </div></div>
+      ${steps.length?`<div><div class="aid-st">Next steps</div><div class="aid-box">${steps.map((s,i)=>`<div class="str"><div class="stn">${i+1}</div><div class="stt">${s.replace(/^Step \d+ — /,'')}</div></div>`).join('')}</div></div>`:''}
+      ${rt.length?`<div><div class="aid-st">Report to</div><div class="aid-box"><div class="aid-row"><span class="aid-k">Organisations</span><div>${rt.map(r=>`<span class="rpp">${r}</span>`).join('')}</div></div></div></div>`:''}
+    </div>`;
 }
 </script>
 </body>

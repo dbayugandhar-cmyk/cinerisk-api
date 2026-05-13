@@ -55,7 +55,7 @@ def sync_to_github(alerts):
         print('  GitHub sync: no token')
         return
     REPO = 'dbayugandhar-cmyk/cinerisk-api'
-    PATH = 'reports/alerts/live_alerts.json'
+    PATH = 'data/alerts_backup.json'
     url  = f'https://api.github.com/repos/{REPO}/contents/{PATH}'
     hdrs = {'Authorization':f'token {TOKEN}','Accept':'application/vnd.github.v3+json','User-Agent':'CINEOS','Content-Type':'application/json'}
     try:

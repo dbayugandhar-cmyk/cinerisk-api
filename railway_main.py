@@ -444,7 +444,7 @@ def _load_github():
         print('[STARTUP] No token — seed only')
         return []
     try:
-        url = 'https://api.github.com/repos/dbayugandhar-cmyk/cinerisk-api/contents/reports/alerts/live_alerts.json'
+        url = 'https://api.github.com/repos/dbayugandhar-cmyk/cinerisk-api/contents/data/alerts_backup.json'
         req = _ur2.Request(url, headers={
             'Authorization': f'token {tok}',
             'Accept': 'application/vnd.github.v3+json',

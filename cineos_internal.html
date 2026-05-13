@@ -1413,7 +1413,7 @@ async function buildCR() {
         q, api_key: KEY, engine: 'google',
         tbm: 'nws', tbs: 'qdr:w', num: 10, gl: 'in', no_cache: 'true'
       });
-      const resp = await fetch('https://serpapi.com/search?' + params);
+      const resp = await fetch(RAILWAY + '/api/news_search?' + new URLSearchParams({q}));
       const d = await resp.json();
       const arts = d.news_results || d.organic_results || [];
       for (const art of arts) {

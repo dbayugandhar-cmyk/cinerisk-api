@@ -4,7 +4,7 @@ Pushes ALL local alerts to Railway every morning.
 Add to crontab after blindspot_fixes:
 5 9 * * * cd ~/Desktop/cinerisk && python3 cineos_push_alerts.py
 """
-import json, urllib.request, time
+import json, base64, urllib.request, time
 from datetime import datetime, timezone, timedelta
 
 IST      = timezone(timedelta(hours=5, minutes=30))
@@ -47,6 +47,31 @@ def push():
         print(f'  Railway now: {s["alerts"]} alerts')
     except:
         pass
+
+
+def sync_to_github(alerts):
+    TOKEN = os.environ.get('GITHUB_TOKEN_RAIL_READ','')
+    if not TOKEN:
+        print('  GitHub sync: no token')
+        return
+    REPO = 'dbayugandhar-cmyk/cinerisk-api'
+    PATH = 'reports/alerts/live_alerts.json'
+    url  = f'https://api.github.com/repos/{REPO}/contents/{PATH}'
+    hdrs = {'Authorization':f'token {TOKEN}','Accept':'application/vnd.github.v3+json','User-Agent':'CINEOS','Content-Type':'application/json'}
+    try:
+        resp = json.loads(urllib.request.urlopen(urllib.request.Request(url,headers=hdrs),timeout=10).read())
+        sha  = resp.get('sha','')
+    except:
+        sha = ''
+    try:
+        b64  = base64.b64encode(json.dumps(alerts[:5000],indent=2,default=str).encode()).decode()
+        body = {'message':f'alerts: {len(alerts)}','content':b64}
+        if sha: body['sha'] = sha
+        req2 = urllib.request.Request(url,data=json.dumps(body).encode(),headers=hdrs,method='PUT')
+        urllib.request.urlopen(req2,timeout=20)
+        print(f'  GitHub sync: {len(alerts)} alerts written')
+    except Exception as e:
+        print(f'  GitHub sync failed: {e}')
 
 if __name__ == '__main__':
     push()

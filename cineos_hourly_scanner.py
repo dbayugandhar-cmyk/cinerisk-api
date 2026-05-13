@@ -280,12 +280,12 @@ def scan_crypto_fraud():
         'USDT investment double India Telegram fraud',
     ]
     for q in queries:
-        data = serp_news(q)
-        for r in data.get('news_results', data.get('organic_results', [])):
+        data = serp(q)
+        for r in data.get('organic_results', []):
             link  = r.get('link','')
             title = r.get('title','')
             snip  = r.get('snippet','')
-            is_crit = any(kw in (title+snip).lower() for kw in ['ed','arrested','crore','pmla','seized'])
+            is_crit = any(kw in (title+snip).lower() for kw in ['ed','arrested','crore','pmla','seized','fraud'])
             a = make_alert(
                 title=f'Crypto fraud — {title[:60]}',
                 category='crypto_fraud',
@@ -542,7 +542,9 @@ def scan_multilingual():
     all_queries = [(q,'Hindi') for q in queries_hi] + [(q,'Telugu') for q in queries_te] + [(q,'Tamil') for q in queries_ta]
 
     for q, lang in all_queries:
-        data = serp(q, extra={'lr': 'lang_hi' if lang=='Hindi' else 'lang_te' if lang=='Telugu' else 'lang_ta'})
+        import urllib.parse as _up
+        q_encoded = _up.quote(q)
+        data = serp(q_encoded, extra={'lr': 'lang_hi' if lang=='Hindi' else 'lang_te' if lang=='Telugu' else 'lang_ta'})
         for r in data.get('organic_results', [])[:3]:
             link  = r.get('link','')
             title = r.get('title','')

@@ -497,7 +497,7 @@ def get_alerts():
     """Full alert list for internal dashboard."""
     category = request.args.get('category', '')
     severity = request.args.get('severity', '')
-    limit    = int(request.args.get('limit', 100))
+    limit    = int(request.args.get('limit', 2000))
 
     filtered = ALERTS
     if category:
@@ -636,6 +636,24 @@ def add_cors(response):
     return response
 
 # ── STARTUP ───────────────────────────────────────────────
+
+@app.route('/api/news_search')
+def news_search():
+    import urllib.parse as _ulp
+    q = request.args.get('q','')
+    if not q:
+        return jsonify({'error':'no query'}),400
+    SERP = os.environ.get('SERP_API_KEY','2b37951bf87af21c398c270f8c02db7236c035120cfe4986a39b053f369468e1')
+    params = {'q':q,'api_key':SERP,'engine':'google','tbm':'nws','tbs':'qdr:w','num':10,'gl':'in'}
+    url = 'https://serpapi.com/search?' + _ulp.urlencode(params)
+    try:
+        import urllib.request as _ur
+        resp = _ur.urlopen(url, timeout=12)
+        data = json.loads(resp.read())
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({'error':str(e)}),500
+
 if __name__ == '__main__':
     init_alerts()
     print(f"CINEOS Intelligence API starting...")

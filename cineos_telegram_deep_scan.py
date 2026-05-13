@@ -36,8 +36,8 @@ API_HASH  = '852280f65386a00114ff7453eac7849b'
 SESSION   = 'cineos_session'
 IST       = timezone(timedelta(hours=5, minutes=30))
 MSG_LIMIT = 50          # messages per channel
-DELAY     = 1.5         # seconds between channels
-MAX_FLOOD = 300         # max flood wait before stopping
+DELAY     = 3.0         # seconds between channels
+MAX_FLOOD = 600         # max flood wait before stopping
 
 CHANNELS_FILE = 'reports/all_channels.json'
 ALERTS_FILE   = 'reports/alerts/live_alerts.json'

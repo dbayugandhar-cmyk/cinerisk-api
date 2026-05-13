@@ -380,6 +380,42 @@ def scheduler_loop():
 
 # Seed on module load — runs for both gunicorn and direct
 ALERTS.extend(SEED_ALERTS)
+
+# ── LOAD FROM GITHUB ON STARTUP (persistent) ─────────────
+import urllib.request as _ur2, base64 as _b642, os as _os2
+def _load_github():
+    tok = _os2.environ.get('GITHUB_TOKEN_RAIL_READ','')
+    if not tok:
+        print('[STARTUP] No token — seed only')
+        return []
+    try:
+        url = 'https://api.github.com/repos/dbayugandhar-cmyk/cinerisk-api/contents/reports/alerts/live_alerts.json'
+        req = _ur2.Request(url, headers={
+            'Authorization': f'token {tok}',
+            'Accept': 'application/vnd.github.v3+json',
+            'User-Agent': 'CINEOS'})
+        d = json.loads(_ur2.urlopen(req, timeout=12).read())
+        alerts = json.loads(_b642.b64decode(d["content"]).decode())
+        print(f'[STARTUP] GitHub: {len(alerts)} alerts loaded')
+        return alerts
+    except Exception as e:
+        print(f'[STARTUP] GitHub load failed: {e}')
+        return []
+
+_seen = {a.get('id','') for a in ALERTS}
+_seen_t = {f"{a.get('title','')[:60]}|{a.get('category','')}" for a in ALERTS}
+for _ga in _load_github():
+    _id = _ga.get('id','')
+    _tk = f"{_ga.get('title','')[:60]}|{_ga.get('category','')}"
+    if _id and _id in _seen: continue
+    if _tk in _seen_t: continue
+    ALERTS.insert(0, _ga)
+    _seen.add(_id)
+    _seen_t.add(_tk)
+ALERTS[:] = sorted(ALERTS[:500], key=lambda x: {'critical':0,'high':1,'medium':2,'low':3}.get(x.get('severity','low'),3))
+print(f'[STARTUP] Ready: {len(ALERTS)} alerts total')
+# ─────────────────────────────────────────────────────────
+
 print(f'CINEOS: {len(ALERTS)} alerts seeded')
 
 # Start scheduler for gunicorn (runs 24/7 even when Mac is off)

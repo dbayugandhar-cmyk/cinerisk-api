@@ -690,7 +690,7 @@ def run_full_scan():
 
     # Merge with existing and save
     merged = all_new + existing
-    merged = merged[:500]  # cap at 500
+    merged = merged[:2000]  # cap at 500
     json.dump(merged, open(ALERTS_FILE,'w'), indent=2, default=str)
     print(f'[SAVE] {len(merged)} total alerts in local file')
 

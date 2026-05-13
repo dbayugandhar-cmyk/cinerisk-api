@@ -1,0 +1,163 @@
+==========================================================
+  CINEOS AGGRESSIVE SCAN — 2026-05-13 07:30 IST
+==========================================================
+[SCAN] IPL piracy...
+  IPL piracy: 14 found
+[SCAN] Illegal betting...
+  Betting: 56 found
+[SCAN] Colour prediction...
+  Colour prediction: 49 found
+[SCAN] Crypto fraud...
+  Crypto fraud: 56 found
+[SCAN] AI scams...
+  AI scams: 10 found
+[SCAN] Investment fraud...
+  Investment fraud: 5 found
+[SCAN] UPI mule...
+  UPI mule: 50 found
+[SCAN] Domain squats...
+  Domain squats: 46 found
+[SCAN] Counterfeit goods...
+  Counterfeit: 50 found
+[SCAN] Enforcement news...
+  Enforcement news: 13 found
+[SCAN] Multilingual...
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  Multilingual: 9 found
+[SCAN] WhatsApp fraud...
+  WhatsApp: 23 found
+[SCAN] IndiaMART...
+  IndiaMART: 30 found
+
+[RESULTS] 128 new unique alerts found
+[SAVE] 628 total alerts in local file
+[RAILWAY] Pushing new alerts...
+[RAILWAY] Pushed 50/50 alerts
+
+[SUMMARY]
+  New:      128
+  Total:    628
+  By severity: {'critical': 45, 'high': 83}
+  By category:
+    counterfeit_marketplace             31
+    crypto_fraud                        21
+    upi_mule                            19
+    investment_fraud                    14
+    colour_prediction                   13
+    illegal_betting                     11
+    domain_squat                        9
+    piracy                              8
+    counterfeit_pharma                  2
+==========================================================
+==========================================================
+  CINEOS AGGRESSIVE SCAN — 2026-05-13 09:30 IST
+==========================================================
+[SCAN] IPL piracy...
+  IPL piracy: 15 found
+[SCAN] Illegal betting...
+  Betting: 52 found
+[SCAN] Colour prediction...
+  Colour prediction: 48 found
+[SCAN] Crypto fraud...
+  Crypto fraud: 59 found
+[SCAN] AI scams...
+  AI scams: 9 found
+[SCAN] Investment fraud...
+  Investment fraud: 4 found
+[SCAN] UPI mule...
+  UPI mule: 49 found
+[SCAN] Domain squats...
+  Domain squats: 48 found
+[SCAN] Counterfeit goods...
+  Counterfeit: 50 found
+[SCAN] Enforcement news...
+  Enforcement news: 14 found
+[SCAN] Multilingual...
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  Multilingual: 9 found
+[SCAN] WhatsApp fraud...
+  WhatsApp: 27 found
+[SCAN] IndiaMART...
+  IndiaMART: 30 found
+
+[RESULTS] 112 new unique alerts found
+[SAVE] 740 total alerts in local file
+[RAILWAY] Pushing new alerts...
+[RAILWAY] Pushed 50/50 alerts
+
+[SUMMARY]
+  New:      112
+  Total:    740
+  By severity: {'critical': 43, 'high': 69}
+  By category:
+    crypto_fraud                        27
+    counterfeit_marketplace             20
+    upi_mule                            16
+    investment_fraud                    14
+    illegal_betting                     14
+    domain_squat                        9
+    colour_prediction                   7
+    piracy                              4
+    counterfeit_pharma                  1
+==========================================================
+==========================================================
+  CINEOS AGGRESSIVE SCAN — 2026-05-13 10:30 IST
+==========================================================
+[SCAN] IPL piracy...
+  IPL piracy: 14 found
+[SCAN] Illegal betting...
+  Betting: 52 found
+[SCAN] Colour prediction...
+  Colour prediction: 50 found
+[SCAN] Crypto fraud...
+  Crypto fraud: 58 found
+[SCAN] AI scams...
+  AI scams: 9 found
+[SCAN] Investment fraud...
+  Investment fraud: 0 found
+[SCAN] UPI mule...
+  SerpAPI error [google]: The read operation timed out
+  UPI mule: 36 found
+[SCAN] Domain squats...
+  Domain squats: 48 found
+[SCAN] Counterfeit goods...
+  Counterfeit: 49 found
+[SCAN] Enforcement news...
+  Enforcement news: 13 found
+[SCAN] Multilingual...
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  Multilingual: 9 found
+[SCAN] WhatsApp fraud...
+  WhatsApp: 24 found
+[SCAN] IndiaMART...
+  IndiaMART: 30 found
+
+[RESULTS] 67 new unique alerts found
+[SAVE] 807 total alerts in local file
+[RAILWAY] Pushing new alerts...
+[RAILWAY] Pushed 50/50 alerts
+
+[SUMMARY]
+  New:      67
+  Total:    807
+  By severity: {'critical': 22, 'high': 45}
+  By category:
+    counterfeit_marketplace             18
+    crypto_fraud                        14
+    investment_fraud                    8
+    illegal_betting                     6
+    upi_mule                            6
+    colour_prediction                   6
+    domain_squat                        5
+    piracy                              2
+    counterfeit_pharma                  2
+==========================================================

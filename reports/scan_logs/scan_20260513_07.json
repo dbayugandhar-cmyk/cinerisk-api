@@ -1,20 +1,20 @@
 {
-  "scan_time": "2026-05-13T07:18:39.528335+05:30",
-  "new_alerts": 205,
-  "total_local": 500,
+  "scan_time": "2026-05-13T07:34:14.089453+05:30",
+  "new_alerts": 128,
+  "total_local": 628,
   "by_category": {
-    "piracy": 2,
-    "illegal_betting": 38,
-    "colour_prediction": 22,
-    "crypto_fraud": 54,
-    "upi_mule": 27,
-    "domain_squat": 18,
-    "investment_fraud": 20,
-    "counterfeit_marketplace": 20,
-    "counterfeit_pharma": 4
+    "piracy": 8,
+    "illegal_betting": 11,
+    "colour_prediction": 13,
+    "crypto_fraud": 21,
+    "upi_mule": 19,
+    "domain_squat": 9,
+    "counterfeit_pharma": 2,
+    "counterfeit_marketplace": 31,
+    "investment_fraud": 14
   },
   "by_severity": {
-    "critical": 83,
-    "high": 122
+    "critical": 45,
+    "high": 83
   }
 }

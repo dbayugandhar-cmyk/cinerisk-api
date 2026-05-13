@@ -214,3 +214,57 @@
     colour_prediction                   5
     piracy                              2
 ==========================================================
+==========================================================
+  CINEOS AGGRESSIVE SCAN — 2026-05-13 12:30 IST
+==========================================================
+[SCAN] IPL piracy...
+  IPL piracy: 16 found
+[SCAN] Illegal betting...
+  Betting: 50 found
+[SCAN] Colour prediction...
+  Colour prediction: 50 found
+[SCAN] Crypto fraud...
+  Crypto fraud: 58 found
+[SCAN] AI scams...
+  AI scams: 8 found
+[SCAN] Investment fraud...
+  Investment fraud: 4 found
+[SCAN] UPI mule...
+  UPI mule: 48 found
+[SCAN] Domain squats...
+  Domain squats: 49 found
+[SCAN] Counterfeit goods...
+  Counterfeit: 45 found
+[SCAN] Enforcement news...
+  Enforcement news: 12 found
+[SCAN] Multilingual...
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  Multilingual: 9 found
+[SCAN] WhatsApp fraud...
+  WhatsApp: 22 found
+[SCAN] IndiaMART...
+  IndiaMART: 31 found
+
+[RESULTS] 64 new unique alerts found
+[SAVE] 1886 total alerts in local file
+[RAILWAY] Pushing new alerts...
+[RAILWAY] Pushed 50/50 alerts
+
+[SUMMARY]
+  New:      64
+  Total:    1886
+  By severity: {'critical': 21, 'high': 43}
+  By category:
+    upi_mule                            18
+    domain_squat                        12
+    counterfeit_marketplace             9
+    colour_prediction                   8
+    crypto_fraud                        7
+    illegal_betting                     5
+    counterfeit_pharma                  3
+    piracy                              1
+    investment_fraud                    1
+==========================================================

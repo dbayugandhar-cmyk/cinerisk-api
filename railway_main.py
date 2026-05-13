@@ -21,6 +21,61 @@ from datetime import datetime, timezone, timedelta
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
+# ── AGGRESSIVE MULTI-CATEGORY QUERY SET ──────────────────
+SCAN_QUERIES = {
+    'piracy': [
+        'IPL 2026 live stream free Telegram illegal',
+        'hotstar free stream Telegram channel India',
+        'OTT piracy India Telegram movie download 2026',
+        'JioHotstar piracy India stream free',
+    ],
+    'illegal_betting': [
+        'site:t.me satta matka betting India 2026',
+        'Mahadev Book Reddy Anna cricket betting Telegram',
+        'online cricket id betbhai9 laser247 Telegram India',
+        'IPL toss prediction sure shot Telegram India 2026',
+        'satta king faridabad ghaziabad result Telegram',
+    ],
+    'colour_prediction': [
+        '91club OKWIN Jalwa BDG Win Telegram India 2026',
+        'colour prediction game Telegram India earn withdraw',
+        'Daman game Tiranga lottery Telegram India 2026',
+        'wingo bdg colour trading Telegram India 2026',
+    ],
+    'crypto_fraud': [
+        'crypto investment fraud India Telegram arrested 2026',
+        'fake crypto platform India ED PMLA chargesheet 2026',
+        'pig butchering WhatsApp Telegram India 2026',
+        'Bitcoin USDT fraud India Telegram arrested',
+    ],
+    'ai_scam': [
+        'digital arrest scam India AI voice 2026',
+        'deepfake fraud India WhatsApp Telegram 2026',
+        'AI voice clone fraud CBI ED impersonation India',
+        'fake official call India digital arrest MHA',
+    ],
+    'investment_fraud': [
+        'SEBI unregistered advisor Telegram India 2026',
+        'stock tips guaranteed profit Telegram India fraud',
+        'fake IPO subscription Telegram India fraud arrested',
+        'option trading fraud India Telegram profit guarantee',
+    ],
+    'upi_mule': [
+        'bank account kit sell India Telegram earn 2026',
+        'UPI mule arrested India cybercrime 2026',
+        'money mule India Telegram bank account fraud',
+        'sim card bank kit Telegram India earn commission',
+    ],
+    'enforcement_news': [
+        'cybercrime arrested India Telegram fraud crore 2026',
+        'ED crypto fraud India PMLA chargesheet 2026',
+        'SEBI action unregistered advisor India crore 2026',
+        'I4C cybercrime India Telegram arrested today 2026',
+        'CERT-In advisory phishing India 2026',
+    ],
+}
+
+
 app = Flask(__name__)
 CORS(app)  # Allow cineos.in dashboard to fetch
 
@@ -355,7 +410,7 @@ def run_scheduled_scan():
 # ── SCHEDULER ─────────────────────────────────────────────
 def scheduler_loop():
     """Run scans at 8am, 12pm, 6pm, 10pm IST every day."""
-    SCAN_HOURS_IST = {8, 12, 18, 22}
+    SCAN_HOURS_IST = {6, 8, 10, 12, 14, 16, 18, 20, 22}
     last_scan_hour = None
 
     while True:

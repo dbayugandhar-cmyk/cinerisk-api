@@ -161,3 +161,56 @@
     piracy                              2
     counterfeit_pharma                  2
 ==========================================================
+==========================================================
+  CINEOS AGGRESSIVE SCAN — 2026-05-13 11:30 IST
+==========================================================
+[SCAN] IPL piracy...
+  IPL piracy: 14 found
+[SCAN] Illegal betting...
+  Betting: 49 found
+[SCAN] Colour prediction...
+  Colour prediction: 49 found
+[SCAN] Crypto fraud...
+  Crypto fraud: 58 found
+[SCAN] AI scams...
+  AI scams: 7 found
+[SCAN] Investment fraud...
+  Investment fraud: 5 found
+[SCAN] UPI mule...
+  UPI mule: 49 found
+[SCAN] Domain squats...
+  Domain squats: 49 found
+[SCAN] Counterfeit goods...
+  Counterfeit: 44 found
+[SCAN] Enforcement news...
+  Enforcement news: 12 found
+[SCAN] Multilingual...
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  SerpAPI error [google]: HTTP Error 400: Bad Request
+  Multilingual: 9 found
+[SCAN] WhatsApp fraud...
+  WhatsApp: 27 found
+[SCAN] IndiaMART...
+  IndiaMART: 30 found
+
+[RESULTS] 88 new unique alerts found
+[SAVE] 992 total alerts in local file
+[RAILWAY] Pushing new alerts...
+[RAILWAY] Pushed 50/50 alerts
+
+[SUMMARY]
+  New:      88
+  Total:    992
+  By severity: {'critical': 25, 'high': 63}
+  By category:
+    counterfeit_marketplace             31
+    upi_mule                            12
+    domain_squat                        11
+    crypto_fraud                        10
+    illegal_betting                     9
+    investment_fraud                    8
+    colour_prediction                   5
+    piracy                              2
+==========================================================

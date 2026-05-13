@@ -22612,6 +22612,55 @@
       "subscribers": 55330,
       "bio": "",
       "updated_at": "2026-05-13T11:19:53.209529+05:30"
+    },
+    "OPERATOR_e6d91c7087d1": {
+      "id": "OPERATOR_e6d91c7087d1",
+      "type": "OPERATOR",
+      "label": "Reddy Anna / World777 Network",
+      "aliases": [
+        "Reddy_Annaw",
+        "reddy_Annae",
+        "World777",
+        "Lotus365"
+      ],
+      "channels": [
+        "World777_fairplay_tiger365",
+        "Reddy_Annaw",
+        "reddy_Annae",
+        "Lotus365o"
+      ],
+      "phones": [
+        "+918881754538",
+        "+918881349483",
+        "+918881987328",
+        "+918881923320"
+      ],
+      "reach": 294245,
+      "category": "illegal_betting",
+      "confidence": 95,
+      "evidence": "Same phones posted across 4 channels \u2014 confirmed operator network",
+      "added_at": "2026-05-13T11:35:47.720962+05:30"
+    },
+    "OPERATOR_f4eadef18ec6": {
+      "id": "OPERATOR_f4eadef18ec6",
+      "type": "OPERATOR",
+      "label": "Fairplay Betting Network",
+      "aliases": [
+        "fairplay_fair_play_club_book",
+        "fairplay_fair_play_crypto_book"
+      ],
+      "channels": [
+        "fairplay_fair_play_club_book",
+        "fairplay_fair_play_crypto_book"
+      ],
+      "phones": [
+        "+917348219900"
+      ],
+      "reach": 189858,
+      "category": "illegal_betting",
+      "confidence": 90,
+      "evidence": "Same phone across 2 fairplay channels \u2014 confirmed operator",
+      "added_at": "2026-05-13T11:35:47.721481+05:30"
     }
   },
   "edges": [
@@ -24374,6 +24423,198 @@
       "to": "PHONE_fe901a267acd",
       "relation": "has_phone",
       "source": "deep_scan"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_63b0cbed129b",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_6c49cdbf8046",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_63b0cbed129b",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_64b42e6413fe",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_63b0cbed129b",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_2aafcfd088a3",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_63b0cbed129b",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_855404e13284",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_6b65c87c2093",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_6c49cdbf8046",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_6b65c87c2093",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_64b42e6413fe",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_6b65c87c2093",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_2aafcfd088a3",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_6b65c87c2093",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_855404e13284",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_374384baf90d",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_6c49cdbf8046",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_374384baf90d",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_64b42e6413fe",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_374384baf90d",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_2aafcfd088a3",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_374384baf90d",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_855404e13284",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_7631ac3ed466",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_6c49cdbf8046",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_7631ac3ed466",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_64b42e6413fe",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_7631ac3ed466",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_2aafcfd088a3",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "PHONE_7631ac3ed466",
+      "relation": "uses_phone",
+      "source": "cross_channel_analysis"
+    },
+    {
+      "from": "OPERATOR_e6d91c7087d1",
+      "to": "CHANNEL_855404e13284",
+      "relation": "operates",
+      "source": "cross_channel_analysis"
     }
   ],
   "index": {
@@ -29501,7 +29742,7 @@
     }
   },
   "stats": {
-    "total_nodes": 1542,
+    "total_nodes": 1544,
     "total_edges": 237,
     "updated_at": "2026-05-13T11:29:38.117591+05:30"
   }

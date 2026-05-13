@@ -1,5 +1,4990 @@
 [
   {
+    "id": "79bbefdb648f270f",
+    "title": "IPL piracy detected \u2014 New Viral Cricket IPL Match Trend TRY NOW Follow these ...",
+    "category": "piracy",
+    "severity": "critical",
+    "platform": "Web / Telegram",
+    "detail": "IPL - Trend - Prompt Link in Telegram ... GT vs Mi match IPL 2026 Prediction | Today Match Prediction | Cricket Prediction#cricket #ipl2026.",
+    "detected_at": "2026-05-13T11:30:05.190713+05:30",
+    "source": "ipl_piracy_scan",
+    "evidence_hash": "79bbefdb648f270f",
+    "legal_basis": "IT Act 2000 \u00a765B + Copyright Act 1957 \u00a751 + IT Rules 2021 Rule 4(4)",
+    "next_steps": [
+      "Preserve evidence \u2014 SHA-256 hash archived at detection",
+      "Send IT Rules 2021 \u00a769A takedown to Telegram: abuse@telegram.org",
+      "File with MIB: mib.gov.in",
+      "Report to BCCI Anti-Piracy: antipiracy@bcci.tv",
+      "File NCCRP: cybercrime.gov.in"
+    ],
+    "report_to": [
+      "MIB \u2014 mib.gov.in",
+      "BCCI \u2014 antipiracy@bcci.tv",
+      "JioHotstar \u2014 security@jiostar.com",
+      "Telegram \u2014 abuse@telegram.org"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/reel/DYQ-DSvME_5/"
+      ],
+      "keywords_matched": [
+        "IPL",
+        "2026",
+        "live",
+        "stream"
+      ],
+      "reach": 35000000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "79bbefdb648f270f"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Copyright Act 1957 \u00a751 + IT Rules 2021 Rule 4(4)",
+      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived at detection",
+      "report_to": [
+        "MIB \u2014 mib.gov.in",
+        "BCCI \u2014 antipiracy@bcci.tv",
+        "JioHotstar \u2014 security@jiostar.com",
+        "Telegram \u2014 abuse@telegram.org"
+      ],
+      "captured_at": "2026-05-13T11:30:05.190708+05:30"
+    }
+  },
+  {
+    "id": "442b1145056e80c2",
+    "title": "IPL piracy detected \u2014 Join Telegram , Link in Bio IPL has started and these 5 ...",
+    "category": "piracy",
+    "severity": "critical",
+    "platform": "Web / Telegram",
+    "detail": "I'll send the website link to your DM, just comment IPL. OCR. mwsguy.com Watch IPL 2026 Live Free 9 channels, 5+ languages, HD quality. Star ...",
+    "detected_at": "2026-05-13T11:30:05.190798+05:30",
+    "source": "ipl_piracy_scan",
+    "evidence_hash": "442b1145056e80c2",
+    "legal_basis": "IT Act 2000 \u00a765B + Copyright Act 1957 \u00a751 + IT Rules 2021 Rule 4(4)",
+    "next_steps": [
+      "Preserve evidence \u2014 SHA-256 hash archived at detection",
+      "Send IT Rules 2021 \u00a769A takedown to Telegram: abuse@telegram.org",
+      "File with MIB: mib.gov.in",
+      "Report to BCCI Anti-Piracy: antipiracy@bcci.tv",
+      "File NCCRP: cybercrime.gov.in"
+    ],
+    "report_to": [
+      "MIB \u2014 mib.gov.in",
+      "BCCI \u2014 antipiracy@bcci.tv",
+      "JioHotstar \u2014 security@jiostar.com",
+      "Telegram \u2014 abuse@telegram.org"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/p/DW6fK_5kjb1/?__d=1%E6%9A%97%E9%BB%91%E7%B2%BE%E7%81%B5%E7%A4%BE%E5%B7%A5%E5%BA%93%E6%9F%A5%E8%AF%A2%E4%BA%BA%E7%89%A9%E8%BD%A8%E8%BF%B9%E5%85%B7%E4%BD%93%E7%94%A8%E4%BB%80%E4%B9%88%E4%BA%A4%E9%80%9A%E5%B7%A5%E5%85%B7%E5%8E%BB%E4%BB%80%E4%B9%88%E5%9C%B0%E6%96%B9%E3%80%82%E6%9C%80%E4%BF%A1%E8%B5%96%E7%9A%84%E6%8F%AD%E7%A7%98%E4%BB%98%E8%B4%B9%E7%A4%BE%E5%B7%A5%E5%BA%93%E2%9C%94%EF%B8%8Fchalalala.com"
+      ],
+      "keywords_matched": [
+        "IPL",
+        "2026",
+        "live",
+        "stream"
+      ],
+      "reach": 35000000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "442b1145056e80c2"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Copyright Act 1957 \u00a751 + IT Rules 2021 Rule 4(4)",
+      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived at detection",
+      "report_to": [
+        "MIB \u2014 mib.gov.in",
+        "BCCI \u2014 antipiracy@bcci.tv",
+        "JioHotstar \u2014 security@jiostar.com",
+        "Telegram \u2014 abuse@telegram.org"
+      ],
+      "captured_at": "2026-05-13T11:30:05.190793+05:30"
+    }
+  },
+  {
+    "id": "dd6b3deecd7352ba",
+    "title": "Crypto fraud \u2014 \ud835\uddd4\ud835\uddff\ud835\uddff\ud835\uddf2\ud835\ude00\ud835\ude01 \ud835\uddfc\ud835\uddf3 \ud835\uddd6\ud835\ude06\ud835\uddef\ud835\uddf2\ud835\uddff \ud835\uddd9\ud835\uddff\ud835\uddee\ud835\ude02\ud835\uddf1\ud835\ude00\ud835\ude01\ud835\uddf2\ud835\uddff \ud835\uddf6\ud835\uddfb \ud835\udddc\ud835\uddfb\ud835\ude03\ud835\uddf2\ud835\ude00\ud835\ude01\ud835\uddfa\ud835\uddf2\ud835\uddfb\ud835\ude01 ...",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram / Web",
+    "detail": "Cyber Crime Police, Hyderabad City arrested two accused persons namely 1) Noushad CH and 2) Ahammed Kabeer CH who were involved in Investment ...",
+    "detected_at": "2026-05-13T11:31:02.947171+05:30",
+    "source": "crypto_fraud_scan",
+    "evidence_hash": "dd6b3deecd7352ba",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in/helpline 1930",
+      "Report to CERT-In if active phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.facebook.com/hyderabadpolice/posts/%F0%9D%97%94%F0%9D%97%BF%F0%9D%97%BF%F0%9D%97%B2%F0%9D%98%80%F0%9D%98%81-%F0%9D%97%BC%F0%9D%97%B3-%F0%9D%97%96%F0%9D%98%86%F0%9D%97%AF%F0%9D%97%B2%F0%9D%97%BF-%F0%9D%97%99%F0%9D%97%BF%F0%9D%97%AE%F0%9D%98%82%F0%9D%97%B1%F0%9D%98%80%F0%9D%98%81%F0%9D%97%B2%F0%9D%97%BF-%F0%9D%97%B6%F0%9D%97%BB-%F0%9D%97%9C%F0%9D%97%BB%F0%9D%98%83%F0%9D%97%B2%F0%9D%98%80%F0%9D%98%81%F0%9D%97%BA%F0%9D%97%B2%F0%9D%97%BB%F0%9D%98%81-%F0%9D%97%A7%F0%9D%97%BF%F0%9D%97%AE%F0%9D%97%B1%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4-%F0%9D%97%A6%F0%9D%97%B0%F0%9D%97%AE%F0%9D%97%BAhyderabad-cyber-crime-police/1285891870247178/"
+      ],
+      "keywords_matched": [
+        "crypto",
+        "investment",
+        "fraud",
+        "India"
+      ],
+      "reach": 100000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "dd6b3deecd7352ba"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-13T11:31:02.947148+05:30"
+    }
+  },
+  {
+    "id": "69c4c5155ce0af1f",
+    "title": "Crypto fraud \u2014 Over 500 cheated of crores in 'crypto investment' fraud, 4 .",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram / Web",
+    "detail": "The Delhi Police last week arrested four people for allegedly cheating over 500 people across the country of crores of rupees by luring them ...",
+    "detected_at": "2026-05-13T11:31:02.947242+05:30",
+    "source": "crypto_fraud_scan",
+    "evidence_hash": "69c4c5155ce0af1f",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in/helpline 1930",
+      "Report to CERT-In if active phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://indianexpress.com/article/cities/delhi/delhi-police-cheated-crores-crypto-investment-fraud-held-delhi-police-8574860/"
+      ],
+      "keywords_matched": [
+        "crypto",
+        "investment",
+        "fraud",
+        "India"
+      ],
+      "reach": 100000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "69c4c5155ce0af1f"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-13T11:31:02.947231+05:30"
+    }
+  },
+  {
+    "id": "14449470bd75daeb",
+    "title": "Crypto fraud \u2014 Chandigarh man duped of over Rs 6 lakh in Telegram ...",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram / Web",
+    "detail": "A 46-year-old resident of Sector 45D, Chandigarh, has reportedly been defrauded of Rs 6.58 lakh in a cryptocurrency scam operated via ...",
+    "detected_at": "2026-05-13T11:31:02.947431+05:30",
+    "source": "crypto_fraud_scan",
+    "evidence_hash": "14449470bd75daeb",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in/helpline 1930",
+      "Report to CERT-In if active phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.tribuneindia.com/news/chandigarh/chandigarh-man-duped-of-over-rs-6-lakh-in-telegram-based-crypto-investment-fraud/"
+      ],
+      "keywords_matched": [
+        "crypto",
+        "investment",
+        "fraud",
+        "India"
+      ],
+      "reach": 100000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "14449470bd75daeb"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-13T11:31:02.947422+05:30"
+    }
+  },
+  {
+    "id": "f2d5920df37b04ee",
+    "title": "Crypto fraud \u2014 Gang laundering money via illegal crypto trading on ...",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram / Web",
+    "detail": "The gang was involved in duping people by transferring crores of rupees to mule accounts on the pretext of illegal 'crypto trading' using USDT (Tether",
+    "detected_at": "2026-05-13T11:31:02.947478+05:30",
+    "source": "crypto_fraud_scan",
+    "evidence_hash": "f2d5920df37b04ee",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in/helpline 1930",
+      "Report to CERT-In if active phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://timesofindia.indiatimes.com/city/lucknow/gang-laundering-money-via-illegal-crypto-trading-on-telegram-busted/articleshow/121997722.cms"
+      ],
+      "keywords_matched": [
+        "crypto",
+        "investment",
+        "fraud",
+        "India"
+      ],
+      "reach": 100000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "f2d5920df37b04ee"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-13T11:31:02.947469+05:30"
+    }
+  },
+  {
+    "id": "43ce1e9698261696",
+    "title": "Crypto fraud \u2014 Telegram Faces Further Scrutiny with Criminal Probe by ...",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram / Web",
+    "detail": "Pavel Durov was apprehended by Parisian authorities as police investigated whether Telegram's Chief has done enough to prevent and moderate ...",
+    "detected_at": "2026-05-13T11:31:02.947524+05:30",
+    "source": "crypto_fraud_scan",
+    "evidence_hash": "43ce1e9698261696",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in/helpline 1930",
+      "Report to CERT-In if active phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://cryptonews.com.au/news/telegram-faces-further-scrutiny-with-criminal-probe-by-indias-cybercrime-unit-123009/"
+      ],
+      "keywords_matched": [
+        "crypto",
+        "investment",
+        "fraud",
+        "India"
+      ],
+      "reach": 100000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "43ce1e9698261696"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-13T11:31:02.947515+05:30"
+    }
+  },
+  {
+    "id": "567ccc0dd705ce26",
+    "title": "Crypto fraud \u2014 Telegram group cyber investment fraud busted",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram / Web",
+    "detail": "Police arrest 11 in a cyber fraud racket linked to stock market scams via a Telegram group, with suspects living lavishly off commissions.",
+    "detected_at": "2026-05-13T11:31:02.947571+05:30",
+    "source": "crypto_fraud_scan",
+    "evidence_hash": "567ccc0dd705ce26",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in/helpline 1930",
+      "Report to CERT-In if active phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.hindustantimes.com/cities/mumbai-news/telegram-group-cyber-investment-fraud-busted-101738954767553.html"
+      ],
+      "keywords_matched": [
+        "crypto",
+        "investment",
+        "fraud",
+        "India"
+      ],
+      "reach": 100000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "567ccc0dd705ce26"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-13T11:31:02.947562+05:30"
+    }
+  },
+  {
+    "id": "df465a498f9efea9",
+    "title": "Crypto fraud \u2014 Crypto Fraud: Bengaluru Man Scammed Of Over Rs 40 ...",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram / Web",
+    "detail": "Bengaluru man lost over Rs 42 lakh in crypto scam. Scammers used fake Telegram group showing fabricated wallet balances. Police investigating ...",
+    "detected_at": "2026-05-13T11:31:02.947634+05:30",
+    "source": "crypto_fraud_scan",
+    "evidence_hash": "df465a498f9efea9",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in/helpline 1930",
+      "Report to CERT-In if active phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.outlookmoney.com/news/crypto-fraud-bengaluru-man-scammed-of-over-rs-40-lakhs-via-telegram-group"
+      ],
+      "keywords_matched": [
+        "crypto",
+        "investment",
+        "fraud",
+        "India"
+      ],
+      "reach": 100000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "df465a498f9efea9"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-13T11:31:02.947624+05:30"
+    }
+  },
+  {
+    "id": "ab99a058cb49c520",
+    "title": "Crypto fraud \u2014 MBBS student loses Rs 44 lakh in cryptocurrency scams",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram / Web",
+    "detail": "A medical student in Gwalior lost Rs 44 lakh when he was duped in a cryptocurrency investment scam on messaging app Telegram.",
+    "detected_at": "2026-05-13T11:31:02.947681+05:30",
+    "source": "crypto_fraud_scan",
+    "evidence_hash": "ab99a058cb49c520",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in/helpline 1930",
+      "Report to CERT-In if active phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.business-standard.com/finance/personal-finance/mbbs-student-loses-rs-44-lakh-in-crypto-scam-tips-to-protect-yourself-125021400833_1.html"
+      ],
+      "keywords_matched": [
+        "crypto",
+        "investment",
+        "fraud",
+        "India"
+      ],
+      "reach": 100000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "ab99a058cb49c520"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-13T11:31:02.947672+05:30"
+    }
+  },
+  {
+    "id": "ddc40d102ae88f5a",
+    "title": "Crypto fraud \u2014 Pig Butchering Scam in India: How Fake Trading Apps Stole ..",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram / Web",
+    "detail": "Pig butchering scam stole \u20b914000 crore from Indians in 2024. Learn how fake WhatsApp trading groups and apps work and how to protect ...",
+    "detected_at": "2026-05-13T11:31:20.819131+05:30",
+    "source": "crypto_fraud_scan",
+    "evidence_hash": "ddc40d102ae88f5a",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in/helpline 1930",
+      "Report to CERT-In if active phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://scamdekho.in/blog/pig-butchering-scam-india-fake-trading-app-investment-fraud"
+      ],
+      "keywords_matched": [
+        "pig",
+        "butchering",
+        "scam",
+        "India"
+      ],
+      "reach": 100000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "ddc40d102ae88f5a"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-13T11:31:20.819122+05:30"
+    }
+  },
+  {
+    "id": "58cc9a15266f56f9",
+    "title": "Investment fraud \u2014 BofA Securities Pays \u20b958.50 Lakh to Settle SEBI Proceedings ",
+    "category": "investment_fraud",
+    "severity": "critical",
+    "platform": "Telegram / Web",
+    "detail": "BofA Securities India Ltd has paid \u20b958.50 lakh to settle adjudication proceedings initiated by market regulator Securities and Exchange Board of India",
+    "detected_at": "2026-05-13T11:32:29.590363+05:30",
+    "source": "investment_scan",
+    "evidence_hash": "58cc9a15266f56f9",
+    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+    "next_steps": [
+      "Preserve evidence",
+      "Report SEBI-unregistered advisor: sebi.gov.in/SCORES",
+      "File SEBI SCORES complaint: scores.gov.in",
+      "Send Telegram takedown with SEBI Act \u00a712A evidence",
+      "Report to CERT-In if phishing site"
+    ],
+    "report_to": [
+      "SEBI SCORES \u2014 scores.gov.in",
+      "cybercrime@sebi.gov.in",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.moneylife.in/article/bofa-securities-pays-5850-lakh-to-settle-sebi-proceedings-over-insider-trading-compliance-lapses/80434.html"
+      ],
+      "keywords_matched": [
+        "stock",
+        "market",
+        "fraud",
+        "India"
+      ],
+      "reach": 150000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "58cc9a15266f56f9"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "SEBI SCORES \u2014 scores.gov.in",
+        "cybercrime@sebi.gov.in",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:29.590358+05:30"
+    }
+  },
+  {
+    "id": "99095621db231b15",
+    "title": "UPI mule recruitment \u2014 Seven Bank Officials Arrested in Cyberabad Mule Account",
+    "category": "upi_mule",
+    "severity": "critical",
+    "platform": "Telegram / WhatsApp",
+    "detail": "Cyberabad police arrest seven bank officials for allegedly bypassing KYC norms and opening mule accounts used to route cyber fraud money.",
+    "detected_at": "2026-05-13T11:32:56.040488+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "99095621db231b15",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://the420.in/cyberabad-bank-officials-mule-account-scam-kyc-fraud/"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "99095621db231b15"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:56.040480+05:30"
+    }
+  },
+  {
+    "id": "31f9aad896d85451",
+    "title": "UPI mule recruitment \u2014 Mule account scam busted, four arrested | Hyderabad New",
+    "category": "upi_mule",
+    "severity": "critical",
+    "platform": "Telegram / WhatsApp",
+    "detail": "Hyderabad: Adilabad police on Saturday arrested four persons allegedly involved in facilitating opening of mule accounts.",
+    "detected_at": "2026-05-13T11:32:56.040989+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "31f9aad896d85451",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://timesofindia.indiatimes.com/city/hyderabad/mule-account-scam-busted-four-arrested/articleshow/130521904.cms"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "31f9aad896d85451"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:56.040982+05:30"
+    }
+  },
+  {
+    "id": "829130e08cde5ae4",
+    "title": "Domain squat / fake brand \u2014 An important news for all the Paytm users",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "Web / WHOIS",
+    "detail": "India ready to work magic of UPI with AI: \u00b7 Evolution of fraud detection: From static rules to AI insight analytics: \u00b7 Four steps to authorize ...",
+    "detected_at": "2026-05-13T11:33:12.195379+05:30",
+    "source": "domain_squat_scan",
+    "evidence_hash": "829130e08cde5ae4",
+    "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+    "next_steps": [
+      "Preserve WHOIS evidence \u2014 registrant archived",
+      "File WIPO UDRP: wipo.int/amc/en/domains",
+      "Report to domain registrar abuse team",
+      "Send C&D to WHOIS registrant email",
+      "File with CERT-In if phishing active"
+    ],
+    "report_to": [
+      "WIPO UDRP \u2014 wipo.int/amc",
+      "Domain registrar abuse",
+      "CERT-In",
+      "Brand owner legal"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.technodg.com/an-important-news-for-all-the-paytm-users.html"
+      ],
+      "keywords_matched": [
+        "fake",
+        "JioHotstar",
+        "PhonePe",
+        "HDFC"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "829130e08cde5ae4"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+      "recommended_action": "Preserve WHOIS evidence \u2014 registrant archived",
+      "report_to": [
+        "WIPO UDRP \u2014 wipo.int/amc",
+        "Domain registrar abuse",
+        "CERT-In",
+        "Brand owner legal"
+      ],
+      "captured_at": "2026-05-13T11:33:12.195373+05:30",
+      "whois_domain": "technodg.com"
+    }
+  },
+  {
+    "id": "188a3111018e2363",
+    "title": "Domain squat / fake brand \u2014 Fake Govt App Steals UPI Credentials in India",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "Web / WHOIS",
+    "detail": "Cybercriminals exploit a fake government app to steal UPI banking data, leveraging phishing sites, malicious APKs, and SMS-based malware ...",
+    "detected_at": "2026-05-13T11:33:14.993856+05:30",
+    "source": "domain_squat_scan",
+    "evidence_hash": "188a3111018e2363",
+    "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+    "next_steps": [
+      "Preserve WHOIS evidence \u2014 registrant archived",
+      "File WIPO UDRP: wipo.int/amc/en/domains",
+      "Report to domain registrar abuse team",
+      "Send C&D to WHOIS registrant email",
+      "File with CERT-In if phishing active"
+    ],
+    "report_to": [
+      "WIPO UDRP \u2014 wipo.int/amc",
+      "Domain registrar abuse",
+      "CERT-In",
+      "Brand owner legal"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.ampcuscyber.com/shadowopsintel/fake-government-app-targets-indian-users-in-upi-credential-theft-campaign/"
+      ],
+      "keywords_matched": [
+        "fake",
+        "banking",
+        "app",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "188a3111018e2363"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+      "recommended_action": "Preserve WHOIS evidence \u2014 registrant archived",
+      "report_to": [
+        "WIPO UDRP \u2014 wipo.int/amc",
+        "Domain registrar abuse",
+        "CERT-In",
+        "Brand owner legal"
+      ],
+      "captured_at": "2026-05-13T11:33:14.993851+05:30",
+      "whois_domain": "ampcuscyber.com"
+    }
+  },
+  {
+    "id": "0308df1fdd2ce5c6",
+    "title": "Domain squat / fake brand \u2014 \u0916\u0924\u0930\u0928\u093e\u0915 APK \u0938\u094d\u0915\u0948\u092e 2026: \u0932\u094b\u0917\u094b\u0902 \u0915\u094b \u0915\u0902\u0917\u093e\u0932 \u092c\u0928\u093e \u0930\u0939\u093e \u092b\u094d\u0930\u0949\u0921 Lin",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "Web / WHOIS",
+    "detail": "\u0916\u0924\u0930\u0928\u093e\u0915 APK \u0938\u094d\u0915\u0948\u092e 2026: \u0932\u094b\u0917\u094b\u0902 \u0915\u094b \u0915\u0902\u0917\u093e\u0932 \u092c\u0928\u093e \u0930\u0939\u093e \u092b\u094d\u0930\u0949\u0921 Link! \u090f\u0915 \u0915\u094d\u0932\u093f\u0915 \u0914\u0930 \u0932\u0942\u091f \u0917\u092f\u093e \u0905\u0915\u093e\u0909\u0902\u091f. \u0905\u0917\u0930 \u0906\u092a\u0928\u0947 \u0917\u0932\u0924\u0940 \u0938\u0947 \u0915\u094b\u0908 \u0938\u0902\u0926\u093f\u0917\u094d\u0927 APK \u0907\u0902\u0938\u094d\u091f\u0949\u0932 \u0915\u0930 \u0932\u093f\u092f\u093e \u0939\u0948, \u0924\u094b \u0924\u0941\u0930\u0902\u0924 \u0907\u0902",
+    "detected_at": "2026-05-13T11:33:14.994009+05:30",
+    "source": "domain_squat_scan",
+    "evidence_hash": "0308df1fdd2ce5c6",
+    "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+    "next_steps": [
+      "Preserve WHOIS evidence \u2014 registrant archived",
+      "File WIPO UDRP: wipo.int/amc/en/domains",
+      "Report to domain registrar abuse team",
+      "Send C&D to WHOIS registrant email",
+      "File with CERT-In if phishing active"
+    ],
+    "report_to": [
+      "WIPO UDRP \u2014 wipo.int/amc",
+      "Domain registrar abuse",
+      "CERT-In",
+      "Brand owner legal"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://ndtv.in/tech/apk-scam-2026-one-click-can-empty-your-bank-account-11244938"
+      ],
+      "keywords_matched": [
+        "fake",
+        "banking",
+        "app",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "0308df1fdd2ce5c6"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+      "recommended_action": "Preserve WHOIS evidence \u2014 registrant archived",
+      "report_to": [
+        "WIPO UDRP \u2014 wipo.int/amc",
+        "Domain registrar abuse",
+        "CERT-In",
+        "Brand owner legal"
+      ],
+      "captured_at": "2026-05-13T11:33:14.993993+05:30",
+      "whois_domain": "ndtv.in"
+    }
+  },
+  {
+    "id": "419d77fa6715d242",
+    "title": "Domain squat / fake brand \u2014 TELEGRAM TROUBLE",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "Web / WHOIS",
+    "detail": "It was recently brought to the Plaintiff's attention that their newspaper was being illegally circulated using Telegram Channels thereby causing finan",
+    "detected_at": "2026-05-13T11:33:19.468091+05:30",
+    "source": "domain_squat_scan",
+    "evidence_hash": "419d77fa6715d242",
+    "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+    "next_steps": [
+      "Preserve WHOIS evidence \u2014 registrant archived",
+      "File WIPO UDRP: wipo.int/amc/en/domains",
+      "Report to domain registrar abuse team",
+      "Send C&D to WHOIS registrant email",
+      "File with CERT-In if phishing active"
+    ],
+    "report_to": [
+      "WIPO UDRP \u2014 wipo.int/amc",
+      "Domain registrar abuse",
+      "CERT-In",
+      "Brand owner legal"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://iprmentlaw.com/2020/06/02/telegram-trouble/"
+      ],
+      "keywords_matched": [
+        "brand",
+        "domain",
+        "squat",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "419d77fa6715d242"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+      "recommended_action": "Preserve WHOIS evidence \u2014 registrant archived",
+      "report_to": [
+        "WIPO UDRP \u2014 wipo.int/amc",
+        "Domain registrar abuse",
+        "CERT-In",
+        "Brand owner legal"
+      ],
+      "captured_at": "2026-05-13T11:33:19.467870+05:30",
+      "whois_domain": "iprmentlaw.com"
+    }
+  },
+  {
+    "id": "808fdb7048aa45f9",
+    "title": "Domain squat / fake brand \u2014 The fake IPL scam of Gujrat",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "Web / WHOIS",
+    "detail": "\u0907\u0938 video \u092e\u0947\u0902 \u091c\u093e\u0928\u093f\u090f: \u2714\ufe0f \u0915\u0948\u0938\u0947 \u092a\u0939\u091a\u093e\u0928\u0947\u0902 fake ticket \u2714\ufe0f \u0915\u094c\u0928 \u0938\u0947 platform safe \u0939\u0948\u0902 \u2714\ufe0f scam \u0939\u094b \u0917\u092f\u093e \u0924\u094b \u0915\u094d\u092f\u093e \u0915\u0930\u0947\u0902 \u0939\u092e\u0947\u0936\u093e official website \u092f\u093e trusted source \u0938\u0947 \u0939\u0940",
+    "detected_at": "2026-05-13T11:33:22.832761+05:30",
+    "source": "domain_squat_scan",
+    "evidence_hash": "808fdb7048aa45f9",
+    "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+    "next_steps": [
+      "Preserve WHOIS evidence \u2014 registrant archived",
+      "File WIPO UDRP: wipo.int/amc/en/domains",
+      "Report to domain registrar abuse team",
+      "Send C&D to WHOIS registrant email",
+      "File with CERT-In if phishing active"
+    ],
+    "report_to": [
+      "WIPO UDRP \u2014 wipo.int/amc",
+      "Domain registrar abuse",
+      "CERT-In",
+      "Brand owner legal"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/p/DXePuXqAqZ0/"
+      ],
+      "keywords_matched": [
+        "fake",
+        "BCCI",
+        "IPL",
+        "official"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "808fdb7048aa45f9"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+      "recommended_action": "Preserve WHOIS evidence \u2014 registrant archived",
+      "report_to": [
+        "WIPO UDRP \u2014 wipo.int/amc",
+        "Domain registrar abuse",
+        "CERT-In",
+        "Brand owner legal"
+      ],
+      "captured_at": "2026-05-13T11:33:22.832757+05:30",
+      "whois_domain": "instagram.com"
+    }
+  },
+  {
+    "id": "2d1f86fab61824a8",
+    "title": "Domain squat / fake brand \u2014 *TELEGRAM BIGGEST SCAM IN INDIA EXPOSED* Do ...",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "Web / WHOIS",
+    "detail": "*TELEGRAM BIGGEST SCAM IN INDIA EXPOSED* Do Prepaid Task and Earn Money Scam on Telegram - BEWARE\u26a0\ufe0f ... Biggest Telegram Scam | Telegram Fraud \u0915\u0947 \u092a\u0940\u091b\u0947",
+    "detected_at": "2026-05-13T11:33:29.897008+05:30",
+    "source": "domain_squat_scan",
+    "evidence_hash": "2d1f86fab61824a8",
+    "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+    "next_steps": [
+      "Preserve WHOIS evidence \u2014 registrant archived",
+      "File WIPO UDRP: wipo.int/amc/en/domains",
+      "Report to domain registrar abuse team",
+      "Send C&D to WHOIS registrant email",
+      "File with CERT-In if phishing active"
+    ],
+    "report_to": [
+      "WIPO UDRP \u2014 wipo.int/amc",
+      "Domain registrar abuse",
+      "CERT-In",
+      "Brand owner legal"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.youtube.com/watch?v=KR3hrfj4XUA"
+      ],
+      "keywords_matched": [
+        "counterfeit",
+        "brand",
+        "website",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "2d1f86fab61824a8"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+      "recommended_action": "Preserve WHOIS evidence \u2014 registrant archived",
+      "report_to": [
+        "WIPO UDRP \u2014 wipo.int/amc",
+        "Domain registrar abuse",
+        "CERT-In",
+        "Brand owner legal"
+      ],
+      "captured_at": "2026-05-13T11:33:29.896998+05:30",
+      "whois_domain": "youtube.com"
+    }
+  },
+  {
+    "id": "0f101a860e06d111",
+    "title": "Domain squat / fake brand \u2014 Fake Telegram Channels Alert - Pravin Khetan",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "Web / WHOIS",
+    "detail": "Fake Telegram Channels Alert - Pravin Khetan. 2.6K views \u00b7 3 ...",
+    "detected_at": "2026-05-13T11:33:29.897168+05:30",
+    "source": "domain_squat_scan",
+    "evidence_hash": "0f101a860e06d111",
+    "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+    "next_steps": [
+      "Preserve WHOIS evidence \u2014 registrant archived",
+      "File WIPO UDRP: wipo.int/amc/en/domains",
+      "Report to domain registrar abuse team",
+      "Send C&D to WHOIS registrant email",
+      "File with CERT-In if phishing active"
+    ],
+    "report_to": [
+      "WIPO UDRP \u2014 wipo.int/amc",
+      "Domain registrar abuse",
+      "CERT-In",
+      "Brand owner legal"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.youtube.com/watch?v=4pKmXTE7QcQ"
+      ],
+      "keywords_matched": [
+        "counterfeit",
+        "brand",
+        "website",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "0f101a860e06d111"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+      "recommended_action": "Preserve WHOIS evidence \u2014 registrant archived",
+      "report_to": [
+        "WIPO UDRP \u2014 wipo.int/amc",
+        "Domain registrar abuse",
+        "CERT-In",
+        "Brand owner legal"
+      ],
+      "captured_at": "2026-05-13T11:33:29.897162+05:30",
+      "whois_domain": "youtube.com"
+    }
+  },
+  {
+    "id": "70932dfec9c2ae89",
+    "title": "Domain squat / fake brand \u2014 Telegram and Counterfeit: How To Protect Your Brand in ",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "Web / WHOIS",
+    "detail": "Such bots can send information on where to purchase fake goods, download pirated digital content, etc. Telegram became a place where communities ...",
+    "detected_at": "2026-05-13T11:33:29.897250+05:30",
+    "source": "domain_squat_scan",
+    "evidence_hash": "70932dfec9c2ae89",
+    "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+    "next_steps": [
+      "Preserve WHOIS evidence \u2014 registrant archived",
+      "File WIPO UDRP: wipo.int/amc/en/domains",
+      "Report to domain registrar abuse team",
+      "Send C&D to WHOIS registrant email",
+      "File with CERT-In if phishing active"
+    ],
+    "report_to": [
+      "WIPO UDRP \u2014 wipo.int/amc",
+      "Domain registrar abuse",
+      "CERT-In",
+      "Brand owner legal"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://medium.com/brandsecurity/telegram-and-counterfeiting-how-to-protect-your-brand-in-a-messaging-app-3845757a86fb"
+      ],
+      "keywords_matched": [
+        "counterfeit",
+        "brand",
+        "website",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "70932dfec9c2ae89"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+      "recommended_action": "Preserve WHOIS evidence \u2014 registrant archived",
+      "report_to": [
+        "WIPO UDRP \u2014 wipo.int/amc",
+        "Domain registrar abuse",
+        "CERT-In",
+        "Brand owner legal"
+      ],
+      "captured_at": "2026-05-13T11:33:29.897244+05:30",
+      "whois_domain": "medium.com"
+    }
+  },
+  {
+    "id": "a039dcee260ad447",
+    "title": "Domain squat / fake brand \u2014 CyberDost \u2013 \u091f\u0947\u0932\u0940\u0917\u094d\u0930\u093e\u092e",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "Web / WHOIS",
+    "detail": "Online trust \u0915\u0930\u0928\u0947 \u0938\u0947 \u092a\u0939\u0932\u0947 check \u0915\u0930\u0928\u093e habit \u092c\u0928\u093e\u0907\u090f. \u092f\u0939 option \u0928\u0939\u0940\u0902, \u091c\u093c\u0930\u0942\u0930\u0924 \u0939\u0948. \u0905\u0917\u0930 \u0915\u094b\u0908 cyber fraud \u0939\u094b \u091c\u093e\u090f, 1930 \u092a\u0930 call \u0915\u0930\u0947\u0902 \u092f\u093e cybercrime.gov.in \u092a\u0930 rep",
+    "detected_at": "2026-05-13T11:33:29.897317+05:30",
+    "source": "domain_squat_scan",
+    "evidence_hash": "a039dcee260ad447",
+    "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+    "next_steps": [
+      "Preserve WHOIS evidence \u2014 registrant archived",
+      "File WIPO UDRP: wipo.int/amc/en/domains",
+      "Report to domain registrar abuse team",
+      "Send C&D to WHOIS registrant email",
+      "File with CERT-In if phishing active"
+    ],
+    "report_to": [
+      "WIPO UDRP \u2014 wipo.int/amc",
+      "Domain registrar abuse",
+      "CERT-In",
+      "Brand owner legal"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/cyberdosti4c?before=4312"
+      ],
+      "keywords_matched": [
+        "counterfeit",
+        "brand",
+        "website",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "a039dcee260ad447"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+      "recommended_action": "Preserve WHOIS evidence \u2014 registrant archived",
+      "report_to": [
+        "WIPO UDRP \u2014 wipo.int/amc",
+        "Domain registrar abuse",
+        "CERT-In",
+        "Brand owner legal"
+      ],
+      "captured_at": "2026-05-13T11:33:29.897311+05:30",
+      "whois_domain": "gov.in"
+    }
+  },
+  {
+    "id": "1c3623fdcd7beb46",
+    "title": "Domain squat / fake brand \u2014 Man duped of Rs 13.5 Lakh in fake currency trading scam",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "Web / WHOIS",
+    "detail": "Online Scam Alert: Mangaluru man loses \u20b913.5 lakh after Telegram contact lures him into fake currency trading scheme linked to Dubai-based ...",
+    "detected_at": "2026-05-13T11:33:29.897471+05:30",
+    "source": "domain_squat_scan",
+    "evidence_hash": "1c3623fdcd7beb46",
+    "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+    "next_steps": [
+      "Preserve WHOIS evidence \u2014 registrant archived",
+      "File WIPO UDRP: wipo.int/amc/en/domains",
+      "Report to domain registrar abuse team",
+      "Send C&D to WHOIS registrant email",
+      "File with CERT-In if phishing active"
+    ],
+    "report_to": [
+      "WIPO UDRP \u2014 wipo.int/amc",
+      "Domain registrar abuse",
+      "CERT-In",
+      "Brand owner legal"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.deccanherald.com/india/karnataka/mangaluru-a-man-loses-more-than-rs-135-lakh-to-online-currency-trading-scam-3548723"
+      ],
+      "keywords_matched": [
+        "counterfeit",
+        "brand",
+        "website",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "1c3623fdcd7beb46"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+      "recommended_action": "Preserve WHOIS evidence \u2014 registrant archived",
+      "report_to": [
+        "WIPO UDRP \u2014 wipo.int/amc",
+        "Domain registrar abuse",
+        "CERT-In",
+        "Brand owner legal"
+      ],
+      "captured_at": "2026-05-13T11:33:29.897465+05:30",
+      "whois_domain": "deccanherald.com"
+    }
+  },
+  {
+    "id": "969ec380e985ef88",
+    "title": "Domain squat / fake brand \u2014 Telegram Scams in India | Tips to Identify & Protect Yo",
+    "category": "domain_squat",
+    "severity": "critical",
+    "platform": "Web / WHOIS",
+    "detail": "Beware of Telegram scams in India. Scammers targeting people in the name of fake jobs & investment schemes. Learn how to safe yourself.",
+    "detected_at": "2026-05-13T11:33:29.897517+05:30",
+    "source": "domain_squat_scan",
+    "evidence_hash": "969ec380e985ef88",
+    "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+    "next_steps": [
+      "Preserve WHOIS evidence \u2014 registrant archived",
+      "File WIPO UDRP: wipo.int/amc/en/domains",
+      "Report to domain registrar abuse team",
+      "Send C&D to WHOIS registrant email",
+      "File with CERT-In if phishing active"
+    ],
+    "report_to": [
+      "WIPO UDRP \u2014 wipo.int/amc",
+      "Domain registrar abuse",
+      "CERT-In",
+      "Brand owner legal"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://aseemjuneja.in/telegram-scams-in-india/"
+      ],
+      "keywords_matched": [
+        "counterfeit",
+        "brand",
+        "website",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "969ec380e985ef88"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + Trade Marks Act 1999 \u00a729 + UDRP",
+      "recommended_action": "Preserve WHOIS evidence \u2014 registrant archived",
+      "report_to": [
+        "WIPO UDRP \u2014 wipo.int/amc",
+        "Domain registrar abuse",
+        "CERT-In",
+        "Brand owner legal"
+      ],
+      "captured_at": "2026-05-13T11:33:29.897512+05:30",
+      "whois_domain": "aseemjuneja.in"
+    }
+  },
+  {
+    "id": "822a269335f18eaf",
+    "title": "Illegal betting \u2014 India's #1 Online Cricket Prediction Site cricketclues.com",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram / Web",
+    "detail": "100% accurate cricket prediction tips on all major cricket leagues, including IPL, ICC World Cup, T20 Internationals, Asia Cup, and more.",
+    "detected_at": "2026-05-13T11:30:33.093682+05:30",
+    "source": "betting_scan",
+    "evidence_hash": "822a269335f18eaf",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown with IT Act \u00a765B evidence",
+      "Share with ED if Dubai/crypto link confirmed"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.cricketclues.com/"
+      ],
+      "keywords_matched": [
+        "cricket",
+        "betting",
+        "tips",
+        "WhatsApp"
+      ],
+      "reach": 200000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "822a269335f18eaf"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:30:33.093678+05:30"
+    }
+  },
+  {
+    "id": "aa7c216e40c033e0",
+    "title": "Illegal betting \u2014 Cricket WhatsApp Group Links - 100% Active Groups",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram / Web",
+    "detail": "Cricket WhatsApp Group Links to Join ; ROCKY CRICKET BETTING TIPS, Join In ; Dream 11 players, Join In ; CRICKET MY LOVE , Join In ; Update Cricket, J",
+    "detected_at": "2026-05-13T11:30:33.093767+05:30",
+    "source": "betting_scan",
+    "evidence_hash": "aa7c216e40c033e0",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown with IT Act \u00a765B evidence",
+      "Share with ED if Dubai/crypto link confirmed"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://appgrouplink.com/cricket-whatsapp-group-links/"
+      ],
+      "keywords_matched": [
+        "cricket",
+        "betting",
+        "tips",
+        "WhatsApp"
+      ],
+      "reach": 200000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "aa7c216e40c033e0"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:30:33.093760+05:30"
+    }
+  },
+  {
+    "id": "1df3533b53d5d25e",
+    "title": "Illegal betting \u2014 https://t.me/Loadshreeram CHANNEL LINK IN BIO \ud83d\udc46\ud83d\udcaf ...",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram / Web",
+    "detail": "2026 IPL Toss Prediction Only for Entertainment Purposes ~ No Guarantee \u26a0\ufe0f Join Telegram for Daily ~ Giveaway/Analysis/Experiences ...",
+    "detected_at": "2026-05-13T11:30:40.149166+05:30",
+    "source": "betting_scan",
+    "evidence_hash": "1df3533b53d5d25e",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown with IT Act \u00a765B evidence",
+      "Share with ED if Dubai/crypto link confirmed"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/reel/DYGve_PzJRa/"
+      ],
+      "keywords_matched": [
+        "IPL",
+        "toss",
+        "prediction",
+        "sure"
+      ],
+      "reach": 200000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "1df3533b53d5d25e"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:30:40.149158+05:30"
+    }
+  },
+  {
+    "id": "f3738ec755e2327a",
+    "title": "Illegal betting \u2014 Sure shot toss winner on telegram channel link in bio Haters",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram / Web",
+    "detail": "Free Match Prediction join telegram channel link in bio .. . ... IPL ALL TOSS OPEN POST IN CHANNEL \u2714\ufe0f#cricket #ipl2026 #viratkohli ...",
+    "detected_at": "2026-05-13T11:30:40.149223+05:30",
+    "source": "betting_scan",
+    "evidence_hash": "f3738ec755e2327a",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown with IT Act \u00a765B evidence",
+      "Share with ED if Dubai/crypto link confirmed"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/reel/DXpRmcAHBIq/"
+      ],
+      "keywords_matched": [
+        "IPL",
+        "toss",
+        "prediction",
+        "sure"
+      ],
+      "reach": 200000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "f3738ec755e2327a"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:30:40.149216+05:30"
+    }
+  },
+  {
+    "id": "eeb154773fb01602",
+    "title": "Illegal betting \u2014 Toss Telegram Ipl Channel T10 Toss And Match Available In ..",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram / Web",
+    "detail": "... Toss Prediction, Today IPL match Rajasthan Vs Punjab fix match winner ke liye Telegram channel link join kijiye ?, #match #ipl #cricket # ...",
+    "detected_at": "2026-05-13T11:30:40.149333+05:30",
+    "source": "betting_scan",
+    "evidence_hash": "eeb154773fb01602",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown with IT Act \u00a765B evidence",
+      "Share with ED if Dubai/crypto link confirmed"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.hosnoman.com/?k=18005339021620"
+      ],
+      "keywords_matched": [
+        "IPL",
+        "toss",
+        "prediction",
+        "sure"
+      ],
+      "reach": 200000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "eeb154773fb01602"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:30:40.149327+05:30"
+    }
+  },
+  {
+    "id": "ef03275c705062df",
+    "title": "Illegal betting \u2014 MAHARAJ JI",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram / Web",
+    "detail": "07 \u092e\u0908 2026 \u0911\u0932 \u0917\u0947\u092e {32-18-63-94-24-83} {04-54-27-93 } \u00b7 08 \u092e\u0908 2026 \u0911\u0932 \u0917\u0947\u092e {74-37-14-24-83-19} {64-32-84-16 } \u00b7 09 \u092e\u0908 2026. KESE HO BHAIYO \u0911\u0932 \u0917\u0947\u092e {69- .",
+    "detected_at": "2026-05-13T11:30:44.551617+05:30",
+    "source": "betting_scan",
+    "evidence_hash": "ef03275c705062df",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown with IT Act \u00a765B evidence",
+      "Share with ED if Dubai/crypto link confirmed"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/ATOZSATTA"
+      ],
+      "keywords_matched": [
+        "satta",
+        "king",
+        "faridabad",
+        "ghaziabad"
+      ],
+      "reach": 200000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "ef03275c705062df"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:30:44.551608+05:30"
+    }
+  },
+  {
+    "id": "59959365b9810f90",
+    "title": "Illegal betting \u2014 \u0917\u093c\u093e\u091c\u093c\u093f\u092f\u093e\u092c\u093e\u0926 \u0938\u091f\u094d\u091f\u093e \u0915\u093f\u0902\u0917 13th \u092e\u0908 2026 \u0917\u0932\u0940 \u0926\u093f\u0938\u093e\u0935\u0930 \u092b\u093c\u0930\u0940\u0926\u093e\u092c\u093e\u0926 \u0926\u093f\u0932",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram / Web",
+    "detail": "\u0917\u093c\u093e\u091c\u093c\u093f\u092f\u093e\u092c\u093e\u0926 \u0938\u091f\u094d\u091f\u093e \u0915\u093f\u0902\u0917 13th \u092e\u0908 2026 \u0917\u0932\u0940 \u0926\u093f\u0938\u093e\u0935\u0930 \u092b\u093c\u0930\u0940\u0926\u093e\u092c\u093e\u0926 \u0926\u093f\u0932\u094d\u0932\u0940 \u092c\u093e\u091c\u093e\u0930 \u0936\u094d\u0930\u0940 \u0917\u0923\u0947\u0936. \u0917\u0932\u0940 \u0926\u093f\u0938\u093e\u0935\u0930 \u0915\u0940 \u0938\u093f\u0902\u0917\u0932 \u091c\u094b\u0921\u093c\u0940 \u0932\u0947\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f. SATTA KING. LEAK JODI DHAMAKA ",
+    "detected_at": "2026-05-13T11:30:44.551809+05:30",
+    "source": "betting_scan",
+    "evidence_hash": "59959365b9810f90",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown with IT Act \u00a765B evidence",
+      "Share with ED if Dubai/crypto link confirmed"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://satta-king24.com/"
+      ],
+      "keywords_matched": [
+        "satta",
+        "king",
+        "faridabad",
+        "ghaziabad"
+      ],
+      "reach": 200000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "59959365b9810f90"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:30:44.551799+05:30"
+    }
+  },
+  {
+    "id": "ab802713e0ba8d51",
+    "title": "Colour prediction fraud \u2014 1 \ud835\udc0c\ud835\udc08\ud835\udc0d \ud835\udc0f\ud835\udc11\ud835\udc04\ud835\udc03\ud835\udc08\ud835\udc02\ud835\udc13\ud835\udc08\ud835\udc0e\ud835\udc0d \ud835\udc15\ud835\udc00\ud835\udc12\ud835\udc07\ud835\udc14 \ud835\udc01\ud835\udc03\ud835\udc06",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram / App",
+    "detail": "... BDG WIN Tutor Support: http://t.me/Vashu_bhai_bot 8 AM To 12 AM NON STOP PREDICTION MESSAGE ME ANY PROBLEM @BDGVASHU. Gaming & AppsGambling & Bett",
+    "detected_at": "2026-05-13T11:30:56.039131+05:30",
+    "source": "colour_pred_scan",
+    "evidence_hash": "ab802713e0ba8d51",
+    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+    "next_steps": [
+      "Preserve evidence",
+      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
+      "Report app to Google Play/App Store",
+      "Send Telegram takedown",
+      "If Chinese-origin: report to MeitY for FEMA investigation"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "MeitY \u2014 meity.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://nicegram.app/hub/channel/bdgvashubhai"
+      ],
+      "keywords_matched": [],
+      "reach": 500000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "ab802713e0ba8d51"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "MeitY \u2014 meity.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:30:56.039127+05:30"
+    }
+  },
+  {
+    "id": "f38cfe3d59572dbd",
+    "title": "Colour prediction fraud \u2014 Aviator Casino Signals in Telegram in India - haryanaex",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram / App",
+    "detail": "The channel for signals for the crash game is a solid resource for possibly accurate predictions. They post members' thoughts and results with previou",
+    "detected_at": "2026-05-13T11:31:00.365480+05:30",
+    "source": "colour_pred_scan",
+    "evidence_hash": "f38cfe3d59572dbd",
+    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+    "next_steps": [
+      "Preserve evidence",
+      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
+      "Report app to Google Play/App Store",
+      "Send Telegram takedown",
+      "If Chinese-origin: report to MeitY for FEMA investigation"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "MeitY \u2014 meity.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://aviator-game-official.uk.com/game-signals/"
+      ],
+      "keywords_matched": [],
+      "reach": 500000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "f38cfe3d59572dbd"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "MeitY \u2014 meity.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:31:00.365475+05:30"
+    }
+  },
+  {
+    "id": "7d711c26d9406a03",
+    "title": "Colour prediction fraud \u2014 AVIATOR PRIVATE - Statistics & analytics of Telegram ..",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram / App",
+    "detail": "Join to get rich fast and guaranteed Invite friends https://t.me/+XUpfHG_t1NxjNWQ6 to get extra bonus from me! Register: https://aviator-play.icu/ ...",
+    "detected_at": "2026-05-13T11:31:00.365561+05:30",
+    "source": "colour_pred_scan",
+    "evidence_hash": "7d711c26d9406a03",
+    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+    "next_steps": [
+      "Preserve evidence",
+      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
+      "Report app to Google Play/App Store",
+      "Send Telegram takedown",
+      "If Chinese-origin: report to MeitY for FEMA investigation"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "MeitY \u2014 meity.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://telemetr.io/en/channels/1478766504-JBHbIEndiGY4NTli"
+      ],
+      "keywords_matched": [],
+      "reach": 500000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "7d711c26d9406a03"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "MeitY \u2014 meity.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:31:00.365556+05:30"
+    }
+  },
+  {
+    "id": "711fae008e72ed15",
+    "title": "Colour prediction fraud \u2014 Download Aviator Game App (APK) in India",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "Telegram / App",
+    "detail": "The Aviator game app is a secure option for playing a crash game on the go. Indian gamblers can download it for free. There is no need for special ski",
+    "detected_at": "2026-05-13T11:31:00.365750+05:30",
+    "source": "colour_pred_scan",
+    "evidence_hash": "711fae008e72ed15",
+    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+    "next_steps": [
+      "Preserve evidence",
+      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
+      "Report app to Google Play/App Store",
+      "Send Telegram takedown",
+      "If Chinese-origin: report to MeitY for FEMA investigation"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "MeitY \u2014 meity.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://maldiveshighcom.in/in/"
+      ],
+      "keywords_matched": [],
+      "reach": 500000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "711fae008e72ed15"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "MeitY \u2014 meity.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:31:00.365745+05:30"
+    }
+  },
+  {
+    "id": "6cd224f65ecdef99",
+    "title": "Crypto fraud \u2014 Crypto Pump Signals",
+    "category": "crypto_fraud",
+    "severity": "high",
+    "platform": "Telegram / Web",
+    "detail": "We plan to take these 2 coins up around 40% from the current price. We have a 100% success rate track record so far on all our signals during this bul",
+    "detected_at": "2026-05-13T11:31:32.231819+05:30",
+    "source": "crypto_fraud_scan",
+    "evidence_hash": "6cd224f65ecdef99",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in/helpline 1930",
+      "Report to CERT-In if active phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/cryptocoinpumpsignals"
+      ],
+      "keywords_matched": [
+        "crypto",
+        "pump",
+        "signal",
+        "Telegram"
+      ],
+      "reach": 100000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "6cd224f65ecdef99"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-13T11:31:32.231811+05:30"
+    }
+  },
+  {
+    "id": "6b99059614ccd64c",
+    "title": "Investment fraud \u2014 28 Years On: Harshad Mehta\u2019s \u2018Comeback\u2019 Enablers Still Trapp",
+    "category": "investment_fraud",
+    "severity": "high",
+    "platform": "Telegram / Web",
+    "detail": "In India, litigation goes on forever. And, even when the main accused is no more, other enablers, collaborators and foot soldiers remain entangled in ",
+    "detected_at": "2026-05-13T11:32:29.590323+05:30",
+    "source": "investment_scan",
+    "evidence_hash": "6b99059614ccd64c",
+    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+    "next_steps": [
+      "Preserve evidence",
+      "Report SEBI-unregistered advisor: sebi.gov.in/SCORES",
+      "File SEBI SCORES complaint: scores.gov.in",
+      "Send Telegram takedown with SEBI Act \u00a712A evidence",
+      "Report to CERT-In if phishing site"
+    ],
+    "report_to": [
+      "SEBI SCORES \u2014 scores.gov.in",
+      "cybercrime@sebi.gov.in",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.moneylife.in/article/28-years-on-harshad-mehtas-comeback-enablers-still-trapped-in-judicial-limbo/80432.html"
+      ],
+      "keywords_matched": [
+        "stock",
+        "market",
+        "fraud",
+        "India"
+      ],
+      "reach": 150000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "6b99059614ccd64c"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "SEBI SCORES \u2014 scores.gov.in",
+        "cybercrime@sebi.gov.in",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:29.590285+05:30"
+    }
+  },
+  {
+    "id": "d8dd396b71be50a7",
+    "title": "UPI mule recruitment \u2014 Motivational Banker JAIIB 2026",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram / WhatsApp",
+    "detail": "Special discounts available for group purchases on JAIIB combo kits! If you and your friends are planning to prepare for JAIIB, this is the best time ",
+    "detected_at": "2026-05-13T11:32:48.777378+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "d8dd396b71be50a7",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/MotivationalBanker_JAIIB?before=674"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "d8dd396b71be50a7"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:48.777359+05:30"
+    }
+  },
+  {
+    "id": "ffbef953833d8a82",
+    "title": "UPI mule recruitment \u2014 Buyer requirment from our telegram channel. Kindly join",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram / WhatsApp",
+    "detail": "* Current Bank Account * MSME/Udyam Registration * RCMC from Export ... PARTY ITEMS THAT COST \u20b950 IN INDIA Sell for \u20b9500+ internationally!",
+    "detected_at": "2026-05-13T11:32:48.777553+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "ffbef953833d8a82",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/p/CnEMPfIyTHF/?hl=en"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "ffbef953833d8a82"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:48.777548+05:30"
+    }
+  },
+  {
+    "id": "74a4d9bdab96525e",
+    "title": "UPI mule recruitment \u2014 Knowledgist 4 Banking",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram / WhatsApp",
+    "detail": "From Dreams to SBI CBO \u2013 Rana Sarkar's Inspiring Journey! Rana Sarkar has made Knowledgist proud with his hard work, consistency, and dedication",
+    "detected_at": "2026-05-13T11:32:48.777752+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "74a4d9bdab96525e",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/s/knowledgist?before=4477"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "74a4d9bdab96525e"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:48.777747+05:30"
+    }
+  },
+  {
+    "id": "c4b01e2280db17c1",
+    "title": "UPI mule recruitment \u2014 DBS: Trusted as the World's Best Bank | DBS Bank",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram / WhatsApp",
+    "detail": "AI-enabled bank with a heart. This vision is our compass \u2013 to continually push the boundaries of what's possible with AI, while staying deeply human i",
+    "detected_at": "2026-05-13T11:32:48.777818+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "c4b01e2280db17c1",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.dbs.com/default.page"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "c4b01e2280db17c1"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:48.777812+05:30"
+    }
+  },
+  {
+    "id": "552e08625f00db3a",
+    "title": "UPI mule recruitment \u2014 BCCI: The Board of Control for Cricket in India",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram / WhatsApp",
+    "detail": "Experience the thrill of India Men's cricket on the official BCCI website. Live scores, schedules, news, player interviews, and domestic tournaments u",
+    "detected_at": "2026-05-13T11:32:48.777866+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "552e08625f00db3a",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.bcci.tv/"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "552e08625f00db3a"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:48.777861+05:30"
+    }
+  },
+  {
+    "id": "0f5da453383b0e40",
+    "title": "UPI mule recruitment \u2014 BIG SCAM \u0938\u093e\u0935\u0927\u093e\u0928 \u0930\u0939\u0947\u0902! Telegram channels \u092a\u0930 \u0926\u093f\u0916\u0928\u0947 \u0935\u093e\u0932\u0947 .",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram / WhatsApp",
+    "detail": "\u0935\u0939\u093e\u0901 \u0906\u092a\u0915\u094b \u091c\u094d\u092f\u093e\u0926\u093e \u092a\u0948\u0938\u093e \u0915\u092e\u093e\u0928\u0947 \u0915\u093e \u0932\u093e\u0932\u091a \u0926\u093f\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948 \u0932\u0947\u0915\u093f\u0928 \u092f\u0947 \u0938\u093f\u0930\u094d\u092b trap \u0939\u094b\u0924\u093e \u0939\u0948 \u2014 \u091c\u093f\u0938\u0938\u0947 \u0906\u092a \u0905\u092a\u0928\u093e \u092a\u0948\u0938\u093e \u0916\u094b \u0938\u0915\u0924\u0947 \u0939\u0948\u0902 \u274c \u0910\u0938\u0947 \u0915\u093f\u0938\u0940 \u092d\u0940 link \u092a\u0930 click \u0928 \u0915\u0930\u0947\u0902 \u0905\u092a\u0928\u0940 ",
+    "detected_at": "2026-05-13T11:32:51.077831+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "0f5da453383b0e40",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/reel/DWOowoBjIc3/"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "0f5da453383b0e40"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:51.077824+05:30"
+    }
+  },
+  {
+    "id": "d26a158423c99abf",
+    "title": "UPI mule recruitment \u2014 Earn 5,000 Rs daily by liking YouTube videos ? Nowadays",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram / WhatsApp",
+    "detail": "They figured out a new technique to scam you called \"Prepaid Task Scam\". First they message you on WhatsApp or Telegram that earn 5000 Rs daily by doi",
+    "detected_at": "2026-05-13T11:32:51.078018+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "d26a158423c99abf",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/reel/CquSgltholi/?hl=en"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "d26a158423c99abf"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:51.078006+05:30"
+    }
+  },
+  {
+    "id": "113008e758506269",
+    "title": "UPI mule recruitment \u2014 Money mule activity is a serious offence. Learn why the",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram / WhatsApp",
+    "detail": "Shocking Numbers: \u2022 1,47,445 mule accounts identified so far under RBI's fraud monitoring system \u2022 80,465 cases flagged in just one year \u2022 ...",
+    "detected_at": "2026-05-13T11:32:56.040845+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "113008e758506269",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.facebook.com/TheRBLBank/posts/money-mule-activity-is-a-serious-offence-learn-why-the-rbi-stresses-strict-accou/1301556418686573/"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "113008e758506269"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:32:56.040836+05:30"
+    }
+  },
+  {
+    "id": "b6b47aa45bd93277",
+    "title": "UPI mule recruitment \u2014 3000 Invest = \u20b915000 Earn? Full Truth Exposed \u26a0\ufe0f",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram / WhatsApp",
+    "detail": "Prepaid Task Scam on Telegram | \u20b93000 Invest = \u20b915000 Earn? Full Truth Exposed \u26a0\ufe0f A new Prepaid Task Scam is running on Telegram!",
+    "detected_at": "2026-05-13T11:33:07.762734+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "b6b47aa45bd93277",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.youtube.com/watch?v=8VngfhTbJHE"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "b6b47aa45bd93277"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:33:07.762702+05:30"
+    }
+  },
+  {
+    "id": "7b7547e15a29e6d3",
+    "title": "UPI mule recruitment \u2014 If you get huge profits and riskless offers on SMS or .",
+    "category": "upi_mule",
+    "severity": "high",
+    "platform": "Telegram / WhatsApp",
+    "detail": "If you get huge profits and riskless offers on SMS or WhatsApp, it could be a big SCAM. Avoid such cyber fraud, protect your investment.",
+    "detected_at": "2026-05-13T11:33:07.762874+05:30",
+    "source": "upi_mule_scan",
+    "evidence_hash": "7b7547e15a29e6d3",
+    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+    "next_steps": [
+      "Preserve UPI IDs + phone \u2014 hash done",
+      "Report mule UPIs to bank fraud desk immediately",
+      "File RBI Sachet: sachet.rbi.org.in",
+      "Report to I4C: cybercrime.gov.in / 1930",
+      "File PMLA report to FIU-IND if amount >Rs 5L"
+    ],
+    "report_to": [
+      "Bank fraud desk",
+      "RBI Sachet \u2014 sachet.rbi.org.in",
+      "I4C \u2014 1930",
+      "FIU-IND \u2014 fiuindia.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.facebook.com/cybercrimepshyd/posts/if-you-get-huge-profits-and-riskless-offers-on-sms-or-whatsapp-it-could-be-a-big/1109253587903545/"
+      ],
+      "keywords_matched": [],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "7b7547e15a29e6d3"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
+      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
+      "report_to": [
+        "Bank fraud desk",
+        "RBI Sachet \u2014 sachet.rbi.org.in",
+        "I4C \u2014 1930",
+        "FIU-IND \u2014 fiuindia.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:33:07.762868+05:30"
+    }
+  },
+  {
+    "id": "5d0e2df894842085",
+    "title": "Counterfeit \u2014 FAKE Definition & Meaning",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "fake implies an imitation of or substitution for the genuine but does not necessarily imply dishonesty. these jewels are fakes; the real ones are in t",
+    "detected_at": "2026-05-13T11:33:32.533029+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "5d0e2df894842085",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.merriam-webster.com/dictionary/fake"
+      ],
+      "keywords_matched": [
+        "fake",
+        "medicine",
+        "counterfeit",
+        "pharma"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "5d0e2df894842085"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:32.533015+05:30"
+    }
+  },
+  {
+    "id": "b90bc941c5eb5ecf",
+    "title": "Counterfeit \u2014 FAKE Synonyms & Antonyms - 177 words",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "fake ; ADJECTIVE. false, imitation \u00b7 bogus ; NOUN. imposter, copy \u00b7 counterfeit ; VERB. pretend \u00b7 counterfeit ...",
+    "detected_at": "2026-05-13T11:33:32.533074+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "b90bc941c5eb5ecf",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.thesaurus.com/browse/fake"
+      ],
+      "keywords_matched": [
+        "fake",
+        "medicine",
+        "counterfeit",
+        "pharma"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "b90bc941c5eb5ecf"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:32.533068+05:30"
+    }
+  },
+  {
+    "id": "71cf6164f6b9dcd2",
+    "title": "Counterfeit \u2014 FAKE | English meaning - Cambridge Dictionary",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "fake noun [C] (SPORTS) ... a movement that is made in order to deceive an opponent : He picked up some new moves, such as jukes and fakes, by ...",
+    "detected_at": "2026-05-13T11:33:32.533112+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "71cf6164f6b9dcd2",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://dictionary.cambridge.org/dictionary/english/fake"
+      ],
+      "keywords_matched": [
+        "fake",
+        "medicine",
+        "counterfeit",
+        "pharma"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "71cf6164f6b9dcd2"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:32.533106+05:30"
+    }
+  },
+  {
+    "id": "5e9396ae4ec6f9d6",
+    "title": "Counterfeit \u2014 Lauv & Conan Gray - Fake [Official Music Video]",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "\"Fake\u201d by Lauv & Conan Gray is available now: https://lauv.ffm.to/fake For official \u201cFake\u201d merch visit the Lauv store at ...",
+    "detected_at": "2026-05-13T11:33:32.533145+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "5e9396ae4ec6f9d6",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.youtube.com/watch?v=5qFVUYBWfGw"
+      ],
+      "keywords_matched": [
+        "fake",
+        "medicine",
+        "counterfeit",
+        "pharma"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "5e9396ae4ec6f9d6"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:32.533141+05:30"
+    }
+  },
+  {
+    "id": "817b882f92a3628d",
+    "title": "Counterfeit \u2014 Fake - Definition, Meaning & Synonyms",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "Other forms: faked; fakes; faking. You should have known that copy of the \"Declaration of Independence\" was a fake when you saw it was signed by \"Jon ",
+    "detected_at": "2026-05-13T11:33:32.533255+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "817b882f92a3628d",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.vocabulary.com/dictionary/fake"
+      ],
+      "keywords_matched": [
+        "fake",
+        "medicine",
+        "counterfeit",
+        "pharma"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "817b882f92a3628d"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:32.533245+05:30"
+    }
+  },
+  {
+    "id": "9dd972fbdb82bc78",
+    "title": "Counterfeit \u2014 Fake Meaning - Fake Examples - Fake Definition - CAE Noun ..",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "A fake is something that's not genuine.",
+    "detected_at": "2026-05-13T11:33:32.533302+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "9dd972fbdb82bc78",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.youtube.com/watch?v=kgBcxVlvsLQ"
+      ],
+      "keywords_matched": [
+        "fake",
+        "medicine",
+        "counterfeit",
+        "pharma"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "9dd972fbdb82bc78"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:32.533296+05:30"
+    }
+  },
+  {
+    "id": "531e783439efa0bd",
+    "title": "Counterfeit \u2014 FAKE definition and meaning | Collins English Dictionary",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "If someone fakes something, they try to make it look valuable or genuine, although in fact it is not. It's safer to fake a tan with make-up rather tha",
+    "detected_at": "2026-05-13T11:33:32.533336+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "531e783439efa0bd",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.collinsdictionary.com/dictionary/english/fake"
+      ],
+      "keywords_matched": [
+        "fake",
+        "medicine",
+        "counterfeit",
+        "pharma"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "531e783439efa0bd"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:32.533330+05:30"
+    }
+  },
+  {
+    "id": "f1e2255433d8eef9",
+    "title": "Counterfeit \u2014 FAKE Synonyms: 324 Similar and Opposite Words",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "Browse Nearby Words. faiths. fake. faked \u00b7 See all Nearby Words. Articles Related to fake. 9 Words for Impostors. Fakes, fraudsters, charlatans and mo",
+    "detected_at": "2026-05-13T11:33:32.533370+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "f1e2255433d8eef9",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.merriam-webster.com/thesaurus/fake"
+      ],
+      "keywords_matched": [
+        "fake",
+        "medicine",
+        "counterfeit",
+        "pharma"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "f1e2255433d8eef9"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:32.533365+05:30"
+    }
+  },
+  {
+    "id": "6d488a5d1f01e18a",
+    "title": "Counterfeit \u2014 Where can I buy cheapest first copy watches online in India?",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "Where can I buy cheapest first copy watches online in India?",
+    "detected_at": "2026-05-13T11:33:34.465055+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "6d488a5d1f01e18a",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.quora.com/Where-can-I-buy-cheapest-first-copy-watches-online-in-India"
+      ],
+      "keywords_matched": [
+        "first",
+        "copy",
+        "replica",
+        "brand"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "6d488a5d1f01e18a"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:34.465050+05:30"
+    }
+  },
+  {
+    "id": "f20c1397d0c76343",
+    "title": "Counterfeit \u2014 All Best NIKE, Puma, Adidas, Asian, Campus White Shoes ...",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "All Best NIKE, Puma, Adidas, Asian, Campus White Shoes/Sneakers for Men Myntra Sale | ONE CHANCE Join Telegram For Great offers Daily:- ...",
+    "detected_at": "2026-05-13T11:33:37.633991+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "f20c1397d0c76343",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.youtube.com/watch?v=n9rJQeecmnQ"
+      ],
+      "keywords_matched": [
+        "counterfeit",
+        "Nike",
+        "Adidas",
+        "shoes"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "f20c1397d0c76343"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:37.633984+05:30"
+    }
+  },
+  {
+    "id": "b0876633a10546b2",
+    "title": "Counterfeit \u2014 Mi Flipkart Smartphones: Akshnav Online ...",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "Xiaomi and Samsung has officially announced their uh preferred Partners or you can say the authorized Partners who are selling on Amazon and flip cart",
+    "detected_at": "2026-05-13T11:33:40.664872+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "b0876633a10546b2",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/reel/DO5rZVfgJO_/"
+      ],
+      "keywords_matched": [
+        "fake",
+        "Samsung",
+        "OPPO",
+        "phone"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "b0876633a10546b2"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:40.664857+05:30"
+    }
+  },
+  {
+    "id": "2165118b734b7d93",
+    "title": "Counterfeit \u2014 Top Mobile Shops near Vega Circle Mall 2Nd Mile, Siliguri",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "Accessories Quality: Ensure original chargers and earphones are provided, as fake accessories can damage devices. A professional dealer always allows ",
+    "detected_at": "2026-05-13T11:33:40.664956+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "2165118b734b7d93",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.justdial.com/Siliguri/Mobile-Phone-Dealers-in-Vega-Circle-Mall-2Nd-Mile/nct-11216691"
+      ],
+      "keywords_matched": [
+        "fake",
+        "Samsung",
+        "OPPO",
+        "phone"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "2165118b734b7d93"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:40.664951+05:30"
+    }
+  },
+  {
+    "id": "8ef5411d9e8169e0",
+    "title": "Counterfeit \u2014 EURIMAGES - European Cinema Support Fund - Homepage",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "Eurimages is the cultural support fund of the Council of Europe. Active since 1989, it numbers 39 of the 46 member states of the Strasbourg-based Orga",
+    "detected_at": "2026-05-13T11:33:40.664991+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "8ef5411d9e8169e0",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.coe.int/en/web/eurimages"
+      ],
+      "keywords_matched": [
+        "fake",
+        "Samsung",
+        "OPPO",
+        "phone"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "8ef5411d9e8169e0"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:40.664986+05:30"
+    }
+  },
+  {
+    "id": "03012a78d374fe3e",
+    "title": "Counterfeit \u2014 SickKids | The Hospital for Sick Children",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "The Hospital for Sick Children (SickKids), affiliated with the University of Toronto, is Canada's most research-intensive hospital and the largest cen",
+    "detected_at": "2026-05-13T11:33:40.665040+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "03012a78d374fe3e",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.sickkids.ca/"
+      ],
+      "keywords_matched": [
+        "fake",
+        "Samsung",
+        "OPPO",
+        "phone"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "03012a78d374fe3e"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:40.665036+05:30"
+    }
+  },
+  {
+    "id": "02f9588cfc8850b0",
+    "title": "Counterfeit \u2014 Balani Infotech",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "Today, We are proudly considered the most legitimate source of information and knowledge content all over India. ... Mobile: +91-9899597158; Email ...",
+    "detected_at": "2026-05-13T11:33:40.665064+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "02f9588cfc8850b0",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.balaniinfotech.com/"
+      ],
+      "keywords_matched": [
+        "fake",
+        "Samsung",
+        "OPPO",
+        "phone"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "02f9588cfc8850b0"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:40.665060+05:30"
+    }
+  },
+  {
+    "id": "940fb2c92c8c3ea5",
+    "title": "Counterfeit \u2014 We are thrilled to announce that our NTA leaders recently ..",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "We are thrilled to announce that our NTA leaders recently had a productive virtual meeting with Karnataka state leaders.",
+    "detected_at": "2026-05-13T11:33:40.665088+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "940fb2c92c8c3ea5",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.facebook.com/AIMRAIndia/posts/we-are-thrilled-to-announce-that-our-nta-leaders-recently-had-a-productive-virtu/417510320599925/"
+      ],
+      "keywords_matched": [
+        "fake",
+        "Samsung",
+        "OPPO",
+        "phone"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "940fb2c92c8c3ea5"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:40.665084+05:30"
+    }
+  },
+  {
+    "id": "50801ccd36bad80e",
+    "title": "Counterfeit \u2014 Omeka.net",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "Omeka is a web publishing platform for sharing digital collections and creating media-rich online exhibits. \u00b7 Share your collections \u00b7 Create interact",
+    "detected_at": "2026-05-13T11:33:40.665120+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "50801ccd36bad80e",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.omeka.net/"
+      ],
+      "keywords_matched": [
+        "fake",
+        "Samsung",
+        "OPPO",
+        "phone"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "50801ccd36bad80e"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:40.665115+05:30"
+    }
+  },
+  {
+    "id": "693456e38279b9c0",
+    "title": "Counterfeit \u2014 Latest Mumbai News | India news | Entertainment News ...",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "Get latest Mumbai news headlines, local news headlines for today, Top Bollywood stories, Entertainment news, Mumbai city breaking news, crime news, ..",
+    "detected_at": "2026-05-13T11:33:40.665174+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "693456e38279b9c0",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.mid-day.com/"
+      ],
+      "keywords_matched": [
+        "fake",
+        "Samsung",
+        "OPPO",
+        "phone"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "693456e38279b9c0"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:40.665169+05:30"
+    }
+  },
+  {
+    "id": "c76800aa7aef96ef",
+    "title": "Counterfeit \u2014 LOF Idea 260320191211 PDF | PDF | Stocks",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "You may be subject to Indian taxes arising out of capital gains on the sale of the Equity Shares. Under current Indian tax laws, unless specifically e",
+    "detected_at": "2026-05-13T11:33:42.789311+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "c76800aa7aef96ef",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.scribd.com/document/456388453/LOF-Idea-260320191211-pdf"
+      ],
+      "keywords_matched": [
+        "counterfeit",
+        "HUL",
+        "Reckitt",
+        "product"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "c76800aa7aef96ef"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:42.789306+05:30"
+    }
+  },
+  {
+    "id": "2f7585d943206721",
+    "title": "Counterfeit \u2014 Fraudulent Product Promotion: Legal Risks & Remedies",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "Explore legal consequences of fraudulent product promotion in India. Learn about CrPC quashing, advertising disparagement laws, trademark infringement",
+    "detected_at": "2026-05-13T11:33:42.789347+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "2f7585d943206721",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://supremetoday.ai/search/fraudulent-product-promotion"
+      ],
+      "keywords_matched": [
+        "counterfeit",
+        "HUL",
+        "Reckitt",
+        "product"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "2f7585d943206721"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:42.789342+05:30"
+    }
+  },
+  {
+    "id": "8e33b989b513e01a",
+    "title": "Counterfeit \u2014 #NETSnippet | Burger King has scrapped tomatoes from its ...",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "Telegram / IndiaMART / Web",
+    "detail": "This eight minute video shows a comparative analysis between products sold in India and in Europe by the same brand(s). Don't miss the ...",
+    "detected_at": "2026-05-13T11:33:42.789372+05:30",
+    "source": "counterfeit_scan",
+    "evidence_hash": "8e33b989b513e01a",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.facebook.com/NortheastToday/posts/netsnippet-burger-king-has-scrapped-tomatoes-from-its-wraps-and-burgers-in-many-/676292627865030/"
+      ],
+      "keywords_matched": [
+        "counterfeit",
+        "HUL",
+        "Reckitt",
+        "product"
+      ],
+      "reach": 50000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "8e33b989b513e01a"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:33:42.789367+05:30"
+    }
+  },
+  {
+    "id": "512e14805a57fcc6",
+    "title": "[Hindi] Fraud channel \u2014 Sapna_Badali_Badali_Lage_%E0%A4%B8 ...",
+    "category": "investment_fraud",
+    "severity": "high",
+    "platform": "Telegram (Hindi)",
+    "detail": "Watch ...",
+    "detected_at": "2026-05-13T11:34:06.022604+05:30",
+    "source": "multilingual_scan",
+    "evidence_hash": "512e14805a57fcc6",
+    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+    "next_steps": [
+      "Preserve evidence",
+      "Report SEBI-unregistered advisor: sebi.gov.in/SCORES",
+      "File SEBI SCORES complaint: scores.gov.in",
+      "Send Telegram takedown with SEBI Act \u00a712A evidence",
+      "Report to CERT-In if phishing site"
+    ],
+    "report_to": [
+      "SEBI SCORES \u2014 scores.gov.in",
+      "cybercrime@sebi.gov.in",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.dailymotion.com/video/x8h7ni5"
+      ],
+      "keywords_matched": [
+        "Hindi",
+        "fraud",
+        "Telegram"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "512e14805a57fcc6"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "SEBI SCORES \u2014 scores.gov.in",
+        "cybercrime@sebi.gov.in",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:34:06.022586+05:30"
+    }
+  },
+  {
+    "id": "a1bbefb81a686c0e",
+    "title": "[Hindi] Fraud channel \u2014 e0 a4 97 e0 a4 bf e0 a4 af e0 a4 b0 e0 a4 aa e0 a4 82 .",
+    "category": "investment_fraud",
+    "severity": "high",
+    "platform": "Telegram (Hindi)",
+    "detail": "Trasy Enterprises The Spark Behind India's Shrink Label Revolution \u00b7 https://video.wixstatic.com/video/d301e4_57147a3ae... \u00b7 Self-Adhesive Thermal Pap",
+    "detected_at": "2026-05-13T11:34:06.022717+05:30",
+    "source": "multilingual_scan",
+    "evidence_hash": "a1bbefb81a686c0e",
+    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+    "next_steps": [
+      "Preserve evidence",
+      "Report SEBI-unregistered advisor: sebi.gov.in/SCORES",
+      "File SEBI SCORES complaint: scores.gov.in",
+      "Send Telegram takedown with SEBI Act \u00a712A evidence",
+      "Report to CERT-In if phishing site"
+    ],
+    "report_to": [
+      "SEBI SCORES \u2014 scores.gov.in",
+      "cybercrime@sebi.gov.in",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.trasyenterprises.in/search/e0-a4-97-e0-a4-bf-e0-a4-af-e0-a4-b0-e0-a4-aa-e0-a4-82-e0-a4-aa-e0-a4-94-e0-a4-b0-e0-a4-b8-e0-a5-8d-e0-a4-b2-e0-a5-89-e0-a4-9f-e0-a4-a1-e0-a4-be-e0-a4-88-e0-a4-ac-e0-a4-a8-e0-a4-be-e0-a4-a4-e0-a5-87-e0-a4-b9-e0-a5-88-e0-a4-82/1"
+      ],
+      "keywords_matched": [
+        "Hindi",
+        "fraud",
+        "Telegram"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "a1bbefb81a686c0e"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "SEBI SCORES \u2014 scores.gov.in",
+        "cybercrime@sebi.gov.in",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:34:06.022711+05:30"
+    }
+  },
+  {
+    "id": "9708f6c6045c3aba",
+    "title": "[Hindi] Fraud channel \u2014 %23video___%E0%A4%A6%E0%A4%BF%E0%A4%B2_ ...",
+    "category": "investment_fraud",
+    "severity": "high",
+    "platform": "Telegram (Hindi)",
+    "detail": "Sticker, Animated yellow face emoji, crying itself into a puddle of tears. 8mo.",
+    "detected_at": "2026-05-13T11:34:06.022741+05:30",
+    "source": "multilingual_scan",
+    "evidence_hash": "9708f6c6045c3aba",
+    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+    "next_steps": [
+      "Preserve evidence",
+      "Report SEBI-unregistered advisor: sebi.gov.in/SCORES",
+      "File SEBI SCORES complaint: scores.gov.in",
+      "Send Telegram takedown with SEBI Act \u00a712A evidence",
+      "Report to CERT-In if phishing site"
+    ],
+    "report_to": [
+      "SEBI SCORES \u2014 scores.gov.in",
+      "cybercrime@sebi.gov.in",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.facebook.com/100078007891796/videos/23video___e0a4a6e0a4bfe0a4b2_e0a495e0a49ae0a58be0a4b0e0a4b5e0a4be_e0a4aee0a587_e/996288504327351/"
+      ],
+      "keywords_matched": [
+        "Hindi",
+        "fraud",
+        "Telegram"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "9708f6c6045c3aba"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "SEBI SCORES \u2014 scores.gov.in",
+        "cybercrime@sebi.gov.in",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:34:06.022736+05:30"
+    }
+  },
+  {
+    "id": "c125c0110b25e349",
+    "title": "[Hindi] Fraud channel \u2014 Generic Baby Girl \u0938\u093e\u091f\u0928 Bowknot \u092a\u0948\u0902\u091f\u0940 \u092c\u094d\u0932\u0942\u092e\u0930\u094d\u0938 \u0921\u093e\u092f\u092a\u0930 \u0915\u0935\u0930",
+    "category": "investment_fraud",
+    "severity": "high",
+    "platform": "Telegram (Hindi)",
+    "detail": "\u092a\u094d\u0930\u094b\u0921\u0915\u094d\u091f \u0915\u093e \u0938\u093e\u0930\u093e\u0902\u0936: Generic Baby Girl \u0938\u093e\u091f\u0928 Bowknot \u092a\u0948\u0902\u091f\u0940 \u092c\u094d\u0932\u0942\u092e\u0930\u094d\u0938 \u0921\u093e\u092f\u092a\u0930 \u0915\u0935\u0930 0-6 \u092e\u0939\u0940\u0928\u0947 S \u0917\u0941\u0932\u093e\u092c\u0940 \u0915\u0947 \u0932\u093f\u090f \u00b7 Browse all categories.",
+    "detected_at": "2026-05-13T11:34:09.925104+05:30",
+    "source": "multilingual_scan",
+    "evidence_hash": "c125c0110b25e349",
+    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+    "next_steps": [
+      "Preserve evidence",
+      "Report SEBI-unregistered advisor: sebi.gov.in/SCORES",
+      "File SEBI SCORES complaint: scores.gov.in",
+      "Send Telegram takedown with SEBI Act \u00a712A evidence",
+      "Report to CERT-In if phishing site"
+    ],
+    "report_to": [
+      "SEBI SCORES \u2014 scores.gov.in",
+      "cybercrime@sebi.gov.in",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.amazon.in/-/hi/Generic-Bowknot-%E0%A4%AA%E0%A5%88%E0%A4%82%E0%A4%9F%E0%A5%80-%E0%A4%AC%E0%A5%8D%E0%A4%B2%E0%A5%82%E0%A4%AE%E0%A4%B0%E0%A5%8D%E0%A4%B8-%E0%A4%97%E0%A5%81%E0%A4%B2%E0%A4%BE%E0%A4%AC%E0%A5%80/dp/B019H3ANSE"
+      ],
+      "keywords_matched": [
+        "Hindi",
+        "fraud",
+        "Telegram"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "c125c0110b25e349"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "SEBI SCORES \u2014 scores.gov.in",
+        "cybercrime@sebi.gov.in",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:34:09.925099+05:30"
+    }
+  },
+  {
+    "id": "50bdeb21363a5587",
+    "title": "WhatsApp fraud group \u2014 Cricket Betting ID WhatsApp Number | Get Instant ID Now",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "WhatsApp",
+    "detail": "We provide you with a Cricket Betting ID directly through WhatsApp, ensuring you have quick access to the best betting odds, updates, and services ava",
+    "detected_at": "2026-05-13T11:34:25.468378+05:30",
+    "source": "whatsapp_scan",
+    "evidence_hash": "50bdeb21363a5587",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown with IT Act \u00a765B evidence",
+      "Share with ED if Dubai/crypto link confirmed"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://247bettingid.com/cricket-betting-id-whatsapp-number/"
+      ],
+      "keywords_matched": [
+        "WhatsApp",
+        "fraud",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "50bdeb21363a5587"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:34:25.468368+05:30"
+    }
+  },
+  {
+    "id": "046c6946f090736c",
+    "title": "WhatsApp fraud group \u2014 Satta Matta Matka WhatsApp Groups (Updated May 2026)",
+    "category": "investment_fraud",
+    "severity": "high",
+    "platform": "WhatsApp",
+    "detail": "You will get all types of Active \u201cSatta Matta Matka WhatsApp Groups\u201d here. Just click on the below group links and you can easily join these groups.",
+    "detected_at": "2026-05-13T11:34:25.468460+05:30",
+    "source": "whatsapp_scan",
+    "evidence_hash": "046c6946f090736c",
+    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+    "next_steps": [
+      "Preserve evidence",
+      "Report SEBI-unregistered advisor: sebi.gov.in/SCORES",
+      "File SEBI SCORES complaint: scores.gov.in",
+      "Send Telegram takedown with SEBI Act \u00a712A evidence",
+      "Report to CERT-In if phishing site"
+    ],
+    "report_to": [
+      "SEBI SCORES \u2014 scores.gov.in",
+      "cybercrime@sebi.gov.in",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://linkswa.com/satta-matta-matka-whatsapp-groups/"
+      ],
+      "keywords_matched": [
+        "WhatsApp",
+        "fraud",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "046c6946f090736c"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "SEBI SCORES \u2014 scores.gov.in",
+        "cybercrime@sebi.gov.in",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:34:25.468451+05:30"
+    }
+  },
+  {
+    "id": "a187474bb11cd53d",
+    "title": "WhatsApp fraud group \u2014 Moolank 7 2026 Predictions WhatsApp for paid ...",
+    "category": "investment_fraud",
+    "severity": "high",
+    "platform": "WhatsApp",
+    "detail": "2026 kaisa rahega moolank 7 waale logon ke liye. Moolank 7 jo Ketu ko denote karta hai aur 2026 ka total jo hai woh number 1 pe aata hai.",
+    "detected_at": "2026-05-13T11:34:40.064000+05:30",
+    "source": "whatsapp_scan",
+    "evidence_hash": "a187474bb11cd53d",
+    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+    "next_steps": [
+      "Preserve evidence",
+      "Report SEBI-unregistered advisor: sebi.gov.in/SCORES",
+      "File SEBI SCORES complaint: scores.gov.in",
+      "Send Telegram takedown with SEBI Act \u00a712A evidence",
+      "Report to CERT-In if phishing site"
+    ],
+    "report_to": [
+      "SEBI SCORES \u2014 scores.gov.in",
+      "cybercrime@sebi.gov.in",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.instagram.com/p/DSWpl4fD6mm/"
+      ],
+      "keywords_matched": [
+        "WhatsApp",
+        "fraud",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "a187474bb11cd53d"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "SEBI SCORES \u2014 scores.gov.in",
+        "cybercrime@sebi.gov.in",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:34:40.063991+05:30"
+    }
+  },
+  {
+    "id": "c9ab38e42641d3ea",
+    "title": "WhatsApp fraud group \u2014 Colour prediction game\ud83d\udd34\ud83d\udfe2 Whatsapp Group Invite Link",
+    "category": "colour_prediction",
+    "severity": "high",
+    "platform": "WhatsApp",
+    "detail": "Colour prediction game Whatsapp group link invite. Follow this link to join my Whatsapp group: Colour prediction game .",
+    "detected_at": "2026-05-13T11:34:40.064150+05:30",
+    "source": "whatsapp_scan",
+    "evidence_hash": "c9ab38e42641d3ea",
+    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+    "next_steps": [
+      "Preserve evidence",
+      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
+      "Report app to Google Play/App Store",
+      "Send Telegram takedown",
+      "If Chinese-origin: report to MeitY for FEMA investigation"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "MeitY \u2014 meity.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://groupsor.link/group/invite/DKzf7hpZWhIE5wU8pPyEw0"
+      ],
+      "keywords_matched": [
+        "WhatsApp",
+        "fraud",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "c9ab38e42641d3ea"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "MeitY \u2014 meity.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:34:40.064140+05:30"
+    }
+  },
+  {
+    "id": "c48c892763579d86",
+    "title": "WhatsApp fraud group \u2014 Online Cricket Betting Whatsapp Group Link India for An",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "WhatsApp",
+    "detail": "If the link comes from an unknown source, it could lead to scams or fraudulent activities. Check for signs of credibility such as user ...",
+    "detected_at": "2026-05-13T11:34:42.153816+05:30",
+    "source": "whatsapp_scan",
+    "evidence_hash": "c48c892763579d86",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown with IT Act \u00a765B evidence",
+      "Share with ED if Dubai/crypto link confirmed"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://citizeneyes.meghalaya.gov.in/downloads/how-to-navigate-online-cricket-betting-whatsapp-group-link-india-safely/"
+      ],
+      "keywords_matched": [
+        "WhatsApp",
+        "fraud",
+        "India"
+      ],
+      "reach": 0,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "c48c892763579d86"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-13T11:34:42.153807+05:30"
+    }
+  },
+  {
+    "id": "06943c87222fd12a",
+    "title": "IndiaMART counterfeit \u2014 Generic Black Air Jordan D Retro 1",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "IndiaMART",
+    "detail": "Yash Leather Finishers - Offering Generic Black Air Jordan D Retro 1 at \u20b9 700/pair in Kanpur, Uttar Pradesh. Get at lowest price | ID: 24265292333.",
+    "detected_at": "2026-05-13T11:34:45.149895+05:30",
+    "source": "indimart_scan",
+    "evidence_hash": "06943c87222fd12a",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.indiamart.com/proddetail/air-jordan-d-retro-1-24265292333.html?srsltid=AfmBOorVd69I6xfDfdzPCkihjAv-Mots6KVMNrJyZ1COXAy-7nAI3gBH"
+      ],
+      "keywords_matched": [
+        "IndiaMART",
+        "counterfeit"
+      ],
+      "reach": 10000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "06943c87222fd12a"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:34:45.149885+05:30"
+    }
+  },
+  {
+    "id": "3e101641871f32b5",
+    "title": "IndiaMART counterfeit \u2014 Duplicate Wired Sony Wireless Headphone",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "IndiaMART",
+    "detail": "Surya Mobile Repairing Center Computer Sales And Service - Offering Duplicate Wired Sony Wireless Headphone at \u20b9 600/box in Nashik, Maharashtra.",
+    "detected_at": "2026-05-13T11:34:57.959359+05:30",
+    "source": "indimart_scan",
+    "evidence_hash": "3e101641871f32b5",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.indiamart.com/proddetail/sony-wireless-headphone-21733454548.html?srsltid=AfmBOoq8eum8wCmdhbnpHDdSaW8ZPijqneFc46oqc2MS3VeJzEbKFoYR"
+      ],
+      "keywords_matched": [
+        "IndiaMART",
+        "counterfeit"
+      ],
+      "reach": 10000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "3e101641871f32b5"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:34:57.959337+05:30"
+    }
+  },
+  {
+    "id": "67b3a2ec55cb0d14",
+    "title": "IndiaMART counterfeit \u2014 Digital Duplicator Machines Latest Price, Manufacturers",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "IndiaMART",
+    "detail": "Multifunctional Digital Duplicator ; DUPLO DP-E1250 B4 Digital Duplicator \u00b7 DUPLO DP-E1250 B4 Digital Duplicator. \u20b9 2,41,900 ; Digital Duplicators in ",
+    "detected_at": "2026-05-13T11:34:57.959436+05:30",
+    "source": "indimart_scan",
+    "evidence_hash": "67b3a2ec55cb0d14",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://dir.indiamart.com/impcat/digital-duplicator.html"
+      ],
+      "keywords_matched": [
+        "IndiaMART",
+        "counterfeit"
+      ],
+      "reach": 10000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "67b3a2ec55cb0d14"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:34:57.959426+05:30"
+    }
+  },
+  {
+    "id": "a5ded1b03e20b9c9",
+    "title": "IndiaMART counterfeit \u2014 Second Hand Xerox Machines",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "IndiaMART",
+    "detail": "Used Electronics & Appliances \u00b7 Used Printer; Second Hand Xerox Machines ... \u20b9 53,000. Functions: Print, Photocopy, Multi-Function, Scan. Brand: Xerox",
+    "detected_at": "2026-05-13T11:34:57.959497+05:30",
+    "source": "indimart_scan",
+    "evidence_hash": "a5ded1b03e20b9c9",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://dir.indiamart.com/impcat/second-hand-xerox-machines.html"
+      ],
+      "keywords_matched": [
+        "IndiaMART",
+        "counterfeit"
+      ],
+      "reach": 10000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "a5ded1b03e20b9c9"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:34:57.959488+05:30"
+    }
+  },
+  {
+    "id": "8c0184ac928439f2",
+    "title": "IndiaMART counterfeit \u2014 Second Hand TV - Old TV Latest Price, Manufacturers & .",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "IndiaMART",
+    "detail": "Find here Second Hand TV, Old TV manufacturers, suppliers & exporters in India. Get contact details & address of companies manufacturing and supplying",
+    "detected_at": "2026-05-13T11:34:57.959548+05:30",
+    "source": "indimart_scan",
+    "evidence_hash": "8c0184ac928439f2",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://dir.indiamart.com/impcat/second-hand-tv.html"
+      ],
+      "keywords_matched": [
+        "IndiaMART",
+        "counterfeit"
+      ],
+      "reach": 10000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "8c0184ac928439f2"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:34:57.959539+05:30"
+    }
+  },
+  {
+    "id": "d102dfce1038010f",
+    "title": "IndiaMART counterfeit \u2014 Stranger Pbt 701 Amplifier at \u20b9 13000/piece",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "IndiaMART",
+    "detail": "Stranger Pbt 701 Amplifier - Buy Stranger PA Amplifier at best price of \u20b9 13000/piece by Supreme Trading Co.. Also find product list from verified sup",
+    "detected_at": "2026-05-13T11:34:57.959665+05:30",
+    "source": "indimart_scan",
+    "evidence_hash": "d102dfce1038010f",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.indiamart.com/proddetail/stranger-pbt-701-amplifier-2852629906288.html?srsltid=AfmBOopXFZiElhCQRueEhBB5SUY_rZL-rD84EAru0eMPilb_-4lTx3kM"
+      ],
+      "keywords_matched": [
+        "IndiaMART",
+        "counterfeit"
+      ],
+      "reach": 10000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "d102dfce1038010f"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:34:57.959656+05:30"
+    }
+  },
+  {
+    "id": "8a042a6dd6481466",
+    "title": "IndiaMART counterfeit \u2014 Apple Airbuds Copy, 2nd Generation",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "IndiaMART",
+    "detail": "Manju Rani - Offering Apple Airbuds Copy, 2nd Generation at \u20b9 350 in Sriganganagar, Rajasthan. Get at lowest price | ID: 2857152774388.",
+    "detected_at": "2026-05-13T11:34:57.959723+05:30",
+    "source": "indimart_scan",
+    "evidence_hash": "8a042a6dd6481466",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.indiamart.com/proddetail/apple-airbuds-copy-2857152774388.html?srsltid=AfmBOorxD5N522mZ0sLR97gdcBs7t-BZ814z0uI0-RHjNxgFWtLBiYS4"
+      ],
+      "keywords_matched": [
+        "IndiaMART",
+        "counterfeit"
+      ],
+      "reach": 10000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "8a042a6dd6481466"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:34:57.959714+05:30"
+    }
+  },
+  {
+    "id": "517b047835eb7461",
+    "title": "IndiaMART counterfeit \u2014 24inch Vestoni Smart Android LED TV",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "IndiaMART",
+    "detail": "24inch Vestoni Smart Android LED TV - Buy Smart LED TV at best price of \u20b9 10699/piece by Rajnandani Electronics. Also find product list from verified ",
+    "detected_at": "2026-05-13T11:34:57.959791+05:30",
+    "source": "indimart_scan",
+    "evidence_hash": "517b047835eb7461",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.indiamart.com/proddetail/24inch-vestoni-smart-android-led-tv-2853152528688.html?srsltid=AfmBOor0zIvxCZD_ifnz2drAVu3ctGka5f7CNQAs11bD0OghFpkijKWJ"
+      ],
+      "keywords_matched": [
+        "IndiaMART",
+        "counterfeit"
+      ],
+      "reach": 10000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "517b047835eb7461"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:34:57.959781+05:30"
+    }
+  },
+  {
+    "id": "4bc358bb4cd49188",
+    "title": "IndiaMART counterfeit \u2014 Tcl Remote 902 Without Voice Copy",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "IndiaMART",
+    "detail": "New Ratan Electronics - Offering Tcl Remote 902 Without Voice Copy, TV Remote Control at \u20b9 150/piece in Mumbai, Maharashtra. Get contact number of ver",
+    "detected_at": "2026-05-13T11:34:57.959878+05:30",
+    "source": "indimart_scan",
+    "evidence_hash": "4bc358bb4cd49188",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.indiamart.com/proddetail/tcl-remote-902-without-voice-copy-2853102005662.html?srsltid=AfmBOoqjJHnT7k0OSzfrDayqmFYxAl2wPAHmNvDWVeNy-ZkuanPs-7CT"
+      ],
+      "keywords_matched": [
+        "IndiaMART",
+        "counterfeit"
+      ],
+      "reach": 10000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "4bc358bb4cd49188"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:34:57.959868+05:30"
+    }
+  },
+  {
+    "id": "f2cc288add83ae5e",
+    "title": "IndiaMART counterfeit \u2014 Ricoh Dx2430 Digital Duplicator, Color",
+    "category": "counterfeit_marketplace",
+    "severity": "high",
+    "platform": "IndiaMART",
+    "detail": "Shyam Trading Company - Offering Ricoh Dx2430 Digital Duplicator, Color at \u20b9 135000 in Raipur, Chhattisgarh. Get Ricoh Photocopy Machine at lowest pri",
+    "detected_at": "2026-05-13T11:34:57.959937+05:30",
+    "source": "indimart_scan",
+    "evidence_hash": "f2cc288add83ae5e",
+    "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+    "next_steps": [
+      "Preserve evidence \u2014 hash done",
+      "File complaint at cybercrime.gov.in / 1930",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with relevant regulator"
+    ],
+    "report_to": [
+      "I4C \u2014 cybercrime.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "CERT-In \u2014 cert-in.org.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://www.indiamart.com/proddetail/ricoh-dx2430-digital-duplicator-21436549388.html?srsltid=AfmBOoqX6wtDKN-A-4wdzkyd8-9Dw9beXmOFdsBya5oGGQy5wbbREJr8"
+      ],
+      "keywords_matched": [
+        "IndiaMART",
+        "counterfeit"
+      ],
+      "reach": 10000,
+      "phones": [],
+      "upis": [],
+      "evidence_hashes": [
+        "f2cc288add83ae5e"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Trade Marks Act 1999 \u00a729",
+      "recommended_action": "Preserve evidence \u2014 hash done",
+      "report_to": [
+        "I4C \u2014 cybercrime.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "CERT-In \u2014 cert-in.org.in"
+      ],
+      "captured_at": "2026-05-13T11:34:57.959928+05:30"
+    }
+  },
+  {
     "id": "da770a9afd52e041",
     "title": "@Dream11F_winaddac_sportsc \u2014 illegal betting \u00b7 820,200 subscribers",
     "category": "illegal_betting",

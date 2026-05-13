@@ -267,6 +267,39 @@ td:first-child{padding:0;width:3px}
 .stt{font-size:11px;color:var(--b);line-height:1.5;flex:1}
 .rp2{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:2px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;margin:2px;display:inline-block}
 
+.crtab{flex:1;overflow:hidden;display:grid;grid-template-columns:400px 1fr}
+.cr-list{border-right:1px solid var(--bo);overflow-y:auto;background:var(--w);display:flex;flex-direction:column}
+.cr-hdr{padding:10px 14px;border-bottom:1px solid var(--bo);display:flex;align-items:center;justify-content:space-between;background:var(--s);flex-shrink:0}
+.cr-ht{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.1em}
+.cr-hc{font-family:var(--mono);font-size:10px;color:var(--g)}
+.cr-item{padding:12px 14px;border-bottom:1px solid var(--bo);cursor:pointer;transition:background .1s;display:flex;align-items:flex-start;gap:10px}
+.cr-item:hover{background:var(--gt)}
+.cr-item.active{background:var(--gl);border-left:3px solid var(--g)}
+.cr-badge{font-family:var(--mono);font-size:11px;font-weight:600;width:42px;height:42px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.cr-badge.hi{background:var(--gl);color:var(--g)}
+.cr-badge.md{background:#FFFBEB;color:#D97706}
+.cr-badge.lo{background:#EFF6FF;color:#2563EB}
+.cr-title{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px;line-height:1.4}
+.cr-meta{font-size:10px;color:var(--m);display:flex;gap:8px;flex-wrap:wrap}
+.cr-ahead{font-family:var(--mono);font-size:9px;background:#FEF2F2;color:#DC2626;padding:1px 5px;border-radius:2px}
+.cr-detail{flex:1;overflow-y:auto;background:var(--s);padding:20px}
+.cr-empty2{display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:10px;color:var(--m)}
+.cr-scan-btn{font-family:var(--mono);font-size:10px;padding:5px 10px;background:var(--g);color:#fff;border:none;border-radius:5px;cursor:pointer}
+.cr-scan-btn:disabled{opacity:.5;cursor:not-allowed}
+.cr-match-box{background:var(--w);border:1px solid var(--bo);border-radius:6px;overflow:hidden;margin-bottom:10px}
+.cr-match-hdr{padding:8px 12px;background:var(--s);border-bottom:1px solid var(--bo);display:flex;align-items:center;gap:8px}
+.cr-mt{font-family:var(--mono);font-size:9px;padding:2px 5px;border-radius:2px;font-weight:600;text-transform:uppercase}
+.cmt-e{background:var(--gl);color:var(--g)}
+.cmt-f{background:#FFFBEB;color:#D97706}
+.cmt-c{background:#EFF6FF;color:#2563EB}
+.cr-mb{padding:10px 12px}
+.cr-r{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid var(--bo);font-size:11px}
+.cr-r:last-child{border-bottom:none}
+.cr-rk{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;min-width:80px;flex-shrink:0;padding-top:2px}
+.cr-rv{color:var(--ink);line-height:1.5;flex:1}
+.cr-rv.gr{color:var(--g);font-weight:500}
+.cr-rv.rd{color:#DC2626;font-family:var(--mono);font-size:10px}
+.ahead-banner{background:var(--gt);border:1px solid var(--gb);border-radius:6px;padding:12px 14px;margin-bottom:14px}
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bo);border-radius:2px}
@@ -312,6 +345,7 @@ td:first-child{padding:0;width:3px}
   <div class="mtab active" onclick="switchTab('workspace',this)">Workspace <span class="tbadge2" id="tb1">—</span></div>
   <div class="mtab" onclick="switchTab('investigation',this)">Investigation <span class="tbadge2">Graph · Map · Search</span></div>
   <div class="mtab" onclick="switchTab('intelligence',this)">Alert Intelligence <span class="tbadge2" id="tb3">—</span></div>
+  <div class="mtab" onclick="switchTab('crossref',this)">News Cross-Reference <span class="tbadge2" id="tb4">—</span></div>
 </div>
 
 <div class="shell" id="shell" style="display:none">
@@ -482,6 +516,34 @@ td:first-child{padding:0;width:3px}
   </div>
   <div class="aid" id="aid">
     <div class="aid-empty"><div style="font-size:24px;opacity:.3">⬡</div><div style="font-family:var(--mono);font-size:11px">Select an alert to view full intelligence</div></div>
+  </div>
+</div>
+</div>
+
+
+<!-- TAB 4: NEWS CROSS-REFERENCE -->
+<div class="tview" id="tab-crossref">
+<div class="crtab">
+  <div class="cr-list">
+    <div class="cr-hdr">
+      <span class="cr-ht">News Cross-Reference</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="cr-hc" id="cr-count">—</span>
+        <button class="cr-scan-btn" id="cr-btn" onclick="runCR()">Scan News</button>
+      </div>
+    </div>
+    <div id="cr-list-body" style="flex:1;overflow-y:auto">
+      <div style="padding:30px;text-align:center;color:var(--m);font-size:12px">
+        <div style="font-size:24px;opacity:.3;margin-bottom:8px">📰</div>
+        Click Scan News to fetch latest enforcement<br>actions and match against CINEOS database
+      </div>
+    </div>
+  </div>
+  <div class="cr-detail" id="cr-detail">
+    <div class="cr-empty2">
+      <div style="font-size:24px;opacity:.3">⬡</div>
+      <div style="font-family:var(--mono);font-size:11px">Select a news match to view details</div>
+    </div>
   </div>
 </div>
 </div>

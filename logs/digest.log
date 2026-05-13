@@ -1,0 +1,9 @@
+[DIGEST] Running daily digest for 4 films...
+  Retro: Error — Expecting value: line 1 column 1 (char 0)
+  Devara: Error — Expecting value: line 1 column 1 (char 0)
+  Kalki 2898 AD: Error — Expecting value: line 1 column 1 (char 0)
+  Lucky Bhaskar: Error — Expecting value: line 1 column 1 (char 0)
+[EMAIL] Failed: (534, b'5.7.9 Please log in with your web browser and then try again. For more\n5.7.9 information, go to\n5.7.9  https://support.google.com/mail/?p=WebLoginRequired 46e09a7af769-7e367c0bc16sm10857577a34.12 - gsmtp')
+
+Digest: 0 hits across 4 films
+Email sent: False

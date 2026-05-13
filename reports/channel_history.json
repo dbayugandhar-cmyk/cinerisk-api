@@ -20,6 +20,14 @@
       "new_channels": 0,
       "new_findings": 40,
       "platforms_scanned": 13
+    },
+    {
+      "date": "2026-05-13",
+      "total_channels": 1245,
+      "total_reach": 31230091,
+      "new_channels": 0,
+      "new_findings": 43,
+      "platforms_scanned": 13
     }
   ],
   "created_at": "2026-05-10T05:43:10.884970",

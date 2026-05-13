@@ -1,0 +1,19 @@
+{
+  "scan_time": "2026-05-13T15:35:12.324005+05:30",
+  "new_alerts": 33,
+  "total_local": 2000,
+  "by_category": {
+    "illegal_betting": 3,
+    "crypto_fraud": 5,
+    "upi_mule": 6,
+    "domain_squat": 8,
+    "colour_prediction": 4,
+    "counterfeit_marketplace": 2,
+    "counterfeit_pharma": 3,
+    "investment_fraud": 2
+  },
+  "by_severity": {
+    "critical": 16,
+    "high": 17
+  }
+}

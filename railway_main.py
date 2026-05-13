@@ -404,7 +404,7 @@ def run_scheduled_scan():
 
         time.sleep(2)
 
-    ALERTS[:] = ALERTS[:2000]
+    ALERTS[:] = ALERTS[:5000]
     print(f"[{ist_now().strftime('%H:%M IST')}] Scan done. {new_found} new alerts. Total: {len(ALERTS)}")
 
 # ── SCHEDULER ─────────────────────────────────────────────
@@ -467,7 +467,7 @@ for _ga in _load_github():
     ALERTS.insert(0, _ga)
     _seen.add(_id)
     _seen_t.add(_tk)
-ALERTS[:] = sorted(ALERTS[:2000], key=lambda x: {'critical':0,'high':1,'medium':2,'low':3}.get(x.get('severity','low'),3))
+ALERTS[:] = sorted(ALERTS[:5000], key=lambda x: {'critical':0,'high':1,'medium':2,'low':3}.get(x.get('severity','low'),3))
 print(f'[STARTUP] Ready: {len(ALERTS)} alerts total')
 # ─────────────────────────────────────────────────────────
 
@@ -599,7 +599,7 @@ def add_alert():
     }
 
     ALERTS.insert(0, alert)
-    ALERTS[:] = ALERTS[:2000]
+    ALERTS[:] = ALERTS[:5000]
 
     return jsonify({
         'id':      alert_id,

@@ -1364,6 +1364,229 @@ function showAid(idx, card) {
       ${rt.length ? `<div><div class="aid-st">Report to</div><div class="aid-box"><div class="aid-row"><span class="aid-k">Organisations</span><div>${rt.map(r=>`<span class="rp2">${r}</span>`).join('')}</div></div></div></div>` : ''}
     </div>`;
 }
+
+let CRM = [];
+
+async function runCR() {
+  const btn = document.getElementById('cr-btn');
+  btn.disabled = true;
+  btn.textContent = 'Scanning...';
+  document.getElementById('cr-list-body').innerHTML =
+    '<div style="padding:20px;font-family:monospace;font-size:11px;color:#94A3B8">' +
+    'Fetching 10 news queries...<br>' +
+    'Matching against ' + ALL.length + ' alerts...<br>' +
+    'Takes 30-60 seconds...</div>';
+  try {
+    const matches = await buildCR();
+    CRM = matches;
+    renderCRL();
+    const el = document.getElementById('tb4');
+    if (el) el.textContent = matches.length + ' matches';
+  } catch(e) {
+    document.getElementById('cr-list-body').innerHTML =
+      '<div style="padding:20px;color:#DC2626;font-size:12px">Error: ' + e.message + '<br>Check console (Cmd+Option+J)</div>';
+  }
+  btn.disabled = false;
+  btn.textContent = 'Scan News';
+}
+
+async function buildCR() {
+  const KEY = '2b37951bf87af21c398c270f8c02db7236c035120cfe4986a39b053f369468e1';
+  const qs = [
+    'cybercrime arrested India Telegram fraud crore 2026',
+    'ED arrests crypto fraud India PMLA 2026',
+    'SEBI action India fraud stock tips arrested 2026',
+    'Gujarat Maharashtra cybercrime bust fraud 2026',
+    'betting fraud cricket India arrested 2026',
+    'colour prediction fraud India arrested 2026',
+    'digital arrest scam India arrested 2026',
+    'UPI mule India arrested 2026',
+    'counterfeit medicine India arrested 2026',
+    'pig butchering crypto India arrested 2026',
+  ];
+  const results = [];
+  const seen = new Set();
+
+  for (const q of qs) {
+    try {
+      const params = new URLSearchParams({
+        q, api_key: KEY, engine: 'google',
+        tbm: 'nws', tbs: 'qdr:w', num: 10, gl: 'in', no_cache: 'true'
+      });
+      const resp = await fetch('https://serpapi.com/search?' + params);
+      const d = await resp.json();
+      const arts = d.news_results || d.organic_results || [];
+      for (const art of arts) {
+        const title = art.title || '';
+        if (title.length === 0) continue;
+        if (seen.has(title.slice(0, 50))) continue;
+        seen.add(title.slice(0, 50));
+        const snippet = art.snippet || art.description || '';
+        const m = matchArt(title, snippet, art.date || '', art.source || '', art.link || '');
+        if (m && m.confidence >= 40) results.push(m);
+      }
+    } catch(e2) {
+      console.log('Query error:', q, e2.message);
+    }
+    await new Promise(r => setTimeout(r, 1200));
+  }
+  return results.sort((a, b) => b.confidence - a.confidence);
+}
+
+function matchArt(title, snippet, date, source, link) {
+  const full = (title + ' ' + snippet).toLowerCase();
+  const hits = [];
+
+  const CATS = {
+    illegal_betting:   ['betting','satta','matka','cricket id','bookie'],
+    crypto_fraud:      ['crypto','bitcoin','usdt','blockchain','cryptocurrency'],
+    investment_fraud:  ['investment','stock','trading','sebi','ponzi','scheme'],
+    colour_prediction: ['colour prediction','91club','daman','wingo','bdg win'],
+    upi_mule:          ['mule','bank account','upi','hawala','money transfer'],
+    counterfeit_pharma:['medicine','drug','pharma','counterfeit','fake tablet'],
+    digital_arrest:    ['digital arrest','fake ed','fake cbi','fake police'],
+    piracy:            ['piracy','stream','hotstar','ott'],
+    loan_fraud:        ['loan','cibil','lending app','nbfc'],
+  };
+  const STATES = [
+    'Maharashtra','Gujarat','Telangana','Karnataka','Tamil Nadu',
+    'Andhra Pradesh','Delhi','Rajasthan','Uttar Pradesh','West Bengal',
+    'Punjab','Kerala','Haryana','Bihar',
+  ];
+
+  let cat = null;
+  for (const [c, kws] of Object.entries(CATS)) {
+    if (kws.some(k => full.indexOf(k) >= 0)) { cat = c; break; }
+  }
+  const state = STATES.find(s => full.indexOf(s.toLowerCase()) >= 0);
+
+  // Phone match
+  const phoneMatches = full.match(/(?:91)?([6-9][0-9]{9})/g) || [];
+  for (const p of phoneMatches) {
+    const digits = p.replace('91','').slice(-10);
+    const found = ALL.find(x => JSON.stringify(x).indexOf(digits) >= 0);
+    if (found) {
+      hits.push({
+        type: 'PHONE_EXACT', confidence: 100,
+        entity: '+91' + digits,
+        detail: 'Phone in news matches CINEOS database',
+        alert: found
+      });
+    }
+  }
+
+  // Category match
+  if (cat) {
+    const cnt = ALL.filter(a => a.category === cat).length;
+    if (cnt > 0) {
+      hits.push({
+        type: 'CATEGORY_MATCH',
+        confidence: state ? 70 : 55,
+        entity: cat + (state ? ' in ' + state : ''),
+        detail: 'CINEOS monitors ' + cnt + ' ' + cat.replace(/_/g,' ') + ' alerts' + (state ? ' incl. ' + state : ''),
+        count: cnt
+      });
+    }
+  }
+
+  if (hits.length === 0) return null;
+
+  const best = Math.max.apply(null, hits.map(h => h.confidence));
+
+  let daysAhead = null;
+  if (cat) {
+    const catAlerts = ALL.filter(a => a.category === cat);
+    catAlerts.sort(function(a,b){ return a.detected_at < b.detected_at ? -1 : 1; });
+    const earliest = catAlerts[0];
+    if (earliest) {
+      try {
+        let artDate = new Date();
+        if (date.indexOf('day') >= 0) {
+          const n = parseInt(date);
+          if (n > 0) artDate = new Date(Date.now() - n * 86400000);
+        }
+        const cinDate = new Date(earliest.detected_at);
+        daysAhead = Math.floor((artDate - cinDate) / 86400000);
+      } catch(e) {}
+    }
+  }
+
+  return { title, snippet, date, source, link, hits, confidence: best, category: cat, daysAhead };
+}
+
+function renderCRL() {
+  const countEl = document.getElementById('cr-count');
+  if (countEl) countEl.textContent = CRM.length + ' matches';
+  const listEl = document.getElementById('cr-list-body');
+  if (!listEl) return;
+  if (CRM.length === 0) {
+    listEl.innerHTML = '<div style="padding:20px;color:#94A3B8;font-size:12px">No matches this scan</div>';
+    return;
+  }
+  listEl.innerHTML = CRM.map(function(m, i) {
+    const cls = m.confidence >= 85 ? 'hi' : m.confidence >= 65 ? 'md' : 'lo';
+    const ahead = (m.daysAhead > 0) ?
+      '<span class="cr-ahead">' + m.daysAhead + 'd ahead</span>' : '';
+    return '<div class="cr-item" id="cri-' + i + '" onclick="showCRD(' + i + ',this)">' +
+      '<div class="cr-badge ' + cls + '">' + m.confidence + '%</div>' +
+      '<div style="flex:1;min-width:0">' +
+      '<div class="cr-title">' + m.title.slice(0, 80) + '</div>' +
+      '<div class="cr-meta"><span>' + m.source + '</span><span>' + m.date + '</span>' + ahead + '</div>' +
+      '</div></div>';
+  }).join('');
+}
+
+function showCRD(i, card) {
+  const items = document.querySelectorAll('.cr-item');
+  for (let j = 0; j < items.length; j++) items[j].classList.remove('active');
+  if (card) card.classList.add('active');
+  const m = CRM[i];
+  if (!m) return;
+  const cls = m.confidence >= 85 ? 'hi' : m.confidence >= 65 ? 'md' : 'lo';
+
+  const banner = (m.daysAhead > 0) ?
+    '<div class="ahead-banner">' +
+    '<div style="font-family:monospace;font-size:11px;color:#166534;font-weight:600">' +
+    'CINEOS DETECTED THIS ' + m.daysAhead + ' DAYS BEFORE NEWS BROKE</div>' +
+    '<div style="font-size:11px;color:#15803D;margin-top:3px">' +
+    'First detection in database predates this enforcement report. Pre-crime intelligence confirmed.</div>' +
+    '</div>' : '';
+
+  const hitsHtml = m.hits.map(function(h) {
+    const tc = h.type === 'PHONE_EXACT' ? 'cmt-e' :
+               h.type === 'CATEGORY_MATCH' ? 'cmt-c' : 'cmt-f';
+    const confColor = h.confidence >= 85 ? '#166534' : h.confidence >= 65 ? '#D97706' : '#2563EB';
+    const alertRows = h.alert ?
+      '<div class="cr-r"><span class="cr-rk">Alert</span><span class="cr-rv">' + (h.alert.title||'').slice(0,65) + '</span></div>' +
+      '<div class="cr-r"><span class="cr-rk">Detected</span><span class="cr-rv">' + (h.alert.detected_at||'').slice(0,19).replace('T',' ') + ' IST</span></div>' +
+      '<div class="cr-r"><span class="cr-rk">Evidence</span><span class="cr-rv gr">' + (h.alert.evidence_hash||'').slice(0,16) + '... §65B</span></div>'
+      : '';
+    return '<div class="cr-match-box">' +
+      '<div class="cr-match-hdr">' +
+      '<span class="cr-mt ' + tc + '">' + h.type.replace(/_/g,' ') + '</span>' +
+      '<span style="font-size:11px;color:#475569;flex:1">' + h.detail.slice(0,60) + '</span>' +
+      '<span style="font-family:monospace;font-size:12px;font-weight:600;color:' + confColor + '">' + h.confidence + '%</span>' +
+      '</div><div class="cr-mb">' +
+      '<div class="cr-r"><span class="cr-rk">Entity</span><span class="cr-rv rd">' + h.entity + '</span></div>' +
+      alertRows +
+      '</div></div>';
+  }).join('');
+
+  const linkHtml = m.link ?
+    '<a href="' + m.link + '" target="_blank" style="font-family:monospace;font-size:10px;color:#166534;text-decoration:none;margin-top:6px;display:block">Read full article &rarr;</a>' : '';
+
+  document.getElementById('cr-detail').innerHTML =
+    '<div class="cr-badge ' + cls + '" style="width:52px;height:52px;font-size:14px;margin-bottom:12px">' + m.confidence + '%</div>' +
+    '<div style="font-size:15px;font-weight:600;color:#0F172A;margin-bottom:4px;line-height:1.3">' + m.title + '</div>' +
+    '<div style="font-size:11px;color:#94A3B8;margin-bottom:14px">' + m.source + ' &middot; ' + m.date + (m.category ? ' &middot; ' + m.category.replace(/_/g,' ') : '') + '</div>' +
+    banner +
+    '<div style="background:#fff;border:1px solid #E2E8F0;border-radius:6px;padding:12px 14px;margin-bottom:14px">' +
+    '<div style="font-family:monospace;font-size:9px;color:#94A3B8;text-transform:uppercase;margin-bottom:6px">News Snippet</div>' +
+    '<div style="font-size:12px;color:#475569;line-height:1.6">' + m.snippet + '</div>' +
+    linkHtml + '</div>' +
+    '<div style="font-family:monospace;font-size:9px;color:#94A3B8;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">' + m.hits.length + ' Database Matches</div>' +
+    hitsHtml;
+}
 </script>
 </body>
 </html>

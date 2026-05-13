@@ -70,3 +70,13 @@ reports/*_Proposal.*
 reports/*_Intelligence.*
 reports/*_Evidence.*
 reports/*_Counterfeit.*
+
+# Keep full intelligence data local only
+reports/fraud_intelligence_graph.json
+reports/alerts/live_alerts.json
+reports/news_matches.json
+reports/deep_scan_progress.json
+reports/deep_scan_results.json
+
+# Public versions are safe for GitHub
+# reports/fraud_intelligence_graph_public.json ← this stays in git

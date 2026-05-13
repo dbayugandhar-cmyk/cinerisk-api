@@ -5,29 +5,25 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CINEOS — Internal Workspace</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --g:#166534;--gm:#15803D;--gt:#F0FDF4;--gb:#BBF7D0;--gl:#DCFCE7;
-  --ink:#0F172A;--b:#475569;--m:#94A3B8;--bo:#E2E8F0;--s:#F8FAFC;--w:#FFFFFF;
-  --betting:#DC2626;--betting-bg:#FEF2F2;--betting-br:#FECACA;
-  --piracy:#D97706;--piracy-bg:#FFFBEB;--piracy-br:#FDE68A;
-  --colour:#7C3AED;--colour-bg:#F5F3FF;--colour-br:#DDD6FE;
-  --investment:#2563EB;--investment-bg:#EFF6FF;--investment-br:#BFDBFE;
-  --pharma:#059669;--pharma-bg:#ECFDF5;--pharma-br:#A7F3D0;
-  --mule:#EA580C;--mule-bg:#FFF7ED;--mule-br:#FED7AA;
-  --market:#E11D48;--market-bg:#FFF1F2;--market-br:#FECDD3;
-  --impersonation:#0891B2;--impersonation-bg:#ECFEFF;--impersonation-br:#A5F3FC;
-  --domain:#7C3AED;--domain-bg:#F5F3FF;--domain-br:#DDD6FE;
-  --crypto:#F59E0B;--crypto-bg:#FFFBEB;--crypto-br:#FDE68A;
-  --ai:#8B5CF6;--ai-bg:#F5F3FF;--ai-br:#C4B5FD;
+  --ink:#0F172A;--b:#475569;--m:#94A3B8;--bo:#E2E8F0;--s:#F8FAFC;--w:#fff;
+  --betting:#DC2626;--piracy:#D97706;--colour:#7C3AED;--investment:#2563EB;
+  --pharma:#059669;--mule:#EA580C;--market:#E11D48;--impersonation:#0891B2;
+  --domain:#6D28D9;--crypto:#F59E0B;--ai:#8B5CF6;--task:#DC2626;
   --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;
 }
 html,body{height:100%;overflow:hidden}
 body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px;display:flex;flex-direction:column}
+
+/* LOGIN */
 #login{position:fixed;inset:0;z-index:9999;background:var(--g);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px}
-.lb{background:var(--w);border-radius:12px;padding:36px;width:320px;text-align:center}
+.lb{background:var(--w);border-radius:12px;padding:36px;width:320px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
 .ll{font-family:var(--mono);font-size:15px;font-weight:500;letter-spacing:.1em;color:var(--g);margin-bottom:4px}
 .ls{font-size:11px;color:var(--m);margin-bottom:20px}
 .li{width:100%;padding:10px 14px;border:1.5px solid var(--bo);border-radius:8px;font-family:var(--sans);font-size:14px;background:var(--s);color:var(--ink);outline:none;margin-bottom:10px;text-align:center;letter-spacing:.2em}
@@ -35,132 +31,152 @@ body{background:var(--s);color:var(--ink);font-family:var(--sans);font-size:13px
 .lbtn{width:100%;background:var(--g);color:#fff;border:none;padding:11px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
 .lbtn:hover{background:var(--gm)}
 .le{font-size:11px;color:#DC2626;margin-top:6px;display:none}
-.ln{font-size:10px;color:rgba(255,255,255,.4);margin-top:10px;font-family:var(--mono);letter-spacing:.06em}
-.topbar{height:48px;flex-shrink:0;background:var(--w);border-bottom:1px solid var(--bo);display:flex;align-items:center;padding:0 18px;gap:10px;z-index:100}
+.ln{font-size:10px;color:rgba(255,255,255,.4);margin-top:10px;font-family:var(--mono)}
+
+/* TOPBAR */
+.topbar{height:48px;flex-shrink:0;background:var(--w);border-bottom:1px solid var(--bo);display:flex;align-items:center;padding:0 18px;gap:10px}
 .tlogo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.1em;color:var(--g)}
-.tbadge{font-family:var(--mono);font-size:9px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;padding:2px 7px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase}
-.tint{font-family:var(--mono);font-size:9px;background:#FFFBEB;color:#D97706;border:1px solid #FDE68A;padding:2px 7px;border-radius:20px}
-.tlive{font-family:var(--mono);font-size:9px;background:var(--gt);color:var(--g);border:1px solid var(--gb);padding:3px 8px;border-radius:20px;display:flex;align-items:center;gap:4px}
-.tlive::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--g);animation:blink 1.5s infinite}
+.tbadge{font-family:var(--mono);font-size:9px;padding:2px 7px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase}
+.tb-crit{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA}
+.tb-high{background:#FFFBEB;color:#D97706;border:1px solid #FDE68A}
+.tb-live{background:var(--gt);color:var(--g);border:1px solid var(--gb);display:flex;align-items:center;gap:4px}
+.tb-live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--g);animation:blink 1.5s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .tclk{font-family:var(--mono);font-size:11px;color:var(--m)}
 .tright{margin-left:auto;display:flex;gap:8px;align-items:center}
 .ta{font-size:11px;color:var(--m);background:var(--s);border:1px solid var(--bo);padding:5px 10px;border-radius:5px;text-decoration:none;transition:all .15s}
-.ta:hover{background:var(--gl);color:var(--g);border-color:var(--gb)}
-.main-tabs{display:flex;align-items:center;gap:0;background:var(--w);border-bottom:2px solid var(--bo);padding:0 18px;flex-shrink:0}
-.main-tab{padding:10px 18px;font-size:12px;font-weight:500;color:var(--m);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
-.main-tab:hover{color:var(--g)}
-.main-tab.active{color:var(--g);border-bottom-color:var(--g);font-weight:600}
-.tab-badge{font-family:var(--mono);font-size:9px;background:var(--gl);color:var(--g);border:1px solid var(--gb);padding:1px 5px;border-radius:10px}
-.shell{flex:1;overflow:hidden;display:flex;flex-direction:column}
-.tab-view{display:none;flex:1;overflow:hidden}
-.tab-view.active{display:flex;flex-direction:column;overflow:hidden}
+.ta:hover{background:var(--gl);color:var(--g)}
+.ar-info{font-family:var(--mono);font-size:9px;color:var(--m)}
 
-/* WORKSPACE */
-.workspace-layout{display:flex;flex:1;overflow:hidden}
-.sidebar{width:240px;flex-shrink:0;background:var(--w);border-right:1px solid var(--bo);display:flex;flex-direction:column;overflow:hidden}
-.sidebar-sec{padding:12px 14px 8px;border-bottom:1px solid var(--bo)}
-.sidebar-title{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:8px}
-.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.ov-card{background:var(--s);border:1px solid var(--bo);border-radius:6px;padding:8px 10px}
-.ov-n{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--ink);line-height:1}
-.ov-n.green{color:var(--g)}.ov-n.red{color:#DC2626}.ov-n.amber{color:#D97706}.ov-n.blue{color:#2563EB}.ov-n.purple{color:#7C3AED}
-.ov-l{font-size:9px;color:var(--m);margin-top:3px;line-height:1.3}
-.cat-list{overflow-y:auto;flex:1;padding:8px 0}
-.cat-item{display:flex;align-items:center;gap:8px;padding:6px 14px;cursor:pointer;transition:background .12s;border-left:3px solid transparent}
-.cat-item:hover{background:var(--s)}
-.cat-item.active{background:var(--gt);border-left-color:var(--g)}
-.cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.cat-name{font-size:12px;color:var(--b);flex:1}
-.cat-count{font-family:var(--mono);font-size:10px;color:var(--m)}
-.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+/* MAIN TABS */
+.mtabs{display:flex;background:var(--w);border-bottom:2px solid var(--bo);padding:0 18px;flex-shrink:0}
+.mtab{padding:10px 18px;font-size:12px;font-weight:500;color:var(--m);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;display:flex;align-items:center;gap:6px}
+.mtab:hover{color:var(--g)}
+.mtab.active{color:var(--g);border-bottom-color:var(--g);font-weight:600}
+.tbadge2{font-family:var(--mono);font-size:9px;background:var(--gl);color:var(--g);border:1px solid var(--gb);padding:1px 5px;border-radius:10px}
+
+.shell{flex:1;overflow:hidden;display:flex;flex-direction:column}
+.tview{display:none;flex:1;overflow:hidden}
+.tview.active{display:flex;flex-direction:column;overflow:hidden}
+
+/* ── WORKSPACE TAB ── */
+.wl{display:flex;flex:1;overflow:hidden}
+
+/* SIDEBAR */
+.sb{width:240px;flex-shrink:0;background:var(--w);border-right:1px solid var(--bo);display:flex;flex-direction:column;overflow:hidden}
+.sbs{padding:12px 14px 8px;border-bottom:1px solid var(--bo)}
+.sbt{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:8px}
+.ovg{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ovc{background:var(--s);border:1px solid var(--bo);border-radius:6px;padding:8px 10px;cursor:pointer;transition:all .15s}
+.ovc:hover{border-color:var(--gb);background:var(--gt)}
+.ovn{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--ink);line-height:1}
+.ovn.gr{color:var(--g)}.ovn.rd{color:#DC2626}.ovn.am{color:#D97706}.ovn.bl{color:#2563EB}.ovn.pu{color:#7C3AED}
+.ovl{font-size:9px;color:var(--m);margin-top:3px;line-height:1.3}
+.catlist{overflow-y:auto;flex:1;padding:8px 0}
+.cati{display:flex;align-items:center;gap:8px;padding:6px 14px;cursor:pointer;transition:background .12s;border-left:3px solid transparent}
+.cati:hover{background:var(--s)}
+.cati.active{background:var(--gt);border-left-color:var(--g)}
+.catd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.catn{font-size:12px;color:var(--b);flex:1}
+.catc{font-family:var(--mono);font-size:10px;color:var(--m)}
+
+/* MAIN AREA */
+.ma{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .toolbar{padding:10px 16px;border-bottom:1px solid var(--bo);background:var(--w);display:flex;align-items:center;gap:10px;flex-shrink:0}
-.search-wrap{flex:1;position:relative}
-.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--m);font-size:12px}
-.search-in{width:100%;padding:7px 10px 7px 30px;border:1px solid var(--bo);border-radius:6px;font-family:var(--sans);font-size:12px;background:var(--s);color:var(--ink);outline:none}
-.search-in:focus{border-color:var(--g);background:var(--w)}
-.sev-filters{display:flex;gap:4px}
-.sev-btn{font-family:var(--mono);font-size:9px;padding:4px 8px;border-radius:4px;cursor:pointer;border:1px solid var(--bo);background:var(--s);color:var(--m);transition:all .12s}
-.sev-btn.a-all{background:var(--gl);color:var(--g);border-color:var(--gb)}
-.sev-btn.a-critical{background:#FEF2F2;color:#DC2626;border-color:#FECACA}
-.sev-btn.a-high{background:#FFFBEB;color:#D97706;border-color:#FDE68A}
-.sev-btn.a-medium{background:#EFF6FF;color:#2563EB;border-color:#BFDBFE}
-.refresh-btn{font-family:var(--mono);font-size:10px;padding:6px 10px;border:1px solid var(--bo);border-radius:5px;background:var(--s);color:var(--m);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s}
-.refresh-btn:hover{background:var(--gl);color:var(--g)}
-.ar-wrap{font-family:var(--mono);font-size:9px;color:var(--m);display:flex;align-items:center;gap:4px}
-.ar-dot{width:4px;height:4px;border-radius:50%;background:var(--g);animation:blink 2s infinite}
-.rcount{font-family:var(--mono);font-size:10px;color:var(--m);white-space:nowrap}
-.alert-table-wrap{flex:1;overflow-y:auto}
+.sw{flex:1;position:relative}
+.si{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--m);font-size:12px}
+.sin{width:100%;padding:7px 10px 7px 30px;border:1px solid var(--bo);border-radius:6px;font-family:var(--sans);font-size:12px;background:var(--s);color:var(--ink);outline:none}
+.sin:focus{border-color:var(--g);background:var(--w)}
+.sevf{display:flex;gap:4px}
+.sevb{font-family:var(--mono);font-size:9px;padding:4px 8px;border-radius:4px;cursor:pointer;border:1px solid var(--bo);background:var(--s);color:var(--m);transition:all .12s}
+.sevb.s-all{background:var(--gl);color:var(--g);border-color:var(--gb)}
+.sevb.s-crit{background:#FEF2F2;color:#DC2626;border-color:#FECACA}
+.sevb.s-high{background:#FFFBEB;color:#D97706;border-color:#FDE68A}
+.sevb.s-med{background:#EFF6FF;color:#2563EB;border-color:#BFDBFE}
+.rfbtn{font-family:var(--mono);font-size:10px;padding:6px 10px;border:1px solid var(--bo);border-radius:5px;background:var(--s);color:var(--m);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s}
+.rfbtn:hover{background:var(--gl);color:var(--g)}
+.ar-w{font-family:var(--mono);font-size:9px;color:var(--m);display:flex;align-items:center;gap:4px}
+.ard{width:4px;height:4px;border-radius:50%;background:var(--g);animation:blink 2s infinite}
+.rc{font-family:var(--mono);font-size:10px;color:var(--m);white-space:nowrap}
+
+/* ALERT TABLE */
+.atw{flex:1;overflow-y:auto}
 table{width:100%;border-collapse:collapse}
 thead th{background:var(--s);padding:8px 12px;text-align:left;font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--m);border-bottom:2px solid var(--bo);position:sticky;top:0;z-index:10;white-space:nowrap}
 tbody tr{border-bottom:1px solid var(--bo);cursor:pointer;transition:background .1s}
 tbody tr:hover{background:var(--gt)}
 tbody td{padding:10px 12px;vertical-align:middle}
 td:first-child{padding:0;width:3px}
-.ss{width:3px;display:block;height:100%;min-height:40px}
-.at{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:2px}
-.ad{font-size:11px;color:var(--m);line-height:1.4}
-.sb{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;font-weight:500;text-transform:uppercase}
-.cb{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px}
-.pv{font-family:var(--mono);font-size:10px;color:#DC2626;display:block;line-height:1.5}
-.uv{font-family:var(--mono);font-size:10px;color:#059669;display:block;line-height:1.5}
+.ss2{width:3px;display:block;min-height:40px}
+.att{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.adt{font-size:11px;color:var(--m);line-height:1.4}
+.sevbdg{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;font-weight:500;text-transform:uppercase}
+.catbdg{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px}
+.ph-val{font-family:var(--mono);font-size:10px;color:#DC2626;display:block;line-height:1.5}
+.upi-val{font-family:var(--mono);font-size:10px;color:#059669;display:block;line-height:1.5}
 .ae{font-family:var(--mono);font-size:9px;color:var(--m);font-style:italic}
-.ts{font-family:var(--mono);font-size:10px;color:var(--m)}
-.reach{font-family:var(--mono);font-size:10px;color:var(--g);font-weight:500}
-.exp-row{display:none}
-.exp-row.open{display:table-row}
-.exp-cell{padding:0!important;background:var(--gt)}
-.exp-inner{padding:14px 20px;border-top:1px solid var(--gb)}
-.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
-.cb2{background:var(--w);border:1px solid var(--bo);border-radius:6px;padding:10px 12px}
-.cl{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
-.cv{font-size:12px;color:var(--ink);line-height:1.5}
-.cv.mono{font-family:var(--mono);font-size:10px}.cv.green{color:var(--g)}
-.sch{display:flex;gap:0;margin-top:10px}
-.sb2{flex:1;background:var(--w);border:1px solid var(--bo);padding:8px 10px;text-align:center;position:relative}
-.sb2:not(:last-child)::after{content:'→';position:absolute;right:-9px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--g);z-index:1;background:var(--w);padding:0 2px}
-.sl{font-family:var(--mono);font-size:8px;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
-.sv{font-size:11px;color:var(--ink);font-weight:500}
-.ea{display:flex;gap:8px;margin-top:12px}
-.abtn{font-size:11px;padding:6px 12px;border-radius:5px;cursor:pointer;font-family:var(--mono);font-weight:500;transition:all .15s;border:1px solid}
-.abtn-pub{background:var(--w);color:var(--g);border-color:var(--gb)}.abtn-pub:hover{background:var(--gl)}
-.abtn-full{background:var(--g);color:#fff;border-color:var(--g)}.abtn-full:hover{background:var(--gm)}
-.abtn-copy{background:var(--s);color:var(--b);border-color:var(--bo)}
+.ts2{font-family:var(--mono);font-size:10px;color:var(--m)}
+.reach2{font-family:var(--mono);font-size:10px;color:var(--g);font-weight:500}
+
+/* EXPANDED ROW */
+.expr{display:none}
+.expr.open{display:table-row}
+.expc{padding:0!important;background:var(--gt)}
+.expi{padding:14px 20px;border-top:1px solid var(--gb)}
+.chg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.chb{background:var(--w);border:1px solid var(--bo);border-radius:6px;padding:10px 12px}
+.chl{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.chv{font-size:12px;color:var(--ink);line-height:1.5}
+.chv.mono{font-family:var(--mono);font-size:10px}.chv.gr{color:var(--g)}
+.stch{display:flex;gap:0;margin-top:10px}
+.stb{flex:1;background:var(--w);border:1px solid var(--bo);padding:8px 10px;text-align:center;position:relative}
+.stb:not(:last-child)::after{content:'→';position:absolute;right:-9px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--g);z-index:1;background:var(--w);padding:0 2px}
+.stl{font-family:var(--mono);font-size:8px;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.stv{font-size:11px;color:var(--ink);font-weight:500}
+.exa{display:flex;gap:8px;margin-top:12px}
+.exbtn{font-size:11px;padding:6px 12px;border-radius:5px;cursor:pointer;font-family:var(--mono);font-weight:500;border:1px solid;transition:all .15s}
+.eb-pub{background:var(--w);color:var(--g);border-color:var(--gb)}.eb-pub:hover{background:var(--gl)}
+.eb-full{background:var(--g);color:#fff;border-color:var(--g)}.eb-full:hover{background:var(--gm)}
+.eb-copy{background:var(--s);color:var(--b);border-color:var(--bo)}
 .nsl{margin-top:8px}
 .nsi{font-size:11px;color:var(--b);padding:3px 0;border-bottom:1px solid var(--bo);display:flex;gap:8px}
 .nsi:last-child{border-bottom:none}
 .nsn{font-family:var(--mono);font-size:10px;color:var(--g);min-width:20px;font-weight:500}
-.rp{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:2px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;margin:2px;display:inline-block}
+.rpp{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:2px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;margin:2px;display:inline-block}
 
-/* INVESTIGATION */
-.inv-layout{flex:1;overflow:hidden;display:flex;flex-direction:column}
-.inv-stabs{display:flex;gap:0;background:var(--w);border-bottom:1px solid var(--bo);padding:0 18px;flex-shrink:0}
-.inv-stab{padding:8px 14px;font-size:11px;font-weight:500;color:var(--m);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
-.inv-stab:hover{color:var(--g)}
-.inv-stab.active{color:var(--g);border-bottom-color:var(--g)}
-.inv-content{flex:1;overflow:hidden;display:flex}
-.inv-panel{display:none;flex:1;overflow-y:auto;padding:20px 24px}
-.inv-panel.active{display:block}
-.sh-label{font-family:var(--mono);font-size:10px;color:var(--m);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-.sh-bar{display:flex;gap:0;margin-bottom:8px}
-.sh-in{flex:1;padding:11px 14px;border:1.5px solid var(--bo);border-right:none;border-radius:6px 0 0 6px;font-family:var(--mono);font-size:13px;background:var(--s);color:var(--ink);outline:none}
-.sh-in:focus{border-color:var(--g)}
-.sh-btn{background:var(--g);border:none;color:#fff;font-family:var(--mono);font-size:11px;font-weight:600;padding:11px 18px;border-radius:0 6px 6px 0;cursor:pointer}
-.qchips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+/* ── INVESTIGATION TAB ── */
+.invl{flex:1;overflow:hidden;display:flex;flex-direction:column}
+.invst{display:flex;background:var(--w);border-bottom:1px solid var(--bo);padding:0 18px;flex-shrink:0}
+.invs{padding:8px 14px;font-size:11px;font-weight:500;color:var(--m);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+.invs:hover{color:var(--g)}
+.invs.active{color:var(--g);border-bottom-color:var(--g)}
+.invcon{flex:1;overflow:hidden;display:flex}
+.invp{display:none;flex:1;overflow-y:auto;padding:20px 24px}
+.invp.active{display:block}
+
+/* Search */
+.ish-lbl{font-family:var(--mono);font-size:10px;color:var(--m);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.ish-bar{display:flex;gap:0;margin-bottom:8px}
+.ish-in{flex:1;padding:11px 14px;border:1.5px solid var(--bo);border-right:none;border-radius:6px 0 0 6px;font-family:var(--mono);font-size:13px;background:var(--s);color:var(--ink);outline:none}
+.ish-in:focus{border-color:var(--g)}
+.ish-btn{background:var(--g);border:none;color:#fff;font-family:var(--mono);font-size:11px;font-weight:600;padding:11px 18px;border-radius:0 6px 6px 0;cursor:pointer}
+.qch{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
 .qchip{font-family:var(--mono);font-size:10px;padding:3px 8px;border:1px solid var(--bo);border-radius:3px;cursor:pointer;color:var(--m);transition:all .12s}
 .qchip:hover{border-color:var(--gb);color:var(--g);background:var(--gt)}
 .rg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.rc{background:var(--w);border:1px solid var(--bo);border-radius:6px;padding:12px;cursor:pointer;transition:all .15s}
-.rc:hover{border-color:var(--gb)}
-.rc.top{border-color:var(--gb);background:var(--gt)}
-.rct{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.rcard{background:var(--w);border:1px solid var(--bo);border-radius:6px;padding:12px;cursor:pointer;transition:all .15s}
+.rcard:hover{border-color:var(--gb)}
+.rcard.top{border-color:var(--gb);background:var(--gt)}
+.rct{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:5px}
 .rcd{width:5px;height:5px;border-radius:50%}
 .rcn{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px}
-.rcde{font-size:11px;color:var(--m);line-height:1.5;margin-bottom:6px}
+.rcdesc{font-size:11px;color:var(--m);line-height:1.5;margin-bottom:6px}
 .rctags{display:flex;gap:3px;flex-wrap:wrap}
 .rtag{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px}
-.tr{background:#FEF2F2;color:#DC2626}.ta2{background:#FFFBEB;color:#D97706}
-.tg{background:var(--gl);color:var(--g)}.tb{background:#EFF6FF;color:#2563EB}
+.rt-r{background:#FEF2F2;color:#DC2626}.rt-a{background:#FFFBEB;color:#D97706}
+.rt-g{background:var(--gl);color:var(--g)}.rt-b{background:#EFF6FF;color:#2563EB}
+
+/* Graph */
 .gwrap{display:grid;grid-template-columns:200px 1fr;height:100%;overflow:hidden}
 .gleg{border-right:1px solid var(--bo);padding:14px;overflow-y:auto;background:var(--w)}
 .glt{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
@@ -175,41 +191,50 @@ td:first-child{padding:0;width:3px}
 .gcb{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:4px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center}
 .gcb:hover{background:rgba(255,255,255,.2)}
 .ntt{position:absolute;background:rgba(15,23,42,.95);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:10px 12px;pointer-events:none;z-index:100;display:none;max-width:200px}
-.ntt-type{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:3px}
-.ntt-name{font-size:12px;font-weight:600;color:#fff;margin-bottom:3px}
-.ntt-detail{font-size:11px;color:rgba(255,255,255,.6)}
-.geow{display:grid;grid-template-columns:1fr 220px;height:100%;overflow:hidden}
-.geom{position:relative;background:var(--ink);overflow:hidden}
-#india-map{width:100%;height:100%}
-.geos{border-left:1px solid var(--bo);background:var(--w);overflow-y:auto;padding:14px}
-.hi{padding:6px 0;border-bottom:1px solid var(--bo);cursor:pointer}
-.hi:last-child{border-bottom:none}
-.hstate{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px}
-.hbw{display:flex;align-items:center;gap:6px}
-.hbar{height:3px;border-radius:2px;background:var(--g);transition:width .3s}
-.hcount{font-family:var(--mono);font-size:9px;color:var(--m)}
+.ntt-tp{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:3px}
+.ntt-nm{font-size:12px;font-weight:600;color:#fff;margin-bottom:3px}
+.ntt-dt{font-size:11px;color:rgba(255,255,255,.6)}
 
-/* ALERT INTELLIGENCE */
+/* GEO - Leaflet map */
+.geowrap{display:grid;grid-template-columns:1fr 260px;height:100%;overflow:hidden}
+.geomap{position:relative;overflow:hidden}
+#india-leaflet{width:100%;height:100%}
+.geosb{border-left:1px solid var(--bo);background:var(--w);overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:0}
+.geo-search-wrap{margin-bottom:12px}
+.geo-sin{width:100%;padding:7px 10px;border:1px solid var(--bo);border-radius:5px;font-family:var(--mono);font-size:11px;background:var(--s);color:var(--ink);outline:none}
+.geo-sin:focus{border-color:var(--g)}
+.hi{padding:6px 0;border-bottom:1px solid var(--bo);cursor:pointer;transition:background .1s}
+.hi:hover{background:var(--s)}
+.hi:last-child{border-bottom:none}
+.hstate{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px;display:flex;justify-content:space-between}
+.hbw{display:flex;align-items:center;gap:6px}
+.hbar{height:3px;border-radius:2px;transition:width .3s}
+.hcount{font-family:var(--mono);font-size:9px;color:var(--m)}
+.gcat-filters{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.gcatb{font-family:var(--mono);font-size:9px;padding:3px 7px;border-radius:3px;cursor:pointer;border:1px solid var(--bo);background:var(--s);color:var(--m);transition:all .12s}
+.gcatb.active{background:var(--gl);color:var(--g);border-color:var(--gb)}
+
+/* ── ALERT INTELLIGENCE TAB ── */
 .ail{flex:1;overflow:hidden;display:grid;grid-template-columns:300px 1fr}
-.ail-list{border-right:1px solid var(--bo);overflow-y:auto;background:var(--w)}
-.ailh{padding:10px 14px;border-bottom:1px solid var(--bo);display:flex;align-items:center;justify-content:space-between;background:var(--s)}
-.ailht{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.1em}
-.ailhc{font-family:var(--mono);font-size:10px;color:var(--g)}
-.ails{padding:8px 10px;border-bottom:1px solid var(--bo)}
-.ails-in{width:100%;padding:6px 10px;border:1px solid var(--bo);border-radius:5px;font-family:var(--mono);font-size:11px;background:var(--s);color:var(--ink);outline:none}
-.ails-in:focus{border-color:var(--g)}
-.aic{padding:10px 14px;border-bottom:1px solid var(--bo);cursor:pointer;transition:background .1s;display:flex;gap:8px}
-.aic:hover{background:var(--gt)}
-.aic.active{background:var(--gl);border-left:2px solid var(--g)}
-.aic-bar{width:3px;border-radius:2px;flex-shrink:0;align-self:stretch;min-height:36px}
-.aic-body{flex:1;min-width:0}
-.aic-top{display:flex;align-items:center;gap:5px;margin-bottom:3px}
-.aic-title{font-size:11px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
-.aic-meta{font-size:10px;color:var(--m);display:flex;gap:8px}
+.all-list{border-right:1px solid var(--bo);overflow-y:auto;background:var(--w)}
+.allh{padding:10px 14px;border-bottom:1px solid var(--bo);display:flex;align-items:center;justify-content:space-between;background:var(--s)}
+.allht{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.1em}
+.allhc{font-family:var(--mono);font-size:10px;color:var(--g)}
+.alls{padding:8px 10px;border-bottom:1px solid var(--bo)}
+.alls-in{width:100%;padding:6px 10px;border:1px solid var(--bo);border-radius:5px;font-family:var(--mono);font-size:11px;background:var(--s);color:var(--ink);outline:none}
+.alls-in:focus{border-color:var(--g)}
+.allc{padding:10px 14px;border-bottom:1px solid var(--bo);cursor:pointer;transition:background .1s;display:flex;gap:8px}
+.allc:hover{background:var(--gt)}
+.allc.active{background:var(--gl);border-left:2px solid var(--g)}
+.allc-bar{width:3px;border-radius:2px;flex-shrink:0;align-self:stretch;min-height:36px}
+.allc-body{flex:1;min-width:0}
+.allc-top{display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.allc-title{font-size:11px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.allc-meta{font-size:10px;color:var(--m);display:flex;gap:8px}
 .aid{flex:1;overflow-y:auto;background:var(--s)}
 .aid-empty{display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:10px;color:var(--m)}
 .aid-hdr{padding:16px 20px;background:var(--w);border-bottom:1px solid var(--bo)}
-.aid-sr{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.aid-sr{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .aid-title{font-size:16px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:4px}
 .aid-sub{font-size:12px;color:var(--m)}
 .aid-strip{display:flex;border-bottom:1px solid var(--bo);background:var(--w)}
@@ -225,12 +250,12 @@ td:first-child{padding:0;width:3px}
 .aid-row:last-child{border-bottom:none}
 .aid-k{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.06em;min-width:100px;flex-shrink:0;padding-top:2px}
 .aid-v{font-size:12px;color:var(--ink);line-height:1.5;flex:1}
-.aid-v.green{color:var(--g)}.aid-v.mono{font-family:var(--mono);font-size:11px}.aid-v.red{color:#DC2626}
-.hd{font-family:var(--mono);font-size:10px;color:var(--g);background:var(--gt);border:1px solid var(--gb);padding:5px 8px;border-radius:4px;display:flex;align-items:center;justify-content:space-between;gap:8px;word-break:break-all}
+.aid-v.gr{color:var(--g)}.aid-v.mono{font-family:var(--mono);font-size:11px}.aid-v.rd{color:#DC2626}
+.hdbox{font-family:var(--mono);font-size:10px;color:var(--g);background:var(--gt);border:1px solid var(--gb);padding:5px 8px;border-radius:4px;display:flex;align-items:center;justify-content:space-between;gap:8px;word-break:break-all}
 .hdcp{font-size:9px;color:var(--m);cursor:pointer;padding:2px 5px;border:1px solid var(--bo);border-radius:2px;background:var(--w);font-family:var(--mono);white-space:nowrap;flex-shrink:0}
 .hdcp:hover{color:var(--g)}
-.att{display:flex;flex-wrap:wrap;gap:4px}
-.at2{font-family:var(--mono);font-size:10px;padding:3px 7px;border-radius:3px;border:1px solid}
+.att2{display:flex;flex-wrap:wrap;gap:4px}
+.at3{font-family:var(--mono);font-size:10px;padding:3px 7px;border-radius:3px;border:1px solid}
 .at-n{color:var(--ink);border-color:var(--bo);background:var(--s)}
 .at-e{color:#2563EB;border-color:#BFDBFE;background:#EFF6FF}
 .at-p{color:#DC2626;border-color:#FECACA;background:#FEF2F2}
@@ -240,79 +265,92 @@ td:first-child{padding:0;width:3px}
 .str:last-child{border-bottom:none}
 .stn{font-family:var(--mono);font-size:9px;font-weight:600;color:var(--g);background:var(--gl);border:1px solid var(--gb);width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .stt{font-size:11px;color:var(--b);line-height:1.5;flex:1}
-.rpp{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:2px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;margin:2px;display:inline-block}
+.rp2{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:2px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;margin:2px;display:inline-block}
+
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bo);border-radius:2px}
 .empty{padding:40px;text-align:center;color:var(--m);font-size:12px}
+
+/* Leaflet overrides */
+.leaflet-container{background:#0F172A!important}
+.leaflet-control-attribution{display:none}
+.leaflet-popup-content-wrapper{background:rgba(15,23,42,.95);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:#fff;font-family:var(--mono);font-size:11px}
+.leaflet-popup-tip{background:rgba(15,23,42,.95)}
 </style>
 </head>
 <body>
+
+<!-- LOGIN -->
 <div id="login">
   <div class="lb">
     <div class="ll">CINEOS</div>
     <div class="ls">Internal Workspace · Authorised Access Only</div>
-    <input class="li" type="password" id="pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <input class="li" type="password" id="pwd" placeholder="••••••••">
     <button class="lbtn" onclick="doLogin()">Access Workspace</button>
     <div class="le" id="lerr">Incorrect password</div>
   </div>
   <div class="ln">CINEOS · India Trust Intelligence Network · Patent 64/049,190</div>
 </div>
+
+<!-- TOPBAR -->
 <div class="topbar" id="topbar" style="display:none">
   <span class="tlogo">CINEOS</span>
-  <span class="tbadge" id="top-crit">— CRITICAL</span>
-  <span class="tint" id="top-high">— HIGH</span>
-  <span class="tlive" id="top-live">Live</span>
-  <span class="tclk" id="top-clock"></span>
+  <span class="tbadge tb-crit" id="tb-crit">— CRITICAL</span>
+  <span class="tbadge tb-high" id="tb-high">— HIGH</span>
+  <span class="tbadge tb-live" id="tb-live">Live</span>
+  <span class="tclk" id="tclk"></span>
   <div class="tright">
-    <span style="font-family:var(--mono);font-size:9px;color:var(--m)">Auto-refresh: 30s · <span id="nxt">30s</span></span>
+    <span class="ar-info">Auto-refresh 30s · <span id="nxt">30s</span></span>
     <a class="ta" href="cineos_today.html" target="_blank">Today's Brief</a>
     <a class="ta" href="cineos_intelligence.html" target="_blank">Plans</a>
   </div>
 </div>
-<div class="main-tabs" id="main-tabs" style="display:none">
-  <div class="main-tab active" onclick="switchTab('workspace',this)">Workspace <span class="tab-badge" id="tb-ws">—</span></div>
-  <div class="main-tab" onclick="switchTab('investigation',this)">Investigation <span class="tab-badge">Graph · Geo · Search</span></div>
-  <div class="main-tab" onclick="switchTab('intelligence',this)">Alert Intelligence <span class="tab-badge" id="tb-ai">—</span></div>
+
+<!-- MAIN TABS -->
+<div class="mtabs" id="mtabs" style="display:none">
+  <div class="mtab active" onclick="switchTab('workspace',this)">Workspace <span class="tbadge2" id="tb1">—</span></div>
+  <div class="mtab" onclick="switchTab('investigation',this)">Investigation <span class="tbadge2">Graph · Map · Search</span></div>
+  <div class="mtab" onclick="switchTab('intelligence',this)">Alert Intelligence <span class="tbadge2" id="tb3">—</span></div>
 </div>
+
 <div class="shell" id="shell" style="display:none">
 
-<!-- TAB 1: WORKSPACE -->
-<div class="tab-view active" id="tab-workspace">
-<div class="workspace-layout">
-<div class="sidebar">
-  <div class="sidebar-sec">
-    <div class="sidebar-title">Overview</div>
-    <div class="ov-grid">
-      <div class="ov-card"><div class="ov-n green" id="ov-total">—</div><div class="ov-l">Total Alerts</div></div>
-      <div class="ov-card"><div class="ov-n red" id="ov-crit">—</div><div class="ov-l">Critical</div></div>
-      <div class="ov-card"><div class="ov-n amber" id="ov-high">—</div><div class="ov-l">High</div></div>
-      <div class="ov-card"><div class="ov-n blue" id="ov-med">—</div><div class="ov-l">Medium</div></div>
-      <div class="ov-card"><div class="ov-n red" id="ov-phones">74</div><div class="ov-l">Phone Nodes</div></div>
-      <div class="ov-card"><div class="ov-n" style="color:#059669" id="ov-upis">3</div><div class="ov-l">UPI IDs</div></div>
-      <div class="ov-card" style="grid-column:1/-1"><div class="ov-n purple" id="ov-ch">1,245</div><div class="ov-l">Channels · <span id="ov-reach">40M</span> reach</div></div>
+<!-- ══ TAB 1: WORKSPACE ══ -->
+<div class="tview active" id="tab-workspace">
+<div class="wl">
+<div class="sb">
+  <div class="sbs">
+    <div class="sbt">Overview</div>
+    <div class="ovg">
+      <div class="ovc" onclick="filterBySev('all')"><div class="ovn gr" id="ov-total">—</div><div class="ovl">Total Alerts</div></div>
+      <div class="ovc" onclick="filterBySev('critical')"><div class="ovn rd" id="ov-crit">—</div><div class="ovl">Critical</div></div>
+      <div class="ovc" onclick="filterBySev('high')"><div class="ovn am" id="ov-high">—</div><div class="ovl">High</div></div>
+      <div class="ovc" onclick="filterBySev('medium')"><div class="ovn bl" id="ov-med">—</div><div class="ovl">Medium</div></div>
+      <div class="ovc" onclick="filterByCat('phone_node')"><div class="ovn rd" id="ov-phones">74</div><div class="ovl">Phone Nodes</div></div>
+      <div class="ovc" onclick="filterByCat('upi_mule')"><div class="ovn" style="color:#059669" id="ov-upis">3</div><div class="ovl">UPI IDs</div></div>
+      <div class="ovc" style="grid-column:1/-1"><div class="ovn pu" id="ov-ch">1,245</div><div class="ovl">Channels · <span id="ov-reach">40M</span> reach</div></div>
     </div>
   </div>
-  <div class="sidebar-sec" style="padding-bottom:4px"><div class="sidebar-title">Categories</div></div>
-  <div class="cat-list" id="cat-list"></div>
+  <div class="sbs" style="padding-bottom:4px"><div class="sbt">Categories</div></div>
+  <div class="catlist" id="catlist"></div>
 </div>
-<div class="main-area">
+<div class="ma">
   <div class="toolbar">
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input class="search-in" id="search" placeholder="Search alerts, channels, operators, phones, UPIs, domains..." oninput="filterAlerts()">
+    <div class="sw"><span class="si">🔍</span>
+      <input class="sin" id="search" placeholder="Search alerts, channels, operators, phones, UPIs, domains..." oninput="doFilter()">
     </div>
-    <div class="sev-filters">
-      <button class="sev-btn a-all" onclick="setSev('all',this)">All</button>
-      <button class="sev-btn" onclick="setSev('critical',this)">Critical</button>
-      <button class="sev-btn" onclick="setSev('high',this)">High</button>
-      <button class="sev-btn" onclick="setSev('medium',this)">Medium</button>
+    <div class="sevf">
+      <button class="sevb s-all" onclick="setSev('all',this)">All</button>
+      <button class="sevb" onclick="setSev('critical',this)">Critical</button>
+      <button class="sevb" onclick="setSev('high',this)">High</button>
+      <button class="sevb" onclick="setSev('medium',this)">Medium</button>
     </div>
-    <button class="refresh-btn" id="rfbtn" onclick="fetchAlerts(true)">↻ Refresh</button>
-    <div class="ar-wrap"><div class="ar-dot"></div><span id="nxt2">30s</span></div>
-    <span class="rcount" id="rcount">— alerts</span>
+    <button class="rfbtn" onclick="loadAlerts(true)">↻ Refresh</button>
+    <div class="ar-w"><div class="ard"></div><span id="nxt2">30s</span></div>
+    <span class="rc" id="rcount">— alerts</span>
   </div>
-  <div class="alert-table-wrap">
+  <div class="atw">
     <table>
       <thead><tr>
         <th style="width:3px"></th>
@@ -322,7 +360,7 @@ td:first-child{padding:0;width:3px}
         <th>Phone Numbers</th>
         <th>UPI IDs</th>
         <th>Reach</th>
-        <th>Detected</th>
+        <th>Date</th>
       </tr></thead>
       <tbody id="atbody"></tbody>
     </table>
@@ -332,44 +370,51 @@ td:first-child{padding:0;width:3px}
 </div>
 </div>
 
-<!-- TAB 2: INVESTIGATION -->
-<div class="tab-view" id="tab-investigation">
-<div class="inv-layout">
-  <div class="inv-stabs">
-    <div class="inv-stab active" onclick="invTab('search',this)">Search</div>
-    <div class="inv-stab" onclick="invTab('graph',this)">Entity Graph</div>
-    <div class="inv-stab" onclick="invTab('geo',this)">Geo Patterns</div>
+<!-- ══ TAB 2: INVESTIGATION ══ -->
+<div class="tview" id="tab-investigation">
+<div class="invl">
+  <div class="invst">
+    <div class="invs active" onclick="invTab('search',this)">Search</div>
+    <div class="invs" onclick="invTab('graph',this)">Entity Graph</div>
+    <div class="invs" onclick="invTab('geo',this)">India Map</div>
   </div>
-  <div class="inv-content">
-    <div class="inv-panel active" id="inv-search">
+  <div class="invcon">
+
+    <!-- SEARCH -->
+    <div class="invp active" id="inv-search">
       <div style="margin-bottom:20px">
-        <div class="sh-label">Investigate · Search any brand, channel, operator, UPI, phone, domain</div>
-        <div class="sh-bar">
-          <input class="sh-in" id="inv-q" placeholder="e.g. Mahadev Book, 91CLUB, jiohotstar.net, crypto fraud, AI voice scam..." onkeydown="if(event.key==='Enter')invSearch()">
-          <button class="sh-btn" onclick="invSearch()">SEARCH →</button>
+        <div class="ish-lbl">Investigate · Search any brand, channel, operator, UPI, phone, domain</div>
+        <div class="ish-bar">
+          <input class="ish-in" id="inv-q" placeholder="e.g. Mahadev Book, 91CLUB, jiohotstar.net, crypto fraud, AI voice scam, Gujarat mule..." onkeydown="if(event.key==='Enter')doInvSearch()">
+          <button class="ish-btn" onclick="doInvSearch()">SEARCH →</button>
         </div>
-        <div class="qchips">
-          <span class="qchip" onclick="qSearch('Mahadev Book')">Mahadev Book</span>
-          <span class="qchip" onclick="qSearch('91CLUB colour prediction')">91CLUB</span>
-          <span class="qchip" onclick="qSearch('jiohotstar domain squat')">jiohotstar.net</span>
-          <span class="qchip" onclick="qSearch('IPL piracy streams')">IPL piracy</span>
-          <span class="qchip" onclick="qSearch('Gujarat mule UPI')">Gujarat mule</span>
-          <span class="qchip" onclick="qSearch('crypto fraud pig butchering')">Crypto / Pig butchering</span>
-          <span class="qchip" onclick="qSearch('AI voice deepfake scam digital arrest')">AI voice / digital arrest</span>
-          <span class="qchip" onclick="qSearch('fake PhonePe APK')">Fake PhonePe</span>
+        <div class="qch">
+          <span class="qchip" onclick="qs('Mahadev Book')">Mahadev Book</span>
+          <span class="qchip" onclick="qs('91CLUB colour prediction')">91CLUB</span>
+          <span class="qchip" onclick="qs('jiohotstar domain squat')">jiohotstar.net</span>
+          <span class="qchip" onclick="qs('IPL piracy')">IPL piracy</span>
+          <span class="qchip" onclick="qs('Gujarat mule UPI')">Gujarat mule</span>
+          <span class="qchip" onclick="qs('crypto fraud pig butchering ED')">Crypto / Pig butchering</span>
+          <span class="qchip" onclick="qs('AI voice deepfake digital arrest')">AI voice / digital arrest</span>
+          <span class="qchip" onclick="qs('fake PhonePe APK')">Fake PhonePe</span>
+          <span class="qchip" onclick="qs('Reddy Anna cricket match fix')">Reddy Anna</span>
+          <span class="qchip" onclick="qs('satta matka betting operator')">Satta matka</span>
         </div>
       </div>
       <div id="inv-results"></div>
     </div>
-    <div class="inv-panel" id="inv-graph" style="padding:0;overflow:hidden;display:none;height:100%">
+
+    <!-- GRAPH -->
+    <div class="invp" id="inv-graph" style="padding:0;overflow:hidden;display:none;height:100%">
       <div class="gwrap" style="height:100%">
         <div class="gleg">
-          <div class="glt">Graph Statistics</div>
-          <div class="gsr"><span class="gsl">Total nodes</span><span class="gsv" style="color:var(--g)">1,369</span></div>
-          <div class="gsr"><span class="gsl">Channels</span><span class="gsv">1,248</span></div>
+          <div class="glt">Graph Stats</div>
+          <div class="gsr"><span class="gsl">Total nodes</span><span class="gsv" style="color:var(--g)" id="gs-nodes">1,369</span></div>
+          <div class="gsr"><span class="gsl">Channels</span><span class="gsv" id="gs-ch">1,248</span></div>
           <div class="gsr"><span class="gsl">Operators</span><span class="gsv" style="color:#D97706">15</span></div>
-          <div class="gsr"><span class="gsl">Phone nodes</span><span class="gsv" style="color:#DC2626">74</span></div>
-          <div class="gsr"><span class="gsl">UPI nodes</span><span class="gsv" style="color:#059669">3</span></div>
+          <div class="gsr"><span class="gsl">Phone nodes</span><span class="gsv" style="color:#DC2626" id="gs-ph">74</span></div>
+          <div class="gsr"><span class="gsl">UPI nodes</span><span class="gsv" style="color:#059669" id="gs-upi">3</span></div>
+          <div class="gsr"><span class="gsl">Networks</span><span class="gsv">17</span></div>
           <div class="gsr"><span class="gsl">Alias groups</span><span class="gsv" style="color:#0891B2">115</span></div>
           <div class="gsr"><span class="gsl">Edges</span><span class="gsv">169+</span></div>
           <br>
@@ -383,7 +428,7 @@ td:first-child{padding:0;width:3px}
           <div class="gli"><div class="gld" style="background:#ff6b9d"></div>Phone node</div>
           <div class="gli"><div class="gld" style="background:#0891B2"></div>UPI / Domain</div>
           <br>
-          <div id="ninfo" style="font-size:11px;color:var(--m);line-height:1.6">Click any node</div>
+          <div id="ninfo" style="font-size:11px;color:var(--m);line-height:1.6">Click any node to see connections</div>
         </div>
         <div class="gcw">
           <svg id="graph-svg"></svg>
@@ -393,242 +438,384 @@ td:first-child{padding:0;width:3px}
             <button class="gcb" onclick="gz(1)">⊙</button>
           </div>
           <div class="ntt" id="ntt">
-            <div class="ntt-type" id="ntt-type"></div>
-            <div class="ntt-name" id="ntt-name"></div>
-            <div class="ntt-detail" id="ntt-detail"></div>
+            <div class="ntt-tp" id="ntt-tp"></div>
+            <div class="ntt-nm" id="ntt-nm"></div>
+            <div class="ntt-dt" id="ntt-dt"></div>
           </div>
         </div>
       </div>
     </div>
-    <div class="inv-panel" id="inv-geo" style="padding:0;overflow:hidden;display:none;height:100%">
-      <div class="geow" style="height:100%">
-        <div class="geom"><svg id="india-map"></svg></div>
-        <div class="geos">
-          <div class="glt" style="margin-bottom:12px">Fraud Hotspots</div>
-          <div id="hlist"></div>
-          <br>
-          <div class="glt">Filter</div>
-          <div style="display:flex;flex-direction:column;gap:5px;margin-top:6px">
-            <label style="font-size:11px;color:var(--m);cursor:pointer;display:flex;align-items:center;gap:6px"><input type="radio" name="gc" value="all" checked onchange="geoF(this.value)" style="accent-color:var(--g)"> All</label>
-            <label style="font-size:11px;color:var(--m);cursor:pointer;display:flex;align-items:center;gap:6px"><input type="radio" name="gc" value="betting" onchange="geoF(this.value)" style="accent-color:#DC2626"> Betting</label>
-            <label style="font-size:11px;color:var(--m);cursor:pointer;display:flex;align-items:center;gap:6px"><input type="radio" name="gc" value="piracy" onchange="geoF(this.value)" style="accent-color:#D97706"> Piracy</label>
-            <label style="font-size:11px;color:var(--m);cursor:pointer;display:flex;align-items:center;gap:6px"><input type="radio" name="gc" value="crypto" onchange="geoF(this.value)" style="accent-color:#F59E0B"> Crypto fraud</label>
+
+    <!-- INDIA MAP (Leaflet) -->
+    <div class="invp" id="inv-geo" style="padding:0;overflow:hidden;display:none;height:100%">
+      <div class="geowrap" style="height:100%">
+        <div class="geomap"><div id="india-leaflet"></div></div>
+        <div class="geosb">
+          <div class="glt" style="margin-bottom:8px">India Fraud Map</div>
+          <div class="geo-search-wrap">
+            <input class="geo-sin" id="geo-search" placeholder="Search state or operator..." oninput="geoSearch(this.value)">
           </div>
+          <div class="gcat-filters">
+            <button class="gcatb active" onclick="setGeoFilter('all',this)">All</button>
+            <button class="gcatb" onclick="setGeoFilter('betting',this)">Betting</button>
+            <button class="gcatb" onclick="setGeoFilter('piracy',this)">Piracy</button>
+            <button class="gcatb" onclick="setGeoFilter('crypto',this)">Crypto</button>
+            <button class="gcatb" onclick="setGeoFilter('mule',this)">Mule</button>
+          </div>
+          <div class="glt">Hotspots by State</div>
+          <div id="hotspot-list"></div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
 </div>
 
-<!-- TAB 3: ALERT INTELLIGENCE -->
-<div class="tab-view" id="tab-intelligence">
+<!-- ══ TAB 3: ALERT INTELLIGENCE ══ -->
+<div class="tview" id="tab-intelligence">
 <div class="ail">
-  <div class="ail-list">
-    <div class="ailh"><span class="ailht">All Alerts</span><span class="ailhc" id="ail-count">—</span></div>
-    <div class="ails"><input class="ails-in" id="ail-s" placeholder="Search..." oninput="ailFilter()"></div>
+  <div class="all-list">
+    <div class="allh"><span class="allht">All Alerts</span><span class="allhc" id="ail-count">—</span></div>
+    <div class="alls"><input class="alls-in" id="ail-s" placeholder="Search..." oninput="ailFilter()"></div>
     <div id="ail-list"></div>
   </div>
   <div class="aid" id="aid">
-    <div class="aid-empty"><div style="font-size:24px;opacity:.3">⬡</div><div style="font-family:var(--mono);font-size:11px">Select an alert</div></div>
+    <div class="aid-empty"><div style="font-size:24px;opacity:.3">⬡</div><div style="font-family:var(--mono);font-size:11px">Select an alert to view full intelligence</div></div>
   </div>
 </div>
 </div>
 
 </div><!-- shell -->
+
 <script>
-const RAILWAY='https://cinerisk-api-production.up.railway.app';
-const PWD='cineos2026';
-const RI=30;
-let ALL=[],CAT='all',SEV='all',TIMER=null,CD=RI;
-const SC={critical:'#DC2626',high:'#D97706',medium:'#2563EB',low:'#94A3B8'};
-const CC={'illegal_betting':'#DC2626','piracy':'#D97706','colour_prediction':'#7C3AED','investment_fraud':'#2563EB','crypto_fraud':'#F59E0B','ai_scam':'#8B5CF6','upi_mule':'#EA580C','counterfeit_pharma':'#059669','counterfeit_marketplace':'#E11D48','brand_impersonation':'#0891B2','domain_squat':'#7C3AED','task_fraud':'#DC2626','loan_fraud':'#2563EB','unknown':'#94A3B8'};
-const CATS=[
-  {id:'all',label:'All Alerts',color:'#166534'},
-  {id:'illegal_betting',label:'Illegal Betting',color:'#DC2626'},
-  {id:'piracy',label:'Piracy',color:'#D97706'},
-  {id:'colour_prediction',label:'Colour Prediction',color:'#7C3AED'},
-  {id:'investment_fraud',label:'Investment Fraud',color:'#2563EB'},
-  {id:'crypto_fraud',label:'Crypto Fraud',color:'#F59E0B'},
-  {id:'ai_scam',label:'AI Scams (Voice/Video)',color:'#8B5CF6'},
-  {id:'upi_mule',label:'UPI Mule',color:'#EA580C'},
-  {id:'counterfeit_pharma',label:'Counterfeit Pharma',color:'#059669'},
+// ═══════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════
+const RAILWAY = 'https://cinerisk-api-production.up.railway.app';
+const PWD     = 'cineos2026';
+const RI      = 30; // refresh interval seconds
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let ALL     = [];  // ALL alerts — local + Railway combined
+let CAT     = 'all';
+let SEV     = 'all';
+let TIMER   = null;
+let CD      = RI;
+let MAP     = null;
+let GEO_LAYER = null;
+let GEO_FILTER = 'all';
+
+// Category colors
+const CC = {
+  illegal_betting:'#DC2626', piracy:'#D97706', colour_prediction:'#7C3AED',
+  investment_fraud:'#2563EB', crypto_fraud:'#F59E0B', ai_scam:'#8B5CF6',
+  upi_mule:'#EA580C', counterfeit_pharma:'#059669', counterfeit_marketplace:'#E11D48',
+  brand_impersonation:'#0891B2', domain_squat:'#6D28D9', task_fraud:'#DC2626',
+  loan_fraud:'#2563EB', fake_trading:'#2563EB', unknown:'#94A3B8',
+  phone_node:'#DC2626'
+};
+const SC = {critical:'#DC2626',high:'#D97706',medium:'#2563EB',low:'#94A3B8'};
+
+const CATS = [
+  {id:'all',            label:'All Alerts',             color:'#166534'},
+  {id:'illegal_betting',label:'Illegal Betting',        color:'#DC2626'},
+  {id:'piracy',         label:'Piracy',                 color:'#D97706'},
+  {id:'colour_prediction',label:'Colour Prediction',    color:'#7C3AED'},
+  {id:'investment_fraud',label:'Investment Fraud',      color:'#2563EB'},
+  {id:'crypto_fraud',   label:'Crypto Fraud',           color:'#F59E0B'},
+  {id:'ai_scam',        label:'AI Scams (Voice/Video)', color:'#8B5CF6'},
+  {id:'upi_mule',       label:'UPI Mule',               color:'#EA580C'},
+  {id:'counterfeit_pharma',label:'Counterfeit Pharma',  color:'#059669'},
   {id:'counterfeit_marketplace',label:'Counterfeit Goods',color:'#E11D48'},
   {id:'brand_impersonation',label:'Brand Impersonation',color:'#0891B2'},
-  {id:'domain_squat',label:'Domain Squat',color:'#7C3AED'},
-  {id:'task_fraud',label:'Task / Job Fraud',color:'#DC2626'},
-  {id:'loan_fraud',label:'Loan Fraud',color:'#2563EB'},
-  {id:'unknown',label:'Uncategorised',color:'#94A3B8'},
+  {id:'domain_squat',   label:'Domain Squat',           color:'#6D28D9'},
+  {id:'task_fraud',     label:'Task / Job Fraud',       color:'#DC2626'},
+  {id:'loan_fraud',     label:'Loan Fraud',             color:'#2563EB'},
+  {id:'unknown',        label:'Uncategorised',          color:'#94A3B8'},
 ];
 
-function doLogin(){
-  if(document.getElementById('pwd').value===PWD){
-    document.getElementById('login').style.display='none';
-    ['topbar','main-tabs','shell'].forEach(id=>document.getElementById(id).style.display=id==='shell'?'flex':'flex');
-    buildCats();fetchAlerts(true);startClock();startAR();
+// ═══════════════════════════════════════════════
+// STATE DATA — fraud hotspots by state
+// ═══════════════════════════════════════════════
+const STATE_DATA = {
+  'Maharashtra':      {total:187, betting:89,  piracy:42, crypto:28, mule:31, lat:19.7515, lng:75.7139},
+  'Gujarat':          {total:143, betting:55,  piracy:28, crypto:35, mule:45, lat:22.2587, lng:71.1924},
+  'Telangana':        {total:128, betting:72,  piracy:18, crypto:22, mule:22, lat:18.1124, lng:79.0193},
+  'Karnataka':        {total:112, betting:48,  piracy:35, crypto:18, mule:18, lat:15.3173, lng:75.7139},
+  'Tamil Nadu':       {total:98,  betting:61,  piracy:14, crypto:12, mule:12, lat:11.1271, lng:78.6569},
+  'Andhra Pradesh':   {total:87,  betting:52,  piracy:10, crypto:15, mule:15, lat:15.9129, lng:79.7400},
+  'Delhi':            {total:76,  betting:22,  piracy:31, crypto:14, mule:14, lat:28.7041, lng:77.1025},
+  'Rajasthan':        {total:64,  betting:38,  piracy:8,  crypto:9,  mule:12, lat:27.0238, lng:74.2179},
+  'Uttar Pradesh':    {total:59,  betting:31,  piracy:12, crypto:8,  mule:9,  lat:26.8467, lng:80.9462},
+  'West Bengal':      {total:47,  betting:18,  piracy:16, crypto:7,  mule:8,  lat:22.9868, lng:87.8550},
+  'Punjab':           {total:41,  betting:25,  piracy:6,  crypto:5,  mule:7,  lat:31.1471, lng:75.3412},
+  'Madhya Pradesh':   {total:38,  betting:22,  piracy:7,  crypto:4,  mule:5,  lat:22.9734, lng:78.6569},
+  'Kerala':           {total:32,  betting:12,  piracy:10, crypto:6,  mule:4,  lat:10.8505, lng:76.2711},
+  'Haryana':          {total:28,  betting:15,  piracy:5,  crypto:4,  mule:4,  lat:29.0588, lng:76.0856},
+  'Bihar':            {total:24,  betting:14,  piracy:4,  crypto:3,  mule:3,  lat:25.0961, lng:85.3131},
+  'Odisha':           {total:19,  betting:10,  piracy:4,  crypto:2,  mule:3,  lat:20.9517, lng:85.0985},
+  'Assam':            {total:16,  betting:8,   piracy:3,  crypto:3,  mule:2,  lat:26.2006, lng:92.9376},
+  'Himachal Pradesh': {total:12,  betting:5,   piracy:2,  crypto:4,  mule:1,  lat:31.1048, lng:77.1734},
+  'Uttarakhand':      {total:11,  betting:6,   piracy:2,  crypto:2,  mule:1,  lat:30.0668, lng:79.0193},
+  'Goa':              {total:9,   betting:4,   piracy:2,  crypto:2,  mule:1,  lat:15.2993, lng:74.1240},
+};
+
+// Known operator locations for pin markers
+const OPERATOR_PINS = [
+  {name:'Mahadev Book HQ (alleged)',     lat:21.1458, lng:79.0882, type:'operator',   color:'#D97706', detail:'41 channels · 2.2M reach · ED case · Nagpur origin'},
+  {name:'91CLUB India hub',              lat:19.0760, lng:72.8777, type:'operator',   color:'#7C3AED', detail:'1M+ subscribers · Mumbai coordination · China origin'},
+  {name:'Gujarat mule network',         lat:23.0225, lng:72.5714, type:'network',    color:'#EA580C', detail:'Rs 77Cr · 16 arrested · Ahmedabad · still active'},
+  {name:'jiohotstar.net registrant',    lat:17.3850, lng:78.4867, type:'domain',     color:'#0891B2', detail:'muthyala19@gmail.com · Hyderabad registrant'},
+  {name:'Reddy Anna (alleged base)',     lat:13.0827, lng:80.2707, type:'operator',   color:'#D97706', detail:'28 channels · 1.8M reach · Chennai area'},
+  {name:'Fake PhonePe APK host',        lat:25.2048, lng:55.2708, type:'domain',     color:'#DC2626', detail:'phonepes.com.in · UAE registrant (Dubai)'},
+  {name:'IPL piracy network (Mumbai)',  lat:19.0760, lng:72.8777, type:'channel',    color:'#2563EB', detail:'20 streams Match 53 · 35M reach · operator phones found'},
+  {name:'Kolkata colour pred cluster',  lat:22.5726, lng:88.3639, type:'channel',    color:'#7C3AED', detail:'Multiple colour pred channels · West Bengal hub'},
+  {name:'Satta Matka Delhi hub',        lat:28.6139, lng:77.2090, type:'channel',    color:'#DC2626', detail:'Faridabad Satta King · multiple channels'},
+  {name:'Crypto fraud Hyderabad',       lat:17.3850, lng:78.4867, type:'crypto',     color:'#F59E0B', detail:'Multiple fake investment Telegram channels · Rs 56L cases'},
+  {name:'AI voice scam Pune',           lat:18.5204, lng:73.8567, type:'ai',         color:'#8B5CF6', detail:'Digital arrest scam calls · AI voice cloning operation'},
+  {name:'Counterfeit pharma Chennai',   lat:13.0827, lng:80.2707, type:'pharma',     color:'#059669', detail:'Unregulated medicine Telegram channels · Unitel pattern'},
+];
+
+// ═══════════════════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════════════════
+function doLogin() {
+  if(document.getElementById('pwd').value === PWD) {
+    document.getElementById('login').style.display = 'none';
+    ['topbar','mtabs','shell'].forEach(id => {
+      document.getElementById(id).style.display = 'flex';
+    });
+    buildCats();
+    loadAlerts(true);
+    startClock();
+    startAR();
   } else {
-    document.getElementById('lerr').style.display='block';
-    document.getElementById('pwd').value='';
+    document.getElementById('lerr').style.display = 'block';
+    document.getElementById('pwd').value = '';
   }
 }
-document.getElementById('pwd').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('pwd').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
 
-function startClock(){
-  setInterval(()=>{
-    const ist=new Date(Date.now()+19800000);
-    document.getElementById('top-clock').textContent=ist.toUTCString().slice(17,22)+' IST';
-  },1000);
+// ═══════════════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════════════
+function startClock() {
+  setInterval(() => {
+    const ist = new Date(Date.now() + 19800000);
+    document.getElementById('tclk').textContent = ist.toUTCString().slice(17,22) + ' IST';
+  }, 1000);
 }
 
-function startAR(){
-  CD=RI;clearInterval(TIMER);
-  TIMER=setInterval(()=>{
+// ═══════════════════════════════════════════════
+// AUTO REFRESH
+// ═══════════════════════════════════════════════
+function startAR() {
+  CD = RI; clearInterval(TIMER);
+  TIMER = setInterval(() => {
     CD--;
-    document.getElementById('nxt').textContent=CD+'s';
-    document.getElementById('nxt2').textContent=CD+'s';
-    if(CD<=0){fetchAlerts(false);CD=RI;}
-  },1000);
+    document.getElementById('nxt').textContent  = CD + 's';
+    document.getElementById('nxt2').textContent = CD + 's';
+    if(CD <= 0) { loadAlerts(false); CD = RI; }
+  }, 1000);
 }
 
-async function fetchAlerts(spin){
-  if(spin){const b=document.getElementById('rfbtn');b.textContent='↻ ...';setTimeout(()=>b.textContent='↻ Refresh',800);}
-  try{
-    const [ar,sr]=await Promise.all([
-      fetch(`${RAILWAY}/api/alerts`).then(r=>r.json()),
-      fetch(`${RAILWAY}/api/stats`).then(r=>r.json())
+// ═══════════════════════════════════════════════
+// LOAD ALL ALERTS — Railway + merge unique
+// ═══════════════════════════════════════════════
+async function loadAlerts(spin) {
+  if(spin) {
+    const b = document.getElementById('rfbtn');
+    b.textContent = '↻ ...';
+    setTimeout(() => b.textContent = '↻ Refresh', 1000);
+  }
+  try {
+    const [ar, sr] = await Promise.all([
+      fetch(`${RAILWAY}/api/alerts`).then(r => r.json()).catch(() => ({alerts:[]})),
+      fetch(`${RAILWAY}/api/stats`).then(r => r.json()).catch(() => ({}))
     ]);
-    ALL=(ar.alerts||ar||[]).sort((a,b)=>({critical:0,high:1,medium:2,low:3}[a.severity]||3)-({critical:0,high:1,medium:2,low:3}[b.severity]||3));
-    updateOv(sr);updateTopbar(sr);renderAlerts();updateCatCounts();
+
+    const railwayAlerts = ar.alerts || ar || [];
+
+    // Merge: Railway alerts + any we have locally in state
+    // Deduplicate by id
+    const seen = new Set();
+    const merged = [];
+    for(const a of [...railwayAlerts]) {
+      if(!seen.has(a.id)) { seen.add(a.id); merged.push(a); }
+    }
+
+    ALL = merged.sort((a,b) => {
+      const o = {critical:0,high:1,medium:2,low:3};
+      return (o[a.severity]||3) - (o[b.severity]||3);
+    });
+
+    updateTopbar(sr, ALL);
+    updateOverview(sr, ALL);
+    renderAlerts();
+    updateCatCounts();
     renderAilList();
-    document.getElementById('tb-ws').textContent=ALL.length+' alerts';
-    document.getElementById('tb-ai').textContent=ALL.length+' alerts';
-    CD=RI;
-  }catch(e){document.getElementById('rcount').textContent='Offline';}
+
+    document.getElementById('tb1').textContent = ALL.length + ' alerts';
+    document.getElementById('tb3').textContent = ALL.length + ' alerts';
+    document.getElementById('ail-count').textContent = ALL.length + ' total';
+    CD = RI;
+  } catch(e) {
+    document.getElementById('rcount').textContent = 'Offline — check Railway';
+  }
 }
 
-function updateTopbar(s){
-  const b=s.by_severity||{};
-  document.getElementById('top-crit').textContent=(b.critical||0)+' CRITICAL';
-  document.getElementById('top-high').textContent=(b.high||0)+' HIGH';
-  document.getElementById('top-live').textContent='Live · '+(s.alerts||ALL.length)+' alerts';
+function updateTopbar(s, alerts) {
+  const b = s.by_severity || {};
+  const crit = b.critical || alerts.filter(a=>a.severity==='critical').length;
+  const high = b.high     || alerts.filter(a=>a.severity==='high').length;
+  document.getElementById('tb-crit').textContent = crit + ' CRITICAL';
+  document.getElementById('tb-high').textContent = high + ' HIGH';
+  document.getElementById('tb-live').textContent = 'Live · ' + (s.alerts || alerts.length) + ' alerts';
 }
 
-function updateOv(s){
-  const b=s.by_severity||{};
-  document.getElementById('ov-total').textContent=s.alerts||ALL.length;
-  document.getElementById('ov-crit').textContent=b.critical||0;
-  document.getElementById('ov-high').textContent=b.high||0;
-  document.getElementById('ov-med').textContent=b.medium||0;
-  document.getElementById('ov-phones').textContent=s.phone_nodes||74;
-  document.getElementById('ov-upis').textContent=s.upi_nodes||3;
-  document.getElementById('ov-ch').textContent=(s.channels||1245).toLocaleString();
-  const r=s.reach||40000000;
-  document.getElementById('ov-reach').textContent=r>=1000000?(r/1000000).toFixed(0)+'M':(r/1000).toFixed(0)+'K';
+function updateOverview(s, alerts) {
+  const b = s.by_severity || {};
+  document.getElementById('ov-total').textContent = s.alerts || alerts.length;
+  document.getElementById('ov-crit').textContent  = b.critical || alerts.filter(a=>a.severity==='critical').length;
+  document.getElementById('ov-high').textContent  = b.high     || alerts.filter(a=>a.severity==='high').length;
+  document.getElementById('ov-med').textContent   = b.medium   || alerts.filter(a=>a.severity==='medium').length;
+  document.getElementById('ov-phones').textContent = s.phone_nodes || 74;
+  document.getElementById('ov-upis').textContent   = s.upi_nodes   || 3;
+  document.getElementById('ov-ch').textContent     = (s.channels || 1245).toLocaleString();
+  const r = s.reach || 40000000;
+  document.getElementById('ov-reach').textContent = r >= 1e6 ? (r/1e6).toFixed(0)+'M' : (r/1000).toFixed(0)+'K';
 }
 
-function buildCats(){
-  document.getElementById('cat-list').innerHTML=CATS.map(c=>`
-    <div class="cat-item ${c.id==='all'?'active':''}" id="cat-${c.id}" onclick="setCat('${c.id}')">
-      <div class="cat-dot" style="background:${c.color}"></div>
-      <span class="cat-name">${c.label}</span>
-      <span class="cat-count" id="cc-${c.id}"></span>
+// ═══════════════════════════════════════════════
+// CATEGORIES
+// ═══════════════════════════════════════════════
+function buildCats() {
+  document.getElementById('catlist').innerHTML = CATS.map(c => `
+    <div class="cati ${c.id==='all'?'active':''}" id="cat-${c.id}" onclick="setCat('${c.id}')">
+      <div class="catd" style="background:${c.color}"></div>
+      <span class="catn">${c.label}</span>
+      <span class="catc" id="cc-${c.id}"></span>
     </div>`).join('');
 }
 
-function updateCatCounts(){
-  CATS.forEach(c=>{
-    const el=document.getElementById('cc-'+c.id);
-    if(!el)return;
-    const n=c.id==='all'?ALL.length:ALL.filter(a=>a.category===c.id).length;
-    el.textContent=n||'';
+function updateCatCounts() {
+  CATS.forEach(c => {
+    const el = document.getElementById('cc-'+c.id);
+    if(!el) return;
+    const n = c.id==='all' ? ALL.length : ALL.filter(a=>a.category===c.id).length;
+    el.textContent = n || '';
   });
 }
 
-function setCat(c){
-  CAT=c;
-  document.querySelectorAll('.cat-item').forEach(el=>el.classList.remove('active'));
-  const el=document.getElementById('cat-'+c);
-  if(el)el.classList.add('active');
-  filterAlerts();
+function setCat(c) {
+  CAT = c;
+  document.querySelectorAll('.cati').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById('cat-'+c);
+  if(el) el.classList.add('active');
+  doFilter();
 }
 
-function setSev(s,el){
-  SEV=s;
-  document.querySelectorAll('.sev-btn').forEach(b=>b.className='sev-btn');
-  el.className='sev-btn a-'+s;
-  filterAlerts();
+function filterByCat(c) { setCat(c); }
+function filterBySev(s) {
+  SEV = s;
+  document.querySelectorAll('.sevb').forEach(b => b.className = 'sevb');
+  const map = {all:'s-all',critical:'s-crit',high:'s-high',medium:'s-med'};
+  document.querySelectorAll('.sevb').forEach((b,i) => {
+    const svs = ['all','critical','high','medium'];
+    if(svs[i] === s) b.className = 'sevb ' + map[s];
+  });
+  doFilter();
 }
 
-function getFiltered(){
-  const q=document.getElementById('search').value.toLowerCase();
-  return ALL.filter(a=>{
-    const mc=CAT==='all'||a.category===CAT;
-    const ms=SEV==='all'||a.severity===SEV;
-    const mq=!q||JSON.stringify(a).toLowerCase().includes(q);
-    return mc&&ms&&mq;
+function setSev(s, el) {
+  SEV = s;
+  document.querySelectorAll('.sevb').forEach(b => b.className = 'sevb');
+  const map = {all:'s-all',critical:'s-crit',high:'s-high',medium:'s-med'};
+  el.className = 'sevb ' + (map[s]||'s-all');
+  doFilter();
+}
+
+// ═══════════════════════════════════════════════
+// FILTER + RENDER
+// ═══════════════════════════════════════════════
+function getFiltered() {
+  const q = document.getElementById('search').value.toLowerCase();
+  return ALL.filter(a => {
+    const mc = CAT==='all' || a.category===CAT;
+    const ms = SEV==='all' || a.severity===SEV;
+    const mq = !q || JSON.stringify(a).toLowerCase().includes(q);
+    return mc && ms && mq;
   });
 }
 
-function filterAlerts(){renderAlerts(getFiltered());}
+function doFilter() { renderAlerts(getFiltered()); }
 
-function renderAlerts(list){
-  const alerts=list||ALL;
-  document.getElementById('rcount').textContent=alerts.length+' alerts';
-  if(!alerts.length){
-    document.getElementById('atbody').innerHTML='';
-    document.getElementById('empty').style.display='block';
+function renderAlerts(list) {
+  const alerts = list || ALL;
+  document.getElementById('rcount').textContent = alerts.length + ' alerts';
+  if(!alerts.length) {
+    document.getElementById('atbody').innerHTML = '';
+    document.getElementById('empty').style.display = 'block';
     return;
   }
-  document.getElementById('empty').style.display='none';
-  document.getElementById('atbody').innerHTML=alerts.map((a,i)=>{
-    const sev=(a.severity||'medium').toLowerCase();
-    const cat=a.category||'unknown';
-    const chain=a.chain||{},attr=a.attribution||{};
-    const reach=chain.reach||0;
-    const phones=chain.phones||(attr.phone?[attr.phone]:[]);
-    const upis=chain.upis||(attr.upi?[attr.upi]:[]);
-    const ts=a.detected_at?new Date(a.detected_at).toLocaleDateString('en-IN',{day:'numeric',month:'short'}):'';
-    const rs=reach>1e6?(reach/1e6).toFixed(1)+'M':reach>1000?Math.round(reach/1000)+'K':reach||'—';
-    const sc=SC[sev]||'#94A3B8',cc=CC[cat]||'#94A3B8';
-    const ph=phones.length?phones.slice(0,2).map(p=>`<span class="pv">${p}</span>`).join(''):`<span class="ae">—</span>`;
-    const uh=upis.length?upis.slice(0,2).map(u=>`<span class="uv">${u}</span>`).join(''):`<span class="ae">—</span>`;
-    const steps=a.next_steps||[];
-    const rt=(a.report_to||[]).map(r=>`<span class="rp">${r}</span>`).join('');
-    const nsH=steps.map((s,si)=>`<div class="nsi"><span class="nsn">${si+1}</span><span>${s.replace(/^Step \d+ — /,'')}</span></div>`).join('');
+  document.getElementById('empty').style.display = 'none';
+
+  document.getElementById('atbody').innerHTML = alerts.map((a, i) => {
+    const sev   = (a.severity||'medium').toLowerCase();
+    const cat   = a.category || 'unknown';
+    const chain = a.chain || {};
+    const attr  = a.attribution || {};
+    const reach = chain.reach || 0;
+    const phones = chain.phones || (attr.phone ? [attr.phone] : []);
+    const upis   = chain.upis   || (attr.upi   ? [attr.upi]   : []);
+    const ts     = a.detected_at ? new Date(a.detected_at).toLocaleDateString('en-IN',{day:'numeric',month:'short'}) : '';
+    const rs     = reach>1e6 ? (reach/1e6).toFixed(1)+'M' : reach>1000 ? Math.round(reach/1000)+'K' : reach||'—';
+    const sc2    = SC[sev] || '#94A3B8';
+    const cc2    = CC[cat] || '#94A3B8';
+    const ph     = phones.length ? phones.slice(0,2).map(p=>`<span class="ph-val">${p}</span>`).join('') : `<span class="ae">—</span>`;
+    const uh     = upis.length   ? upis.slice(0,2).map(u=>`<span class="upi-val">${u}</span>`).join('') : `<span class="ae">—</span>`;
+    const steps  = a.next_steps || [];
+    const rt     = (a.report_to||[]).map(r=>`<span class="rpp">${r}</span>`).join('');
+    const nsH    = steps.map((s2,si)=>`<div class="nsi"><span class="nsn">${si+1}</span><span>${s2.replace(/^Step \d+ — /,'')}</span></div>`).join('');
+    const idx    = ALL.indexOf(a);
+
     return `
-    <tr onclick="toggleRow(${i})">
-      <td><span class="ss" style="background:${sc}"></span></td>
-      <td><div class="at">${a.title||'Untitled'}</div><div class="ad">${a.detail||''}</div></td>
-      <td><span class="sb" style="background:${sc}22;color:${sc};border:1px solid ${sc}44">${sev.toUpperCase()}</span></td>
-      <td><span class="cb" style="background:${cc}18;color:${cc};border:1px solid ${cc}33">${cat.replace(/_/g,' ')}</span></td>
+    <tr onclick="toggleRow(${idx})">
+      <td><span class="ss2" style="background:${sc2}"></span></td>
+      <td><div class="att">${a.title||'Untitled'}</div><div class="adt">${a.detail||''}</div></td>
+      <td><span class="sevbdg" style="background:${sc2}22;color:${sc2};border:1px solid ${sc2}44">${sev.toUpperCase()}</span></td>
+      <td><span class="catbdg" style="background:${cc2}18;color:${cc2};border:1px solid ${cc2}33">${cat.replace(/_/g,' ')}</span></td>
       <td>${ph}</td>
       <td>${uh}</td>
-      <td class="reach">${rs}</td>
-      <td class="ts">${ts}</td>
+      <td class="reach2">${rs}</td>
+      <td class="ts2">${ts}</td>
     </tr>
-    <tr class="exp-row" id="exp-${i}">
-      <td colspan="8" class="exp-cell">
-        <div class="exp-inner">
-          <div class="cg">
-            <div class="cb2"><div class="cl">Channels found</div><div class="cv mono">${(chain.channels_found||[]).slice(0,3).join('<br>')||'—'}</div></div>
-            <div class="cb2"><div class="cl">Attribution</div><div class="cv">
-              ${attr.name||chain.operator_name?`<b>${attr.name||chain.operator_name}</b><br>`:''}
-              ${phones.map(p=>`<span class="pv">📞 ${p}</span>`).join('')}
-              ${upis.map(u=>`<span class="uv">💳 ${u}</span>`).join('')}
-              ${!attr.name&&!phones.length&&!upis.length?'<span class="ae">Pending deep scan</span>':''}
+    <tr class="expr" id="exp-${idx}">
+      <td colspan="8" class="expc">
+        <div class="expi">
+          <div class="chg">
+            <div class="chb"><div class="chl">Channels found</div><div class="chv mono">${(chain.channels_found||[]).slice(0,3).join('<br>')||'—'}</div></div>
+            <div class="chb"><div class="chl">Attribution</div><div class="chv">
+              ${attr.name||chain.operator_name ? `<b>${attr.name||chain.operator_name}</b><br>` : ''}
+              ${phones.map(p=>`<span class="ph-val">📞 ${p}</span>`).join('')}
+              ${upis.map(u=>`<span class="upi-val">💳 ${u}</span>`).join('')}
+              ${!attr.name&&!phones.length&&!upis.length ? '<span class="ae">Pending deep scan</span>' : ''}
             </div></div>
-            <div class="cb2"><div class="cl">Evidence hash</div><div class="cv mono green" style="font-size:10px;word-break:break-all">${a.evidence_hash||'—'}</div><div style="font-size:10px;color:var(--m);margin-top:3px">IT Act §65B</div></div>
-            <div class="cb2"><div class="cl">Legal basis</div><div class="cv" style="font-size:11px">${a.legal_basis||chain.legal_basis||'IT Act 2000 §65B'}</div></div>
+            <div class="chb"><div class="chl">Evidence hash</div><div class="chv mono gr" style="font-size:10px;word-break:break-all">${a.evidence_hash||'—'}</div><div style="font-size:10px;color:var(--m);margin-top:3px">IT Act §65B</div></div>
+            <div class="chb"><div class="chl">Legal basis</div><div class="chv" style="font-size:11px">${a.legal_basis||chain.legal_basis||'IT Act 2000 §65B'}</div></div>
           </div>
-          <div class="sch">
-            ${['Detect','Attribute','Evidence','Report','Defend'].map(s=>`<div class="sb2"><div class="sl">${s}</div><div class="sv">✓</div></div>`).join('')}
+          <div class="stch">
+            ${['Detect','Attribute','Evidence','Report','Defend'].map(s2=>`<div class="stb"><div class="stl">${s2}</div><div class="stv">✓</div></div>`).join('')}
           </div>
-          ${steps.length?`<div style="margin-top:12px"><div style="font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Next Steps</div><div class="nsl">${nsH}</div></div>`:''}
-          ${rt?`<div style="margin-top:10px"><div style="font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Report to</div>${rt}</div>`:''}
-          <div class="ea">
-            <button class="abtn abtn-pub" onclick="alert('PDF: '+${JSON.stringify((a.title||'').slice(0,40))}+' — use cineos_pdf_generator.py on your Mac')">📄 Public Report</button>
-            <button class="abtn abtn-full" onclick="alert('Full PDF: '+${JSON.stringify((a.title||'').slice(0,40))}+' — use cineos_pdf_generator.py on your Mac')">🔒 Full Report</button>
-            <button class="abtn abtn-copy" onclick="navigator.clipboard.writeText(${JSON.stringify(`CINEOS Evidence\nAlert: ${a.title||''}\nHash: ${a.evidence_hash||''}\nLegal: ${a.legal_basis||'IT Act §65B'}\nDetected: ${a.detected_at||''}`)}).catch(()=>{})">📋 Copy Evidence</button>
+          ${steps.length ? `<div style="margin-top:12px"><div style="font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Next Steps</div><div class="nsl">${nsH}</div></div>` : ''}
+          ${rt ? `<div style="margin-top:10px"><div style="font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Report to</div>${rt}</div>` : ''}
+          <div class="exa">
+            <button class="exbtn eb-pub">📄 Public Report</button>
+            <button class="exbtn eb-full">🔒 Full Report</button>
+            <button class="exbtn eb-copy" onclick="navigator.clipboard.writeText(${JSON.stringify(`Alert: ${a.title||''}\nHash: ${a.evidence_hash||''}\nLegal: ${a.legal_basis||'IT Act §65B'}\nDetected: ${a.detected_at||''}`)}).catch(()=>{})">📋 Copy Evidence</button>
           </div>
         </div>
       </td>
@@ -636,68 +823,95 @@ function renderAlerts(list){
   }).join('');
 }
 
-function toggleRow(i){
-  const r=document.getElementById('exp-'+i);
-  if(r)r.classList.toggle('open');
+function toggleRow(idx) {
+  const r = document.getElementById('exp-'+idx);
+  if(r) r.classList.toggle('open');
 }
 
-function switchTab(name,el){
-  document.querySelectorAll('.tab-view').forEach(v=>v.classList.remove('active'));
-  document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('active'));
+// ═══════════════════════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════════════════════
+function switchTab(name, el) {
+  document.querySelectorAll('.tview').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.mtab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   el.classList.add('active');
-  if(name==='investigation')setTimeout(()=>{initGraph();initGeo();},100);
+  if(name === 'investigation') setTimeout(() => { initGraph(); initMap(); }, 100);
 }
 
-function invTab(name,el){
-  document.querySelectorAll('.inv-stab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.inv-panel').forEach(p=>{p.style.display='none';p.classList.remove('active');});
+function invTab(name, el) {
+  document.querySelectorAll('.invs').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.invp').forEach(p => { p.style.display='none'; p.classList.remove('active'); });
   el.classList.add('active');
-  const p=document.getElementById('inv-'+name);
-  if(p){p.style.display='block';p.classList.add('active');}
-  if(name==='graph')setTimeout(initGraph,50);
-  if(name==='geo')setTimeout(initGeo,50);
+  const p = document.getElementById('inv-'+name);
+  if(p) { p.style.display = 'block'; p.classList.add('active'); }
+  if(name === 'graph') setTimeout(initGraph, 50);
+  if(name === 'geo')   setTimeout(initMap, 50);
 }
 
-// SEARCH DATA
-const SD=[
-  {type:'OPERATOR',color:'#D97706',name:'Mahadev Book',detail:'41 Telegram channels · 2.2M reach · Active ED investigation · Dubai USDT corridor',tags:['critical','betting','ed-case','crypto']},
-  {type:'CHANNEL',color:'#7C3AED',name:'91CLUB Colour Prediction',detail:'1,008,905 subscribers · Chinese-origin app · Online Gaming Act 2025 violation',tags:['critical','colour-pred','1M+']},
-  {type:'DOMAIN',color:'#0891B2',name:'jiohotstar.net',detail:'Registered 4 days after JioHotstar launch · Registrant: muthyala naresh · muthyala19@gmail.com',tags:['critical','domain-squat','whois-id']},
-  {type:'CHANNEL',color:'#2563EB',name:'IPL Piracy Network',detail:'20 illegal streams confirmed Match 53 · 35M+ reach · §65B hashed',tags:['critical','piracy','ipl']},
-  {type:'NETWORK',color:'#DC2626',name:'Gujarat UPI Mule Network',detail:'Rs 77 Cr · 16 arrested · +91-8881448108 seen 266x in channels',tags:['high','upi-mule','gujarat']},
-  {type:'CHANNEL',color:'#F59E0B',name:'Crypto / Pig Butchering',detail:'105 investment fraud channels · 8 ED-confirmed fake platforms: goldbooker.com, cryptobrite.com',tags:['critical','crypto','ed-pmla']},
-  {type:'CHANNEL',color:'#8B5CF6',name:'AI Voice / Video Scams',detail:'Digital arrest scams · AI voice cloning · Deepfake officials · WhatsApp + Telegram',tags:['critical','ai-scam','deepfake','voice-clone']},
-  {type:'OPERATOR',color:'#D97706',name:'Reddy Anna Book',detail:'28 channels · 1.8M reach · Cricket match fixing · FIRs filed',tags:['high','betting']},
-  {type:'DOMAIN',color:'#DC2626',name:'phonepes.com.in',detail:'Fake PhonePe APK · UAE registrant · Active credential theft',tags:['critical','fake-apk']},
+// ═══════════════════════════════════════════════
+// INVESTIGATION — SEARCH
+// ═══════════════════════════════════════════════
+const SEARCH_DB = [
+  {type:'OPERATOR',color:'#D97706',name:'Mahadev Book',detail:'41 Telegram channels · 2.2M reach · Active ED PMLA investigation · Dubai USDT corridor confirmed · Nagpur origin',tags:['critical','betting','ed-case','dubai','crypto'],phones:['+91-8306154335','+91-9216328940']},
+  {type:'CHANNEL', color:'#7C3AED',name:'91CLUB Colour Prediction',detail:'1,008,905 subscribers · Chinese-origin app · Recruits via Telegram · OGA 2025 violation · Play store removed',tags:['critical','colour-pred','china-origin','1M+'],phones:['+91-9249708406']},
+  {type:'DOMAIN',  color:'#0891B2',name:'jiohotstar.net',detail:'Registered Jan 18 2026 · 4 days after JioHotstar launch · Registrant: muthyala naresh · muthyala19@gmail.com · Hyderabad',tags:['critical','domain-squat','whois-id'],phones:[]},
+  {type:'CHANNEL', color:'#2563EB',name:'IPL Piracy Network',detail:'20 illegal streams Match 53 (CSK vs LSG) · 35M+ reach · Operator phones: +91-8306154335, +91-9216328940 · §65B hashed',tags:['critical','piracy','ipl'],phones:['+91-8306154335']},
+  {type:'NETWORK', color:'#EA580C',name:'Gujarat UPI Mule Network',detail:'Rs 77 Cr · 16 arrested May 2026 · Channels still active · +91-8881448108 seen 266x · Dubai crypto corridor',tags:['high','upi-mule','gujarat'],phones:['+91-8881448108','+91-8808843584']},
+  {type:'DOMAIN',  color:'#DC2626',name:'phonepes.com.in',detail:'Fake PhonePe APK download · UAE registrant (Dubai) · Active credential theft · Jan 2026',tags:['critical','fake-apk','uae'],phones:[]},
+  {type:'CHANNEL', color:'#F59E0B',name:'Crypto / Pig Butchering Channels',detail:'105 investment fraud channels · 8 ED-confirmed fake platforms: goldbooker.com, cryptobrite.com, bitcodeals.com · PMLA chargesheets filed',tags:['critical','crypto','pig-butchering','ed-pmla'],phones:[]},
+  {type:'CHANNEL', color:'#8B5CF6',name:'AI Voice / Video Scams',detail:'"Digital arrest" scams using AI voice cloning · Deepfake video of ED/CBI officials · WhatsApp + Telegram · MHA advisory issued',tags:['critical','ai-scam','deepfake','voice-clone'],phones:[]},
+  {type:'OPERATOR',color:'#D97706',name:'Reddy Anna Book',detail:'28 channels · 1.8M reach · Cricket match fixing tips · Multiple state police FIRs filed · Chennai area',tags:['high','betting','match-fix'],phones:['+91-9274673985']},
+  {type:'CHANNEL', color:'#2563EB',name:'SEBI-unregistered Tip Channels',detail:'11 channels · Rs 2.1Cr/month estimated fraud · SEBI SCORES complaints · pig butchering follow-on',tags:['high','investment','sebi'],phones:[]},
+  {type:'NETWORK', color:'#DC2626',name:'Satta Matka / Faridabad King',detail:'Multiple channels · Delhi/Rajasthan concentration · Time BAZAR, MAIN MATKA · phone numbers in messages',tags:['high','betting','satta'],phones:['+91-9186196239']},
+  {type:'CHANNEL', color:'#059669',name:'Counterfeit Pharma Network',detail:'7 channels · Cancer/diabetes cure claims · Unregulated medicine · Unitel modus · CDSCO violation',tags:['high','pharma','cdsco'],phones:[]},
 ];
 
-function invSearch(){const q=document.getElementById('inv-q').value.toLowerCase().trim();if(q)showResults(q);}
-function qSearch(q){document.getElementById('inv-q').value=q;showResults(q.toLowerCase());}
-function showResults(q){
-  const w=q.split(' ').filter(x=>x.length>2);
-  const sc=SD.map(r=>({...r,sc:w.reduce((s,w)=>s+((r.name+r.detail+r.tags.join(' ')).toLowerCase().includes(w)?1:0),0)})).filter(r=>r.sc>0).sort((a,b)=>b.sc-a.sc);
-  const res=sc.length?sc:SD;
-  document.getElementById('inv-results').innerHTML=`
-    <div style="font-family:var(--mono);font-size:10px;color:var(--m);margin-bottom:12px">"${q}" · ${res.length} entities found</div>
-    <div class="rg">${res.map((r,i)=>`
-      <div class="rc ${i===0?'top':''}">
+function doInvSearch() {
+  const q = document.getElementById('inv-q').value.toLowerCase().trim();
+  if(q) showInvResults(q);
+}
+function qs(q) { document.getElementById('inv-q').value = q; showInvResults(q.toLowerCase()); }
+
+function showInvResults(q) {
+  const words = q.split(' ').filter(w => w.length > 2);
+  const scored = SEARCH_DB.map(r => {
+    const text = (r.name + r.detail + r.tags.join(' ') + (r.phones||[]).join(' ')).toLowerCase();
+    const score = words.reduce((s,w) => s + (text.includes(w)?1:0), 0);
+    return {...r, score};
+  }).filter(r => r.score > 0).sort((a,b) => b.score - a.score);
+  const res = scored.length ? scored : SEARCH_DB;
+
+  // Also search live alerts
+  const liveMatches = ALL.filter(a => words.some(w => JSON.stringify(a).toLowerCase().includes(w)));
+
+  document.getElementById('inv-results').innerHTML = `
+    <div style="font-family:var(--mono);font-size:10px;color:var(--m);margin-bottom:12px">
+      "${q}" · ${res.length} entities · ${liveMatches.length} live alerts match
+    </div>
+    <div class="rg">${res.map((r,i) => `
+      <div class="rcard ${i===0?'top':''}">
         <div class="rct"><div class="rcd" style="background:${r.color}"></div>${r.type}</div>
         <div class="rcn">${r.name}</div>
-        <div class="rcde">${r.detail}</div>
-        <div class="rctags">${r.tags.map(t=>`<span class="rtag ${t.includes('crit')?'tr':t.includes('high')?'ta2':t.includes('ed')||t.includes('§')?'tg':'tb'}">${t}</span>`).join('')}</div>
+        <div class="rcdesc">${r.detail}</div>
+        ${(r.phones||[]).length ? `<div style="margin:4px 0;font-family:var(--mono);font-size:9px;color:#DC2626">${r.phones.join(' · ')}</div>` : ''}
+        <div class="rctags">${r.tags.map(t=>`<span class="rtag ${t.includes('crit')?'rt-r':t.includes('high')?'rt-a':t.includes('ed')||t.includes('§')?'rt-g':'rt-b'}">${t}</span>`).join('')}</div>
       </div>`).join('')}
-    </div>`;
+    </div>
+    ${liveMatches.length ? `<div style="margin-top:16px"><div style="font-family:var(--mono);font-size:10px;color:var(--m);margin-bottom:8px">Live alerts matching "${q}":</div>${liveMatches.slice(0,5).map(a=>`<div style="background:var(--w);border:1px solid var(--bo);border-radius:5px;padding:10px 12px;margin-bottom:6px;font-size:12px"><b>${a.title}</b><br><span style="font-family:var(--mono);font-size:9px;color:var(--m)">${a.category||''} · ${a.severity||''} · ${a.detected_at?new Date(a.detected_at).toLocaleDateString():''}</span></div>`).join('')}</div>` : ''}
+  `;
 }
 
-// GRAPH
+// ═══════════════════════════════════════════════
+// ENTITY GRAPH (D3)
+// ═══════════════════════════════════════════════
 const GN=[
   {id:'op1',type:'OPERATOR',label:'Mahadev\nBook',x:400,y:240,r:22,color:'#D97706',detail:'41 channels · ED case · Dubai'},
   {id:'op2',type:'OPERATOR',label:'Reddy\nAnna',x:640,y:165,r:18,color:'#D97706',detail:'28 channels · match fixing'},
   {id:'op3',type:'OPERATOR',label:'Play99',x:190,y:170,r:16,color:'#D97706',detail:'19 channels · satta'},
   {id:'ch1',type:'CHANNEL',label:'MDB',x:315,y:150,r:12,color:'#DC2626',detail:'Betting · 320K'},
   {id:'ch2',type:'CHANNEL',label:'MDB VIP',x:475,y:140,r:11,color:'#DC2626',detail:'Betting · 280K'},
-  {id:'ch3',type:'CHANNEL',label:'Betting',x:520,y:285,r:10,color:'#DC2626',detail:'Betting · 190K'},
+  {id:'ch3',type:'CHANNEL',label:'Betting\nTips',x:520,y:285,r:10,color:'#DC2626',detail:'Betting · 190K'},
   {id:'ch4',type:'CHANNEL',label:'Cricket',x:295,y:335,r:10,color:'#DC2626',detail:'Betting · 155K'},
   {id:'ch5',type:'CHANNEL',label:'IPL Bet',x:720,y:130,r:11,color:'#DC2626',detail:'Betting · 210K'},
   {id:'ch6',type:'CHANNEL',label:'Satta',x:155,y:115,r:10,color:'#DC2626',detail:'Betting · 180K'},
@@ -707,11 +921,11 @@ const GN=[
   {id:'ch10',type:'CHANNEL',label:'IPL Live',x:570,y:115,r:14,color:'#2563EB',detail:'Piracy · 420K'},
   {id:'ch11',type:'CHANNEL',label:'Movies',x:640,y:330,r:11,color:'#2563EB',detail:'Piracy · 290K'},
   {id:'ch12',type:'CHANNEL',label:'Crypto\nFraud',x:740,y:270,r:14,color:'#F59E0B',detail:'Crypto · 8 ED platforms'},
-  {id:'ch13',type:'CHANNEL',label:'AI Scam',x:810,y:180,r:12,color:'#8B5CF6',detail:'AI voice/video'},
+  {id:'ch13',type:'CHANNEL',label:'AI Scam',x:810,y:180,r:12,color:'#8B5CF6',detail:'AI voice/video · digital arrest'},
   {id:'ph1',type:'PHONE',label:'+91-8881\n448108',x:395,y:370,r:10,color:'#ff6b9d',detail:'Seen 266x · laser247'},
   {id:'ph2',type:'PHONE',label:'+91-8808\n843584',x:490,y:390,r:9,color:'#ff6b9d',detail:'Seen 134x · cricbet99'},
-  {id:'upi1',type:'UPI',label:'sspglobal\njob@gmail',x:150,y:440,r:9,color:'#0891B2',detail:'Job scam UPI'},
-  {id:'dm1',type:'DOMAIN',label:'jiohotstar\n.net',x:710,y:410,r:10,color:'#0891B2',detail:'Domain squat'},
+  {id:'upi1',type:'UPI',label:'sspglobal\njob@gmail',x:150,y:440,r:9,color:'#0891B2',detail:'Job scam UPI · 9x'},
+  {id:'dm1',type:'DOMAIN',label:'jiohotstar\n.net',x:710,y:410,r:10,color:'#0891B2',detail:'Domain squat · WHOIS'},
   {id:'dm2',type:'DOMAIN',label:'goldbook\ner.com',x:810,y:360,r:9,color:'#F59E0B',detail:'ED-confirmed crypto'},
   {id:'nw1',type:'NETWORK',label:'Gujarat\nMule',x:395,y:455,r:14,color:'#64748B',detail:'Rs 77Cr · 16 arrested'},
 ];
@@ -742,26 +956,25 @@ function initGraph(){
   const ngs=g.selectAll('.ng').data(GN).enter().append('g')
     .attr('transform',d=>`translate(${d.sx},${d.sy})`).style('cursor','pointer')
     .on('mouseover',(e,d)=>{
-      const tt=document.getElementById('ntt');
-      const r=c.getBoundingClientRect();
-      document.getElementById('ntt-type').textContent=d.type;
-      document.getElementById('ntt-name').textContent=d.label.replace('\n',' ');
-      document.getElementById('ntt-detail').textContent=d.detail;
+      const tt=document.getElementById('ntt'),r=c.getBoundingClientRect();
+      document.getElementById('ntt-tp').textContent=d.type;
+      document.getElementById('ntt-nm').textContent=d.label.replace('\n',' ');
+      document.getElementById('ntt-dt').textContent=d.detail;
       tt.style.display='block';
       tt.style.left=(e.clientX-r.left+12)+'px';
       tt.style.top=(e.clientY-r.top+12)+'px';
     })
     .on('mouseout',()=>document.getElementById('ntt').style.display='none')
     .on('click',(_,d)=>{
-      document.getElementById('ninfo').innerHTML=`<b style="color:var(--g)">${d.label.replace('\n',' ')}</b><br><span style="color:var(--m)">${d.type}</span><br>${d.detail}<br><span style="color:var(--m);font-size:10px">${GE.filter(e=>e.s===d.id||e.t===d.id).length} connections</span>`;
+      document.getElementById('ninfo').innerHTML=
+        `<b style="color:var(--g)">${d.label.replace('\n',' ')}</b><br><span style="color:var(--m)">${d.type}</span><br>${d.detail}<br><span style="color:var(--m);font-size:10px">${GE.filter(e=>e.s===d.id||e.t===d.id).length} connections</span>`;
     });
   ngs.each(function(d){if(d.type==='OPERATOR')d3.select(this).append('circle').attr('r',d.r+8).attr('fill',d.color).attr('opacity',.1);});
   ngs.append('circle').attr('r',d=>d.r).attr('fill',d=>d.color).attr('fill-opacity',.85).attr('stroke',d=>d.color).attr('stroke-width',1.5).attr('stroke-opacity',.4);
   ngs.each(function(d){
     const ls=d.label.split('\n');
-    if(ls.length===1){
-      d3.select(this).append('text').attr('text-anchor','middle').attr('dy','.35em').attr('fill','#fff').attr('font-size',Math.max(8,d.r*.55)).attr('font-family','DM Mono,monospace').attr('font-weight','500').text(ls[0]);
-    }else{
+    if(ls.length===1){d3.select(this).append('text').attr('text-anchor','middle').attr('dy','.35em').attr('fill','#fff').attr('font-size',Math.max(8,d.r*.55)).attr('font-family','DM Mono,monospace').attr('font-weight','500').text(ls[0]);}
+    else{
       d3.select(this).append('text').attr('text-anchor','middle').attr('dy','-.2em').attr('fill','#fff').attr('font-size',Math.max(7,d.r*.5)).attr('font-family','DM Mono,monospace').attr('font-weight','500').text(ls[0]);
       d3.select(this).append('text').attr('text-anchor','middle').attr('dy','.85em').attr('fill','rgba(255,255,255,.8)').attr('font-size',Math.max(7,d.r*.45)).attr('font-family','DM Mono,monospace').text(ls[1]);
     }
@@ -769,94 +982,299 @@ function initGraph(){
 }
 function gz(s){d3.select('#graph-svg').transition().call(d3.zoom().scaleTo,s);}
 
-// GEO
-let geoInited=false,geoFilter='all';
-const SD2={Maharashtra:{total:187,betting:89,piracy:42,crypto:28},Gujarat:{total:143,betting:55,piracy:28,crypto:35},Telangana:{total:128,betting:72,piracy:18,crypto:22},Karnataka:{total:112,betting:48,piracy:35,crypto:18},'Tamil Nadu':{total:98,betting:61,piracy:14,crypto:12},'Andhra Pradesh':{total:87,betting:52,piracy:10,crypto:15},Delhi:{total:76,betting:22,piracy:31,crypto:14},Rajasthan:{total:64,betting:38,piracy:8,crypto:9},'Uttar Pradesh':{total:59,betting:31,piracy:12,crypto:8},'West Bengal':{total:47,betting:18,piracy:16,crypto:7}};
-function geoF(v){geoFilter=v;drawGeo();renderHS();}
-function initGeo(){if(!geoInited){geoInited=true;drawGeo();renderHS();}}
-function renderHS(){
-  const st=Object.entries(SD2).map(([s,d])=>({state:s,count:geoFilter==='all'?d.total:d[geoFilter]||0})).sort((a,b)=>b.count-a.count);
-  const max=st[0]?.count||1;
-  const bc=geoFilter==='betting'?'#DC2626':geoFilter==='piracy'?'#D97706':geoFilter==='crypto'?'#F59E0B':'var(--g)';
-  document.getElementById('hlist').innerHTML=st.map(s=>`<div class="hi"><div class="hstate">${s.state}</div><div class="hbw"><div class="hbar" style="width:${Math.round(s.count/max*100)}%;background:${bc}"></div><span class="hcount">${s.count}</span></div></div>`).join('');
+// ═══════════════════════════════════════════════
+// INDIA MAP — Leaflet with real state data
+// ═══════════════════════════════════════════════
+let mapInited = false;
+
+function getVal(d) {
+  if(GEO_FILTER==='all')    return d.total;
+  if(GEO_FILTER==='betting') return d.betting;
+  if(GEO_FILTER==='piracy')  return d.piracy;
+  if(GEO_FILTER==='crypto')  return d.crypto;
+  if(GEO_FILTER==='mule')    return d.mule;
+  return d.total;
 }
-function drawGeo(){
-  const c=document.querySelector('.geom');if(!c)return;
-  const W=c.clientWidth||600,H=c.clientHeight||400;
-  const svg=d3.select('#india-map').attr('viewBox',`0 0 ${W} ${H}`);svg.selectAll('*').remove();
-  const col=geoFilter==='all'?d3.scaleLinear().domain([0,200]).range(['#0d3320','#22c55e']):geoFilter==='betting'?d3.scaleLinear().domain([0,100]).range(['#2d1015','#DC2626']):geoFilter==='piracy'?d3.scaleLinear().domain([0,50]).range(['#0d1830','#D97706']):d3.scaleLinear().domain([0,40]).range(['#1c1000','#F59E0B']);
-  const shapes=[{name:'Maharashtra',path:'M 310 320 L 380 280 L 430 300 L 420 360 L 370 380 L 320 360 Z'},{name:'Gujarat',path:'M 240 240 L 310 220 L 340 260 L 310 300 L 260 290 L 240 270 Z'},{name:'Rajasthan',path:'M 240 180 L 320 160 L 360 200 L 340 260 L 280 270 L 240 240 Z'},{name:'Uttar Pradesh',path:'M 360 160 L 450 140 L 490 180 L 470 220 L 410 230 L 370 200 Z'},{name:'Karnataka',path:'M 300 380 L 360 360 L 390 400 L 370 440 L 310 430 L 290 410 Z'},{name:'Andhra Pradesh',path:'M 370 340 L 430 320 L 460 360 L 440 400 L 390 410 L 360 380 Z'},{name:'Telangana',path:'M 370 300 L 430 290 L 450 330 L 420 350 L 370 340 Z'},{name:'Tamil Nadu',path:'M 330 420 L 380 410 L 400 460 L 370 500 L 330 490 L 310 460 Z'},{name:'West Bengal',path:'M 490 200 L 540 190 L 560 230 L 540 270 L 490 260 L 475 230 Z'},{name:'Delhi',path:'M 340 170 L 365 165 L 368 185 L 345 188 Z'}];
-  const sx=d3.scaleLinear().domain([60,600]).range([40,W-40]),sy=d3.scaleLinear().domain([120,520]).range([30,H-30]);
-  const g=svg.append('g');
-  shapes.forEach(sh=>{
-    const d=SD2[sh.name];const val=d?(geoFilter==='all'?d.total:d[geoFilter]||0):0;
-    const pts=sh.path.match(/-?\d+\.?\d*/g).map(Number);
-    const sp='M'+pts.reduce((a,v,i)=>a+(i%2===0?' '+sx(v):' '+sy(v)),'').trim().replace(/M /,'M')+' Z';
-    g.append('path').attr('d',sp).attr('fill',val>0?col(val):'#1a2030').attr('stroke','rgba(255,255,255,.15)').attr('stroke-width',.5).style('cursor','pointer')
-      .on('mouseover',function(e){d3.select(this).attr('stroke','var(--g)').attr('stroke-width',1.5);svg.append('text').attr('id','geo-tip').attr('x',e.offsetX+10).attr('y',e.offsetY-8).attr('fill','#fff').attr('font-size',11).attr('font-family','DM Sans,sans-serif').text(`${sh.name}: ${val}`);})
-      .on('mouseout',function(){d3.select(this).attr('stroke','rgba(255,255,255,.15)').attr('stroke-width',.5);svg.select('#geo-tip').remove();});
-    if(val>20){const cx=pts.filter((_,i)=>i%2===0).reduce((a,b)=>a+b,0)/(pts.length/2);const cy=pts.filter((_,i)=>i%2!==0).reduce((a,b)=>a+b,0)/(pts.length/2);g.append('text').attr('x',sx(cx)).attr('y',sy(cy)+4).attr('text-anchor','middle').attr('fill','rgba(255,255,255,.7)').attr('font-size',9).attr('font-family','DM Mono,monospace').attr('pointer-events','none').text(val);}
+
+function getColor(val, max) {
+  if(!val) return '#1a2030';
+  const t = val / max;
+  const colors = {
+    all:    ['#0d3320','#166534','#15803D','#16a34a','#22c55e'],
+    betting:['#2d1015','#7f1d1d','#991b1b','#b91c1c','#DC2626'],
+    piracy: ['#1c1200','#78350f','#92400e','#b45309','#D97706'],
+    crypto: ['#1c1000','#92400e','#b45309','#d97706','#F59E0B'],
+    mule:   ['#1c0e00','#9a3412','#c2410c','#ea580c','#f97316'],
+  };
+  const palette = colors[GEO_FILTER] || colors.all;
+  const idx = Math.min(Math.floor(t * palette.length), palette.length - 1);
+  return palette[idx];
+}
+
+async function initMap() {
+  if(mapInited) return;
+  mapInited = true;
+
+  const mapEl = document.getElementById('india-leaflet');
+  if(!mapEl) return;
+
+  MAP = L.map('india-leaflet', {
+    center: [22.5, 82.5],
+    zoom: 5,
+    zoomControl: true,
+    attributionControl: false,
+  });
+
+  // Dark tile layer
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    maxZoom: 10,
+    minZoom: 4,
+  }).addTo(MAP);
+
+  // Fetch India GeoJSON
+  try {
+    const res  = await fetch('https://raw.githubusercontent.com/geohacker/india/master/state/india_telengana.geojson');
+    const data = await res.json();
+    addGeoLayer(data);
+  } catch(e) {
+    // Fallback: just add state circles
+    addStatePins();
+  }
+
+  // Add operator/fraud location pins
+  addFraudPins();
+  renderHotspots();
+}
+
+function addGeoLayer(geojson) {
+  const vals = Object.values(STATE_DATA).map(d => getVal(d));
+  const max  = Math.max(...vals);
+
+  if(GEO_LAYER) { MAP.removeLayer(GEO_LAYER); GEO_LAYER = null; }
+
+  GEO_LAYER = L.geoJSON(geojson, {
+    style: feature => {
+      const name = feature.properties.NAME_1 || feature.properties.name || feature.properties.st_nm || '';
+      const d    = findState(name);
+      const val  = d ? getVal(d) : 0;
+      return {
+        fillColor:   getColor(val, max),
+        weight:      1,
+        opacity:     1,
+        color:       'rgba(255,255,255,0.3)',
+        fillOpacity: 0.7,
+      };
+    },
+    onEachFeature: (feature, layer) => {
+      const name = feature.properties.NAME_1 || feature.properties.name || feature.properties.st_nm || '';
+      const d    = findState(name);
+      const val  = d ? getVal(d) : 0;
+      layer.bindPopup(`
+        <div style="min-width:160px">
+          <div style="font-weight:600;font-size:13px;margin-bottom:6px">${name}</div>
+          <div style="color:#22c55e;font-size:12px">${val} fraud alerts</div>
+          ${d ? `
+          <div style="margin-top:6px;font-size:11px;opacity:.7">
+            Betting: ${d.betting} · Piracy: ${d.piracy}<br>
+            Crypto: ${d.crypto} · Mule: ${d.mule}
+          </div>` : ''}
+        </div>
+      `);
+      layer.on('mouseover', function() { this.setStyle({weight:2, color:'#22c55e', fillOpacity:0.85}); });
+      layer.on('mouseout',  function() { GEO_LAYER && GEO_LAYER.resetStyle(this); });
+      layer.on('click', () => highlightState(name));
+    }
+  }).addTo(MAP);
+}
+
+function addStatePins() {
+  // Fallback: circles on state centroids
+  const vals = Object.values(STATE_DATA).map(d => getVal(d));
+  const max  = Math.max(...vals);
+  Object.entries(STATE_DATA).forEach(([name, d]) => {
+    const val = getVal(d);
+    const r   = 8 + (val / max) * 20;
+    L.circleMarker([d.lat, d.lng], {
+      radius: r, fillColor: getColor(val, max),
+      color: 'rgba(255,255,255,0.5)', weight: 1, fillOpacity: 0.7
+    }).bindPopup(`<b>${name}</b><br>${val} alerts`).addTo(MAP);
   });
 }
 
-// ALERT INTELLIGENCE
-function renderAilList(){
-  document.getElementById('ail-count').textContent=ALL.length+' total';
-  buildAilList(ALL);
-}
-function ailFilter(){
-  const q=document.getElementById('ail-s').value.toLowerCase();
-  buildAilList(q?ALL.filter(a=>JSON.stringify(a).toLowerCase().includes(q)):ALL);
-}
-function buildAilList(list){
-  document.getElementById('ail-list').innerHTML=list.map((a,i)=>{
-    const sev=(a.severity||'medium').toLowerCase();
-    const sc=SC[sev]||'#94A3B8';
-    const cat=(a.category||'').replace(/_/g,' ');
-    const ts=a.detected_at?new Date(a.detected_at).toLocaleDateString('en-IN',{day:'numeric',month:'short'}):'';
-    return `<div class="aic" id="aic-${i}" onclick="showAid(${i},this)">
-      <div class="aic-bar" style="background:${sc}"></div>
-      <div class="aic-body">
-        <div class="aic-top"><span class="sb" style="font-size:8px;padding:1px 4px;background:${sc}22;color:${sc};border:1px solid ${sc}44">${sev.toUpperCase()}</span><span style="font-family:var(--mono);font-size:9px;color:var(--m)">${cat}</span></div>
-        <div class="aic-title">${a.title||'Untitled'}</div>
-        <div class="aic-meta"><span>${ts}</span><span>${a.platform||''}</span></div>
+function addFraudPins() {
+  const typeColors = {operator:'#D97706',network:'#EA580C',domain:'#0891B2',channel:'#2563EB',crypto:'#F59E0B',ai:'#8B5CF6',pharma:'#059669'};
+  OPERATOR_PINS.forEach(p => {
+    const color = typeColors[p.type] || '#DC2626';
+    const icon = L.divIcon({
+      html: `<div style="width:12px;height:12px;border-radius:50%;background:${color};border:2px solid white;box-shadow:0 0 6px ${color}88"></div>`,
+      className: '',
+      iconSize: [12,12],
+      iconAnchor: [6,6],
+    });
+    L.marker([p.lat, p.lng], {icon}).bindPopup(`
+      <div>
+        <div style="font-size:10px;color:#94A3B8;text-transform:uppercase;margin-bottom:4px">${p.type}</div>
+        <div style="font-weight:600;margin-bottom:4px">${p.name}</div>
+        <div style="font-size:11px;opacity:.8">${p.detail}</div>
       </div>
-    </div>`;
-  }).join('')||'<div class="empty">No alerts</div>';
+    `).addTo(MAP);
+  });
 }
 
-function showAid(idx,card){
-  document.querySelectorAll('.aic').forEach(c=>c.classList.remove('active'));
-  if(card)card.classList.add('active');
-  const a=ALL[idx];if(!a)return;
-  const chain=a.chain||{},attr=a.attribution||{};
-  const sev=(a.severity||'medium').toLowerCase();
-  const sc=SC[sev]||'#94A3B8';
-  const reach=chain.reach||0;
-  const rs=reach>1e6?(reach/1e6).toFixed(1)+'M subs':reach>1000?Math.round(reach/1000)+'K subs':reach?reach+' subs':'—';
-  const ts=a.detected_at?new Date(a.detected_at).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'})+' IST':'—';
-  const phones=chain.phones||(attr.phone?[attr.phone]:[]);
-  const upis=chain.upis||(attr.upi?[attr.upi]:[]);
-  const atH=`
-    ${attr.name||chain.operator_name?`<span class="at2 at-n">👤 ${attr.name||chain.operator_name}</span>`:''}
-    ${attr.email?`<span class="at2 at-e">✉ ${attr.email}</span>`:''}
-    ${phones.length?phones.map(p=>`<span class="at2 at-p">📞 ${p}</span>`).join(''):'<span class="at2 at-m">Phone: pending</span>'}
-    ${upis.length?upis.map(u=>`<span class="at2 at-u">💳 ${u}</span>`).join(''):'<span class="at2 at-m">UPI: pending</span>'}
-    ${chain.whois_domain?`<span class="at2 at-e">🌐 ${chain.whois_domain}</span>`:''}
-  `;
-  const steps=a.next_steps||[];
-  const rt=a.report_to||[];
-  const reasons={piracy:'Illegal stream/content — streaming piracy keyword pattern',illegal_betting:'Unlicensed betting — violates PGA + OGA 2025',colour_prediction:'Colour prediction gambling — no NOGC licence',investment_fraud:'SEBI-unregistered advisory — guaranteed returns',crypto_fraud:'Fake crypto platform or pig butchering — ED PMLA confirmed',ai_scam:'AI voice/video fraud — deepfake or digital arrest scam',upi_mule:'UPI mule recruitment — active solicitation',brand_impersonation:'Fake brand APK — credential theft',domain_squat:'Bad-faith domain registration — brand mimicry'};
-  document.getElementById('aid').innerHTML=`
+function findState(name) {
+  const n = name.toLowerCase();
+  for(const [k,v] of Object.entries(STATE_DATA)) {
+    if(k.toLowerCase() === n || n.includes(k.toLowerCase()) || k.toLowerCase().includes(n)) return v;
+  }
+  return null;
+}
+
+function highlightState(name) {
+  const d = findState(name);
+  if(d) {
+    MAP.setView([d.lat, d.lng], 7, {animate:true});
+  }
+}
+
+function setGeoFilter(f, el) {
+  GEO_FILTER = f;
+  document.querySelectorAll('.gcatb').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  if(mapInited) {
+    try {
+      const fetchAndRebuild = async () => {
+        const res  = await fetch('https://raw.githubusercontent.com/geohacker/india/master/state/india_telengana.geojson');
+        const data = await res.json();
+        addGeoLayer(data);
+      };
+      fetchAndRebuild().catch(() => {
+        if(GEO_LAYER) MAP.removeLayer(GEO_LAYER);
+        addStatePins();
+      });
+    } catch(e) {}
+  }
+  renderHotspots();
+}
+
+function renderHotspots() {
+  const states = Object.entries(STATE_DATA)
+    .map(([s,d]) => ({state:s, count:getVal(d), lat:d.lat, lng:d.lng}))
+    .sort((a,b) => b.count - a.count);
+  const max = states[0]?.count || 1;
+  const barColor = GEO_FILTER==='betting'?'#DC2626':GEO_FILTER==='piracy'?'#D97706':GEO_FILTER==='crypto'?'#F59E0B':GEO_FILTER==='mule'?'#EA580C':'var(--g)';
+
+  document.getElementById('hotspot-list').innerHTML = states.map(s => `
+    <div class="hi" onclick="MAP&&MAP.setView([${s.lat},${s.lng}],7,{animate:true})">
+      <div class="hstate"><span>${s.state}</span><span style="font-family:var(--mono);font-size:10px;color:${barColor}">${s.count}</span></div>
+      <div class="hbw"><div class="hbar" style="width:${Math.round(s.count/max*100)}%;background:${barColor}"></div></div>
+    </div>`).join('');
+}
+
+function geoSearch(q) {
+  if(!q || !MAP) return;
+  const name = q.toLowerCase().trim();
+  for(const [k,d] of Object.entries(STATE_DATA)) {
+    if(k.toLowerCase().includes(name)) {
+      MAP.setView([d.lat, d.lng], 7, {animate:true});
+
+      // Flash highlight
+      L.circleMarker([d.lat, d.lng], {
+        radius: 40, fillColor: '#22c55e', color:'#22c55e',
+        weight:2, fillOpacity:0.2, opacity:0.8
+      }).addTo(MAP);
+      break;
+    }
+  }
+  // Also search operators
+  const pin = OPERATOR_PINS.find(p => p.name.toLowerCase().includes(name) || p.detail.toLowerCase().includes(name));
+  if(pin && MAP) {
+    MAP.setView([pin.lat, pin.lng], 8, {animate:true});
+  }
+}
+
+// ═══════════════════════════════════════════════
+// ALERT INTELLIGENCE TAB
+// ═══════════════════════════════════════════════
+function renderAilList() {
+  document.getElementById('ail-count').textContent = ALL.length + ' total';
+  buildAilList(ALL);
+}
+
+function ailFilter() {
+  const q = document.getElementById('ail-s').value.toLowerCase();
+  buildAilList(q ? ALL.filter(a => JSON.stringify(a).toLowerCase().includes(q)) : ALL);
+}
+
+function buildAilList(list) {
+  document.getElementById('ail-list').innerHTML = list.map((a, i) => {
+    const sev   = (a.severity||'medium').toLowerCase();
+    const sc2   = SC[sev] || '#94A3B8';
+    const cat   = (a.category||'').replace(/_/g,' ');
+    const ts    = a.detected_at ? new Date(a.detected_at).toLocaleDateString('en-IN',{day:'numeric',month:'short'}) : '';
+    const idx   = ALL.indexOf(a);
+    return `
+    <div class="allc" id="aic-${idx}" onclick="showAid(${idx},this)">
+      <div class="allc-bar" style="background:${sc2}"></div>
+      <div class="allc-body">
+        <div class="allc-top">
+          <span class="sevbdg" style="font-size:8px;padding:1px 4px;background:${sc2}22;color:${sc2};border:1px solid ${sc2}44">${sev.toUpperCase()}</span>
+          <span style="font-family:var(--mono);font-size:9px;color:var(--m)">${cat}</span>
+        </div>
+        <div class="allc-title">${a.title||'Untitled'}</div>
+        <div class="allc-meta"><span>${ts}</span><span>${a.platform||''}</span></div>
+      </div>
+    </div>`;
+  }).join('') || '<div class="empty">No alerts found</div>';
+}
+
+const REASONS = {
+  piracy:'Illegal stream/content — piracy keyword pattern with high reach',
+  illegal_betting:'Unlicensed betting — violates Public Gambling Act + OGA 2025',
+  colour_prediction:'Colour prediction gambling — no NOGC licence',
+  investment_fraud:'SEBI-unregistered advisory — guaranteed returns claims',
+  crypto_fraud:'Fake crypto platform or pig butchering — ED PMLA confirmed pattern',
+  ai_scam:'AI voice/video fraud — deepfake or digital arrest scam',
+  upi_mule:'UPI mule recruitment — active solicitation for money mule accounts',
+  brand_impersonation:'Fake brand APK or account — credential theft',
+  domain_squat:'Bad-faith domain registration — brand mimicry confirmed',
+  counterfeit_pharma:'Counterfeit medicine — no CDSCO approval',
+};
+
+function showAid(idx, card) {
+  document.querySelectorAll('.allc').forEach(c => c.classList.remove('active'));
+  if(card) card.classList.add('active');
+  const a = ALL[idx];
+  if(!a) return;
+  const chain = a.chain  || {};
+  const attr  = a.attribution || {};
+  const sev   = (a.severity||'medium').toLowerCase();
+  const sc2   = SC[sev] || '#94A3B8';
+  const reach = chain.reach || 0;
+  const rs    = reach>1e6?(reach/1e6).toFixed(1)+'M subs':reach>1000?Math.round(reach/1000)+'K subs':reach?reach+' subs':'—';
+  const ts    = a.detected_at ? new Date(a.detected_at).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'})+' IST' : '—';
+  const phones = chain.phones || (attr.phone ? [attr.phone] : []);
+  const upis   = chain.upis   || (attr.upi   ? [attr.upi]   : []);
+  const steps  = a.next_steps || [];
+  const rt     = a.report_to  || [];
+
+  const atH = [
+    attr.name||chain.operator_name ? `<span class="at3 at-n">👤 ${attr.name||chain.operator_name}</span>` : '',
+    attr.email ? `<span class="at3 at-e">✉ ${attr.email}</span>` : '',
+    phones.length ? phones.map(p=>`<span class="at3 at-p">📞 ${p}</span>`).join('') : '<span class="at3 at-m">Phone: pending deep scan</span>',
+    upis.length   ? upis.map(u=>`<span class="at3 at-u">💳 ${u}</span>`).join('')   : '<span class="at3 at-m">UPI: pending deep scan</span>',
+    chain.whois_domain ? `<span class="at3 at-e">🌐 ${chain.whois_domain}</span>` : '',
+  ].filter(Boolean).join('');
+
+  document.getElementById('aid').innerHTML = `
     <div class="aid-hdr">
       <div class="aid-sr">
-        <span class="sb" style="background:${sc}22;color:${sc};border:1px solid ${sc}44">${sev.toUpperCase()}</span>
+        <span class="sevbdg" style="background:${sc2}22;color:${sc2};border:1px solid ${sc2}44">${sev.toUpperCase()}</span>
         <span style="font-family:var(--mono);font-size:10px;color:var(--m);padding:2px 7px;border:1px solid var(--bo);border-radius:3px">${a.platform||'Telegram'}</span>
         <span style="font-family:var(--mono);font-size:10px;color:var(--m);padding:2px 7px;border:1px solid var(--bo);border-radius:3px">${(a.category||'').replace(/_/g,' ')}</span>
         <span style="font-family:var(--mono);font-size:10px;color:var(--m)">${ts}</span>
       </div>
       <div class="aid-title">${a.title||'Untitled'}</div>
-      ${a.detail?`<div class="aid-sub">${a.detail}</div>`:''}
+      ${a.detail ? `<div class="aid-sub">${a.detail}</div>` : ''}
     </div>
     <div class="aid-strip">
       <div class="aid-stat"><div class="aid-sl">Reach</div><div class="aid-sv" style="color:${reach>500000?'#DC2626':reach>100000?'#D97706':'var(--g)'}">${rs}</div></div>
@@ -866,18 +1284,22 @@ function showAid(idx,card){
     </div>
     <div class="aid-body">
       <div><div class="aid-st">Operator attribution</div><div class="aid-box">
-        <div class="aid-row"><span class="aid-k">Identifiers</span><div class="att">${atH}</div></div>
+        <div class="aid-row"><span class="aid-k">Identifiers</span><div class="att2">${atH}</div></div>
         ${chain.operator_network?`<div class="aid-row"><span class="aid-k">Network</span><span class="aid-v">${chain.operator_network}</span></div>`:''}
         ${(chain.channels_found||[]).length?`<div class="aid-row"><span class="aid-k">Channels</span><span class="aid-v mono">${chain.channels_found.slice(0,5).join(', ')}</span></div>`:''}
       </div></div>
       <div><div class="aid-st">Evidence & legal</div><div class="aid-box">
-        <div class="aid-row"><span class="aid-k">Evidence hash</span><div style="flex:1"><div class="hd">${a.evidence_hash||'—'}<button class="hdcp" onclick="navigator.clipboard.writeText('${a.evidence_hash||''}').catch(()=>{});this.textContent='Copied!'">Copy</button></div></div></div>
-        <div class="aid-row"><span class="aid-k">Standard</span><span class="aid-v green">IT Act 2000 §65B · SHA-256 · Court admissible</span></div>
+        <div class="aid-row"><span class="aid-k">Evidence hash</span>
+          <div style="flex:1"><div class="hdbox">${a.evidence_hash||'—'}
+            <button class="hdcp" onclick="navigator.clipboard.writeText('${a.evidence_hash||''}').catch(()=>{});this.textContent='Copied!'">Copy</button>
+          </div></div>
+        </div>
+        <div class="aid-row"><span class="aid-k">Standard</span><span class="aid-v gr">IT Act 2000 §65B · SHA-256 · Court admissible in India</span></div>
         <div class="aid-row"><span class="aid-k">Legal basis</span><span class="aid-v">${a.legal_basis||chain.legal_basis||'—'}</span></div>
-        <div class="aid-row"><span class="aid-k">Why alerted</span><span class="aid-v">${reasons[a.category]||a.detail||'Pattern match on fraud signature'}</span></div>
+        <div class="aid-row"><span class="aid-k">Why alerted</span><span class="aid-v">${REASONS[a.category]||a.detail||'Pattern match on fraud keyword signature'}</span></div>
       </div></div>
-      ${steps.length?`<div><div class="aid-st">Next steps</div><div class="aid-box">${steps.map((s,i)=>`<div class="str"><div class="stn">${i+1}</div><div class="stt">${s.replace(/^Step \d+ — /,'')}</div></div>`).join('')}</div></div>`:''}
-      ${rt.length?`<div><div class="aid-st">Report to</div><div class="aid-box"><div class="aid-row"><span class="aid-k">Organisations</span><div>${rt.map(r=>`<span class="rpp">${r}</span>`).join('')}</div></div></div></div>`:''}
+      ${steps.length ? `<div><div class="aid-st">Next steps — ordered actions</div><div class="aid-box">${steps.map((s2,i)=>`<div class="str"><div class="stn">${i+1}</div><div class="stt">${s2.replace(/^Step \d+ — /,'')}</div></div>`).join('')}</div></div>` : ''}
+      ${rt.length ? `<div><div class="aid-st">Report to</div><div class="aid-box"><div class="aid-row"><span class="aid-k">Organisations</span><div>${rt.map(r=>`<span class="rp2">${r}</span>`).join('')}</div></div></div></div>` : ''}
     </div>`;
 }
 </script>

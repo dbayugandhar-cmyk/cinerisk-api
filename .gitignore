@@ -80,3 +80,7 @@ reports/deep_scan_results.json
 
 # Public versions are safe for GitHub
 # reports/fraud_intelligence_graph_public.json ← this stays in git
+
+reports/all_channels.json
+reports/channel_history.json
+logs/*.log

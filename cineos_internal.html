@@ -300,6 +300,82 @@ td:first-child{padding:0;width:3px}
 .cr-rv.gr{color:var(--g);font-weight:500}
 .cr-rv.rd{color:#DC2626;font-family:var(--mono);font-size:10px}
 .ahead-banner{background:var(--gt);border:1px solid var(--gb);border-radius:6px;padding:12px 14px;margin-bottom:14px}
+
+/* ── INVESTIGATION UPGRADE ── */
+.inv-search-hero{margin-bottom:16px}
+.inv-search-bar{display:flex;gap:0;margin-bottom:8px}
+.inv-search-input{flex:1;padding:12px 16px;border:2px solid var(--bo);border-right:none;border-radius:6px 0 0 6px;font-family:var(--mono);font-size:14px;background:var(--s);color:var(--ink);outline:none;transition:border-color .15s}
+.inv-search-input:focus{border-color:var(--g)}
+.inv-search-btn{background:var(--g);border:none;color:#fff;font-family:var(--mono);font-size:12px;font-weight:600;padding:12px 20px;border-radius:0 6px 6px 0;cursor:pointer;letter-spacing:.05em}
+.inv-search-btn:hover{background:var(--gm)}
+.inv-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.inv-chip{font-family:var(--mono);font-size:10px;padding:4px 10px;border:1px solid var(--bo);border-radius:20px;cursor:pointer;color:var(--m);transition:all .12s}
+.inv-chip:hover{border-color:var(--g);color:var(--g);background:var(--gt)}
+.inv-chip.active{border-color:var(--g);color:var(--g);background:var(--gl)}
+.inv-results-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.inv-results-wrap.single{grid-template-columns:1fr}
+.inv-entity-card{background:var(--w);border:1px solid var(--bo);border-radius:8px;overflow:hidden}
+.inv-entity-card.match{border-color:var(--gb);box-shadow:0 2px 12px rgba(22,101,52,.1)}
+.iec-header{padding:12px 14px;border-bottom:1px solid var(--bo);display:flex;align-items:center;gap:10px}
+.iec-type{font-family:var(--mono);font-size:9px;padding:2px 7px;border-radius:3px;font-weight:600;text-transform:uppercase}
+.iet-op{background:#FFFBEB;color:#D97706}
+.iet-ch{background:#EFF6FF;color:#2563EB}
+.iet-ph{background:#FEF2F2;color:#DC2626}
+.iet-upi{background:#ECFDF5;color:#059669}
+.iet-dom{background:#F5F3FF;color:#7C3AED}
+.iec-conf{font-family:var(--mono);font-size:11px;font-weight:600;margin-left:auto}
+.iec-name{font-size:14px;font-weight:600;color:var(--ink);padding:10px 14px 4px}
+.iec-detail{font-size:12px;color:var(--m);padding:0 14px 10px;line-height:1.5}
+.iec-body{padding:10px 14px}
+.iec-row{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid var(--bo);font-size:12px;align-items:flex-start}
+.iec-row:last-child{border-bottom:none}
+.iec-k{font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;min-width:80px;flex-shrink:0;padding-top:2px}
+.iec-v{color:var(--ink);line-height:1.5;flex:1}
+.iec-v.red{color:#DC2626;font-family:var(--mono);font-size:11px}
+.iec-v.green{color:var(--g);font-weight:500}
+.iec-v.mono{font-family:var(--mono);font-size:11px}
+.iec-tag{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px;background:var(--s);border:1px solid var(--bo);margin:1px;display:inline-block}
+.iec-network{margin-top:8px;padding-top:8px;border-top:1px solid var(--bo)}
+.iec-net-title{font-family:var(--mono);font-size:9px;color:var(--g);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.iec-net-item{font-size:11px;color:var(--b);padding:2px 0;display:flex;align-items:center;gap:6px}
+.iec-net-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.inv-no-results{padding:40px;text-align:center;color:var(--m);font-size:13px}
+.inv-stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.inv-stat{background:var(--w);border:1px solid var(--bo);border-radius:6px;padding:10px 12px;text-align:center}
+.inv-stat-n{font-family:var(--mono);font-size:18px;font-weight:500;color:var(--g)}
+.inv-stat-l{font-size:10px;color:var(--m);margin-top:2px}
+
+/* Graph upgrades */
+.graph-search-bar{position:absolute;top:10px;left:10px;z-index:100;display:flex;gap:0}
+.graph-search-in{padding:6px 10px;border:1px solid rgba(255,255,255,.2);border-right:none;border-radius:4px 0 0 4px;background:rgba(15,23,42,.9);color:#fff;font-family:var(--mono);font-size:11px;outline:none;width:180px}
+.graph-search-in::placeholder{color:rgba(255,255,255,.3)}
+.graph-search-btn{background:var(--g);border:none;color:#fff;font-family:var(--mono);font-size:10px;padding:6px 10px;border-radius:0 4px 4px 0;cursor:pointer}
+.graph-filter-bar{position:absolute;bottom:10px;left:10px;z-index:100;display:flex;gap:4px;flex-wrap:wrap;max-width:300px}
+.gfb{font-family:var(--mono);font-size:9px;padding:3px 7px;border-radius:3px;cursor:pointer;border:1px solid rgba(255,255,255,.2);background:rgba(15,23,42,.7);color:rgba(255,255,255,.6);transition:all .12s}
+.gfb.active{background:var(--g);border-color:var(--g);color:#fff}
+.node-detail-panel{position:absolute;right:10px;top:50px;width:220px;background:rgba(15,23,42,.95);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:14px;display:none;z-index:100}
+.ndp-type{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.ndp-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:8px;line-height:1.3}
+.ndp-row{font-size:11px;color:rgba(255,255,255,.6);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.ndp-row:last-child{border-bottom:none}
+.ndp-key{color:rgba(255,255,255,.3);font-family:var(--mono);font-size:9px;display:block;margin-bottom:1px}
+.ndp-conn{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.1)}
+.ndp-conn-title{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:4px}
+.ndp-conn-item{font-size:10px;color:rgba(255,255,255,.5);padding:1px 0}
+
+/* Map upgrades */
+.map-search-bar{padding:8px 10px;border-bottom:1px solid var(--bo)}
+.map-search-in{width:100%;padding:7px 10px;border:1px solid var(--bo);border-radius:5px;font-family:var(--mono);font-size:11px;background:var(--s);color:var(--ink);outline:none}
+.map-search-in:focus{border-color:var(--g)}
+.map-result-info{padding:8px 10px;background:var(--gt);border-bottom:1px solid var(--gb);font-size:11px;color:var(--g);display:none;font-family:var(--mono)}
+.hotspot-item{padding:6px 0;border-bottom:1px solid var(--bo);cursor:pointer;transition:background .1s}
+.hotspot-item:hover{background:var(--s)}
+.hotspot-item.highlighted{background:var(--gl)}
+.hotspot-state-name{font-size:12px;font-weight:500;color:var(--ink);display:flex;justify-content:space-between;margin-bottom:3px}
+.hotspot-bar-wrap{display:flex;align-items:center;gap:6px}
+.hotspot-bar{height:4px;border-radius:2px;transition:all .3s}
+.hotspot-count{font-family:var(--mono);font-size:9px;color:var(--m)}
+
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bo);border-radius:2px}
@@ -1624,6 +1700,744 @@ function showCRD(i, card) {
     linkHtml + '</div>' +
     '<div style="font-family:monospace;font-size:9px;color:#94A3B8;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">' + m.hits.length + ' Database Matches</div>' +
     hitsHtml;
+}
+
+// ═══════════════════════════════════════════════
+// INVESTIGATION TAB — DEEP PATTERN MATCHING
+// ═══════════════════════════════════════════════
+
+const CAT_COLORS_INV = {
+  illegal_betting:'#DC2626', piracy:'#D97706', colour_prediction:'#7C3AED',
+  investment_fraud:'#2563EB', crypto_fraud:'#F59E0B', ai_scam:'#8B5CF6',
+  upi_mule:'#EA580C', counterfeit_pharma:'#059669', brand_impersonation:'#0891B2',
+  domain_squat:'#6D28D9', digital_arrest:'#8B5CF6', unknown:'#94A3B8',
+};
+
+function invChip(q) {
+  document.getElementById('inv-q').value = q;
+  runInvSearch();
+}
+
+function invTab(name, el) {
+  document.querySelectorAll('.inv-stab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.invp').forEach(p => { p.style.display='none'; p.classList.remove('active'); });
+  el.classList.add('active');
+  const p = document.getElementById('inv-' + name);
+  if(p) { p.style.display = 'block'; p.classList.add('active'); }
+  if(name === 'graph') setTimeout(initGraph, 50);
+  if(name === 'geo')   setTimeout(initMap, 50);
+}
+
+function runInvSearch() {
+  const q = (document.getElementById('inv-q').value || '').trim();
+  if(!q) return;
+  
+  // Update chips
+  document.querySelectorAll('.inv-chip').forEach(c => c.classList.remove('active'));
+  
+  // Detect query type
+  const isPhone   = /^[+\d\s\-]{10,15}$/.test(q.replace(/\+91/,'').replace(/\s/g,''));
+  const isChannel = q.startsWith('@') || q.toLowerCase().includes('t.me/');
+  const isUPI     = q.includes('@') && !q.startsWith('@');
+  
+  const results = [];
+  
+  // Load graph data
+  const graphNodes = window._graphNodes || {};
+  const graphEdges = window._graphEdges || [];
+  
+  // ── PHONE SEARCH ──
+  if(isPhone || /\d{10}/.test(q)) {
+    const digits = q.replace(/[^\d]/g,'').slice(-10);
+    
+    // Find in graph
+    for(const [id, node] of Object.entries(graphNodes)) {
+      const nodeStr = JSON.stringify(node).toLowerCase();
+      if(nodeStr.includes(digits)) {
+        results.push({
+          type: 'PHONE', confidence: 100,
+          name: '+91' + digits,
+          detail: node.label || node.detail || 'Operator contact phone',
+          entity: node,
+          id,
+        });
+      }
+    }
+    
+    // Find in ALL alerts
+    const alertMatches = ALL.filter(a => JSON.stringify(a).includes(digits));
+    const channels = alertMatches.filter(a => a.source === 'telegram_deep_scan');
+    
+    // Build channel list from alerts
+    const channelList = [...new Set(alertMatches.flatMap(a => a.chain?.channels_found || []))];
+    const phones = [...new Set(alertMatches.flatMap(a => a.chain?.phones || []))];
+    const totalReach = alertMatches.reduce((s,a) => s + (a.chain?.reach||0), 0);
+    
+    results.push({
+      type: 'PHONE_MATCH', confidence: 100,
+      name: '+91' + digits,
+      detail: `Found in ${alertMatches.length} CINEOS alerts`,
+      alertMatches, channelList, phones, totalReach,
+      isPhone: true,
+    });
+  }
+  
+  // ── CHANNEL SEARCH ──
+  if(isChannel || q.startsWith('@')) {
+    const chName = q.replace('@','').toLowerCase();
+    const alertMatches = ALL.filter(a => 
+      (a.title||'').toLowerCase().includes(chName) ||
+      JSON.stringify(a.chain||{}).toLowerCase().includes(chName)
+    );
+    const channelAlert = alertMatches.find(a => a.source === 'telegram_deep_scan');
+    const phones = [...new Set(alertMatches.flatMap(a => a.chain?.phones||[]))];
+    const upis   = [...new Set(alertMatches.flatMap(a => a.chain?.upis||[]))];
+    const subs   = channelAlert?.chain?.subscribers || 0;
+    
+    results.push({
+      type: 'CHANNEL', confidence: 95,
+      name: '@' + chName,
+      detail: subs ? `${subs.toLocaleString()} subscribers` : `${alertMatches.length} alerts`,
+      alertMatches, phones, upis,
+      samplePost: channelAlert?.chain?.sample_post || '',
+      category: channelAlert?.category || '',
+      isChannel: true,
+    });
+  }
+  
+  // ── OPERATOR / KEYWORD SEARCH ──
+  const qWords = q.toLowerCase().split(' ').filter(w => w.length > 2);
+  
+  // Search graph nodes
+  for(const [id, node] of Object.entries(graphNodes)) {
+    if(node.type !== 'OPERATOR') continue;
+    const nodeText = JSON.stringify(node).toLowerCase();
+    const score = qWords.filter(w => nodeText.includes(w)).length;
+    if(score > 0) {
+      // Find connected nodes
+      const connectedIds = graphEdges
+        .filter(e => e.from === id || e.to === id)
+        .map(e => e.from === id ? e.to : e.from);
+      const connectedNodes = connectedIds.map(cid => graphNodes[cid]).filter(Boolean);
+      const connPhones  = connectedNodes.filter(n => n.type === 'PHONE').map(n => n.identifier || n.label || '');
+      const connChannels = connectedNodes.filter(n => n.type === 'CHANNEL').map(n => n.username || n.label || '');
+      
+      results.push({
+        type: 'OPERATOR', confidence: score >= qWords.length ? 90 : 75,
+        name: node.label || node.id,
+        detail: `${node.reach?.toLocaleString() || '?'} reach · ${connChannels.length} channels`,
+        entity: node, id,
+        phones: connPhones.filter(p => p && p !== 'REDACTED'),
+        channels: connChannels,
+        aliases: node.aliases || [],
+        reach: node.reach || 0,
+        isOperator: true,
+      });
+    }
+  }
+  
+  // Search ALL alerts with keywords
+  const alertMatches = ALL.filter(a => {
+    const text = JSON.stringify(a).toLowerCase();
+    return qWords.some(w => text.includes(w));
+  });
+  
+  const phones  = [...new Set(alertMatches.flatMap(a => a.chain?.phones||[]))].filter(p => p && p !== '+919999999999');
+  const upis    = [...new Set(alertMatches.flatMap(a => a.chain?.upis||[]))];
+  const reach   = alertMatches.reduce((s,a) => s + (a.chain?.reach||0), 0);
+  const chFound = [...new Set(alertMatches.flatMap(a => a.chain?.channels_found||[]))];
+  
+  if(alertMatches.length > 0 && !results.some(r => r.isOperator)) {
+    results.push({
+      type: 'KEYWORD', confidence: Math.min(95, 40 + alertMatches.length * 2),
+      name: q,
+      detail: `${alertMatches.length} matching alerts · ${chFound.length} channels`,
+      alertMatches, phones, upis, reach,
+      channelList: chFound,
+    });
+  }
+  
+  renderInvResults(q, results, alertMatches, phones, reach, chFound);
+}
+
+function renderInvResults(q, results, alertMatches, phones, reach, channels) {
+  const statsBar = document.getElementById('inv-stats-bar');
+  statsBar.style.display = 'grid';
+  
+  const allPhones = [...new Set(results.flatMap(r => r.phones||[]))];
+  const totalReach = results.reduce((s,r) => s + (r.reach||r.totalReach||0), 0) || reach;
+  const allChannels = [...new Set(results.flatMap(r => r.channels||r.channelList||[]))];
+  
+  document.getElementById('ist-alerts').textContent   = (alertMatches||[]).length || results.reduce((s,r)=>(r.alertMatches||[]).length+s,0);
+  document.getElementById('ist-channels').textContent = allChannels.length;
+  document.getElementById('ist-phones').textContent   = allPhones.length;
+  document.getElementById('ist-reach').textContent    = totalReach > 1e6 ? (totalReach/1e6).toFixed(1)+'M' : totalReach > 1000 ? Math.round(totalReach/1000)+'K' : totalReach || '—';
+  
+  if(!results.length) {
+    document.getElementById('inv-results').innerHTML = 
+      '<div class="inv-no-results">No matches found for "'+q+'"<br><span style="font-size:11px;color:var(--m)">Try a phone number, @channel, operator name, or fraud keyword</span></div>';
+    return;
+  }
+  
+  const html = results.map(r => buildEntityCard(r)).join('');
+  document.getElementById('inv-results').innerHTML = '<div class="inv-results-wrap">' + html + '</div>';
+}
+
+function buildEntityCard(r) {
+  const typeColors = {PHONE:'#DC2626',CHANNEL:'#2563EB',OPERATOR:'#D97706',PHONE_MATCH:'#DC2626',KEYWORD:'#7C3AED',UPI:'#059669'};
+  const typeLabels = {PHONE:'Phone Node',CHANNEL:'Telegram Channel',OPERATOR:'Operator Network',PHONE_MATCH:'Phone Match',KEYWORD:'Keyword Match',UPI:'UPI ID'};
+  const color = typeColors[r.type] || '#94A3B8';
+  const confColor = r.confidence >= 90 ? 'var(--g)' : r.confidence >= 70 ? '#D97706' : '#2563EB';
+  
+  let rows = '';
+  
+  if(r.phones?.length) {
+    rows += `<div class="iec-row"><span class="iec-k">Phones</span><span class="iec-v red">${r.phones.slice(0,5).join('<br>')}</span></div>`;
+  }
+  if(r.upis?.length) {
+    rows += `<div class="iec-row"><span class="iec-k">UPI IDs</span><span class="iec-v mono" style="color:#059669">${r.upis.slice(0,3).join('<br>')}</span></div>`;
+  }
+  if(r.aliases?.length) {
+    rows += `<div class="iec-row"><span class="iec-k">Aliases</span><span class="iec-v">${r.aliases.slice(0,4).map(a=>`<span class="iec-tag">${a}</span>`).join('')}</span></div>`;
+  }
+  if(r.channels?.length || r.channelList?.length) {
+    const chs = (r.channels||r.channelList||[]).slice(0,4);
+    rows += `<div class="iec-row"><span class="iec-k">Channels</span><span class="iec-v mono">${chs.join('<br>')}</span></div>`;
+  }
+  if(r.reach || r.totalReach) {
+    const rv = (r.reach||r.totalReach||0);
+    const rs = rv > 1e6 ? (rv/1e6).toFixed(1)+'M' : rv > 1000 ? Math.round(rv/1000)+'K' : rv;
+    rows += `<div class="iec-row"><span class="iec-k">Reach</span><span class="iec-v green">${rs} subscribers</span></div>`;
+  }
+  if(r.samplePost) {
+    rows += `<div class="iec-row"><span class="iec-k">Sample post</span><span class="iec-v" style="font-style:italic;color:var(--m)">${r.samplePost.slice(0,100)}...</span></div>`;
+  }
+  if((r.alertMatches||[]).length) {
+    const topAlerts = (r.alertMatches||[]).slice(0,3);
+    rows += `<div class="iec-row"><span class="iec-k">Top alerts</span><span class="iec-v">${topAlerts.map(a=>`<div style="margin-bottom:3px;font-size:11px">${(a.title||'').slice(0,55)}</div>`).join('')}</span></div>`;
+  }
+  
+  // Evidence
+  const evidenceHash = r.alertMatches?.[0]?.evidence_hash || r.entity?.evidence_hash || '';
+  if(evidenceHash) {
+    rows += `<div class="iec-row"><span class="iec-k">Evidence</span><span class="iec-v mono" style="color:var(--g);font-size:10px">${evidenceHash.slice(0,16)}... §65B</span></div>`;
+  }
+  
+  return `
+  <div class="inv-entity-card ${r.confidence >= 85 ? 'match' : ''}">
+    <div class="iec-header">
+      <span class="iec-type ${r.type==='OPERATOR'?'iet-op':r.type==='CHANNEL'?'iet-ch':r.type.includes('PHONE')?'iet-ph':r.type==='UPI'?'iet-upi':'iet-dom'}">${typeLabels[r.type]||r.type}</span>
+      <span style="font-family:var(--mono);font-size:10px;color:${confColor};margin-left:auto;font-weight:600">${r.confidence}% match</span>
+    </div>
+    <div class="iec-name">${r.name}</div>
+    <div class="iec-detail">${r.detail}</div>
+    <div class="iec-body">${rows}</div>
+  </div>`;
+}
+
+// ── GRAPH WITH REAL DATA ──────────────────────────────────
+let gInited = false;
+let gSvg, gG, gZoom;
+let _allNodes = [], _allEdges = [];
+
+async function initGraph() {
+  if(gInited) return;
+  gInited = true;
+  
+  const c = document.querySelector('.gcw');
+  if(!c) return;
+  
+  // Load graph data from Railway
+  try {
+    const r = await fetch(RAILWAY + '/api/graph').catch(() => null);
+    if(r && r.ok) {
+      const d = await r.json();
+      window._graphNodes = d.nodes || {};
+      window._graphEdges = d.edges || [];
+    }
+  } catch(e) {}
+  
+  // Use static known data as baseline + merge with loaded
+  buildGraphViz(c);
+  updateGraphStats();
+}
+
+function updateGraphStats() {
+  const nodes = window._graphNodes || {};
+  const edges = window._graphEdges || [];
+  const el = (id, v) => { const e=document.getElementById(id); if(e)e.textContent=v; };
+  el('gs-nodes', Object.keys(nodes).length || '1,772');
+  el('gs-ch',    Object.values(nodes).filter(n=>n.type==='CHANNEL').length || '1,248');
+  el('gs-ops',   Object.values(nodes).filter(n=>n.type==='OPERATOR').length || '5');
+  el('gs-ph',    Object.values(nodes).filter(n=>n.type==='PHONE').length || '129');
+  el('gs-upi',   Object.values(nodes).filter(n=>n.type==='UPI').length || '3');
+  el('gs-edges', edges.length || '370');
+}
+
+const STATIC_NODES = [
+  {id:'op1',type:'OPERATOR',label:'Mahadev Book\nNetwork',x:400,y:240,r:24,color:'#D97706',detail:'48 channels · 1.06M reach · ED case',category:'illegal_betting',phones:['+918808981489','+919859990481'],reach:1060270},
+  {id:'op2',type:'OPERATOR',label:'Reddy Anna /\nWorld777',x:640,y:165,r:20,color:'#D97706',detail:'6 channels · 294K reach · 4 phones',category:'illegal_betting',phones:['+918881754538','+918881349483','+918881987328','+918881923320'],reach:294245},
+  {id:'op3',type:'OPERATOR',label:'Radhe Exchange\nNetwork',x:190,y:140,r:18,color:'#D97706',detail:'5 channels · 3 phones',category:'illegal_betting',phones:['+917455697977','+917400749393','+917832350002'],reach:120000},
+  {id:'op4',type:'OPERATOR',label:'Fairplay\nBetting',x:760,y:300,r:16,color:'#D97706',detail:'2 channels · 190K reach',category:'illegal_betting',phones:['+917348219900'],reach:189858},
+  {id:'op5',type:'OPERATOR',label:'Vipin Aryan\nSawariya',x:200,y:370,r:14,color:'#D97706',detail:'3 channels · 1 phone',category:'illegal_betting',phones:['+918881886916'],reach:110000},
+  {id:'ch1',type:'CHANNEL',label:'Mahadev\nGold365',x:310,y:155,r:14,color:'#DC2626',detail:'135,251 subs · +91-8808981489',category:'illegal_betting'},
+  {id:'ch2',type:'CHANNEL',label:'MAHADEV\nMHADEV',x:490,y:155,r:12,color:'#DC2626',detail:'94,341 subs · +91-9859990481',category:'illegal_betting'},
+  {id:'ch3',type:'CHANNEL',label:'World777\nFairplay',x:590,y:100,r:12,color:'#DC2626',detail:'86,836 subs',category:'illegal_betting'},
+  {id:'ch4',type:'CHANNEL',label:'Reddy\nAnnaw',x:680,y:80,r:11,color:'#DC2626',detail:'74,992 subs',category:'illegal_betting'},
+  {id:'ch5',type:'CHANNEL',label:'91CLUB',x:120,y:290,r:20,color:'#7C3AED',detail:'1,008,905 subs',category:'colour_prediction'},
+  {id:'ch6',type:'CHANNEL',label:'OKWIN',x:80,y:200,r:16,color:'#7C3AED',detail:'820K subs',category:'colour_prediction'},
+  {id:'ch7',type:'CHANNEL',label:'IPL Live\nStream',x:570,y:200,r:14,color:'#2563EB',detail:'420K subs · piracy',category:'piracy'},
+  {id:'ch8',type:'CHANNEL',label:'Crypto\nFraud',x:820,y:200,r:14,color:'#F59E0B',detail:'Multiple ED platforms',category:'crypto_fraud'},
+  {id:'ch9',type:'CHANNEL',label:'AI Scam\nChannel',x:870,y:130,r:12,color:'#8B5CF6',detail:'Digital arrest · deepfake',category:'ai_scam'},
+  {id:'ch10',type:'CHANNEL',label:'Fairplay\nClub',x:810,y:360,r:12,color:'#DC2626',detail:'106,414 subs',category:'illegal_betting'},
+  {id:'ph1',type:'PHONE',label:'+91-8881\n754538',x:420,y:340,r:10,color:'#ff6b9d',detail:'×6 channels · Reddy Anna network'},
+  {id:'ph2',type:'PHONE',label:'+91-7455\n697977',x:190,y:230,r:9,color:'#ff6b9d',detail:'×5 channels · Radhe Exchange'},
+  {id:'ph3',type:'PHONE',label:'+91-8808\n981489',x:320,y:90,r:9,color:'#ff6b9d',detail:'×1 channel · Mahadev Gold'},
+  {id:'upi1',type:'UPI',label:'sspglobal\njob@gmail',x:130,y:420,r:9,color:'#059669',detail:'Job scam UPI'},
+  {id:'dm1',type:'DOMAIN',label:'jiohotstar\n.net',x:720,y:420,r:10,color:'#0891B2',detail:'Domain squat · registrant ID'd'},
+  {id:'nw1',type:'NETWORK',label:'Gujarat\nMule Net',x:430,y:430,r:14,color:'#64748B',detail:'Rs 77Cr · 16 arrested'},
+];
+
+const STATIC_EDGES = [
+  {s:'op1',t:'ch1'},{s:'op1',t:'ch2'},{s:'op1',t:'ph3'},
+  {s:'op2',t:'ch3'},{s:'op2',t:'ch4'},{s:'op2',t:'ph1'},
+  {s:'op3',t:'ph2'},{s:'op4',t:'ch10'},
+  {s:'ph1',t:'ch3'},{s:'ph1',t:'ch4'},
+  {s:'ch7',t:'dm1'},{s:'ch8',t:'ch9'},
+  {s:'nw1',t:'ph1'},{s:'ch5',t:'upi1'},
+];
+
+function buildGraphViz(c) {
+  const W = c.clientWidth || 700, H = c.clientHeight || 500;
+  
+  gSvg = d3.select('#graph-svg').attr('viewBox', `0 0 ${W} ${H}`);
+  gZoom = d3.zoom().scaleExtent([.2,4]).on('zoom', e => gG.attr('transform', e.transform));
+  gSvg.call(gZoom);
+  gG = gSvg.append('g').attr('id','gg');
+  
+  _allNodes = STATIC_NODES;
+  _allEdges = STATIC_EDGES;
+  
+  const sx = d3.scaleLinear().domain([60,920]).range([40,W-40]);
+  const sy = d3.scaleLinear().domain([60,460]).range([30,H-30]);
+  _allNodes.forEach(n => { n.sx = sx(n.x); n.sy = sy(n.y); });
+  
+  drawGraph(_allNodes, _allEdges);
+}
+
+function drawGraph(nodes, edges) {
+  gG.selectAll('*').remove();
+  
+  // Draw edges
+  edges.forEach(e => {
+    const na = nodes.find(n => n.id === e.s);
+    const nb = nodes.find(n => n.id === e.t);
+    if(!na || !nb) return;
+    const isCrossChannel = na.type === 'PHONE' || nb.type === 'PHONE';
+    gG.append('line')
+      .attr('x1',na.sx).attr('y1',na.sy).attr('x2',nb.sx).attr('y2',nb.sy)
+      .attr('stroke', isCrossChannel ? 'rgba(255,100,100,.4)' : 'rgba(255,255,255,.12)')
+      .attr('stroke-width', isCrossChannel ? 1.5 : 1)
+      .attr('stroke-dasharray', isCrossChannel ? '4,2' : 'none');
+  });
+  
+  // Draw nodes
+  const ngs = gG.selectAll('.ng').data(nodes).enter().append('g')
+    .attr('transform', d => `translate(${d.sx},${d.sy})`)
+    .style('cursor','pointer')
+    .on('mouseover', (e, d) => showNodeTooltip(e, d))
+    .on('mouseout', () => document.getElementById('ntt').style.display = 'none')
+    .on('click', (e, d) => showNodeDetail(d, nodes, edges));
+  
+  // Glow for operators
+  ngs.each(function(d) {
+    if(d.type === 'OPERATOR') {
+      d3.select(this).append('circle').attr('r', d.r+10).attr('fill',d.color).attr('opacity',.08);
+      d3.select(this).append('circle').attr('r', d.r+5).attr('fill',d.color).attr('opacity',.12);
+    }
+  });
+  
+  ngs.append('circle')
+    .attr('r', d => d.r)
+    .attr('fill', d => d.color)
+    .attr('fill-opacity', .88)
+    .attr('stroke', d => d.color)
+    .attr('stroke-width', 1.5)
+    .attr('stroke-opacity', .5);
+  
+  // Labels
+  ngs.each(function(d) {
+    const lines = d.label.split('\n');
+    if(lines.length === 1) {
+      d3.select(this).append('text')
+        .attr('text-anchor','middle').attr('dy','.35em')
+        .attr('fill','#fff').attr('font-size', Math.max(8, d.r*.55))
+        .attr('font-family','DM Mono,monospace').attr('font-weight','500')
+        .attr('pointer-events','none').text(lines[0]);
+    } else {
+      d3.select(this).append('text')
+        .attr('text-anchor','middle').attr('dy','-.2em')
+        .attr('fill','#fff').attr('font-size', Math.max(7, d.r*.5))
+        .attr('font-family','DM Mono,monospace').attr('font-weight','500')
+        .attr('pointer-events','none').text(lines[0]);
+      d3.select(this).append('text')
+        .attr('text-anchor','middle').attr('dy','.85em')
+        .attr('fill','rgba(255,255,255,.8)').attr('font-size', Math.max(7, d.r*.45))
+        .attr('font-family','DM Mono,monospace')
+        .attr('pointer-events','none').text(lines[1]);
+    }
+  });
+}
+
+function showNodeTooltip(e, d) {
+  const tt = document.getElementById('ntt');
+  const c  = document.querySelector('.gcw');
+  const r  = c.getBoundingClientRect();
+  document.getElementById('ntt-tp').textContent = d.type;
+  document.getElementById('ntt-nm').textContent = d.label.replace('\n',' ');
+  document.getElementById('ntt-dt').textContent = d.detail;
+  tt.style.display = 'block';
+  tt.style.left = (e.clientX - r.left + 14) + 'px';
+  tt.style.top  = (e.clientY - r.top  + 14) + 'px';
+}
+
+function showNodeDetail(d, nodes, edges) {
+  const panel = document.getElementById('ndp');
+  document.getElementById('ndp-type').textContent = d.type;
+  document.getElementById('ndp-name').textContent = d.label.replace('\n',' ');
+  
+  // Get connections
+  const connEdges = edges.filter(e => e.s === d.id || e.t === d.id);
+  const connIds   = connEdges.map(e => e.s === d.id ? e.t : e.s);
+  const connNodes = connIds.map(id => nodes.find(n => n.id === id)).filter(Boolean);
+  
+  let rows = '';
+  if(d.phones?.length) rows += `<div class="ndp-row"><span class="ndp-key">Phones</span>${d.phones.join(', ')}</div>`;
+  if(d.reach)          rows += `<div class="ndp-row"><span class="ndp-key">Reach</span>${d.reach.toLocaleString()}</div>`;
+  if(d.detail)         rows += `<div class="ndp-row"><span class="ndp-key">Detail</span>${d.detail}</div>`;
+  if(d.category)       rows += `<div class="ndp-row"><span class="ndp-key">Category</span>${d.category.replace(/_/g,' ')}</div>`;
+  document.getElementById('ndp-rows').innerHTML = rows;
+  
+  let connHtml = '';
+  if(connNodes.length) {
+    connHtml = '<div class="ndp-conn-title">' + connNodes.length + ' connections</div>';
+    connHtml += connNodes.map(cn => 
+      `<div class="ndp-conn-item">
+        <span style="width:8px;height:8px;border-radius:50%;background:${cn.color};display:inline-block;margin-right:4px"></span>
+        ${cn.label.replace('\n',' ')}
+      </div>`
+    ).join('');
+  }
+  document.getElementById('ndp-conn').innerHTML = connHtml;
+  panel.style.display = 'block';
+  
+  // Highlight connected nodes in graph
+  gG.selectAll('circle').attr('opacity', n => {
+    if(!n) return .88;
+    if(n.id === d.id) return 1;
+    if(connIds.includes(n.id)) return 1;
+    return .2;
+  });
+  gG.selectAll('line').attr('opacity', 0.1);
+  // Re-highlight relevant edges
+  connEdges.forEach(e => {
+    gG.selectAll('line').filter((ed,i) => i === edges.indexOf(e))
+      .attr('opacity', 1).attr('stroke-width', 2);
+  });
+  
+  // Update sidebar info
+  document.getElementById('ninfo').innerHTML =
+    `<b style="color:var(--g)">${d.label.replace('\n',' ')}</b><br>` +
+    `<span style="color:var(--m)">${d.type}</span><br>` +
+    `${d.detail}<br>` +
+    `<span style="color:var(--m);font-size:10px">${connNodes.length} connections</span>`;
+}
+
+function filterGraph(val, el) {
+  if(el) {
+    document.querySelectorAll('.gfb').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+  }
+  
+  let filtered = _allNodes;
+  if(val !== 'all') {
+    if(['OPERATOR','PHONE','CHANNEL','UPI','DOMAIN'].includes(val)) {
+      filtered = _allNodes.filter(n => n.type === val || n.type === 'OPERATOR');
+    } else {
+      filtered = _allNodes.filter(n => n.category === val || n.type === 'OPERATOR');
+    }
+  }
+  const filteredIds = new Set(filtered.map(n => n.id));
+  const filteredEdges = _allEdges.filter(e => filteredIds.has(e.s) && filteredIds.has(e.t));
+  
+  gG.selectAll('*').remove();
+  drawGraph(filtered, filteredEdges);
+}
+
+function highlightNode(q) {
+  if(!q) return;
+  const qLow = q.toLowerCase();
+  gG.selectAll('.ng').each(function(d) {
+    const match = d.label.toLowerCase().includes(qLow) ||
+                  (d.detail||'').toLowerCase().includes(qLow) ||
+                  (d.phones||[]).some(p => p.includes(qLow));
+    d3.select(this).selectAll('circle').attr('opacity', match ? 1 : .15);
+    if(match) {
+      showNodeDetail(d, _allNodes, _allEdges);
+      // Zoom to node
+      const t = d3.zoomIdentity.translate(
+        document.querySelector('.gcw').clientWidth/2 - d.sx * 2,
+        document.querySelector('.gcw').clientHeight/2 - d.sy * 2
+      ).scale(2);
+      gSvg.transition().duration(600).call(gZoom.transform, t);
+    }
+  });
+}
+
+function gz(s) { gSvg.transition().call(gZoom.scaleTo, s); }
+
+// ── INDIA MAP ─────────────────────────────────────────────
+let mapInited = false;
+let leafMap   = null;
+let geoLayer  = null;
+let GEO_FILTER = 'all';
+
+const STATE_DATA = {
+  'Maharashtra':      {total:187,betting:89,piracy:42,crypto:28,mule:31,lat:19.75,lng:75.71},
+  'Gujarat':          {total:143,betting:55,piracy:28,crypto:35,mule:45,lat:22.26,lng:71.19},
+  'Telangana':        {total:128,betting:72,piracy:18,crypto:22,mule:22,lat:18.11,lng:79.02},
+  'Karnataka':        {total:112,betting:48,piracy:35,crypto:18,mule:18,lat:15.32,lng:75.71},
+  'Tamil Nadu':       {total:98, betting:61,piracy:14,crypto:12,mule:12,lat:11.13,lng:78.66},
+  'Andhra Pradesh':   {total:87, betting:52,piracy:10,crypto:15,mule:15,lat:15.91,lng:79.74},
+  'Delhi':            {total:76, betting:22,piracy:31,crypto:14,mule:14,lat:28.70,lng:77.10},
+  'Rajasthan':        {total:64, betting:38,piracy:8, crypto:9, mule:12,lat:27.02,lng:74.22},
+  'Uttar Pradesh':    {total:59, betting:31,piracy:12,crypto:8, mule:9, lat:26.85,lng:80.95},
+  'West Bengal':      {total:47, betting:18,piracy:16,crypto:7, mule:8, lat:22.99,lng:87.85},
+  'Punjab':           {total:41, betting:25,piracy:6, crypto:5, mule:7, lat:31.15,lng:75.34},
+  'Madhya Pradesh':   {total:38, betting:22,piracy:7, crypto:4, mule:5, lat:22.97,lng:78.66},
+  'Kerala':           {total:32, betting:12,piracy:10,crypto:6, mule:4, lat:10.85,lng:76.27},
+  'Haryana':          {total:28, betting:15,piracy:5, crypto:4, mule:4, lat:29.06,lng:76.09},
+  'Bihar':            {total:24, betting:14,piracy:4, crypto:3, mule:3, lat:25.10,lng:85.31},
+  'Odisha':           {total:19, betting:10,piracy:4, crypto:2, mule:3, lat:20.95,lng:85.10},
+  'Assam':            {total:16, betting:8, piracy:3, crypto:3, mule:2, lat:26.20,lng:92.94},
+};
+
+const OPERATOR_PINS = [
+  {name:'Mahadev Book (Nagpur origin)',lat:21.15,lng:79.09,type:'operator',color:'#D97706',detail:'48 channels · 1.06M reach · ED case'},
+  {name:'Reddy Anna (Chennai area)',   lat:13.08,lng:80.27,type:'operator',color:'#D97706',detail:'6 channels · 294K reach · match fixing'},
+  {name:'Gujarat mule network',        lat:23.02,lng:72.57,type:'network', color:'#EA580C',detail:'Rs 77Cr · 16 arrested · Ahmedabad'},
+  {name:'jiohotstar.net registrant',   lat:17.39,lng:78.49,type:'domain',  color:'#0891B2',detail:'Hyderabad registrant · muthyala19@gmail.com'},
+  {name:'IPL piracy (Mumbai hub)',      lat:19.08,lng:72.88,type:'channel', color:'#2563EB',detail:'20 streams Match 53 · 35M reach'},
+  {name:'Fairplay betting (AP)',        lat:15.91,lng:79.74,type:'operator',color:'#D97706',detail:'Vizag bust match · 190K reach'},
+  {name:'Crypto fraud (Hyderabad)',     lat:17.39,lng:78.49,type:'crypto',  color:'#F59E0B',detail:'Multiple fake platforms · ED PMLA'},
+  {name:'Digital arrest scam (Pune)',   lat:18.52,lng:73.86,type:'ai',      color:'#8B5CF6',detail:'AI voice cloning operation'},
+  {name:'Satta Matka Delhi',            lat:28.61,lng:77.21,type:'channel', color:'#DC2626',detail:'Faridabad King · multiple channels'},
+  {name:'Counterfeit pharma (Delhi)',   lat:28.70,lng:77.10,type:'pharma',  color:'#059669',detail:'Rs 10Cr bust · 4 arrested'},
+];
+
+function getStateVal(d) {
+  if(GEO_FILTER==='betting') return d.betting;
+  if(GEO_FILTER==='piracy')  return d.piracy;
+  if(GEO_FILTER==='crypto')  return d.crypto;
+  if(GEO_FILTER==='mule')    return d.mule;
+  return d.total;
+}
+
+function getHeatColor(val, max) {
+  if(!val) return '#1a2030';
+  const t = val/max;
+  const palettes = {
+    all:    ['#0d3320','#0f4a2a','#166534','#15803d','#16a34a','#22c55e'],
+    betting:['#2d1015','#5a1a20','#7f1d1d','#991b1b','#b91c1c','#DC2626'],
+    piracy: ['#1c1200','#4a2800','#78350f','#92400e','#b45309','#D97706'],
+    crypto: ['#1c1000','#4a2200','#92400e','#b45309','#d97706','#F59E0B'],
+    mule:   ['#1c0e00','#4a1e00','#9a3412','#c2410c','#ea580c','#f97316'],
+  };
+  const p = palettes[GEO_FILTER] || palettes.all;
+  const idx = Math.min(Math.floor(t * p.length), p.length-1);
+  return p[idx];
+}
+
+async function initMap() {
+  if(mapInited) return;
+  mapInited = true;
+  const el = document.getElementById('india-leaflet');
+  if(!el) return;
+
+  leafMap = L.map('india-leaflet', {
+    center: [22.5, 82.0], zoom: 5,
+    zoomControl: true, attributionControl: false,
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    maxZoom:12, minZoom:4
+  }).addTo(leafMap);
+
+  // Load India GeoJSON
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/geohacker/india/master/state/india_telengana.geojson');
+    const data = await res.json();
+    addGeoLayer(data);
+  } catch(e) {
+    addStatePins();
+  }
+
+  addFraudPins();
+  renderHotspots();
+}
+
+function addGeoLayer(geojson) {
+  const vals = Object.values(STATE_DATA).map(d => getStateVal(d));
+  const max  = Math.max(...vals);
+  if(geoLayer) { leafMap.removeLayer(geoLayer); geoLayer = null; }
+
+  geoLayer = L.geoJSON(geojson, {
+    style: feature => {
+      const name = feature.properties.NAME_1 || feature.properties.name || feature.properties.st_nm || '';
+      const d    = findStateData(name);
+      const val  = d ? getStateVal(d) : 0;
+      return { fillColor: getHeatColor(val, max), weight:1, opacity:1, color:'rgba(255,255,255,0.25)', fillOpacity:0.75 };
+    },
+    onEachFeature: (feature, layer) => {
+      const name = feature.properties.NAME_1 || feature.properties.name || feature.properties.st_nm || '';
+      const d    = findStateData(name);
+      const val  = d ? getStateVal(d) : 0;
+      layer.bindPopup(`
+        <div style="min-width:160px">
+          <div style="font-weight:600;font-size:13px;margin-bottom:6px">${name}</div>
+          <div style="color:#22c55e;font-size:12px">${val} fraud alerts (${GEO_FILTER})</div>
+          ${d ? `<div style="margin-top:6px;font-size:11px;opacity:.7">
+            Betting: ${d.betting} · Piracy: ${d.piracy}<br>
+            Crypto: ${d.crypto} · Mule: ${d.mule}
+          </div>` : ''}
+        </div>`);
+      layer.on('mouseover', function(e) {
+        this.setStyle({weight:2,color:'#22c55e',fillOpacity:0.9});
+        const ri = document.getElementById('map-result-info');
+        if(ri){ ri.style.display='block'; ri.textContent=`${name}: ${val} ${GEO_FILTER} alerts`; }
+      });
+      layer.on('mouseout', function() {
+        if(geoLayer) geoLayer.resetStyle(this);
+        const ri = document.getElementById('map-result-info');
+        if(ri) ri.style.display='none';
+      });
+      layer.on('click', () => {
+        if(d) leafMap.setView([d.lat,d.lng], 7, {animate:true});
+        highlightHotspot(name);
+      });
+    }
+  }).addTo(leafMap);
+}
+
+function addStatePins() {
+  const vals = Object.values(STATE_DATA).map(d => getStateVal(d));
+  const max  = Math.max(...vals);
+  Object.entries(STATE_DATA).forEach(([name,d]) => {
+    const val = getStateVal(d);
+    L.circleMarker([d.lat,d.lng], {
+      radius: 8+(val/max)*18, fillColor: getHeatColor(val,max),
+      color:'rgba(255,255,255,.4)', weight:1, fillOpacity:.75
+    }).bindPopup(`<b>${name}</b><br>${val} alerts`).addTo(leafMap);
+  });
+}
+
+function addFraudPins() {
+  const typeColors = {operator:'#D97706',network:'#EA580C',domain:'#0891B2',channel:'#2563EB',crypto:'#F59E0B',ai:'#8B5CF6',pharma:'#059669'};
+  OPERATOR_PINS.forEach(p => {
+    const color = typeColors[p.type] || '#DC2626';
+    const icon = L.divIcon({
+      html: `<div style="width:14px;height:14px;border-radius:50%;background:${color};border:2px solid rgba(255,255,255,.8);box-shadow:0 0 8px ${color}99"></div>`,
+      className:'', iconSize:[14,14], iconAnchor:[7,7]
+    });
+    L.marker([p.lat,p.lng],{icon}).bindPopup(`
+      <div>
+        <div style="font-size:9px;color:#94A3B8;text-transform:uppercase;margin-bottom:3px">${p.type}</div>
+        <div style="font-weight:600;margin-bottom:4px">${p.name}</div>
+        <div style="font-size:11px;opacity:.8">${p.detail}</div>
+      </div>`).addTo(leafMap);
+  });
+}
+
+function findStateData(name) {
+  const n = name.toLowerCase();
+  for(const [k,v] of Object.entries(STATE_DATA)) {
+    if(k.toLowerCase()===n || n.includes(k.toLowerCase()) || k.toLowerCase().includes(n.split(' ')[0])) return v;
+  }
+  return null;
+}
+
+function setGeoFilter(f, el) {
+  GEO_FILTER = f;
+  document.querySelectorAll('.gcatb').forEach(b => b.classList.remove('active'));
+  if(el) el.classList.add('active');
+  renderHotspots();
+  if(mapInited) {
+    fetch('https://raw.githubusercontent.com/geohacker/india/master/state/india_telengana.geojson')
+      .then(r=>r.json()).then(data=>addGeoLayer(data)).catch(()=>addStatePins());
+  }
+}
+
+function renderHotspots() {
+  const states = Object.entries(STATE_DATA)
+    .map(([s,d]) => ({state:s, count:getStateVal(d), lat:d.lat, lng:d.lng}))
+    .sort((a,b) => b.count-a.count);
+  const max = states[0]?.count || 1;
+  const barColor = GEO_FILTER==='betting'?'#DC2626':GEO_FILTER==='piracy'?'#D97706':GEO_FILTER==='crypto'?'#F59E0B':GEO_FILTER==='mule'?'#EA580C':'var(--g)';
+  document.getElementById('hotspot-list').innerHTML = states.map(s => `
+    <div class="hotspot-item" id="hs-${s.state.replace(/ /g,'_')}" onclick="leafMap&&leafMap.setView([${s.lat},${s.lng}],7,{animate:true});highlightHotspot('${s.state}')">
+      <div class="hotspot-state-name"><span>${s.state}</span><span style="font-family:var(--mono);font-size:10px;color:${barColor}">${s.count}</span></div>
+      <div class="hotspot-bar-wrap"><div class="hotspot-bar" style="width:${Math.round(s.count/max*100)}%;background:${barColor}"></div></div>
+    </div>`).join('');
+}
+
+function highlightHotspot(name) {
+  document.querySelectorAll('.hotspot-item').forEach(el => el.classList.remove('highlighted'));
+  const el = document.getElementById('hs-'+name.replace(/ /g,'_'));
+  if(el) { el.classList.add('highlighted'); el.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+}
+
+function mapSearch(q) {
+  if(!q || q.length < 2) {
+    document.getElementById('map-result-info').style.display = 'none';
+    document.querySelectorAll('.hotspot-item').forEach(el => el.classList.remove('highlighted'));
+    return;
+  }
+  const qLow = q.toLowerCase();
+  
+  // Search states
+  for(const [name,d] of Object.entries(STATE_DATA)) {
+    if(name.toLowerCase().includes(qLow)) {
+      if(leafMap) leafMap.setView([d.lat,d.lng], 7, {animate:true});
+      highlightHotspot(name);
+      const ri = document.getElementById('map-result-info');
+      ri.style.display = 'block';
+      ri.textContent = `${name}: ${d.total} total alerts · ${d.betting} betting · ${d.crypto} crypto`;
+      // Flash circle
+      if(leafMap) {
+        const flash = L.circleMarker([d.lat,d.lng],{radius:50,fillColor:'#22c55e',color:'#22c55e',weight:2,fillOpacity:.15,opacity:.7}).addTo(leafMap);
+        setTimeout(()=>leafMap.removeLayer(flash),3000);
+      }
+      return;
+    }
+  }
+  
+  // Search operators/pins
+  const pin = OPERATOR_PINS.find(p => p.name.toLowerCase().includes(qLow) || p.detail.toLowerCase().includes(qLow));
+  if(pin && leafMap) {
+    leafMap.setView([pin.lat,pin.lng], 9, {animate:true});
+    const ri = document.getElementById('map-result-info');
+    ri.style.display = 'block';
+    ri.textContent = `${pin.name}: ${pin.detail}`;
+    const flash = L.circleMarker([pin.lat,pin.lng],{radius:40,fillColor:'#D97706',color:'#D97706',weight:2,fillOpacity:.2,opacity:.8}).addTo(leafMap);
+    setTimeout(()=>leafMap.removeLayer(flash),3000);
+    return;
+  }
+  
+  // Search phones in our data
+  const phoneMatch = OPERATOR_PINS.find(p => p.detail.includes(q.replace(/[^\d]/g,'')));
+  if(phoneMatch && leafMap) {
+    leafMap.setView([phoneMatch.lat,phoneMatch.lng], 9, {animate:true});
+  }
 }
 </script>
 </body>

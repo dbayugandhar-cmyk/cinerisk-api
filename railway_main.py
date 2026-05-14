@@ -644,7 +644,7 @@ def news_search():
     if not q:
         return jsonify({'error':'no query'}),400
     SERP = os.environ.get('SERP_API_KEY','2b37951bf87af21c398c270f8c02db7236c035120cfe4986a39b053f369468e1')
-    params = {'q':q,'api_key':SERP,'engine':'google','tbm':'nws','tbs':'qdr:w','num':10,'gl':'in'}
+    params = {'q':q,'api_key':SERP,'engine':'google_news','gl':'in','num':10}
     url = 'https://serpapi.com/search?' + _ulp.urlencode(params)
     try:
         import urllib.request as _ur

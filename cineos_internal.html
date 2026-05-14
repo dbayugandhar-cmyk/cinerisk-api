@@ -797,11 +797,11 @@ async function loadAlerts(spin) {
     if(merged.length < 100) {
       try {
         const ghResp = await fetch('https://raw.githubusercontent.com/dbayugandhar-cmyk/cinerisk-api/main/data/alerts_backup.json');
-        const ghAlerts = await ghResp.json();
-        if(Array.isArray(ghAlerts) && ghAlerts.length > merged.length) {
+        const ghAlertsData = await ghResp.json();
+        if(Array.isArray(ghAlertsData) && ghAlertsData.length > merged.length) {
           console.log('GitHub fallback: loaded', ghAlerts.length, 'alerts');
           const seen = new Set(merged.map(a=>a.id));
-          for(const a of ghAlerts) { if(!seen.has(a.id)){merged.push(a);seen.add(a.id);} }
+          for(const a of ghAlertsData) { if(!seen.has(a.id)){merged.push(a);seen.add(a.id);} }
         }
       } catch(e) { console.log('GitHub fallback failed:', e.message); }
     }

@@ -1579,6 +1579,248 @@ function mapSearch(q) {
     leafMap.setView([phoneMatch.lat,phoneMatch.lng], 9, {animate:true});
   }
 }
+
+// ═══════════════════════════════════════════════
+// ALERT INTELLIGENCE TAB
+// ═══════════════════════════════════════════════
+function renderAilList() {
+  const list = document.getElementById('ail-list');
+  if(!list) return;
+  const q = (document.getElementById('ail-s') || {}).value || '';
+  const filtered = q
+    ? ALL.filter(a => JSON.stringify(a).toLowerCase().includes(q.toLowerCase()))
+    : ALL;
+  const cnt = document.getElementById('ail-count');
+  if(cnt) cnt.textContent = filtered.length + ' total';
+  list.innerHTML = filtered.slice(0,200).map((a,i) => {
+    const sev = (a.severity||'medium').toLowerCase();
+    const cat = (a.category||'unknown').replace(/_/g,' ');
+    const SC2 = {critical:'#DC2626',high:'#D97706',medium:'#2563EB',low:'#94A3B8'};
+    const color = SC2[sev] || '#94A3B8';
+    const ts = a.detected_at ? new Date(a.detected_at).toLocaleDateString('en-IN',{day:'numeric',month:'short'}) : '';
+    const idx = ALL.indexOf(a);
+    return '<div class="allc" id="ailc-'+idx+'" onclick="showAilDetail('+idx+',this)">' +
+      '<div class="allc-bar" style="background:'+color+'"></div>' +
+      '<div class="allc-body">' +
+      '<div class="allc-title">'+(a.title||'Untitled').slice(0,55)+'</div>' +
+      '<div class="allc-meta"><span>'+cat+'</span><span>'+ts+'</span></div>' +
+      '</div></div>';
+  }).join('');
+}
+
+function ailFilter() {
+  renderAilList();
+}
+
+function showAilDetail(idx, card) {
+  document.querySelectorAll('.allc').forEach(c => c.classList.remove('active'));
+  if(card) card.classList.add('active');
+  const a = ALL[idx];
+  if(!a) return;
+  const aid = document.getElementById('aid');
+  if(!aid) return;
+  const sev   = (a.severity||'medium').toLowerCase();
+  const cat   = (a.category||'unknown');
+  const chain = a.chain || {};
+  const attr  = a.attribution || {};
+  const SC2   = {critical:'#DC2626',high:'#D97706',medium:'#2563EB',low:'#94A3B8'};
+  const CC2   = {illegal_betting:'#DC2626',piracy:'#D97706',colour_prediction:'#7C3AED',investment_fraud:'#2563EB',crypto_fraud:'#F59E0B',ai_scam:'#8B5CF6',upi_mule:'#EA580C',counterfeit_pharma:'#059669',unknown:'#94A3B8'};
+  const sc    = SC2[sev] || '#94A3B8';
+  const cc    = CC2[cat] || '#94A3B8';
+  const phones = chain.phones || (attr.phone ? [attr.phone] : []);
+  const upis   = chain.upis   || (attr.upi   ? [attr.upi]   : []);
+  const reach  = chain.reach  || 0;
+  const rs     = reach>1e6?(reach/1e6).toFixed(1)+'M':reach>1000?Math.round(reach/1000)+'K':reach||'—';
+  const steps  = a.next_steps || [];
+  const reports= a.report_to  || [];
+
+  aid.innerHTML =
+    '<div class="aid-hdr">' +
+    '<div class="aid-sr">' +
+    '<span class="sevbdg" style="background:'+sc+'22;color:'+sc+';border:1px solid '+sc+'44">'+sev.toUpperCase()+'</span>' +
+    '<span class="catbdg" style="background:'+cc+'18;color:'+cc+';border:1px solid '+cc+'33">'+cat.replace(/_/g,' ')+'</span>' +
+    '<span style="font-family:var(--mono);font-size:10px;color:var(--m)">'+(a.platform||'Telegram')+'</span>' +
+    '</div>' +
+    '<div class="aid-title">'+(a.title||'Untitled')+'</div>' +
+    '<div class="aid-sub">'+(a.detail||'')+'</div>' +
+    '</div>' +
+
+    '<div class="aid-strip">' +
+    '<div class="aid-stat"><div class="aid-sl">Reach</div><div class="aid-sv" style="color:var(--g)">'+rs+'</div></div>' +
+    '<div class="aid-stat"><div class="aid-sl">Phones</div><div class="aid-sv" style="color:#DC2626">'+phones.length+'</div></div>' +
+    '<div class="aid-stat"><div class="aid-sl">UPIs</div><div class="aid-sv" style="color:#059669">'+upis.length+'</div></div>' +
+    '<div class="aid-stat"><div class="aid-sl">Channels</div><div class="aid-sv">'+(chain.channels_found||[]).length+'</div></div>' +
+    '</div>' +
+
+    '<div class="aid-body">' +
+
+    '<div class="aid-st">Attribution</div>' +
+    '<div class="aid-box">' +
+    (attr.name||chain.operator_name ? '<div class="aid-row"><span class="aid-k">Operator</span><span class="aid-v">'+(attr.name||chain.operator_name)+'</span></div>' : '') +
+    (phones.length ? '<div class="aid-row"><span class="aid-k">Phones</span><span class="aid-v rd mono">'+phones.join('<br>')+'</span></div>' : '') +
+    (upis.length   ? '<div class="aid-row"><span class="aid-k">UPI IDs</span><span class="aid-v mono" style="color:#059669">'+upis.join('<br>')+'</span></div>' : '') +
+    ((chain.channels_found||[]).length ? '<div class="aid-row"><span class="aid-k">Channels</span><span class="aid-v mono">'+(chain.channels_found||[]).slice(0,5).join('<br>')+'</span></div>' : '') +
+    (chain.sample_post ? '<div class="aid-row"><span class="aid-k">Sample post</span><span class="aid-v" style="font-style:italic;color:var(--m)">'+chain.sample_post.slice(0,200)+'</span></div>' : '') +
+    '</div>' +
+
+    '<div class="aid-st">Evidence</div>' +
+    '<div class="aid-box">' +
+    '<div class="aid-row"><span class="aid-k">Hash §65B</span><span class="aid-v"><div class="hdbox">'+(a.evidence_hash||'generating...')+'<button class="hdcp" onclick="navigator.clipboard.writeText(''+a.evidence_hash+'')">Copy</button></div></span></div>' +
+    '<div class="aid-row"><span class="aid-k">Legal basis</span><span class="aid-v gr">'+(a.legal_basis||chain.legal_basis||'IT Act 2000 §65B')+'</span></div>' +
+    '<div class="aid-row"><span class="aid-k">Detected</span><span class="aid-v mono">'+(a.detected_at||'').slice(0,19).replace('T',' ')+' IST</span></div>' +
+    '</div>' +
+
+    (steps.length ? '<div class="aid-st">Next Steps</div><div class="aid-box">' + steps.map((s,i) => '<div class="str"><span class="stn">'+(i+1)+'</span><span class="stt">'+s.replace(/^Step \d+ — /,'')+'</span></div>').join('') + '</div>' : '') +
+
+    (reports.length ? '<div class="aid-st">Report To</div><div class="aid-box" style="padding:10px 12px">' + reports.map(r => '<span class="rp2">'+r+'</span>').join('') + '</div>' : '') +
+
+    '</div>';
+}
+
+// ═══════════════════════════════════════════════
+// NEWS CROSS-REFERENCE TAB
+// ═══════════════════════════════════════════════
+let CRM = [];
+
+async function runCR() {
+  const btn = document.getElementById('cr-btn');
+  if(btn) { btn.disabled=true; btn.textContent='Scanning...'; }
+  document.getElementById('cr-list-body').innerHTML =
+    '<div style="padding:20px;font-family:var(--mono);font-size:11px;color:var(--m)">Fetching news...<br>Matching against '+ALL.length+' alerts...<br>(30-60 seconds)</div>';
+  try {
+    const matches = await buildCR();
+    CRM = matches;
+    renderCRL();
+    const el = document.getElementById('tb4');
+    if(el) el.textContent = matches.length+' matches';
+  } catch(e) {
+    document.getElementById('cr-list-body').innerHTML =
+      '<div style="padding:20px;color:#DC2626;font-size:12px">Error: '+e.message+'</div>';
+  }
+  if(btn) { btn.disabled=false; btn.textContent='Scan News'; }
+}
+
+async function buildCR() {
+  const KEY = '2b37951bf87af21c398c270f8c02db7236c035120cfe4986a39b053f369468e1';
+  const qs = [
+    'cybercrime arrested India Telegram fraud crore 2026',
+    'ED arrests crypto fraud India PMLA 2026',
+    'SEBI action India fraud stock tips arrested 2026',
+    'Gujarat Maharashtra cybercrime bust fraud 2026',
+    'betting fraud cricket India arrested 2026',
+    'colour prediction fraud India arrested 2026',
+    'digital arrest scam India arrested 2026',
+    'UPI mule India arrested 2026',
+    'counterfeit medicine India arrested 2026',
+    'pig butchering crypto India arrested 2026',
+  ];
+  const results = [];
+  const seen = new Set();
+  for(const q of qs) {
+    try {
+      const resp = await fetch(RAILWAY + '/api/news_search?' + new URLSearchParams({q}));
+      const d = await resp.json();
+      for(const art of (d.news_results || d.organic_results || [])) {
+        const title = art.title || '';
+        if(title.length === 0 || seen.has(title.slice(0,50))) continue;
+        seen.add(title.slice(0,50));
+        const snippet = art.snippet || art.description || '';
+        const m = matchArt(title, snippet, art.date||'', art.source||'', art.link||'');
+        if(m && m.confidence >= 40) results.push(m);
+      }
+    } catch(e2) { console.log('Query error:', e2.message); }
+    await new Promise(r => setTimeout(r, 1200));
+  }
+  return results.sort((a,b) => b.confidence - a.confidence);
+}
+
+function matchArt(title, snippet, date, source, link) {
+  const full = (title+' '+snippet).toLowerCase();
+  const hits = [];
+  const CATS2 = {
+    illegal_betting:   ['betting','satta','matka','cricket id'],
+    crypto_fraud:      ['crypto','bitcoin','usdt','blockchain'],
+    investment_fraud:  ['investment','stock','trading','sebi','ponzi'],
+    colour_prediction: ['colour prediction','91club','daman','wingo'],
+    upi_mule:          ['mule','bank account','upi','hawala'],
+    counterfeit_pharma:['medicine','drug','pharma','counterfeit'],
+    digital_arrest:    ['digital arrest','fake ed','fake cbi'],
+    piracy:            ['piracy','stream','hotstar'],
+    loan_fraud:        ['loan','cibil'],
+  };
+  const STATES2 = ['Maharashtra','Gujarat','Telangana','Karnataka','Tamil Nadu','Andhra Pradesh','Delhi','Rajasthan','Uttar Pradesh','West Bengal'];
+  let cat = null;
+  for(const [c2,kws] of Object.entries(CATS2)) {
+    if(kws.some(k => full.indexOf(k) >= 0)) { cat=c2; break; }
+  }
+  const state = STATES2.find(s => full.indexOf(s.toLowerCase()) >= 0);
+  if(cat) {
+    const cnt = ALL.filter(a => a.category===cat).length;
+    if(cnt > 0) hits.push({type:'CATEGORY_MATCH', confidence:state?70:55, entity:cat+(state?' in '+state:''), detail:'CINEOS monitors '+cnt+' '+cat.replace(/_/g,' ')+' alerts'+(state?' incl. '+state:''), count:cnt});
+  }
+  if(hits.length === 0) return null;
+  const best = Math.max.apply(null, hits.map(h => h.confidence));
+  let daysAhead = null;
+  if(cat) {
+    const catAlerts = ALL.filter(a => a.category===cat).sort(function(a,b){ return a.detected_at<b.detected_at?-1:1; });
+    if(catAlerts[0]) {
+      try {
+        let artDate = new Date();
+        if(date.indexOf('day') >= 0) { const n=parseInt(date); if(n>0) artDate=new Date(Date.now()-n*86400000); }
+        daysAhead = Math.floor((artDate - new Date(catAlerts[0].detected_at)) / 86400000);
+      } catch(e) {}
+    }
+  }
+  return {title, snippet, date, source, link, hits, confidence:best, category:cat, daysAhead};
+}
+
+function renderCRL() {
+  const countEl = document.getElementById('cr-count');
+  if(countEl) countEl.textContent = CRM.length+' matches';
+  const listEl = document.getElementById('cr-list-body');
+  if(!listEl) return;
+  if(!CRM.length) { listEl.innerHTML='<div style="padding:20px;color:var(--m);font-size:12px">No matches this scan</div>'; return; }
+  listEl.innerHTML = CRM.map(function(m,i) {
+    const cls = m.confidence>=85?'hi':m.confidence>=65?'md':'lo';
+    const ahead = (m.daysAhead>0) ? '<span class="cr-ahead">'+m.daysAhead+'d ahead</span>' : '';
+    return '<div class="cr-item" id="cri-'+i+'" onclick="showCRD('+i+',this)">' +
+      '<div class="cr-badge '+cls+'">'+m.confidence+'%</div>' +
+      '<div style="flex:1;min-width:0">' +
+      '<div class="cr-title">'+m.title.slice(0,80)+'</div>' +
+      '<div class="cr-meta"><span>'+m.source+'</span><span>'+m.date+'</span>'+ahead+'</div>' +
+      '</div></div>';
+  }).join('');
+}
+
+function showCRD(i, card) {
+  document.querySelectorAll('.cr-item').forEach(c => c.classList.remove('active'));
+  if(card) card.classList.add('active');
+  const m = CRM[i];
+  if(!m) return;
+  const cls = m.confidence>=85?'hi':m.confidence>=65?'md':'lo';
+  const banner = (m.daysAhead>0) ?
+    '<div class="ahead-banner"><div style="font-family:var(--mono);font-size:11px;color:var(--g);font-weight:600">CINEOS DETECTED THIS '+m.daysAhead+' DAYS BEFORE NEWS BROKE</div><div style="font-size:11px;color:var(--gm);margin-top:3px">First detection predates this enforcement report.</div></div>' : '';
+  const hitsHtml = m.hits.map(function(h) {
+    const tc = h.type==='PHONE_EXACT'?'cmt-e':h.type==='CATEGORY_MATCH'?'cmt-c':'cmt-f';
+    const confColor = h.confidence>=85?'var(--g)':h.confidence>=65?'#D97706':'#2563EB';
+    return '<div class="cr-match-box"><div class="cr-match-hdr"><span class="cr-mt '+tc+'">'+h.type.replace(/_/g,' ')+'</span><span style="font-size:11px;color:var(--b);flex:1">'+h.detail.slice(0,60)+'</span><span style="font-family:var(--mono);font-size:12px;font-weight:600;color:'+confColor+'">'+h.confidence+'%</span></div><div class="cr-mb"><div class="cr-r"><span class="cr-rk">Entity</span><span class="cr-rv rd">'+h.entity+'</span></div></div></div>';
+  }).join('');
+  document.getElementById('cr-detail').innerHTML =
+    '<div class="cr-badge '+cls+'" style="width:52px;height:52px;font-size:14px;margin-bottom:12px">'+m.confidence+'%</div>' +
+    '<div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.3">'+m.title+'</div>' +
+    '<div style="font-size:11px;color:var(--m);margin-bottom:14px">'+m.source+' &middot; '+m.date+(m.category?' &middot; '+m.category.replace(/_/g,' '):'')+'</div>' +
+    banner +
+    '<div style="background:var(--w);border:1px solid var(--bo);border-radius:6px;padding:12px 14px;margin-bottom:14px">' +
+    '<div style="font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;margin-bottom:6px">News Snippet</div>' +
+    '<div style="font-size:12px;color:var(--b);line-height:1.6">'+m.snippet+'</div>' +
+    (m.link?'<a href="'+m.link+'" target="_blank" style="font-family:var(--mono);font-size:10px;color:var(--g);text-decoration:none;margin-top:6px;display:block">Read full article &rarr;</a>':'') +
+    '</div>' +
+    '<div style="font-family:var(--mono);font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">'+m.hits.length+' Database Matches</div>' +
+    hitsHtml;
+}
+
+// alias for map search
+function geoSearch(q) { mapSearch(q); }
 </script>
 </body>
 </html>

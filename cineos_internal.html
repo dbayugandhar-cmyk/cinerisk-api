@@ -1665,7 +1665,7 @@ function showAilDetail(idx, card) {
 
     '<div class="aid-st">Evidence</div>' +
     '<div class="aid-box">' +
-    '<div class="aid-row"><span class="aid-k">Hash §65B</span><span class="aid-v"><div class="hdbox">'+(a.evidence_hash||'generating...')+'<button class="hdcp" onclick="navigator.clipboard.writeText(''+a.evidence_hash+'')">Copy</button></div></span></div>' +
+    '<div class="aid-row"><span class="aid-k">Hash 65B</span><span class="aid-v"><div class="hdbox">'+(a.evidence_hash||'generating...')+'<button class="hdcp" onclick="copyHash(this)">Copy</button></div></span></div>' +
     '<div class="aid-row"><span class="aid-k">Legal basis</span><span class="aid-v gr">'+(a.legal_basis||chain.legal_basis||'IT Act 2000 §65B')+'</span></div>' +
     '<div class="aid-row"><span class="aid-k">Detected</span><span class="aid-v mono">'+(a.detected_at||'').slice(0,19).replace('T',' ')+' IST</span></div>' +
     '</div>' +
@@ -1820,6 +1820,7 @@ function showCRD(i, card) {
 }
 
 // alias for map search
+function copyHash(btn){ const h = btn.parentElement.childNodes[0].textContent.trim(); navigator.clipboard.writeText(h).catch(()=>{}); btn.textContent="Copied"; setTimeout(()=>btn.textContent="Copy",1500); }
 function geoSearch(q) { mapSearch(q); }
 </script>
 </body>

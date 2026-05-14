@@ -677,6 +677,7 @@ const CATS = [
 // ═══════════════════════════════════════════════
 // STATE DATA — fraud hotspots by state
 // ═══════════════════════════════════════════════
+const STATE_DATA = {
   'Maharashtra':      {total:187, betting:89,  piracy:42, crypto:28, mule:31, lat:19.7515, lng:75.7139},
   'Gujarat':          {total:143, betting:55,  piracy:28, crypto:35, mule:45, lat:22.2587, lng:71.1924},
   'Telangana':        {total:128, betting:72,  piracy:18, crypto:22, mule:22, lat:18.1124, lng:79.0193},
@@ -700,6 +701,7 @@ const CATS = [
 };
 
 // Known operator locations for pin markers
+const OPERATOR_PINS = [
   {name:'Mahadev Book HQ (alleged)',     lat:21.1458, lng:79.0882, type:'operator',   color:'#D97706', detail:'41 channels · 2.2M reach · ED case · Nagpur origin'},
   {name:'91CLUB India hub',              lat:19.0760, lng:72.8777, type:'operator',   color:'#7C3AED', detail:'1M+ subscribers · Mumbai coordination · China origin'},
   {name:'Gujarat mule network',         lat:23.0225, lng:72.5714, type:'network',    color:'#EA580C', detail:'Rs 77Cr · 16 arrested · Ahmedabad · still active'},

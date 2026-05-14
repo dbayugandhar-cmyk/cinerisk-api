@@ -720,8 +720,8 @@ async function loadAlerts(spin) {
     updateCatCounts();
     renderAilList();
 
-    document.getElementById('tb1').textContent = ALL.length + ' alerts';
-    document.getElementById('tb3').textContent = ALL.length + ' alerts';
+    (document.getElementById('tb1')||{textContent:''}).textContent = ALL.length + ' alerts';
+    (document.getElementById('tb3')||{}).textContent = ALL.length + ' alerts';
     document.getElementById('ail-count').textContent = ALL.length + ' total';
     CD = RI;
   } catch(e) {

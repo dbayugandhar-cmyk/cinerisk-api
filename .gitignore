@@ -84,3 +84,8 @@ reports/deep_scan_results.json
 reports/all_channels.json
 reports/channel_history.json
 logs/*.log
+cineos_session.session
+cineos_session_2.session
+cineos_session_3.session
+reports/CINEOS_*.json
+reports/scan_logs/

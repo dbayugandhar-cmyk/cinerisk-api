@@ -693,12 +693,24 @@ async function loadAlerts(spin) {
     if(b){b.textContent = '↻ ...';setTimeout(() => b.textContent = '↻ Refresh', 1000);}
   }
   try {
-    const [ar, sr] = await Promise.all([
+    // Load from BOTH Railway and GitHub simultaneously
+    const GH_BACKUP = 'https://raw.githubusercontent.com/dbayugandhar-cmyk/cinerisk-api/main/data/alerts_backup.json';
+    const [ar, sr, ghRaw] = await Promise.all([
       fetch(`${RAILWAY}/api/alerts?limit=5000`).then(r => r.json()).catch(() => ({alerts:[]})),
       fetch(`${RAILWAY}/api/stats`).then(r => r.json()).catch(() => ({}))
     ]);
 
     const railwayAlerts = ar.alerts || ar || [];
+    
+    // Merge Railway + GitHub backup
+    let ghAlerts = [];
+    try {
+      if(ghRaw) {
+        const ghData = await ghRaw.json().catch(()=>[]);
+        ghAlerts = Array.isArray(ghData) ? ghData : (ghData.alerts || []);
+        console.log('GitHub backup:', ghAlerts.length, 'alerts');
+      }
+    } catch(e) { console.log('GitHub merge skip:', e.message); }
 
     // Merge: Railway alerts + any we have locally in state
     // Deduplicate by id
@@ -719,6 +731,21 @@ async function loadAlerts(spin) {
           for(const a of ghAlerts) { if(!seen.has(a.id)){merged.push(a);seen.add(a.id);} }
         }
       } catch(e) { console.log('GitHub fallback failed:', e.message); }
+    }
+    // GitHub backup merge if Railway is low
+    if(merged.length < 200) {
+      try {
+        const ghR = await fetch('https://raw.githubusercontent.com/dbayugandhar-cmyk/cinerisk-api/main/data/alerts_backup.json');
+        const ghD = await ghR.json();
+        const ghA = Array.isArray(ghD) ? ghD : (ghD.alerts||[]);
+        const seen = new Set(merged.map(a=>a.id||a.title));
+        let added = 0;
+        for(const a of ghA){
+          const k = a.id||a.title;
+          if(!seen.has(k)){merged.push(a);seen.add(k);added++;}
+        }
+        console.log('GitHub fallback added', added, 'alerts. Total:', merged.length);
+      } catch(e){ console.log('GitHub fallback error:', e.message); }
     }
     ALL = merged.sort((a,b) => {
       const o = {critical:0,high:1,medium:2,low:3};

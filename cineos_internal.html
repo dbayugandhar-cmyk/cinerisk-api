@@ -1410,8 +1410,8 @@ async function buildCR() {
   for (const q of qs) {
     try {
       const params = new URLSearchParams({
-        q, api_key: KEY, engine: 'google',
-        tbm: 'nws', tbs: 'qdr:w', num: 10, gl: 'in', no_cache: 'true'
+        q, api_key: KEY, engine: 'google_news',
+        gl: 'in', num: 10, no_cache: 'true'
       });
       const resp = await fetch(RAILWAY + '/api/news_search?' + new URLSearchParams({q}));
       const d = await resp.json();

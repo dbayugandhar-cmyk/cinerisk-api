@@ -968,6 +968,17 @@ function toggleRow(idx) {
 // ═══════════════════════════════════════════════
 // TAB SWITCHING
 // ═══════════════════════════════════════════════
+
+function invTab(name, el) {
+  document.querySelectorAll('.invs').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.invp').forEach(p => { p.style.display='none'; p.classList.remove('active'); });
+  el.classList.add('active');
+  const p = document.getElementById('inv-'+name);
+  if(p) { p.style.display='block'; p.classList.add('active'); }
+  if(name==='graph') setTimeout(initGraph, 50);
+  if(name==='geo')   setTimeout(initMap, 50);
+}
+
 function switchTab(name, el) {
   document.querySelectorAll('.tview').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.mtab').forEach(t => t.classList.remove('active'));

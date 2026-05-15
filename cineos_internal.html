@@ -718,7 +718,11 @@ td:first-child{padding:0;width:3px}
         <div style="font-size:11px;color:var(--b);margin-bottom:10px;line-height:1.6">Operator attribution data. Phone-to-channel mapping. Pre-crime detection timestamps. Evidence packages for prosecution. India-specific Telegram intelligence that no global provider has.</div>
         <div class="mkt-buyer">Case Studies — Illegal Betting · Telegram Attribution</div>
         <div id="cs-col-1"></div>
-        <div style="margin-top:10px;padding:8px 10px;background:var(--sky);border-radius:5px;font-size:11px;color:#1A56A0">
+        <div style="margin-top:8px;margin-bottom:8px;display:flex;gap:6px">
+  <button onclick="window.open('reports/case_studies/index.html')" style="font-family:var(--mono);font-size:10px;padding:6px 12px;background:var(--navy, #0D2B55);color:#fff;border:none;border-radius:4px;cursor:pointer">View All 30 Cases →</button>
+  <button onclick="openCase(1)" style="font-family:var(--mono);font-size:10px;padding:6px 12px;background:var(--g);color:#fff;border:none;border-radius:4px;cursor:pointer">Open Top Case →</button>
+</div>
+<div style="margin-top:6px;padding:8px 10px;background:var(--sky);border-radius:5px;font-size:11px;color:#1A56A0">
           <b>Value proposition:</b> CINEOS detected Mahadev Book network (48 channels, 1.06M reach) before Visakhapatnam police arrested 24 operators in Rs 1,500Cr bust. Pre-crime detection timestamp certified under §65B.
         </div>
       </div>
@@ -2090,6 +2094,29 @@ async function loadCaseStudyFiles() {
 }
 
 function geoSearch(q) { mapSearch(q); }
+
+function openCase(n) {
+  const pad = String(n).padStart(3,'0');
+  // Try to find the file
+  const names = [
+    'reports/case_studies/case_'+pad+'_8881754538.html',
+    'reports/case_studies/case_'+pad+'_8881349483.html',
+    'reports/case_studies/case_'+pad+'_7455697977.html',
+  ];
+  window.open('reports/case_studies/index.html');
+}
+
+function sendCaseAsPDF(path) {
+  // Open in new tab — user can Cmd+P to save as PDF
+  const w = window.open(path);
+  setTimeout(() => {
+    if(w) {
+      w.focus();
+      alert('Press Cmd+P (Mac) or Ctrl+P (Windows) to save as PDF, then email to recipient.');
+    }
+  }, 1500);
+}
+
 </script>
 </body>
 </html>

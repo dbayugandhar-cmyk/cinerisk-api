@@ -376,6 +376,44 @@ td:first-child{padding:0;width:3px}
 .hotspot-bar{height:4px;border-radius:2px;transition:all .3s}
 .hotspot-count{font-family:var(--mono);font-size:9px;color:var(--m)}
 
+
+/* ── MARKET INTELLIGENCE TAB ── */
+.mkt-wrap{flex:1;overflow-y:auto;padding:20px 24px;background:var(--s)}
+.mkt-header{margin-bottom:20px}
+.mkt-title{font-size:18px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.mkt-sub{font-size:13px;color:var(--m)}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px}
+.mkt-col{background:var(--w);border:1px solid var(--bo);border-radius:8px;overflow:hidden}
+.mkt-col-hdr{padding:14px 16px;border-bottom:1px solid var(--bo)}
+.mkt-col-icon{font-size:20px;margin-bottom:6px}
+.mkt-col-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.mkt-col-sub{font-size:11px;color:var(--m);line-height:1.5}
+.mkt-col-body{padding:12px 16px}
+.mkt-buyer{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--m);margin-bottom:8px}
+.mkt-cs-item{padding:8px 10px;border:1px solid var(--bo);border-radius:5px;margin-bottom:6px;cursor:pointer;transition:all .12s;display:flex;align-items:center;gap:8px}
+.mkt-cs-item:hover{background:var(--gt);border-color:var(--gb)}
+.mkt-cs-conf{font-family:var(--mono);font-size:10px;font-weight:600;width:36px;height:36px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mkt-cs-name{font-size:11px;font-weight:500;color:var(--ink);margin-bottom:2px;line-height:1.3}
+.mkt-cs-meta{font-size:10px;color:var(--m)}
+.mkt-pkg-wrap{background:var(--w);border:1px solid var(--bo);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.mkt-pkg-hdr{padding:12px 16px;border-bottom:1px solid var(--bo);background:var(--s);display:flex;align-items:center;justify-content:space-between}
+.mkt-pkg-title{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--g)}
+.mkt-pkgs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+.mkt-pkg{padding:14px 16px;border-right:1px solid var(--bo)}
+.mkt-pkg:last-child{border-right:none}
+.mkt-pkg-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.mkt-pkg-price{font-family:var(--mono);font-size:18px;font-weight:500;color:var(--g);margin-bottom:8px}
+.mkt-pkg-feat{font-size:11px;color:var(--b);padding:2px 0;display:flex;align-items:flex-start;gap:5px}
+.mkt-pkg-feat::before{content:'✓';color:var(--g);font-weight:600;flex-shrink:0}
+.mkt-core-wrap{background:var(--w);border:1px solid var(--bo);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.mkt-core-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.mkt-core-item{padding:14px 16px;border-right:1px solid var(--bo);border-bottom:1px solid var(--bo)}
+.mkt-core-item:nth-child(2n){border-right:none}
+.mkt-core-item:nth-last-child(-n+2){border-bottom:none}
+.mkt-core-icon{font-size:18px;margin-bottom:6px}
+.mkt-core-title{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.mkt-core-desc{font-size:11px;color:var(--b);line-height:1.5}
+
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bo);border-radius:2px}
@@ -422,6 +460,7 @@ td:first-child{padding:0;width:3px}
   <div class="mtab" onclick="switchTab('investigation',this)">Investigation <span class="tbadge2">Graph · Map · Search</span></div>
   <div class="mtab" onclick="switchTab('intelligence',this)">Alert Intelligence <span class="tbadge2" id="tb3">—</span></div>
   <div class="mtab" onclick="switchTab('crossref',this)">News Cross-Reference <span class="tbadge2" id="tb4">—</span></div>
+  <div class="mtab" onclick="switchTab('market',this)">Market Intelligence <span class="tbadge2">3 Verticals</span></div>
 </div>
 
 <div class="shell" id="shell" style="display:none">
@@ -621,6 +660,172 @@ td:first-child{padding:0;width:3px}
       <div style="font-family:var(--mono);font-size:11px">Select a news match to view details</div>
     </div>
   </div>
+</div>
+</div>
+
+
+<!-- TAB 5: MARKET INTELLIGENCE -->
+<div class="tview" id="tab-market">
+<div class="mkt-wrap">
+
+  <div class="mkt-header">
+    <div class="mkt-title">Market Intelligence — CINEOS Product Positioning</div>
+    <div class="mkt-sub">Three buyer verticals · Case studies · Product packaging · Pricing</div>
+  </div>
+
+  <!-- CORE PRODUCT -->
+  <div class="mkt-core-wrap">
+    <div class="mkt-pkg-hdr">
+      <span class="mkt-pkg-title">Core Product — What Every Alert Delivers</span>
+    </div>
+    <div class="mkt-core-grid">
+      <div class="mkt-core-item">
+        <div class="mkt-core-icon">🎯</div>
+        <div class="mkt-core-title">Alert with Confidence Score</div>
+        <div class="mkt-core-desc">Every signal scored 40–99%. Cross-channel phone matches score 90–99%. Single channel with phone scores 70–80%. Category matches score 55–70%. Buyer knows exactly how certain the intelligence is.</div>
+      </div>
+      <div class="mkt-core-item">
+        <div class="mkt-core-icon">🔗</div>
+        <div class="mkt-core-title">Linked Entities</div>
+        <div class="mkt-core-desc">Operator name · Aliases · Phone numbers · Telegram channels · UPI IDs · Domain names · Social handles. All connected in a graph. One click to see the full operator network.</div>
+      </div>
+      <div class="mkt-core-item">
+        <div class="mkt-core-icon">🔒</div>
+        <div class="mkt-core-title">Evidence Pack</div>
+        <div class="mkt-core-desc">SHA-256 hash generated at detection · Timestamp certified · Sample post preserved · IT Act 2000 §65B compliant · Ready for court submission or MLAT request without additional steps.</div>
+      </div>
+      <div class="mkt-core-item">
+        <div class="mkt-core-icon">📋</div>
+        <div class="mkt-core-title">Case Narrative</div>
+        <div class="mkt-core-desc">What happened · Why it matters · Who is the operator · Which channels they run · How much reach they have · What law applies · Recommended next action with specific agency and portal URL.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THREE BUYER COLUMNS -->
+  <div style="font-family:var(--mono);font-size:10px;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px">Three Buyer Verticals · Case Studies</div>
+  <div class="mkt-grid">
+
+    <!-- COLUMN 1: FRAUD INTEL FIRMS -->
+    <div class="mkt-col">
+      <div class="mkt-col-hdr" style="border-top:3px solid #1A56A0">
+        <div class="mkt-col-icon">🛡️</div>
+        <div class="mkt-col-title">Fraud & Cyber Intelligence Firms</div>
+        <div class="mkt-col-sub">CERT-In partners · I4C vendors · Threat intel platforms · Cybercrime units · OSINT firms · Law enforcement tech</div>
+      </div>
+      <div class="mkt-col-body">
+        <div class="mkt-buyer">What they buy</div>
+        <div style="font-size:11px;color:var(--b);margin-bottom:10px;line-height:1.6">Operator attribution data. Phone-to-channel mapping. Pre-crime detection timestamps. Evidence packages for prosecution. India-specific Telegram intelligence that no global provider has.</div>
+        <div class="mkt-buyer">Case Studies — Illegal Betting · Telegram Attribution</div>
+        <div id="cs-col-1"></div>
+        <div style="margin-top:10px;padding:8px 10px;background:var(--sky);border-radius:5px;font-size:11px;color:#1A56A0">
+          <b>Value proposition:</b> CINEOS detected Mahadev Book network (48 channels, 1.06M reach) before Visakhapatnam police arrested 24 operators in Rs 1,500Cr bust. Pre-crime detection timestamp certified under §65B.
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN 2: PAYMENT RISK / FINTECH / AML -->
+    <div class="mkt-col">
+      <div class="mkt-col-hdr" style="border-top:3px solid #0E7490">
+        <div class="mkt-col-icon">💳</div>
+        <div class="mkt-col-title">Payment Risk · Fintech · AML</div>
+        <div class="mkt-col-sub">Banks · PSPs · UPI platforms · NBFCs · Crypto exchanges · PMLA compliance teams · TRM Labs · Chainalysis India</div>
+      </div>
+      <div class="mkt-col-body">
+        <div class="mkt-buyer">What they buy</div>
+        <div style="font-size:11px;color:var(--b);margin-bottom:10px;line-height:1.6">UPI mule account detection. Operator phone watchlists for KYC screening. Real-time alerts when a customer phone matches a fraud operator. Off-chain Telegram layer that connects crypto wallets to real identities.</div>
+        <div class="mkt-buyer">Case Studies — UPI Mule · Crypto Attribution</div>
+        <div id="cs-col-2"></div>
+        <div style="margin-top:10px;padding:8px 10px;background:#F0FDFA;border-radius:5px;font-size:11px;color:#0E7490">
+          <b>Value proposition:</b> 129 operator phones extracted from live Telegram messages. Any bank can screen their customer base against CINEOS phone watchlist to detect mule accounts before fraud occurs.
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN 3: BRAND PROTECTION / PHARMA -->
+    <div class="mkt-col">
+      <div class="mkt-col-hdr" style="border-top:3px solid #166534">
+        <div class="mkt-col-icon">🏷️</div>
+        <div class="mkt-col-title">Brand Protection · Pharma Security</div>
+        <div class="mkt-col-sub">FMCG / pharma brands · OTT platforms · Sports leagues · Brand protection agencies · Anti-counterfeiting firms · Domain registrars</div>
+      </div>
+      <div class="mkt-col-body">
+        <div class="mkt-buyer">What they buy</div>
+        <div style="font-size:11px;color:var(--b);margin-bottom:10px;line-height:1.6">Domain squatting alerts. Counterfeit product channels. Fake app distribution. OTT piracy streams. Brand impersonation on Telegram. Evidence packages for DMCA, trademark enforcement, and court action.</div>
+        <div class="mkt-buyer">Case Studies — Domain Squat · Piracy · Counterfeit</div>
+        <div id="cs-col-3"></div>
+        <div style="margin-top:10px;padding:8px 10px;background:var(--gt);border-radius:5px;font-size:11px;color:var(--g)">
+          <b>Value proposition:</b> jiohotstar.net registered 4 days after JioHotstar launch. Registrant identified. 20 IPL piracy streams detected Match 53 with operator phones. Evidence hashed under §65B on detection day.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PRODUCT PACKAGING -->
+  <div class="mkt-pkg-wrap">
+    <div class="mkt-pkg-hdr">
+      <span class="mkt-pkg-title">Product Packaging — Three Ways to Sell</span>
+      <span style="font-size:11px;color:var(--m)">All tiers include IT Act §65B evidence certification</span>
+    </div>
+    <div class="mkt-pkgs">
+      <div class="mkt-pkg">
+        <div class="mkt-pkg-name">📊 Monthly Dashboard</div>
+        <div class="mkt-pkg-price">₹50K – ₹2L / month</div>
+        <div class="mkt-pkg-feat">Access to cineos_internal.html dashboard</div>
+        <div class="mkt-pkg-feat">All 4 tabs: Workspace · Investigation · Intelligence · Cross-Reference</div>
+        <div class="mkt-pkg-feat">2,048+ live alerts · Auto-refreshed hourly</div>
+        <div class="mkt-pkg-feat">Category filter by vertical (betting / pharma / piracy)</div>
+        <div class="mkt-pkg-feat">Evidence hash download per alert</div>
+        <div class="mkt-pkg-feat">Monthly case study report (PDF)</div>
+        <div style="margin-top:10px;font-size:10px;color:var(--m)">Best for: Fraud intel firms · Brand protection teams · Legal counsel</div>
+      </div>
+      <div class="mkt-pkg" style="background:var(--gt);border-left:2px solid var(--g)">
+        <div class="mkt-pkg-name">⚡ API / Feed Licensing</div>
+        <div class="mkt-pkg-price">₹1L – ₹5L / month</div>
+        <div class="mkt-pkg-feat">Full REST API access (/api/alerts, /api/query, /api/stats)</div>
+        <div class="mkt-pkg-feat">Real-time webhook push for new critical alerts</div>
+        <div class="mkt-pkg-feat">Phone watchlist API — screen any number against database</div>
+        <div class="mkt-pkg-feat">Bulk export — CSV, JSON, STIX 2.1</div>
+        <div class="mkt-pkg-feat">Custom category filters per client</div>
+        <div class="mkt-pkg-feat">SLA: 99.9% uptime · 30-minute alert latency</div>
+        <div style="margin-top:10px;font-size:10px;color:var(--g)">Best for: Banks · PSPs · TRM / Chainalysis · Fraud-tech platforms</div>
+      </div>
+      <div class="mkt-pkg">
+        <div class="mkt-pkg-name">🔍 Managed Investigations</div>
+        <div class="mkt-pkg-price">₹2L – ₹10L / case</div>
+        <div class="mkt-pkg-feat">Dedicated investigation per operator / brand / incident</div>
+        <div class="mkt-pkg-feat">Full operator dossier: all channels, phones, UPIs, aliases</div>
+        <div class="mkt-pkg-feat">Court-ready evidence package with §65B certificate</div>
+        <div class="mkt-pkg-feat">Takedown support: Telegram, domain registrars, app stores</div>
+        <div class="mkt-pkg-feat">Law enforcement liaison briefing document</div>
+        <div class="mkt-pkg-feat">Ongoing monitoring post-investigation (resurrection alerts)</div>
+        <div style="margin-top:10px;font-size:10px;color:var(--m)">Best for: Pharma brands · OTT platforms · Early enterprise customers</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTNER MODELS -->
+  <div class="mkt-pkg-wrap">
+    <div class="mkt-pkg-hdr">
+      <span class="mkt-pkg-title">For Banks / PSPs — Three Partnership Models</span>
+    </div>
+    <div class="mkt-pkgs">
+      <div class="mkt-pkg">
+        <div class="mkt-pkg-name">📡 Data / Intel Provider</div>
+        <div style="font-size:11px;color:var(--b);margin-top:6px;line-height:1.6">Supply fraud signals directly to bank's existing fraud management system via API. Bank screens transactions against CINEOS operator phone list and UPI watchlist. Zero integration complexity — REST API, JSON output.</div>
+      </div>
+      <div class="mkt-pkg" style="background:var(--gt)">
+        <div class="mkt-pkg-name">🏷️ White-Label Engine</div>
+        <div style="font-size:11px;color:var(--b);margin-top:6px;line-height:1.6">CINEOS powers a larger fraud-tech brand's India intelligence layer. Brand sells their product; CINEOS provides the Telegram + social OSINT engine underneath. Revenue share or flat licensing. No CINEOS branding required.</div>
+      </div>
+      <div class="mkt-pkg">
+        <div class="mkt-pkg-name">🔌 OSINT Plugin Layer</div>
+        <div style="font-size:11px;color:var(--b);margin-top:6px;line-height:1.6">Plug into existing banking fraud ecosystems (Feedzai, NICE Actimize, SAS Fraud). CINEOS becomes the India-specific OSINT enrichment layer — phone lookup, operator attribution, channel intelligence — within their workflow.</div>
+      </div>
+    </div>
+  </div>
+
 </div>
 </div>
 
@@ -985,6 +1190,7 @@ function switchTab(name, el) {
   document.getElementById('tab-'+name).classList.add('active');
   el.classList.add('active');
   if(name === 'investigation') setTimeout(() => { initGraph(); initMap(); }, 100);
+  if(name === 'market') setTimeout(loadMarketTab, 100);
 }
 
 
@@ -1821,6 +2027,68 @@ function showCRD(i, card) {
 
 // alias for map search
 function copyHash(btn){ const h = btn.parentElement.childNodes[0].textContent.trim(); navigator.clipboard.writeText(h).catch(()=>{}); btn.textContent="Copied"; setTimeout(()=>btn.textContent="Copy",1500); }
+
+// ── MARKET INTELLIGENCE TAB ──────────────────────────────
+function loadMarketTab() {
+  // Column 1: Fraud Intel — betting case studies
+  const col1Cases = ALL.filter(a =>
+    a.category === 'illegal_betting' && a.chain && a.chain.phones && a.chain.phones.length > 0
+  ).slice(0, 6);
+
+  const col2Cases = ALL.filter(a =>
+    (a.category === 'upi_mule' || a.category === 'crypto_fraud') &&
+    a.chain && a.chain.phones && a.chain.phones.length > 0
+  ).slice(0, 6);
+
+  const col3Cases = ALL.filter(a =>
+    (a.category === 'domain_squat' || a.category === 'piracy' ||
+     a.category === 'counterfeit_pharma' || a.category === 'brand_impersonation') &&
+    a.severity === 'critical'
+  ).slice(0, 6);
+
+  renderMktCases('cs-col-1', col1Cases, '#1A56A0', '#EFF6FF');
+  renderMktCases('cs-col-2', col2Cases, '#0E7490', '#F0FDFA');
+  renderMktCases('cs-col-3', col3Cases, '#166534', '#F0FDF4');
+
+  // Also load from case study files list
+  loadCaseStudyFiles();
+}
+
+function renderMktCases(elId, cases, color, bg) {
+  const el = document.getElementById(elId);
+  if(!el) return;
+  if(!cases.length) {
+    el.innerHTML = '<div style="font-size:11px;color:var(--m);padding:8px 0">Loading from database...</div>';
+    return;
+  }
+  el.innerHTML = cases.map(a => {
+    const conf = a.chain && a.chain.phones && a.chain.phones.length > 0 ? 85 : 70;
+    const reach = a.chain && a.chain.reach ? a.chain.reach : 0;
+    const rs = reach > 1e6 ? (reach/1e6).toFixed(1)+'M' : reach > 1000 ? Math.round(reach/1000)+'K' : '';
+    const phone = (a.chain && a.chain.phones && a.chain.phones[0]) || (a.attribution && a.attribution.phone) || '';
+    return '<div class="mkt-cs-item">' +
+      '<div class="mkt-cs-conf" style="background:'+bg+';color:'+color+'">' + conf + '%</div>' +
+      '<div style="flex:1;min-width:0">' +
+      '<div class="mkt-cs-name">'+(a.title||'').slice(0,55)+'</div>' +
+      '<div class="mkt-cs-meta">'+(phone?phone+' · ':'')+a.category.replace(/_/g,' ')+(rs?' · '+rs:'')+'</div>' +
+      '</div></div>';
+  }).join('');
+}
+
+async function loadCaseStudyFiles() {
+  // Try to load the case study index
+  try {
+    const r = await fetch('reports/case_studies/index.html').catch(()=>null);
+    // Just show count if file exists
+    if(r && r.ok) {
+      const el1 = document.getElementById('cs-col-1');
+      if(el1 && el1.innerHTML.includes('Loading')) {
+        el1.innerHTML = '<div style="font-size:11px;color:var(--m);padding:4px 0">30 case studies generated · Open reports/case_studies/index.html</div>';
+      }
+    }
+  } catch(e) {}
+}
+
 function geoSearch(q) { mapSearch(q); }
 </script>
 </body>

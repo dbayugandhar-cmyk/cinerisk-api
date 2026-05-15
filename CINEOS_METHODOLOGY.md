@@ -30,3 +30,33 @@
 2. Edge created between phone and channel
 3. Cross-channel edges reveal operator networks
 4. Network confidence = max(individual channel confidences)
+
+
+## Explainable Confidence Scores
+
+| Factor | Score |
+|--------|-------|
+| Base | 70% |
+| Phone extracted x1 | +5% |
+| Phone extracted x2 | +10% |
+| Phone extracted x3+ | +15% |
+| Same phone 2 channels | +5% |
+| Same phone 3-4 channels | +10% |
+| Same phone 5+ channels | +15% |
+| UPI extracted | +5% |
+| Sample post preserved | +3% |
+| High-risk category | +2% |
+
+Example: Score 92% means phone in 7 channels (+15%), 3 phones total (+15%), UPI found (+5%), minus base adjustments.
+
+## IT Act 2000 §65B(2) Full Certificate
+
+All five conditions documented per case:
+(a) Activity description, (b) System functioning, (c) Ordinary course,
+(d) Regular storage, (e) Certifying identity
+
+## Vertical Configurations
+
+configs/betting.json — Illegal Betting and Match Fixing
+configs/pharma.json  — Counterfeit Pharmaceuticals
+configs/fintech.json — Financial Fraud and UPI Mule Networks

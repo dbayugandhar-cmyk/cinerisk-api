@@ -1,0 +1,33 @@
+{
+  "name": "Counterfeit Pharmaceuticals",
+  "keywords": [
+    "Ozempic",
+    "Mounjaro",
+    "fake medicine",
+    "counterfeit drug",
+    "online pharmacy",
+    "prescription without doctor",
+    "generic insulin",
+    "cancer cure",
+    "unregulated tablet",
+    "CDSCO violation"
+  ],
+  "legal_framework": {
+    "primary": "Drugs and Cosmetics Act 1940 \u00a717A + \u00a718",
+    "secondary": [
+      "IT Act 2000 \u00a765B + \u00a766D",
+      "IPC \u00a7420 + \u00a7468",
+      "Consumer Protection Act 2019"
+    ]
+  },
+  "report_to": [
+    "CDSCO cdsco.gov.in",
+    "State Drug Controller",
+    "I4C cybercrime.gov.in"
+  ],
+  "buyer_verticals": [
+    "Pharma Brand Protection",
+    "Healthcare Security",
+    "Regulatory Compliance"
+  ]
+}

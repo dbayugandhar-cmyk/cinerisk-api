@@ -1,0 +1,35 @@
+{
+  "name": "Financial Fraud and UPI Mule Networks",
+  "keywords": [
+    "mule account",
+    "UPI fraud",
+    "KYC fraud",
+    "OTP bypass",
+    "fake loan app",
+    "phishing UPI",
+    "hawala",
+    "money mule",
+    "bank account kit",
+    "SIM swap",
+    "NBFC fraud",
+    "fake CIBIL"
+  ],
+  "legal_framework": {
+    "primary": "PMLA 2002 \u00a73 + \u00a74",
+    "secondary": [
+      "IT Act 2000 \u00a766C + \u00a766D + \u00a765B",
+      "IPC \u00a7420 + \u00a7468",
+      "RBI Master Direction on Fraud"
+    ]
+  },
+  "report_to": [
+    "FIU-IND fiuindia.gov.in",
+    "RBI rbi.org.in",
+    "I4C cybercrime.gov.in"
+  ],
+  "buyer_verticals": [
+    "Banks and NBFCs",
+    "UPI Platforms",
+    "AML PMLA Compliance"
+  ]
+}

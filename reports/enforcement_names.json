@@ -1,0 +1,37 @@
+{
+  "Mahadev Book": {
+    "real_names": [
+      "Ravi Uppal",
+      "Shubham Soni"
+    ],
+    "phones_linked": [
+      "+918824645116"
+    ],
+    "source": "ED press release May 2026",
+    "arrest": "Visakhapatnam Police May 13 2026"
+  },
+  "Reddy Anna": {
+    "real_names": [
+      "Unknown \u2014 pending arrest"
+    ],
+    "phones_linked": [
+      "+918881754538",
+      "+918881349483",
+      "+918881987328"
+    ],
+    "source": "CINEOS channel attribution",
+    "arrest": "Active \u2014 not yet arrested"
+  },
+  "Radhe Exchange": {
+    "real_names": [
+      "Unknown \u2014 Rajasthan circle"
+    ],
+    "phones_linked": [
+      "+917455697977",
+      "+917400749393",
+      "+917832350002"
+    ],
+    "source": "CINEOS cross-channel attribution",
+    "arrest": "Active \u2014 not yet arrested"
+  }
+}

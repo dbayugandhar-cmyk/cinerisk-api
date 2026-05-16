@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CINEOS Case Study CINEOS-CS-2026-002</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#166534;--gm:#15803D;--gt:#F0FDF4;--gb:#BBF7D0;--gl:#DCFCE7;
+  --ink:#0F172A;--b:#475569;--m:#94A3B8;--bo:#E2E8F0;--s:#F8FAFC;--w:#fff;
+  --navy:#0D2B55;--blue:#1A56A0;--teal:#0E7490;--sky:#DBEAFE;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--s);color:var(--ink);font-size:13px;line-height:1.6}
+.header{background:var(--navy);color:#fff;padding:28px 40px 24px}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.logo{font-family:monospace;font-size:22px;font-weight:700;letter-spacing:.15em;color:#fff}
+.logo-sub{font-size:11px;color:#7BAFD4;letter-spacing:.05em;margin-top:2px}
+.conf-badge{background:#DCFCE7;color:#166534;border:2px solid #166534;border-radius:8px;padding:8px 18px;text-align:center;font-family:monospace}
+.conf-pct{font-size:28px;font-weight:700;line-height:1}
+.conf-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+.case-title{font-size:20px;font-weight:700;margin-bottom:4px}
+.case-sub{font-size:13px;color:#9EC6F3}
+.meta-strip{background:#132244;padding:10px 40px;display:flex;gap:40px;border-bottom:2px solid var(--teal)}
+.meta-item{font-size:11px}
+.meta-label{color:#7BAFD4;text-transform:uppercase;letter-spacing:.08em;font-family:monospace;display:block;margin-bottom:2px}
+.meta-value{color:#fff;font-weight:600}
+.body{padding:28px 40px;max-width:1100px}
+.section{background:var(--w);border:1px solid var(--bo);border-radius:8px;overflow:hidden;margin-bottom:18px}
+.section-title{font-family:monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--m);padding:10px 16px;background:var(--s);border-bottom:1px solid var(--bo);display:flex;align-items:center;justify-content:space-between}
+.section-body{padding:16px}
+.phones{display:flex;flex-wrap:wrap;gap:8px}
+.phone-item{font-family:monospace;font-size:13px;font-weight:600;color:#DC2626;background:#FEF2F2;border:1px solid #FECACA;padding:6px 12px;border-radius:5px}
+.upi-item{font-family:monospace;font-size:12px;color:var(--g);background:var(--gt);border:1px solid var(--gb);padding:5px 10px;border-radius:5px}
+.na{font-size:12px;color:var(--m);font-style:italic}
+.evidence-box{background:#0A1628;color:#7FD8E8;font-family:monospace;font-size:12px;padding:12px 16px;border-radius:6px;border:1px solid var(--teal)}
+.evidence-box .label{color:var(--teal);font-size:9px;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:4px}
+table{width:100%;border-collapse:collapse}
+thead th{font-family:monospace;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--m);padding:8px 12px;text-align:left;border-bottom:2px solid var(--bo);background:var(--s)}
+tbody td{padding:9px 12px;border-bottom:1px solid var(--bo);font-size:12px}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--gt)}
+.mono{font-family:monospace;font-size:11px}
+.num{font-family:monospace;text-align:right;color:var(--g);font-weight:600}
+.red{color:#DC2626}
+.green{color:var(--g)}
+.badge{font-family:monospace;font-size:9px;padding:2px 7px;border-radius:3px;font-weight:600;text-transform:uppercase}
+.badge.match{background:var(--gl);color:var(--g);border:1px solid var(--gb)}
+.badge.pending{background:var(--s);color:var(--m);border:1px solid var(--bo)}
+.sample-post{font-size:12px;color:var(--b);background:var(--s);border:1px solid var(--bo);border-left:3px solid var(--g);padding:10px 14px;border-radius:0 5px 5px 0;font-style:italic;line-height:1.6;margin-bottom:6px}
+.caption{font-size:10px;color:var(--m);font-family:monospace}
+.steps{display:flex;flex-direction:column;gap:8px}
+.step{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--b)}
+.step-n{font-family:monospace;font-size:10px;font-weight:700;color:#fff;background:var(--navy);width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.agencies{display:flex;flex-wrap:wrap;gap:6px}
+.agency{font-family:monospace;font-size:10px;background:var(--sky);color:var(--blue);border:1px solid #BFDBFE;padding:4px 10px;border-radius:3px;font-weight:600}
+.footer{background:var(--navy);color:#7BAFD4;padding:14px 40px;font-size:10px;font-family:monospace;display:flex;justify-content:space-between;margin-top:28px}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat-box{background:var(--s);border:1px solid var(--bo);border-radius:6px;padding:12px;text-align:center}
+.stat-n{font-family:monospace;font-size:22px;font-weight:700;color:#166534}
+.stat-l{font-size:10px;color:var(--m);margin-top:2px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.chain-box{background:var(--gt);border:1px solid var(--gb);border-radius:6px;padding:12px 14px}
+.chain-label{font-family:monospace;font-size:9px;color:var(--g);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+@media print{body{background:#fff}.header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="logo">CINEOS</div>
+      <div class="logo-sub">India Trust Intelligence Network · IP Registration Pending</div>
+    </div>
+    <div class="conf-badge">
+      <div class="conf-pct">99%</div>
+      <div class="conf-label">Confidence</div>
+    </div>
+  </div>
+  <div class="case-title">Intelligence Case Study: Mahadev Book Operator</div>
+  <div class="case-sub">Case ID: CINEOS-CS-2026-002 · Category: Illegal Betting · Telegram Attribution</div>
+</div>
+
+<div class="meta-strip">
+  <div class="meta-item"><span class="meta-label">Case ID</span><span class="meta-value">CINEOS-CS-2026-002</span></div>
+  <div class="meta-item"><span class="meta-label">Generated</span><span class="meta-value">2026-05-16 14:26 IST</span></div>
+  <div class="meta-item"><span class="meta-label">Evidence Standard</span><span class="meta-value">IT Act 2000 §65B</span></div>
+  <div class="meta-item"><span class="meta-label">Evidence Hash</span><span class="meta-value" style="font-family:monospace;font-size:10px">b52b8321aecdd39d...</span></div>
+  <div class="meta-item"><span class="meta-label">Classification</span><span class="meta-value">RESTRICTED</span></div>
+</div>
+
+<div class="body">
+
+  <div class="stat-grid">
+    <div class="stat-box"><div class="stat-n">357K</div><div class="stat-l">Subscriber Reach</div></div>
+    <div class="stat-box"><div class="stat-n">7</div><div class="stat-l">Channels Confirmed</div></div>
+    <div class="stat-box"><div class="stat-n">5</div><div class="stat-l">Operator Phones</div></div>
+    <div class="stat-box"><div class="stat-n">99%</div><div class="stat-l">Attribution Confidence</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <span>Operator Phone Attribution</span>
+      <span style="color:var(--g)">CROSS-CHANNEL CONFIRMED</span>
+    </div>
+    <div class="section-body">
+      <div class="phones"><div class="phone-item">📞 +918881349483</div><div class="phone-item">📞 +918881987328</div><div class="phone-item">📞 +918881923320</div><div class="phone-item">📞 +918808410623</div><div class="phone-item">📞 +918881754538</div></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--g);font-weight:600">✓ Same phone number appears across 7 separate Telegram channels — confirming single operator</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <div class="section-title">UPI / Payment IDs</div>
+      <div class="section-body">
+        <div style="display:flex;flex-wrap:wrap;gap:6px"><div class="na">No UPI IDs extracted in this scan</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">Evidence Hash (IT Act §65B)</div>
+      <div class="section-body">
+        <div class="evidence-box">
+          <span class="label">SHA-256 Evidence Hash</span>
+          9947c1a0b2e9ca648672bf9d7c62991a0c01ea75842192c8...
+          <br><br>
+          <span class="label">Detection Timestamp</span>
+          2026-05-16 · 14:26:03 IST
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <span>Telegram Channels — Operator Attribution</span>
+      <span>7 channels · 357K total reach</span>
+    </div>
+    <div class="section-body" style="padding:0">
+      <table>
+        <thead><tr>
+          <th>Channel Username</th>
+          <th style="text-align:right">Subscribers</th>
+          <th>Phone Extracted</th>
+          <th>UPI Extracted</th>
+          <th>Status</th>
+        </tr></thead>
+        <tbody>
+        <tr>
+          <td class="mono">@World777_fairplay_tiger365</td>
+          <td class="num">86,836</td>
+          <td class="mono red">+918881754538 · +918881987328</td>
+          <td class="mono green">—</td>
+          <td><span class="badge match">✓ Phone match</span></td>
+        </tr>
+        <tr>
+          <td class="mono">@Reddy_Annaw</td>
+          <td class="num">74,992</td>
+          <td class="mono red">+918881754538 · +918881987328</td>
+          <td class="mono green">—</td>
+          <td><span class="badge match">✓ Phone match</span></td>
+        </tr>
+        <tr>
+          <td class="mono">@reddy_Annae</td>
+          <td class="num">74,322</td>
+          <td class="mono red">+918881754538 · +918881987328</td>
+          <td class="mono green">—</td>
+          <td><span class="badge match">✓ Phone match</span></td>
+        </tr>
+        <tr>
+          <td class="mono">@Lotus365o</td>
+          <td class="num">58,095</td>
+          <td class="mono red">+918881349483 · +918881754538</td>
+          <td class="mono green">—</td>
+          <td><span class="badge match">✓ Phone match</span></td>
+        </tr>
+        <tr>
+          <td class="mono">@Lotus_booka</td>
+          <td class="num">26,785</td>
+          <td class="mono red">+918881349483 · +918881754538</td>
+          <td class="mono green">—</td>
+          <td><span class="badge match">✓ Phone match</span></td>
+        </tr>
+        <tr>
+          <td class="mono">@vipin_aryan_sawariyaexch1</td>
+          <td class="num">22,835</td>
+          <td class="mono red">+918881754538 · +918881987328</td>
+          <td class="mono green">—</td>
+          <td><span class="badge match">✓ Phone match</span></td>
+        </tr>
+        <tr>
+          <td class="mono">@Ambani_world777_diamondexch</td>
+          <td class="num">13,432</td>
+          <td class="mono red">+918881754538 · +918881987328</td>
+          <td class="mono green">—</td>
+          <td><span class="badge match">✓ Phone match</span></td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  
+      <div class="section">
+        <div class="section-title">Complete Operator Intelligence · WHO · WHAT · WHEN · HOW · WHY</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px">
+          <div><div style="font-family:monospace;font-size:9px;color:var(--g);text-transform:uppercase;margin-bottom:6px">WHO</div><div style="font-size:11px;color:var(--b);line-height:1.6">OPERATOR IDENTITY<br>Phone:     +918881987328<br>Inferred name: Reddy Anna<br>Known aliases: Reddy Anna network, World777<br>Carrier:   Jio<br>Circle:    Andhra Pradesh/Telangana (telecom registration area)<br>Channels:  7 confirmed Telegram channels<br>Reach:     357K combined subscribers<br>Confidence: 85% attribution confidence</div></div>
+          <div><div style="font-family:monospace;font-size:9px;color:var(--g);text-transform:uppercase;margin-bottom:6px">WHEN</div><div style="font-size:11px;color:var(--b);line-height:1.6">ACTIVITY TIMELINE<br>First detected: 2026-05-11<br>Last detected:  2026-05-14<br>Days active:    3 days in CINEOS database<br>Status:         ACTIVE — detected in last 7 days<br><br>Note: Detection date reflects when CINEOS first captured this operator.<br>Actual operation may predate CINEOS monitoring.</div></div>
+          <div><div style="font-family:monospace;font-size:9px;color:var(--g);text-transform:uppercase;margin-bottom:6px">HOW</div><div style="font-size:11px;color:var(--b);line-height:1.6">OPERATIONAL METHOD — ILLEGAL BETTING<br>1. Creates Telegram channel with betting platform brand name<br>   (Mahadev Book, World777, Laser247, Reddy Anna, etc.)<br>2. Posts operator phone number in channel description or <br>   first pinned message for customer contact<br>3. Recruits sub-agents via WhatsApp to expand network<br>4. Collects betting funds via UPI, crypto, or hawala<br>5. Pays winning</div></div>
+          <div><div style="font-family:monospace;font-size:9px;color:var(--g);text-transform:uppercase;margin-bottom:6px">WHY IT MATTERS</div><div style="font-size:11px;color:var(--b);line-height:1.6">WHY THIS MATTERS<br><br>Scale of harm:<br>  357K subscribers exposed to fraud content<br>  <br><br>Legal framework:<br>    Public Gambling Act 1867<br>  Online Gaming Act 2025 §8<br>  IT Act 2000 §65B+§66D<br><br>Business impact (for buyers):<br>  Banks/PSPs: Phone +918881987328 on your customer watchlist = catch mules before fraud<br>  Brand owners: Channel activity targets your customers directl</div></div>
+        </div>
+      </div>
+
+  
+      <div class="section">
+        <div class="section-title">Sample Evidence Post</div>
+        <div class="sample-post">**֎ ❤️ 𝙃𝙀𝙇𝙇𝙊 𝙁𝙍𝙄𝙀𝙉𝘿𝙎 ❤️ ֎
+     ❢◥ ▬▬▬ ◆ ▬▬▬ ◤❢
+🌟 𝗠𝗔𝗛𝗔𝗗𝗘𝗩 𝗠𝗔𝗜𝗡 𝗧𝗘𝗟𝗘𝗚𝗥𝗔𝗠 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 𝗟𝗜𝗡𝗞 
+︾︾︾︾︾︾︾︾︾︾︾︾︾︾
+****https://t.me/Mahadev_Book88888888888****
+              ──•~❉᯽❉~•──
+🌟𝗠𝗔𝗛𝗔𝗗𝗘𝗩 𝗣𝗔𝗬𝗠𝗘𝗡𝗧 𝗦𝗟𝗜𝗣 𝗟𝗜𝗡𝗞 
+︾</div>
+        <div class="caption">Extracted from live Telegram message · Hashed at detection</div>
+      </div>
+
+  <div class="section">
+    <div class="section-title">Legal Basis</div>
+    <div class="section-body">
+      <div style="font-size:12px;color:var(--b);line-height:1.8">Public Gambling Act 1867 · Online Gaming Act 2025 §8 · IT Act 2000 §65B + §66D</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--m)">Evidence certified under IT Act 2000 §65B · SHA-256 hash generated at detection · Timestamp legally defensible</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <div class="section-title">Recommended Next Steps</div>
+      <div class="section-body">
+        <div class="steps"><div class="step"><span class="step-n">1</span><span>File complaint with NOGC: nogc.gov.in</span></div><div class="step"><span class="step-n">2</span><span>Report to state cybercrime cell with operator phone</span></div><div class="step"><span class="step-n">3</span><span>File FIR under Public Gambling Act 1867 + OGA 2025 §8</span></div><div class="step"><span class="step-n">4</span><span>Request Telegram channel takedown via MHA</span></div><div class="step"><span class="step-n">5</span><span>Cross-reference phone with bank KYC records</span></div></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">Report To</div>
+      <div class="section-body">
+        <div class="agencies"><span class="agency">NOGC — nogc.gov.in</span><span class="agency">I4C — cybercrime.gov.in</span><span class="agency">State Police Cybercrime Cell</span><span class="agency">Ministry of Home Affairs</span></div>
+        <div style="margin-top:12px;font-size:11px;color:var(--m)">CINEOS can provide complete evidence package including timestamped message archives, operator profile, and §65B certificate on request.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>CINEOS India Trust Intelligence Network · IP Registration Pending · yugandhar@cineos.in · cineos.in</span>
+  <span>RESTRICTED — Law Enforcement / Legal Use Only · CINEOS-CS-2026-002</span>
+</div>
+
+</body>
+</html>

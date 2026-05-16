@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-05-17T01:30:00.461265+05:30",
+  "total_resurrections": 2,
+  "enforcement_events_tracked": 2,
+  "resurrections": [
+    {
+      "enforcement_event": "Gujarat UPI Mule Bust",
+      "enforcement_date": "2026-05-01",
+      "phone": "+918881448108",
+      "channel": "laser247_my99exch_betbook247",
+      "subscribers": 176807,
+      "days_after_bust": 10,
+      "confidence": 99,
+      "significance": "OPERATOR ACTIVE POST-ARREST \u2014 resurrection confirmed",
+      "legal_note": "Continued operation post-arrest = aggravated offense"
+    },
+    {
+      "enforcement_event": "Gujarat UPI Mule Bust",
+      "enforcement_date": "2026-05-01",
+      "phone": "+918808843584",
+      "channel": "my99exch_Cricbet99_betbhai9",
+      "subscribers": 172112,
+      "days_after_bust": 10,
+      "confidence": 99,
+      "significance": "OPERATOR ACTIVE POST-ARREST \u2014 resurrection confirmed",
+      "legal_note": "Continued operation post-arrest = aggravated offense"
+    }
+  ],
+  "insight": "2 operator channels confirmed active AFTER enforcement action. This is direct evidence of persistent criminal operation."
+}

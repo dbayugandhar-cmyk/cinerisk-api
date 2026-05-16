@@ -35,9 +35,45 @@
       "alerts": 0,
       "completed_at": "2026-05-13T08:03:56.779142",
       "duration_seconds": 32.259121
+    },
+    {
+      "date": "2026-05-14",
+      "started_at": "2026-05-14T08:04:30.483489",
+      "platforms_scanned": 13,
+      "success": true,
+      "total_channels": 1245,
+      "total_reach": 31230091,
+      "new_findings": 38,
+      "alerts": 0,
+      "completed_at": "2026-05-14T08:22:31.881026",
+      "duration_seconds": 1081.397537
+    },
+    {
+      "date": "2026-05-15",
+      "started_at": "2026-05-15T08:11:56.631154",
+      "platforms_scanned": 13,
+      "success": true,
+      "total_channels": 1245,
+      "total_reach": 31230091,
+      "new_findings": 18,
+      "alerts": 0,
+      "completed_at": "2026-05-15T08:12:14.113807",
+      "duration_seconds": 17.482653
+    },
+    {
+      "date": "2026-05-16",
+      "started_at": "2026-05-16T08:16:22.513990",
+      "platforms_scanned": 13,
+      "success": true,
+      "total_channels": 1245,
+      "total_reach": 31230091,
+      "new_findings": 7,
+      "alerts": 0,
+      "completed_at": "2026-05-16T08:59:29.391035",
+      "duration_seconds": 2586.877045
     }
   ],
   "created_at": "2026-05-10T05:43:10.885648",
-  "last_scan": "2026-05-13T08:03:56.779142",
-  "total_scans": 3
+  "last_scan": "2026-05-16T08:59:29.391035",
+  "total_scans": 6
 }

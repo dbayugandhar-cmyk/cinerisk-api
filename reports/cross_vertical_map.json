@@ -1,15 +1,16 @@
 {
-  "generated_at": "2026-05-16T09:18:21.426504+05:30",
-  "total_phones": 281,
-  "true_cross_vertical": 7,
+  "generated_at": "2026-05-16T13:30:01.894139+05:30",
+  "total_phones": 278,
+  "cross_vertical_operators": 7,
   "operators": [
     {
       "phone": "+917400749393",
       "categories": [
+        "illegal_betting",
         "piracy",
-        "crypto_fraud",
-        "illegal_betting"
+        "crypto_fraud"
       ],
+      "category_count": 3,
       "channels": [
         "matchpunt_id",
         "radheexch_kingexch_world777_id",
@@ -18,18 +19,21 @@
         "betting_id_new_id_online_book_id",
         "Lotus365_id_shriram_id_lotusbook",
         "Lotusbook6",
-        "Book_id_booki_id"
+        "Book_id_booki_id",
+        "Lotusid_bookid_cricketid_bookid",
+        "Gameid_bookid_casinoid_matchid"
       ],
-      "significance": "Single operator confirmed across 3 fraud verticals",
-      "legal_note": "Multi-vertical = organized criminal enterprise \u2014 enhanced PMLA exposure"
+      "significance": "Single operator confirmed across 3 fraud verticals: illegal_betting, piracy, crypto_fraud",
+      "legal_note": "Multi-vertical operation indicates organized criminal enterprise \u2014 enhanced PMLA + IT Act exposure"
     },
     {
       "phone": "+917455697977",
       "categories": [
+        "illegal_betting",
         "piracy",
-        "crypto_fraud",
-        "illegal_betting"
+        "crypto_fraud"
       ],
+      "category_count": 3,
       "channels": [
         "matchpunt_id",
         "radheexch_kingexch_world777_id",
@@ -38,18 +42,21 @@
         "betting_id_new_id_online_book_id",
         "Lotus365_id_shriram_id_lotusbook",
         "Lotusbook6",
-        "Book_id_booki_id"
+        "Book_id_booki_id",
+        "Lotusid_bookid_cricketid_bookid",
+        "Gameid_bookid_casinoid_matchid"
       ],
-      "significance": "Single operator confirmed across 3 fraud verticals",
-      "legal_note": "Multi-vertical = organized criminal enterprise \u2014 enhanced PMLA exposure"
+      "significance": "Single operator confirmed across 3 fraud verticals: illegal_betting, piracy, crypto_fraud",
+      "legal_note": "Multi-vertical operation indicates organized criminal enterprise \u2014 enhanced PMLA + IT Act exposure"
     },
     {
       "phone": "+917832350002",
       "categories": [
+        "illegal_betting",
         "piracy",
-        "crypto_fraud",
-        "illegal_betting"
+        "crypto_fraud"
       ],
+      "category_count": 3,
       "channels": [
         "matchpunt_id",
         "radheexch_kingexch_world777_id",
@@ -58,10 +65,12 @@
         "betting_id_new_id_online_book_id",
         "Lotus365_id_shriram_id_lotusbook",
         "Lotusbook6",
-        "Book_id_booki_id"
+        "Book_id_booki_id",
+        "Lotusid_bookid_cricketid_bookid",
+        "Gameid_bookid_casinoid_matchid"
       ],
-      "significance": "Single operator confirmed across 3 fraud verticals",
-      "legal_note": "Multi-vertical = organized criminal enterprise \u2014 enhanced PMLA exposure"
+      "significance": "Single operator confirmed across 3 fraud verticals: illegal_betting, piracy, crypto_fraud",
+      "legal_note": "Multi-vertical operation indicates organized criminal enterprise \u2014 enhanced PMLA + IT Act exposure"
     },
     {
       "phone": "+916113981487",
@@ -69,11 +78,12 @@
         "colour_prediction",
         "crypto_fraud"
       ],
+      "category_count": 2,
       "channels": [
         "crypto_jaiclub_91club_jalwa"
       ],
-      "significance": "Single operator confirmed across 2 fraud verticals",
-      "legal_note": "Multi-vertical = organized criminal enterprise \u2014 enhanced PMLA exposure"
+      "significance": "Single operator confirmed across 2 fraud verticals: colour_prediction, crypto_fraud",
+      "legal_note": "Multi-vertical operation indicates organized criminal enterprise \u2014 enhanced PMLA + IT Act exposure"
     },
     {
       "phone": "+919799219260",
@@ -81,25 +91,27 @@
         "piracy",
         "colour_prediction"
       ],
+      "category_count": 2,
       "channels": [
         "wini_ok",
         "tc_lotteryq"
       ],
-      "significance": "Single operator confirmed across 2 fraud verticals",
-      "legal_note": "Multi-vertical = organized criminal enterprise \u2014 enhanced PMLA exposure"
+      "significance": "Single operator confirmed across 2 fraud verticals: piracy, colour_prediction",
+      "legal_note": "Multi-vertical operation indicates organized criminal enterprise \u2014 enhanced PMLA + IT Act exposure"
     },
     {
       "phone": "+917665390503",
       "categories": [
-        "colour_prediction",
-        "illegal_betting"
+        "illegal_betting",
+        "colour_prediction"
       ],
+      "category_count": 2,
       "channels": [
         "win_okb",
         "tc_lotteryn"
       ],
-      "significance": "Single operator confirmed across 2 fraud verticals",
-      "legal_note": "Multi-vertical = organized criminal enterprise \u2014 enhanced PMLA exposure"
+      "significance": "Single operator confirmed across 2 fraud verticals: illegal_betting, colour_prediction",
+      "legal_note": "Multi-vertical operation indicates organized criminal enterprise \u2014 enhanced PMLA + IT Act exposure"
     },
     {
       "phone": "+918383061215",
@@ -107,9 +119,10 @@
         "investment_fraud",
         "upi_mule"
       ],
+      "category_count": 2,
       "channels": [],
-      "significance": "Single operator confirmed across 2 fraud verticals",
-      "legal_note": "Multi-vertical = organized criminal enterprise \u2014 enhanced PMLA exposure"
+      "significance": "Single operator confirmed across 2 fraud verticals: investment_fraud, upi_mule",
+      "legal_note": "Multi-vertical operation indicates organized criminal enterprise \u2014 enhanced PMLA + IT Act exposure"
     }
   ]
 }

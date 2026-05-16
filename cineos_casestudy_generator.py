@@ -345,7 +345,7 @@ tbody tr:hover{{background:var(--gt)}}
   <div class="header-top">
     <div>
       <div class="logo">CINEOS</div>
-      <div class="logo-sub">India Trust Intelligence Network · Patent 64/049,190</div>
+      <div class="logo-sub">India Trust Intelligence Network · IP Registration Pending</div>
     </div>
     <div class="conf-badge">
       <div class="conf-pct">{conf}%</div>
@@ -455,7 +455,7 @@ tbody tr:hover{{background:var(--gt)}}
 </div>
 
 <div class="footer">
-  <span>CINEOS India Trust Intelligence Network · Patent 64/049,190 · yugandhar@cineos.in · cineos.in · INTELLIGENCE DISCLAIMER: Public-source assessment. Verify before action.</span>
+  <span>CINEOS India Trust Intelligence Network · IP Registration Pending · yugandhar@cineos.in · cineos.in · INTELLIGENCE DISCLAIMER: Public-source assessment. Verify before action.</span>
   <span>RESTRICTED — Law Enforcement / Legal Use Only · {case_id}</span>
 </div>
 
@@ -511,7 +511,7 @@ tbody tr:hover{{background:var(--gt)}}
 <div class="header">
   <div class="logo">CINEOS</div>
   <h1>Intelligence Case Studies — Illegal Betting · Telegram Attribution</h1>
-  <div class="sub">India Trust Intelligence Network · Patent 64/049,190 · Generated {datetime.now(IST).strftime('%Y-%m-%d %H:%M IST')}</div>
+  <div class="sub">India Trust Intelligence Network · IP Registration Pending · Generated {datetime.now(IST).strftime('%Y-%m-%d %H:%M IST')}</div>
 </div>
 <div class="stats">
   <div class="stat"><div class="stat-n">{len(profiles)}</div><div class="stat-l">Total Case Studies</div></div>

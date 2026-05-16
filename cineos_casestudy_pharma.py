@@ -277,7 +277,7 @@ body{{font-family:"Segoe UI",system-ui,sans-serif;background:var(--s);color:var(
   </div>
 </div>
 <div class="footer">
-  <span>CINEOS · Counterfeit Pharma Intelligence · Patent 64/049,190 · yugandhar@cineos.in · cineos.in</span>
+  <span>CINEOS · Counterfeit Pharma Intelligence · IP Registration Pending · yugandhar@cineos.in · cineos.in</span>
   <span>RESTRICTED — CDSCO / Law Enforcement / Legal Use Only · {cid}</span>
 </div>
 </body>
@@ -328,7 +328,7 @@ tbody tr:hover{{background:#F0FDF4}}
 <div class="header">
   <div class="logo">CINEOS</div>
   <h1>Counterfeit Pharma Intelligence — Case Studies</h1>
-  <div class="sub">CDSCO · State Drug Controllers · DEA-India · Brand Protection · {datetime.now(IST).strftime("%Y-%m-%d")} · Patent 64/049,190</div>
+  <div class="sub">CDSCO · State Drug Controllers · DEA-India · Brand Protection · {datetime.now(IST).strftime("%Y-%m-%d")} · IP Registration Pending</div>
 </div>
 <div class="stats">
   <div class="stat"><div class="stat-n">{len(cases)}</div><div class="stat-l">Case Studies</div></div>

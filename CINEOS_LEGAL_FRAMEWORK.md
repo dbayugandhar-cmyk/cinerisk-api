@@ -1,5 +1,5 @@
 # CINEOS Legal Framework
-## Patent 64/049,190 | yugandhar@cineos.in | cineos.in
+## IP Registration Pending | yugandhar@cineos.in | cineos.in
 
 ---
 
@@ -129,4 +129,4 @@ Non-Telegram coverage: ~40% operational today
 ---
 
 *Last updated: May 16 2026*
-*CINEOS | Patent 64/049,190 | yugandhar@cineos.in*
+*CINEOS | IP Registration Pending | yugandhar@cineos.in*

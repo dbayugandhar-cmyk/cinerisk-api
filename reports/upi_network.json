@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-05-16T13:49:51.507602+05:30",
+  "total_upis": 4,
+  "cross_channel": 1,
+  "phone_upi_links": 0,
+  "suspicious": [],
+  "foreign_upis": [],
+  "analysis": {
+    "rankusasmm@gmail": {
+      "upi": "rankusasmm@gmail",
+      "handle": "rankusasmm",
+      "suffix": "gmail",
+      "bank": "Unknown (gmail)",
+      "type": "Unknown",
+      "risk_score": 0,
+      "risk_level": "LOW",
+      "suspicious_patterns": [],
+      "is_foreign": false,
+      "flags": []
+    },
+    "yadav.ujjwal@yescred": {
+      "upi": "yadav.ujjwal@yescred",
+      "handle": "yadav.ujjwal",
+      "suffix": "yescred",
+      "bank": "Unknown (yescred)",
+      "type": "Unknown",
+      "risk_score": 0,
+      "risk_level": "LOW",
+      "suspicious_patterns": [],
+      "is_foreign": false,
+      "flags": []
+    },
+    "cryptoknowledgetamilyt@gmail": {
+      "upi": "cryptoknowledgetamilyt@gmail",
+      "handle": "cryptoknowledgetamilyt",
+      "suffix": "gmail",
+      "bank": "Unknown (gmail)",
+      "type": "Unknown",
+      "risk_score": 0,
+      "risk_level": "LOW",
+      "suspicious_patterns": [],
+      "is_foreign": false,
+      "flags": []
+    },
+    "tenniscricket.in@gmail": {
+      "upi": "tenniscricket.in@gmail",
+      "handle": "tenniscricket.in",
+      "suffix": "gmail",
+      "bank": "Unknown (gmail)",
+      "type": "Unknown",
+      "risk_score": 0,
+      "risk_level": "LOW",
+      "suspicious_patterns": [],
+      "is_foreign": false,
+      "flags": []
+    }
+  },
+  "cross_channel_upis": {
+    "yadav.ujjwal@yescred": [
+      "[YouTube] The Muscular Tourist",
+      "[YouTube] The Muscular Tourist"
+    ]
+  },
+  "phone_upi_map": {}
+}

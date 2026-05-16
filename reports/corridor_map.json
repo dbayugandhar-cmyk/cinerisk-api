@@ -1,0 +1,73 @@
+{
+  "corridors": {
+    "dubai_usdt": {
+      "channels": 8,
+      "total_reach": 41968,
+      "examples": [
+        {
+          "channel": "Booki_load_Cricket_toss_match",
+          "subscribers": 15099,
+          "phones": [],
+          "category": "illegal_betting"
+        },
+        {
+          "channel": "toss_match_market_load",
+          "subscribers": 8727,
+          "phones": [],
+          "category": "illegal_betting"
+        },
+        {
+          "channel": "P2PUSDTEXCHANGE",
+          "subscribers": 8493,
+          "phones": [
+            "+917493673496",
+            "+918872833403",
+            "+918727773210",
+            "+919201589867",
+            "+919442462658"
+          ],
+          "category": "crypto_fraud"
+        }
+      ]
+    },
+    "usdt_p2p": {
+      "channels": 4,
+      "total_reach": 54132,
+      "examples": [
+        {
+          "channel": "USDT_BUY_SELLER_BINANCE_P2P",
+          "subscribers": 42074,
+          "phones": [],
+          "category": "crypto_fraud"
+        },
+        {
+          "channel": "P2PUSDTEXCHANGE",
+          "subscribers": 8493,
+          "phones": [
+            "+917493673496",
+            "+918872833403",
+            "+918727773210",
+            "+919201589867",
+            "+919442462658"
+          ],
+          "category": "crypto_fraud"
+        },
+        {
+          "channel": "USDT_SELLER_BUYER_INDIAN_BINANCE",
+          "subscribers": 2139,
+          "phones": [],
+          "category": ""
+        }
+      ]
+    }
+  },
+  "foreign_upis": [
+    "daria.d@betviro",
+    "anastasia.n@pkheadwaysolutions",
+    "15a53ad3-e34f-4152-898b-ed8a7bb3dfe4@fast",
+    "bcd02cc1-36d0-405d-9096-0e69219175c1@pypi",
+    "info@hobartpharma"
+  ],
+  "high_risk_operators": [],
+  "total_international_exposure": 0
+}

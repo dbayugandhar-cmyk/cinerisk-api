@@ -234,6 +234,8 @@ def profile_operator(phone, index, resurrection):
         'resurrections':resurrections,
         'ev_hash':      ev_hash,
         'alerts':       entry.get('alerts',[])[:5],
+        'known_aliases': OPERATOR_ALIASES.get(ph, []),
+        'inferred_name': infer_name_from_channels(entry.get('channels',[])),
     }
 
 def print_profile(p):

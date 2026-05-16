@@ -439,23 +439,36 @@ ALERTS.extend(SEED_ALERTS)
 # ── LOAD FROM GITHUB ON STARTUP (persistent) ─────────────
 import urllib.request as _ur2, base64 as _b642, os as _os2
 def _load_github():
-    tok = _os2.environ.get('GITHUB_TOKEN_RAIL_READ','')
-    if not tok:
-        print('[STARTUP] No token — seed only')
-        return []
+    # Load directly from raw URL — no base64 corruption
     try:
-        url = 'https://api.github.com/repos/dbayugandhar-cmyk/cinerisk-api/contents/data/alerts_backup.json'
-        req = _ur2.Request(url, headers={
-            'Authorization': f'token {tok}',
-            'Accept': 'application/vnd.github.v3+json',
-            'User-Agent': 'CINEOS'})
-        d = json.loads(_ur2.urlopen(req, timeout=12).read())
-        alerts = json.loads(_b642.b64decode(d["content"]).decode())
-        print(f'[STARTUP] GitHub: {len(alerts)} alerts loaded')
+        raw = 'https://raw.githubusercontent.com/dbayugandhar-cmyk/cinerisk-api/main/data/alerts_backup.json'
+        req = _ur2.Request(raw, headers={'User-Agent': 'CINEOS'})
+        data = json.loads(_ur2.urlopen(req, timeout=20).read())
+        alerts = data if isinstance(data, list) else data.get('alerts', [])
+        print(f'[STARTUP] GitHub raw: {len(alerts)} alerts loaded')
         return alerts
     except Exception as e:
-        print(f'[STARTUP] GitHub load failed: {e}')
-        return []
+        print(f'[STARTUP] GitHub raw failed: {e}')
+        # Fallback: try API with token
+        tok = _os2.environ.get('GITHUB_TOKEN_RAIL_READ','')
+        if not tok:
+            print('[STARTUP] No token — seed only')
+            return []
+        try:
+            url = 'https://api.github.com/repos/dbayugandhar-cmyk/cinerisk-api/contents/data/alerts_backup.json'
+            req2 = _ur2.Request(url, headers={
+                'Authorization': f'token {tok}',
+                'Accept': 'application/vnd.github.v3+json',
+                'User-Agent': 'CINEOS'})
+            d = json.loads(_ur2.urlopen(req2, timeout=12).read())
+            content = d['content'].replace('
+','')
+            alerts = json.loads(_b642.b64decode(content).decode())
+            print(f'[STARTUP] GitHub API: {len(alerts)} alerts loaded')
+            return alerts
+        except Exception as e2:
+            print(f'[STARTUP] Both methods failed: {e2}')
+            return []
 
 _seen = {a.get('id','') for a in ALERTS}
 _seen_t = {f"{a.get('title','')[:60]}|{a.get('category','')}" for a in ALERTS}

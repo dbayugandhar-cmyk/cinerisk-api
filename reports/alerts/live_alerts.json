@@ -78128,7 +78128,7 @@
     "id": "8c27334a2b8dfb7d",
     "title": "Counterfeit \u2014 Ordering illicit weight loss drugs is 'dicing with death' - ",
     "category": "counterfeit_pharma",
-    "severity": "critical",
+    "severity": "high",
     "platform": "Telegram / IndiaMART / Web",
     "detail": "The BBC tests jabs, which claim to contain semaglutide - a prescription-only drug.",
     "detected_at": "2026-05-16T11:34:01.720046+05:30",
@@ -78178,10 +78178,7 @@
         "CERT-In \u2014 cert-in.org.in"
       ],
       "captured_at": "2026-05-16T11:34:01.720032+05:30",
-      "pharma_supply_chain": {
-        "harm_signal": true,
-        "severity": "CRITICAL"
-      }
+      "pharma_supply_chain": {}
     }
   },
   {

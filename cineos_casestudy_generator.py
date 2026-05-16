@@ -455,7 +455,7 @@ tbody tr:hover{{background:var(--gt)}}
 </div>
 
 <div class="footer">
-  <span>CINEOS India Trust Intelligence Network · Patent 64/049,190 · yugandhar@cineos.in · cineos.in</span>
+  <span>CINEOS India Trust Intelligence Network · Patent 64/049,190 · yugandhar@cineos.in · cineos.in · INTELLIGENCE DISCLAIMER: Public-source assessment. Verify before action.</span>
   <span>RESTRICTED — Law Enforcement / Legal Use Only · {case_id}</span>
 </div>
 

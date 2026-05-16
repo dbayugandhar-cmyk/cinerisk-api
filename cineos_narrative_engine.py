@@ -69,6 +69,8 @@ def build_narrative(op):
     conf     = op['confidence']
     circle   = op.get('circle', 'Unknown')
     carrier  = op.get('carrier', 'Unknown')
+    inf_name = op.get('inferred_name', '')
+    aliases  = op.get('known_aliases', [])
     da       = op.get('days_active')
     first    = op.get('first_seen','')[:10]
     last     = op.get('last_seen','')[:10]

@@ -19,6 +19,38 @@ def infer_carrier(phone):
 def infer_circle(phone):
     return trai_lookup(phone).get('circle','Unknown')
 
+OPERATOR_ALIASES = {
+    "+918881754538": ["Reddy Anna", "World777 operator", "Lotus365 admin"],
+    "+918881349483": ["Reddy Anna network", "World777"],
+    "+918881987328": ["Reddy Anna network", "World777"],
+    "+917455697977": ["Radhe Exchange operator", "Diamond Exchange"],
+    "+917400749393": ["Radhe Exchange network"],
+    "+917832350002": ["Radhe Exchange network"],
+    "+918881886916": ["Vipin Aryan", "Sawariya Exchange"],
+    "+918881923320": ["Reddy Anna / World777"],
+    "+917413990959": ["Toss Fix operator"],
+}
+
+def infer_name_from_channels(channels):
+    all_text = " ".join((c.get("username","") + " " + c.get("title","")).lower() for c in channels)
+    patterns = {
+        "Reddy Anna":       ["reddy","annaw","annae"],
+        "Mahadev Book":     ["mahadev","mhb"],
+        "World777":         ["world777"],
+        "Fairplay":         ["fairplay"],
+        "Laser247":         ["laser247"],
+        "Vipin Aryan":      ["vipin","aryan","sawariya"],
+        "Lotus365":         ["lotus365","lotus_365"],
+        "Diamond Exchange": ["diamond","diamondexch"],
+        "Radhe Exchange":   ["radhe","radheexch"],
+        "91CLUB":           ["91club","jalwa","okwin"],
+        "Faridabad Satta":  ["faridabad","satta_king"],
+    }
+    for name,kws in patterns.items():
+        if any(kw in all_text for kw in kws):
+            return name
+    return ""
+
 def trai_lookup(phone):
     import re, json, os
     d = re.sub(r'[^\d]','',str(phone))

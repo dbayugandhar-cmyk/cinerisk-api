@@ -1,11 +1,11 @@
 {
-  "case_id": "CINEOS-ILLE-2026-6390",
+  "case_id": "CINEOS-ILLE-2026-1669",
   "phone": "+918881987328",
   "confidence": 85,
-  "generated": "2026-05-16T09:38:27.168656+05:30",
+  "generated": "2026-05-16T14:25:59.428196+05:30",
   "ev_hash": "093e3faaee716f38",
   "sections": {
-    "WHO": "OPERATOR IDENTITY\nPhone:     +918881987328\nCarrier:   Unknown carrier\nCircle:    Andhra Pradesh/Telangana (telecom registration area)\nChannels:  7 confirmed Telegram channels\nReach:     357K combined subscribers\nConfidence: 85% attribution confidence",
+    "WHO": "OPERATOR IDENTITY\nPhone:     +918881987328\nInferred name: Reddy Anna\nKnown aliases: Reddy Anna network, World777\nCarrier:   Jio\nCircle:    Andhra Pradesh/Telangana (telecom registration area)\nChannels:  7 confirmed Telegram channels\nReach:     357K combined subscribers\nConfidence: 85% attribution confidence",
     "WHAT": "PRIMARY OPERATION: Illegal Betting\n\nCHANNEL BREAKDOWN:\n  @World777_fairplay_tiger365                   86,836 subs  Illegal Betting\n  @Reddy_Annaw                                  74,992 subs  Illegal Betting\n  @reddy_Annae                                  74,322 subs  Illegal Betting\n  @Lotus365o                                    58,095 subs  Illegal Betting\n  @Lotus_booka                                  26,785 subs  Illegal Betting\n  @vipin_aryan_sawariyaexch1                    22,835 subs  Illegal Betting",
     "WHEN": "ACTIVITY TIMELINE\nFirst detected: 2026-05-11\nLast detected:  2026-05-14\nDays active:    3 days in CINEOS database\nStatus:         ACTIVE \u2014 detected in last 7 days\n\nNote: Detection date reflects when CINEOS first captured this operator.\nActual operation may predate CINEOS monitoring.",
     "HOW": "OPERATIONAL METHOD \u2014 ILLEGAL BETTING\n1. Creates Telegram channel with betting platform brand name\n   (Mahadev Book, World777, Laser247, Reddy Anna, etc.)\n2. Posts operator phone number in channel description or \n   first pinned message for customer contact\n3. Recruits sub-agents via WhatsApp to expand network\n4. Collects betting funds via UPI, crypto, or hawala\n5. Pays winning bets in cash or crypto to avoid banking trail\n6. Rotates channels after police action \u2014 same phone, new channel",

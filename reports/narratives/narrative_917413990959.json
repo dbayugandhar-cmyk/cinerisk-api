@@ -1,11 +1,11 @@
 {
-  "case_id": "CINEOS-ILLE-2026-3292",
+  "case_id": "CINEOS-ILLE-2026-4779",
   "phone": "+917413990959",
   "confidence": 80,
-  "generated": "2026-05-16T09:38:27.170095+05:30",
+  "generated": "2026-05-16T14:25:59.442365+05:30",
   "ev_hash": "b4326260065a17b9",
   "sections": {
-    "WHO": "OPERATOR IDENTITY\nPhone:     +917413990959\nCarrier:   Airtel\nCircle:    Rajasthan (telecom registration area)\nChannels:  3 confirmed Telegram channels\nReach:     111K combined subscribers\nConfidence: 80% attribution confidence",
+    "WHO": "OPERATOR IDENTITY\nPhone:     +917413990959\nInferred name: Unknown \u2014 enrichment pending\nKnown aliases: Toss Fix operator\nCarrier:   Jio\nCircle:    Rajasthan (telecom registration area)\nChannels:  3 confirmed Telegram channels\nReach:     111K combined subscribers\nConfidence: 80% attribution confidence",
     "WHAT": "PRIMARY OPERATION: Illegal Betting\n\nCHANNEL BREAKDOWN:\n  @TOSS_MATCH_SURE_WINNER_1                     43,277 subs  Illegal Betting\n  @best_cricket_betting_prediction2             36,104 subs  Illegal Betting\n  @BEST_TOSS_MATCH_REPORT_WINNER                31,602 subs  Illegal Betting",
     "WHEN": "ACTIVITY TIMELINE\nFirst detected: 2026-05-11\nLast detected:  2026-05-13\nDays active:    2 days in CINEOS database\nStatus:         ACTIVE \u2014 detected in last 7 days\n\nNote: Detection date reflects when CINEOS first captured this operator.\nActual operation may predate CINEOS monitoring.",
     "HOW": "OPERATIONAL METHOD \u2014 ILLEGAL BETTING\n1. Creates Telegram channel with betting platform brand name\n   (Mahadev Book, World777, Laser247, Reddy Anna, etc.)\n2. Posts operator phone number in channel description or \n   first pinned message for customer contact\n3. Recruits sub-agents via WhatsApp to expand network\n4. Collects betting funds via UPI, crypto, or hawala\n5. Pays winning bets in cash or crypto to avoid banking trail\n6. Rotates channels after police action \u2014 same phone, new channel",

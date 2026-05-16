@@ -1,11 +1,11 @@
 {
-  "case_id": "CINEOS-ILLE-2026-5809",
+  "case_id": "CINEOS-ILLE-2026-5604",
   "phone": "+918881923320",
   "confidence": 80,
-  "generated": "2026-05-16T09:38:27.169332+05:30",
+  "generated": "2026-05-16T14:25:59.438970+05:30",
   "ev_hash": "6ce563c668995050",
   "sections": {
-    "WHO": "OPERATOR IDENTITY\nPhone:     +918881923320\nCarrier:   Unknown carrier\nCircle:    Andhra Pradesh/Telangana (telecom registration area)\nChannels:  3 confirmed Telegram channels\nReach:     236K combined subscribers\nConfidence: 80% attribution confidence",
+    "WHO": "OPERATOR IDENTITY\nPhone:     +918881923320\nInferred name: Reddy Anna\nKnown aliases: Reddy Anna / World777\nCarrier:   Jio\nCircle:    Andhra Pradesh/Telangana (telecom registration area)\nChannels:  3 confirmed Telegram channels\nReach:     236K combined subscribers\nConfidence: 80% attribution confidence",
     "WHAT": "PRIMARY OPERATION: Illegal Betting\n\nCHANNEL BREAKDOWN:\n  @World777_fairplay_tiger365                   86,836 subs  Illegal Betting\n  @Reddy_Annaw                                  74,992 subs  Illegal Betting\n  @reddy_Annae                                  74,322 subs  Illegal Betting",
     "WHEN": "ACTIVITY TIMELINE\nFirst detected: 2026-05-11\nLast detected:  2026-05-13\nDays active:    2 days in CINEOS database\nStatus:         ACTIVE \u2014 detected in last 7 days\n\nNote: Detection date reflects when CINEOS first captured this operator.\nActual operation may predate CINEOS monitoring.",
     "HOW": "OPERATIONAL METHOD \u2014 ILLEGAL BETTING\n1. Creates Telegram channel with betting platform brand name\n   (Mahadev Book, World777, Laser247, Reddy Anna, etc.)\n2. Posts operator phone number in channel description or \n   first pinned message for customer contact\n3. Recruits sub-agents via WhatsApp to expand network\n4. Collects betting funds via UPI, crypto, or hawala\n5. Pays winning bets in cash or crypto to avoid banking trail\n6. Rotates channels after police action \u2014 same phone, new channel",

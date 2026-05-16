@@ -29,6 +29,10 @@ OPERATOR_ALIASES = {
     "+918881886916": ["Vipin Aryan", "Sawariya Exchange"],
     "+918881923320": ["Reddy Anna / World777"],
     "+917413990959": ["Toss Fix operator"],
+    "+918824645116": ["Mahadev Book network"],
+    "+917400749393": ["Radhe Exchange operator"],
+    "+917455697977": ["Radhe Exchange operator"],
+    "+917832350002": ["Radhe Exchange network"],
 }
 
 def infer_name_from_channels(channels):
@@ -36,7 +40,7 @@ def infer_name_from_channels(channels):
     patterns = {
         "Reddy Anna":       ["reddy","annaw","annae"],
         "Mahadev Book":     ["mahadev","mhb"],
-        "World777":         ["world777"],
+        "World777":         ["world777_fairplay","world777_tiger"],
         "Fairplay":         ["fairplay"],
         "Laser247":         ["laser247"],
         "Vipin Aryan":      ["vipin","aryan","sawariya"],

@@ -1,8 +1,8 @@
 {
-  "case_id": "CINEOS-ILLE-2026-4779",
+  "case_id": "CINEOS-ILLE-2026-4853",
   "phone": "+917413990959",
   "confidence": 80,
-  "generated": "2026-05-16T14:25:59.442365+05:30",
+  "generated": "2026-05-16T14:28:27.931091+05:30",
   "ev_hash": "b4326260065a17b9",
   "sections": {
     "WHO": "OPERATOR IDENTITY\nPhone:     +917413990959\nInferred name: Unknown \u2014 enrichment pending\nKnown aliases: Toss Fix operator\nCarrier:   Jio\nCircle:    Rajasthan (telecom registration area)\nChannels:  3 confirmed Telegram channels\nReach:     111K combined subscribers\nConfidence: 80% attribution confidence",

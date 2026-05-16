@@ -74,9 +74,7 @@ def sync_to_github(alerts):
         print(f'  GitHub sync failed: {e}')
 
 if __name__ == '__main__':
-    import subprocess
-    # Auto-sync git before push to prevent conflicts
-    subprocess.run(['git','pull','--rebase','origin','main'],
-                   capture_output=True, cwd=os.path.dirname(os.path.abspath(__file__)))
-
     push()
+    # Always sync full backup to GitHub so Railway loads correctly
+    alerts = json.load(open('reports/alerts/live_alerts.json'))
+    sync_to_github(alerts)

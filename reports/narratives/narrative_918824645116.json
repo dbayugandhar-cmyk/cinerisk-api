@@ -1,11 +1,11 @@
 {
-  "case_id": "CINEOS-ILLE-2026-6931",
+  "case_id": "CINEOS-ILLE-2026-0160",
   "phone": "+918824645116",
   "confidence": 80,
-  "generated": "2026-05-16T14:28:27.934460+05:30",
+  "generated": "2026-05-16T14:30:53.028975+05:30",
   "ev_hash": "f152886455311c02",
   "sections": {
-    "WHO": "OPERATOR IDENTITY\nPhone:     +918824645116\nInferred name: Unknown \u2014 enrichment pending\nKnown aliases: Mahadev Book network\nCarrier:   Airtel\nCircle:    Andhra Pradesh/Telangana (telecom registration area)\nChannels:  3 confirmed Telegram channels\nReach:     35K combined subscribers\nConfidence: 80% attribution confidence",
+    "WHO": "OPERATOR IDENTITY\nPhone:     +918824645116\nInferred name: Mahadev Book Operator\nKnown aliases: Mahadev Book network\nCarrier:   Airtel\nCircle:    Andhra Pradesh/Telangana (telecom registration area)\nChannels:  3 confirmed Telegram channels\nReach:     35K combined subscribers\nConfidence: 80% attribution confidence",
     "WHAT": "PRIMARY OPERATION: Illegal Betting\n\nCHANNEL BREAKDOWN:\n  @Kalayan_kaliyan_klyan_kalyana                16,173 subs  Illegal Betting\n  @rk_bhai_kalyan_matka_dp_boss                 10,960 subs  Illegal Betting\n  @kalyan_king_matka_satka_crypto                8,033 subs  Illegal Betting",
     "WHEN": "ACTIVITY TIMELINE\nFirst detected: 2026-05-11\nLast detected:  2026-05-16\nDays active:    5 days in CINEOS database\nStatus:         ACTIVE \u2014 detected in last 7 days\n\nNote: Detection date reflects when CINEOS first captured this operator.\nActual operation may predate CINEOS monitoring.",
     "HOW": "OPERATIONAL METHOD \u2014 ILLEGAL BETTING\n1. Creates Telegram channel with betting platform brand name\n   (Mahadev Book, World777, Laser247, Reddy Anna, etc.)\n2. Posts operator phone number in channel description or \n   first pinned message for customer contact\n3. Recruits sub-agents via WhatsApp to expand network\n4. Collects betting funds via UPI, crypto, or hawala\n5. Pays winning bets in cash or crypto to avoid banking trail\n6. Rotates channels after police action \u2014 same phone, new channel",

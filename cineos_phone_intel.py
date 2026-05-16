@@ -35,6 +35,20 @@ OPERATOR_ALIASES = {
     "+917832350002": ["Radhe Exchange network"],
 }
 
+# Phone-to-name direct override (highest priority)
+PHONE_NAME_MAP = {
+    "+917455697977": "Radhe Exchange",
+    "+917400749393": "Radhe Exchange",
+    "+917832350002": "Radhe Exchange",
+    "+918881886916": "Vipin Aryan / Sawariya Exchange",
+    "+918881754538": "Reddy Anna",
+    "+918881349483": "Reddy Anna",
+    "+918881987328": "Reddy Anna",
+    "+918881923320": "Reddy Anna",
+    "+917413990959": "Toss Fix Operator",
+    "+918824645116": "Mahadev Book Operator",
+}
+
 def infer_name_from_channels(channels):
     all_text = " ".join((c.get("username","") + " " + c.get("title","")).lower() for c in channels)
     patterns = {
@@ -239,7 +253,7 @@ def profile_operator(phone, index, resurrection):
         'ev_hash':      ev_hash,
         'alerts':       entry.get('alerts',[])[:5],
         'known_aliases': OPERATOR_ALIASES.get(ph, []),
-        'inferred_name': infer_name_from_channels(entry.get('channels',[])),
+        'inferred_name': PHONE_NAME_MAP.get(ph) or infer_name_from_channels(entry.get('channels',[])),
     }
 
 def print_profile(p):

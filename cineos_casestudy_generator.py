@@ -424,6 +424,8 @@ tbody tr:hover{{background:var(--gt)}}
     </div>
   </div>
 
+  {narrative_html}
+
   {sample_html}
 
   <div class="section">

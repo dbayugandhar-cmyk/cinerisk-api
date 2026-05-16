@@ -83,6 +83,8 @@ def build_narrative(op):
     # ── WHO ──────────────────────────────────────────────
     who = f"""OPERATOR IDENTITY
 Phone:     {phone}
+Inferred name: {inf_name or 'Unknown — enrichment pending'}
+Known aliases: {', '.join(aliases) if aliases else 'None confirmed yet'}
 Carrier:   {carrier}
 Circle:    {circle} (telecom registration area)
 Channels:  {len(channels)} confirmed Telegram channels

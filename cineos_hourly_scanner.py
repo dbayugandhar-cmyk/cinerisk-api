@@ -374,11 +374,37 @@ def scan_upi_mule():
     print('[SCAN] UPI mule...')
     found = []
     queries = [
+        # Mule recruitment — deep
         'bank account kit buy sell India Telegram 2026',
+        'bank kit seller India Telegram current account',
+        'zero balance account sell India earn Telegram',
+        'account on rent India UPI earn commission Telegram',
         'UPI ID sell India earn commission Telegram',
-        'money mule India arrested bank account fraud 2026',
-        'sim card bank account kit Telegram India earn',
+        'sell bank account India Telegram buyer',
+        # KYC fraud — deep
+        'fake Aadhaar PAN kit India Telegram sell 2026',
+        'KYC bypass India Telegram verified account sell',
+        'CIBIL score bypass India Telegram fake documents',
+        'Aadhaar OTP sell India Telegram earn commission',
+        # OTP / SIM fraud
+        'OTP bypass service India Telegram earn 2026',
+        'SIM swap service India Telegram operator',
+        'virtual number India OTP service Telegram sell',
+        # Loan fraud
+        'instant loan without CIBIL India Telegram 2026',
+        'loan recovery harassment India Telegram operator',
+        'fake loan app India digital arrest threat 2026',
+        'loan fraud India arrested cybercrime 2026',
+        # Hawala / money transfer
         'hawala UPI transfer India Telegram operator',
+        'USDT to INR India P2P Telegram operator',
+        'money mule India arrested bank account fraud 2026',
+        'informal money transfer India Telegram network',
+        # Phishing kits
+        'fake PhonePe APK India Telegram download 2026',
+        'fake HDFC SBI login page India phishing Telegram',
+        'net banking phishing kit India Telegram sell',
+        'UPI phishing India Telegram fake app 2026',
     ]
     for q in queries:
         data = serp(q)
@@ -442,11 +468,43 @@ def scan_counterfeit():
     print('[SCAN] Counterfeit goods...')
     found = []
     queries = [
+        # DCGI crackdown targets (May 2026 active)
+        'sildenafil tadalafil without prescription India Telegram 2026',
+        'Viagra Cialis Kamagra buy India Telegram no prescription',
+        'sexual enhancement medicine India Telegram sell without doctor',
+        # Weight loss injection fraud (highest risk)
+        'Ozempic semaglutide India Telegram buy cheap 2026',
+        'Mounjaro India Telegram sell weight loss injection',
+        'weight loss injection India Telegram without prescription',
+        # Cancer / serious disease fraud
+        'cancer cure medicine India Telegram guaranteed 2026',
+        'tumor shrink medicine India Telegram without hospital',
+        'diabetes cure India Telegram herbal medicine sell',
+        # Controlled substances
+        'tramadol codeine India Telegram sell without prescription',
+        'alprazolam Xanax India Telegram buy without doctor',
+        'sleeping pills sell India Telegram without prescription',
+        # Steroids / bodybuilding
+        'anabolic steroid India Telegram sell 2026',
+        'HGH growth hormone India Telegram buy',
+        'steroid without prescription India Telegram bodybuilding',
+        # Fake CDSCO / regulatory fraud
+        'CDSCO approved medicine India Telegram sell online',
+        'FDA approved medicine India buy online Telegram',
+        'import medicine India Telegram without customs',
+        # Online pharmacy fraud
+        'medicine without prescription India home delivery 2026',
+        'online pharmacy India no prescription COD Telegram',
+        'medicine COD delivery India Telegram operator 2026',
+        # General counterfeit goods
         'fake medicine counterfeit pharma India Telegram sell 2026',
         'first copy replica brand India Telegram wholesale 2026',
         'counterfeit Nike Adidas shoes India Telegram sell',
         'fake Samsung OPPO phone India IndiaMART Telegram',
         'counterfeit HUL Reckitt product India Telegram sell',
+        # DEA-India network (200 sites busted Feb 2026)
+        'India online pharmacy USA export prescription fraud',
+        'illegal pharma export India arrested DEA 2026',
     ]
     for q in queries:
         data = serp(q)
@@ -631,6 +689,101 @@ def scan_indimart():
 # MAIN RUNNER
 # ══════════════════════════════════════════════
 
+
+def scan_banking_fraud():
+    """Banking fraud vertical — mule accounts, KYC fraud, OTP bypass, loan fraud"""
+    alerts = []
+    queries = [
+        'bank account kit sell India Telegram arrested 2026',
+        'money mule network India arrested cybercrime 2026',
+        'UPI mule account India FIU-IND arrested 2026',
+        'hawala operator India arrested ED PMLA 2026',
+        'KYC bypass fake Aadhaar India Telegram arrested 2026',
+        'OTP bypass SIM swap India arrested cybercrime 2026',
+        'fake loan app India digital arrest threat arrested 2026',
+        'USDT INR P2P India Telegram operator hawala 2026',
+        'phishing UPI net banking India fake APK arrested 2026',
+        'CIBIL bypass fake documents India Telegram sell 2026',
+    ]
+    for q in queries:
+        data = serp_news(q)
+        for r in (data.get('news_results') or data.get('organic_results') or []):
+            link  = r.get('link', '')
+            title = r.get('title', '')
+            snip  = r.get('snippet', '')
+            if not title: continue
+            phones = re.findall(r'(?<!\d)([6-9]\d{9})(?!\d)', snip)
+            upis   = re.findall(r'[\w.+-]+@(?:okaxis|okhdfcbank|okicici|oksbi|ybl|ibl|axl|paytm|apl|upi|fbl)', snip)
+            ifsc   = re.findall(r'[A-Z]{4}0[A-Z0-9]{6}', snip)
+            conf   = 65 + (10 if phones else 0) + (10 if upis else 0) + (5 if ifsc else 0)
+            ev     = hashlib.sha256((title + snip).encode()).hexdigest()[:16]
+            alerts.append(make_alert(
+                title=f'Banking Fraud — {title[:70]}',
+                detail=snip[:300],
+                category='upi_mule',
+                severity='critical' if conf >= 85 else 'high',
+                platform='News/Web',
+                source=link,
+                chain_extra={
+                    'channels_found': [link],
+                    'phones': phones[:3],
+                    'upis': upis[:3],
+                    'ifsc': ifsc[:2],
+                    'keywords_matched': q.split()[:4],
+                    'confidence': conf,
+                    'vertical': 'banking_fraud',
+                    'report_to': ['FIU-IND fiuindia.gov.in', 'RBI rbi.org.in', 'I4C cybercrime.gov.in'],
+                }
+            ))
+    return alerts
+
+
+def scan_pharma_deep():
+    """Counterfeit pharma vertical — DCGI targets, DEA-India network, prescription fraud"""
+    alerts = []
+    queries = [
+        'CDSCO drug alert counterfeit medicine India 2026',
+        'DCGI crackdown illegal medicine online India 2026',
+        'sildenafil tadalafil without prescription India arrested 2026',
+        'fake Ozempic semaglutide India seized arrested 2026',
+        'counterfeit pharma India arrested CDSCO state drug 2026',
+        'illegal online pharmacy India arrested DEA 2026',
+        'cancer cure fraud medicine India Telegram arrested 2026',
+        'tramadol codeine without prescription India arrested 2026',
+        'steroid HGH without prescription India Telegram 2026',
+        'fake medicine COD delivery India arrested cybercrime 2026',
+    ]
+    for q in queries:
+        data = serp_news(q)
+        for r in (data.get('news_results') or data.get('organic_results') or []):
+            link     = r.get('link', '')
+            title    = r.get('title', '')
+            snip     = r.get('snippet', '')
+            if not title: continue
+            phones   = re.findall(r'(?<!\d)([6-9]\d{9})(?!\d)', snip)
+            websites = re.findall(r'https?://[\w.-]+\.(?:com|in|net|org)', snip)
+            conf     = 65 + (10 if phones else 0) + (5 if websites else 0)
+            alerts.append(make_alert(
+                title=f'Counterfeit Pharma — {title[:70]}',
+                detail=snip[:300],
+                category='counterfeit_pharma',
+                severity='critical' if conf >= 80 else 'high',
+                platform='News/Web',
+                source=link,
+                chain_extra={
+                    'channels_found': [link],
+                    'phones': phones[:3],
+                    'websites': websites[:3],
+                    'keywords_matched': q.split()[:4],
+                    'confidence': conf,
+                    'vertical': 'counterfeit_pharma',
+                    'legal_basis': 'Drugs and Cosmetics Act 1940 S17A + S18 · IT Act S65B',
+                    'report_to': ['CDSCO cdsco.gov.in', 'State Drug Controller', 'I4C cybercrime.gov.in'],
+                }
+            ))
+    return alerts
+
+
 def run_full_scan():
     print('='*58)
     print(f'  CINEOS AGGRESSIVE SCAN — {now_ist().strftime("%Y-%m-%d %H:%M IST")}')
@@ -661,6 +814,8 @@ def run_full_scan():
         scan_multilingual,
         scan_whatsapp,
         scan_indimart,
+        scan_banking_fraud,
+        scan_pharma_deep,
     ]
 
     for scanner in scanners:

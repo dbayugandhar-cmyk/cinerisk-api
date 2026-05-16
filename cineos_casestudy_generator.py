@@ -221,7 +221,32 @@ def generate_html_report(profile, case_num, total):
     phones_html = ''.join(f'<div class="phone-item">📞 {p}</div>' for p in phones)
     upis_html   = ''.join(f'<div class="upi-item">💳 {u}</div>' for u in profile['upis']) if profile['upis'] else '<div class="na">No UPI IDs extracted in this scan</div>'
 
-    sample_html = ''
+
+    # Load narrative if available
+    narrative_html = ''
+    narrative_file = f'reports/narratives/narrative_{profile["primary_phone"].replace("+","").replace("-","")}.json'
+    if os.path.exists(narrative_file):
+        try:
+            nav = json.load(open(narrative_file))
+            sections = nav.get('sections', {})
+            who  = sections.get('WHO','').replace('\n','<br>')
+            what = sections.get('WHAT','').replace('\n','<br>')
+            when = sections.get('WHEN','').replace('\n','<br>')
+            how  = sections.get('HOW','').replace('\n','<br>')
+            why  = sections.get('WHY','').replace('\n','<br>')
+            narrative_html = f'''
+      <div class="section">
+        <div class="section-title">Complete Operator Intelligence · WHO · WHAT · WHEN · HOW · WHY</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px">
+          <div><div style="font-family:monospace;font-size:9px;color:var(--g);text-transform:uppercase;margin-bottom:6px">WHO</div><div style="font-size:11px;color:var(--b);line-height:1.6">{who[:400]}</div></div>
+          <div><div style="font-family:monospace;font-size:9px;color:var(--g);text-transform:uppercase;margin-bottom:6px">WHEN</div><div style="font-size:11px;color:var(--b);line-height:1.6">{when[:400]}</div></div>
+          <div><div style="font-family:monospace;font-size:9px;color:var(--g);text-transform:uppercase;margin-bottom:6px">HOW</div><div style="font-size:11px;color:var(--b);line-height:1.6">{how[:400]}</div></div>
+          <div><div style="font-family:monospace;font-size:9px;color:var(--g);text-transform:uppercase;margin-bottom:6px">WHY IT MATTERS</div><div style="font-size:11px;color:var(--b);line-height:1.6">{why[:400]}</div></div>
+        </div>
+      </div>'''
+        except: pass
+
+    sample_html = ""
     if profile['sample_post']:
         sample_html = f"""
       <div class="section">

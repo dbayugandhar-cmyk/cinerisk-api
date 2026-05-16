@@ -83,3 +83,14 @@ if __name__ == '__main__':
     print(f"Seed categories: {len(PHARMA_SEEDS)} keywords")
     print(f"Detection patterns: {len(PHARMA_PATTERNS)}")
     print(f"Legal frameworks: {len(LEGAL_BASIS)}")
+
+
+def extract_all_phones(text):
+    """Extract phones including wa.me."""
+    import re
+    phones = set()
+    for pat in [r"(?<!\d)([6-9]\d{9})(?!\d)", r"wa\.me/(?:91)?([6-9]\d{9})"]:
+        for m in re.findall(pat, text, re.IGNORECASE):
+            d = re.sub(r"\D","",m)
+            if len(d)==10 and d[0] in "6789": phones.add("+91"+d)
+    return list(phones)

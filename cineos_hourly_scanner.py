@@ -494,6 +494,8 @@ def scan_counterfeit():
         'import medicine India Telegram without customs',
         # Online pharmacy fraud
         'medicine without prescription India home delivery 2026',
+        'wa.me India pharma medicine order Telegram 2026',
+        'whatsapp order medicine India no prescription Telegram',
         'online pharmacy India no prescription COD Telegram',
         'medicine COD delivery India Telegram operator 2026',
         # General counterfeit goods

@@ -654,6 +654,103 @@ def news_search():
     except Exception as e:
         return jsonify({'error':str(e)}),500
 
+
+@app.route('/api/watchlist', methods=['GET'])
+def watchlist_check():
+    """
+    Phone watchlist API — for banks to screen customers.
+    GET /api/watchlist?phone=+919876543210
+    Returns: fraud risk score + categories + evidence
+    """
+    phone = request.args.get('phone', '').strip()
+    if not phone:
+        return jsonify({'error': 'phone parameter required'}), 400
+
+    # Normalise
+    import re
+    d = re.sub(r'[^\d]', '', phone)
+    if len(d) == 10:   phone_norm = '+91' + d
+    elif len(d) == 12: phone_norm = '+' + d
+    else:              phone_norm = phone
+
+    # Search in all alerts
+    matching_alerts = []
+    categories = set()
+    for a in ALERTS:
+        chain = a.get('chain', {})
+        phones_in_alert = chain.get('phones', [])
+        phones_in_alert += [a.get('attribution', {}).get('phone', '')]
+        for p in phones_in_alert:
+            if not p: continue
+            p_d = re.sub(r'[^\d]', '', p)
+            q_d = re.sub(r'[^\d]', '', phone_norm)
+            if p_d and q_d and (p_d in q_d or q_d in p_d or p_d[-10:] == q_d[-10:]):
+                matching_alerts.append(a)
+                categories.add(a.get('category', 'unknown'))
+                break
+
+    if not matching_alerts:
+        return jsonify({
+            'phone':      phone_norm,
+            'found':      False,
+            'risk_score': 0,
+            'risk_level': 'CLEAR',
+            'message':    'Phone not found in CINEOS fraud database',
+            'checked_at': datetime.now(IST).isoformat(),
+        })
+
+    # Score
+    n = len(matching_alerts)
+    cats = list(categories)
+    score = min(60 + n * 10 + len(cats) * 10, 99)
+    risk = 'CRITICAL' if score >= 90 else 'HIGH' if score >= 75 else 'MEDIUM'
+
+    return jsonify({
+        'phone':          phone_norm,
+        'found':          True,
+        'risk_score':     score,
+        'risk_level':     risk,
+        'fraud_categories': cats,
+        'alert_count':    n,
+        'evidence_hash':  matching_alerts[0].get('evidence_hash', ''),
+        'first_seen':     matching_alerts[0].get('detected_at', '')[:10],
+        'legal_basis':    'IT Act 2000 §65B certified evidence',
+        'report_to':      ['FIU-IND fiuindia.gov.in', 'I4C cybercrime.gov.in'],
+        'checked_at':     datetime.now(IST).isoformat(),
+        'message':        f'FRAUD RISK: Phone confirmed in {n} CINEOS alerts across {len(cats)} fraud categories',
+    })
+
+@app.route('/api/watchlist/bulk', methods=['POST'])
+def watchlist_bulk():
+    """
+    Bulk phone screening — for banks to screen customer lists.
+    POST /api/watchlist/bulk
+    Body: {"phones": ["+91...", "+91..."]}
+    Returns: risk assessment for each phone
+    """
+    data = request.get_json() or {}
+    phones = data.get('phones', [])[:100]  # Max 100 per request
+    if not phones:
+        return jsonify({'error': 'phones array required'}), 400
+
+    results = []
+    for phone in phones:
+        # Reuse single check logic
+        with app.test_request_context(f'/api/watchlist?phone={phone}'):
+            resp = watchlist_check()
+            if hasattr(resp, 'get_json'):
+                results.append(resp.get_json())
+
+    flagged = [r for r in results if r.get('found')]
+    return jsonify({
+        'total_checked': len(phones),
+        'flagged':       len(flagged),
+        'clear':         len(phones) - len(flagged),
+        'results':       results,
+        'checked_at':    datetime.now(IST).isoformat(),
+    })
+
+
 if __name__ == '__main__':
     init_alerts()
     print(f"CINEOS Intelligence API starting...")

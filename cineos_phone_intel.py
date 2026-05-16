@@ -176,6 +176,13 @@ def profile_operator(phone, index, resurrection):
 
     ev_hash = hashlib.sha256((ph + ''.join(c['username'] for c in channels)).encode()).hexdigest()[:16]
 
+    # Get identity intelligence
+    from cineos_identity_intel import get_identity_profile
+    try:
+        identity = get_identity_profile(ph)
+    except:
+        identity = {}
+
     return {
         'phone':        ph,
         'carrier':      carrier,

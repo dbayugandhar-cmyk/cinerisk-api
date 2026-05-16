@@ -1,0 +1,25 @@
+{
+  "case_id": "CINEOS-ILLE-2026-5809",
+  "phone": "+918881923320",
+  "confidence": 80,
+  "generated": "2026-05-16T09:38:27.169332+05:30",
+  "ev_hash": "6ce563c668995050",
+  "sections": {
+    "WHO": "OPERATOR IDENTITY\nPhone:     +918881923320\nCarrier:   Unknown carrier\nCircle:    Andhra Pradesh/Telangana (telecom registration area)\nChannels:  3 confirmed Telegram channels\nReach:     236K combined subscribers\nConfidence: 80% attribution confidence",
+    "WHAT": "PRIMARY OPERATION: Illegal Betting\n\nCHANNEL BREAKDOWN:\n  @World777_fairplay_tiger365                   86,836 subs  Illegal Betting\n  @Reddy_Annaw                                  74,992 subs  Illegal Betting\n  @reddy_Annae                                  74,322 subs  Illegal Betting",
+    "WHEN": "ACTIVITY TIMELINE\nFirst detected: 2026-05-11\nLast detected:  2026-05-13\nDays active:    2 days in CINEOS database\nStatus:         ACTIVE \u2014 detected in last 7 days\n\nNote: Detection date reflects when CINEOS first captured this operator.\nActual operation may predate CINEOS monitoring.",
+    "HOW": "OPERATIONAL METHOD \u2014 ILLEGAL BETTING\n1. Creates Telegram channel with betting platform brand name\n   (Mahadev Book, World777, Laser247, Reddy Anna, etc.)\n2. Posts operator phone number in channel description or \n   first pinned message for customer contact\n3. Recruits sub-agents via WhatsApp to expand network\n4. Collects betting funds via UPI, crypto, or hawala\n5. Pays winning bets in cash or crypto to avoid banking trail\n6. Rotates channels after police action \u2014 same phone, new channel",
+    "WHY": "WHY THIS MATTERS\n\nScale of harm:\n  236K subscribers exposed to fraud content\n  \n\nLegal framework:\n    Public Gambling Act 1867\n  Online Gaming Act 2025 \u00a78\n  IT Act 2000 \u00a765B+\u00a766D\n\nBusiness impact (for buyers):\n  Banks/PSPs: Phone +918881923320 on your customer watchlist = catch mules before fraud\n  Brand owners: Channel activity targets your customers directly\n  Regulators: Pre-complaint intelligence with court-ready evidence\n\nEvidence certification:\n  IT Act 2000 \u00a765B(2) \u2014 all 5 conditions met\n  SHA-256 hash generated at detection\n  Timestamp legally defensible in court",
+    "NEXT_STEPS": "RECOMMENDED NEXT STEPS\n1. File complaint at NOGC portal: nogc.gov.in (reference phone +918881923320)\n2. Submit to I4C cybercrime portal: cybercrime.gov.in\n3. File FIR: Public Gambling Act 1867 + Online Gaming Act 2025 \u00a78\n4. Phone subpoena: request subscriber identity for +918881923320 from telecom\n5. Request Telegram channel takedown via MHA portal\n6. Cross-reference phone against bank KYC for UPI/account linkage"
+  },
+  "report_to": [
+    "NOGC \u2014 nogc.gov.in",
+    "I4C \u2014 cybercrime.gov.in",
+    "State Police Cybercrime Cell"
+  ],
+  "legal_acts": [
+    "Public Gambling Act 1867",
+    "Online Gaming Act 2025 \u00a78",
+    "IT Act 2000 \u00a765B+\u00a766D"
+  ]
+}

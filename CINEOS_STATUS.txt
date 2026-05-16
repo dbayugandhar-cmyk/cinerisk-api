@@ -1,0 +1,49 @@
+CINEOS PLATFORM STATUS — 2026-05-16 09:54 IST
+Patent US Provisional 64/049,190
+=======================================================
+
+INTELLIGENCE DATABASE:
+  Alerts:           2,139
+  Channels:         1,245
+  Unique phones:    257
+  Fraud categories: 12
+
+OPERATOR INTELLIGENCE:
+  Narratives:       10 complete WHO/WHAT/WHEN/HOW/WHY
+  Cross-vertical:   7 operators (same phone, 3 crime types)
+  Top confidence:   95% (3 operators confirmed)
+
+CASE STUDIES (3 VERTICALS):
+  Illegal betting:  45 cases
+  Banking fraud:    20 cases
+  Pharma:           25 cases
+  Total:            90 cases
+
+KEY CONFIRMED CASE:
+  Mahadev Book — Vizag Rs 1,500Cr bust May 13 2026
+  CINEOS had 48 channels before arrest
+  Resurrection confirmed: 2 channels post-arrest
+
+STAR OPERATOR:
+  +917455697977 — Rajasthan circle
+  11 channels · 210K reach · 95% confidence
+  Crypto fraud + Illegal betting + Piracy
+  3 crime types, 1 phone, 1 operator
+
+SCANNING (automatic, 24/7):
+  15 scan modules every hour
+  Resurrection tracker every hour
+  Cross-border corridor mapper every hour
+  Channel enrichment 4am daily
+  Deep scan resume 4:30am daily
+  Railway sync 9:10am daily
+
+WHAT NOBODY ELSE HAS:
+  India Telegram pre-complaint layer
+  Phone-to-channel cross-reference
+  Cross-vertical operator mapping
+  IT Act 65B certified evidence
+  Operator resurrection tracking
+  Auto-generated case narratives
+  3 vertical case study libraries
+=======================================================

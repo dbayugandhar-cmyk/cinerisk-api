@@ -65,7 +65,7 @@ def sync_to_github(alerts):
     except:
         sha = ''
     try:
-        b64  = base64.b64encode(json.dumps(alerts[:5000],indent=2,default=str).encode()).decode()
+        b64  = base64.b64encode(json.dumps(alerts[:10000],indent=2,default=str).encode()).decode()
         body = {'message':f'alerts: {len(alerts)}','content':b64}
         if sha: body['sha'] = sha
         req2 = urllib.request.Request(url,data=json.dumps(body).encode(),headers=hdrs,method='PUT')

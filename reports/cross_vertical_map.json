@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-16T13:30:01.894139+05:30",
-  "total_phones": 278,
+  "generated_at": "2026-05-17T04:25:10.486082+05:30",
+  "total_phones": 283,
   "cross_vertical_operators": 7,
   "operators": [
     {
@@ -88,15 +88,15 @@
     {
       "phone": "+919799219260",
       "categories": [
-        "piracy",
-        "colour_prediction"
+        "colour_prediction",
+        "piracy"
       ],
       "category_count": 2,
       "channels": [
         "wini_ok",
         "tc_lotteryq"
       ],
-      "significance": "Single operator confirmed across 2 fraud verticals: piracy, colour_prediction",
+      "significance": "Single operator confirmed across 2 fraud verticals: colour_prediction, piracy",
       "legal_note": "Multi-vertical operation indicates organized criminal enterprise \u2014 enhanced PMLA + IT Act exposure"
     },
     {

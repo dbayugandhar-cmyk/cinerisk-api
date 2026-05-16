@@ -148,7 +148,7 @@
     "pitch_ready": false
   },
   {
-    "phone": "+918881987328",
+    "phone": "+918881349483",
     "name": "Reddy Anna",
     "scores": {
       "WHO": 100,
@@ -185,7 +185,7 @@
     "pitch_ready": false
   },
   {
-    "phone": "+918881349483",
+    "phone": "+918881987328",
     "name": "Reddy Anna",
     "scores": {
       "WHO": 100,
@@ -235,6 +235,46 @@
     "overall": 64,
     "missing": {
       "WHO": [],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "C",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+918824645116",
+    "name": "Mahadev Book Operator",
+    "scores": {
+      "WHO": 85,
+      "WHAT": 40,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 60,
+    "missing": {
+      "WHO": [
+        "Alias chain (brand evolution)"
+      ],
       "WHAT": [
         "UPI payment handles",
         "Financial flow data",
@@ -340,19 +380,20 @@
     "pitch_ready": false
   },
   {
-    "phone": "+918824645116",
-    "name": "Mahadev Book Operator",
+    "phone": "+919079649687",
+    "name": "Faridabad Satta",
     "scores": {
-      "WHO": 85,
+      "WHO": 70,
       "WHAT": 40,
       "WHEN": 50,
       "WHERE": 70,
       "HOW": 20,
       "WHY": 85
     },
-    "overall": 60,
+    "overall": 56,
     "missing": {
       "WHO": [
+        "Known aliases",
         "Alias chain (brand evolution)"
       ],
       "WHAT": [
@@ -505,47 +546,6 @@
     "pitch_ready": false
   },
   {
-    "phone": "+919602629469",
-    "name": "Faridabad Satta",
-    "scores": {
-      "WHO": 70,
-      "WHAT": 20,
-      "WHEN": 50,
-      "WHERE": 70,
-      "HOW": 20,
-      "WHY": 85
-    },
-    "overall": 52,
-    "missing": {
-      "WHO": [
-        "Known aliases",
-        "Alias chain (brand evolution)"
-      ],
-      "WHAT": [
-        "UPI payment handles",
-        "Financial flow data",
-        "Agent recruitment signals"
-      ],
-      "WHEN": [
-        "Post-arrest activity data",
-        "Posting frequency per day"
-      ],
-      "WHERE": [
-        "Cross-border payment corridor"
-      ],
-      "HOW": [
-        "Payment method confirmation",
-        "Agent recruitment method",
-        "Post-enforcement evasion method"
-      ],
-      "WHY": [
-        "UPI payment trail for PMLA"
-      ]
-    },
-    "grade": "D",
-    "pitch_ready": false
-  },
-  {
     "phone": "+919521432880",
     "name": "Faridabad Satta",
     "scores": {
@@ -587,20 +587,19 @@
     "pitch_ready": false
   },
   {
-    "phone": "+917597912673",
-    "name": "Unknown",
+    "phone": "+919602629469",
+    "name": "Faridabad Satta",
     "scores": {
-      "WHO": 50,
+      "WHO": 70,
       "WHAT": 20,
       "WHEN": 50,
       "WHERE": 70,
       "HOW": 20,
       "WHY": 85
     },
-    "overall": 48,
+    "overall": 52,
     "missing": {
       "WHO": [
-        "Inferred operator name",
         "Known aliases",
         "Alias chain (brand evolution)"
       ],
@@ -715,19 +714,20 @@
     "pitch_ready": false
   },
   {
-    "phone": "+919549298563",
-    "name": "Faridabad Satta",
+    "phone": "+919687311306",
+    "name": "Unknown",
     "scores": {
-      "WHO": 40,
+      "WHO": 20,
       "WHAT": 20,
       "WHEN": 50,
       "WHERE": 0,
       "HOW": 20,
       "WHY": 85
     },
-    "overall": 34,
+    "overall": 30,
     "missing": {
       "WHO": [
+        "Inferred operator name",
         "Known aliases",
         "Alias chain (brand evolution)"
       ],
@@ -758,17 +758,17 @@
     "pitch_ready": false
   },
   {
-    "phone": "+919687311306",
+    "phone": "+919785021242",
     "name": "Unknown",
     "scores": {
       "WHO": 20,
-      "WHAT": 20,
-      "WHEN": 50,
+      "WHAT": 40,
+      "WHEN": 25,
       "WHERE": 0,
       "HOW": 20,
       "WHY": 85
     },
-    "overall": 30,
+    "overall": 28,
     "missing": {
       "WHO": [
         "Inferred operator name",

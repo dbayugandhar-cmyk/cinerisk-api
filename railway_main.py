@@ -725,6 +725,7 @@ def watchlist_check():
         'evidence_hash': matches[0].get('evidence_hash', ''),
         'first_seen': matches[0].get('detected_at', '')[:10],
         'legal_basis': 'IT Act 2000 S65B certified evidence',
+        'disclaimer': 'Intelligence-grade assessment from public sources. Verify before action. Not legal proof.',
         'report_to': ['FIU-IND fiuindia.gov.in', 'I4C cybercrime.gov.in'],
         'message': f'FRAUD RISK: Phone in {n} CINEOS alerts across {len(cats)} categories',
     })

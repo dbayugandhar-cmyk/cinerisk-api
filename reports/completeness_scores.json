@@ -1,0 +1,804 @@
+[
+  {
+    "phone": "+917400749393",
+    "name": "Radhe Exchange",
+    "scores": {
+      "WHO": 100,
+      "WHAT": 70,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 40,
+      "WHY": 85
+    },
+    "overall": 72,
+    "missing": {
+      "WHO": [],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "B",
+    "pitch_ready": true
+  },
+  {
+    "phone": "+917455697977",
+    "name": "Radhe Exchange",
+    "scores": {
+      "WHO": 100,
+      "WHAT": 70,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 40,
+      "WHY": 85
+    },
+    "overall": 72,
+    "missing": {
+      "WHO": [],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "B",
+    "pitch_ready": true
+  },
+  {
+    "phone": "+917832350002",
+    "name": "Radhe Exchange",
+    "scores": {
+      "WHO": 100,
+      "WHAT": 70,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 40,
+      "WHY": 85
+    },
+    "overall": 72,
+    "missing": {
+      "WHO": [],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "B",
+    "pitch_ready": true
+  },
+  {
+    "phone": "+918881754538",
+    "name": "Reddy Anna",
+    "scores": {
+      "WHO": 100,
+      "WHAT": 55,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 67,
+    "missing": {
+      "WHO": [],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "C",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+918881987328",
+    "name": "Reddy Anna",
+    "scores": {
+      "WHO": 100,
+      "WHAT": 55,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 67,
+    "missing": {
+      "WHO": [],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "C",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+918881349483",
+    "name": "Reddy Anna",
+    "scores": {
+      "WHO": 100,
+      "WHAT": 55,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 67,
+    "missing": {
+      "WHO": [],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "C",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+918881886916",
+    "name": "Vipin Aryan / Sawariya Exchange",
+    "scores": {
+      "WHO": 100,
+      "WHAT": 40,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 64,
+    "missing": {
+      "WHO": [],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "C",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+918881923320",
+    "name": "Reddy Anna",
+    "scores": {
+      "WHO": 85,
+      "WHAT": 40,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 60,
+    "missing": {
+      "WHO": [
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "C",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+917413990959",
+    "name": "Toss Fix Operator",
+    "scores": {
+      "WHO": 85,
+      "WHAT": 40,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 60,
+    "missing": {
+      "WHO": [
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "C",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+918824645116",
+    "name": "Mahadev Book Operator",
+    "scores": {
+      "WHO": 85,
+      "WHAT": 40,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 60,
+    "missing": {
+      "WHO": [
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "C",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+918619748517",
+    "name": "Faridabad Satta",
+    "scores": {
+      "WHO": 70,
+      "WHAT": 40,
+      "WHEN": 50,
+      "WHERE": 40,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 52,
+    "missing": {
+      "WHO": [
+        "Known aliases",
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Fraud geography hotspot mapping",
+        "Cross-border payment corridor",
+        "City-level location (subpoena required)"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "D",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+919186196239",
+    "name": "Faridabad Satta",
+    "scores": {
+      "WHO": 70,
+      "WHAT": 20,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 52,
+    "missing": {
+      "WHO": [
+        "Known aliases",
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "D",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+917348219900",
+    "name": "Fairplay",
+    "scores": {
+      "WHO": 70,
+      "WHAT": 20,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 52,
+    "missing": {
+      "WHO": [
+        "Known aliases",
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "D",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+919602629469",
+    "name": "Faridabad Satta",
+    "scores": {
+      "WHO": 70,
+      "WHAT": 20,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 52,
+    "missing": {
+      "WHO": [
+        "Known aliases",
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "D",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+919521432880",
+    "name": "Faridabad Satta",
+    "scores": {
+      "WHO": 70,
+      "WHAT": 20,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 52,
+    "missing": {
+      "WHO": [
+        "Known aliases",
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "D",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+917597912673",
+    "name": "Unknown",
+    "scores": {
+      "WHO": 50,
+      "WHAT": 20,
+      "WHEN": 50,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 48,
+    "missing": {
+      "WHO": [
+        "Inferred operator name",
+        "Known aliases",
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "D",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+916029641090",
+    "name": "Unknown",
+    "scores": {
+      "WHO": 50,
+      "WHAT": 20,
+      "WHEN": 50,
+      "WHERE": 40,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 43,
+    "missing": {
+      "WHO": [
+        "Inferred operator name",
+        "Known aliases",
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Fraud geography hotspot mapping",
+        "Cross-border payment corridor",
+        "City-level location (subpoena required)"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "D",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+919818040215",
+    "name": "Unknown",
+    "scores": {
+      "WHO": 50,
+      "WHAT": 20,
+      "WHEN": 25,
+      "WHERE": 70,
+      "HOW": 20,
+      "WHY": 45
+    },
+    "overall": 38,
+    "missing": {
+      "WHO": [
+        "Inferred operator name",
+        "Known aliases",
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Cross-border payment corridor"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "D",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+919549298563",
+    "name": "Faridabad Satta",
+    "scores": {
+      "WHO": 40,
+      "WHAT": 20,
+      "WHEN": 50,
+      "WHERE": 0,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 34,
+    "missing": {
+      "WHO": [
+        "Known aliases",
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Fraud geography hotspot mapping",
+        "Cross-border payment corridor",
+        "City-level location (subpoena required)"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "D",
+    "pitch_ready": false
+  },
+  {
+    "phone": "+919687311306",
+    "name": "Unknown",
+    "scores": {
+      "WHO": 20,
+      "WHAT": 20,
+      "WHEN": 50,
+      "WHERE": 0,
+      "HOW": 20,
+      "WHY": 85
+    },
+    "overall": 30,
+    "missing": {
+      "WHO": [
+        "Inferred operator name",
+        "Known aliases",
+        "Alias chain (brand evolution)"
+      ],
+      "WHAT": [
+        "UPI payment handles",
+        "Financial flow data",
+        "Agent recruitment signals"
+      ],
+      "WHEN": [
+        "Post-arrest activity data",
+        "Posting frequency per day"
+      ],
+      "WHERE": [
+        "Fraud geography hotspot mapping",
+        "Cross-border payment corridor",
+        "City-level location (subpoena required)"
+      ],
+      "HOW": [
+        "Payment method confirmation",
+        "Agent recruitment method",
+        "Post-enforcement evasion method"
+      ],
+      "WHY": [
+        "UPI payment trail for PMLA"
+      ]
+    },
+    "grade": "D",
+    "pitch_ready": false
+  }
+]

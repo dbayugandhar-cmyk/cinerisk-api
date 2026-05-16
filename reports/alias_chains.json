@@ -1,0 +1,277 @@
+{
+  "generated_at": "2026-05-16T23:43:24.828366+05:30",
+  "alias_chains": {
+    "Radhe Exchange / Mahadev Book Network": {
+      "phones": [
+        "+917455697977",
+        "+917400749393",
+        "+917832350002"
+      ],
+      "chain": [
+        {
+          "brand": "Mahadev Book",
+          "status": "BUSTED",
+          "date": "2022-10",
+          "note": "Original brand \u00b7 ED case filed \u00b7 Rs 5,000Cr estimate"
+        },
+        {
+          "brand": "Mahadev Book 2.0",
+          "status": "BUSTED",
+          "date": "2023-06",
+          "note": "Resurrection 1 \u00b7 Same operators \u00b7 New domains"
+        },
+        {
+          "brand": "Radhe Exchange",
+          "status": "ACTIVE",
+          "date": "2024-01",
+          "note": "Current brand \u00b7 Same phone network \u00b7 Rajasthan circle"
+        },
+        {
+          "brand": "Diamond Exchange",
+          "status": "ACTIVE",
+          "date": "2024-06",
+          "note": "Parallel brand \u00b7 Same phones confirmed"
+        },
+        {
+          "brand": "World777",
+          "status": "ACTIVE",
+          "date": "2025-03",
+          "note": "Sub-brand \u00b7 Shared operator network"
+        }
+      ],
+      "confirmed_by": "Phone +917455697977 in all channel sets",
+      "confidence": 95
+    },
+    "Reddy Anna Network": {
+      "phones": [
+        "+918881754538",
+        "+918881349483",
+        "+918881987328"
+      ],
+      "chain": [
+        {
+          "brand": "Reddy Anna",
+          "status": "ACTIVE",
+          "date": "2023-01",
+          "note": "Primary brand \u00b7 AP/Telangana Jio circle"
+        },
+        {
+          "brand": "World777",
+          "status": "ACTIVE",
+          "date": "2023-06",
+          "note": "Co-brand \u00b7 Same operator phones"
+        },
+        {
+          "brand": "Lotus365",
+          "status": "ACTIVE",
+          "date": "2024-01",
+          "note": "Parallel brand \u00b7 Same phone network"
+        },
+        {
+          "brand": "Fairplay",
+          "status": "ACTIVE",
+          "date": "2024-06",
+          "note": "Sub-brand \u00b7 Shared channels"
+        }
+      ],
+      "confirmed_by": "Phone +918881754538 across all brand channels",
+      "confidence": 85
+    },
+    "Vipin Aryan / Sawariya Exchange": {
+      "phones": [
+        "+918881886916"
+      ],
+      "chain": [
+        {
+          "brand": "Sawariya Exchange",
+          "status": "ACTIVE",
+          "date": "2024-06",
+          "note": "Primary brand"
+        },
+        {
+          "brand": "Vipin Aryan",
+          "status": "ACTIVE",
+          "date": "2025-01",
+          "note": "Personal brand \u00b7 Same phone"
+        }
+      ],
+      "confirmed_by": "Phone +918881886916 in both channel sets",
+      "confidence": 80
+    }
+  },
+  "agent_signals": [
+    {
+      "channel": "https://groupsor.link/group/invite/FjrJQHuEAKNGFWpKdVYHvN",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 CRICKET BETTING TIPS Whatsapp Group Invite",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://groupsor.link/group/invite/K0UwtogcMCrKX5NuhGkb7P",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "WhatsApp fraud group \u2014 Online betting Whatsapp Group Invite ",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://linkswa.com/cricket-betting-whatsapp-groups/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "WhatsApp fraud group \u2014 Cricket Betting WhatsApp Groups (Upda",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://citizeneyes.meghalaya.gov.in/downloads/how-to-navigate-online-cricket-betting-whatsapp-group-link-india-safely",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "WhatsApp fraud group \u2014 Online Cricket Betting Whatsapp Group",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://groupsor.link/group/invite/F2mYeXTQYzeBTNkb8dQHo1",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 IPL CRICKET PREDICTION 2026 Whatsapp Group",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://expertfreeprediction.com/cricket-betting-tips-whatsapp-group-link/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 Free Cricket Betting Tips WhatsApp Group L",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://whatzgrouplink.com/ipl-whatsapp-group-links/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 IPL WhatsApp Group Links 2026 Tata IPL T20",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://wagrouplinks.net/cricket-whatsapp-group-links/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 1100+ Cricket WhatsApp Group Links 2026",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://expertfreeprediction.com/trusted-bookie-whatsapp-group-link/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "WhatsApp fraud group \u2014 Best Trusted Bookie WhatsApp Group Li",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://middleprimary2025.pseb.ac.in/store/apps/details?id=game-rummy-edge&hl=en_IN",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "WhatsApp fraud group \u2014 Betting Whatsapp Group Link - Downloa",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://linkswa.com/cricket-betting-whatsapp-groups/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 Cricket Betting WhatsApp Groups (Updated M",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://whtsgroupslinkspk.com/cricket-whatsapp-group-links/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 456+ Best Cricket Whatsapp Group Links 202",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://whatgroups.com/cricket-whatsapp-group-links/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 1500+ Cricket WhatsApp Group Links 2026 | ",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://whtsgrouplink.com/cricket-whatsapp-groups-links/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 990+ Cricket WhatsApp Groups Links 2026",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://telegramlite.com/whatsapp/group/detail/category/cricket-t20s/hello-losers",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 Cricket Betting Group\ud83e\udd73\ud83e\udd73 - Top WhatsApp Gro",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://thewhatspgrouplinks.com/ipl-whatsapp-group-links/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 930+ IPL WhatsApp Group Links 2026 - TheWh",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://minidea.co.in/cricket-whatsapp-group-link/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "Illegal betting \u2014 250+ Cricket WhatsApp Group Links, Join Cr",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://groupsor.link/group/invite/GTGXI63XCF88UBtlwZNHP8",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "WhatsApp fraud group \u2014 ONLINE BETTING ID Whatsapp Group Invi",
+      "type": "AGENT_RECRUITMENT"
+    },
+    {
+      "channel": "https://www.reddit.com/r/IndianStreetBets/comments/1bs4j88/whatsapp_scam_investment_groups/",
+      "signal": "(?:whatsapp|wa\\.me)\\s+(?:group|join)",
+      "phones": [],
+      "wa_contact": null,
+      "commission": null,
+      "title": "WhatsApp fraud group \u2014 WhatsApp Scam Investment Groups : r/I",
+      "type": "AGENT_RECRUITMENT"
+    }
+  ],
+  "total_networks": 3,
+  "total_agents": 19
+}

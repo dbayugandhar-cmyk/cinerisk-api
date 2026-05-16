@@ -1,0 +1,259 @@
+{
+  "generated_at": "2026-05-16T23:43:24.881014+05:30",
+  "hotspot_summary": {
+    "Hyderabad/Visakhapatnam Cluster": {
+      "phone_count": 45,
+      "phones": [
+        "+918881049781",
+        "+918808148281",
+        "+918881893438",
+        "+918808488978",
+        "+918808188871",
+        "+918808843584",
+        "+918808866868",
+        "+918808106881",
+        "+918808683328",
+        "+918881736074"
+      ]
+    },
+    "Mewat/Nuh Cluster": {
+      "phone_count": 24,
+      "phones": [
+        "+919602629469",
+        "+919521432880",
+        "+917400749393",
+        "+917742129986",
+        "+917597466322",
+        "+917455697977",
+        "+917597912673",
+        "+917597352037",
+        "+919521151213",
+        "+917665390503"
+      ]
+    },
+    "Delhi/NCR Cluster": {
+      "phone_count": 5,
+      "phones": [
+        "+918383061215",
+        "+918800746321",
+        "+919818040215",
+        "+917832350002",
+        "+918800628348"
+      ]
+    }
+  },
+  "phone_hotspot_map": {
+    "+918881049781": "Hyderabad/Visakhapatnam Cluster",
+    "+919602629469": "Mewat/Nuh Cluster",
+    "+918383061215": "Delhi/NCR Cluster",
+    "+919521432880": "Mewat/Nuh Cluster",
+    "+918808148281": "Hyderabad/Visakhapatnam Cluster",
+    "+918881893438": "Hyderabad/Visakhapatnam Cluster",
+    "+918808488978": "Hyderabad/Visakhapatnam Cluster",
+    "+917400749393": "Mewat/Nuh Cluster",
+    "+918808188871": "Hyderabad/Visakhapatnam Cluster",
+    "+918800746321": "Delhi/NCR Cluster",
+    "+918808843584": "Hyderabad/Visakhapatnam Cluster",
+    "+918808866868": "Hyderabad/Visakhapatnam Cluster",
+    "+919818040215": "Delhi/NCR Cluster",
+    "+918808106881": "Hyderabad/Visakhapatnam Cluster",
+    "+918808683328": "Hyderabad/Visakhapatnam Cluster",
+    "+918881736074": "Hyderabad/Visakhapatnam Cluster",
+    "+917742129986": "Mewat/Nuh Cluster",
+    "+918881988008": "Hyderabad/Visakhapatnam Cluster",
+    "+918808881498": "Hyderabad/Visakhapatnam Cluster",
+    "+918824645116": "Hyderabad/Visakhapatnam Cluster",
+    "+918808580588": "Hyderabad/Visakhapatnam Cluster",
+    "+918808818184": "Hyderabad/Visakhapatnam Cluster",
+    "+918808434742": "Hyderabad/Visakhapatnam Cluster",
+    "+917597466322": "Mewat/Nuh Cluster",
+    "+917455697977": "Mewat/Nuh Cluster",
+    "+918808492768": "Hyderabad/Visakhapatnam Cluster",
+    "+918881987328": "Hyderabad/Visakhapatnam Cluster",
+    "+917597912673": "Mewat/Nuh Cluster",
+    "+917597352037": "Mewat/Nuh Cluster",
+    "+918808148878": "Hyderabad/Visakhapatnam Cluster",
+    "+918881864808": "Hyderabad/Visakhapatnam Cluster",
+    "+918808471465": "Hyderabad/Visakhapatnam Cluster",
+    "+918881923320": "Hyderabad/Visakhapatnam Cluster",
+    "+918881981382": "Hyderabad/Visakhapatnam Cluster",
+    "+918881349483": "Hyderabad/Visakhapatnam Cluster",
+    "+918808148809": "Hyderabad/Visakhapatnam Cluster",
+    "+918888888888": "Hyderabad/Visakhapatnam Cluster",
+    "+918808981489": "Hyderabad/Visakhapatnam Cluster",
+    "+919521151213": "Mewat/Nuh Cluster",
+    "+917832350002": "Delhi/NCR Cluster",
+    "+918808457972": "Hyderabad/Visakhapatnam Cluster",
+    "+918808408829": "Hyderabad/Visakhapatnam Cluster",
+    "+918881430585": "Hyderabad/Visakhapatnam Cluster",
+    "+918808818185": "Hyderabad/Visakhapatnam Cluster",
+    "+917665390503": "Mewat/Nuh Cluster",
+    "+919672126324": "Mewat/Nuh Cluster",
+    "+918881890882": "Hyderabad/Visakhapatnam Cluster",
+    "+918808268488": "Hyderabad/Visakhapatnam Cluster",
+    "+918808106887": "Hyderabad/Visakhapatnam Cluster",
+    "+918808410623": "Hyderabad/Visakhapatnam Cluster",
+    "+918881642877": "Hyderabad/Visakhapatnam Cluster",
+    "+918881754538": "Hyderabad/Visakhapatnam Cluster",
+    "+917348434136": "Mewat/Nuh Cluster",
+    "+919799219260": "Mewat/Nuh Cluster",
+    "+917348302886": "Mewat/Nuh Cluster",
+    "+918881893087": "Hyderabad/Visakhapatnam Cluster",
+    "+917413990959": "Mewat/Nuh Cluster",
+    "+918808879818": "Hyderabad/Visakhapatnam Cluster",
+    "+919079551576": "Mewat/Nuh Cluster",
+    "+917665716582": "Mewat/Nuh Cluster",
+    "+919672184530": "Mewat/Nuh Cluster",
+    "+917400767715": "Mewat/Nuh Cluster",
+    "+918800628348": "Delhi/NCR Cluster",
+    "+919079649687": "Mewat/Nuh Cluster",
+    "+918881388031": "Hyderabad/Visakhapatnam Cluster",
+    "+918881448108": "Hyderabad/Visakhapatnam Cluster",
+    "+919186196239": "Mewat/Nuh Cluster",
+    "+917348219900": "Mewat/Nuh Cluster",
+    "+918881428528": "Hyderabad/Visakhapatnam Cluster",
+    "+917742314569": "Mewat/Nuh Cluster",
+    "+918881436358": "Hyderabad/Visakhapatnam Cluster",
+    "+918881886916": "Hyderabad/Visakhapatnam Cluster",
+    "+918808148840": "Hyderabad/Visakhapatnam Cluster",
+    "+917597627956": "Mewat/Nuh Cluster"
+  },
+  "hotspot_details": {
+    "Mewat/Nuh Cluster": {
+      "states": [
+        "Haryana",
+        "Rajasthan"
+      ],
+      "circles": [
+        "Haryana",
+        "Rajasthan"
+      ],
+      "prefixes": [
+        "9812",
+        "9813",
+        "9306",
+        "9315"
+      ],
+      "crime_types": [
+        "cyber_fraud",
+        "sextortion",
+        "bank_fraud"
+      ],
+      "i4c_jcct": true,
+      "note": "I4C Joint Cyber Coordination Team established"
+    },
+    "Jamtara Cluster": {
+      "states": [
+        "Jharkhand"
+      ],
+      "circles": [
+        "Bihar/Jharkhand"
+      ],
+      "prefixes": [
+        "9304",
+        "9334",
+        "9431",
+        "8102"
+      ],
+      "crime_types": [
+        "phishing",
+        "bank_fraud",
+        "kyc_fraud"
+      ],
+      "i4c_jcct": true,
+      "note": "Famous \"phishing capital of India\""
+    },
+    "Hyderabad/Visakhapatnam Cluster": {
+      "states": [
+        "Telangana",
+        "Andhra Pradesh"
+      ],
+      "circles": [
+        "Andhra Pradesh/Telangana"
+      ],
+      "prefixes": [
+        "8881",
+        "8808",
+        "8885",
+        "9704",
+        "9866"
+      ],
+      "crime_types": [
+        "illegal_betting",
+        "cyber_fraud",
+        "investment_fraud"
+      ],
+      "i4c_jcct": true,
+      "note": "Mahadev Book bust Visakhapatnam May 2026"
+    },
+    "Ahmedabad/Gujarat Cluster": {
+      "states": [
+        "Gujarat"
+      ],
+      "circles": [
+        "Gujarat"
+      ],
+      "prefixes": [
+        "9824",
+        "9825",
+        "9979",
+        "7046"
+      ],
+      "crime_types": [
+        "upi_fraud",
+        "bank_fraud",
+        "investment_fraud"
+      ],
+      "i4c_jcct": true,
+      "note": "UPI mule network hub"
+    },
+    "Rajasthan Betting Cluster": {
+      "states": [
+        "Rajasthan"
+      ],
+      "circles": [
+        "Rajasthan"
+      ],
+      "prefixes": [
+        "7455",
+        "7400",
+        "7413",
+        "9602",
+        "9186",
+        "9521",
+        "9079"
+      ],
+      "crime_types": [
+        "illegal_betting",
+        "satta_matka",
+        "crypto_fraud"
+      ],
+      "i4c_jcct": false,
+      "note": "CINEOS identified \u2014 highest density of betting operators"
+    },
+    "Delhi/NCR Cluster": {
+      "states": [
+        "Delhi",
+        "Uttar Pradesh"
+      ],
+      "circles": [
+        "Delhi",
+        "Uttar Pradesh West"
+      ],
+      "prefixes": [
+        "9810",
+        "9811",
+        "9818",
+        "8383",
+        "8800"
+      ],
+      "crime_types": [
+        "investment_fraud",
+        "cyber_fraud",
+        "digital_arrest"
+      ],
+      "i4c_jcct": true,
+      "note": "Digital arrest scam hub"
+    }
+  }
+}

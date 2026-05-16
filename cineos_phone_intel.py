@@ -12,39 +12,26 @@ from collections import defaultdict, Counter
 
 IST = timezone(timedelta(hours=5,minutes=30))
 
-CARRIER_RANGES = {
-    '6':  {'880':'Jio','881':'Jio','882':'Jio','883':'Jio','884':'Jio','885':'Jio','886':'Jio','900':'Jio','901':'Jio','902':'Jio'},
-    '7':  {'700':'Vi','701':'Vi','720':'Airtel','721':'Airtel','730':'BSNL','740':'Airtel','741':'Airtel','742':'Airtel','743':'Airtel','760':'Jio','761':'Jio','762':'Jio','763':'Jio','764':'Jio','800':'Airtel','801':'Airtel','802':'Airtel','803':'Airtel'},
-    '8':  {'800':'Airtel','801':'Airtel','802':'Airtel','803':'Airtel','820':'BSNL','840':'Airtel','850':'Airtel','860':'Jio','861':'Jio','862':'Jio','863':'Jio','870':'Vi','880':'Jio','881':'Jio'},
-    '9':  {'900':'Airtel','901':'Airtel','910':'Airtel','920':'Vi','930':'Vi','940':'Vi','950':'Airtel','960':'Vi','970':'Airtel','980':'Airtel','990':'Airtel'},
-}
 
 def infer_carrier(phone):
-    d = phone.replace('+91','').replace(' ','')
-    if len(d) == 10:
-        first = d[0]
-        prefix = d[:3]
-        ranges = CARRIER_RANGES.get(first, {})
-        return ranges.get(prefix, 'Unknown carrier')
-    return 'Unknown'
+    return trai_lookup(phone).get('operator','Unknown')
 
 def infer_circle(phone):
-    """Infer telecom circle from number prefix."""
-    d = phone.replace('+91','').replace(' ','')
-    if len(d) < 4: return 'Unknown'
-    prefix = d[:4]
-    circles = {
-        '9810':'Delhi','9811':'Delhi','9820':'Mumbai','9821':'Mumbai',
-        '9830':'West Bengal','9831':'West Bengal','9840':'Tamil Nadu',
-        '9841':'Tamil Nadu','9850':'Maharashtra','9860':'Maharashtra',
-        '9870':'Delhi','9880':'Karnataka','9890':'Maharashtra',
-        '7045':'Mumbai','7046':'Maharashtra','9867':'Maharashtra',
-        '8881':'Andhra Pradesh/Telangana','8808':'Andhra Pradesh',
-        '8824':'Andhra Pradesh','7455':'Rajasthan','7400':'Rajasthan',
-        '7832':'Uttar Pradesh','7413':'Rajasthan','7348':'Rajasthan',
-        '9186':'Rajasthan','9602':'Rajasthan',
-    }
-    return circles.get(d[:4], circles.get(d[:3], 'Unknown circle'))
+    return trai_lookup(phone).get('circle','Unknown')
+
+def trai_lookup(phone):
+    import re, json, os
+    d = re.sub(r'[^\d]','',str(phone))
+    if len(d)==12 and d[:2]=='91': d=d[2:]
+    if len(d)!=10: return {'circle':'Unknown','operator':'Unknown'}
+    try:
+        series = json.load(open('configs/trai_series.json'))
+        result = series.get(d[:4]) or series.get(d[:3])
+        if result: return result
+    except: pass
+    if d[0]=='6': return {'circle':'Pan India','operator':'Jio'}
+    if d[:2] in ('70','75','76','77','78','79'): return {'circle':'Various','operator':'Jio'}
+    return {'circle':'Unknown','operator':'Unknown'}
 
 def load_all_data():
     channels = json.load(open('reports/all_channels.json'))

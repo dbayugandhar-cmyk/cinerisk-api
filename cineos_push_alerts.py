@@ -1,3 +1,4 @@
+import os
 """
 CINEOS Alert Pusher
 Pushes ALL local alerts to Railway every morning.

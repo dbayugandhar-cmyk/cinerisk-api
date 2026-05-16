@@ -461,8 +461,7 @@ def _load_github():
                 'Accept': 'application/vnd.github.v3+json',
                 'User-Agent': 'CINEOS'})
             d = json.loads(_ur2.urlopen(req2, timeout=12).read())
-            content = d['content'].replace('
-','')
+            content = d['content'].replace('\n','')
             alerts = json.loads(_b642.b64decode(content).decode())
             print(f'[STARTUP] GitHub API: {len(alerts)} alerts loaded')
             return alerts

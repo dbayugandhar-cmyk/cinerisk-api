@@ -689,10 +689,30 @@ def watchlist_check():
                 cats.add(a.get('category', 'unknown'))
                 break
     if not matches:
+        # Zero-alert enrichment — still return useful intelligence
+        d2 = _re.sub(r'[^\d]', '', pn)
+        if len(d2) == 12: d2 = d2[2:]
+        HIGH_RISK = {
+            '8881':{'score':40,'reason':'Reddy Anna/World777 network prefix'},
+            '8808':{'score':25,'reason':'Known fraud operator prefix AP/TG'},
+            '7455':{'score':35,'reason':'High-density betting operator prefix Rajasthan'},
+            '7400':{'score':35,'reason':'High-density betting operator prefix Rajasthan'},
+            '7413':{'score':30,'reason':'Known toss-fix operator prefix'},
+            '7832':{'score':30,'reason':'Cross-vertical fraud operator prefix UP'},
+            '9186':{'score':30,'reason':'Faridabad satta operator prefix'},
+            '9602':{'score':25,'reason':'Satta operator prefix Rajasthan'},
+        }
+        pr = HIGH_RISK.get(d2[:4], {})
+        base_score = pr.get('score', 0)
+        signals = [pr['reason']] if pr else []
+        risk = 'MEDIUM' if base_score >= 25 else 'LOW'
         return jsonify({
             'phone': pn, 'found': False,
-            'risk_score': 0, 'risk_level': 'CLEAR',
-            'message': 'Phone not found in CINEOS fraud database',
+            'risk_score': base_score,
+            'risk_level': risk if base_score > 0 else 'CLEAR',
+            'signals': signals,
+            'message': 'Phone not in CINEOS alert database' + ('. Pattern suggests elevated risk — monitor.' if base_score > 0 else '. No fraud indicators found.'),
+            'recommendation': 'Monitor' if base_score > 0 else 'Clear',
         })
     n = len(matches)
     score = min(60 + n*10 + len(cats)*10, 99)

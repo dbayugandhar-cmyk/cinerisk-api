@@ -890,6 +890,36 @@ def api_lookup():
             except:
                 pass
 
+        # Inline operator map — no external module needed on Railway
+        OPERATOR_MAP = {
+            '7455697977': 'Radhe Exchange',
+            '7400749393': 'Radhe Exchange',
+            '7832350002': 'Radhe Exchange',
+            '8881754538': 'Reddy Anna',
+            '8881349483': 'Reddy Anna',
+            '8881987328': 'Reddy Anna',
+            '8888888888': 'Mahadev Book',
+            '8824645116': 'Mahadev Book',
+            '8808843584': 'Mahadev Book',
+            '8881448108': 'Laser247',
+            '7413990959': 'Toss Fix',
+            '8881886916': 'Vipin Aryan',
+            '9274673985': 'Cricbet99',
+            '8808843584': 'My99Exch',
+            '9186196239': 'Faridabad Satta',
+            '8423193609': 'Sky Exchange',
+            '7704070168': 'AllPanel',
+            '7988587865': 'Fairdeal',
+            '8808981489': 'Mahadev Gold',
+            '8808148840': 'Mahakal ID',
+            '7742129986': 'Kalyan Matka',
+            '7976094684': 'Baba Gambler',
+        }
+        if input_type == 'phone' and not search_term:
+            bare10 = digits[-10:]
+            if bare10 in OPERATOR_MAP:
+                search_term = OPERATOR_MAP[bare10]
+                web_operator = search_term
         if search_term:
             web_q = f'{search_term} arrested India fraud 2026'
             web_data = serp_search(web_q, num=8)

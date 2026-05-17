@@ -858,22 +858,21 @@ def api_lookup():
         geo = circle if circle != 'Unknown' else 'India'
         web_q = f'online betting fraud arrested {geo} Telegram 2026'
         web_data = serp_search(web_q, num=5)
-        raw_hits = web_data.get('news_results', web_data.get('organic_results', []))[:4]
+        raw_hits = (web_data.get('news_results') or
+                    web_data.get('organic_results') or [])[:4]
         for r in raw_hits:
-            title = r.get('title', '')
+            title   = r.get('title', '')
             snippet = r.get('snippet', '') or r.get('description', '')
-            text = (title + ' ' + snippet).lower()
-            if any(w in text for w in ['arrested','fir','cybercrime','seized','busted']):
+            if title:
                 web_hits.append({
-                    'title':   title[:80],
-                    'source':  r.get('source', ''),
-                    'link':    r.get('link', ''),
-                    'date':    r.get('date', ''),
-                    'type':    'geographic_context',
-                    'note':    f'Enforcement activity in {geo} — geographic context only',
+                    'title':  title[:80],
+                    'source': r.get('source', r.get('displayed_link','')),
+                    'link':   r.get('link', ''),
+                    'date':   r.get('date', ''),
+                    'type':   'geographic_context',
+                    'note':   f'Enforcement activity in {geo} — not phone-specific',
                 })
-        # Geographic hits give context but NOT phone-specific confidence
-        web_boost = 0  # No boost — geographic only
+        web_boost = 0  # Geographic only — no confidence boost
 
     elif db_conf > 0 or input_type == 'keyword':
         # Known operator or brand — search by name for enforcement news
@@ -894,24 +893,25 @@ def api_lookup():
         if search_term:
             web_q = f'{search_term} arrested India fraud 2026'
             web_data = serp_search(web_q, num=8)
-            raw_hits = web_data.get('news_results', web_data.get('organic_results', []))[:5]
+            raw_hits = (web_data.get('news_results') or
+                        web_data.get('organic_results') or [])[:5]
             for r in raw_hits:
-                title = r.get('title', '')
+                title   = r.get('title', '')
                 snippet = r.get('snippet', '') or r.get('description', '')
-                text = (title + ' ' + snippet).lower()
+                text    = (title + ' ' + snippet).lower()
+                if not title: continue
                 is_enforcement = any(w in text for w in
                     ['arrested','fir','ed ','cybercrime','seized','busted',
                      'enforcement directorate','crore','attachment'])
-                if is_enforcement or search_term.lower() in text:
-                    web_hits.append({
-                        'title':   title[:80],
-                        'source':  r.get('source', ''),
-                        'link':    r.get('link', ''),
-                        'date':    r.get('date', ''),
-                        'type':    'enforcement' if is_enforcement else 'mention',
-                    })
-            enforcement_count = sum(1 for h in web_hits if h.get('type') == 'enforcement')
-            web_boost = min(10, enforcement_count * 3)  # Max +10 from web
+                web_hits.append({
+                    'title':  title[:80],
+                    'source': r.get('source', r.get('displayed_link','')),
+                    'link':   r.get('link', ''),
+                    'date':   r.get('date', ''),
+                    'type':   'enforcement' if is_enforcement else 'mention',
+                })
+            enforcement_count = sum(1 for h in web_hits if h.get('type')=='enforcement')
+            web_boost = min(10, enforcement_count * 3)
 
     # ── AGGREGATE CONFIDENCE ──────────────────────────────────
     if db_conf > 0:

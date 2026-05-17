@@ -848,15 +848,80 @@ def api_lookup():
         carrier, circle = TRAI_PREFIXES.get(p4, ('Unknown','Unknown'))
         carrier_risk = HIGH_RISK.get(p4, 0)
 
+    # ── SOURCE 3: WEB SEARCH (for unknown phones/brands) ────
+    web_hits = []
+    web_boost = 0
+    web_operator = None
+
+    if db_conf == 0 and input_type == 'phone':
+        # Unknown phone — search by geography/pattern
+        geo = circle if circle != 'Unknown' else 'India'
+        web_q = f'online betting fraud arrested {geo} Telegram 2026'
+        web_data = serp_search(web_q, num=5)
+        raw_hits = web_data.get('news_results', web_data.get('organic_results', []))[:4]
+        for r in raw_hits:
+            title = r.get('title', '')
+            snippet = r.get('snippet', '') or r.get('description', '')
+            text = (title + ' ' + snippet).lower()
+            if any(w in text for w in ['arrested','fir','cybercrime','seized','busted']):
+                web_hits.append({
+                    'title':   title[:80],
+                    'source':  r.get('source', ''),
+                    'link':    r.get('link', ''),
+                    'date':    r.get('date', ''),
+                    'type':    'geographic_context',
+                    'note':    f'Enforcement activity in {geo} — geographic context only',
+                })
+        # Geographic hits give context but NOT phone-specific confidence
+        web_boost = 0  # No boost — geographic only
+
+    elif db_conf > 0 or input_type == 'keyword':
+        # Known operator or brand — search by name for enforcement news
+        search_term = None
+        if input_type == 'keyword':
+            search_term = query
+        elif phones:
+            # Try to resolve operator name from resurrection API
+            try:
+                from cineos_resurrection_api import get_resurrection_profile
+                profile = get_resurrection_profile(query)
+                if profile.get('found'):
+                    search_term = profile.get('primary_name')
+                    web_operator = search_term
+            except:
+                pass
+
+        if search_term:
+            web_q = f'{search_term} arrested India fraud 2026'
+            web_data = serp_search(web_q, num=8)
+            raw_hits = web_data.get('news_results', web_data.get('organic_results', []))[:5]
+            for r in raw_hits:
+                title = r.get('title', '')
+                snippet = r.get('snippet', '') or r.get('description', '')
+                text = (title + ' ' + snippet).lower()
+                is_enforcement = any(w in text for w in
+                    ['arrested','fir','ed ','cybercrime','seized','busted',
+                     'enforcement directorate','crore','attachment'])
+                if is_enforcement or search_term.lower() in text:
+                    web_hits.append({
+                        'title':   title[:80],
+                        'source':  r.get('source', ''),
+                        'link':    r.get('link', ''),
+                        'date':    r.get('date', ''),
+                        'type':    'enforcement' if is_enforcement else 'mention',
+                    })
+            enforcement_count = sum(1 for h in web_hits if h.get('type') == 'enforcement')
+            web_boost = min(10, enforcement_count * 3)  # Max +10 from web
+
     # ── AGGREGATE CONFIDENCE ──────────────────────────────────
     if db_conf > 0:
         carrier_boost = carrier_risk // 8
     else:
         carrier_boost = carrier_risk // 2
 
-    total_conf = min(99, db_conf + carrier_boost)
+    total_conf = min(99, db_conf + carrier_boost + web_boost)
 
-    # Hard cap: no DB match + no web = pattern only → LOW max
+    # Hard cap: no DB match = pattern only → LOW max (web gives context not confirmation)
     if db_conf == 0:
         total_conf = min(total_conf, 42)
 
@@ -886,7 +951,9 @@ def api_lookup():
         'carrier':          carrier,
         'circle':           circle,
         'carrier_risk':     carrier_risk,
-        'sources_queried':  ['CINEOS_DB','CARRIER_LOOKUP'],
+        'sources_queried':  ['CINEOS_DB','CARRIER_LOOKUP','WEB_SEARCH'],
+        'web_hits':         web_hits[:5],
+        'web_operator':     web_operator,
         'legal_basis':      'IT Act 2000 §65B certified evidence',
         'disclaimer':       'Intelligence-grade assessment from public sources. Verify before enforcement action.',
     }

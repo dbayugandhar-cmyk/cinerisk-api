@@ -770,16 +770,79 @@ def watchlist_bulk():
 @app.route('/api/lookup')
 def api_lookup():
     """Universal entity lookup — phone, UPI, handle, domain, keyword"""
+    import re as _re
     query = request.args.get('q','').strip()
     if not query:
         return jsonify({'error': 'Missing parameter: q'}), 400
-    if not ENTITY_RESOLVE:
-        return jsonify({'error': 'Entity resolver not available'}), 503
-    try:
-        result = _resolve(query)
-        return jsonify(result)
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    
+    alerts = _load_alerts()
+    q_lower = query.lower()
+    
+    # Detect input type
+    digits = _re.sub(r'[^\d]','',query)
+    if len(digits) >= 10:
+        # Phone lookup
+        bare = digits[-10:]
+        matches = [a for a in alerts if bare in _re.sub(r'[^\d]','',(str(a.get('chain',{}).get('phones','')) + str(a)))]
+        input_type = 'phone'
+        normalized = '+91' + bare
+    elif '@' in query and '.' in query.split('@')[-1]:
+        # UPI
+        matches = [a for a in alerts if q_lower in str(a).lower()]
+        input_type = 'upi'
+        normalized = q_lower
+    elif query.startswith('@') or 't.me/' in query:
+        # Telegram handle
+        handle = query.replace('t.me/','').replace('@','').lower()
+        matches = [a for a in alerts if handle in str(a.get('title','')).lower() or handle in str(a.get('chain',{}).get('channels_found',[])).lower()]
+        input_type = 'telegram'
+        normalized = handle
+    else:
+        # Keyword/brand
+        matches = [a for a in alerts if q_lower in str(a.get('title','')).lower() or q_lower in str(a.get('detail','')).lower()]
+        input_type = 'keyword'
+        normalized = q_lower
+    
+    if not matches:
+        return jsonify({
+            'input': query, 'input_type': input_type,
+            'found': False, 'risk_level': 'CLEAR',
+            'confidence': 0, 'message': 'Not found in CINEOS database',
+        })
+    
+    # Build result from matches
+    cats = {}
+    phones = set()
+    channels = set()
+    for a in matches:
+        cat = a.get('category','unknown')
+        cats[cat] = cats.get(cat,0) + 1
+        for p in a.get('chain',{}).get('phones',[]):
+            if p: phones.add(p)
+        for ch in a.get('chain',{}).get('channels_found',[]):
+            if ch: channels.add(str(ch))
+    
+    n = len(matches)
+    conf = 95 if n>=7 else 85 if n>=5 else 80 if n>=3 else 75 if n>=2 else 60
+    risk = 'CRITICAL' if conf>=85 else 'HIGH' if conf>=75 else 'MEDIUM'
+    primary = max(cats,key=cats.get) if cats else 'unknown'
+    
+    dates = sorted([a.get('detected_at','') for a in matches if a.get('detected_at','')])
+    
+    return jsonify({
+        'input': query, 'input_type': input_type,
+        'normalized': normalized, 'found': True,
+        'risk_level': risk, 'confidence': conf,
+        'alert_count': n,
+        'fraud_categories': list(cats.keys()),
+        'primary_category': primary,
+        'phones_linked': list(phones)[:5],
+        'channels_linked': list(channels)[:5],
+        'first_detected': dates[0][:19] if dates else None,
+        'last_detected': dates[-1][:19] if dates else None,
+        'legal_basis': 'IT Act 2000 §65B certified evidence',
+        'disclaimer': 'Intelligence-grade assessment. Verify before enforcement action.',
+    })
 
 @app.route('/api/lookup/bulk', methods=['POST'])
 def api_lookup_bulk():

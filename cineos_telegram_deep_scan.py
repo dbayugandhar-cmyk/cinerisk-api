@@ -258,7 +258,16 @@ def clean_phone(p):
 def classify(text):
     text_l = text.lower()
     scores = defaultdict(int)
-    for cat, keywords in FRAUD_KEYWORDS.items():
+    # Merge base keywords with scan queue
+_scan_queue_extra = load_scan_queue()
+_all_keywords = {**FRAUD_KEYWORDS}
+for _cat, _terms in _scan_queue_extra.items():
+    if _cat in _all_keywords:
+        _all_keywords[_cat] = list(set(_all_keywords[_cat] + _terms))
+    else:
+        _all_keywords[_cat] = _terms
+
+for cat, keywords in _all_keywords.items():
         for kw in keywords:
             if kw in text_l:
                 scores[cat] += 1
@@ -595,6 +604,24 @@ async def deep_scan(resume=False, limit=None):
 
     return stats
 
+
+
+def load_scan_queue():
+    """Load additional search terms from scan_queue.json"""
+    import os
+    if not os.path.exists('reports/scan_queue.json'):
+        return {}
+    queue = json.load(open('reports/scan_queue.json'))
+    # Convert to FRAUD_KEYWORDS format
+    extra = {}
+    for item in queue:
+        cat  = item.get('category','unknown')
+        term = item.get('term','')
+        if term:
+            if cat not in extra:
+                extra[cat] = []
+            extra[cat].append(term)
+    return extra
 
 def _save_all(channels, graph, new_alerts, existing_alerts, scanned_usernames, stats):
     # Save channels

@@ -766,6 +766,44 @@ def watchlist_bulk():
     })
 
 
+
+@app.route('/api/lookup')
+def api_lookup():
+    """Universal entity lookup — phone, UPI, handle, domain, keyword"""
+    query = request.args.get('q','').strip()
+    if not query:
+        return jsonify({'error': 'Missing parameter: q'}), 400
+    if not ENTITY_RESOLVE:
+        return jsonify({'error': 'Entity resolver not available'}), 503
+    try:
+        result = _resolve(query)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/lookup/bulk', methods=['POST'])
+def api_lookup_bulk():
+    """Bulk entity lookup — up to 50 identifiers at once"""
+    data = request.get_json() or {}
+    queries = data.get('queries', [])[:50]
+    if not queries:
+        return jsonify({'error': 'Missing parameter: queries'}), 400
+    if not ENTITY_RESOLVE:
+        return jsonify({'error': 'Entity resolver not available'}), 503
+    results = []
+    for q in queries:
+        try:
+            results.append(_resolve(str(q)))
+        except Exception as e:
+            results.append({'input': q, 'error': str(e)})
+    flagged = sum(1 for r in results if r.get('found'))
+    return jsonify({
+        'total': len(results),
+        'flagged': flagged,
+        'clear': len(results) - flagged,
+        'results': results,
+    })
+
 if __name__ == '__main__':
     init_alerts()
     print(f"CINEOS Intelligence API starting...")

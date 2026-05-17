@@ -775,7 +775,7 @@ def api_lookup():
     if not query:
         return jsonify({'error': 'Missing parameter: q'}), 400
     
-    alerts = _load_alerts()
+    alerts = _load_github()
     q_lower = query.lower()
     
     # Detect input type

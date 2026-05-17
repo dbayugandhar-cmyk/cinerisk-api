@@ -696,16 +696,17 @@ def scan_banking_fraud():
     """Banking fraud vertical — mule accounts, KYC fraud, OTP bypass, loan fraud"""
     alerts = []
     queries = [
-        'bank account kit sell India Telegram arrested 2026',
-        'money mule network India arrested cybercrime 2026',
-        'UPI mule account India FIU-IND arrested 2026',
-        'hawala operator India arrested ED PMLA 2026',
-        'KYC bypass fake Aadhaar India Telegram arrested 2026',
-        'OTP bypass SIM swap India arrested cybercrime 2026',
-        'fake loan app India digital arrest threat arrested 2026',
-        'USDT INR P2P India Telegram operator hawala 2026',
-        'phishing UPI net banking India fake APK arrested 2026',
-        'CIBIL bypass fake documents India Telegram sell 2026',
+        # Active fraud operations — not just arrest news
+        'bank account kit sell India Telegram 2026',
+        'UPI mule recruitment India Telegram active 2026',
+        'hawala USDT INR India Telegram operator 2026',
+        'OTP bypass service India Telegram buy 2026',
+        'fake bank account India cybercrime FIU 2026',
+        'mule account India arrested FIU-IND 2026',
+        'money mule network India cybercrime arrested 2026',
+        'KYC fraud India Telegram Aadhaar sell 2026',
+        'phishing UPI APK India bank fraud arrested 2026',
+        'PMLA hawala India ED arrested crore 2026',
     ]
     for q in queries:
         data = serp_news(q)
@@ -744,16 +745,22 @@ def scan_pharma_deep():
     """Counterfeit pharma vertical — DCGI targets, DEA-India network, prescription fraud"""
     alerts = []
     queries = [
+        # CDSCO/DCGI enforcement
         'CDSCO drug alert counterfeit medicine India 2026',
         'DCGI crackdown illegal medicine online India 2026',
-        'sildenafil tadalafil without prescription India arrested 2026',
-        'fake Ozempic semaglutide India seized arrested 2026',
-        'counterfeit pharma India arrested CDSCO state drug 2026',
-        'illegal online pharmacy India arrested DEA 2026',
-        'cancer cure fraud medicine India Telegram arrested 2026',
-        'tramadol codeine without prescription India arrested 2026',
-        'steroid HGH without prescription India Telegram 2026',
-        'fake medicine COD delivery India arrested cybercrime 2026',
+        'state drug controller seized fake medicine India 2026',
+        # Specific high-value targets
+        'fake Ozempic semaglutide seized India 2026',
+        'counterfeit Mounjaro tirzepatide India arrested 2026',
+        'tramadol without prescription India Telegram arrested 2026',
+        'steroid anabolic India Telegram arrested seized 2026',
+        'sildenafil tadalafil online India pharmacy arrested 2026',
+        # Active distribution
+        'fake medicine Telegram India COD delivery 2026',
+        'counterfeit pharma India online pharmacy arrested 2026',
+        # New DCGI alerts
+        'DCGI alert spurious drug India 2026',
+        'not of standard quality drug India CDSCO 2026',
     ]
     for q in queries:
         data = serp_news(q)

@@ -20,7 +20,40 @@ DOMAIN_RE=re.compile(r'\b([a-zA-Z0-9\-]{3,40}\.(?:com|in|net|org|co\.in|app|io))
 TG_RE=re.compile(r'(?:t\.me|telegram\.me)/([a-zA-Z0-9_]{3,32})')
 STATE_RE=re.compile(r'\b(Maharashtra|Gujarat|Telangana|Karnataka|Tamil Nadu|Andhra Pradesh|Delhi|Rajasthan|Uttar Pradesh|West Bengal|Punjab|Kerala|Haryana|Bihar|Odisha|Assam|Madhya Pradesh)\b',re.IGNORECASE)
 
-FRAUD_CATEGORIES={'illegal_betting':['betting','satta','matka','cricket id','book','bookie'],'crypto_fraud':['crypto','bitcoin','usdt','blockchain','cryptocurrency'],'investment_fraud':['investment','stock','trading','sebi','ponzi','scheme'],'colour_prediction':['colour prediction','color prediction','91club','daman'],'upi_mule':['mule','bank account','upi','hawala','money transfer'],'counterfeit_pharma':['medicine','drug','pharma','tablet','counterfeit'],'digital_arrest':['digital arrest','fake ed','fake cbi','fake police'],'piracy':['piracy','stream','hotstar','ott','movie'],'loan_fraud':['loan','cibil','lending app','nbfc']}
+FRAUD_CATEGORIES={
+    'illegal_betting': ['betting','satta','matka','cricket id','book id','bookie',
+                        'mahadev','reddy anna','laser247','betbhai','cricbet',
+                        'tiger365','diamond exchange','radhe exchange','fairplay',
+                        'world777','lotus365','match fix','toss fix','bet id'],
+    'crypto_fraud':    ['crypto','bitcoin','usdt','tether','blockchain','btc','eth',
+                        'guaranteed return','daily profit','trading signal','pump',
+                        'p2p trader','usdt inr','coin signal','defi earn','nft fraud'],
+    'investment_fraud':['investment fraud','stock tips','sebi unregistered','ponzi',
+                        'guaranteed profit','option trading','insider tip','ipo allotment',
+                        'fake portfolio','wealth manager fraud','pig butchering'],
+    'colour_prediction':['colour prediction','color prediction','91club','daman',
+                         'okwin','jalwa','bdg win','wingo','tiranga','aviator',
+                         'crash game','colour trade'],
+    'upi_mule':        ['mule account','bank account kit','upi mule','hawala',
+                        'money transfer agent','otp bypass','sim swap','atm card sell',
+                        'fake kyc','account kit sell','upi earn commission',
+                        'current account sell','mule network'],
+    'counterfeit_pharma':['counterfeit medicine','fake drug','spurious medicine',
+                          'ozempic','mounjaro','tramadol','sildenafil','tadalafil',
+                          'alprazolam','kamagra','steroid','anabolic','hgh',
+                          'prescription drug','illegal pharmacy','cdsco','dcgi'],
+    'digital_arrest':  ['digital arrest','fake ed','fake cbi','fake police',
+                        'fake customs','courier seized','money laundering notice',
+                        'deepfake call','sextortion'],
+    'piracy':          ['piracy','illegal stream','cracked ott','free hotstar',
+                        'free netflix','ipl piracy','torrent','copyright violation'],
+    'loan_fraud':      ['loan fraud','fake loan app','illegal lending','no cibil',
+                        'loan without document','processing fee fraud',
+                        'loan harassment','nbfc fraud'],
+    'brand_impersonation':['fake paytm','fake phonepe','fake amazon','fake flipkart',
+                            'fake hdfc','fake icici','fake sbi','brand impersonation',
+                            'phishing site','fake payment'],
+}
 
 LEGAL={'illegal_betting':'IT Act §65B + Public Gambling Act 1867 + OGA 2025 §8','crypto_fraud':'PMLA 2002 §3 + IT Act §65B + SEBI §12A','investment_fraud':'IT Act §66D + SEBI Act §12A + IPC §420','colour_prediction':'IT Act §65B + OGA 2025 §8 + FEMA 1999','upi_mule':'IT Act §66 + PMLA §3 + IPC §420','digital_arrest':'IT Act §66D + §66C + IPC §419 §420','piracy':'IT Act §65B + Copyright Act §51','loan_fraud':'IT Act §66D + RBI Master Direction + IPC §420'}
 
@@ -33,7 +66,85 @@ def detect_category(text):
         if any(k in t for k in kws): return cat
     return 'unknown'
 
-NEWS_QUERIES=['ED arrests India fraud Telegram crypto 2026','cybercrime arrested India Telegram fraud crore 2026','SEBI action fraud India stock tips 2026','police cyber fraud arrested India Telegram 2026','Gujarat Maharashtra cybercrime arrested fraud 2026','Telangana Karnataka cybercrime fraud arrested 2026','fake trading app India arrested ED 2026','betting fraud India arrested cricket ID 2026','colour prediction fraud India arrested 2026','digital arrest scam India arrested 2026','UPI mule network India arrested 2026','counterfeit medicine India arrested 2026','pig butchering India arrested crypto 2026','IPL piracy India arrested streaming 2026']
+NEWS_QUERIES=[
+    # ── ENFORCEMENT ACTIONS ──────────────────────────────────────
+    # ED / PMLA
+    'Enforcement Directorate arrested India fraud crore 2026',
+    'ED attachment India cyber fraud PMLA 2026',
+    'ED arrested online betting India 2026',
+    'ED arrested crypto fraud India hawala 2026',
+    # I4C / MHA Cybercrime
+    'I4C cybercrime arrested India 2026',
+    'cybercrime police arrested India Telegram fraud 2026',
+    'NCRP complaint India arrested cybercrime 2026',
+    '1930 helpline cybercrime arrested India 2026',
+    # State police — AP/TG (primary betting geography)
+    'Telangana cybercrime arrested betting 2026',
+    'Andhra Pradesh cybercrime arrested online betting 2026',
+    'Visakhapatnam Hyderabad cybercrime arrested 2026',
+    # State police — Maharashtra / Gujarat (mule networks)
+    'Maharashtra cybercrime arrested UPI mule 2026',
+    'Gujarat cybercrime arrested mule account 2026',
+    'Ahmedabad Pune Mumbai cybercrime arrested 2026',
+    # State police — Rajasthan (Radhe Exchange geography)
+    'Rajasthan cybercrime arrested online betting 2026',
+    # State police — others
+    'Delhi cybercrime arrested fraud Telegram 2026',
+    'Karnataka cybercrime arrested fraud 2026',
+    'UP cybercrime arrested Telegram fraud 2026',
+
+    # ── REGULATOR ACTIONS ────────────────────────────────────────
+    # SEBI
+    'SEBI action fraud India stock tips unregistered 2026',
+    'SEBI order penalty fraud India 2026',
+    'SEBI arrested unregistered advisor India 2026',
+    # RBI
+    'RBI action illegal lending app India 2026',
+    'RBI cancelled NBFC India fraud 2026',
+    'RBI alert payment fraud India 2026',
+    # CDSCO / DCGI — pharma
+    'CDSCO drug alert spurious medicine India 2026',
+    'DCGI crackdown counterfeit medicine India 2026',
+    'state drug controller seized fake medicine India 2026',
+    'CDSCO not of standard quality drug India 2026',
+    # TRAI — telecom fraud
+    'TRAI action SMS fraud India 2026',
+    'DoT disconnected fraud numbers India 2026',
+    'TRAI bulk SMS fraud India arrested 2026',
+
+    # ── VERTICAL SPECIFIC ────────────────────────────────────────
+    # Betting
+    'online betting arrested India cricket ID 2026',
+    'satta matka arrested India 2026',
+    'Mahadev Book arrested India 2026',
+    'Reddy Anna arrested India 2026',
+    'illegal betting app India arrested crore 2026',
+    # Banking / UPI fraud
+    'UPI mule network arrested India 2026',
+    'mule account India arrested FIU 2026',
+    'hawala USDT India arrested ED 2026',
+    'OTP bypass SIM swap India arrested 2026',
+    'fake KYC Aadhaar India arrested 2026',
+    # Pharma
+    'counterfeit medicine Telegram India arrested 2026',
+    'fake Ozempic seized India 2026',
+    'tramadol without prescription India arrested 2026',
+    'steroid anabolic India seized arrested 2026',
+    'illegal pharmacy online India arrested 2026',
+    # Crypto
+    'crypto fraud India arrested ED PMLA 2026',
+    'pig butchering India arrested crypto 2026',
+    'fake trading app India arrested 2026',
+    # Colour prediction
+    'colour prediction fraud India arrested 2026',
+    '91club daman fraud India arrested 2026',
+    # Digital arrest
+    'digital arrest scam India arrested 2026',
+    'fake CBI ED police call India arrested 2026',
+    # Piracy
+    'IPL piracy India arrested streaming 2026',
+    'OTT piracy India arrested 2026',
+]
 
 def fetch_news():
     print('[NEWS] Fetching enforcement news...')

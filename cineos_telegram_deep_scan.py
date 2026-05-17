@@ -67,32 +67,142 @@ DOMAIN_RE = re.compile(
 WHATSAPP_RE = re.compile(r'(?:wa\.me|chat\.whatsapp\.com)/([A-Za-z0-9]+)')
 
 FRAUD_KEYWORDS = {
-    'illegal_betting': ['satta','matka','betting','bookie','cricket id','bet','laser247',
-                       'betbhai','cricbet','tiger365','diamond exch','reddy anna',
-                       'mahadev','book online','toss','match fix','sure shot'],
-    'colour_prediction': ['colour prediction','color prediction','91club','okwin',
-                         'jalwa','bdg win','wingo','daman','tiranga','aviator',
-                         'crash game','colour trade','big small'],
-    'crypto_fraud': ['crypto','bitcoin','usdt','eth','binance','investment plan',
-                    'daily profit','guaranteed return','trading signal','pump',
-                    'mining','wallet','coin','token','nft','defi','withdrawal'],
-    'investment_fraud': ['stock tips','guaranteed profit','sebi','option trading',
-                        'nifty','sensex','portfolio','mutual fund','ipo','insider'],
-    'upi_mule': ['bank account','account kit','sim card','kyc','atm card',
-                'earn commission','easy money','work from home','mule',
-                'money transfer agent','upi earn'],
-    'piracy': ['free movies','download','stream','hd quality','hotstar','netflix',
-              'amazon prime','zee5','sony liv','cracked','torrent','web series'],
-    'task_fraud': ['task earn','google review','youtube like','instagram follow',
-                  'work online','part time','daily task','earn 500','5 star'],
-    'loan_fraud': ['instant loan','no cibil','personal loan','business loan',
-                  'loan app','easy loan','loan without document'],
-    'counterfeit_pharma': ['medicine','tablet','capsule','ayurvedic','herbal',
-                          'weight loss','height increase','original medicine'],
-    'ai_scam': ['digital arrest','ed officer','cbi','police','customs','narcotics',
-               'your son arrested','courier package','deepfake','voice note'],
-    'domain_squat': ['jiohotstar','phonepe','paytm','gpay','amazon','flipkart',
-                    'hdfc bank','icici','sbi online','official site'],
+    # VERTICAL 1: ILLEGAL BETTING — strongest vertical
+    'illegal_betting': [
+        # Platform names
+        'satta','matka','betting','bookie','bet id','cricket id',
+        'laser247','betbhai','cricbet','tiger365','diamond exch',
+        'reddy anna','mahadev','book online','toss fix','match fix',
+        'sure shot','world777','lotus365','fairplay','radhe exch',
+        'sky exch','1xbet','betway','wolf777','parimatch',
+        'all panel','cricbuzz id','my99exch','play99exch',
+        # Hindi/regional
+        'satta king','matka result','kalyan matka','milan matka',
+        'rajdhani','gali disawar','faridabad','id lene ke liye',
+        'new id','online id','betting id',
+        # Action signals
+        'whatsapp karo','contact karo','id banao','withdrawal guaranteed',
+    ],
+
+    # VERTICAL 2: COLOUR PREDICTION — growing fast
+    'colour_prediction': [
+        '91club','okwin','jalwa','bdg win','wingo','daman','tiranga',
+        'aviator','crash game','colour trade','big small','colour prediction',
+        'color prediction','jai club','daman game','bharat club',
+        'tc lottery','lottery king','predict colour','win colour',
+        'spin earn','rummy circle','teen patti gold',
+    ],
+
+    # VERTICAL 3: CRYPTO FRAUD — cross-vertical with betting
+    'crypto_fraud': [
+        'usdt','tether','btc','eth','binance','guaranteed return',
+        'daily profit','trading signal','pump signal','mining plan',
+        'withdrawal usdt','crypto investment','p2p trader','usdt sell',
+        'usdt buy','coin signal','token launch','defi earn',
+        'crypto wallet','bitcoin doubler','crypto ponzi',
+        # India-specific
+        'usdt inr','usdt to inr','coinswitch','wazirx','coindcx',
+        'crypto earn daily','crypto referral',
+    ],
+
+    # VERTICAL 4: BANKING FRAUD — needs real Telegram channels
+    'upi_mule': [
+        # Mule recruitment — what real channels say
+        'bank account kit','account kit sell','sell bank account',
+        'current account sell','company account sell',
+        'upi id sell','upi earn commission','upi agent',
+        'atm card sell','sim card sell','kyc document sell',
+        'fake kyc','rent account','account rent',
+        # OTP/bypass
+        'otp bypass','otp sell','sim swap','otp agent',
+        'carding','cvv dump','bank login sell',
+        # Hawala signals
+        'hawala','hundi','cash transfer','money transfer agent',
+        'international transfer','western union','moneygram',
+        # Job scam overlap
+        'earn per transaction','commission per transfer',
+        'work from home upi','upi task earn',
+    ],
+
+    # VERTICAL 5: PHARMA — real seller patterns
+    'counterfeit_pharma': [
+        # Weight loss drugs (high demand, heavily faked)
+        'ozempic','semaglutide','mounjaro','tirzepatide','wegovy',
+        'saxenda','victoza','rybelsus',
+        # ED drugs
+        'sildenafil','tadalafil','viagra','cialis','kamagra',
+        'cenforce','fildena','vidalista',
+        # Controlled substances
+        'tramadol','alprazolam','xanax','clonazepam','diazepam',
+        'codeine','pregabalin','zolpidem','ambien','modafinil',
+        # Steroids
+        'testosterone','dianabol','anavar','trenbolone','hgh',
+        'growth hormone','stanozolol','winstrol','clenbuterol',
+        # Seller signals
+        'cod available','cash on delivery medicine','home delivery tablet',
+        'original medicine','genuine medicine','buy medicine online',
+        'prescription not required','no prescription needed',
+        'medicine supplier','pharma distributor','wholesale medicine',
+        # India-specific
+        'ayurvedic medicine sell','patanjali wholesale',
+        'unani medicine','herbal supplier',
+    ],
+
+    # VERTICAL 6: INVESTMENT FRAUD
+    'investment_fraud': [
+        'guaranteed profit','stock tips','sebi unregistered',
+        'option trading signal','nifty tips','sensex call',
+        'insider tip','ipo allotment','mutual fund guaranteed',
+        'portfolio management','wealth manager',
+        'pig butchering','fake trading app','forex signal',
+        'commodity tips','mcx tips','gold signal',
+        '100 percent profit','double your money',
+    ],
+
+    # VERTICAL 7: PIRACY
+    'piracy': [
+        'free hotstar','free netflix','free amazon','cracked ott',
+        'free web series','hd movies download','torrent link',
+        'ipl live free','ipl stream','cricket live stream',
+        'free subscription','ott account sell','shared account',
+        'premium account free','disney plus free',
+    ],
+
+    # VERTICAL 8: TASK FRAUD
+    'task_fraud': [
+        'task earn','google review pay','youtube like pay',
+        'instagram follow pay','part time work','daily task money',
+        'earn 500 daily','earn 1000 daily','online part time',
+        'simple task earn','work 2 hours earn','telegram task',
+        'advance pay','withdrawal proof','task complete earn',
+    ],
+
+    # VERTICAL 9: LOAN FRAUD
+    'loan_fraud': [
+        'instant loan','no cibil check','personal loan fast',
+        'loan app','easy loan no document','business loan quick',
+        'loan without income proof','loan 5 minutes',
+        'loan agent commission','processing fee loan',
+        'loan recovery threat','loan harassment',
+    ],
+
+    # VERTICAL 10: AI / DIGITAL ARREST SCAM
+    'ai_scam': [
+        'digital arrest','ed officer','cbi notice','customs package',
+        'your parcel seized','money laundering notice',
+        'narcotics courier','police video call',
+        'deepfake call','voice clone','ai video fraud',
+        'sextortion','blackmail video','obscene video',
+    ],
+
+    # VERTICAL 11: DOMAIN SQUATTING / BRAND IMPERSONATION
+    'domain_squat': [
+        'jiohotstar','phonepe','paytm fake','gpay official',
+        'amazon india fake','flipkart seller','hdfc official',
+        'icici bank fake','sbi online fake','bcci official',
+        'dream11 official','mpl game','rummy official',
+        'fake payment gateway','payment failed refund',
+    ],
 }
 
 LEGAL = {

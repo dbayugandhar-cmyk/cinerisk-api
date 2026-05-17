@@ -879,16 +879,22 @@ def api_lookup():
         search_term = None
         if input_type == 'keyword':
             search_term = query
-        elif phones:
-            # Try to resolve operator name from resurrection API
-            try:
-                from cineos_resurrection_api import get_resurrection_profile
-                profile = get_resurrection_profile(query)
-                if profile.get('found'):
-                    search_term = profile.get('primary_name')
-                    web_operator = search_term
-            except:
-                pass
+        elif phones or input_type == 'phone':
+            # Resolve operator name via inline map first
+            bare10 = digits[-10:] if len(digits) >= 10 else ''
+            if bare10 in OPERATOR_MAP:
+                search_term = OPERATOR_MAP[bare10]
+                web_operator = search_term
+            else:
+                # Try resurrection API as fallback
+                try:
+                    from cineos_resurrection_api import get_resurrection_profile
+                    profile = get_resurrection_profile(query)
+                    if profile.get('found'):
+                        search_term = profile.get('primary_name')
+                        web_operator = search_term
+                except:
+                    pass
 
         # Inline operator map — no external module needed on Railway
         OPERATOR_MAP = {

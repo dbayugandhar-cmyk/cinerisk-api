@@ -258,16 +258,22 @@ def clean_phone(p):
 def classify(text):
     text_l = text.lower()
     scores = defaultdict(int)
-    # Merge base keywords with scan queue
-_scan_queue_extra = load_scan_queue()
-_all_keywords = {**FRAUD_KEYWORDS}
-for _cat, _terms in _scan_queue_extra.items():
-    if _cat in _all_keywords:
-        _all_keywords[_cat] = list(set(_all_keywords[_cat] + _terms))
-    else:
-        _all_keywords[_cat] = _terms
-
-    for cat, keywords in _all_keywords.items():
+    all_kw = {**FRAUD_KEYWORDS}
+    try:
+        import os as _os
+        if _os.path.exists('reports/scan_queue.json'):
+            import json as _j
+            for item in _j.load(open('reports/scan_queue.json')):
+                cat2 = item.get('category','unknown')
+                term = item.get('term','')
+                if term:
+                    if cat2 not in all_kw:
+                        all_kw[cat2] = []
+                    if term not in all_kw[cat2]:
+                        all_kw[cat2].append(term)
+    except:
+        pass
+    for cat, keywords in all_kw.items():
         for kw in keywords:
             if kw in text_l:
                 scores[cat] += 1

@@ -267,7 +267,7 @@ for _cat, _terms in _scan_queue_extra.items():
     else:
         _all_keywords[_cat] = _terms
 
-for cat, keywords in _all_keywords.items():
+    for cat, keywords in _all_keywords.items():
         for kw in keywords:
             if kw in text_l:
                 scores[cat] += 1

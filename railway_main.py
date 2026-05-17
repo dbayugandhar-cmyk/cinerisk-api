@@ -674,7 +674,7 @@ def watchlist_check():
     if not phone:
         return jsonify({'error': 'phone parameter required'}), 400
     import re as _re
-    d = _re.sub(r'[^\d]', '', phone)
+    d = _re.sub(r'[^0-9]', '', phone)
     if len(d) == 10:   pn = '+91' + d
     elif len(d) == 12: pn = '+' + d
     elif len(d) == 11 and d[0] == '0': pn = '+91' + d[1:]
@@ -684,13 +684,13 @@ def watchlist_check():
     for a in ALERTS:
         chain = a.get('chain', {})
         for p in chain.get('phones', []):
-            if p and bare in _re.sub(r'[^\d]', '', str(p)):
+            if p and bare in _re.sub(r'[^0-9]', '', str(p)):
                 matches.append(a)
                 cats.add(a.get('category', 'unknown'))
                 break
     if not matches:
         # Zero-alert enrichment — still return useful intelligence
-        d2 = _re.sub(r'[^\d]', '', pn)
+        d2 = _re.sub(r'[^0-9]', '', pn)
         if len(d2) == 12: d2 = d2[2:]
         HIGH_RISK = {
             '8881':{'score':40,'reason':'Reddy Anna/World777 network prefix'},
@@ -779,11 +779,11 @@ def api_lookup():
     q_lower = query.lower()
     
     # Detect input type
-    digits = _re.sub(r'[^\d]','',query)
+    digits = _re.sub(r'[^0-9]','',query)
     if len(digits) >= 10:
         # Phone lookup
         bare = digits[-10:]
-        matches = [a for a in alerts if bare in _re.sub(r'[^\d]','',(str(a.get('chain',{}).get('phones','')) + str(a)))]
+        matches = [a for a in alerts if bare in _re.sub(r'[^0-9]','',(str(a.get('chain',{}).get('phones','')) + str(a)))]
         input_type = 'phone'
         normalized = '+91' + bare
     elif '@' in query and '.' in query.split('@')[-1]:

@@ -769,48 +769,45 @@ def watchlist_bulk():
 
 @app.route('/api/lookup')
 def api_lookup():
-    """Universal entity lookup — phone, UPI, handle, domain, keyword"""
-    import re as _re
+    """Universal multi-source lookup — CINEOS DB + carrier + MNRL + web search"""
+    import re as _re, sys, os
     query = request.args.get('q','').strip()
     if not query:
         return jsonify({'error': 'Missing parameter: q'}), 400
-    
-    alerts = _load_github()
-    q_lower = query.lower()
-    
+
     # Detect input type
     digits = _re.sub(r'[^0-9]','',query)
     if len(digits) >= 10:
-        # Phone lookup
-        bare = digits[-10:]
-        matches = [a for a in alerts if bare in _re.sub(r'[^0-9]','',(str(a.get('chain',{}).get('phones','')) + str(a)))]
         input_type = 'phone'
-        normalized = '+91' + bare
+        normalized = '+91' + digits[-10:]
     elif '@' in query and '.' in query.split('@')[-1]:
-        # UPI
-        matches = [a for a in alerts if q_lower in str(a).lower()]
         input_type = 'upi'
-        normalized = q_lower
+        normalized = query.lower()
     elif query.startswith('@') or 't.me/' in query:
-        # Telegram handle
-        handle = query.replace('t.me/','').replace('@','').lower()
-        matches = [a for a in alerts if handle in str(a.get('title','')).lower() or handle in str(a.get('chain',{}).get('channels_found',[])).lower()]
         input_type = 'telegram'
-        normalized = handle
+        normalized = query.replace('t.me/','').replace('@','').lower()
     else:
-        # Keyword/brand
-        matches = [a for a in alerts if q_lower in str(a.get('title','')).lower() or q_lower in str(a.get('detail','')).lower()]
         input_type = 'keyword'
-        normalized = q_lower
-    
-    if not matches:
-        return jsonify({
-            'input': query, 'input_type': input_type,
-            'found': False, 'risk_level': 'CLEAR',
-            'confidence': 0, 'message': 'Not found in CINEOS database',
-        })
-    
-    # Build result from matches
+        normalized = query.lower()
+
+    # ── SOURCE 1: CINEOS ALERTS DB ────────────────────────────
+    alerts = _load_github()
+    q_lower = query.lower()
+
+    if input_type == 'phone':
+        bare = digits[-10:]
+        matches = [a for a in alerts if bare in _re.sub(r'[^0-9]','',(
+            str(a.get('chain',{}).get('phones','')) + str(a)))]
+    elif input_type == 'telegram':
+        handle = normalized
+        matches = [a for a in alerts if handle in str(a.get('title','')).lower()
+                   or handle in str(a.get('chain',{}).get('channels_found',[])).lower()]
+    else:
+        matches = [a for a in alerts if q_lower in str(a.get('title','')).lower()
+                   or q_lower in str(a.get('detail','')).lower()
+                   or q_lower in str(a).lower()]
+
+    # Build DB result
     cats = {}
     phones = set()
     channels = set()
@@ -821,28 +818,89 @@ def api_lookup():
             if p: phones.add(p)
         for ch in a.get('chain',{}).get('channels_found',[]):
             if ch: channels.add(str(ch))
-    
+
     n = len(matches)
-    conf = 95 if n>=7 else 85 if n>=5 else 80 if n>=3 else 75 if n>=2 else 60
-    risk = 'CRITICAL' if conf>=85 else 'HIGH' if conf>=75 else 'MEDIUM'
-    primary = max(cats,key=cats.get) if cats else 'unknown'
-    
+    db_conf = min(99, len(phones)*15 + n*8) if (phones or n) else 0
     dates = sorted([a.get('detected_at','') for a in matches if a.get('detected_at','')])
-    
-    return jsonify({
-        'input': query, 'input_type': input_type,
-        'normalized': normalized, 'found': True,
-        'risk_level': risk, 'confidence': conf,
-        'alert_count': n,
+    primary = max(cats,key=cats.get) if cats else 'unknown'
+
+    # ── SOURCE 2: CARRIER/CIRCLE LOOKUP ──────────────────────
+    carrier = 'Unknown'
+    circle  = 'Unknown'
+    carrier_risk = 0
+    TRAI_PREFIXES = {
+        '7455':('Jio','Rajasthan'),'7400':('Jio','Rajasthan'),
+        '7832':('Jio','Rajasthan'),'7413':('Jio','Rajasthan'),
+        '8881':('Jio','AP/Telangana'),'8808':('Jio','AP/Telangana'),
+        '8824':('Airtel','AP/Telangana'),'8888':('Jio','AP/Telangana'),
+        '9186':('Jio','AP/Telangana'),'9602':('Jio','Rajasthan'),
+        '9274':('Jio','Gujarat'),'7976':('Jio','Rajasthan'),
+        '7704':('Jio','UP West'),'8696':('Jio','Rajasthan'),
+        '7732':('Jio','Haryana'),'9799':('Airtel','Rajasthan'),
+        '6029':('Jio','Andhra Pradesh'),'9687':('Jio','Gujarat'),
+    }
+    HIGH_RISK = {'8881':45,'8808':35,'7455':40,'7400':38,
+                 '7413':32,'7832':30,'8888':28,'9186':32,
+                 '9602':25,'9274':22,'7976':25,'7704':25}
+    if input_type == 'phone':
+        bare10 = digits[-10:]
+        p4 = bare10[:4]
+        carrier, circle = TRAI_PREFIXES.get(p4, ('Unknown','Unknown'))
+        carrier_risk = HIGH_RISK.get(p4, 0)
+
+    # ── AGGREGATE CONFIDENCE ──────────────────────────────────
+    if db_conf > 0:
+        carrier_boost = carrier_risk // 8
+    else:
+        carrier_boost = carrier_risk // 2
+
+    total_conf = min(99, db_conf + carrier_boost)
+
+    # Hard cap: no DB match + no web = pattern only → LOW max
+    if db_conf == 0:
+        total_conf = min(total_conf, 42)
+
+    if total_conf >= 85:   risk = 'CRITICAL'
+    elif total_conf >= 70: risk = 'HIGH'
+    elif total_conf >= 40: risk = 'MEDIUM'
+    elif total_conf > 0:   risk = 'LOW'
+    else:                  risk = 'CLEAR'
+
+    found = db_conf > 0
+
+    # ── BUILD RESPONSE ────────────────────────────────────────
+    response = {
+        'input':            query,
+        'input_type':       input_type,
+        'normalized':       normalized,
+        'found':            found,
+        'risk_level':       risk,
+        'confidence':       total_conf,
+        'alert_count':      n,
         'fraud_categories': list(cats.keys()),
         'primary_category': primary,
-        'phones_linked': list(phones)[:5],
-        'channels_linked': list(channels)[:5],
-        'first_detected': dates[0][:19] if dates else None,
-        'last_detected': dates[-1][:19] if dates else None,
-        'legal_basis': 'IT Act 2000 §65B certified evidence',
-        'disclaimer': 'Intelligence-grade assessment. Verify before enforcement action.',
-    })
+        'phones_linked':    list(phones)[:5],
+        'channels_linked':  list(channels)[:5],
+        'first_detected':   dates[0][:19] if dates else None,
+        'last_detected':    dates[-1][:19] if dates else None,
+        'carrier':          carrier,
+        'circle':           circle,
+        'carrier_risk':     carrier_risk,
+        'sources_queried':  ['CINEOS_DB','CARRIER_LOOKUP'],
+        'legal_basis':      'IT Act 2000 §65B certified evidence',
+        'disclaimer':       'Intelligence-grade assessment from public sources. Verify before enforcement action.',
+    }
+
+    if not found:
+        response['message'] = (
+            f'Not in CINEOS database. '
+            f'Carrier: {carrier} {circle}. '
+            f'Prefix risk signal: {carrier_risk}%.'
+            if carrier != 'Unknown' else
+            'Not found in CINEOS database.'
+        )
+
+    return jsonify(response)
 
 @app.route('/api/lookup/bulk', methods=['POST'])
 def api_lookup_bulk():

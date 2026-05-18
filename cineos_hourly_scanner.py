@@ -147,6 +147,22 @@ def make_alert(title, category, severity, platform, detail, source, chain_extra=
     }
     if chain_extra:
         chain.update(chain_extra)
+
+    # QUALITY GATE: only create alert if real intelligence exists
+    phones = chain.get('phones', [])
+    upis   = chain.get('upis', [])
+    chans  = chain.get('channels_found', [])
+    has_telegram = any('t.me/' in str(c) for c in chans)
+    has_reach    = reach > 0
+    has_enforcement = bool(re.search(
+        r'arrested|FIR|seized|busted|crore|lakh',
+        str(detail), re.I
+    ))
+
+    is_quality = bool(phones or upis or has_telegram or has_reach or has_enforcement)
+    if not is_quality:
+        return None  # Skip news-only alerts
+
     return {
         'id':           aid,
         'title':        title[:100],
@@ -157,10 +173,14 @@ def make_alert(title, category, severity, platform, detail, source, chain_extra=
         'detected_at':  now_ist().isoformat(),
         'source':       source,
         'evidence_hash': aid,
+        'reach':        reach,
+        'phone':        phones[0] if phones else '',
+        'upi':          upis[0] if upis else '',
         'legal_basis':  LEGAL.get(category, 'IT Act 2000 §65B'),
         'next_steps':   get_steps(category),
         'report_to':    get_report(category),
-        'attribution':  {'name':'','email':'','phone':'','upi':'','address':'','source':'scan'},
+        'attribution':  {'name':'','email':'','phone': phones[0] if phones else '',
+                         'upi': upis[0] if upis else '','address':'','source':'scan'},
         'chain':        chain,
     }
 
@@ -738,7 +758,7 @@ def scan_banking_fraud():
                     'report_to': ['FIU-IND fiuindia.gov.in', 'RBI rbi.org.in', 'I4C cybercrime.gov.in'],
                 }
             ))
-    return alerts
+    return [a for a in alerts if a is not None]
 
 
 def scan_pharma_deep():
@@ -790,7 +810,7 @@ def scan_pharma_deep():
                     'report_to': ['CDSCO cdsco.gov.in', 'State Drug Controller', 'I4C cybercrime.gov.in'],
                 }
             ))
-    return alerts
+    return [a for a in alerts if a is not None]
 
 
 def run_full_scan():

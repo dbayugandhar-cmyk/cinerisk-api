@@ -358,13 +358,26 @@ def run_scheduled_scan():
     new_found = 0
 
     queries = [
-        ('site:t.me "satta matka" OR "cricket bet"',    'illegal_betting', 'high'),
-        ('site:t.me "colour prediction" OR "91club"',   'colour_prediction', 'high'),
-        ('site:t.me "bank account kit" OR "sim card"',  'upi_mule', 'high'),
-        ('"ipl live stream" telegram 2026',             'piracy', 'critical'),
-        ('site:t.me "guaranteed returns" SEBI',         'investment_fraud', 'medium'),
-        ('site:t.me "medicine wholesale" "below mrp"',  'counterfeit_pharma', 'high'),
-        ('"fake" "apk" download site:*.in -play.google','brand_impersonation','critical'),
+        ('site:t.me satta matka India 2026',              'illegal_betting', 'high'),
+        ('site:t.me "reddy anna" cricket id India',       'illegal_betting', 'critical'),
+        ('site:t.me "mahadev book" betting India',        'illegal_betting', 'critical'),
+        ('site:t.me "laser247" OR "betbhai9" India',      'illegal_betting', 'high'),
+        ('site:t.me "sky exchange" OR "diamond exchange"','illegal_betting', 'high'),
+        ('site:t.me "world777" OR "lotus365" betting',    'illegal_betting', 'high'),
+        ('site:t.me kalyan matka dpboss satta king',      'illegal_betting', 'high'),
+        ('site:t.me "bank account kit" sell India',       'upi_mule', 'high'),
+        ('site:t.me "atm card" OR "sim card" sell India', 'upi_mule', 'high'),
+        ('site:t.me ozempic OR tramadol India buy',       'counterfeit_pharma', 'high'),
+        ('site:t.me sildenafil OR kamagra India order',   'counterfeit_pharma', 'high'),
+        ('site:t.me "91club" OR "daman game" predict',    'colour_prediction', 'high'),
+        ('site:t.me "usdt inr" P2P India operator',       'crypto_fraud', 'high'),
+        ('site:t.me "guaranteed profit" trading India',   'investment_fraud', 'high'),
+        ('Mahadev Book arrested India 2026 crore',        'illegal_betting', 'critical'),
+        ('ED arrested online betting India crore 2026',   'illegal_betting', 'critical'),
+        ('UPI mule arrested India FIU cybercrime 2026',   'upi_mule', 'critical'),
+        ('counterfeit medicine arrested India 2026',      'counterfeit_pharma', 'high'),
+        ('colour prediction fraud arrested India 2026',   'colour_prediction', 'high'),
+        ('fake trading app arrested India ED 2026',       'investment_fraud', 'high'),
     ]
 
     existing_ids = {a['id'] for a in ALERTS}
@@ -379,23 +392,45 @@ def run_scheduled_scan():
             if aid in existing_ids:
                 continue
 
+            # Extract phones, UPIs, Telegram channels from result
+            import re as _re
+            raw_phones = _re.findall(r'(?<![0-9])([6-9][0-9]{9})(?![0-9])', text)
+            phones = ['+91'+p for p in raw_phones]
+            upis = _re.findall(
+                r'[\w.\-+]{2,40}@(?:okaxis|okhdfcbank|oksbi|ybl|ibl|paytm|upi|axisbank)',
+                text, _re.I)
+            has_tg = 't.me/' in link
+            has_enforcement = bool(_re.search(
+                r'arrested|FIR|seized|busted|crore|lakh', text, _re.I))
+
+            # QUALITY GATE
+            if not (phones or upis or has_tg or has_enforcement):
+                continue
+
             alert = {
-                'id':       aid,
-                'title':    title[:80],
-                'category': cat,
-                'severity': sev,
-                'platform': 'Web / Telegram',
-                'detail':   snip[:120],
-                'detected_at': ist_now().isoformat(),
-                'source':   'serpapi_scheduled',
+                'id':           aid,
+                'title':        title[:100],
+                'category':     cat,
+                'severity':     'critical' if (phones or upis) else sev,
+                'platform':     'Telegram' if has_tg else 'Web',
+                'detail':       snip[:250],
+                'detected_at':  ist_now().isoformat(),
+                'source':       'railway_quality_scan',
+                'evidence_hash': aid,
+                'reach':        0,
+                'phone':        phones[0] if phones else '',
+                'upi':          upis[0] if upis else '',
                 'chain': {
                     'channels_found':   [link],
+                    'phones':           phones[:3],
+                    'upis':             upis[:2],
                     'keywords_matched': q.split()[:4],
-                    'reach': 0,
+                    'reach':            0,
                     'evidence_hashes':  [aid],
-                    'legal_basis':      'IT Act 2000 S.65B',
-                    'recommended_action': 'Verify and classify',
-                    'report_to':        ['Internal review'],
+                    'legal_basis':      'IT Act 2000 S65B',
+                    'recommended_action': 'Verify operator identity',
+                    'report_to':        ['I4C 1930', 'abuse@telegram.org'],
+                    'captured_at':      ist_now().isoformat(),
                 },
             }
             ALERTS.insert(0, alert)

@@ -296,6 +296,20 @@ SEED_ALERTS = [
 def init_alerts():
     global ALERTS
     ALERTS = list(SEED_ALERTS)
+    # Load from GitHub on startup
+    try:
+        tok = os.environ.get('GITHUB_TOKEN_RAIL_READ','')
+        url = 'https://raw.githubusercontent.com/dbayugandhar-cmyk/cinerisk-api/main/reports/alerts/live_alerts.json'
+        headers = {'Authorization': f'token {tok}'} if tok else {}
+        req = urllib.request.Request(url, headers=headers)
+        data = json.loads(urllib.request.urlopen(req, timeout=15).read())
+        if isinstance(data, list) and len(data) > 0:
+            ALERTS = data
+            print(f'[INIT] Loaded {len(ALERTS)} alerts from GitHub')
+        else:
+            print(f'[INIT] GitHub returned empty — using {len(ALERTS)} seed alerts')
+    except Exception as e:
+        print(f'[INIT] GitHub load failed: {e} — using {len(ALERTS)} seed alerts')
 
 # ── HELPERS ───────────────────────────────────────────────
 def severity_score(a):

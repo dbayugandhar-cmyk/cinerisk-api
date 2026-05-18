@@ -1328,6 +1328,10 @@ def v1_operator_report(operator_name):
     channels_list = list(channels)[:10]
 
     # Generate HTML report
+    try:
+        from flask import Response as _Resp
+    except Exception as _e:
+        return jsonify({'error': f'Import error: {_e}'}), 500
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1488,7 +1492,6 @@ tbody td{{padding:7px 10px;border-bottom:1px solid var(--light)}}
 </body></html>"""
 
     # Return as downloadable HTML
-    from flask import Response
     filename = f"CINEOS-OIR-{operator_name.replace(' ','-')}-{date.today().strftime('%Y%m%d')}.html"
     return Response(
         html,

@@ -212,8 +212,8 @@ def scan_ipl_piracy():
                     platform='Web / Telegram',
                     detail=snip[:150],
                     source='ipl_piracy_scan',
-                    chain_extra={'channels_found':[link],'keywords_matched':q.split()[:4],'reach':35000000},
-                    reach=35000000,
+                    chain_extra={'channels_found':[link],'keywords_matched':q.split()[:4],'reach':0},
+                    reach=0,
                 )
                 found.append(a)
         time.sleep(1)
@@ -246,8 +246,8 @@ def scan_betting():
                 platform='Telegram / Web',
                 detail=snip[:150],
                 source='betting_scan',
-                chain_extra={'channels_found':[link],'keywords_matched':q.split()[:4],'phones':phones,'reach':200000},
-                reach=200000,
+                chain_extra={'channels_found':[link],'keywords_matched':q.split()[:4],'phones':phones,'reach':0},
+                reach=0,
             )
             found.append(a)
         time.sleep(1)
@@ -381,8 +381,8 @@ def scan_investment_fraud():
                 platform='Telegram / Web',
                 detail=snip[:150],
                 source='investment_scan',
-                chain_extra={'channels_found':[link],'keywords_matched':q.split()[:4],'reach':150000},
-                reach=150000,
+                chain_extra={'channels_found':[link],'keywords_matched':q.split()[:4],'reach':0},
+                reach=0,
             )
             found.append(a)
         time.sleep(1)

@@ -302,6 +302,36 @@ async def deep_scan(resume=False, limit=None):
 
     # Load channels
     channels   = json.load(open(CHANNELS_FILE))
+    
+    # Load discovery queue and add new channels to scan
+    queue_file = 'reports/channel_discovery_queue.json'
+    if os.path.exists(queue_file):
+        queue = json.load(open(queue_file))
+        existing_usernames = {c.get('username','').lower() for c in channels}
+        queued_added = 0
+        new_from_queue = []
+        for item in queue[:200]:  # Process up to 200 queued channels
+            uname = item.get('username','').lower()
+            if uname and uname not in existing_usernames:
+                new_from_queue.append({
+                    'username':     item.get('username',''),
+                    'title':        item.get('snippet','')[:80] or item.get('username',''),
+                    'subscribers':  0,
+                    'category':     item.get('category','unknown'),
+                    'discovered_by':item.get('source','queue'),
+                    'platform':     'Telegram',
+                    'found_at':     item.get('added_at',''),
+                    'evidence_hash': '',
+                    'first_seen':   item.get('added_at','')[:10],
+                    'last_seen':    '',
+                    'days_tracked': 0,
+                })
+                queued_added += 1
+        if queued_added:
+            channels = new_from_queue + channels
+            print(f'  [QUEUE] Added {queued_added} discovery queue channels to scan')
+            # Clear processed items
+            json.dump(queue[200:], open(queue_file,'w'), indent=2)
     if limit:
         channels = channels[:limit]
 
@@ -370,6 +400,31 @@ async def deep_scan(resume=False, limit=None):
 
             # Extract identifiers
             raw_phones = PHONE_RE.findall(full_text)
+            
+            # Extract t.me links for channel expansion
+            tg_links = re.findall(
+                r'(?:t\.me|telegram\.me)/([a-zA-Z0-9_]{5,32})',
+                full_text, re.I)
+            # Add linked channels to discovery queue
+            if tg_links:
+                _q_file = 'reports/channel_discovery_queue.json'
+                try:
+                    _q = json.load(open(_q_file)) if os.path.exists(_q_file) else []
+                    _q_existing = {x.get('username','').lower() for x in _q}
+                    _ch_existing = {c2.get('username','').lower() for c2 in channels}
+                    _added = 0
+                    for _lnk in tg_links[:10]:
+                        if (_lnk.lower() not in _q_existing and
+                            _lnk.lower() not in _ch_existing and
+                            len(_lnk) >= 5):
+                            _q.append({'username':_lnk,'category':cat,
+                                       'source':f'linked_from_{username}',
+                                       'added_at':datetime.now(IST).isoformat(),
+                                       'priority':1})
+                            _added += 1
+                    if _added:
+                        json.dump(_q, open(_q_file,'w'), indent=2)
+                except: pass
             phones     = [p for p in [clean_phone(p) for p in raw_phones] if p]
             phones     = list(set(phones))
             # Filter fake numbers

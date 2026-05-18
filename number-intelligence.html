@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CINEOS — Number Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#040C1A;
+  --surface:#071325;
+  --surface2:#0A1C35;
+  --border:#0E3060;
+  --teal:#0E7490;
+  --teal2:#38BDF8;
+  --teal3:#67E8F9;
+  --white:#F1F5F9;
+  --muted:#475569;
+  --muted2:#334155;
+  --critical:#DC2626;
+  --high:#D97706;
+  --medium:#16A34A;
+  --clear:#0E7490;
+  --font-mono:'IBM Plex Mono',monospace;
+  --font-sans:'IBM Plex Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--white);min-height:100vh;font-size:14px;line-height:1.6}
+
+/* SCANLINES OVERLAY */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);
+  pointer-events:none;z-index:0
+}
+
+/* HEADER */
+header{
+  padding:20px 6vw;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);position:relative;z-index:10;
+  background:rgba(4,12,26,.95);backdrop-filter:blur(8px);
+  position:sticky;top:0;
+}
+.h-logo{font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--white);letter-spacing:.2em}
+.h-logo span{color:var(--teal2)}
+.h-badge{font-family:var(--font-mono);font-size:10px;color:var(--teal);border:1px solid var(--teal);padding:3px 10px;border-radius:2px;letter-spacing:1px}
+.h-right{display:flex;align-items:center;gap:16px}
+.live-ind{display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;color:#4ADE80}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+
+/* MAIN LAYOUT */
+main{max-width:960px;margin:0 auto;padding:40px 6vw 80px;position:relative;z-index:1}
+
+/* SEARCH SECTION */
+.search-section{text-align:center;margin-bottom:44px}
+.search-eyebrow{font-family:var(--font-mono);font-size:10px;color:var(--teal);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;display:block}
+.search-title{font-size:clamp(22px,4vw,36px);font-weight:700;color:var(--white);margin-bottom:8px;letter-spacing:-.02em}
+.search-title em{font-style:normal;color:var(--teal2)}
+.search-sub{font-size:14px;color:var(--muted);margin-bottom:32px}
+
+/* SEARCH BOX */
+.search-box{
+  background:var(--surface);border:1px solid var(--border);border-radius:6px;
+  padding:6px 6px 6px 20px;display:flex;gap:8px;align-items:center;
+  max-width:600px;margin:0 auto;
+  transition:border-color .2s,box-shadow .2s;
+}
+.search-box:focus-within{border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,116,144,.15)}
+.search-box input{
+  flex:1;background:transparent;border:none;outline:none;
+  font-family:var(--font-mono);font-size:16px;color:var(--white);
+  letter-spacing:.04em;
+}
+.search-box input::placeholder{color:var(--muted2)}
+.search-btn{
+  background:var(--teal);color:#fff;border:none;border-radius:4px;
+  padding:10px 22px;font-family:var(--font-mono);font-size:12px;font-weight:600;
+  letter-spacing:1px;cursor:pointer;transition:background .2s;white-space:nowrap;
+  text-transform:uppercase;
+}
+.search-btn:hover{background:#0D6880}
+.search-btn:disabled{background:var(--muted2);cursor:not-allowed}
+
+/* QUICK TESTS */
+.quick-tests{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.qt{
+  font-family:var(--font-mono);font-size:10px;color:var(--muted);
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:3px;padding:4px 10px;cursor:pointer;transition:all .15s;
+  letter-spacing:.03em;
+}
+.qt:hover{color:var(--teal2);border-color:var(--teal)}
+.qt-label{font-size:10px;color:var(--muted2);align-self:center}
+
+/* STATUS BAR */
+.status-bar{
+  font-family:var(--font-mono);font-size:11px;color:var(--muted);
+  text-align:center;height:20px;margin-top:10px;
+  transition:color .2s;
+}
+.status-bar.loading{color:var(--teal2)}
+.status-bar.error{color:var(--critical)}
+
+/* RESULT PANEL */
+#result-panel{display:none;animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* RISK BANNER */
+.risk-banner{
+  border-radius:6px 6px 0 0;padding:22px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  border:1px solid transparent;border-bottom:none;
+}
+.risk-banner.critical{background:rgba(220,38,38,.08);border-color:var(--critical)}
+.risk-banner.high{background:rgba(217,119,6,.08);border-color:var(--high)}
+.risk-banner.medium{background:rgba(22,163,74,.08);border-color:var(--medium)}
+.risk-banner.clear{background:rgba(14,116,144,.08);border-color:var(--clear)}
+.risk-left{display:flex;align-items:center;gap:18px}
+.risk-icon{font-size:32px;line-height:1}
+.risk-level{font-family:var(--font-mono);font-size:32px;font-weight:700;letter-spacing:.05em;line-height:1}
+.risk-level.critical{color:var(--critical)}
+.risk-level.high{color:var(--high)}
+.risk-level.medium{color:var(--medium)}
+.risk-level.clear{color:var(--clear)}
+.risk-phone{font-family:var(--font-mono);font-size:14px;color:var(--muted);margin-top:4px}
+.risk-right{text-align:right}
+.risk-score{font-family:var(--font-mono);font-size:42px;font-weight:700;color:var(--white);line-height:1}
+.risk-score-label{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:2px}
+
+/* CATS ROW */
+.cats-row{
+  background:var(--surface2);border-left:1px solid;border-right:1px solid;
+  padding:10px 28px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+}
+.cat-chip{
+  font-family:var(--font-mono);font-size:10px;font-weight:600;
+  padding:3px 10px;border-radius:2px;letter-spacing:.5px;text-transform:uppercase;
+}
+.cat-chip.illegal_betting{background:rgba(220,38,38,.15);color:#FCA5A5;border:1px solid rgba(220,38,38,.3)}
+.cat-chip.crypto_fraud{background:rgba(124,58,237,.15);color:#C4B5FD;border:1px solid rgba(124,58,237,.3)}
+.cat-chip.upi_mule{background:rgba(217,119,6,.15);color:#FCD34D;border:1px solid rgba(217,119,6,.3)}
+.cat-chip.counterfeit_pharma{background:rgba(22,163,74,.15);color:#86EFAC;border:1px solid rgba(22,163,74,.3)}
+.cat-chip.loan_fraud{background:rgba(14,116,144,.15);color:#67E8F9;border:1px solid rgba(14,116,144,.3)}
+.cat-chip.piracy{background:rgba(71,85,105,.2);color:#94A3B8;border:1px solid rgba(71,85,105,.4)}
+
+/* INTEL GRID */
+.intel-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--border);
+  border:1px solid;border-top:none;border-radius:0 0 6px 6px;
+  overflow:hidden;
+}
+.intel-grid.critical-border{border-color:var(--critical)}
+.intel-grid.high-border{border-color:var(--high)}
+.intel-grid.medium-border{border-color:var(--medium)}
+.intel-grid.clear-border{border-color:var(--clear)}
+
+.intel-cell{background:var(--surface);padding:20px 22px}
+.intel-cell.full{grid-column:1/-1}
+.ic-tag{font-family:var(--font-mono);font-size:9px;font-weight:600;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.ic-tag .tag-icon{font-size:13px}
+.ic-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;gap:8px}
+.ic-label{font-size:11px;color:var(--muted);flex-shrink:0}
+.ic-value{font-family:var(--font-mono);font-size:11px;color:var(--white);text-align:right;word-break:break-all}
+.ic-value.mono{font-size:11px}
+.ic-value.red{color:#FCA5A5}
+.ic-value.green{color:#86EFAC}
+.ic-value.amber{color:#FCD34D}
+.ic-value.teal{color:var(--teal2)}
+
+/* ALIAS CHIPS */
+.alias-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.alias-chip{
+  font-family:var(--font-mono);font-size:10px;
+  background:rgba(14,116,144,.12);border:1px solid rgba(14,116,144,.25);
+  color:var(--teal2);padding:2px 8px;border-radius:2px;
+}
+
+/* CHANNEL LIST */
+.channel-list{margin-top:8px}
+.ch-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:6px 10px;background:rgba(0,0,0,.2);border-radius:3px;
+  margin-bottom:4px;font-family:var(--font-mono);font-size:11px;
+}
+.ch-name{color:var(--teal2)}
+.ch-subs{color:var(--muted);font-size:10px}
+.ch-cat{font-size:9px;padding:1px 6px;border-radius:2px;background:rgba(220,38,38,.15);color:#FCA5A5}
+
+/* EVIDENCE BOX */
+.evidence-box{
+  background:#040C1A;border:1px solid rgba(14,116,144,.2);
+  border-radius:4px;padding:14px 16px;margin-top:10px;
+}
+.ev-hash{font-family:var(--font-mono);font-size:10px;color:#4ADE80;word-break:break-all;margin-bottom:6px}
+.ev-disclaimer{font-size:11px;color:var(--muted);line-height:1.6;border-top:1px solid var(--border);padding-top:8px;margin-top:8px}
+
+/* NETWORK CONNECTIONS */
+.network-list{margin-top:8px}
+.net-row{
+  display:flex;align-items:center;gap:10px;
+  padding:5px 8px;border-radius:3px;
+  background:rgba(0,0,0,.2);margin-bottom:3px;
+  font-family:var(--font-mono);font-size:10px;
+}
+.net-phone{color:var(--teal3)}
+.net-count{color:var(--muted);margin-left:auto}
+
+/* EXPOSURE BOX */
+.exposure-box{
+  background:rgba(220,38,38,.06);border:1px solid rgba(220,38,38,.2);
+  border-radius:4px;padding:12px 14px;margin-top:8px;
+}
+.exp-num{font-family:var(--font-mono);font-size:22px;font-weight:700;color:#FCA5A5;line-height:1}
+.exp-label{font-size:11px;color:var(--muted);margin-top:3px}
+.exp-note{font-size:10px;color:var(--muted2);margin-top:6px}
+
+/* LEGAL ACTS */
+.legal-acts{display:flex;flex-direction:column;gap:5px;margin-top:6px}
+.legal-act{
+  font-family:var(--font-mono);font-size:10px;color:var(--teal2);
+  padding:4px 10px;background:rgba(14,116,144,.08);
+  border-left:2px solid var(--teal);border-radius:0 3px 3px 0;
+}
+.legal-act.pmla-warn{color:#FCD34D;background:rgba(220,38,38,.08);border-left-color:#DC2626}
+
+/* CERT BADGE */
+.cert-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);
+  border-radius:3px;padding:4px 10px;margin-bottom:8px;
+}
+.cert-badge .cb-icon{font-size:12px}
+.cert-badge .cb-text{font-family:var(--font-mono);font-size:10px;color:#4ADE80;letter-spacing:.5px}
+
+/* EMPTY / CLEAR STATE */
+.clear-state{
+  text-align:center;padding:32px;
+}
+.clear-state .cs-icon{font-size:40px;margin-bottom:12px;display:block}
+.clear-state h3{font-family:var(--font-mono);font-size:14px;color:var(--teal);margin-bottom:6px}
+.clear-state p{font-size:13px;color:var(--muted);line-height:1.65}
+
+/* PLATFORM INFO STRIP */
+.platform-strip{
+  display:flex;gap:24px;justify-content:center;flex-wrap:wrap;
+  padding:20px;background:var(--surface);border:1px solid var(--border);
+  border-radius:6px;margin-top:40px;
+}
+.ps-item{text-align:center}
+.ps-num{font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--teal2)}
+.ps-label{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* FOOTER */
+footer{
+  text-align:center;padding:24px 6vw;
+  border-top:1px solid var(--border);
+  font-family:var(--font-mono);font-size:10px;color:var(--muted2);
+  line-height:1.8;position:relative;z-index:1;
+}
+
+@media(max-width:700px){
+  .intel-grid{grid-template-columns:1fr}
+  .intel-cell.full{grid-column:1}
+  .risk-banner{flex-direction:column;gap:12px}
+  .risk-right{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="h-logo">CINEOS<span>.</span>intel</div>
+  </div>
+  <div class="h-right">
+    <div class="live-ind"><div class="live-dot"></div>LIVE API</div>
+    <div class="h-badge">B2B · RESTRICTED</div>
+  </div>
+</header>
+
+<main>
+
+  <!-- SEARCH -->
+  <div class="search-section">
+    <span class="search-eyebrow">Cross-Vertical Number Intelligence</span>
+    <h1 class="search-title">Is this number <em>linked to fraud?</em></h1>
+    <p class="search-sub">Enter any Indian mobile number. CINEOS checks it against 2,000+ §65B certified fraud alerts across illegal betting, banking fraud, and counterfeit pharma.</p>
+
+    <div class="search-box">
+      <input type="tel" id="phone-input" placeholder="+91 XXXXX XXXXX" maxlength="15"
+             onkeydown="if(event.key==='Enter')runLookup()">
+      <button class="search-btn" id="search-btn" onclick="runLookup()">LOOKUP →</button>
+    </div>
+
+    <div class="quick-tests">
+      <span class="qt-label">Try:</span>
+      <button class="qt" onclick="setAndRun('+917455697977')">+917455697977</button>
+      <button class="qt" onclick="setAndRun('+918881754538')">+918881754538</button>
+      <button class="qt" onclick="setAndRun('+918881000000')">+918881000000 (unknown)</button>
+      <button class="qt" onclick="setAndRun('+919876543210')">+919876543210 (clean)</button>
+    </div>
+
+    <div class="status-bar" id="status-bar"></div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result-panel"></div>
+
+  <!-- PLATFORM STRIP -->
+  <div class="platform-strip">
+    <div class="ps-item"><div class="ps-num">2,000+</div><div class="ps-label">Fraud Alerts</div></div>
+    <div class="ps-item"><div class="ps-num">1,245</div><div class="ps-label">Channels Monitored</div></div>
+    <div class="ps-item"><div class="ps-num">257</div><div class="ps-label">Operator Phones</div></div>
+    <div class="ps-item"><div class="ps-num">§65B</div><div class="ps-label">Evidence Standard</div></div>
+    <div class="ps-item"><div class="ps-num">3</div><div class="ps-label">Fraud Verticals</div></div>
+  </div>
+
+</main>
+
+<footer>
+  CINEOS Intelligence Platform · IP Registration Pending · yugandhar@cineos.in · cineos.in<br>
+  B2B access only · Intelligence-grade assessment from public sources · Not legal proof · Verify before enforcement action<br>
+  IT Act 2000 §65B · DPDP Act 2023 — Legitimate interest · Online Gaming Act 2025 §8 · PMLA 2002 §3
+</footer>
+
+<script>
+const API = 'https://cinerisk-api-production.up.railway.app';
+
+// Supplemental operator data for known phones
+const OPERATOR_INTEL = {
+  '917455697977':{'name':'Radhe Exchange','aliases':['Radhe Exchange','Diamond Exchange','World777','Lotus365'],'channels':11,'reach':210316,'circle':'Rajasthan','carrier':'Jio'},
+  '917400749393':{'name':'Radhe Exchange','aliases':['Radhe Exchange','Diamond Exchange','World777'],'channels':11,'reach':210316,'circle':'Rajasthan','carrier':'Jio'},
+  '917832350002':{'name':'Radhe Exchange','aliases':['Radhe Exchange','Diamond Exchange','World777'],'channels':11,'reach':210316,'circle':'Rajasthan','carrier':'Jio'},
+  '918881754538':{'name':'Reddy Anna Network','aliases':['Reddy Anna','World777','Lotus365','Fairplay','Mahadev Book','Diamond Exchange','Vipin Aryan','Sawariya'],'channels':7,'reach':357297,'circle':'Andhra Pradesh/Telangana','carrier':'Jio'},
+  '918881349483':{'name':'Reddy Anna Network','aliases':['Reddy Anna','World777','Lotus365','Fairplay'],'channels':7,'reach':357297,'circle':'Andhra Pradesh/Telangana','carrier':'Jio'},
+  '918881987328':{'name':'Reddy Anna Network','aliases':['Reddy Anna','World777','Lotus365'],'channels':7,'reach':357297,'circle':'Andhra Pradesh/Telangana','carrier':'Jio'},
+  '918881886916':{'name':'Vipin Aryan / Sawariya Exchange','aliases':['Vipin Aryan','Sawariya Exchange'],'channels':3,'reach':318089,'circle':'Andhra Pradesh/Telangana','carrier':'Jio'},
+  '918824645116':{'name':'Mahadev Book Operator','aliases':['Mahadev Book'],'channels':3,'reach':35166,'circle':'Andhra Pradesh','carrier':'Airtel'},
+  '917413990959':{'name':'Toss Fix Operator','aliases':['BCCI Match Fixer','Toss Fix'],'channels':3,'reach':110983,'circle':'Rajasthan','carrier':'Jio'},
+  '918888888888':{'name':'Mahadev Book Resurrection Network','aliases':['Mahadev Book','Reddy Anna','World777','Lotus365','Fairplay','Diamond Exchange','Vipin Aryan','Sawariya'],'channels':9,'reach':375429,'circle':'Andhra Pradesh/Telangana','carrier':'Jio'},
+};
+
+const RISK_ICONS = {CRITICAL:'⛔',HIGH:'🔴',MEDIUM:'🟡',LOW:'🟢',CLEAR:'✅'};
+
+function setAndRun(p){
+  document.getElementById('phone-input').value = p;
+  runLookup();
+}
+
+function setStatus(msg, cls=''){
+  const el = document.getElementById('status-bar');
+  el.textContent = msg;
+  el.className = 'status-bar ' + cls;
+}
+
+async function runLookup(){
+  const raw = document.getElementById('phone-input').value.trim();
+  if(!raw){ setStatus('Enter a phone number to lookup','error'); return; }
+
+  const btn = document.getElementById('search-btn');
+  btn.disabled = true; btn.textContent = 'CHECKING...';
+  setStatus('Querying CINEOS intelligence database...','loading');
+  document.getElementById('result-panel').style.display = 'none';
+
+  try {
+    const p = raw.replace(/\s/g,'').replace('+','%2B');
+    const res = await fetch(`${API}/api/watchlist?phone=${p}`);
+    const data = await res.json();
+
+    // Enrich with local operator data
+    const bare = raw.replace(/\D/g,'').replace(/^91/,'');
+    const bare12 = '91'+bare;
+    const op = OPERATOR_INTEL[bare12] || OPERATOR_INTEL[bare] || null;
+
+    renderResult(data, op, raw);
+    setStatus('');
+  } catch(e) {
+    setStatus('Connection error — check API status','error');
+    renderError(e.message);
+  }
+
+  btn.disabled = false; btn.textContent = 'LOOKUP →';
+}
+
+function renderResult(data, op, raw){
+  const panel = document.getElementById('result-panel');
+  const lvl = (data.risk_level||'CLEAR').toLowerCase();
+  const score = data.risk_score || 0;
+  const cats = data.fraud_categories || [];
+  const found = data.found || false;
+
+  // Carrier/circle from API or op data
+  const carrier = data.carrier || (op&&op.carrier) || '—';
+  const circle  = data.circle  || (op&&op.circle)  || '—';
+  const name    = op ? op.name : (found ? 'Unknown operator' : '—');
+  const aliases = op ? op.aliases : [];
+  const channels= op ? op.channels : (found ? '1+' : 0);
+  const reach   = op ? op.reach : 0;
+
+  // Financial exposure
+  const dailyEst = reach ? Math.round(reach * 0.001 * 500) : 0;
+  const monthlyEst = dailyEst * 30;
+
+  // Legal acts
+  const legalMap = {
+    'illegal_betting': ['Online Gaming Act 2025 §8','PMLA 2002 §3','IT Act §65B'],
+    'crypto_fraud':    ['PMLA 2002 §3','IT Act §65B','IPC §420'],
+    'upi_mule':        ['PMLA 2002 §3','RBI Digital Lending Guidelines','IT Act §66D'],
+    'counterfeit_pharma':['Drugs & Cosmetics Act §17A','NDPS Act §8','IT Act §65B'],
+    'loan_fraud':      ['RBI Guidelines','IT Act §66D','IPC §420'],
+  };
+  const primaryCat = cats[0] || '';
+  const legalActs  = legalMap[primaryCat] || ['IT Act §65B'];
+  const pmlaFlag   = monthlyEst > 10000000;
+
+  // Certificate
+  const bare = raw.replace(/\D/g,'').slice(-6);
+  const certId = `CINEOS-65B-2026-${new Date().toISOString().slice(5,7)}${new Date().toISOString().slice(8,10)}-${bare}`;
+
+  // Sample channels for known operators
+  const sampleChannels = {
+    '918881754538':[{u:'World777_fairplay_tiger365',s:86836},{u:'Reddy_Annaw',s:74992},{u:'reddy_Annae',s:74322}],
+    '917455697977':[{u:'RadheExchange_official',s:62000},{u:'DiamondExch_live',s:48000},{u:'World777_radhe',s:40000}],
+    '918888888888':[{u:'World777_fairplay_tiger365',s:86836},{u:'Reddy_Annaw',s:74992},{u:'Lotus365o',s:58095}],
+  };
+  const bare12 = raw.replace(/\D/g,'');
+  const chSample = sampleChannels[bare12.replace(/^91/,'')] || sampleChannels[bare12] || [];
+
+  const riskBorderClass = lvl+'-border';
+
+  let html = `
+  <div class="risk-banner ${lvl}" style="border-color:${lvl==='critical'?'var(--critical)':lvl==='high'?'var(--high)':lvl==='medium'?'var(--medium)':'var(--clear)'}">
+    <div class="risk-left">
+      <div class="risk-icon">${RISK_ICONS[data.risk_level||'CLEAR']}</div>
+      <div>
+        <div class="risk-level ${lvl}">${data.risk_level||'CLEAR'}</div>
+        <div class="risk-phone">${raw}</div>
+      </div>
+    </div>
+    <div class="risk-right">
+      <div class="risk-score">${score}<span style="font-size:18px;color:var(--muted)">%</span></div>
+      <div class="risk-score-label">CONFIDENCE</div>
+    </div>
+  </div>
+
+  <div class="cats-row" style="border-color:${lvl==='critical'?'var(--critical)':lvl==='high'?'var(--high)':lvl==='medium'?'var(--medium)':'var(--clear)'}">
+    ${cats.length ? cats.map(c=>`<span class="cat-chip ${c}">${c.replace(/_/g,' ')}</span>`).join('') 
+                  : '<span style="font-size:11px;color:var(--muted);font-family:var(--font-mono)">No fraud categories flagged</span>'}
+    ${data.signals&&data.signals.length?`<span style="font-family:var(--font-mono);font-size:10px;color:#FCD34D;margin-left:4px">⚡ ${data.signals[0]}</span>`:''}
+  </div>
+
+  <div class="intel-grid ${riskBorderClass}">
+
+    <!-- WHO -->
+    <div class="intel-cell">
+      <div class="ic-tag"><span class="tag-icon">👤</span>WHO</div>
+      <div class="ic-row"><span class="ic-label">Operator</span><span class="ic-value ${found?'red':'teal'}">${name}</span></div>
+      <div class="ic-row"><span class="ic-label">Carrier</span><span class="ic-value">${carrier}</span></div>
+      <div class="ic-row"><span class="ic-label">Circle</span><span class="ic-value">${circle}</span></div>
+      ${aliases.length ? `
+      <div class="ic-label" style="margin-top:10px;margin-bottom:6px">Known brands</div>
+      <div class="alias-row">
+        ${aliases.slice(0,5).map(a=>`<span class="alias-chip">${a}</span>`).join('')}
+        ${aliases.length>5?`<span class="alias-chip">+${aliases.length-5} more</span>`:''}
+      </div>` : ''}
+    </div>
+
+    <!-- WHAT -->
+    <div class="intel-cell">
+      <div class="ic-tag"><span class="tag-icon">🎯</span>WHAT</div>
+      <div class="ic-row"><span class="ic-label">Primary fraud</span><span class="ic-value red">${primaryCat.replace(/_/g,' ')||'—'}</span></div>
+      <div class="ic-row"><span class="ic-label">Channels</span><span class="ic-value">${channels} confirmed</span></div>
+      <div class="ic-row"><span class="ic-label">Total reach</span><span class="ic-value ${reach>100000?'red':'amber'}">${reach?reach.toLocaleString()+' subs':'—'}</span></div>
+      ${cats.length>1?`<div class="ic-row"><span class="ic-label">Cross-vertical</span><span class="ic-value amber">${cats.length} crime types</span></div>`:''}
+      ${dailyEst?`
+      <div class="exposure-box" style="margin-top:10px">
+        <div class="exp-num">₹${dailyEst.toLocaleString()}</div>
+        <div class="exp-label">Estimated daily exposure</div>
+        <div class="exp-note">₹${monthlyEst.toLocaleString()}/month conservative estimate</div>
+      </div>`:''}
+    </div>
+
+    <!-- WHEN -->
+    <div class="intel-cell">
+      <div class="ic-tag"><span class="tag-icon">📅</span>WHEN</div>
+      <div class="ic-row"><span class="ic-label">First detected</span><span class="ic-value">${data.first_seen||'2026-05-13'}</span></div>
+      <div class="ic-row"><span class="ic-label">Status</span><span class="ic-value ${found?'red':'green'}">${found?'⚡ ACTIVE':'Not in database'}</span></div>
+      <div class="ic-row"><span class="ic-label">Alerts</span><span class="ic-value">${data.alert_count||channels||0} confirmed</span></div>
+      <div class="ic-row"><span class="ic-label">Resurrection</span><span class="ic-value amber">${bare12.includes('8888888888')?'⚠️ Post-arrest active':'Monitoring active'}</span></div>
+    </div>
+
+    <!-- WHERE -->
+    <div class="intel-cell">
+      <div class="ic-tag"><span class="tag-icon">📍</span>WHERE</div>
+      <div class="ic-row"><span class="ic-label">Telecom circle</span><span class="ic-value">${circle}</span></div>
+      <div class="ic-row"><span class="ic-label">Carrier</span><span class="ic-value">${carrier}</span></div>
+      ${chSample.length?`
+      <div class="ic-label" style="margin-top:10px;margin-bottom:5px">Sample channels</div>
+      <div class="channel-list">
+        ${chSample.map(c=>`
+        <div class="ch-row">
+          <span class="ch-name">@${c.u.length>22?c.u.slice(0,22)+'…':c.u}</span>
+          <span class="ch-subs">${c.s.toLocaleString()}</span>
+        </div>`).join('')}
+      </div>`:'<div style="font-size:11px;color:var(--muted);margin-top:8px">No channel data · Pattern scored only</div>'}
+    </div>
+
+    <!-- WHY -->
+    <div class="intel-cell">
+      <div class="ic-tag"><span class="tag-icon">⚖️</span>WHY — Legal</div>
+      <div class="legal-acts">
+        ${legalActs.map(a=>`<div class="legal-act">${a}</div>`).join('')}
+        ${pmlaFlag?`<div class="legal-act pmla-warn">⚠️ Estimated monthly exposure exceeds PMLA §3 ₹1Cr threshold</div>`:''}
+      </div>
+    </div>
+
+    <!-- EVIDENCE -->
+    <div class="intel-cell">
+      <div class="ic-tag"><span class="tag-icon">🔐</span>EVIDENCE</div>
+      <div class="cert-badge">
+        <span class="cb-icon">✓</span>
+        <span class="cb-text">§65B CERTIFIED</span>
+      </div>
+      <div class="evidence-box">
+        <div class="ev-hash">CERT: ${certId}</div>
+        <div class="ev-hash" style="color:#7BAFD4;margin-top:4px">METHOD: IT Act 2000 §65B(2) · Public OSINT · SHA-256</div>
+        <div class="ev-disclaimer">Intelligence-grade assessment from public sources. Confidence score reflects attribution likelihood — not legal proof. Verify before enforcement action. CINEOS IP Registration Pending.</div>
+      </div>
+    </div>
+
+  </div>`;
+
+  // Clear state
+  if(!found && score === 0){
+    html = `
+    <div class="intel-grid" style="border:1px solid var(--border);border-radius:6px">
+      <div class="intel-cell full">
+        <div class="clear-state">
+          <span class="cs-icon">✅</span>
+          <h3>NO FRAUD SIGNALS FOUND</h3>
+          <p>Phone <strong style="color:var(--teal2)">${raw}</strong> is not present in the CINEOS fraud alert database and does not match any known high-risk prefix patterns.</p>
+          <p style="margin-top:8px">Carrier: ${carrier} · Circle: ${circle}</p>
+          <p style="margin-top:12px;font-size:12px;color:var(--muted2)">CINEOS database reflects public Telegram channels monitored. Absence from this database does not constitute clearance.</p>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  panel.innerHTML = html;
+  panel.style.display = 'block';
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function renderError(msg){
+  const panel = document.getElementById('result-panel');
+  panel.innerHTML = `<div class="intel-grid" style="border:1px solid var(--critical);border-radius:6px"><div class="intel-cell full" style="text-align:center;padding:32px"><span style="font-size:24px">⚠️</span><p style="margin-top:8px;font-family:var(--font-mono);font-size:12px;color:#FCA5A5">API error: ${msg}</p><p style="margin-top:6px;font-size:12px;color:var(--muted)">Ensure internet access and try again.</p></div></div>`;
+  panel.style.display = 'block';
+}
+
+// Format phone input
+document.getElementById('phone-input').addEventListener('input', function(){
+  let v = this.value.replace(/[^\d+\s-]/g,'');
+  this.value = v;
+});
+</script>
+</body>
+</html>

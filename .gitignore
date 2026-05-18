@@ -73,7 +73,6 @@ reports/*_Counterfeit.*
 
 # Keep full intelligence data local only
 reports/fraud_intelligence_graph.json
-reports/alerts/live_alerts.json
 reports/news_matches.json
 reports/deep_scan_progress.json
 reports/deep_scan_results.json

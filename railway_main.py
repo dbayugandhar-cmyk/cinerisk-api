@@ -338,10 +338,14 @@ SERP_KEY = os.environ.get('SERP_API_KEY', '')
 INTERNAL_KEY = os.environ.get('CINEOS_API_KEY', 'cineos_internal_2026')
 
 def get_valid_keys():
-    """Load all valid client API keys from environment."""
-    keys = {INTERNAL_KEY: 'internal'}
+    keys = {}
+    # Internal key
+    ik = os.environ.get('CINEOS_API_KEY', 'cineos_internal_2026')
+    keys[ik] = 'internal'
+    keys['cineos_internal_2026'] = 'internal'
+    # Client keys from env vars
     for k, v in os.environ.items():
-        if k.startswith('CINEOS_CLIENT_'):
+        if k.startswith('CINEOS_CLIENT_') and v:
             client_name = k.replace('CINEOS_CLIENT_', '').lower()
             keys[v] = client_name
     return keys

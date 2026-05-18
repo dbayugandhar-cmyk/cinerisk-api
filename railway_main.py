@@ -332,6 +332,40 @@ def ist_now():
 # ── SERPAPI SCANNER (runs on Railway 24/7) ────────────────
 SERP_KEY = os.environ.get('SERP_API_KEY', '')
 
+# Client API keys — stored as environment variables on Railway
+# Format: CINEOS_CLIENT_{NAME}=key_value
+# Add via Railway dashboard: Settings → Variables
+INTERNAL_KEY = os.environ.get('CINEOS_API_KEY', 'cineos_internal_2026')
+
+def get_valid_keys():
+    """Load all valid client API keys from environment."""
+    keys = {INTERNAL_KEY: 'internal'}
+    for k, v in os.environ.items():
+        if k.startswith('CINEOS_CLIENT_'):
+            client_name = k.replace('CINEOS_CLIENT_', '').lower()
+            keys[v] = client_name
+    return keys
+
+def check_api_key(req):
+    """
+    Validate API key from header or query param.
+    Returns (valid: bool, client_name: str)
+    Header: X-API-Key: your_key
+    Query:  ?api_key=your_key
+    """
+    key = (req.headers.get('X-API-Key') or
+           req.headers.get('Authorization','').replace('Bearer ','') or
+           req.args.get('api_key',''))
+    if not key:
+        return False, None
+    keys = get_valid_keys()
+    client = keys.get(key)
+    return client is not None, client
+
+def log_api_call(client, endpoint, identifier):
+    """Log API usage per client for billing."""
+    pass  # TODO: add usage logging to Railway DB
+
 def serp_search(query, engine='google', num=10):
     if not SERP_KEY:
         return {}
@@ -1167,6 +1201,9 @@ def v1_transaction():
 
 @app.route('/api/v1/operator/<name>')
 def v1_operator(name):
+    valid, client = check_api_key(request)
+    if not valid:
+        return jsonify({'error':'API key required','contact':'yugandhar@cineos.in'}), 401
     alts=_load_github()
     q=name.lower()
     mx=[a for a in alts if q in str(a.get('title','')).lower() or q in str(a.get('detail','')).lower()]
@@ -1181,6 +1218,26 @@ def v1_operator(name):
     return jsonify({'found':True,'operator':name,'alerts':len(mx),
         'phones':list(phones)[:10],'channels':list(channels)[:10],
         'verticals':list(cats.keys()),'api_version':'v1'})
+
+@app.route('/api/v1/demo')
+def v1_demo():
+    """Public demo endpoint — no API key needed. Limited response."""
+    q = request.args.get('q','917455697977')
+    result = _screen(q.strip())
+    # Return limited response for demo
+    return jsonify({
+        'identifier':   result.get('identifier'),
+        'risk_level':   result.get('risk_level'),
+        'risk_score':   result.get('risk_score'),
+        'found':        result.get('found'),
+        'vertical':     (result.get('operator_attribution') or {}).get('primary'),
+        'operator':     (result.get('operator_attribution') or {}).get('name'),
+        'recommended_action': result.get('recommended_action'),
+        'telecom':      result.get('telecom'),
+        'note':         'Demo response. Full operator profile, evidence cert, and compliance flags require API key.',
+        'get_access':   'yugandhar@cineos.in',
+        'api_version':  'v1',
+    })
 
 @app.route('/api/lookup/bulk', methods=['POST'])
 def api_lookup_bulk():

@@ -299,7 +299,7 @@ def init_alerts():
     # Load from GitHub on startup
     try:
         tok = os.environ.get('GITHUB_TOKEN_RAIL_READ','')
-        url = 'https://raw.githubusercontent.com/dbayugandhar-cmyk/cinerisk-api/main/reports/alerts/live_alerts.json'
+        url = 'https://raw.githubusercontent.com/dbayugandhar-cmyk/cinerisk-api/main/data/alerts_backup.json'
         headers = {'Authorization': f'token {tok}'} if tok else {}
         req = urllib.request.Request(url, headers=headers)
         data = json.loads(urllib.request.urlopen(req, timeout=15).read())

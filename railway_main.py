@@ -347,20 +347,16 @@ def get_valid_keys():
     return keys
 
 def check_api_key(req):
-    """
-    Validate API key from header or query param.
-    Returns (valid: bool, client_name: str)
-    Header: X-API-Key: your_key
-    Query:  ?api_key=your_key
-    """
-    key = (req.headers.get('X-API-Key') or
+    key = (req.headers.get('X-API-Key','') or
            req.headers.get('Authorization','').replace('Bearer ','') or
            req.args.get('api_key',''))
     if not key:
         return False, None
     keys = get_valid_keys()
     client = keys.get(key)
-    return client is not None, client
+    if client:
+        return True, client
+    return False, None
 
 def log_api_call(client, endpoint, identifier):
     """Log API usage per client for billing."""
@@ -1162,6 +1158,14 @@ def _screen(identifier):
 
 @app.route('/api/v1/screen', methods=['GET','POST'])
 def v1_screen():
+    valid, client = check_api_key(request)
+    if not valid:
+        return jsonify({
+            'error': 'API key required',
+            'message': 'Pass X-API-Key header or ?api_key= param',
+            'contact': 'yugandhar@cineos.in',
+            'demo': '/api/v1/demo (no key needed)',
+        }), 401
     if request.method=='POST':
         d=request.get_json() or {}
         ident=d.get('phone') or d.get('upi') or d.get('q','')
@@ -1172,6 +1176,9 @@ def v1_screen():
 
 @app.route('/api/v1/transaction', methods=['POST'])
 def v1_transaction():
+    valid, client = check_api_key(request)
+    if not valid:
+        return jsonify({'error':'API key required','contact':'yugandhar@cineos.in'}), 401
     d=request.get_json() or {}
     sp=d.get('sender_phone','')
     ru=d.get('receiver_upi','') or d.get('receiver_phone','')

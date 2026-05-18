@@ -478,87 +478,28 @@ def run_scheduled_scan():
 
 # ── SCHEDULER ─────────────────────────────────────────────
 def scheduler_loop():
-    """Run scans at 8am, 12pm, 6pm, 10pm IST every day."""
-    SCAN_HOURS_IST = {6, 8, 10, 12, 14, 16, 18, 20, 22}
-    last_scan_hour = None
+    """Run quality scan every hour. Also runs once at startup."""
+    global STATS
+    print("[SCHEDULER] Starting — will scan every 60 minutes")
 
-    while True:
-        now  = ist_now()
-        hour = now.hour
-
-        if hour in SCAN_HOURS_IST and hour != last_scan_hour:
-            last_scan_hour = hour
-            try:
-                run_scheduled_scan()
-            except Exception as e:
-                print(f"Scheduler error: {e}")
-
-        # Reset at midnight
-        if hour == 0:
-            last_scan_hour = None
-            STATS['scans_today'] = 0
-
-        time.sleep(60)  # Check every minute
-
-# ── API ROUTES ────────────────────────────────────────────
-
-# Seed on module load — runs for both gunicorn and direct
-ALERTS.extend(SEED_ALERTS)
-
-# ── LOAD FROM GITHUB ON STARTUP (persistent) ─────────────
-import urllib.request as _ur2, base64 as _b642, os as _os2
-def _load_github():
-    # Load directly from raw URL — no base64 corruption
+    # Run immediately on startup (don't wait for the hour)
+    time.sleep(10)  # Give Flask time to start
     try:
-        raw = 'https://raw.githubusercontent.com/dbayugandhar-cmyk/cinerisk-api/main/data/alerts_backup.json'
-        req = _ur2.Request(raw, headers={'User-Agent': 'CINEOS'})
-        data = json.loads(_ur2.urlopen(req, timeout=20).read())
-        alerts = data if isinstance(data, list) else data.get('alerts', [])
-        print(f'[STARTUP] GitHub raw: {len(alerts)} alerts loaded')
-        return alerts
+        print("[SCHEDULER] Running startup scan...")
+        run_scheduled_scan()
     except Exception as e:
-        print(f'[STARTUP] GitHub raw failed: {e}')
-        # Fallback: try API with token
-        tok = _os2.environ.get('GITHUB_TOKEN_RAIL_READ','')
-        if not tok:
-            print('[STARTUP] No token — seed only')
-            return []
+        print(f"[SCHEDULER] Startup scan error: {e}")
+
+    # Then run every 60 minutes
+    while True:
+        time.sleep(3600)  # Wait 1 hour
         try:
-            url = 'https://api.github.com/repos/dbayugandhar-cmyk/cinerisk-api/contents/data/alerts_backup.json'
-            req2 = _ur2.Request(url, headers={
-                'Authorization': f'token {tok}',
-                'Accept': 'application/vnd.github.v3+json',
-                'User-Agent': 'CINEOS'})
-            d = json.loads(_ur2.urlopen(req2, timeout=12).read())
-            content = d['content'].replace('\n','')
-            alerts = json.loads(_b642.b64decode(content).decode())
-            print(f'[STARTUP] GitHub API: {len(alerts)} alerts loaded')
-            return alerts
-        except Exception as e2:
-            print(f'[STARTUP] Both methods failed: {e2}')
-            return []
+            print(f"[SCHEDULER] Hourly scan starting... {ist_now().strftime('%H:%M IST')}")
+            run_scheduled_scan()
+            STATS['scans_today'] = STATS.get('scans_today', 0) + 1
+        except Exception as e:
+            print(f"[SCHEDULER] Hourly scan error: {e}")
 
-_seen = {a.get('id','') for a in ALERTS}
-_seen_t = {f"{a.get('title','')[:60]}|{a.get('category','')}" for a in ALERTS}
-for _ga in _load_github():
-    _id = _ga.get('id','')
-    _tk = f"{_ga.get('title','')[:60]}|{_ga.get('category','')}"
-    if _id and _id in _seen: continue
-    if _tk in _seen_t: continue
-    ALERTS.insert(0, _ga)
-    _seen.add(_id)
-    _seen_t.add(_tk)
-ALERTS[:] = sorted(ALERTS[:5000], key=lambda x: {'critical':0,'high':1,'medium':2,'low':3}.get(x.get('severity','low'),3))
-print(f'[STARTUP] Ready: {len(ALERTS)} alerts total')
-# ─────────────────────────────────────────────────────────
-
-print(f'CINEOS: {len(ALERTS)} alerts seeded')
-
-# Start scheduler for gunicorn (runs 24/7 even when Mac is off)
-import threading as _t
-_sched = _t.Thread(target=scheduler_loop, daemon=True)
-_sched.start()
-print('Scheduler started: 08:00 12:00 18:00 22:00 IST')
 
 @app.route('/health')
 def health():

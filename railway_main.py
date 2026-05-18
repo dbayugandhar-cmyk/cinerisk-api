@@ -18,7 +18,7 @@ Scheduler (runs even when Mac is off):
 
 import os, json, hashlib, threading, time
 from datetime import datetime, timezone, timedelta
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 
 # ── AGGRESSIVE MULTI-CATEGORY QUERY SET ──────────────────

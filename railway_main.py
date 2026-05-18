@@ -298,6 +298,7 @@ SEED_ALERTS = [
 
 # Auto-seed on import (gunicorn workers need this)
 def init_alerts():
+    import urllib.request as _ur
     global ALERTS
     ALERTS = list(SEED_ALERTS)
     # Load from GitHub on startup
@@ -305,8 +306,8 @@ def init_alerts():
         tok = os.environ.get('GITHUB_TOKEN_RAIL_READ','')
         url = 'https://raw.githubusercontent.com/dbayugandhar-cmyk/cinerisk-api/main/data/alerts_backup.json'
         headers = {'Authorization': f'token {tok}'} if tok else {}
-        req = urllib.request.Request(url, headers=headers)
-        data = json.loads(urllib.request.urlopen(req, timeout=15).read())
+        req = _ur.Request(url, headers=headers)
+        data = json.loads(_ur.urlopen(req, timeout=15).read())
         if isinstance(data, list) and len(data) > 0:
             ALERTS = data
             print(f'[INIT] Loaded {len(ALERTS)} alerts from GitHub')

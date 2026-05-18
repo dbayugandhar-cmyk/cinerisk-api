@@ -1005,6 +1005,148 @@ def api_lookup():
 
     return jsonify(response)
 
+
+# ── BANK FRAUD API v1 ────────────────────────────────────────────
+_OP_MAP = {
+    '7455697977':('Radhe Exchange',['illegal_betting'],95),
+    '7400749393':('Radhe Exchange',['illegal_betting'],95),
+    '7832350002':('Radhe Exchange',['illegal_betting'],90),
+    '8881754538':('Reddy Anna',['illegal_betting'],95),
+    '8881349483':('Reddy Anna',['illegal_betting'],85),
+    '8881987328':('Reddy Anna',['illegal_betting'],85),
+    '8888888888':('Mahadev Book',['illegal_betting'],95),
+    '8824645116':('Mahadev Book',['illegal_betting'],80),
+    '8808843584':('Mahadev Book',['illegal_betting'],95),
+    '8881448108':('Laser247',['illegal_betting'],90),
+    '7413990959':('Toss Fix',['illegal_betting'],80),
+    '8881886916':('Vipin Aryan',['illegal_betting'],80),
+    '9274673985':('Cricbet99',['illegal_betting'],85),
+    '9186196239':('Faridabad Satta',['illegal_betting'],85),
+    '7704070168':('AllPanel',['illegal_betting'],85),
+    '7976094684':('Baba Gambler',['illegal_betting'],80),
+}
+_TR_MAP = {
+    '7455':('Jio','Rajasthan',40),'7400':('Jio','Rajasthan',38),
+    '7832':('Jio','Rajasthan',30),'8881':('Jio','AP/Telangana',45),
+    '8808':('Jio','AP/Telangana',35),'8824':('Airtel','AP/Telangana',30),
+    '8888':('Jio','AP/Telangana',28),'9186':('Jio','AP/Telangana',32),
+    '9274':('Jio','Gujarat',22),'7976':('Jio','Rajasthan',25),
+    '7704':('Jio','UP West',25),
+}
+_RC={'CRITICAL':'BLOCK','HIGH':'REVIEW','MEDIUM':'MONITOR','LOW':'ALLOW_WITH_LOG','CLEAR':'ALLOW'}
+
+def _screen(identifier):
+    import re as _r, hashlib, time
+    from datetime import date as _d
+    t0=time.time()
+    digs=_r.sub(r'[^0-9]','',str(identifier))
+    b10=digs[-10:] if len(digs)>=10 else ''
+    is_ph=len(b10)==10 and b10[0] in '6789'
+    op,ov,oc=None,[],0
+    if is_ph and b10 in _OP_MAP: op,ov,oc=_OP_MAP[b10]
+    alts=_load_github()
+    if is_ph:
+        mx=[a for a in alts if b10 in _r.sub(r'[^0-9]','',str(a))]
+    else:
+        q=identifier.lower()
+        mx=[a for a in alts if q in str(a.get('title','')).lower() or q in str(a.get('detail','')).lower()]
+    dc,dp,dch={},set(),set()
+    for a in mx:
+        cat=a.get('category','unknown')
+        dc[cat]=dc.get(cat,0)+1
+        for p in a.get('chain',{}).get('phones',[]):
+            if p: dp.add(p)
+        for ch in a.get('chain',{}).get('channels_found',[]):
+            if ch: dch.add(str(ch))
+    n=len(mx)
+    dconf=min(99,len(dp)*15+n*8) if (dp or n) else 0
+    ca,ci,pr='Unknown','Unknown',0
+    if is_ph and b10: ca,ci,pr=_TR_MAP.get(b10[:4],('Unknown','Unknown',0))
+    conf=max(oc,dconf)
+    conf=min(99,conf+pr//8) if conf>0 else min(42,pr//2)
+    risk=('CRITICAL' if conf>=85 else 'HIGH' if conf>=70 else 'MEDIUM' if conf>=40 else 'LOW' if conf>0 else 'CLEAR')
+    av=list(set(ov+list(dc.keys())))
+    pv=ov[0] if ov else (max(dc,key=dc.get) if dc else 'unknown')
+    cert='CINEOS-65B-'+_d.today().strftime('%Y%m%d')+'-'+b10[-6:]
+    ev=hashlib.sha256((identifier+str(n)).encode()).hexdigest()
+    dates=sorted([a.get('detected_at','') for a in mx if a.get('detected_at','')])
+    return {'identifier':identifier,'risk_level':risk,'risk_score':conf,
+        'recommended_action':_RC.get(risk,'REVIEW'),'found':conf>0,
+        'operator_attribution':{'name':op or ('Unknown' if dconf>0 else None),
+            'confidence':conf,'verticals':av,'primary':pv,'channels':len(dch),
+            'alerts':n,'phones_linked':list(dp)[:5],
+            'first_detected':dates[0][:10] if dates else None,
+            'last_detected':dates[-1][:10] if dates else None,
+        } if conf>0 else None,
+        'telecom':{'carrier':ca,'circle':ci,'prefix_risk':pr} if is_ph else None,
+        'compliance':{'pmla_flag':conf>=85 and (n>5 or op is not None),
+            'prog_act_flag':pv=='illegal_betting',
+            'sar_recommended':risk in ('CRITICAL','HIGH'),
+            'report_to':['OGAI','I4C','FIU-IND'] if pv=='illegal_betting' else ['I4C','FIU-IND'],
+        },
+        'evidence':{'cert_id':cert,'hash':ev,
+            'standard':'IT Act 2000 S65B(2)',
+            'authority':'Arjun Panditrao Khotkar (2020) 7 SCC 1'},
+        'latency_ms':round((time.time()-t0)*1000),'api_version':'v1',
+        'disclaimer':'Intelligence-grade from public sources. Verify before enforcement action.',
+    }
+
+@app.route('/api/v1/screen', methods=['GET','POST'])
+def v1_screen():
+    if request.method=='POST':
+        d=request.get_json() or {}
+        ident=d.get('phone') or d.get('upi') or d.get('q','')
+    else:
+        ident=request.args.get('q','') or request.args.get('phone','')
+    if not ident: return jsonify({'error':'Missing identifier'}),400
+    return jsonify(_screen(ident.strip()))
+
+@app.route('/api/v1/transaction', methods=['POST'])
+def v1_transaction():
+    d=request.get_json() or {}
+    sp=d.get('sender_phone','')
+    ru=d.get('receiver_upi','') or d.get('receiver_phone','')
+    amt=d.get('amount_inr',0)
+    if not sp and not ru: return jsonify({'error':'Provide sender_phone and/or receiver_upi'}),400
+    sr=_screen(sp) if sp else None
+    rr=_screen(ru) if ru else None
+    ro={'CRITICAL':4,'HIGH':3,'MEDIUM':2,'LOW':1,'CLEAR':0}
+    sv=ro.get(sr['risk_level'],0) if sr else 0
+    rv=ro.get(rr['risk_level'],0) if rr else 0
+    comb={4:'CRITICAL',3:'HIGH',2:'MEDIUM',1:'LOW',0:'CLEAR'}[max(sv,rv)]
+    reasons=[]
+    if sr and sr.get('found'): reasons.append('Sender: '+((sr.get('operator_attribution') or {}).get('primary','fraud'))+' confirmed')
+    if rr and rr.get('found'): reasons.append('Receiver: '+((rr.get('operator_attribution') or {}).get('primary','fraud'))+' activity')
+    if not reasons: reasons.append('No confirmed fraud signals')
+    return jsonify({'transaction_id':d.get('transaction_id',''),'amount_inr':amt,
+        'combined_risk':comb,'recommended_action':_RC.get(comb,'REVIEW'),
+        'reason':' | '.join(reasons),
+        'pmla_flag':amt>=500000 and max(sv,rv)>=3,'sar_recommended':max(sv,rv)>=3,
+        'sender':{'identifier':sp,'risk':sr['risk_level'] if sr else 'CLEAR',
+            'operator':(sr.get('operator_attribution') or {}).get('name'),
+            'score':sr['risk_score'] if sr else 0},
+        'receiver':{'identifier':ru,'risk':rr['risk_level'] if rr else 'CLEAR',
+            'operator':(rr.get('operator_attribution') or {}).get('name'),
+            'score':rr['risk_score'] if rr else 0},
+        'api_version':'v1','disclaimer':'Intelligence-grade. Verify before enforcement action.'})
+
+@app.route('/api/v1/operator/<name>')
+def v1_operator(name):
+    alts=_load_github()
+    q=name.lower()
+    mx=[a for a in alts if q in str(a.get('title','')).lower() or q in str(a.get('detail','')).lower()]
+    if not mx: return jsonify({'found':False,'operator':name,'message':'Not in CINEOS database'})
+    phones,channels,cats=set(),set(),{}
+    for a in mx:
+        cats[a.get('category','')]=cats.get(a.get('category',''),0)+1
+        for p in a.get('chain',{}).get('phones',[]):
+            if p: phones.add(p)
+        for ch in a.get('chain',{}).get('channels_found',[]):
+            if ch: channels.add(str(ch))
+    return jsonify({'found':True,'operator':name,'alerts':len(mx),
+        'phones':list(phones)[:10],'channels':list(channels)[:10],
+        'verticals':list(cats.keys()),'api_version':'v1'})
+
 @app.route('/api/lookup/bulk', methods=['POST'])
 def api_lookup_bulk():
     """Bulk entity lookup — up to 50 identifiers at once"""

@@ -1398,20 +1398,14 @@ def v1_operator_report(operator_name):
         '<tr><td>Aggressive</td><td style="color:#991B1B;font-weight:700">' + fmt_cr(exp_aggressive) + '/month</td><td>Rs10,000 avg per subscriber</td></tr>'
         '</tbody></table>'
         '<h2>Evidence Certificate</h2>'
-        '<div class="ev">'
-        'CERT: ' + cert_id + '
-'
-        'SHA-256: ' + ev_hash + '
-'
-        'Alerts: ' + str(len(matches)) + ' confirmed detections
-'
-        'Period: ' + first_detected + ' to ' + last_detected + '
-'
-        'Source: Publicly accessible Telegram channels
-'
-        'Auth: Arjun Panditrao Khotkar (2020) 7 SCC 1
-'
-        'Standard: IT Act 2000 S65B(2) — 5/5 conditions confirmed'
+        '<div class="ev">' +
+        'CERT: ' + cert_id + '<br>' +
+        'SHA-256: ' + ev_hash + '<br>' +
+        'Alerts: ' + str(len(matches)) + ' confirmed detections<br>' +
+        'Period: ' + first_detected + ' to ' + last_detected + '<br>' +
+        'Source: Publicly accessible Telegram channels<br>' +
+        'Auth: Arjun Panditrao Khotkar (2020) 7 SCC 1<br>' +
+        'Standard: IT Act 2000 S65B(2) — 5/5 conditions confirmed' +
         '</div>'
         '<h2>Recommended Actions</h2>'
         '<table><thead><tr><th>Agency</th><th>Action</th><th>Contact</th></tr></thead><tbody>'

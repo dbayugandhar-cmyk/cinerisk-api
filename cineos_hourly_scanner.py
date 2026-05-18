@@ -279,8 +279,8 @@ def scan_colour_prediction():
                 platform='Telegram / App',
                 detail=snip[:150],
                 source='colour_pred_scan',
-                chain_extra={'channels_found':[link],'phones':phones,'reach':500000},
-                reach=500000,
+                chain_extra={'channels_found':[link],'phones':phones,'reach':0},
+                reach=0,
             )
             found.append(a)
         time.sleep(1)
@@ -313,8 +313,8 @@ def scan_crypto_fraud():
                 platform='Telegram / Web',
                 detail=snip[:150],
                 source='crypto_fraud_scan',
-                chain_extra={'channels_found':[link],'keywords_matched':q.split()[:4],'reach':100000},
-                reach=100000,
+                chain_extra={'channels_found':[link],'keywords_matched':q.split()[:4],'reach':0},
+                reach=0,
             )
             found.append(a)
         time.sleep(1)
@@ -441,8 +441,8 @@ def scan_upi_mule():
                 platform='Telegram / WhatsApp',
                 detail=snip[:150],
                 source='upi_mule_scan',
-                chain_extra={'channels_found':[link],'upis':upis,'phones':phones,'reach':50000},
-                reach=50000,
+                chain_extra={'channels_found':[link],'upis':upis,'phones':phones,'reach':0},
+                reach=0,
             )
             if upis or phones:
                 a['severity'] = 'critical'
@@ -535,15 +535,23 @@ def scan_counterfeit():
             title = r.get('title','')
             snip  = r.get('snippet','')
             cat   = 'counterfeit_pharma' if any(kw in (title+snip).lower() for kw in ['medicine','pharma','tablet','drug']) else 'counterfeit_marketplace'
+            # Extract real identifiers — no fake reach
+            import re as _re
+            phones = ['+91'+p for p in _re.findall(r'(?<![0-9])([6-9][0-9]{9})(?![0-9])', title+snip)]
+            has_tg = 't.me/' in link
+            has_enforcement = bool(_re.search(r'arrested|FIR|seized|busted|crore|lakh', title+snip, _re.I))
+            real_reach = 0
+            if not (phones or has_tg or has_enforcement):
+                continue  # Skip news-only counterfeit alerts
             a = make_alert(
                 title=f'Counterfeit — {title[:60]}',
                 category=cat,
-                severity='high',
-                platform='Telegram / IndiaMART / Web',
+                severity='critical' if phones else 'high',
+                platform='Telegram' if has_tg else 'Web',
                 detail=snip[:150],
                 source='counterfeit_scan',
-                chain_extra={'channels_found':[link],'keywords_matched':q.split()[:4],'reach':50000},
-                reach=50000,
+                chain_extra={'channels_found':[link],'phones':phones,'keywords_matched':q.split()[:4],'reach':real_reach},
+                reach=real_reach,
             )
             found.append(a)
         time.sleep(1)

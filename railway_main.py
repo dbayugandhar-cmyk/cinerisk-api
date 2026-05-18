@@ -1255,189 +1255,105 @@ def v1_demo():
 # ── OPERATOR INTELLIGENCE REPORT API ─────────────────────────
 @app.route('/api/v1/report/<operator_name>')
 def v1_operator_report(operator_name):
-    """
-    Generate full operator intelligence report.
-    Returns HTML report as a downloadable file.
-    Bank use: due diligence on flagged operator.
-    Law enforcement: pre-complaint evidence package.
-    Price: this endpoint requires premium API key.
-    """
     valid, client = check_api_key(request)
     if not valid:
-        return jsonify({
-            'error': 'API key required',
-            'note': 'Operator Intelligence Reports require API access',
-            'contact': 'yugandhar@cineos.in',
-            'demo_report': 'Available on request for verified agencies',
-        }), 401
-
-    import re as _re
-    alerts = _load_github()
-    q = operator_name.lower()
-
-    # Find all alerts matching this operator
-    matches = [a for a in alerts if
-               q in str(a.get('title','')).lower() or
-               q in str(a.get('detail','')).lower()]
-
-    if not matches:
-        return jsonify({'found': False, 'operator': operator_name,
-                        'message': 'Operator not in CINEOS database'}), 404
-
-    # Aggregate network data
-    phones = set()
-    channels = set()
-    cats = {}
-    reach_total = 0
-    dates = []
-
-    for a in matches:
-        chain = a.get('chain', {})
-        for p in chain.get('phones', []):
-            if p: phones.add(p)
-        for ch in chain.get('channels_found', []):
-            if ch: channels.add(str(ch))
-        cat = a.get('category', 'unknown')
-        cats[cat] = cats.get(cat, 0) + 1
-        reach_total += a.get('reach', 0)
-        dt = a.get('detected_at', '')
-        if dt: dates.append(dt)
-
-    dates.sort()
-    first_detected = dates[0][:10] if dates else 'Unknown'
-    last_detected = dates[-1][:10] if dates else 'Unknown'
-    primary_cat = max(cats, key=cats.get) if cats else 'unknown'
-
-    # Evidence hash
-    ev_hash = hashlib.sha256(
-        (operator_name + str(len(matches))).encode()).hexdigest()
-    cert_id = 'CINEOS-OIR-' + date.today().strftime('%Y%m%d') + '-' +               hashlib.sha256(operator_name.encode()).hexdigest()[:6].upper()
-
-    # Financial exposure
-    exp_conservative = reach_total * 500
-    exp_moderate = reach_total * 2000
-    exp_aggressive = reach_total * 10000
-
-    def fmt_cr(n):
-        cr = n / 10000000
-        if cr >= 100: return f'₹{cr:.0f}Cr'
-        if cr >= 1: return f'₹{cr:.1f}Cr'
-        return f'₹{n/100000:.1f}L'
-
-    phones_list = list(phones)[:8]
-    channels_list = list(channels)[:10]
-
-    # Generate HTML report — simple string concat (no f-string)
-    phone_rows = ''.join(
-        '<tr><td style="font-family:monospace;color:#991B1B">' + p + 
-        '</td><td>Active in monitored channels</td></tr>'
-        for p in phones_list
-    ) or '<tr><td colspan="3" style="color:#64748B">See full evidence package</td></tr>'
-    
-    ch_rows = ''.join(
-        '<tr><td style="font-family:monospace;font-size:11px">' + str(ch) + 
-        '</td><td>' + primary_cat.replace('_',' ') + '</td><td>CINEOS detection</td></tr>'
-        for ch in channels_list[:6]
-    ) or '<tr><td colspan="3" style="color:#64748B">See evidence package</td></tr>'
-    
-    html = (
-        '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
-        '<title>CINEOS Intelligence Report — ' + operator_name + '</title>'
-        '<style>'
-        'body{font-family:Georgia,serif;max-width:900px;margin:0 auto;padding:40px;color:#0F172A;font-size:13px;line-height:1.7}'
-        '.hdr{background:#0D2B55;color:#fff;padding:22px 32px;margin:-40px -40px 32px;display:flex;justify-content:space-between}'
-        '.logo{font-size:20px;font-weight:700;letter-spacing:4px}'
-        'h1{font-size:26px;font-weight:700;color:#0D2B55;margin-bottom:6px}'
-        'h2{font-size:15px;font-weight:700;color:#0D2B55;margin:24px 0 10px;padding-bottom:5px;border-bottom:2px solid #EFF6FF}'
-        '.stat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:20px 0}'
-        '.stat{background:#F0F7FF;border:1px solid #BFDBFE;border-radius:4px;padding:12px;text-align:center}'
-        '.stat-n{font-size:22px;font-weight:700;color:#0D2B55;font-family:monospace}'
-        '.stat-l{font-size:10px;color:#64748B;margin-top:3px}'
-        'table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0}'
-        'thead th{background:#0D2B55;color:#fff;padding:8px 10px;text-align:left;font-size:10px;text-transform:uppercase}'
-        'tbody td{padding:7px 10px;border-bottom:1px solid #F0F7FF}'
-        '.ev{background:#040C1A;padding:14px;border-radius:4px;font-family:monospace;font-size:10px;line-height:1.9;margin:12px 0;color:#4ADE80}'
-        '.dis{background:#FEF2F2;border:1px solid #FECACA;padding:12px 16px;border-radius:4px;margin:20px 0;font-size:11px;color:#7F1D1D}'
-        '.sig-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}'
-        '.sig{border:1px solid #E2E8F0;padding:12px;border-radius:4px}'
-        '.footer{background:#0D2B55;color:#4A6FA5;padding:8px 32px;margin:28px -40px -40px;display:flex;justify-content:space-between;font-family:monospace;font-size:9px}'
-        '</style></head><body>'
-        '<div class="hdr"><div><div class="logo">CINEOS</div>'
-        '<div style="font-size:10px;color:#9EC6F3">INDIA TRUST INTELLIGENCE NETWORK</div></div>'
-        '<div style="font-family:monospace;font-size:11px;color:#9EC6F3">' + cert_id + '</div></div>'
-        '<h1>' + operator_name + ' Network</h1>'
-        '<p style="color:#64748B;margin-bottom:16px">' + primary_cat.replace('_',' ').title() + 
-        ' · CINEOS Monitoring · IT Act §65B Certified · ' + last_detected + '</p>'
-        '<div class="stat-row">'
-        '<div class="stat"><div class="stat-n">' + str(len(matches)) + '</div><div class="stat-l">Alerts</div></div>'
-        '<div class="stat"><div class="stat-n">' + str(len(channels_list)) + '+</div><div class="stat-l">Channels</div></div>'
-        '<div class="stat"><div class="stat-n">' + str(len(phones_list)) + '</div><div class="stat-l">Phones</div></div>'
-        '<div class="stat"><div class="stat-n">' + str(reach_total//1000) + 'K</div><div class="stat-l">Reach</div></div>'
-        '<div class="stat"><div class="stat-n">' + str(len(cats)) + '</div><div class="stat-l">Verticals</div></div>'
-        '</div>'
-        '<h2>Network Summary</h2>'
-        '<table><thead><tr><th>Attribute</th><th>Value</th><th>Confidence</th></tr></thead><tbody>'
-        '<tr><td>Primary vertical</td><td style="color:#991B1B;font-weight:700">' + primary_cat.replace('_',' ').title() + '</td><td style="color:#166534">High — ' + str(len(matches)) + ' alerts</td></tr>'
-        '<tr><td>First detected</td><td style="font-family:monospace">' + first_detected + '</td><td style="color:#166534">§65B certified</td></tr>'
-        '<tr><td>Last confirmed</td><td style="font-family:monospace">' + last_detected + '</td><td style="color:#166534">Automated</td></tr>'
-        '<tr><td>Reach</td><td style="font-family:monospace">' + str(reach_total) + '</td><td>Aggregate</td></tr>'
-        '</tbody></table>'
-        '<h2>Confirmed Operator Phones</h2>'
-        '<table><thead><tr><th>Phone</th><th>Status</th></tr></thead><tbody>' +
-        phone_rows +
-        '</tbody></table>'
-        '<p style="font-size:11px;color:#64748B;margin-top:6px">Subscriber identity unconfirmed — requires telecom subpoena under IT Act §69B</p>'
-        '<h2>Confirmed Channels (sample)</h2>'
-        '<table><thead><tr><th>Channel</th><th>Category</th><th>Source</th></tr></thead><tbody>' +
-        ch_rows +
-        '</tbody></table>'
-        '<h2>Financial Exposure Estimate</h2>'
-        '<table><thead><tr><th>Scenario</th><th>Monthly</th><th>Basis</th></tr></thead><tbody>'
-        '<tr><td>Conservative</td><td style="color:#166534;font-weight:700">' + fmt_cr(exp_conservative) + '/month</td><td>Rs500 avg per subscriber</td></tr>'
-        '<tr><td>Moderate</td><td style="color:#D97706;font-weight:700">' + fmt_cr(exp_moderate) + '/month</td><td>Rs2,000 avg per subscriber</td></tr>'
-        '<tr><td>Aggressive</td><td style="color:#991B1B;font-weight:700">' + fmt_cr(exp_aggressive) + '/month</td><td>Rs10,000 avg per subscriber</td></tr>'
-        '</tbody></table>'
-        '<h2>Evidence Certificate</h2>'
-        '<div class="ev">' +
-        'CERT: ' + cert_id + '<br>' +
-        'SHA-256: ' + ev_hash + '<br>' +
-        'Alerts: ' + str(len(matches)) + ' confirmed detections<br>' +
-        'Period: ' + first_detected + ' to ' + last_detected + '<br>' +
-        'Source: Publicly accessible Telegram channels<br>' +
-        'Auth: Arjun Panditrao Khotkar (2020) 7 SCC 1<br>' +
-        'Standard: IT Act 2000 S65B(2) — 5/5 conditions confirmed' +
-        '</div>'
-        '<h2>Recommended Actions</h2>'
-        '<table><thead><tr><th>Agency</th><th>Action</th><th>Contact</th></tr></thead><tbody>'
-        '<tr><td>DoT TRAI</td><td>Telecom subpoena for ' + str(len(phones_list)) + ' phones</td><td style="font-family:monospace">dit-diu@gov.in</td></tr>'
-        '<tr><td>MeitY OGAI</td><td>S69A channel takedown</td><td style="font-family:monospace">ogai@meity.gov.in</td></tr>'
-        '<tr><td>I4C MHA</td><td>Pre-complaint intelligence</td><td style="font-family:monospace">i4c@mha.gov.in</td></tr>'
-        '<tr><td>FIU-IND</td><td>SAR filing — PMLA threshold</td><td style="font-family:monospace">fiuindia.gov.in</td></tr>'
-        '<tr><td>Telegram</td><td>Abuse report + S69A request</td><td style="font-family:monospace">abuse@telegram.org</td></tr>'
-        '</tbody></table>'
-        '<div class="dis"><strong>DISCLAIMER:</strong> Open-source intelligence from publicly accessible Telegram channels. '
-        'Not a chargesheet or legal proof of guilt. Phone subscriber identities unconfirmed. '
-        'Financial estimates are mathematical only. All findings require independent verification. '
-        'CINEOS IP Registration Pending.</div>'
-        '<div class="sig-row">'
-        '<div class="sig"><div style="font-size:9px;color:#64748B;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Certifying Officer — S65B(4)</div>'
-        '<div style="border-bottom:1px solid #94A3B8;height:26px;margin-bottom:4px"></div>'
-        '<strong>Yugandhar Mallavarapu</strong><br>'
-        '<span style="font-size:11px;color:#64748B">Founder · CINEOS · yugandhar@cineos.in</span></div>'
-        '<div class="sig"><div style="font-size:9px;color:#64748B;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Received By</div>'
-        '<div style="border-bottom:1px solid #94A3B8;height:26px;margin-bottom:4px"></div>'
-        '<strong>___________________</strong><br>'
-        '<span style="font-size:11px;color:#64748B">Date: _______________</span></div>'
-        '</div>'
-        '<div class="footer"><span>CINEOS Intelligence · ' + cert_id + '</span>'
-        '<span>yugandhar@cineos.in · cineos.in</span></div>'
-        '</body></html>'
-    )
-    filename = f"CINEOS-OIR-{operator_name.replace(' ','-')}-{date.today().strftime('%Y%m%d')}.html"
-    resp = make_response(html)
-    resp.headers['Content-Type'] = 'text/html; charset=utf-8'
-    resp.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
-    return resp
+        return jsonify({'error':'API key required','contact':'yugandhar@cineos.in'}), 401
+    try:
+        import hashlib as _hl
+        from datetime import date as _date
+        alerts = _load_github()
+        q = operator_name.lower()
+        matches = [a for a in alerts if
+                   q in str(a.get('title','')).lower() or
+                   q in str(a.get('detail','')).lower()]
+        if not matches:
+            return jsonify({'found':False,'operator':operator_name}), 404
+        phones, channels, cats = set(), set(), {}
+        reach_total = 0
+        dates = []
+        for a in matches:
+            chain = a.get('chain', {})
+            for p in chain.get('phones', []):
+                if p: phones.add(p)
+            for ch in chain.get('channels_found', []):
+                if ch: channels.add(str(ch))
+            cat = a.get('category', 'unknown')
+            cats[cat] = cats.get(cat, 0) + 1
+            reach_total += a.get('reach', 0)
+            dt = a.get('detected_at', '')
+            if dt: dates.append(dt)
+        dates.sort()
+        first_det = dates[0][:10] if dates else 'Unknown'
+        last_det  = dates[-1][:10] if dates else 'Unknown'
+        primary   = max(cats, key=cats.get) if cats else 'unknown'
+        phones_l  = list(phones)[:8]
+        chs_l     = list(channels)[:10]
+        cert_id   = 'CINEOS-OIR-' + _date.today().strftime('%Y%m%d') + '-' + _hl.sha256(operator_name.encode()).hexdigest()[:6].upper()
+        ev_hash   = _hl.sha256((operator_name + str(len(matches))).encode()).hexdigest()
+        def fmt(n):
+            cr = n / 10000000
+            return ('Rs' + str(int(cr)) + 'Cr') if cr >= 1 else ('Rs' + str(int(n/100000)) + 'L')
+        ph_rows = ''.join('<tr><td style="font-family:monospace;color:#991B1B">' + p + '</td><td>Active</td></tr>' for p in phones_l) or '<tr><td colspan="2">See evidence package</td></tr>'
+        ch_rows = ''.join('<tr><td style="font-family:monospace;font-size:11px">' + str(ch) + '</td><td>' + primary.replace('_',' ') + '</td></tr>' for ch in chs_l[:6]) or '<tr><td colspan="2">See evidence package</td></tr>'
+        html = ('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>CINEOS — ' + operator_name + '</title>'
+            '<style>body{font-family:Georgia,serif;max-width:900px;margin:0 auto;padding:40px;font-size:13px;line-height:1.7}'
+            '.hdr{background:#0D2B55;color:#fff;padding:20px 32px;margin:-40px -40px 28px;display:flex;justify-content:space-between}'
+            'h2{font-size:14px;font-weight:700;color:#0D2B55;margin:20px 0 8px;border-bottom:2px solid #EFF6FF;padding-bottom:5px}'
+            'table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0}'
+            'th{background:#0D2B55;color:#fff;padding:7px 10px;text-align:left;font-size:10px;text-transform:uppercase}'
+            'td{padding:6px 10px;border-bottom:1px solid #F0F7FF}'
+            '.ev{background:#040C1A;color:#4ADE80;padding:14px;border-radius:4px;font-family:monospace;font-size:10px;line-height:2;margin:10px 0}'
+            '.dis{background:#FEF2F2;border:1px solid #FECACA;padding:12px;border-radius:4px;font-size:11px;color:#7F1D1D;margin:16px 0}'
+            '.sig{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}'
+            '.sb{border:1px solid #E2E8F0;padding:12px;border-radius:4px}'
+            '.sl{border-bottom:1px solid #94A3B8;height:24px;margin-bottom:4px}'
+            '.footer{background:#0D2B55;color:#4A6FA5;padding:8px 32px;margin:24px -40px -40px;display:flex;justify-content:space-between;font-family:monospace;font-size:9px}'
+            '</style></head><body>'
+            '<div class="hdr"><div><b style="font-size:18px;letter-spacing:3px">CINEOS</b>'
+            '<div style="font-size:10px;color:#9EC6F3">INDIA TRUST INTELLIGENCE NETWORK</div></div>'
+            '<div style="font-family:monospace;font-size:11px;color:#9EC6F3">' + cert_id + '</div></div>'
+            '<h1 style="font-size:24px;font-weight:700;color:#0D2B55">' + operator_name + ' Network</h1>'
+            '<p style="color:#64748B">' + primary.replace('_',' ').title() + ' · ' + last_det + ' · §65B Certified</p>'
+            '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:16px 0">'
+            '<div style="background:#F0F7FF;border:1px solid #BFDBFE;padding:10px;text-align:center;border-radius:4px"><div style="font-size:20px;font-weight:700;font-family:monospace">' + str(len(matches)) + '</div><div style="font-size:10px;color:#64748B">Alerts</div></div>'
+            '<div style="background:#F0F7FF;border:1px solid #BFDBFE;padding:10px;text-align:center;border-radius:4px"><div style="font-size:20px;font-weight:700;font-family:monospace">' + str(len(chs_l)) + '+</div><div style="font-size:10px;color:#64748B">Channels</div></div>'
+            '<div style="background:#F0F7FF;border:1px solid #BFDBFE;padding:10px;text-align:center;border-radius:4px"><div style="font-size:20px;font-weight:700;font-family:monospace">' + str(len(phones_l)) + '</div><div style="font-size:10px;color:#64748B">Phones</div></div>'
+            '<div style="background:#F0F7FF;border:1px solid #BFDBFE;padding:10px;text-align:center;border-radius:4px"><div style="font-size:20px;font-weight:700;font-family:monospace">' + str(reach_total//1000) + 'K</div><div style="font-size:10px;color:#64748B">Reach</div></div>'
+            '<div style="background:#F0F7FF;border:1px solid #BFDBFE;padding:10px;text-align:center;border-radius:4px"><div style="font-size:20px;font-weight:700;font-family:monospace">' + str(len(cats)) + '</div><div style="font-size:10px;color:#64748B">Verticals</div></div>'
+            '</div>'
+            '<h2>Confirmed Phones</h2>'
+            '<table><tr><th>Phone</th><th>Status</th></tr>' + ph_rows + '</table>'
+            '<p style="font-size:11px;color:#64748B">Subscriber identity unconfirmed — requires IT Act §69B telecom subpoena</p>'
+            '<h2>Channels (sample)</h2>'
+            '<table><tr><th>Channel</th><th>Category</th></tr>' + ch_rows + '</table>'
+            '<h2>Financial Exposure</h2>'
+            '<table><tr><th>Scenario</th><th>Monthly</th><th>Basis</th></tr>'
+            '<tr><td>Conservative</td><td style="color:#166534;font-weight:700">' + fmt(reach_total*500) + '</td><td>Rs500/subscriber</td></tr>'
+            '<tr><td>Moderate</td><td style="color:#D97706;font-weight:700">' + fmt(reach_total*2000) + '</td><td>Rs2000/subscriber</td></tr>'
+            '<tr><td>Aggressive</td><td style="color:#991B1B;font-weight:700">' + fmt(reach_total*10000) + '</td><td>Rs10000/subscriber</td></tr>'
+            '</table>'
+            '<h2>Evidence Certificate</h2>'
+            '<div class="ev">CERT: ' + cert_id + '<br>SHA-256: ' + ev_hash + '<br>Alerts: ' + str(len(matches)) + '<br>Period: ' + first_det + ' to ' + last_det + '<br>Standard: IT Act 2000 S65B(2) — Arjun Panditrao Khotkar (2020) 7 SCC 1</div>'
+            '<h2>Recommended Actions</h2>'
+            '<table><tr><th>Agency</th><th>Action</th><th>Contact</th></tr>'
+            '<tr><td>DoT TRAI</td><td>Telecom subpoena</td><td style="font-family:monospace">dit-diu@gov.in</td></tr>'
+            '<tr><td>MeitY OGAI</td><td>S69A takedown</td><td style="font-family:monospace">ogai@meity.gov.in</td></tr>'
+            '<tr><td>I4C MHA</td><td>Intelligence submission</td><td style="font-family:monospace">i4c@mha.gov.in</td></tr>'
+            '<tr><td>FIU-IND</td><td>SAR filing</td><td style="font-family:monospace">fiuindia.gov.in</td></tr>'
+            '</table>'
+            '<div class="dis">DISCLAIMER: Open-source intelligence from publicly accessible Telegram channels. Not a chargesheet or legal proof of guilt. Subscriber identities unconfirmed. Financial estimates are mathematical only. CINEOS IP Registration Pending.</div>'
+            '<div class="sig"><div class="sb"><div style="font-size:9px;color:#64748B;text-transform:uppercase;margin-bottom:8px">Certifying Officer S65B(4)</div><div class="sl"></div><b>Yugandhar Mallavarapu</b><br><span style="font-size:11px;color:#64748B">Founder · CINEOS · yugandhar@cineos.in</span></div>'
+            '<div class="sb"><div style="font-size:9px;color:#64748B;text-transform:uppercase;margin-bottom:8px">Received By</div><div class="sl"></div><b>___________________</b><br><span style="font-size:11px;color:#64748B">Date: _______________</span></div></div>'
+            '<div class="footer"><span>CINEOS Intelligence · ' + cert_id + '</span><span>yugandhar@cineos.in · cineos.in</span></div>'
+            '</body></html>')
+        filename = 'CINEOS-OIR-' + operator_name.replace(' ','-') + '-' + _date.today().strftime('%Y%m%d') + '.html'
+        resp = make_response(html)
+        resp.headers['Content-Type'] = 'text/html; charset=utf-8'
+        resp.headers['Content-Disposition'] = 'attachment; filename="' + filename + '"'
+        return resp
+    except Exception as _e:
+        import traceback as _tb
+        return jsonify({'error': str(_e), 'trace': _tb.format_exc()[-500:]}), 500
 
 
 @app.route('/api/lookup/bulk', methods=['POST'])

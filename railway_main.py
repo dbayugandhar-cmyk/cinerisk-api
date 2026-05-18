@@ -1328,10 +1328,6 @@ def v1_operator_report(operator_name):
     channels_list = list(channels)[:10]
 
     # Generate HTML report
-    try:
-        from flask import Response as _Resp
-    except Exception as _e:
-        return jsonify({'error': f'Import error: {_e}'}), 500
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1493,11 +1489,10 @@ tbody td{{padding:7px 10px;border-bottom:1px solid var(--light)}}
 
     # Return as downloadable HTML
     filename = f"CINEOS-OIR-{operator_name.replace(' ','-')}-{date.today().strftime('%Y%m%d')}.html"
-    return Response(
-        html,
-        mimetype='text/html',
-        headers={'Content-Disposition': f'attachment; filename="{filename}"'}
-    )
+    resp = make_response(html)
+    resp.headers['Content-Type'] = 'text/html; charset=utf-8'
+    resp.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
+    return resp
 
 
 @app.route('/api/lookup/bulk', methods=['POST'])

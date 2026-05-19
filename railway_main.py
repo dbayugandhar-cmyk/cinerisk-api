@@ -79,10 +79,6 @@ SCAN_QUERIES = {
 app = Flask(__name__)
 CORS(app)  # Allow cineos.in dashboard to fetch
 
-# Load alerts at module level — works with gunicorn (Railway) and direct run
-# Must be here, not in __main__, because gunicorn never calls __main__
-init_alerts()
-
 # ── IN-MEMORY STORE ───────────────────────────────────────
 # Railway has ephemeral storage — we keep alerts in memory
 # and sync to GitHub via API on every write

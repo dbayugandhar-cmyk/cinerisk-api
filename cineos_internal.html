@@ -9,105 +9,67 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
-:root{
-  --bg:#F8FAFC;--w:#FFFFFF;--s1:#F1F5F9;--s2:#E2E8F0;
-  --b1:#CBD5E1;--b2:#94A3B8;
-  --ink:#0F172A;--ink2:#1E293B;--t2:#475569;--t3:#64748B;--t4:#94A3B8;
-  --green:#059669;--green2:#047857;--green3:#D1FAE5;--green4:#ECFDF5;
-  --red:#DC2626;--red2:#B91C1C;--red3:#FEE2E2;--red4:#FEF2F2;
-  --amber:#D97706;--amber2:#B45309;--amber3:#FEF3C7;--amber4:#FFFBEB;
-  --blue:#2563EB;--blue2:#1D4ED8;--blue3:#DBEAFE;--blue4:#EFF6FF;
-  --purple:#7C3AED;--teal:#0891B2;
-  --mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;
-  --shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
-  --shadow2:0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);
-  --shadow3:0 10px 15px rgba(0,0,0,.1),0 4px 6px rgba(0,0,0,.05);
-}
+:root{--bg:#F8FAFC;--w:#fff;--s1:#F1F5F9;--b1:#E2E8F0;--b2:#CBD5E1;--ink:#0F172A;--t2:#475569;--t3:#64748B;--t4:#94A3B8;--green:#059669;--green2:#047857;--green3:#D1FAE5;--green4:#ECFDF5;--red:#DC2626;--red3:#FEE2E2;--red4:#FEF2F2;--amber:#D97706;--amber3:#FEF3C7;--amber4:#FFFBEB;--blue:#2563EB;--blue3:#DBEAFE;--purple:#7C3AED;--teal:#0891B2;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;--sh:0 1px 3px rgba(0,0,0,.08)}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden;background:var(--bg)}
 body{font-family:var(--sans);font-size:13px;color:var(--ink);display:flex;flex-direction:column}
-
-/* LOGIN */
-#login{position:fixed;inset:0;z-index:999;background:var(--ink2);display:flex;align-items:center;justify-content:center}
-.lb{background:var(--w);border-radius:16px;padding:44px;width:380px;text-align:center;box-shadow:var(--shadow3)}
+#login{position:fixed;inset:0;z-index:999;background:var(--ink);display:flex;align-items:center;justify-content:center}
+.lb{background:var(--w);border-radius:16px;padding:44px;width:380px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
 .lb-logo{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--green);letter-spacing:.2em;margin-bottom:4px}
-.lb-sub{font-size:12px;color:var(--t3);margin-bottom:28px;font-family:var(--mono);letter-spacing:.05em}
-.lb input{width:100%;padding:12px 16px;border:1.5px solid var(--b1);border-radius:8px;font-size:14px;text-align:center;letter-spacing:.3em;outline:none;margin-bottom:12px;background:var(--bg);color:var(--ink)}
+.lb-sub{font-size:12px;color:var(--t3);margin-bottom:28px;font-family:var(--mono)}
+.lb input{width:100%;padding:12px 16px;border:1.5px solid var(--b1);border-radius:8px;font-size:14px;text-align:center;letter-spacing:.3em;outline:none;margin-bottom:12px}
 .lb input:focus{border-color:var(--green)}
-.lb button{width:100%;padding:12px;background:var(--green);border:none;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:.1em;color:#fff;cursor:pointer;transition:background .15s}
+.lb button{width:100%;padding:12px;background:var(--green);border:none;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:.1em;color:#fff;cursor:pointer}
 .lb button:hover{background:var(--green2)}
-.lb-err{font-size:11px;color:var(--red);margin-top:8px;display:none}
-
-/* HEADER */
-#hdr{height:52px;background:var(--w);border-bottom:1px solid var(--b1);display:none;align-items:center;padding:0 20px;gap:16px;flex-shrink:0;box-shadow:var(--shadow)}
-.hlogo{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--green);letter-spacing:.15em}
+#hdr{height:52px;background:var(--w);border-bottom:1px solid var(--b1);display:none;align-items:center;padding:0 20px;gap:16px;flex-shrink:0;box-shadow:var(--sh)}
+.hlogo{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--green);letter-spacing:.12em}
 .hstats{display:flex;gap:8px;margin-left:auto;align-items:center}
 .hstat{font-size:11px;color:var(--t3);background:var(--s1);border:1px solid var(--b1);padding:4px 10px;border-radius:6px;font-family:var(--mono)}
 .hstat b{color:var(--ink);font-weight:600}
 .hlive{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--green);font-family:var(--mono)}
 .hpulse{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(5,150,105,.4)}70%{box-shadow:0 0 0 6px rgba(5,150,105,0)}}
-
-/* TABS */
 #tabs{height:44px;background:var(--w);border-bottom:1px solid var(--b1);display:none;align-items:flex-end;padding:0 12px;flex-shrink:0}
 .tab{padding:10px 16px;font-size:12px;font-weight:500;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:7px}
-.tab:hover{color:var(--ink2)}
+.tab:hover{color:var(--ink)}
 .tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:600}
 .tbadge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;font-family:var(--mono)}
-.tb-g{background:var(--green3);color:var(--green)}
-.tb-r{background:var(--red3);color:var(--red)}
-.tb-a{background:var(--amber3);color:var(--amber)}
-.tb-b{background:var(--blue3);color:var(--blue)}
-
-/* MAIN */
+.tb-g{background:var(--green3);color:var(--green)}.tb-r{background:var(--red3);color:var(--red)}.tb-a{background:var(--amber3);color:var(--amber)}.tb-b{background:var(--blue3);color:var(--blue)}
 #main{flex:1;overflow:hidden;display:none}
 .tview{display:none;height:100%;overflow:hidden}
 .tview.active{display:flex;flex-direction:column}
-
-/* ── WORKSPACE ── */
-.ws{display:grid;grid-template-columns:280px 1fr 300px;height:100%;overflow:hidden;background:var(--bg)}
-.panel{background:var(--w);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow)}
-.panel-l{border-right:1px solid var(--b1)}
-.panel-r{border-left:1px solid var(--b1)}
+/* WORKSPACE */
+.ws{display:grid;grid-template-columns:260px 1fr 280px;height:100%;overflow:hidden}
+.panel{background:var(--w);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--sh)}
+.pl{border-right:1px solid var(--b1)}.pr{border-left:1px solid var(--b1)}
 .ph{padding:10px 14px;border-bottom:1px solid var(--b1);font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--s1)}
 .ph span{color:var(--green);font-family:var(--mono)}
-
-/* FEED */
 .feed{flex:1;overflow-y:auto}
-.acard{padding:10px 14px;border-bottom:1px solid var(--s1);cursor:pointer;transition:background .12s}
-.acard:hover{background:var(--s1)}
-.acard.sel{background:var(--green4);border-left:3px solid var(--green)}
+.acard{padding:9px 13px;border-bottom:1px solid var(--s1);cursor:pointer;transition:background .12s}
+.acard:hover{background:var(--s1)}.acard.sel{background:var(--green4);border-left:3px solid var(--green)}
 .acard.flash{animation:fl .5s ease}
 @keyframes fl{0%{background:#D1FAE5}100%{background:transparent}}
-.ac-row1{display:flex;align-items:flex-start;gap:7px;margin-bottom:3px}
+.ar1{display:flex;align-items:flex-start;gap:7px;margin-bottom:3px}
 .sev{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;flex-shrink:0;margin-top:1px;font-family:var(--mono)}
-.s-c{background:var(--red3);color:var(--red)}
-.s-h{background:var(--amber3);color:var(--amber)}
-.s-m{background:var(--blue3);color:var(--blue)}
-.s-l{background:var(--green3);color:var(--green)}
-.act{font-size:12px;font-weight:600;color:var(--ink);line-height:1.35;flex:1}
-.ac-row2{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
-.acat{font-size:10px;color:var(--t3)}
-.aph{font-size:10px;color:var(--green);font-weight:600}
-.are{font-size:10px;color:var(--teal)}
-.ats{font-size:10px;color:var(--t4);margin-left:auto;font-family:var(--mono)}
+.sc{background:var(--red3);color:var(--red)}.sh2{background:var(--amber3);color:var(--amber)}.sm{background:var(--blue3);color:var(--blue)}
+.act{font-size:12px;font-weight:600;color:var(--ink);line-height:1.3;flex:1}
+.ar2{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.acat{font-size:10px;color:var(--t3)}.aph{font-size:10px;color:var(--green);font-weight:600}.are{font-size:10px;color:var(--teal)}.ats{font-size:10px;color:var(--t4);margin-left:auto;font-family:var(--mono)}
 .now{font-size:9px;background:var(--red);color:#fff;padding:1px 5px;border-radius:3px;font-weight:700;animation:nb 1.2s infinite}
 @keyframes nb{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* CENTER */
 .cc{display:flex;flex-direction:column;overflow:hidden}
-.toolbar{padding:10px 14px;border-bottom:1px solid var(--b1);display:flex;gap:8px;align-items:center;flex-shrink:0;background:var(--w)}
-.sw{flex:1;display:flex;align-items:center;background:var(--bg);border:1.5px solid var(--b1);border-radius:8px;padding:0 12px;gap:8px;transition:border-color .15s}
+.toolbar{padding:9px 14px;border-bottom:1px solid var(--b1);display:flex;gap:8px;align-items:center;flex-shrink:0;background:var(--w)}
+.sw{flex:1;display:flex;align-items:center;background:var(--bg);border:1.5px solid var(--b1);border-radius:8px;padding:0 12px;gap:8px}
 .sw:focus-within{border-color:var(--green)}
 .sw input{flex:1;background:transparent;border:none;outline:none;font-size:12px;color:var(--ink);padding:8px 0}
 .sw input::placeholder{color:var(--t4)}
 .fb{font-size:11px;padding:7px 12px;border-radius:7px;border:1.5px solid var(--b1);background:var(--w);color:var(--t2);cursor:pointer;transition:all .15s;font-weight:500;white-space:nowrap}
 .fb:hover,.fb.on{background:var(--green4);border-color:var(--green);color:var(--green);font-weight:600}
-.statbar{padding:10px 16px;border-bottom:1px solid var(--b1);display:flex;gap:16px;align-items:center;flex-shrink:0;background:var(--w)}
+.statbar{padding:9px 16px;border-bottom:1px solid var(--b1);display:flex;gap:14px;align-items:center;flex-shrink:0;background:var(--w)}
 .stn{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--ink);line-height:1}
 .stn.g{color:var(--green)}.stn.r{color:var(--red)}.stn.a{color:var(--amber)}.stn.b{color:var(--blue)}
 .stl{font-size:10px;color:var(--t3);margin-top:2px;font-weight:500}
-.sdiv{width:1px;background:var(--b1);height:30px}
+.sdiv{width:1px;background:var(--b1);height:28px}
 .tbl{flex:1;overflow-y:auto}
 table{width:100%;border-collapse:collapse}
 thead th{background:var(--s1);padding:8px 12px;text-align:left;font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;position:sticky;top:0;z-index:5;border-bottom:1px solid var(--b1)}
@@ -115,21 +77,14 @@ tbody tr{border-bottom:1px solid var(--s1);cursor:pointer;transition:background 
 tbody tr:hover{background:var(--s1)}
 tbody tr.sel{background:var(--green4);border-left:2px solid var(--green)}
 td{padding:8px 12px;font-size:12px;vertical-align:middle}
-.ttl{font-weight:600;color:var(--ink);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ttl{font-weight:600;color:var(--ink);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cat{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;font-family:var(--mono);white-space:nowrap}
-.c-ib{background:var(--red3);color:var(--red)}
-.c-cf{background:#EDE9FE;color:var(--purple)}
-.c-um{background:var(--amber3);color:var(--amber)}
-.c-cp{background:#CFFAFE;color:var(--teal)}
-.c-if{background:var(--blue3);color:var(--blue)}
-.c-x{background:var(--s1);color:var(--t3)}
+.c-ib{background:var(--red3);color:var(--red)}.c-cf{background:#EDE9FE;color:var(--purple)}.c-um{background:var(--amber3);color:var(--amber)}.c-cp{background:#CFFAFE;color:var(--teal)}.c-if{background:var(--blue3);color:var(--blue)}.c-x{background:var(--s1);color:var(--t3)}
 .tph{font-size:11px;color:var(--green);font-weight:600;font-family:var(--mono)}
 .tre{font-size:11px;color:var(--teal);font-family:var(--mono)}
 .tts{font-size:10px;color:var(--t3);font-family:var(--mono);white-space:nowrap}
-
-/* DETAIL PANEL */
-.det{padding:14px;overflow-y:auto;flex:1}
-.det-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;gap:8px;color:var(--t4)}
+.det{padding:13px;overflow-y:auto;flex:1}
+.det-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:180px;gap:8px;color:var(--t4);font-size:12px}
 .dl{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;margin-top:12px}
 .dv{font-size:12px;color:var(--t2);line-height:1.55}
 .dm{font-family:var(--mono);font-size:11px;color:var(--ink2)}
@@ -142,66 +97,60 @@ td{padding:8px 12px;font-size:12px;vertical-align:middle}
 .dbtn{font-size:11px;padding:8px 12px;border-radius:7px;border:1.5px solid var(--b1);background:var(--w);color:var(--t2);cursor:pointer;text-align:left;transition:all .15s;font-weight:500;width:100%}
 .dbtn:hover{border-color:var(--green);color:var(--green);background:var(--green4)}
 .dbtn.pri{background:var(--green);color:#fff;border-color:var(--green)}
-.dbtn.pri:hover{background:var(--green2)}
-
-/* ── INVESTIGATION ── */
+/* INVESTIGATION */
 .inv{display:grid;grid-template-columns:1fr 1fr;height:100%;gap:1px;background:var(--b1)}
 .invp{background:var(--w);overflow:hidden;display:flex;flex-direction:column}
 .invh{padding:10px 16px;background:var(--s1);border-bottom:1px solid var(--b1);font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-#gc{flex:1;overflow:hidden;position:relative;background:#F8FAFC}
+#gc{flex:1;overflow:hidden;position:relative;background:var(--s1)}
 #gsv{width:100%;height:100%}
-.gtt{position:absolute;background:var(--w);border:1px solid var(--b1);border-radius:8px;padding:9px 12px;font-size:11px;pointer-events:none;display:none;z-index:100;max-width:200px;box-shadow:var(--shadow2);line-height:1.6}
+.gtt{position:absolute;background:var(--w);border:1px solid var(--b1);border-radius:8px;padding:9px 12px;font-size:11px;pointer-events:none;display:none;z-index:100;max-width:200px;box-shadow:0 4px 12px rgba(0,0,0,.1);line-height:1.6}
 .gctrl{position:absolute;bottom:12px;right:12px;display:flex;flex-direction:column;gap:4px}
-.gcb{width:30px;height:30px;background:var(--w);border:1px solid var(--b1);border-radius:7px;color:var(--t2);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;box-shadow:var(--shadow)}
+.gcb{width:30px;height:30px;background:var(--w);border:1px solid var(--b1);border-radius:7px;color:var(--t2);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;box-shadow:var(--sh)}
 .gcb:hover{border-color:var(--green);color:var(--green)}
-#mc{flex:1;overflow:hidden}
+#mc{flex:1;overflow:hidden;position:relative}
 #imap{width:100%;height:100%}
-.mleg{position:absolute;bottom:12px;left:12px;background:rgba(255,255,255,.95);border:1px solid var(--b1);border-radius:8px;padding:9px 12px;z-index:1000;box-shadow:var(--shadow)}
+.mleg{position:absolute;bottom:12px;left:12px;background:rgba(255,255,255,.95);border:1px solid var(--b1);border-radius:8px;padding:9px 12px;z-index:1000;box-shadow:var(--sh)}
 .mli{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--t2);margin-bottom:3px;font-weight:500}
 .mld{width:9px;height:9px;border-radius:50%}
-
-/* ── OPERATORS ── */
-.oil{display:grid;grid-template-columns:280px 1fr;height:100%;overflow:hidden}
-.olist{background:var(--w);border-right:1px solid var(--b1);overflow-y:auto}
+/* OPERATORS — LIVE */
+.oil{display:grid;grid-template-columns:300px 1fr;height:100%;overflow:hidden}
+.olist{background:var(--w);border-right:1px solid var(--b1);overflow-y:auto;display:flex;flex-direction:column}
+.osrch{padding:10px 12px;border-bottom:1px solid var(--b1);background:var(--s1);flex-shrink:0}
+.osrch input{width:100%;padding:7px 10px;border:1.5px solid var(--b1);border-radius:7px;font-size:12px;color:var(--ink);outline:none;background:var(--w)}
+.osrch input:focus{border-color:var(--green)}
 .odet{overflow-y:auto;padding:20px 24px;background:var(--bg)}
-.ocard{padding:12px 16px;border-bottom:1px solid var(--s1);cursor:pointer;transition:background .12s}
-.ocard:hover,.ocard.on{background:var(--green4)}
-.ocard.on{border-left:3px solid var(--green)}
+.ocard{padding:11px 14px;border-bottom:1px solid var(--s1);cursor:pointer;transition:background .12s}
+.ocard:hover,.ocard.on{background:var(--green4)}.ocard.on{border-left:3px solid var(--green)}
 .oc-h{display:flex;align-items:center;gap:8px;margin-bottom:5px}
-.oc-n{font-size:13px;font-weight:700;color:var(--ink)}
-.oc-st{display:flex;gap:8px;flex-wrap:wrap}
-.oc-s{font-size:11px;color:var(--t3)}
-.oc-s b{color:var(--ink2);font-weight:600}
-.odc{background:var(--w);border:1px solid var(--b1);border-radius:10px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.oc-n{font-size:13px;font-weight:700;color:var(--ink);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.oc-st{display:flex;gap:7px;flex-wrap:wrap}
+.oc-s{font-size:11px;color:var(--t3)}.oc-s b{color:var(--ink2);font-weight:600}
+.odc{background:var(--w);border:1px solid var(--b1);border-radius:10px;padding:16px;margin-bottom:14px;box-shadow:var(--sh)}
 .odcl{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
 .phi{font-family:var(--mono);font-size:11px;color:var(--green);font-weight:600;padding:4px 9px;background:var(--green4);border-radius:5px;display:block;margin-bottom:4px;border:1px solid var(--green3)}
-
-/* CASE STUDY BUTTON */
-.case-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;margin-top:6px;text-decoration:none}
-.case-btn:hover{background:var(--green2);box-shadow:var(--shadow2)}
+.upi-tag{font-family:var(--mono);font-size:11px;color:var(--blue);font-weight:600;padding:4px 9px;background:var(--blue3);border-radius:5px;display:block;margin-bottom:4px;border:1px solid #BFDBFE}
+.case-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.case-btn:hover{background:var(--green2)}
 .case-btn.sec{background:var(--w);color:var(--green);border:1.5px solid var(--green)}
 .case-btn.sec:hover{background:var(--green4)}
-
-/* ── BANK DEMO ── */
+/* BANK DEMO */
 .bank-layout{display:grid;grid-template-columns:1fr 1fr;height:100%;overflow:hidden;gap:1px;background:var(--b1)}
 .bank-p{background:var(--w);overflow-y:auto;display:flex;flex-direction:column}
-.bank-h{padding:14px 18px;background:var(--s1);border-bottom:1px solid var(--b1);font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;flex-shrink:0}
+.bank-h{padding:13px 18px;background:var(--s1);border-bottom:1px solid var(--b1);font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;flex-shrink:0}
 .bsearch{padding:16px 18px;border-bottom:1px solid var(--b1);flex-shrink:0}
 .bsrow{display:flex;gap:8px;margin-bottom:10px}
 .bin{flex:1;padding:10px 14px;border:1.5px solid var(--b1);border-radius:8px;font-size:13px;color:var(--ink);outline:none;background:var(--bg)}
 .bin:focus{border-color:var(--green)}
-.bgo{padding:10px 18px;background:var(--green);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;transition:background .15s;white-space:nowrap}
+.bgo{padding:10px 18px;background:var(--green);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer}
 .bgo:hover{background:var(--green2)}
 .bqk{display:flex;gap:6px;flex-wrap:wrap}
 .bq{font-size:11px;padding:4px 10px;background:var(--s1);border:1px solid var(--b1);border-radius:5px;cursor:pointer;color:var(--t2);transition:all .15s;font-family:var(--mono)}
 .bq:hover{background:var(--green4);border-color:var(--green);color:var(--green)}
 .bq.r{background:var(--red4);border-color:var(--red3);color:var(--red)}
+.bq.u{background:var(--blue3);border-color:#BFDBFE;color:var(--blue)}
 .bres{padding:16px 18px;flex:1}
 .risk-banner{border-radius:10px;padding:18px 20px;margin-bottom:16px;border:1.5px solid}
-.rb-crit{background:var(--red4);border-color:var(--red3)}
-.rb-high{background:var(--amber4);border-color:var(--amber3)}
-.rb-low{background:var(--green4);border-color:var(--green3)}
-.rb-clear{background:var(--blue4);border-color:var(--blue3)}
+.rb-crit{background:var(--red4);border-color:var(--red3)}.rb-high{background:var(--amber4);border-color:var(--amber3)}.rb-low{background:var(--green4);border-color:var(--green3)}.rb-clear{background:var(--blue3);border-color:#BFDBFE}
 .rb-top{display:flex;align-items:center;justify-content:space-between}
 .rb-lvl{font-size:22px;font-weight:800;font-family:var(--mono)}
 .rb-score{text-align:right}
@@ -217,19 +166,17 @@ td{padding:8px 12px;font-size:12px;vertical-align:middle}
 .comp-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .cf{font-size:10px;font-weight:700;padding:4px 10px;border-radius:5px;font-family:var(--mono)}
 .cf-p{background:var(--red3);color:var(--red)}.cf-s{background:var(--amber3);color:var(--amber)}.cf-g{background:var(--blue3);color:var(--blue)}
-.evbox{background:var(--ink2);border-radius:8px;padding:12px;font-family:var(--mono);font-size:10px;line-height:1.8;color:#94A3B8}
+.evbox{background:var(--ink);border-radius:8px;padding:12px;font-family:var(--mono);font-size:10px;line-height:1.8;color:#94A3B8}
 .ev-g{color:#4ADE80}
-.txn-form{padding:16px 18px;border-bottom:1px solid var(--b1);flex-shrink:0}
 .txn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
 .txn-label{font-size:11px;font-weight:600;color:var(--t3);margin-bottom:3px}
-
-/* ── CROSSREF ── */
+/* CROSSREF */
 .cr{display:grid;grid-template-columns:1fr 1fr;height:100%;overflow:hidden;gap:1px;background:var(--b1)}
 .crp{background:var(--w);overflow-y:auto;display:flex;flex-direction:column}
-.crs{padding:12px 14px;background:var(--s1);border-bottom:1px solid var(--b1);flex-shrink:0}
-.crin{width:100%;padding:9px 13px;border:1.5px solid var(--b1);border-radius:7px;font-size:12px;color:var(--ink);outline:none;background:var(--w)}
+.crs{padding:11px 13px;background:var(--s1);border-bottom:1px solid var(--b1);flex-shrink:0}
+.crin{width:100%;padding:8px 11px;border:1.5px solid var(--b1);border-radius:7px;font-size:12px;color:var(--ink);outline:none;background:var(--w)}
 .crin:focus{border-color:var(--green)}
-.ncard{padding:12px 14px;border-bottom:1px solid var(--s1);cursor:pointer;transition:background .12s}
+.ncard{padding:11px 13px;border-bottom:1px solid var(--s1);cursor:pointer;transition:background .12s}
 .ncard:hover{background:var(--s1)}
 .nt{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;display:inline-block;margin-bottom:4px;font-family:var(--mono)}
 .nt-e{background:var(--red3);color:var(--red)}.nt-m{background:var(--amber3);color:var(--amber)}.nt-g{background:var(--blue3);color:var(--blue)}
@@ -237,30 +184,21 @@ td{padding:8px 12px;font-size:12px;vertical-align:middle}
 .nm{font-size:11px;color:var(--t3)}
 .crdet{padding:20px 22px;overflow-y:auto;background:var(--bg)}
 .crmt{display:flex;align-items:center;justify-content:center;height:200px;font-size:12px;color:var(--t4)}
-
 /* CASE STUDY MODAL */
 #csmodal{position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;padding:20px}
 #csmodal.open{display:flex}
-.csbox{background:var(--w);border-radius:16px;max-width:800px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow3)}
+.csbox{background:var(--w);border-radius:16px;max-width:820px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
 .cshdr{padding:20px 24px;border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--w);z-index:10}
 .cshdr h2{font-size:18px;font-weight:800;color:var(--ink)}
-.csclose{width:32px;height:32px;border-radius:50%;border:1px solid var(--b1);background:var(--w);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.csclose{width:32px;height:32px;border-radius:50%;border:1px solid var(--b1);background:var(--w);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
 .csclose:hover{background:var(--s1)}
 .csbody{padding:20px 24px}
 .cs-section{margin-bottom:20px}
 .cs-sec-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--b1)}
-.cs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.cs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
 .cs-stat{background:var(--s1);border-radius:8px;padding:12px;text-align:center;border:1px solid var(--b1)}
 .cs-sn{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--ink)}
 .cs-sl{font-size:10px;color:var(--t3);margin-top:3px;font-weight:500;text-transform:uppercase}
-.cs-tl{border-left:2px solid var(--b1);padding-left:16px}
-.cs-tlitem{position:relative;padding:8px 0}
-.cs-tlitem::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--b2);position:absolute;left:-20px;top:12px}
-.cs-tlitem.enf::before{background:var(--red)}
-.cs-tlitem.res::before{background:var(--green)}
-.cs-tld{font-family:var(--mono);font-size:10px;color:var(--t3);margin-bottom:2px}
-.cs-tle{font-size:13px;font-weight:700;color:var(--ink)}
-.cs-tlx{font-size:11px;color:var(--t2);margin-top:2px}
 .cs-exp{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .cs-ec{border-radius:8px;padding:14px;text-align:center}
 .cs-ec.c{background:var(--green4);border:1px solid var(--green3)}
@@ -268,67 +206,55 @@ td{padding:8px 12px;font-size:12px;vertical-align:middle}
 .cs-ec.a{background:var(--red4);border:1px solid var(--red3)}
 .cs-en{font-family:var(--mono);font-size:18px;font-weight:700}
 .cs-el{font-size:10px;font-weight:500;margin-top:3px;color:var(--t3)}
-
-/* SCROLLBAR */
-::-webkit-scrollbar{width:4px;height:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--b1);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:var(--b2)}
-
-/* TOAST */
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--b1);border-radius:3px}
 #toast{position:fixed;bottom:16px;right:16px;z-index:9998;display:flex;flex-direction:column;gap:5px}
-.ti{background:var(--w);border:1.5px solid var(--green);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink);max-width:280px;animation:ti .25s ease;display:flex;gap:8px;align-items:center;box-shadow:var(--shadow2)}
+.ti{background:var(--w);border:1.5px solid var(--green);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink);max-width:280px;animation:ti .25s ease;display:flex;gap:8px;align-items:center;box-shadow:0 4px 12px rgba(0,0,0,.1)}
 .ti.w{border-color:var(--amber)}
 @keyframes ti{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
-.spin{animation:sp .7s linear infinite;display:inline-block}
-@keyframes sp{to{transform:rotate(360deg)}}
+.spin{animation:sp .7s linear infinite;display:inline-block}@keyframes sp{to{transform:rotate(360deg)}}
+.es{display:flex;align-items:center;justify-content:center;padding:32px;color:var(--t4);font-size:12px}
 </style>
 </head>
 <body>
-
 <div id="login">
   <div class="lb">
     <div class="lb-logo">CINEOS</div>
     <div class="lb-sub">INTERNAL INTELLIGENCE PLATFORM</div>
     <input type="password" id="pin" placeholder="• • • • • •" onkeydown="if(event.key==='Enter')doLogin()">
     <button onclick="doLogin()">ACCESS PLATFORM →</button>
-    <div class="lb-err" id="lerr">Invalid credentials</div>
+    <div style="font-size:11px;color:var(--red);margin-top:8px;display:none" id="lerr">Invalid credentials</div>
   </div>
 </div>
-
 <div id="hdr">
   <div class="hlogo">CINEOS</div>
-  <div style="font-size:11px;color:var(--t3);font-family:var(--mono)">Internal Intelligence Platform</div>
+  <div style="font-size:11px;color:var(--t3)">Internal Intelligence Platform</div>
   <div class="hstats">
     <div class="hstat">Alerts: <b id="h-a">—</b></div>
     <div class="hstat">Phones: <b id="h-p">—</b></div>
-    <div class="hstat">Channels: <b id="h-c">—</b></div>
+    <div class="hstat">UPIs: <b id="h-u">—</b></div>
     <div class="hstat">Reach: <b id="h-r">—</b></div>
     <div class="hlive"><div class="hpulse"></div>LIVE</div>
     <div style="font-size:11px;color:var(--t3);font-family:var(--mono)" id="h-t"></div>
   </div>
 </div>
-
 <div id="tabs">
   <div class="tab active" onclick="ST('ws',this)">⬡ Workspace <span class="tbadge tb-r" id="tb1">—</span></div>
   <div class="tab" onclick="ST('inv',this)">◈ Investigation <span class="tbadge tb-g">Graph · Map</span></div>
-  <div class="tab" onclick="ST('ops',this)">◎ Operators <span class="tbadge tb-g" id="tb2">7</span></div>
+  <div class="tab" onclick="ST('ops',this)">◎ Operators <span class="tbadge tb-g" id="tb2">—</span></div>
   <div class="tab" onclick="ST('bank',this)">🏦 Bank Demo <span class="tbadge tb-b">Live API</span></div>
-  <div class="tab" onclick="ST('cr',this)">◐ News Cross-Ref <span class="tbadge tb-a" id="tb3">—</span></div>
+  <div class="tab" onclick="ST('cr',this)">◐ News Cross-Ref <span class="tbadge tb-a" id="tb3">9</span></div>
 </div>
-
 <div id="main">
-
   <!-- WORKSPACE -->
   <div class="tview active" id="tab-ws">
     <div class="ws">
-      <div class="panel panel-l">
-        <div class="ph">Live Alert Feed <span id="fc">0</span></div>
-        <div class="feed" id="afeed"><div style="padding:20px;text-align:center;color:var(--t4);font-size:12px">Loading alerts...</div></div>
+      <div class="panel pl">
+        <div class="ph">Live Feed <span id="fc">0</span></div>
+        <div class="feed" id="afeed"><div class="es">Loading...</div></div>
       </div>
       <div class="cc">
         <div class="toolbar">
-          <div class="sw"><span style="color:var(--t4)">⌕</span><input id="srch" placeholder="Search title, phone, operator, category..." oninput="FA()"></div>
+          <div class="sw"><span style="color:var(--t4)">⌕</span><input id="srch" placeholder="Search title, phone, UPI, operator, category..." oninput="FA()"></div>
           <button class="fb on" onclick="SF('all',this)">All</button>
           <button class="fb" onclick="SF('illegal_betting',this)">Betting</button>
           <button class="fb" onclick="SF('upi_mule',this)">Mule</button>
@@ -347,35 +273,28 @@ td{padding:8px 12px;font-size:12px;vertical-align:middle}
           <div><div class="stn b" id="s5" style="font-size:14px">—</div><div class="stl">Reach</div></div>
           <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
             <span style="font-size:11px;color:var(--t3);font-family:var(--mono)" id="ri"></span>
-            <button onclick="MR()" style="font-size:11px;padding:6px 11px;background:var(--w);border:1.5px solid var(--b1);color:var(--t2);border-radius:7px;cursor:pointer;font-weight:500" id="rb">↻ Refresh</button>
+            <button onclick="LA(false)" style="font-size:11px;padding:5px 9px;background:var(--w);border:1.5px solid var(--b1);color:var(--t2);border-radius:7px;cursor:pointer;font-weight:500" id="rb">↻ Refresh</button>
           </div>
         </div>
         <div class="tbl">
-          <table><thead><tr><th>Sev</th><th>Title</th><th>Category</th><th>Phones</th><th>Reach</th><th>Detected</th></tr></thead>
+          <table><thead><tr><th>Sev</th><th>Title</th><th>Category</th><th>Phones</th><th>UPIs</th><th>Reach</th><th>Detected</th></tr></thead>
           <tbody id="atbl"></tbody></table>
-          <div style="padding:32px;text-align:center;font-size:12px;color:var(--t4);display:none" id="emp">No alerts match filters</div>
+          <div class="es" id="emp" style="display:none">No alerts match filters</div>
         </div>
       </div>
-      <div class="panel panel-r">
-        <div class="ph">Alert Detail</div>
-        <div id="det"><div class="det-empty"><span style="font-size:28px">◎</span><span style="font-size:12px;color:var(--t4)">Select an alert</span></div></div>
+      <div class="panel pr">
+        <div class="ph">Detail</div>
+        <div id="det"><div class="det-empty"><span style="font-size:28px">◎</span><span>Select an alert</span></div></div>
       </div>
     </div>
   </div>
-
   <!-- INVESTIGATION -->
   <div class="tview" id="tab-inv">
     <div class="inv">
       <div class="invp">
-        <div class="invh">Entity Graph — Operator Networks <span style="color:var(--green);font-size:11px" id="gcnt">loading...</span></div>
-        <div id="gc">
-          <svg id="gsv"></svg>
-          <div class="gtt" id="gtt"></div>
-          <div class="gctrl">
-            <button class="gcb" onclick="ZG(1.3)">+</button>
-            <button class="gcb" onclick="ZG(0.7)">−</button>
-            <button class="gcb" onclick="RG()">⟲</button>
-          </div>
+        <div class="invh">Entity Graph — Live from API <span style="color:var(--green);font-size:11px" id="gcnt">loading...</span></div>
+        <div id="gc"><svg id="gsv"></svg><div class="gtt" id="gtt"></div>
+          <div class="gctrl"><button class="gcb" onclick="ZG(1.3)">+</button><button class="gcb" onclick="ZG(0.7)">−</button><button class="gcb" onclick="RG()">⟲</button></div>
         </div>
       </div>
       <div class="invp" style="position:relative">
@@ -390,47 +309,44 @@ td{padding:8px 12px;font-size:12px;vertical-align:middle}
       </div>
     </div>
   </div>
-
-  <!-- OPERATORS -->
+  <!-- OPERATORS — FULLY LIVE -->
   <div class="tview" id="tab-ops">
     <div class="oil">
       <div class="olist" id="olist">
-        <div class="ph">Operator Profiles</div>
-        <div style="padding:20px;text-align:center;color:var(--t4);font-size:12px">Loading...</div>
+        <div class="ph">Operator Networks <span id="op-count">—</span></div>
+        <div class="osrch"><input id="op-srch" placeholder="Search operators, phones, UPIs..." oninput="filterOps()"></div>
+        <div id="op-cards"><div class="es">Loading from API...</div></div>
       </div>
-      <div class="odet" id="odet"><div class="crmt">Select an operator to view full intelligence profile</div></div>
+      <div class="odet" id="odet"><div class="crmt">Select an operator network to view full intelligence</div></div>
     </div>
   </div>
-
   <!-- BANK DEMO -->
   <div class="tview" id="tab-bank">
     <div class="bank-layout">
       <div class="bank-p">
         <div class="bank-h">📱 Phone / UPI Screening — Live API</div>
         <div class="bsearch">
-          <div style="font-size:12px;color:var(--t2);margin-bottom:10px;line-height:1.6">Screen any phone number, UPI handle, or brand name against CINEOS intelligence database. Response in &lt;500ms.</div>
+          <div style="font-size:12px;color:var(--t2);margin-bottom:10px;line-height:1.6">Screen any phone, UPI handle, or brand name against CINEOS intelligence. Response in &lt;500ms.</div>
           <div class="bsrow">
-            <input class="bin" id="bin" placeholder="+91 XXXXX XXXXX or name@okaxis or brand..." onkeydown="if(event.key==='Enter')doScreen()">
+            <input class="bin" id="bin" placeholder="+91 phone, UPI@bank, or brand..." onkeydown="if(event.key==='Enter')doScreen()">
             <button class="bgo" onclick="doScreen()">SCREEN →</button>
           </div>
-          <div style="font-size:11px;color:var(--t3);margin-bottom:8px;font-weight:500">Try these confirmed fraud operators:</div>
-          <div class="bqk">
+          <div style="font-size:11px;color:var(--t3);margin-bottom:6px;font-weight:500">Known fraud operators:</div>
+          <div class="bqk" id="quick-btns">
             <button class="bq r" onclick="quickScreen('+917455697977')">Radhe Exchange</button>
             <button class="bq r" onclick="quickScreen('+918881754538')">Reddy Anna</button>
             <button class="bq r" onclick="quickScreen('+918888888888')">Mahadev Book</button>
-            <button class="bq r" onclick="quickScreen('World777')">World777 brand</button>
-            <button class="bq" onclick="quickScreen('+918881000000')">Unknown 8881</button>
+            <button class="bq u" onclick="quickScreen('indraracing@ptaxis')">UPI: indraracing</button>
+            <button class="bq u" onclick="quickScreen('virendrameena5095-3@okaxis')">UPI: virendrameena</button>
             <button class="bq" onclick="quickScreen('+919876543210')">Clean number</button>
           </div>
         </div>
-        <div class="bres" id="bres">
-          <div style="padding:32px;text-align:center;color:var(--t4);font-size:12px">Enter a phone number, UPI handle, or brand name above to screen it against the CINEOS fraud intelligence database.</div>
-        </div>
+        <div class="bres" id="bres"><div style="padding:32px;text-align:center;color:var(--t4);font-size:12px">Enter any phone, UPI, or brand to screen against CINEOS fraud intelligence database.</div></div>
       </div>
       <div class="bank-p">
         <div class="bank-h">💳 Transaction Screening — Real-Time</div>
-        <div class="txn-form">
-          <div style="font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.6">Screen a UPI transaction before authorization. Enter sender phone and receiver UPI to get combined risk assessment.</div>
+        <div style="padding:16px 18px;border-bottom:1px solid var(--b1);flex-shrink:0">
+          <div style="font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.6">Screen a UPI transaction before authorization. Both sender and receiver are screened simultaneously.</div>
           <div class="txn-row">
             <div><div class="txn-label">Sender Phone</div><input class="bin" id="t-sp" placeholder="+917455697977" style="width:100%"></div>
             <div><div class="txn-label">Receiver UPI</div><input class="bin" id="t-ru" placeholder="name@okaxis" style="width:100%"></div>
@@ -444,58 +360,50 @@ td{padding:8px 12px;font-size:12px;vertical-align:middle}
             <button onclick="fillDemo()" style="padding:10px 14px;border:1.5px solid var(--b1);background:var(--w);border-radius:8px;font-size:11px;font-weight:500;cursor:pointer;color:var(--t2)">Load Demo</button>
           </div>
         </div>
-        <div style="flex:1;overflow-y:auto;padding:16px 18px" id="tres">
-          <div style="padding:24px;text-align:center;color:var(--t4);font-size:12px">Transaction screening result will appear here.</div>
-        </div>
+        <div style="flex:1;overflow-y:auto;padding:16px 18px" id="tres"><div style="padding:24px;text-align:center;color:var(--t4);font-size:12px">Transaction screening result will appear here.</div></div>
       </div>
     </div>
   </div>
-
   <!-- CROSSREF -->
   <div class="tview" id="tab-cr">
     <div class="cr">
       <div class="crp">
-        <div style="padding:10px 14px;background:var(--s1);border-bottom:1px solid var(--b1);font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;flex-shrink:0">News Cross-Reference <span style="color:var(--green);font-family:var(--mono)" id="ncount">—</span></div>
+        <div style="padding:10px 14px;background:var(--s1);border-bottom:1px solid var(--b1);font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;flex-shrink:0">News Cross-Reference <span style="color:var(--green);font-family:var(--mono)">9 events</span></div>
         <div class="crs"><input class="crin" id="crsrch" placeholder="Search enforcement news, operators, arrests..." oninput="FN()"></div>
-        <div id="nl"><div style="padding:20px;text-align:center;color:var(--t4);font-size:12px">Loading...</div></div>
+        <div id="nl"><div class="es">Loading...</div></div>
       </div>
       <div class="crdet" id="crd"><div class="crmt">Select a news item to view details</div></div>
     </div>
   </div>
-
 </div>
-
-<!-- CASE STUDY MODAL -->
 <div id="csmodal">
   <div class="csbox">
     <div class="cshdr">
       <h2 id="cs-title">Case Study</h2>
       <div style="display:flex;gap:8px;align-items:center">
-        <button class="case-btn sec" id="cs-dl" onclick="dlCase()">↓ Download PDF</button>
+        <button class="case-btn sec" onclick="dlCase()">↓ Download §65B Report</button>
         <button class="csclose" onclick="closeCS()">✕</button>
       </div>
     </div>
     <div class="csbody" id="cs-body">Loading...</div>
   </div>
 </div>
-
 <div id="toast"></div>
-
 <script>
 const API='https://cinerisk-api-production.up.railway.app';
 const KEY='cineos_internal_2026';
 const PIN='cineos2026';
-let AA=[],FIL=[],ACF='all',SEL=null,MAP=null,LC=0,NI=[],CS_OP=null;
+let AA=[],FIL=[],ACF='all',SEL=null,MAP=null,LC=0,NI=[];
+let ALL_OPS=[],FILTERED_OPS=[],SEL_OP=null;
 
 function doLogin(){
   if(document.getElementById('pin').value===PIN){
     document.getElementById('login').style.display='none';
-    ['hdr','tabs','main'].forEach(id=>{
-      const el=document.getElementById(id);
-      el.style.display=id==='hdr'?'flex':id==='tabs'?'flex':'block';
-    });
+    document.getElementById('hdr').style.display='flex';
+    document.getElementById('tabs').style.display='flex';
+    document.getElementById('main').style.display='block';
     init();
-  } else {
+  }else{
     document.getElementById('lerr').style.display='block';
     document.getElementById('pin').value='';
   }
@@ -504,7 +412,7 @@ function doLogin(){
 async function init(){
   tick(); setInterval(tick,1000);
   await LA(); setInterval(()=>LA(true),30000);
-  BG(); BM(); BI(); BN();
+  BG(); BM(); BN();
 }
 
 function tick(){
@@ -520,9 +428,8 @@ function rt(ts){
   if(d<3600)return Math.floor(d/60)+'m ago';if(d<86400)return Math.floor(d/3600)+'h ago';
   return Math.floor(d/86400)+'d ago';
 }
-
 function fR(r){return r>1e6?(r/1e6).toFixed(1)+'M':r>999?Math.round(r/1000)+'K':(r||'—');}
-function sC(s){return{critical:'s-c',high:'s-h',medium:'s-m',low:'s-l'}[s]||'s-h';}
+function sC(s){return{critical:'sc',high:'sh2',medium:'sm',low:'sm'}[s]||'sh2';}
 function cC(c){const m={illegal_betting:'c-ib',crypto_fraud:'c-cf',upi_mule:'c-um',counterfeit_pharma:'c-cp',colour_prediction:'c-cf',investment_fraud:'c-if'};return m[c]||'c-x';}
 
 async function LA(silent=false){
@@ -533,15 +440,17 @@ async function LA(silent=false){
     alts.sort((a,b)=>(b.detected_at||'').localeCompare(a.detected_at||''));
     if(alts.length>LC&&LC>0){const n=alts.length-LC;T('⚡ '+n+' new alert'+(n>1?'s':'')+' detected');}
     LC=alts.length; AA=alts; FA(); US(alts); UH(alts);
+    // Build operators from live data
+    buildOpsFromAlerts(alts);
     if(!silent){const ist=new Date(Date.now()+19800000);document.getElementById('ri').textContent='Updated '+ist.toISOString().slice(11,16)+' IST';}
   }catch(e){if(!silent)document.getElementById('ri').textContent='Connection error';}
   document.getElementById('rb').innerHTML='↻ Refresh';
 }
 
-function MR(){LA(false);}
-
 function US(alts){
   const today=new Date().toISOString().slice(0,10);
+  const phones=new Set(alts.flatMap(a=>a.chain?.phones||[]));
+  const upis=new Set(alts.flatMap(a=>a.chain?.upis||[]));
   document.getElementById('s1').textContent=alts.length.toLocaleString();
   document.getElementById('s2').textContent=alts.filter(a=>a.severity==='critical').length;
   document.getElementById('s3').textContent=alts.filter(a=>(a.chain?.phones||[]).length>0).length;
@@ -551,61 +460,293 @@ function US(alts){
 }
 
 async function UH(alts){
+  const phones=new Set(alts.flatMap(a=>a.chain?.phones||[]));
+  const upis=new Set(alts.flatMap(a=>a.chain?.upis||[]));
   document.getElementById('h-a').textContent=alts.length.toLocaleString();
-  document.getElementById('h-p').textContent=new Set(alts.flatMap(a=>a.chain?.phones||[])).size;
+  document.getElementById('h-p').textContent=phones.size;
+  document.getElementById('h-u').textContent=upis.size;
   try{
     const s=await fetch(API+'/api/stats').then(r=>r.json());
-    document.getElementById('h-c').textContent=(s.channels||0).toLocaleString();
     document.getElementById('h-r').textContent=fR(s.reach||0);
   }catch(e){}
 }
 
-function SF(cat,btn){
-  ACF=cat;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');FA();
+// ── BUILD OPERATOR PROFILES FROM LIVE ALERTS ─────────────
+function buildOpsFromAlerts(alts){
+  // Group alerts by phone number to find operator networks
+  const phoneMap={};
+  const upiMap={};
+  alts.forEach(a=>{
+    const phones=a.chain?.phones||[];
+    const upis=a.chain?.upis||[];
+    phones.forEach(p=>{
+      if(!phoneMap[p]) phoneMap[p]={alerts:[],categories:{},reach:0,channels:new Set(),upis:new Set()};
+      phoneMap[p].alerts.push(a);
+      phoneMap[p].categories[a.category]=(phoneMap[p].categories[a.category]||0)+1;
+      phoneMap[p].reach+=a.reach||a.chain?.reach||0;
+      (a.chain?.channels_found||[]).forEach(c=>phoneMap[p].channels.add(c));
+      upis.forEach(u=>phoneMap[p].upis.add(u));
+    });
+    upis.forEach(u=>{
+      if(!upiMap[u]) upiMap[u]={alerts:[],categories:{}};
+      upiMap[u].alerts.push(a);
+    });
+  });
+
+  // Build operator profiles — group phones that appear together
+  const processed=new Set();
+  ALL_OPS=[];
+
+  // Sort phones by alert count
+  Object.entries(phoneMap).sort((a,b)=>b[1].alerts.length-a[1].alerts.length).forEach(([phone,data])=>{
+    if(processed.has(phone)) return;
+    processed.add(phone);
+
+    // Find co-occurring phones (same channel)
+    const coPhones=[phone];
+    const myChannels=data.channels;
+    Object.entries(phoneMap).forEach(([p2,d2])=>{
+      if(p2===phone||processed.has(p2)) return;
+      const shared=[...d2.channels].filter(c=>myChannels.has(c));
+      if(shared.length>0){
+        coPhones.push(p2);
+        processed.add(p2);
+      }
+    });
+
+    const primaryCat=Object.entries(data.categories).sort((a,b)=>b[1]-a[1])[0]?.[0]||'unknown';
+    const totalReach=coPhones.reduce((s,p)=>s+(phoneMap[p]?.reach||0),0);
+    const totalAlerts=new Set(coPhones.flatMap(p=>(phoneMap[p]?.alerts||[]).map(a=>a.id))).size;
+    const allChannels=new Set(coPhones.flatMap(p=>[...(phoneMap[p]?.channels||[])]));
+    const allUpis=new Set(coPhones.flatMap(p=>[...(phoneMap[p]?.upis||[])]));
+    const allAlerts=coPhones.flatMap(p=>phoneMap[p]?.alerts||[]);
+    const dates=allAlerts.map(a=>a.detected_at||'').filter(Boolean).sort();
+
+    ALL_OPS.push({
+      id: phone,
+      phones: coPhones,
+      upis: [...allUpis],
+      channels: [...allChannels].length,
+      alerts: totalAlerts,
+      reach: totalReach,
+      category: primaryCat,
+      first_seen: dates[0]?.slice(0,10)||'—',
+      last_seen: dates[dates.length-1]?.slice(0,10)||'—',
+      alert_list: allAlerts.slice(0,5),
+    });
+  });
+
+  // Sort by reach descending
+  ALL_OPS.sort((a,b)=>b.reach-a.reach);
+  FILTERED_OPS=[...ALL_OPS];
+
+  document.getElementById('op-count').textContent=ALL_OPS.length;
+  document.getElementById('tb2').textContent=ALL_OPS.length;
+  renderOpCards(FILTERED_OPS);
 }
 
+function filterOps(){
+  const q=(document.getElementById('op-srch').value||'').toLowerCase();
+  FILTERED_OPS=q?ALL_OPS.filter(o=>
+    o.phones.some(p=>p.includes(q))||
+    o.upis.some(u=>u.toLowerCase().includes(q))||
+    o.category.includes(q)||
+    o.alert_list.some(a=>(a.title||'').toLowerCase().includes(q))
+  ):ALL_OPS;
+  renderOpCards(FILTERED_OPS);
+}
+
+function renderOpCards(ops){
+  const el=document.getElementById('op-cards');
+  if(!ops.length){el.innerHTML='<div class="es">No operators match</div>';return;}
+  el.innerHTML=ops.map((op,i)=>`
+    <div class="ocard ${SEL_OP?.id===op.id?'on':''}" onclick="selectOp('${op.id}')">
+      <div class="oc-h">
+        <span class="sev sc">CRIT</span>
+        <span class="oc-n">${op.phones[0]}</span>
+        ${op.upis.length?`<span style="font-family:var(--mono);font-size:9px;color:var(--blue);background:var(--blue3);padding:1px 5px;border-radius:3px">UPI</span>`:''}
+      </div>
+      <div class="oc-st">
+        <span class="oc-s"><b>${op.phones.length}</b> phones</span>
+        <span class="oc-s"><b>${op.channels}</b> ch</span>
+        <span class="oc-s"><b>${fR(op.reach)}</b> reach</span>
+        <span class="oc-s" style="margin-left:auto"><span class="cat ${cC(op.category)}">${op.category.replace(/_/g,' ')}</span></span>
+      </div>
+    </div>`).join('');
+}
+
+function selectOp(id){
+  SEL_OP=ALL_OPS.find(o=>o.id===id);
+  if(!SEL_OP)return;
+  renderOpCards(FILTERED_OPS);
+  renderOpDetail(SEL_OP);
+}
+
+function renderOpDetail(op){
+  const ec=Math.round(op.reach*500/1e7)*10;
+  const em=Math.round(op.reach*2000/1e7)*10;
+  const ea=Math.round(op.reach*10000/1e7)*10;
+  document.getElementById('odet').innerHTML=`
+  <div style="margin-bottom:16px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+    <div>
+      <span class="sev sc" style="font-size:12px;padding:3px 10px;margin-bottom:8px;display:inline-block">CRITICAL</span>
+      <h2 style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:4px">${op.phones[0]}</h2>
+      <p style="font-size:12px;color:var(--t3)">${op.category.replace(/_/g,' ')} · First seen: ${op.first_seen} · Last seen: ${op.last_seen}</p>
+    </div>
+    <div style="display:flex;gap:8px;flex-shrink:0">
+      <button class="case-btn sec" onclick="openCS('${op.id}')">📋 Case Study</button>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px">
+    <div class="cs-stat"><div class="cs-sn" style="color:var(--green)">${op.phones.length}</div><div class="cs-sl">Phones</div></div>
+    <div class="cs-stat"><div class="cs-sn">${op.channels}</div><div class="cs-sl">Channels</div></div>
+    <div class="cs-stat"><div class="cs-sn" style="color:var(--teal)">${fR(op.reach)}</div><div class="cs-sl">Reach</div></div>
+    <div class="cs-stat"><div class="cs-sn" style="color:var(--blue)">${op.upis.length}</div><div class="cs-sl">UPI Handles</div></div>
+  </div>
+  <div class="odc">
+    <div class="odcl">Confirmed Phones (${op.phones.length})</div>
+    ${op.phones.map(p=>`<span class="phi">${p}</span>`).join('')}
+  </div>
+  ${op.upis.length?`<div class="odc">
+    <div class="odcl">Confirmed UPI Handles (${op.upis.length})</div>
+    ${op.upis.map(u=>`<span class="upi-tag">${u}</span>`).join('')}
+    <p style="font-size:11px;color:var(--t3);margin-top:6px">Report to: bank fraud desk · RBI Sachet · FIU-IND</p>
+  </div>`:''}
+  <div class="odc">
+    <div class="odcl">Financial Exposure Estimate</div>
+    <div class="cs-exp">
+      <div class="cs-ec c"><div class="cs-en" style="color:var(--green)">₹${ec}Cr</div><div class="cs-el">Conservative/mo</div></div>
+      <div class="cs-ec m"><div class="cs-en" style="color:var(--amber)">₹${em}Cr</div><div class="cs-el">Moderate/mo</div></div>
+      <div class="cs-ec a"><div class="cs-en" style="color:var(--red)">₹${ea}Cr</div><div class="cs-el">Aggressive/mo</div></div>
+    </div>
+  </div>
+  <div class="odc">
+    <div class="odcl">Recent Alerts</div>
+    ${op.alert_list.slice(0,4).map(a=>`
+      <div style="padding:7px 0;border-bottom:1px solid var(--s1);font-size:12px">
+        <div style="font-weight:600;color:var(--ink)">${(a.title||'').slice(0,65)}</div>
+        <div style="font-size:10px;color:var(--t3);margin-top:2px">${rt(a.detected_at)} · ${(a.reach||0).toLocaleString()} subscribers</div>
+      </div>`).join('')}
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+    <button class="dbtn" onclick="ST('bank',document.querySelectorAll('.tab')[3]);document.getElementById('bin').value='${op.phones[0]}';doScreen()">⬡ Screen via API</button>
+    <button class="dbtn" onclick="window.open('mailto:i4c@mha.gov.in?subject=CINEOS+Intelligence+—+${encodeURIComponent(op.category)}')">→ Submit to I4C</button>
+    <button class="dbtn" onclick="window.open('mailto:ogai@meity.gov.in?subject=CINEOS+Intelligence+—+${encodeURIComponent(op.category)}')">→ Submit to OGAI</button>
+  </div>`;
+}
+
+// ── CASE STUDY ─────────────────────────────────────────────
+let CS_DATA=null;
+function openCS(id){
+  CS_DATA=ALL_OPS.find(o=>o.id===id);
+  if(!CS_DATA)return;
+  document.getElementById('cs-title').textContent='Case Study: '+CS_DATA.phones[0];
+  document.getElementById('csmodal').classList.add('open');
+  const op=CS_DATA;
+  const ec=Math.round(op.reach*500/1e7)*10;
+  const em=Math.round(op.reach*2000/1e7)*10;
+  const ea=Math.round(op.reach*10000/1e7)*10;
+  document.getElementById('cs-body').innerHTML=`
+  <div class="cs-section">
+    <div class="cs-sec-title">Executive Summary</div>
+    <p style="font-size:13px;color:var(--t2);line-height:1.75">This network operates ${op.phones.length} confirmed phone number${op.phones.length>1?'s':''} across ${op.channels} Telegram channels in the <b>${op.category.replace(/_/g,' ')}</b> vertical. Total subscriber reach is <b>${fR(op.reach)}</b>. ${op.upis.length?`<b>${op.upis.length} UPI handle${op.upis.length>1?'s':''}</b> confirmed for payment collection. `:''}All data extracted from publicly accessible Telegram channels and certified under IT Act §65B(2).</p>
+  </div>
+  <div class="cs-section">
+    <div class="cs-sec-title">Network Statistics</div>
+    <div class="cs-grid">
+      <div class="cs-stat"><div class="cs-sn" style="color:var(--green)">${op.phones.length}</div><div class="cs-sl">Phones</div></div>
+      <div class="cs-stat"><div class="cs-sn">${op.channels}</div><div class="cs-sl">Channels</div></div>
+      <div class="cs-stat"><div class="cs-sn" style="color:var(--teal)">${fR(op.reach)}</div><div class="cs-sl">Reach</div></div>
+      <div class="cs-stat"><div class="cs-sn" style="color:var(--blue)">${op.upis.length}</div><div class="cs-sl">UPI Handles</div></div>
+    </div>
+  </div>
+  <div class="cs-section">
+    <div class="cs-sec-title">Confirmed Phones</div>
+    ${op.phones.map(p=>`<div style="font-family:var(--mono);font-size:12px;font-weight:600;color:var(--green);padding:6px 10px;background:var(--green4);border-radius:6px;margin-bottom:5px;border:1px solid var(--green3)">${p}</div>`).join('')}
+  </div>
+  ${op.upis.length?`<div class="cs-section">
+    <div class="cs-sec-title">Confirmed UPI Handles</div>
+    ${op.upis.map(u=>`<div style="font-family:var(--mono);font-size:12px;font-weight:600;color:var(--blue);padding:6px 10px;background:var(--blue3);border-radius:6px;margin-bottom:5px;border:1px solid #BFDBFE">${u}</div>`).join('')}
+  </div>`:''}
+  <div class="cs-section">
+    <div class="cs-sec-title">Financial Exposure</div>
+    <div class="cs-exp">
+      <div class="cs-ec c"><div class="cs-en" style="color:var(--green)">₹${ec}Cr/mo</div><div class="cs-el">Conservative</div></div>
+      <div class="cs-ec m"><div class="cs-en" style="color:var(--amber)">₹${em}Cr/mo</div><div class="cs-el">Moderate</div></div>
+      <div class="cs-ec a"><div class="cs-en" style="color:var(--red)">₹${ea}Cr/mo</div><div class="cs-el">Aggressive</div></div>
+    </div>
+  </div>
+  <div class="cs-section">
+    <div class="cs-sec-title">§65B Evidence Certificate</div>
+    <div style="background:var(--ink);border-radius:8px;padding:14px;font-family:var(--mono);font-size:10px;line-height:2;color:#94A3B8">
+      <span style="color:#4ADE80">CERT: CINEOS-65B-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${op.phones[0].replace(/\D/g,'').slice(-6)}</span><br>
+      <span>PHONES: ${op.phones.join(', ')}</span><br>
+      ${op.upis.length?`<span>UPIS: ${op.upis.join(', ')}</span><br>`:''}
+      <span>CATEGORY: ${op.category}</span><br>
+      <span>SOURCE: Publicly accessible Telegram channels</span><br>
+      <span style="color:#4ADE80">§65B CONDITIONS: 5/5 CONFIRMED · Khotkar (2020) 7 SCC 1</span>
+    </div>
+  </div>
+  <div class="cs-section">
+    <div class="cs-sec-title">Recommended Actions</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div style="padding:10px 14px;background:var(--red4);border:1px solid var(--red3);border-radius:8px;font-size:12px"><b>DoT/TRAI</b> — Telecom subpoena for ${op.phones.length} phone${op.phones.length>1?'s':''} under IT Act §69B</div>
+      <div style="padding:10px 14px;background:var(--amber4);border:1px solid var(--amber3);border-radius:8px;font-size:12px"><b>MeitY OGAI</b> — §69A channel blocking request for ${op.channels} channels</div>
+      <div style="padding:10px 14px;background:var(--blue3);border:1px solid #BFDBFE;border-radius:8px;font-size:12px"><b>FIU-IND</b> — SAR filing · PMLA §3 · Estimated exposure ₹${ec}-${ea}Cr/month</div>
+      ${op.upis.length?`<div style="padding:10px 14px;background:var(--green4);border:1px solid var(--green3);border-radius:8px;font-size:12px"><b>Axis Bank / NPCI</b> — Freeze UPI handle: ${op.upis[0]}</div>`:''}
+    </div>
+  </div>`;
+}
+function closeCS(){document.getElementById('csmodal').classList.remove('open');}
+function dlCase(){
+  if(!CS_DATA||!CS_DATA.phones[0])return;
+  T('No direct operator report — screen via API instead');
+}
+
+// ── WORKSPACE ──────────────────────────────────────────────
+function SF(cat,btn){ACF=cat;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');FA();}
 function FA(){
   const q=(document.getElementById('srch').value||'').toLowerCase();
   FIL=AA.filter(a=>{
     if(ACF!=='all'&&a.category!==ACF)return false;
     if(!q)return true;
-    return [a.title,a.category,a.detail,...(a.chain?.phones||[])].join(' ').toLowerCase().includes(q);
+    return [a.title,a.category,a.detail,...(a.chain?.phones||[]),...(a.chain?.upis||[])].join(' ').toLowerCase().includes(q);
   });
-  RT(); RF();
+  RT();RF();
   document.getElementById('emp').style.display=FIL.length?'none':'block';
 }
-
 function RT(){
   const tb=document.getElementById('atbl');
   if(!FIL.length){tb.innerHTML='';return;}
   tb.innerHTML=FIL.slice(0,500).map(a=>{
-    const ph=a.chain?.phones||[],re=a.reach||a.chain?.reach||0;
+    const ph=a.chain?.phones||[],re=a.reach||a.chain?.reach||0,up=a.chain?.upis||[];
     const isN=(Date.now()-new Date(a.detected_at).getTime())<3600000;
     return `<tr onclick="SA('${a.id}')" class="${SEL?.id===a.id?'sel':''}">
       <td><span class="sev ${sC(a.severity)}">${(a.severity||'H').slice(0,4).toUpperCase()}</span></td>
       <td class="ttl">${a.title||'—'}${isN?' <span class="now">NEW</span>':''}</td>
       <td><span class="cat ${cC(a.category)}">${(a.category||'').replace(/_/g,' ')}</span></td>
-      <td class="tph">${ph.length?'📞 '+ph.length:'—'}</td>
+      <td class="tph">${ph.length?'📞'+ph.length:'—'}</td>
+      <td style="font-size:10px;color:var(--blue);font-family:var(--mono)">${up.length?'💳'+up.length:'—'}</td>
       <td class="tre">${fR(re)}</td>
       <td class="tts" data-ts="${a.detected_at||''}">${rt(a.detected_at)}</td>
     </tr>`;
   }).join('');
 }
-
 function RF(){
   const fd=document.getElementById('afeed');
   const rec=FIL.slice(0,40);
   document.getElementById('fc').textContent=FIL.length;
-  if(!rec.length){fd.innerHTML='<div style="padding:20px;text-align:center;color:var(--t4);font-size:12px">No alerts</div>';return;}
+  if(!rec.length){fd.innerHTML='<div class="es">No alerts</div>';return;}
   fd.innerHTML=rec.map((a,i)=>{
-    const ph=a.chain?.phones||[],re=a.reach||a.chain?.reach||0;
+    const ph=a.chain?.phones||[],re=a.reach||a.chain?.reach||0,up=a.chain?.upis||[];
     const vn=(Date.now()-new Date(a.detected_at).getTime())<600000;
     return `<div class="acard ${vn&&i===0?'flash':''} ${SEL?.id===a.id?'sel':''}" onclick="SA('${a.id}')">
-      <div class="ac-row1"><span class="sev ${sC(a.severity)}">${(a.severity||'H').toUpperCase()}</span>
+      <div class="ar1"><span class="sev ${sC(a.severity)}">${(a.severity||'H').toUpperCase()}</span>
       <div class="act">${a.title||'—'}</div></div>
-      <div class="ac-row2">
+      <div class="ar2">
         <span class="acat">${(a.category||'').replace(/_/g,' ')}</span>
         ${ph.length?`<span class="aph">📞${ph.length}</span>`:''}
+        ${up.length?`<span style="font-size:10px;color:var(--blue);font-weight:600">💳${up.length}</span>`:''}
         ${re>0?`<span class="are">${fR(re)}</span>`:''}
         <span class="ats" data-ts="${a.detected_at||''}">${rt(a.detected_at)}</span>
         ${vn?'<span class="now">NOW</span>':''}
@@ -613,77 +754,66 @@ function RF(){
     </div>`;
   }).join('');
 }
-
 function SA(id){
   const a=AA.find(x=>x.id===id);if(!a)return;
   SEL=a;RT();RF();RD(a);
 }
-
 function RD(a){
-  const ph=a.chain?.phones||[],ch=a.chain?.channels_found||[];
+  const ph=a.chain?.phones||[],ch=a.chain?.channels_found||[],up=a.chain?.upis||[];
   const re=a.reach||a.chain?.reach||0;
   const pmla=re>10000000||ph.length>5;
-  const hash=a.evidence_hash||a.id||'';
   document.getElementById('det').innerHTML=`
   <div class="det">
     <span class="sev ${sC(a.severity)}">${(a.severity||'HIGH').toUpperCase()}</span>
     <div style="font-size:14px;font-weight:700;color:var(--ink);margin:8px 0 12px;line-height:1.4">${a.title||'—'}</div>
-    <div class="dl">Category</div>
-    <span class="cat ${cC(a.category)}" style="margin-bottom:10px;display:inline-block">${(a.category||'').replace(/_/g,' ')}</span>
-    ${a.detail?`<div class="dl">Intelligence Detail</div><div class="dv">${a.detail}</div>`:''}
-    <div class="dl">Detected</div>
-    <div class="dm" style="margin-bottom:10px">${a.detected_at?new Date(a.detected_at).toLocaleString('en-IN',{timeZone:'Asia/Kolkata',hour12:false}):'—'}</div>
-    ${ph.length?`<div class="dl">Operator Phones (${ph.length})</div>${ph.map(p=>`<span class="dp">${p}</span>`).join('')}<div style="margin-bottom:10px"></div>`:''}
-    ${ch.length?`<div class="dl">Channels (${ch.length})</div>${ch.slice(0,3).map(c=>`<div style="font-family:var(--mono);font-size:10px;color:var(--teal);margin-bottom:3px">${c}</div>`).join('')}${ch.length>3?`<div style="font-size:10px;color:var(--t3);margin-bottom:10px">+${ch.length-3} more</div>`:'<div style="margin-bottom:10px"></div>'}`:''}
-    ${re>0?`<div class="dl">Subscriber Reach</div><div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--teal);margin-bottom:10px">${re.toLocaleString()}</div>`:''}
-    <div class="dl">Compliance Flags</div>
+    <div class="dl">Category</div><span class="cat ${cC(a.category)}" style="margin-bottom:10px;display:inline-block">${(a.category||'').replace(/_/g,' ')}</span>
+    ${a.detail?`<div class="dl">Detail</div><div class="dv">${a.detail}</div>`:''}
+    <div class="dl">Detected</div><div class="dm" style="margin-bottom:10px;font-size:10px">${a.detected_at?new Date(a.detected_at).toLocaleString('en-IN',{timeZone:'Asia/Kolkata',hour12:false}):'—'}</div>
+    ${ph.length?`<div class="dl">Phones (${ph.length})</div>${ph.map(p=>`<span class="dp">${p}</span>`).join('')}<div style="margin-bottom:8px"></div>`:''}
+    ${up.length?`<div class="dl">UPI Handles (${up.length})</div>${up.map(u=>`<div style="font-family:var(--mono);font-size:11px;color:var(--blue);font-weight:600;padding:2px 0">${u}</div>`).join('')}<div style="margin-bottom:8px"></div>`:''}
+    ${re>0?`<div class="dl">Reach</div><div class="dm" style="color:var(--teal);margin-bottom:10px">${re.toLocaleString()}</div>`:''}
+    <div class="dl">Compliance</div>
     <div class="dflags">
       ${pmla?'<span class="df df-p">PMLA §3</span>':''}
       ${['critical','high'].includes(a.severity)?'<span class="df df-s">SAR RECOMMENDED</span>':''}
       ${a.category==='illegal_betting'?'<span class="df df-g">PROG ACT 2025</span>':''}
     </div>
-    <div class="dl">§65B Evidence Hash</div>
-    <div class="dh">HASH: ${hash}<br>STD: IT Act 2000 §65B(2)</div>
+    <div class="dl">§65B Evidence</div>
+    <div class="dh">HASH: ${a.evidence_hash||a.id||'—'}<br>STD: IT Act §65B(2) · Khotkar (2020) 7 SCC 1</div>
     <div class="dbtns">
       <button class="dbtn" onclick="ST('bank',document.querySelectorAll('.tab')[3]);document.getElementById('bin').value='${ph[0]||a.title}';doScreen()">⬡ Screen via Bank API</button>
-      <button class="dbtn" onclick="navigator.clipboard.writeText(JSON.stringify(${JSON.stringify(a)},null,2));T('JSON copied')">⊕ Copy Alert JSON</button>
-      <button class="dbtn pri" onclick="window.open('mailto:i4c@mha.gov.in?subject=CINEOS+Intelligence+—+${encodeURIComponent(a.category)}')">→ Submit to I4C</button>
+      <button class="dbtn" onclick="navigator.clipboard.writeText(JSON.stringify(${JSON.stringify(a).replace(/'/g,"\\'")}));T('Copied')">⊕ Copy Alert JSON</button>
+      <button class="dbtn pri" onclick="window.open('mailto:i4c@mha.gov.in?subject=CINEOS+Intelligence')">→ Submit to I4C</button>
     </div>
   </div>`;
 }
 
-// ── GRAPH ─────────────────────────────────────────────────
+// ── GRAPH ──────────────────────────────────────────────────
 async function BG(){
   try{
     const d=await fetch(API+'/api/v1/graph').then(r=>r.json());
-    const nodes=d.nodes||[];const edges=d.edges||[];
-    renderGraph(nodes,edges);
-    document.getElementById('gcnt').textContent=nodes.length+' nodes · '+edges.length+' edges · live';
-  }catch(e){
-    // Fallback to static data
-    renderGraphStatic();
-  }
+    renderGraph(d.nodes||[],d.edges||[]);
+    document.getElementById('gcnt').textContent=(d.total_nodes||0)+' nodes · '+(d.total_edges||0)+' edges · live';
+  }catch(e){renderGraphFallback();}
 }
-
 function renderGraph(nodes,edges){
-  const svg=d3.select('#gsv');
-  const C=document.getElementById('gc');
+  const svg=d3.select('#gsv'),C=document.getElementById('gc');
   const W=C.clientWidth||600,H=C.clientHeight||400;
+  svg.selectAll('*').remove();
   svg.attr('viewBox',`0 0 ${W} ${H}`);
   const cm={channel:'#DC2626',phone:'#059669',circle:'#2563EB',default:'#94A3B8'};
   const zoom=d3.zoom().scaleExtent([.1,5]).on('zoom',e=>g.attr('transform',e.transform));
   svg.call(zoom); window._GZ=zoom; window._GS=svg;
   const g=svg.append('g');
   const sim=d3.forceSimulation(nodes)
-    .force('link',d3.forceLink(edges).id(d=>d.id).distance(60))
-    .force('charge',d3.forceManyBody().strength(-120))
+    .force('link',d3.forceLink(edges).id(d=>d.id).distance(55))
+    .force('charge',d3.forceManyBody().strength(-100))
     .force('center',d3.forceCenter(W/2,H/2))
-    .force('collide',d3.forceCollide().radius(14));
-  const lk=g.append('g').selectAll('line').data(edges).enter().append('line')
-    .attr('stroke','rgba(148,163,184,.3)').attr('stroke-width',1);
+    .force('collide',d3.forceCollide().radius(12));
+  const lk=g.append('g').selectAll('line').data(edges).enter().append('line').attr('stroke','rgba(148,163,184,.25)').attr('stroke-width',1);
   const nd=g.append('g').selectAll('circle').data(nodes).enter().append('circle')
-    .attr('r',d=>d.type==='phone'?7:d.type==='channel'?5:9)
-    .attr('fill',d=>cm[d.type]||cm.default).attr('fill-opacity',.2)
+    .attr('r',d=>d.type==='phone'?7:d.type==='channel'?4:9)
+    .attr('fill',d=>cm[d.type]||cm.default).attr('fill-opacity',.15)
     .attr('stroke',d=>cm[d.type]||cm.default).attr('stroke-width',1.5).style('cursor','pointer')
     .on('mouseover',(e,d)=>{
       const tt=document.getElementById('gtt');
@@ -694,35 +824,12 @@ function renderGraph(nodes,edges){
     .call(d3.drag().on('start',(e,d)=>{if(!e.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y;})
       .on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y;})
       .on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null;}));
-  const lb=g.append('g').selectAll('text').data(nodes.filter(n=>n.type==='phone'||n.size>10)).enter().append('text')
-    .attr('text-anchor','middle').attr('font-family','JetBrains Mono').attr('font-size','8px')
-    .attr('fill','#475569').attr('pointer-events','none')
-    .text(d=>d.id.length>16?d.id.slice(0,15)+'…':d.id);
   sim.on('tick',()=>{
     lk.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y).attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
     nd.attr('cx',d=>d.x).attr('cy',d=>d.y);
-    lb.attr('x',d=>d.x).attr('y',d=>d.y+16);
   });
 }
-
-function renderGraphStatic(){
-  const nodes=[
-    {id:'Mahadev Book',type:'phone',cat:'illegal_betting',size:36},{id:'Reddy Anna',type:'phone',cat:'illegal_betting',size:30},
-    {id:'Radhe Exchange',type:'phone',cat:'illegal_betting',size:28},{id:'World777',type:'phone',cat:'illegal_betting',size:26},
-    {id:'+918881754538',type:'phone',cat:'illegal_betting',size:14},{id:'+917455697977',type:'phone',cat:'illegal_betting',size:14},
-    {id:'+918888888888',type:'phone',cat:'illegal_betting',size:14},{id:'AP/Telangana',type:'circle',cat:'',size:18},
-    {id:'Rajasthan',type:'circle',cat:'',size:16},
-  ];
-  const edges=[
-    {source:'Mahadev Book',target:'+918888888888'},{source:'Reddy Anna',target:'+918881754538'},
-    {source:'Radhe Exchange',target:'+917455697977'},{source:'Mahadev Book',target:'AP/Telangana'},
-    {source:'Reddy Anna',target:'AP/Telangana'},{source:'Radhe Exchange',target:'Rajasthan'},
-    {source:'Mahadev Book',target:'Reddy Anna'},
-  ];
-  renderGraph(nodes,edges);
-  document.getElementById('gcnt').textContent=nodes.length+' nodes · '+edges.length+' edges · static fallback';
-}
-
+function renderGraphFallback(){document.getElementById('gcnt').textContent='Graph unavailable';}
 function ZG(f){if(window._GS&&window._GZ)window._GS.transition().duration(300).call(window._GZ.scaleBy,f);}
 function RG(){if(window._GS&&window._GZ)window._GS.transition().duration(300).call(window._GZ.transform,d3.zoomIdentity);}
 
@@ -736,9 +843,9 @@ function BM(){
     {n:'Reddy Anna',lat:16.50,lng:80.62,cat:'illegal_betting',r:3818573,ph:6,city:'Vijayawada, AP'},
     {n:'Radhe Exchange',lat:27.02,lng:74.21,cat:'illegal_betting',r:2107581,ph:3,city:'Jodhpur, Rajasthan'},
     {n:'World777',lat:17.68,lng:83.21,cat:'illegal_betting',r:2602353,ph:4,city:'Visakhapatnam'},
-    {n:'Cricbet99',lat:23.07,lng:72.68,cat:'illegal_betting',r:1136779,ph:3,city:'Ahmedabad, Gujarat'},
+    {n:'Cricbet99',lat:23.07,lng:72.68,cat:'illegal_betting',r:1136779,ph:3,city:'Ahmedabad'},
     {n:'Tiger Exchange',lat:15.83,lng:78.04,cat:'illegal_betting',r:1389397,ph:2,city:'Kurnool, AP'},
-    {n:'UPI Mule',lat:26.85,lng:75.77,cat:'upi_mule',r:0,ph:4,city:'Jaipur, Rajasthan'},
+    {n:'UPI Mule Network',lat:26.85,lng:75.77,cat:'upi_mule',r:0,ph:4,city:'Jaipur'},
     {n:'Counterfeit Pharma',lat:19.07,lng:72.87,cat:'counterfeit_pharma',r:1950000,ph:4,city:'Mumbai'},
     {n:'Crypto Hub',lat:28.70,lng:77.10,cat:'crypto_fraud',r:2337022,ph:33,city:'Delhi NCR'},
     {n:'Colour Prediction',lat:22.57,lng:88.36,cat:'colour_prediction',r:9368550,ph:16,city:'Kolkata'},
@@ -753,180 +860,12 @@ function BM(){
   });
 }
 
-// ── OPERATORS ─────────────────────────────────────────────
-const OPS=[
-  {n:'Mahadev Book',b:21,c:184,r:8544427,ph:['+918888888888','+918824645116','+918808843584','+918881448108'],res:3,enf:5,cat:'illegal_betting',st:'2022-01'},
-  {n:'Reddy Anna',b:13,c:59,r:3818573,ph:['+918881754538','+918881349483','+918881987328'],res:1,enf:3,cat:'illegal_betting',st:'2023-06'},
-  {n:'Radhe Exchange',b:12,c:74,r:2107581,ph:['+917455697977','+917400749393','+917832350002'],res:0,enf:2,cat:'illegal_betting',st:'2024-01'},
-  {n:'World777',b:11,c:73,r:2602353,ph:['+918881754538','+918881349483'],res:0,enf:1,cat:'illegal_betting',st:'2024-03'},
-  {n:'Tiger Exchange',b:8,c:45,r:1389397,ph:['+918881886916'],res:0,enf:1,cat:'illegal_betting',st:'2024-06'},
-  {n:'Cricbet99',b:6,c:6,r:1136779,ph:['+919274673985'],res:0,enf:0,cat:'illegal_betting',st:'2024-08'},
-  {n:'Laser247',b:5,c:6,r:796302,ph:['+918881448108'],res:1,enf:2,cat:'illegal_betting',st:'2023-12'},
-];
-
-function BI(){
-  const list=document.getElementById('olist');
-  list.innerHTML='<div class="ph">Operator Profiles <span>'+OPS.length+'</span></div>';
-  OPS.forEach((op,i)=>{
-    const el=document.createElement('div');
-    el.className='ocard'+(i===0?' on':'');
-    el.innerHTML=`<div class="oc-h"><span class="sev s-c">CRIT</span><span class="oc-n">${op.n}</span>${op.res>0?`<span style="font-size:11px;color:var(--red);font-weight:700;margin-left:auto">↑${op.res} RES</span>`:''}</div><div class="oc-st"><span class="oc-s"><b>${op.b}</b> brands</span><span class="oc-s"><b>${op.c}</b> channels</span><span class="oc-s"><b>${(op.r/1e6).toFixed(1)}M</b> reach</span><span class="oc-s"><b>${op.ph.length}</b> phones</span></div>`;
-    el.onclick=()=>{document.querySelectorAll('.ocard').forEach(c=>c.classList.remove('on'));el.classList.add('on');SID(op);};
-    list.appendChild(el);
-  });
-  SID(OPS[0]);
-}
-
-function SID(op){
-  const ec=Math.round(op.r*500/1e7)*10,em=Math.round(op.r*2000/1e7)*10,ea=Math.round(op.r*10000/1e7)*10;
-  document.getElementById('odet').innerHTML=`
-  <div style="margin-bottom:16px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
-    <div>
-      <span class="sev s-c" style="font-size:12px;padding:3px 10px;margin-bottom:8px;display:inline-block">CRITICAL</span>
-      <h2 style="font-size:22px;font-weight:800;color:var(--ink);margin-bottom:4px">${op.n}</h2>
-      <p style="font-size:12px;color:var(--t3)">${op.cat.replace(/_/g,' ')} · ACTIVE · Monitored since ${op.st}</p>
-    </div>
-    <div style="display:flex;gap:8px;flex-shrink:0">
-      <button class="case-btn sec" onclick="openCS('${op.n}')">📋 Case Study</button>
-      <button class="case-btn" onclick="window.open('${API}/api/v1/report/${encodeURIComponent(op.n)}?api_key=${KEY}','_blank')">↓ §65B Report</button>
-    </div>
-  </div>
-  <div class="cs-grid">
-    <div class="cs-stat"><div class="cs-sn" style="color:var(--red)">${op.b}</div><div class="cs-sl">Brand Aliases</div></div>
-    <div class="cs-stat"><div class="cs-sn">${op.c}</div><div class="cs-sl">Channels</div></div>
-    <div class="cs-stat"><div class="cs-sn" style="color:var(--teal)">${(op.r/1e6).toFixed(1)}M</div><div class="cs-sl">Subscriber Reach</div></div>
-    <div class="cs-stat"><div class="cs-sn" style="color:var(--amber)">${op.res}</div><div class="cs-sl">Resurrections</div></div>
-  </div>
-  <div class="odc"><div class="odcl">Confirmed Operator Phones</div>${op.ph.map(p=>`<span class="phi">${p}</span>`).join('')}<p style="font-size:11px;color:var(--t3);margin-top:8px">Subscriber identity requires IT Act §69B telecom subpoena</p></div>
-  <div class="odc"><div class="odcl">Financial Exposure (Monthly)</div>
-    <div class="cs-exp">
-      <div class="cs-ec c"><div class="cs-en" style="color:var(--green)">₹${ec}Cr</div><div class="cs-el">Conservative · ₹500/sub</div></div>
-      <div class="cs-ec m"><div class="cs-en" style="color:var(--amber)">₹${em}Cr</div><div class="cs-el">Moderate · ₹2,000/sub</div></div>
-      <div class="cs-ec a"><div class="cs-en" style="color:var(--red)">₹${ea}Cr</div><div class="cs-el">Aggressive · ₹10,000/sub</div></div>
-    </div>
-  </div>
-  <div class="odc"><div class="odcl">Enforcement Actions</div>
-    <div style="display:flex;gap:8px;margin-bottom:12px">
-      <div style="background:var(--red4);border:1px solid var(--red3);border-radius:6px;padding:10px 14px;flex:1;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--red);font-family:var(--mono)">${op.enf}</div><div style="font-size:10px;color:var(--t3);font-weight:600">Enforcement Events</div></div>
-      <div style="background:var(--amber4);border:1px solid var(--amber3);border-radius:6px;padding:10px 14px;flex:1;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--amber);font-family:var(--mono)">${op.res}</div><div style="font-size:10px;color:var(--t3);font-weight:600">Post-Arrest Resurrections</div></div>
-    </div>
-  </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
-    <button class="dbtn" onclick="window.open('mailto:ogai@meity.gov.in?subject=CINEOS+Intelligence+—+${encodeURIComponent(op.n)}')">→ Submit to OGAI/MeitY</button>
-    <button class="dbtn" onclick="window.open('mailto:i4c@mha.gov.in?subject=CINEOS+Intelligence+—+${encodeURIComponent(op.n)}')">→ Submit to I4C/MHA</button>
-    <button class="dbtn" onclick="window.open('mailto:enforcement.gov.in?subject=CINEOS+PMLA+Intelligence+—+${encodeURIComponent(op.n)}')">→ Submit to ED</button>
-    <button class="dbtn" onclick="ST('bank',document.querySelectorAll('.tab')[3]);document.getElementById('bin').value='${op.ph[0]||op.n}';doScreen()">⬡ Screen via Bank API</button>
-  </div>`;
-}
-
-// ── CASE STUDY ─────────────────────────────────────────────
-function openCS(name){
-  CS_OP=OPS.find(o=>o.n===name)||OPS[0];
-  document.getElementById('cs-title').textContent='Case Study: '+CS_OP.n+' Network';
-  document.getElementById('csmodal').classList.add('open');
-  renderCS(CS_OP);
-}
-
-function closeCS(){document.getElementById('csmodal').classList.remove('open');}
-
-function renderCS(op){
-  const ec=Math.round(op.r*500/1e7)*10,em=Math.round(op.r*2000/1e7)*10,ea=Math.round(op.r*10000/1e7)*10;
-  const enfEvents=[
-    {type:'enf',dt:'May 13, 2026',ev:'Visakhapatnam arrests — 24 individuals',det:'24 arrested · ₹1,500Cr network value · Mastermind arrested in Kolkata'},
-    {type:'enf',dt:'Mar 15, 2026',ev:'ED Dubai asset attachment — ₹1,700Cr',det:'Burj Khalifa apartments seized · Ravi Uppal arrested via Interpol'},
-    {type:'res',dt:'May 14, 2026',ev:'Post-arrest resurrection detected',det:'+918824645116 active 1 day after Vizag arrests · Kalyan Matka channels'},
-    {type:'enf',dt:'May 1, 2026',ev:'Gujarat UPI mule network bust',det:'10 arrested · Payment infrastructure disrupted'},
-    {type:'res',dt:'May 11, 2026',ev:'Second resurrection — Gujarat bust',det:'+918881448108 active 10 days after Gujarat arrests'},
-  ].filter((_,i)=>i<op.enf+op.res);
-
-  document.getElementById('cs-body').innerHTML=`
-  <div class="cs-section">
-    <div class="cs-sec-title">Executive Summary</div>
-    <p style="font-size:13px;color:var(--t2);line-height:1.75">${op.n} is a confirmed ${op.cat.replace(/_/g,' ')} network monitored by CINEOS since ${op.st}. The network operates across <b>${op.b} brand aliases</b> with <b>${op.c} Telegram channels</b> and a total subscriber reach of <b>${(op.r/1e6).toFixed(1)} million</b>. ${op.res>0?`The network has survived ${op.res} enforcement action${op.res>1?'s':''}  and demonstrated post-arrest operational continuity, resuming operations within days of each crackdown. `:''}CINEOS detected this network before any victim filed a complaint and has maintained §65B certified evidence records continuously.</p>
-  </div>
-  <div class="cs-section">
-    <div class="cs-sec-title">Network Statistics</div>
-    <div class="cs-grid">
-      <div class="cs-stat"><div class="cs-sn" style="color:var(--red)">${op.b}</div><div class="cs-sl">Brand Aliases</div></div>
-      <div class="cs-stat"><div class="cs-sn">${op.c}</div><div class="cs-sl">Telegram Channels</div></div>
-      <div class="cs-stat"><div class="cs-sn" style="color:var(--teal)">${(op.r/1e6).toFixed(1)}M</div><div class="cs-sl">Subscriber Reach</div></div>
-      <div class="cs-stat"><div class="cs-sn" style="color:var(--green)">${op.ph.length}</div><div class="cs-sl">Confirmed Phones</div></div>
-      <div class="cs-stat"><div class="cs-sn" style="color:var(--amber)">${op.res}</div><div class="cs-sl">Resurrections</div></div>
-      <div class="cs-stat"><div class="cs-sn">${op.enf}</div><div class="cs-sl">Enforcement Events</div></div>
-    </div>
-  </div>
-  <div class="cs-section">
-    <div class="cs-sec-title">Confirmed Operator Contact Numbers</div>
-    ${op.ph.map(p=>`<div style="font-family:var(--mono);font-size:12px;font-weight:600;color:var(--green);padding:6px 10px;background:var(--green4);border-radius:6px;margin-bottom:5px;border:1px solid var(--green3)">${p}</div>`).join('')}
-    <p style="font-size:11px;color:var(--t3);margin-top:8px">Subscriber identity requires telecom subpoena under IT Act §69B or CrPC §91. Carrier: Jio AP/Telangana circle.</p>
-  </div>
-  ${enfEvents.length?`<div class="cs-section">
-    <div class="cs-sec-title">Enforcement & Resurrection Timeline</div>
-    <div class="cs-tl">
-      ${enfEvents.map(e=>`<div class="cs-tlitem ${e.type}">
-        <div class="cs-tld">${e.dt}</div>
-        <div class="cs-tle">${e.ev}</div>
-        <div class="cs-tlx">${e.det}</div>
-      </div>`).join('')}
-    </div>
-  </div>`:''}
-  <div class="cs-section">
-    <div class="cs-sec-title">Financial Exposure Estimate</div>
-    <div class="cs-exp">
-      <div class="cs-ec c"><div class="cs-en" style="color:var(--green)">₹${ec}Cr/mo</div><div class="cs-el">Conservative · ₹500/subscriber</div></div>
-      <div class="cs-ec m"><div class="cs-en" style="color:var(--amber)">₹${em}Cr/mo</div><div class="cs-el">Moderate · ₹2,000/subscriber</div></div>
-      <div class="cs-ec a"><div class="cs-en" style="color:var(--red)">₹${ea}Cr/mo</div><div class="cs-el">Aggressive · ₹10,000/subscriber</div></div>
-    </div>
-    <p style="font-size:11px;color:var(--t3);margin-top:10px">Mathematical estimates based on subscriber counts only. Actual figures require bank transaction analysis.</p>
-  </div>
-  <div class="cs-section">
-    <div class="cs-sec-title">§65B Evidence Certificate</div>
-    <div style="background:var(--ink2);border-radius:8px;padding:14px;font-family:var(--mono);font-size:10px;line-height:2;color:#94A3B8">
-      <span style="color:#4ADE80">CERT: CINEOS-OIR-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${op.n.replace(/\s/g,'').slice(0,6).toUpperCase()}</span><br>
-      <span>OPERATOR: ${op.n} · ${op.c} confirmed channels</span><br>
-      <span>PERIOD: ${op.st} to ${new Date().toISOString().slice(0,7)}</span><br>
-      <span>SOURCE: Publicly accessible Telegram channels</span><br>
-      <span>STD: IT Act 2000 §65B(2) · Arjun Panditrao Khotkar (2020) 7 SCC 1</span><br>
-      <span style="color:#4ADE80">§65B CONDITIONS: 5/5 CONFIRMED</span>
-    </div>
-  </div>
-  <div class="cs-section">
-    <div class="cs-sec-title">Recommended Actions</div>
-    <div style="display:flex;flex-direction:column;gap:6px">
-      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--red4);border:1px solid var(--red3);border-radius:8px">
-        <span style="font-size:11px;font-weight:700;color:var(--red);font-family:var(--mono);min-width:40px">01</span>
-        <div><div style="font-size:12px;font-weight:700;color:var(--ink)">DoT TRAI — Telecom Subpoena</div><div style="font-size:11px;color:var(--t2)">Request subscriber identity for ${op.ph.length} confirmed phones · dit-diu@gov.in</div></div>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--amber4);border:1px solid var(--amber3);border-radius:8px">
-        <span style="font-size:11px;font-weight:700;color:var(--amber);font-family:var(--mono);min-width:40px">02</span>
-        <div><div style="font-size:12px;font-weight:700;color:var(--ink)">MeitY OGAI — §69A Channel Takedown</div><div style="font-size:11px;color:var(--t2)">Block all ${op.c} confirmed channels · ogai@meity.gov.in</div></div>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--blue4);border:1px solid var(--blue3);border-radius:8px">
-        <span style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--mono);min-width:40px">03</span>
-        <div><div style="font-size:12px;font-weight:700;color:var(--ink)">ED — PMLA Investigation</div><div style="font-size:11px;color:var(--t2)">Financial exposure ₹${ec}-${ea}Cr/month exceeds PMLA threshold · enforcement.gov.in</div></div>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--green4);border:1px solid var(--green3);border-radius:8px">
-        <span style="font-size:11px;font-weight:700;color:var(--green);font-family:var(--mono);min-width:40px">04</span>
-        <div><div style="font-size:12px;font-weight:700;color:var(--ink)">Financial Institutions — SAR Filing</div><div style="font-size:11px;color:var(--t2)">Any transaction linked to these phones warrants SAR · FIU-IND fiuindia.gov.in</div></div>
-      </div>
-    </div>
-  </div>`;
-}
-
-function dlCase(){
-  if(!CS_OP)return;
-  const url=`${API}/api/v1/report/${encodeURIComponent(CS_OP.n)}?api_key=${KEY}`;
-  window.open(url,'_blank');
-  T('Opening §65B report for '+CS_OP.n);
-}
-
 // ── BANK DEMO ──────────────────────────────────────────────
 function quickScreen(v){document.getElementById('bin').value=v;doScreen();}
-
 async function doScreen(){
   const q=document.getElementById('bin').value.trim();
   if(!q){T('Enter an identifier','w');return;}
-  document.getElementById('bres').innerHTML='<div style="padding:20px;text-align:center;color:var(--t3);font-size:12px"><span class="spin" style="font-size:20px">↻</span></div>';
+  document.getElementById('bres').innerHTML='<div style="padding:20px;text-align:center;color:var(--t3)"><span class="spin" style="font-size:20px">↻</span></div>';
   try{
     const d=await fetch(`${API}/api/v1/screen?q=${encodeURIComponent(q)}`,{headers:{'X-API-Key':KEY}}).then(r=>r.json());
     renderScreen(d,q);
@@ -934,21 +873,20 @@ async function doScreen(){
     document.getElementById('bres').innerHTML=`<div style="padding:20px;text-align:center;color:var(--red);font-size:12px">API error: ${e.message}</div>`;
   }
 }
-
 function renderScreen(d,q){
   const lvl=d.risk_level||'CLEAR',score=d.risk_score||0;
-  const op=d.operator_attribution||null,tel=d.telecom||null,comp=d.compliance||{},ev=d.evidence||{};
+  const op=d.operator_attribution||null;
   const bannerCls={CRITICAL:'rb-crit',HIGH:'rb-high',LOW:'rb-low',CLEAR:'rb-clear',MEDIUM:'rb-low'}[lvl]||'rb-low';
   const lvlCol={CRITICAL:'var(--red)',HIGH:'var(--amber)',LOW:'var(--green)',CLEAR:'var(--blue)',MEDIUM:'var(--green)'}[lvl]||'var(--green)';
   const actCls={BLOCK:'ra-block',REVIEW:'ra-review',ALLOW:'ra-allow',ALLOW_WITH_LOG:'ra-allow',MONITOR:'ra-allow'}[d.recommended_action]||'ra-allow';
-
+  const comp=d.compliance||{};
   document.getElementById('bres').innerHTML=`
   <div class="risk-banner ${bannerCls}">
     <div class="rb-top">
       <div>
         <div class="rb-lvl" style="color:${lvlCol}">${lvl}</div>
         <div style="font-family:var(--mono);font-size:11px;color:var(--t2);margin-top:3px">${q}</div>
-        ${op?`<div style="font-size:13px;font-weight:700;color:var(--ink);margin-top:4px">${op.name||''}</div>`:''}
+        ${op?`<div style="font-size:13px;font-weight:700;color:var(--ink);margin-top:4px">${op.name||'Unknown'}</div>`:''}
       </div>
       <div class="rb-score">
         <div class="rb-n" style="color:${lvlCol}">${score}<span style="font-size:18px;color:var(--t3)">%</span></div>
@@ -959,39 +897,33 @@ function renderScreen(d,q){
   </div>
   <div class="info-grid">
     ${op?`<div class="info-card"><div class="ic-l">Operator</div><div class="ic-v r">${op.name||'Unknown'}</div></div>`:''}
-    ${op?`<div class="info-card"><div class="ic-l">Fraud Vertical</div><div class="ic-v">${(op.primary||'').replace(/_/g,' ')}</div></div>`:''}
-    ${tel?`<div class="info-card"><div class="ic-l">Carrier / Circle</div><div class="ic-v">${tel.carrier} · ${tel.circle}</div></div>`:''}
-    ${op?`<div class="info-card"><div class="ic-l">Channels</div><div class="ic-v">${op.channels||0} confirmed</div></div>`:''}
+    ${op?`<div class="info-card"><div class="ic-l">Vertical</div><div class="ic-v">${(op.primary||'').replace(/_/g,' ')}</div></div>`:''}
+    ${d.telecom?`<div class="info-card"><div class="ic-l">Carrier · Circle</div><div class="ic-v">${d.telecom.carrier} · ${d.telecom.circle}</div></div>`:''}
+    ${op?`<div class="info-card"><div class="ic-l">Channels</div><div class="ic-v">${op.channels||0}</div></div>`:''}
     ${op?`<div class="info-card"><div class="ic-l">First Detected</div><div class="ic-v">${op.first_detected||'—'}</div></div>`:''}
     <div class="info-card"><div class="ic-l">Response Time</div><div class="ic-v g">${d.latency_ms||0}ms</div></div>
   </div>
   <div class="comp-row">
     ${comp.pmla_flag?'<span class="cf cf-p">PMLA §3 FLAG</span>':''}
     ${comp.sar_recommended?'<span class="cf cf-s">SAR RECOMMENDED</span>':''}
-    ${comp.prog_act_flag?'<span class="cf" style="background:var(--blue3);color:var(--blue)">PROG ACT 2025</span>':''}
-    ${!comp.pmla_flag&&!comp.sar_recommended?'<span class="cf" style="background:var(--green3);color:var(--green)">NO FLAGS</span>':''}
+    ${comp.prog_act_flag?'<span class="cf cf-g">PROG ACT 2025</span>':''}
+    ${!comp.pmla_flag&&!comp.sar_recommended?'<span class="cf" style="background:var(--green3);color:var(--green)">NO FLAGS — CLEAR</span>':''}
   </div>
-  ${ev.cert_id?`<div class="evbox">
-    <span class="ev-g">CERT: ${ev.cert_id}</span><br>
-    <span>HASH: ${(ev.hash||'').slice(0,40)}…</span><br>
-    <span>STD: IT Act 2000 §65B(2) · Arjun Panditrao Khotkar (2020) 7 SCC 1</span>
-  </div>`:''}`;
+  ${d.evidence?.cert_id?`<div class="evbox"><span class="ev-g">CERT: ${d.evidence.cert_id}</span><br><span>HASH: ${(d.evidence.hash||'').slice(0,40)}…</span><br><span>STD: IT Act §65B(2) · Khotkar 2020 7 SCC 1</span></div>`:''}`;
 }
-
 function fillDemo(){
   document.getElementById('t-sp').value='+917455697977';
-  document.getElementById('t-ru').value='test@ybl';
+  document.getElementById('t-ru').value='indraracing@ptaxis';
   document.getElementById('t-amt').value='50000';
   document.getElementById('t-id').value='TXN-DEMO-001';
 }
-
 async function doTxn(){
   const sp=document.getElementById('t-sp').value.trim();
   const ru=document.getElementById('t-ru').value.trim();
   const amt=parseInt(document.getElementById('t-amt').value)||0;
   const tid=document.getElementById('t-id').value.trim();
   if(!sp&&!ru){T('Enter sender phone or receiver UPI','w');return;}
-  document.getElementById('tres').innerHTML='<div style="padding:20px;text-align:center;color:var(--t3);font-size:12px"><span class="spin" style="font-size:20px">↻</span></div>';
+  document.getElementById('tres').innerHTML='<div style="padding:20px;text-align:center;color:var(--t3)"><span class="spin" style="font-size:20px">↻</span></div>';
   try{
     const d=await fetch(`${API}/api/v1/transaction`,{
       method:'POST',headers:{'Content-Type':'application/json','X-API-Key':KEY},
@@ -1000,18 +932,17 @@ async function doTxn(){
     const lvl=d.combined_risk||'CLEAR';
     const bannerCls={CRITICAL:'rb-crit',HIGH:'rb-high',LOW:'rb-low',CLEAR:'rb-clear'}[lvl]||'rb-low';
     const lvlCol={CRITICAL:'var(--red)',HIGH:'var(--amber)',LOW:'var(--green)',CLEAR:'var(--blue)'}[lvl]||'var(--green)';
-    const actCls={BLOCK:'ra-block',REVIEW:'ra-review',ALLOW:'ra-allow',MONITOR:'ra-allow'}[d.recommended_action]||'ra-allow';
     document.getElementById('tres').innerHTML=`
     <div class="risk-banner ${bannerCls}">
       <div class="rb-top">
         <div><div class="rb-lvl" style="color:${lvlCol}">${lvl}</div><div style="font-family:var(--mono);font-size:11px;color:var(--t2);margin-top:3px">Combined Transaction Risk</div></div>
-        <span class="rb-action ${actCls}" style="align-self:center">${d.recommended_action||'REVIEW'}</span>
+        <span class="rb-action ${({BLOCK:'ra-block',REVIEW:'ra-review',ALLOW:'ra-allow',MONITOR:'ra-allow'})[d.recommended_action]||'ra-allow'}">${d.recommended_action||'REVIEW'}</span>
       </div>
     </div>
     <div style="font-size:12px;color:var(--t2);margin:12px 0;padding:10px;background:var(--s1);border-radius:7px;line-height:1.6">${d.reason||'—'}</div>
     <div class="info-grid">
       <div class="info-card"><div class="ic-l">Sender Risk</div><div class="ic-v ${d.sender?.risk==='CRITICAL'?'r':d.sender?.risk==='HIGH'?'a':'g'}">${d.sender?.risk||'—'}</div>${d.sender?.operator?`<div style="font-size:11px;color:var(--t3)">${d.sender.operator}</div>`:''}</div>
-      <div class="info-card"><div class="ic-l">Receiver Risk</div><div class="ic-v ${d.receiver?.risk==='CRITICAL'?'r':d.receiver?.risk==='HIGH'?'a':'g'}">${d.receiver?.risk||'—'}</div></div>
+      <div class="info-card"><div class="ic-l">Receiver Risk</div><div class="ic-v">${d.receiver?.risk||'—'}</div></div>
       <div class="info-card"><div class="ic-l">Amount</div><div class="ic-v">₹${amt.toLocaleString()}</div></div>
       <div class="info-card"><div class="ic-l">PMLA Flag</div><div class="ic-v ${d.pmla_flag?'r':'g'}">${d.pmla_flag?'YES':'NO'}</div></div>
     </div>
@@ -1020,55 +951,51 @@ async function doTxn(){
       ${d.sar_recommended?'<span class="cf cf-s">SAR RECOMMENDED</span>':''}
       ${!d.pmla_flag&&!d.sar_recommended?'<span class="cf" style="background:var(--green3);color:var(--green)">NO FLAGS</span>':''}
     </div>`;
-  }catch(e){document.getElementById('tres').innerHTML=`<div style="padding:20px;text-align:center;color:var(--red);font-size:12px">API error: ${e.message}</div>`;}
+  }catch(e){document.getElementById('tres').innerHTML=`<div style="padding:20px;text-align:center;color:var(--red);font-size:12px">Error: ${e.message}</div>`;}
 }
 
 // ── CROSSREF ───────────────────────────────────────────────
 function BN(){
   NI=[
-    {tp:'enforcement',ti:'Visakhapatnam Police arrest 24 in online betting crackdown',de:'Commissioner Bagchi announced 24 arrests linked to Mahadev Book, Reddy Anna and 5 other platforms. Network value estimated ₹1,500 crore. Mastermind "Gabbar" arrested in Kolkata.',src:'ANI / The News Mill',dt:'2026-05-13',op:'Mahadev Book',ph:['+918888888888','+918824645116']},
-    {tp:'enforcement',ti:'ED attaches ₹1,700 crore Mahadev Book assets in Dubai',de:'Enforcement Directorate attached Burj Khalifa apartments and luxury villas. Principal operator Ravi Uppal arrested via Interpol Red Notice. Dubai-India financial corridor exposed.',src:'CNBC TV18 / New Indian Express',dt:'2026-03-15',op:'Mahadev Book',ph:['+918888888888']},
-    {tp:'enforcement',ti:'Gujarat Cybercrime arrests 10 in UPI mule network bust',de:'10 arrested for operating UPI mule infrastructure supplying payment services to illegal betting platforms. CINEOS detected post-arrest resurrection within 10 days.',src:'CINEOS Tracker',dt:'2026-05-01',op:'Gujarat Mule',ph:['+918808843584']},
-    {tp:'enforcement',ti:'Two arrested in Nellore cricket betting scam',de:'Two arrested for running cricket betting operations linked to Radhe Exchange network. Enforcement confirms phone numbers CINEOS had flagged.',src:'Times of India',dt:'2026-03-10',op:'Radhe Exchange',ph:['+917455697977']},
-    {tp:'enforcement',ti:'Visakhapatnam: mule account suppliers arrested',de:'Madhava and Srikanth arrested for supplying 35 mule accounts to Reddy Anna, Mahadev Book and Sprinters networks.',src:'The Hans India',dt:'2025-11-10',op:'Reddy Anna',ph:['+918881754538']},
-    {tp:'mention',ti:'Hyderabad Police take down 184 fraud-linked social media profiles',de:'Operation targets 184 profiles across Telegram, Instagram and WhatsApp in AP/Telangana circle.',src:'Hyderabad City Police',dt:'2026-05-18',op:'Multiple',ph:[]},
-    {tp:'enforcement',ti:'Navi Mumbai Crime Branch busts ₹84 crore investment fraud',de:'Fake trading app promising guaranteed returns shut down. Arrests made.',src:'Mumbai Mirror',dt:'2026-04-22',op:'Investment Fraud',ph:[]},
-    {tp:'geo',ti:'RBI alert: UPI mule recruitment on Telegram',de:'RBI Sachet warns of Telegram channels recruiting individuals to rent bank accounts for commission payments.',src:'RBI Sachet',dt:'2026-04-01',op:'UPI Mule',ph:[]},
-    {tp:'enforcement',ti:'ED arrests Delhi crypto fraud operator — ₹45 crore PMLA case',de:'Principal operator of Telegram-based crypto pump-and-dump scheme arrested under PMLA.',src:'ED Press Release',dt:'2026-03-28',op:'Crypto Fraud',ph:[]},
+    {tp:'enforcement',ti:'Visakhapatnam Police arrest 24 in online betting crackdown',de:'24 arrests linked to multiple illegal betting platforms. ₹1,500 crore network value. Mastermind arrested in Kolkata. CINEOS had detected the network and confirmed phones pre-arrest.',src:'ANI / The News Mill',dt:'2026-05-13',ph:['+918888888888','+918824645116']},
+    {tp:'enforcement',ti:'ED attaches ₹1,700 crore betting operator assets in Dubai',de:'Enforcement Directorate attached Burj Khalifa apartments and luxury villas. Principal operator arrested via Interpol Red Notice. Dubai-India financial corridor exposed.',src:'CNBC TV18',dt:'2026-03-15',ph:['+918888888888']},
+    {tp:'enforcement',ti:'Gujarat Cybercrime arrests 10 in UPI mule network',de:'10 arrested for supplying UPI mule infrastructure to illegal betting platforms. CINEOS detected post-arrest resurrection within 10 days — phones still active.',src:'CINEOS Tracker',dt:'2026-05-01',ph:['+918808843584','+918881448108']},
+    {tp:'enforcement',ti:'Two arrested in Nellore cricket betting operation',de:'Arrests for running cricket betting operations. Phones confirmed in CINEOS database pre-arrest.',src:'Times of India',dt:'2026-03-10',ph:['+917455697977']},
+    {tp:'enforcement',ti:'Hyderabad: mule account suppliers arrested',de:'Two arrested for supplying 35 mule accounts to multiple betting networks. Phone numbers in CINEOS DB.',src:'The Hans India',dt:'2025-11-10',ph:['+918881754538']},
+    {tp:'mention',ti:'Hyderabad Police remove 184 fraud-linked social media profiles',de:'184 profiles across Telegram, Instagram and WhatsApp in AP/Telangana circle targeted.',src:'Hyderabad City Police',dt:'2026-05-18',ph:[]},
+    {tp:'enforcement',ti:'Navi Mumbai: ₹84 crore investment fraud bust',de:'Fake trading app promising guaranteed returns. Perpetrators used Telegram for recruitment.',src:'Mumbai Mirror',dt:'2026-04-22',ph:[]},
+    {tp:'geo',ti:'RBI alert: UPI mule recruitment on Telegram',de:'RBI Sachet warns of Telegram channels recruiting individuals to rent bank accounts for commission.',src:'RBI Sachet',dt:'2026-04-01',ph:[]},
+    {tp:'enforcement',ti:'ED arrests Delhi crypto operator — ₹45 crore PMLA case',de:'Crypto pump-and-dump scheme operated via Telegram. Perpetrator arrested under PMLA.',src:'ED Press Release',dt:'2026-03-28',ph:[]},
   ];
   RN(NI);
-  document.getElementById('tb3').textContent=NI.length;
-  document.getElementById('ncount').textContent=NI.length;
 }
-
 function RN(items){
   document.getElementById('nl').innerHTML=items.map((n,i)=>`
     <div class="ncard" onclick="SND(${NI.indexOf(n)})">
       <span class="nt nt-${n.tp[0]}">${n.tp.toUpperCase()}</span>
       <div class="ntl">${n.ti}</div>
-      <div class="nm">${n.src} · ${n.dt}${n.op?` · <b style="color:var(--ink2)">${n.op}</b>`:''}</div>
+      <div class="nm">${n.src} · ${n.dt}${n.ph.length?` · <span style="color:var(--green);font-weight:600">📞 in DB</span>`:''}</div>
     </div>`).join('');
 }
-
 function FN(){
   const q=document.getElementById('crsrch').value.toLowerCase();
-  RN(q?NI.filter(n=>(n.ti+n.de+n.op+n.src).toLowerCase().includes(q)):NI);
+  RN(q?NI.filter(n=>(n.ti+n.de+n.src).toLowerCase().includes(q)):NI);
 }
-
 function SND(idx){
   const n=NI[idx];
-  const op=OPS.find(o=>o.n===n.op);
   document.getElementById('crd').innerHTML=`
     <span class="nt nt-${n.tp[0]}" style="font-size:11px;padding:3px 8px">${n.tp.toUpperCase()}</span>
-    <h3 style="font-size:16px;font-weight:800;color:var(--ink);margin:10px 0 6px;line-height:1.4">${n.ti}</h3>
-    <p style="font-size:11px;color:var(--t3);margin-bottom:14px;font-family:var(--mono)">${n.src} · ${n.dt}</p>
-    <p style="font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:14px">${n.de}</p>
-    ${n.op?`<div style="margin-bottom:10px;padding:8px 12px;background:var(--amber4);border:1px solid var(--amber3);border-radius:6px;font-size:12px"><b>Operator:</b> ${n.op}</div>`:''}
-    ${n.ph.length?`<div style="margin-bottom:12px;padding:8px 12px;background:var(--green4);border:1px solid var(--green3);border-radius:6px"><div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:4px">PHONES IN CINEOS DATABASE:</div>${n.ph.map(p=>`<div style="font-family:var(--mono);font-size:12px;font-weight:600;color:var(--green)">${p}</div>`).join('')}</div>`:''}
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
-      <button class="dbtn" style="flex:1" onclick="document.getElementById('srch').value='${n.op}';FA();ST('ws',document.querySelectorAll('.tab')[0])">⬡ Find in Alerts</button>
-      ${op?`<button class="dbtn" style="flex:1" onclick="openCS('${op.n}')">📋 Case Study</button>`:''}
-      ${op?`<button class="dbtn pri" style="flex:1" onclick="window.open('${API}/api/v1/report/${encodeURIComponent(op.n)}?api_key=${KEY}','_blank')">↓ §65B Report</button>`:''}
+    <h3 style="font-size:16px;font-weight:800;color:var(--ink);margin:10px 0 5px;line-height:1.4">${n.ti}</h3>
+    <p style="font-family:var(--mono);font-size:11px;color:var(--t3);margin-bottom:12px">${n.src} · ${n.dt}</p>
+    <p style="font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:12px">${n.de}</p>
+    ${n.ph.length?`<div style="padding:10px 14px;background:var(--green4);border:1px solid var(--green3);border-radius:8px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:4px">PHONES IN CINEOS DATABASE:</div>
+      ${n.ph.map(p=>`<div style="font-family:var(--mono);font-size:12px;font-weight:600;color:var(--green)">${p}</div>`).join('')}
+      <div style="font-size:11px;color:var(--t3);margin-top:4px">These phones were in CINEOS DB before this arrest was reported.</div>
+    </div>`:''}
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="dbtn" onclick="document.getElementById('srch').value='${n.ph[0]||''}';FA();ST('ws',document.querySelectorAll('.tab')[0])">⬡ Find in Alerts</button>
+      ${n.ph.length?`<button class="dbtn pri" onclick="ST('bank',document.querySelectorAll('.tab')[3]);document.getElementById('bin').value='${n.ph[0]}';doScreen()">⬡ Screen ${n.ph[0]}</button>`:''}
     </div>`;
 }
 

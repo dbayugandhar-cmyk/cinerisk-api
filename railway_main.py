@@ -1094,7 +1094,7 @@ def _screen(identifier):
             q in ' '.join(a.get('chain',{}).get('upis',[])).lower() or
             q in ' '.join(a.get('chain',{}).get('channels_found',[])).lower() or
             any(q in str(ch).lower() for ch in a.get('chain',{}).get('channels_found',[]))]
-    dc,dp,dch={},set(),set()
+    dc,dp,dch,du={},set(),set(),set()
     for a in mx:
         cat=a.get('category','unknown')
         dc[cat]=dc.get(cat,0)+1
@@ -1102,8 +1102,12 @@ def _screen(identifier):
             if p: dp.add(p)
         for ch in a.get('chain',{}).get('channels_found',[]):
             if ch: dch.add(str(ch))
+        for u in a.get('chain',{}).get('upis',[]):
+            if u: du.add(u)
     n=len(mx)
-    dconf=min(99,len(dp)*15+n*8) if (dp or n) else 0
+    # UPI exact match = high confidence (UPIs are specific identifiers)
+    upi_boost = 60 if (not is_ph and du and identifier.lower() in str(du).lower()) else 0
+    dconf=min(99,len(dp)*15+n*8+upi_boost) if (dp or n or upi_boost) else 0
     ca,ci,pr='Unknown','Unknown',0
     if is_ph and b10: ca,ci,pr=_TR_MAP.get(b10[:4],('Unknown','Unknown',0))
     conf=max(oc,dconf)

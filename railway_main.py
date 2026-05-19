@@ -312,9 +312,6 @@ def init_alerts():
     except Exception as e:
         print(f'[INIT] GitHub load failed: {e} — using {len(ALERTS)} seed alerts')
 
-# Call init_alerts at module level so gunicorn loads data on startup
-init_alerts()
-
 # ── HELPERS ───────────────────────────────────────────────
 def severity_score(a):
     s = {'critical': 100, 'high': 60, 'medium': 30, 'low': 10}.get(a.get('severity', ''), 0)
@@ -495,6 +492,15 @@ def run_scheduled_scan():
     print(f"[{ist_now().strftime('%H:%M IST')}] Scan done. {new_found} new alerts. Total: {len(ALERTS)}")
 
 # ── SCHEDULER ─────────────────────────────────────────────
+@app.before_request
+def load_on_first_request():
+    global _initialized
+    if not globals().get('_initialized'):
+        globals()['_initialized'] = True
+        init_alerts()
+        import threading as _th
+        _th.Thread(target=scheduler_loop, daemon=True).start()
+
 def scheduler_loop():
     """Run quality scan every hour. Also runs once at startup."""
     global STATS

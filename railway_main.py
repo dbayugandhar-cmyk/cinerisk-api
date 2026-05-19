@@ -1153,6 +1153,7 @@ def v1_transaction():
     ru=d.get('receiver_upi','') or d.get('receiver_phone','')
     amt=d.get('amount_inr',0)
     if not sp and not ru: return jsonify({'error':'Provide sender_phone and/or receiver_upi'}),400
+    if not ALERTS: init_alerts()
     sr=_screen(sp) if sp else None
     rr=_screen(ru) if ru else None
     ro={'CRITICAL':4,'HIGH':3,'MEDIUM':2,'LOW':1,'CLEAR':0}
@@ -1250,7 +1251,8 @@ def v1_operator_report(operator_name):
     try:
         import hashlib as _hl
         from datetime import date as _date
-        alerts = _load_github()
+        if not ALERTS: init_alerts()
+        alerts = ALERTS
         q = operator_name.lower()
         matches = [a for a in alerts if
                    q in str(a.get('title','')).lower() or

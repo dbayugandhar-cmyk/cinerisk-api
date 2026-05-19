@@ -15,7 +15,9 @@ def now_ist(): return datetime.now(IST)
 def sha(t): return hashlib.sha256(t.encode()).hexdigest()[:16]
 
 PHONE_RE=re.compile(r'(?:\+91|91|0)?([6-9]\d{9})\b')
-UPI_RE=re.compile(r'\b([a-zA-Z0-9.\-_]{2,40}@(?:paytm|gpay|okaxis|ybl|oksbi|upi|hdfcbank|icici|sbi|kotak|[a-zA-Z]{2,20}))\b',re.IGNORECASE)
+UPI_RE = re.compile(
+    r'\b([a-zA-Z0-9.\-_]{2,40}@(?:okaxis|okhdfcbank|okicici|oksbi|ybl|ibl|axl|paytm|apl|upi|waaxis|waicici|wairtel|freecharge|jiomoney|axisbank|hdfcbank|aubank|indus|mahb|rbl|kvb|fifederal|federal|abfspay|idbi|ptaxis|pthdfc|ptyes|ptsbi|sbiupi|icicipay))\b',
+    re.IGNORECASE)
 DOMAIN_RE=re.compile(r'\b([a-zA-Z0-9\-]{3,40}\.(?:com|in|net|org|co\.in|app|io))\b',re.IGNORECASE)
 TG_RE=re.compile(r'(?:t\.me|telegram\.me)/([a-zA-Z0-9_]{3,32})')
 STATE_RE=re.compile(r'\b(Maharashtra|Gujarat|Telangana|Karnataka|Tamil Nadu|Andhra Pradesh|Delhi|Rajasthan|Uttar Pradesh|West Bengal|Punjab|Kerala|Haryana|Bihar|Odisha|Assam|Madhya Pradesh)\b',re.IGNORECASE)

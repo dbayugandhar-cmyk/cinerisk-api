@@ -1199,6 +1199,8 @@ def v1_operator(name):
 def v1_demo():
     """Public demo endpoint — no API key needed. Limited response."""
     q = request.args.get('q','917455697977')
+    if not ALERTS:
+        init_alerts()
     result = _screen(q.strip())
     # Return limited response for demo
     return jsonify({

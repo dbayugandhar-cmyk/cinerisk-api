@@ -1078,7 +1078,7 @@ def _screen(identifier):
     is_ph=len(b10)==10 and b10[0] in '6789'
     op,ov,oc=None,[],0
     if is_ph and b10 in _OP_MAP: op,ov,oc=_OP_MAP[b10]
-    alts=_load_github()
+    alts=ALERTS if ALERTS else []
     if is_ph:
         mx=[a for a in alts if b10 in _r.sub(r'[^0-9]','',str(a))]
     else:
@@ -1188,7 +1188,7 @@ def v1_operator(name):
     valid, client = check_api_key(request)
     if not valid:
         return jsonify({'error':'API key required','contact':'yugandhar@cineos.in'}), 401
-    alts=_load_github()
+    alts=ALERTS if ALERTS else []
     q=name.lower()
     mx=[a for a in alts if q in str(a.get('title','')).lower() or q in str(a.get('detail','')).lower()]
     if not mx: return jsonify({'found':False,'operator':name,'message':'Not in CINEOS database'})

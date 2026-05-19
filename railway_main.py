@@ -1080,10 +1080,20 @@ def _screen(identifier):
     if is_ph and b10 in _OP_MAP: op,ov,oc=_OP_MAP[b10]
     alts=ALERTS if ALERTS else []
     if is_ph:
-        mx=[a for a in alts if b10 in _r.sub(r'[^0-9]','',str(a))]
+        mx=[a for a in alts if b10 in _r.sub(r'[^0-9]','',
+            ' '.join([str(a.get('title','')), str(a.get('detail','')),
+            str(a.get('source','')),
+            ' '.join(a.get('chain',{}).get('phones',[])),
+            ' '.join(a.get('chain',{}).get('channels_found',[])),
+            ]))]
     else:
-        q=identifier.lower()
-        mx=[a for a in alts if q in str(a.get('title','')).lower() or q in str(a.get('detail','')).lower()]
+        q=identifier.lower().strip()
+        mx=[a for a in alts if
+            q in str(a.get('title','')).lower() or
+            q in str(a.get('detail','')).lower() or
+            q in ' '.join(a.get('chain',{}).get('upis',[])).lower() or
+            q in ' '.join(a.get('chain',{}).get('channels_found',[])).lower() or
+            any(q in str(ch).lower() for ch in a.get('chain',{}).get('channels_found',[]))]
     dc,dp,dch={},set(),set()
     for a in mx:
         cat=a.get('category','unknown')

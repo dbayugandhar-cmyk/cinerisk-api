@@ -312,6 +312,9 @@ def init_alerts():
     except Exception as e:
         print(f'[INIT] GitHub load failed: {e} — using {len(ALERTS)} seed alerts')
 
+# Call init_alerts at module level so gunicorn loads data on startup
+init_alerts()
+
 # ── HELPERS ───────────────────────────────────────────────
 def severity_score(a):
     s = {'critical': 100, 'high': 60, 'medium': 30, 'low': 10}.get(a.get('severity', ''), 0)

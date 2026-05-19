@@ -1321,6 +1321,39 @@ def v1_operator_report(operator_name):
         return jsonify({'error': str(_e), 'trace': _tb.format_exc()[-500:]}), 500
 
 
+
+@app.route('/api/v1/graph')
+def v1_graph():
+    """Operator network graph data for D3 visualization"""
+    alerts = _load_github()
+    nodes = {}
+    edges = []
+    seen_edges = set()
+    for a in alerts:
+        chain = a.get('chain', {})
+        phones = chain.get('phones', [])
+        channels = chain.get('channels_found', [])
+        cat = a.get('category', 'unknown')
+        # Add channel nodes
+        for ch in channels[:3]:
+            if ch and ch not in nodes:
+                nodes[ch] = {'id': ch, 'type': 'channel', 'cat': cat, 'size': 8}
+        # Add phone nodes and link to channels
+        for ph in phones[:2]:
+            if ph:
+                if ph not in nodes:
+                    nodes[ph] = {'id': ph, 'type': 'phone', 'cat': cat, 'size': 12}
+                for ch in channels[:2]:
+                    if ch:
+                        ek = ph + '|' + str(ch)
+                        if ek not in seen_edges:
+                            edges.append({'source': ph, 'target': str(ch)})
+                            seen_edges.add(ek)
+    node_list = list(nodes.values())[:80]
+    valid_ids = {n['id'] for n in node_list}
+    edge_list = [e for e in edges if e['source'] in valid_ids and e['target'] in valid_ids][:120]
+    return jsonify({'nodes': node_list, 'edges': edge_list, 'total_nodes': len(node_list), 'total_edges': len(edge_list)})
+
 @app.route('/api/lookup/bulk', methods=['POST'])
 def api_lookup_bulk():
     """Bulk entity lookup — up to 50 identifiers at once"""

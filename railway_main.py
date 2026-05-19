@@ -310,11 +310,16 @@ SEED_ALERTS = [
 
 # Auto-seed on import (gunicorn workers need this)
 def init_alerts():
-    import urllib.request as _ur
     global ALERTS
-    ALERTS = list(SEED_ALERTS)
-    # Load from GitHub on startup
+    # Try Supabase first (persistent, never resets)
+    supa = _load_supabase()
+    if supa:
+        ALERTS = supa
+        print(f'[INIT] Loaded {len(ALERTS)} alerts from Supabase')
+        return
+    # Fallback: GitHub JSON
     try:
+        import urllib.request as _ur
         tok = os.environ.get('GITHUB_TOKEN_RAIL_READ','')
         url = 'https://raw.githubusercontent.com/dbayugandhar-cmyk/cinerisk-api/main/data/alerts_backup.json'
         headers = {'Authorization': f'token {tok}'} if tok else {}
@@ -322,11 +327,13 @@ def init_alerts():
         data = json.loads(_ur.urlopen(req, timeout=15).read())
         if isinstance(data, list) and len(data) > 0:
             ALERTS = data
-            print(f'[INIT] Loaded {len(ALERTS)} alerts from GitHub')
-        else:
-            print(f'[INIT] GitHub returned empty — using {len(ALERTS)} seed alerts')
+            print(f'[INIT] Loaded {len(ALERTS)} alerts from GitHub (Supabase fallback)')
+            return
     except Exception as e:
-        print(f'[INIT] GitHub load failed: {e} — using {len(ALERTS)} seed alerts')
+        print(f'[INIT] GitHub fallback failed: {e}')
+    # Final fallback: seed alerts
+    ALERTS = list(SEED_ALERTS)
+    print(f'[INIT] Using {len(ALERTS)} seed alerts (both Supabase and GitHub failed)')
 
 # ── HELPERS ───────────────────────────────────────────────
 def severity_score(a):
@@ -362,6 +369,56 @@ def ist_now():
 
 # ── SERPAPI SCANNER (runs on Railway 24/7) ────────────────
 SERP_KEY = os.environ.get('SERP_API_KEY', '')
+
+# Supabase config
+SUPA_URL = os.environ.get('SUPABASE_URL', 'https://pgvbnwiflefhunkbbwah.supabase.co')
+SUPA_KEY = os.environ.get('SUPABASE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBndmJud2lmbGVmaHVua2Jid2FoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyMDYyMTYsImV4cCI6MjA5NDc4MjIxNn0.sO2B6lEW9b36hLy3Z3GzsaGeVA6-y0L7XJLGvNVkAvQ')
+
+def _load_supabase():
+    """Load all alerts from Supabase."""
+    try:
+        from supabase import create_client
+        sb = create_client(SUPA_URL, SUPA_KEY)
+        all_rows = []
+        page = 0
+        page_size = 1000
+        while True:
+            r = sb.table('alerts').select('*').range(page*page_size, (page+1)*page_size-1).execute()
+            if not r.data:
+                break
+            all_rows.extend(r.data)
+            if len(r.data) < page_size:
+                break
+            page += 1
+        print(f'[SUPABASE] Loaded {len(all_rows)} alerts')
+        return all_rows
+    except Exception as e:
+        print(f'[SUPABASE] Load failed: {e}')
+        return []
+
+def _save_supabase(alert):
+    """Save a single alert to Supabase."""
+    try:
+        from supabase import create_client
+        sb = create_client(SUPA_URL, SUPA_KEY)
+        row = {
+            'id':           str(alert.get('id',''))[:50],
+            'title':        str(alert.get('title',''))[:500],
+            'category':     str(alert.get('category','unknown'))[:50],
+            'severity':     str(alert.get('severity','high'))[:20],
+            'platform':     str(alert.get('platform','Telegram'))[:100],
+            'detail':       str(alert.get('detail',''))[:1000],
+            'source':       str(alert.get('source',''))[:200],
+            'detected_at':  alert.get('detected_at') or ist_now().isoformat(),
+            'reach':        int(alert.get('reach') or 0),
+            'evidence_hash':str(alert.get('evidence_hash',''))[:100],
+            'chain':        alert.get('chain',{}),
+        }
+        sb.table('alerts').upsert(row).execute()
+        return True
+    except Exception as e:
+        print(f'[SUPABASE] Save failed: {e}')
+        return False
 
 # Client API keys — stored as environment variables on Railway
 # Format: CINEOS_CLIENT_{NAME}=key_value

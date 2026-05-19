@@ -84,6 +84,22 @@ CORS(app)  # Allow cineos.in dashboard to fetch
 # and sync to GitHub via API on every write
 
 ALERTS    = []
+RATE_STORE = {}  # api_key:endpoint -> [timestamps]
+RATE_LIMITS = {
+    'cineos_internal_2026': 1000,
+    'default': 60,
+}
+
+def _rate_check(api_key, endpoint='api'):
+    import time
+    now = time.time()
+    key = f'{api_key or "anon"}:{endpoint}'
+    RATE_STORE[key] = [t for t in RATE_STORE.get(key,[]) if now-t<60]
+    limit = RATE_LIMITS.get(api_key, RATE_LIMITS['default'])
+    if len(RATE_STORE[key]) >= limit:
+        return False, limit, 0
+    RATE_STORE[key].append(now)
+    return True, limit, limit - len(RATE_STORE[key])
 STATS     = {
     'channels':     1245,
     'reach':        40000000,

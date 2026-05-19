@@ -1142,7 +1142,13 @@ def v1_screen():
     else:
         ident=request.args.get('q','') or request.args.get('phone','')
     if not ident: return jsonify({'error':'Missing identifier'}),400
-    return jsonify(_screen(ident.strip()))
+    try:
+        result = _screen(ident.strip())
+        result['client'] = client
+        return jsonify(result)
+    except Exception as _e:
+        import traceback as _tb
+        return jsonify({'error':str(_e),'trace':_tb.format_exc()[-600:]}),500
 
 @app.route('/api/v1/transaction', methods=['POST'])
 def v1_transaction():

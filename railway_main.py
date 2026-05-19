@@ -1325,7 +1325,7 @@ def v1_operator_report(operator_name):
 @app.route('/api/v1/graph')
 def v1_graph():
     """Operator network graph data for D3 visualization"""
-    alerts = _load_github()
+    alerts = ALERTS
     nodes = {}
     edges = []
     seen_edges = set()

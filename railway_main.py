@@ -1135,6 +1135,7 @@ def v1_screen():
             'contact': 'yugandhar@cineos.in',
             'demo': '/api/v1/demo (no key needed)',
         }), 401
+    if not ALERTS: init_alerts()
     if request.method=='POST':
         d=request.get_json() or {}
         ident=d.get('phone') or d.get('upi') or d.get('q','')

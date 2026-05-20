@@ -1242,33 +1242,163 @@ def v1_transaction():
     valid, client = check_api_key(request)
     if not valid:
         return jsonify({'error':'API key required','contact':'yugandhar@cineos.in'}), 401
-    d=request.get_json() or {}
-    sp=d.get('sender_phone','')
-    ru=d.get('receiver_upi','') or d.get('receiver_phone','')
-    amt=d.get('amount_inr',0)
-    if not sp and not ru: return jsonify({'error':'Provide sender_phone and/or receiver_upi'}),400
+    d = request.get_json() or {}
+    sp  = d.get('sender_phone','').strip()
+    ru  = (d.get('receiver_upi','') or d.get('receiver_phone','')).strip()
+    amt = float(d.get('amount_inr',0) or 0)
+    tid = d.get('transaction_id','')
+    meta = d.get('meta',{})  # optional: device_id, ip, lat/lon
+
+    if not sp and not ru:
+        return jsonify({'error':'Provide sender_phone and/or receiver_upi'}), 400
     if not ALERTS: init_alerts()
-    sr=_screen(sp) if sp else None
-    rr=_screen(ru) if ru else None
-    ro={'CRITICAL':4,'HIGH':3,'MEDIUM':2,'LOW':1,'CLEAR':0}
-    sv=ro.get(sr['risk_level'],0) if sr else 0
-    rv=ro.get(rr['risk_level'],0) if rr else 0
-    comb={4:'CRITICAL',3:'HIGH',2:'MEDIUM',1:'LOW',0:'CLEAR'}[max(sv,rv)]
-    reasons=[]
-    if sr and sr.get('found'): reasons.append('Sender: '+((sr.get('operator_attribution') or {}).get('primary','fraud'))+' confirmed')
-    if rr and rr.get('found'): reasons.append('Receiver: '+((rr.get('operator_attribution') or {}).get('primary','fraud'))+' activity')
-    if not reasons: reasons.append('No confirmed fraud signals')
-    return jsonify({'transaction_id':d.get('transaction_id',''),'amount_inr':amt,
-        'combined_risk':comb,'recommended_action':_RC.get(comb,'REVIEW'),
-        'reason':' | '.join(reasons),
-        'pmla_flag':amt>=500000 and max(sv,rv)>=3,'sar_recommended':max(sv,rv)>=3,
-        'sender':{'identifier':sp,'risk':sr['risk_level'] if sr else 'CLEAR',
-            'operator':(sr.get('operator_attribution') or {}).get('name'),
-            'score':sr['risk_score'] if sr else 0},
-        'receiver':{'identifier':ru,'risk':rr['risk_level'] if rr else 'CLEAR',
-            'operator':(rr.get('operator_attribution') or {}).get('name'),
-            'score':rr['risk_score'] if rr else 0},
-        'api_version':'v1','disclaimer':'Intelligence-grade. Verify before enforcement action.'})
+
+    import hashlib as _hl, time as _tm
+    t0 = _tm.time()
+
+    # ── SCREEN BOTH PARTIES ───────────────────────────────
+    sr = _screen(sp) if sp else None
+    rr = _screen(ru) if ru else None
+
+    ro = {'CRITICAL':4,'HIGH':3,'MEDIUM':2,'LOW':1,'CLEAR':0}
+    sv = ro.get(sr['risk_level'],0) if sr else 0
+    rv = ro.get(rr['risk_level'],0) if rr else 0
+
+    # ── VELOCITY CHECK ────────────────────────────────────
+    # Track transactions per phone in memory (resets on redeploy)
+    # In production: use Redis or Supabase for persistence
+    if not hasattr(v1_transaction, '_vel'): v1_transaction._vel = {}
+    vel_key = sp or ru
+    now_ts = _tm.time()
+    v1_transaction._vel.setdefault(vel_key, [])
+    v1_transaction._vel[vel_key] = [t for t in v1_transaction._vel[vel_key] if now_ts-t < 3600]
+    v1_transaction._vel[vel_key].append(now_ts)
+    velocity_1h = len(v1_transaction._vel[vel_key])
+    velocity_flag = velocity_1h >= 3  # 3+ transactions in 1 hour = suspicious
+
+    # ── AMOUNT RISK SCORING ───────────────────────────────
+    amt_risk = 0
+    amt_flags = []
+    if amt >= 1000000:   amt_risk = 4; amt_flags.append('PMLA_THRESHOLD_10L')
+    elif amt >= 500000:  amt_risk = 3; amt_flags.append('PMLA_THRESHOLD_5L')
+    elif amt >= 200000:  amt_risk = 2; amt_flags.append('HIGH_VALUE_2L')
+    elif amt >= 50000:   amt_risk = 1; amt_flags.append('NOTABLE_50K')
+    # Round amounts = structuring signal
+    if amt > 0 and amt % 10000 == 0 and amt >= 50000:
+        amt_flags.append('ROUND_AMOUNT_STRUCTURING')
+    if velocity_flag:
+        amt_flags.append(f'VELOCITY_{velocity_1h}TX_1HR')
+
+    # ── NETWORK RISK PROPAGATION ──────────────────────────
+    # If sender is in operator network, elevate receiver risk too
+    network_boost = 0
+    network_note = ''
+    s_op = (sr.get('operator_attribution') or {}) if sr else {}
+    r_op = (rr.get('operator_attribution') or {}) if rr else {}
+    if s_op and s_op.get('name') and rv < 3:
+        network_boost = 1
+        network_note = f'Receiver elevated: connected to {s_op.get("name","?")} network'
+    if r_op and r_op.get('name') and sv < 3:
+        network_boost = max(network_boost, 1)
+        network_note = f'Sender elevated: receiver linked to {r_op.get("name","?")} operator'
+
+    # ── COMBINED RISK ─────────────────────────────────────
+    raw_score = max(sv, rv + network_boost, amt_risk if sv > 0 or rv > 0 else 0)
+    if velocity_flag and raw_score >= 2: raw_score = min(4, raw_score + 1)
+    comb = {4:'CRITICAL',3:'HIGH',2:'MEDIUM',1:'LOW',0:'CLEAR'}.get(raw_score,'CLEAR')
+
+    # ── PMLA FLAGS ────────────────────────────────────────
+    pmla_flag = (amt >= 500000 and raw_score >= 2) or (amt >= 200000 and raw_score >= 3)
+    sar_recommended = raw_score >= 3 or (raw_score >= 2 and velocity_flag)
+    prog_act_flag = (s_op.get('primary') == 'illegal_betting' or
+                     r_op.get('primary') == 'illegal_betting')
+
+    # ── REASONS ───────────────────────────────────────────
+    reasons = []
+    if sr and sr.get('found'):
+        reasons.append(f'Sender {sp}: {s_op.get("name","Unknown")} — {s_op.get("primary","fraud").replace("_"," ")} (score:{sr["risk_score"]}%)')
+    if rr and rr.get('found'):
+        reasons.append(f'Receiver {ru}: {r_op.get("name","Unknown")} — {r_op.get("primary","fraud").replace("_"," ")} (score:{rr["risk_score"]}%)')
+    if network_note: reasons.append(network_note)
+    if amt_flags: reasons.append('Amount flags: '+', '.join(amt_flags))
+    if not reasons: reasons.append('No confirmed fraud signals in CINEOS database')
+
+    # ── SAR DRAFT ─────────────────────────────────────────
+    sar_draft = None
+    if sar_recommended:
+        ist_now = ist_now().strftime('%Y-%m-%d %H:%M IST') if callable(ist_now) else ''
+        sar_draft = {
+            'form': 'FIU-IND SAR / CTR',
+            'filing_authority': 'Financial Intelligence Unit — India (fiuindia.gov.in)',
+            'transaction_id': tid,
+            'date': ist_now,
+            'amount_inr': amt,
+            'sender': {
+                'phone': sp,
+                'operator_attribution': s_op.get('name','Unknown'),
+                'vertical': s_op.get('primary','unknown'),
+                'channels': s_op.get('channels',0),
+            },
+            'receiver': {
+                'upi_vpa': ru,
+                'risk_level': rr['risk_level'] if rr else 'UNKNOWN',
+            },
+            'grounds': reasons,
+            'legal_basis': [
+                'PMLA 2002 §3 — proceeds of crime' if pmla_flag else None,
+                'IT Act 2000 §65B — electronic evidence',
+                'OGA 2025 §8' if prog_act_flag else None,
+            ],
+            'evidence_cert': 'CINEOS-65B-'+tid[:8] if tid else 'CINEOS-65B-'+_hl.sha256(sp.encode()).hexdigest()[:8],
+            'instruction': 'File within 7 days of suspicious transaction detection. Attach CINEOS §65B certificate.',
+        }
+        sar_draft['legal_basis'] = [x for x in sar_draft['legal_basis'] if x]
+
+    # ── RESPONSE ──────────────────────────────────────────
+    return jsonify({
+        'transaction_id': tid,
+        'amount_inr': amt,
+        'combined_risk': comb,
+        'risk_score': max(sr['risk_score'] if sr else 0, rr['risk_score'] if rr else 0),
+        'recommended_action': _RC.get(comb,'REVIEW'),
+        'reason': ' | '.join(reasons),
+        'pmla_flag': pmla_flag,
+        'sar_recommended': sar_recommended,
+        'prog_act_flag': prog_act_flag,
+        'velocity': {
+            'transactions_1h': velocity_1h,
+            'velocity_flag': velocity_flag,
+        },
+        'amount_flags': amt_flags,
+        'sender': {
+            'identifier': sp,
+            'risk': sr['risk_level'] if sr else 'CLEAR',
+            'score': sr['risk_score'] if sr else 0,
+            'operator': s_op.get('name'),
+            'vertical': s_op.get('primary'),
+            'channels': s_op.get('channels',0),
+            'first_detected': s_op.get('first_detected'),
+            'phones_linked': (sr.get('operator_attribution') or {}).get('phones_linked',[]) if sr else [],
+        },
+        'receiver': {
+            'identifier': ru,
+            'risk': rr['risk_level'] if rr else 'CLEAR',
+            'score': rr['risk_score'] if rr else 0,
+            'operator': r_op.get('name'),
+            'vertical': r_op.get('primary'),
+        },
+        'network_propagation': network_note or None,
+        'sar_draft': sar_draft,
+        'compliance': {
+            'pmla_section': 'PMLA 2002 §3' if pmla_flag else None,
+            'it_act': 'IT Act 2000 §65B(2)',
+            'oga': 'OGA 2025 §8' if prog_act_flag else None,
+            'report_to': ['FIU-IND — fiuindia.gov.in'] + (['NOGC — nogc.gov.in'] if prog_act_flag else []),
+        },
+        'latency_ms': round((_tm.time()-t0)*1000),
+        'api_version': 'v2',
+        'disclaimer': 'Intelligence-grade from public sources. Verify before enforcement action.',
+    })
 
 @app.route('/api/v1/operator/<name>')
 def v1_operator(name):

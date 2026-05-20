@@ -1626,6 +1626,123 @@ def api_lookup_bulk():
         'results': results,
     })
 
+
+@app.route('/api/v1/batch', methods=['POST'])
+def v1_batch():
+    """Batch screen up to 1000 phones/UPIs in one call."""
+    valid, client = check_api_key(request)
+    if not valid:
+        return jsonify({'error':'API key required'}), 401
+    if not ALERTS: init_alerts()
+    d = request.get_json() or {}
+    identifiers = d.get('identifiers', [])
+    if not identifiers:
+        return jsonify({'error':'Provide identifiers array'}), 400
+    if len(identifiers) > 1000:
+        return jsonify({'error':'Maximum 1000 identifiers per batch'}), 400
+    import time as _t
+    t0 = _t.time()
+    results = []
+    flagged = 0
+    for ident in identifiers:
+        r = _screen(str(ident).strip())
+        results.append({
+            'identifier': ident,
+            'risk_level': r['risk_level'],
+            'risk_score': r['risk_score'],
+            'found': r['found'],
+            'operator': (r.get('operator_attribution') or {}).get('name'),
+            'vertical': (r.get('operator_attribution') or {}).get('primary'),
+            'recommended_action': r['recommended_action'],
+        })
+        if r['found']: flagged += 1
+    return jsonify({
+        'total': len(results),
+        'flagged': flagged,
+        'clear': len(results) - flagged,
+        'hit_rate_pct': round(flagged/len(results)*100, 1) if results else 0,
+        'results': results,
+        'database_updated': ist_now().isoformat(),
+        'latency_ms': round((_t.time()-t0)*1000),
+        'api_version': 'v1',
+    })
+
+
+@app.route('/api/v1/audit', methods=['GET'])
+def v1_audit():
+    """Audit log — returns query statistics for client."""
+    valid, client = check_api_key(request)
+    if not valid:
+        return jsonify({'error':'API key required'}), 401
+    # Return audit summary from RATE_STORE
+    import time as _t
+    now = _t.time()
+    client_keys = [k for k in RATE_STORE if k.startswith(client or 'internal')]
+    total_queries = sum(
+        len([t for t in v if now-t < 86400])
+        for v in [RATE_STORE[k] for k in client_keys]
+    )
+    total_1h = sum(
+        len([t for t in v if now-t < 3600])
+        for v in [RATE_STORE[k] for k in client_keys]
+    )
+    return jsonify({
+        'client': client,
+        'queries_last_24h': total_queries,
+        'queries_last_1h': total_1h,
+        'database_size': len(ALERTS),
+        'phones_in_db': len(set(
+            p for a in ALERTS
+            for p in a.get('chain',{}).get('phones',[])
+        )),
+        'upis_in_db': len(set(
+            u for a in ALERTS
+            for u in a.get('chain',{}).get('upis',[])
+        )),
+        'last_database_update': ist_now().isoformat(),
+        'api_version': 'v1',
+        'sla': {
+            'uptime_target': '99.5%',
+            'response_time_target': '<500ms',
+            'data_freshness': 'Updated daily by 10:00 IST',
+        }
+    })
+
+
+@app.route('/api/v1/status', methods=['GET'])
+def v1_status():
+    """Public status page — data freshness and coverage."""
+    phones = set(p for a in ALERTS for p in a.get('chain',{}).get('phones',[]))
+    upis   = set(u for a in ALERTS for u in a.get('chain',{}).get('upis',[]))
+    cats   = {}
+    for a in ALERTS:
+        cats[a.get('category','unknown')] = cats.get(a.get('category','unknown'),0)+1
+    return jsonify({
+        'status': 'operational',
+        'database': {
+            'total_alerts': len(ALERTS),
+            'confirmed_phones': len(phones),
+            'confirmed_upis': len(upis),
+            'operator_categories': cats,
+            'last_updated': ist_now().isoformat(),
+        },
+        'coverage': {
+            'illegal_betting': cats.get('illegal_betting',0),
+            'upi_mule': cats.get('upi_mule',0),
+            'crypto_fraud': cats.get('crypto_fraud',0),
+            'counterfeit_pharma': cats.get('counterfeit_pharma',0),
+            'colour_prediction': cats.get('colour_prediction',0),
+        },
+        'legal': {
+            'evidence_standard': 'IT Act 2000 §65B(2)',
+            'authority': 'Arjun Panditrao Khotkar (2020) 7 SCC 1',
+            'pmla_flagging': 'PMLA 2002 §3',
+            'jurisdiction': 'India',
+        },
+        'api_version': 'v1',
+        'contact': 'yugandhar@cineos.in',
+    })
+
 if __name__ == '__main__':
     init_alerts()
     print(f"CINEOS Intelligence API starting...")

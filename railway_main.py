@@ -1267,13 +1267,12 @@ def v1_transaction():
     # ── VELOCITY CHECK ────────────────────────────────────
     # Track transactions per phone in memory (resets on redeploy)
     # In production: use Redis or Supabase for persistence
-    if not hasattr(v1_transaction, '_vel'): v1_transaction._vel = {}
-    vel_key = sp or ru
+    vel_key = 'txn:'+(sp or ru)
     now_ts = _tm.time()
-    v1_transaction._vel.setdefault(vel_key, [])
-    v1_transaction._vel[vel_key] = [t for t in v1_transaction._vel[vel_key] if now_ts-t < 3600]
-    v1_transaction._vel[vel_key].append(now_ts)
-    velocity_1h = len(v1_transaction._vel[vel_key])
+    RATE_STORE.setdefault(vel_key, [])
+    RATE_STORE[vel_key] = [t for t in RATE_STORE[vel_key] if now_ts-t < 3600]
+    RATE_STORE[vel_key].append(now_ts)
+    velocity_1h = len(RATE_STORE[vel_key])
     velocity_flag = velocity_1h >= 3  # 3+ transactions in 1 hour = suspicious
 
     # ── AMOUNT RISK SCORING ───────────────────────────────

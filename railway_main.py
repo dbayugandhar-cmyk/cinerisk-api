@@ -1326,12 +1326,12 @@ def v1_transaction():
     # ── SAR DRAFT ─────────────────────────────────────────
     sar_draft = None
     if sar_recommended:
-        ist_now = ist_now().strftime('%Y-%m-%d %H:%M IST') if callable(ist_now) else ''
+        _ts = ist_now().strftime('%Y-%m-%d %H:%M IST')
         sar_draft = {
             'form': 'FIU-IND SAR / CTR',
             'filing_authority': 'Financial Intelligence Unit — India (fiuindia.gov.in)',
             'transaction_id': tid,
-            'date': ist_now,
+            'date': _ts,
             'amount_inr': amt,
             'sender': {
                 'phone': sp,

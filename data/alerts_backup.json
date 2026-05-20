@@ -1,64 +1,5 @@
 [
   {
-    "id": "6d5dee642b2322eb",
-    "title": "@Hindi_Altbalaji_ullu_web_series \u2014 illegal betting \u00b7 114,573 subscribers",
-    "category": "illegal_betting",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "Phones: +918764692737, +919511308049, +919461943446",
-    "detected_at": "2026-05-19T14:20:00.486004+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "6d5dee642b2322eb",
-    "reach": 114573,
-    "phone": "+918764692737",
-    "upi": "",
-    "domain": "",
-    "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @Hindi_Altbalaji_ullu_web_series",
-      "Report to: NOGC nogc.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "NOGC nogc.gov.in",
-      "State Cybercrime",
-      "ED enforcement.gov.in"
-    ],
-    "attribution": {
-      "phone": "+918764692737",
-      "upi": "",
-      "domain": "",
-      "source": "telegram_deep_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://t.me/Hindi_Altbalaji_ullu_web_series"
-      ],
-      "keywords_matched": [],
-      "reach": 114573,
-      "phones": [
-        "+918764692737",
-        "+919511308049",
-        "+919461943446"
-      ],
-      "upis": [],
-      "domains": [],
-      "evidence_hashes": [
-        "6d5dee642b2322eb"
-      ],
-      "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
-      "confidence": 95,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918764692737",
-      "report_to": [
-        "NOGC nogc.gov.in",
-        "State Cybercrime",
-        "ED enforcement.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:20:00.486004+05:30"
-    }
-  },
-  {
     "id": "f376d22a628e39d1",
     "title": "@Dream11F_winaddac_sportsc \u2014 colour prediction \u00b7 820,200 subscribers",
     "category": "colour_prediction",
@@ -16852,6 +16793,65 @@
     "enriched_at": "2026-05-17T09:36:12.644552+05:30"
   },
   {
+    "id": "6d5dee642b2322eb",
+    "title": "@Hindi_Altbalaji_ullu_web_series \u2014 illegal betting \u00b7 114,573 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Phones: +918764692737, +919511308049, +919461943446",
+    "detected_at": "2026-05-19T14:20:00.486004+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "6d5dee642b2322eb",
+    "reach": 114573,
+    "phone": "+918764692737",
+    "upi": "",
+    "domain": "",
+    "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @Hindi_Altbalaji_ullu_web_series",
+      "Report to: NOGC nogc.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "NOGC nogc.gov.in",
+      "State Cybercrime",
+      "ED enforcement.gov.in"
+    ],
+    "attribution": {
+      "phone": "+918764692737",
+      "upi": "",
+      "domain": "",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/Hindi_Altbalaji_ullu_web_series"
+      ],
+      "keywords_matched": [],
+      "reach": 114573,
+      "phones": [
+        "+918764692737",
+        "+919511308049",
+        "+919461943446"
+      ],
+      "upis": [],
+      "domains": [],
+      "evidence_hashes": [
+        "6d5dee642b2322eb"
+      ],
+      "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
+      "confidence": 95,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918764692737",
+      "report_to": [
+        "NOGC nogc.gov.in",
+        "State Cybercrime",
+        "ED enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:20:00.486004+05:30"
+    }
+  },
+  {
     "id": "3bef7ed926c32d96",
     "title": "IPL piracy detected \u2014 Telegram Channel \"IPL 2026 LIVE LINKS\"",
     "category": "piracy",
@@ -19450,60 +19450,6 @@
         "FIU-IND \u2014 fiuindia.gov.in"
       ],
       "captured_at": "2026-05-18T13:32:02.523874+05:30"
-    }
-  },
-  {
-    "id": "b75271a95f0d6910",
-    "title": "UPI mule recruitment \u2014 Best 10 Platforms to Sell KYC-Verified Wise Accounts ..",
-    "category": "upi_mule",
-    "severity": "critical",
-    "platform": "Telegram / WhatsApp",
-    "detail": "Contact us now for more information 24/7 At Any Time u2705 Email: rankusasmm@gmail.com u2705 whatsapp:u202a 1 (339) 242-3980 u2705 Telegram: @rankusas",
-    "detected_at": "2026-05-18T13:32:31.549990+05:30",
-    "source": "upi_mule_scan",
-    "evidence_hash": "b75271a95f0d6910",
-    "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
-    "next_steps": [
-      "Preserve UPI IDs + phone \u2014 hash done",
-      "Report mule UPIs to bank fraud desk immediately",
-      "File RBI Sachet: sachet.rbi.org.in",
-      "Report to I4C: cybercrime.gov.in / 1930",
-      "File PMLA report to FIU-IND if amount >Rs 5L"
-    ],
-    "report_to": [
-      "Bank fraud desk",
-      "RBI Sachet \u2014 sachet.rbi.org.in",
-      "I4C \u2014 1930",
-      "FIU-IND \u2014 fiuindia.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://www.slideserve.com/Fig3/best-10-platforms-to-sell-kyc-verified-wise-accounts-personal-business-in-2025"
-      ],
-      "keywords_matched": [],
-      "reach": 50000,
-      "phones": [],
-      "upis": [],
-      "evidence_hashes": [
-        "b75271a95f0d6910"
-      ],
-      "legal_basis": "IT Act 2000 \u00a766 + PMLA \u00a73 + IPC \u00a7420",
-      "recommended_action": "Preserve UPI IDs + phone \u2014 hash done",
-      "report_to": [
-        "Bank fraud desk",
-        "RBI Sachet \u2014 sachet.rbi.org.in",
-        "I4C \u2014 1930",
-        "FIU-IND \u2014 fiuindia.gov.in"
-      ],
-      "captured_at": "2026-05-18T13:32:31.549986+05:30"
     }
   },
   {
@@ -25971,294 +25917,6 @@
     "enriched_at": "2026-05-18T14:15:01.434704+05:30"
   },
   {
-    "id": "89995c680cd983bb",
-    "title": "@Tamil_kannada_telugu_movies_news \u2014 piracy \u00b7 146,697 subscribers",
-    "category": "piracy",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Phones: +918881337318",
-    "detected_at": "2026-05-19T14:20:00.486004+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "89995c680cd983bb",
-    "reach": 146697,
-    "phone": "+918881337318",
-    "upi": "",
-    "domain": "",
-    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @Tamil_kannada_telugu_movies_news",
-      "Report to: MIB mib.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "MIB mib.gov.in",
-      "Copyright Board",
-      "Platform DMCA"
-    ],
-    "attribution": {
-      "phone": "+918881337318",
-      "upi": "",
-      "domain": "",
-      "source": "telegram_deep_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://t.me/Tamil_kannada_telugu_movies_news"
-      ],
-      "keywords_matched": [],
-      "reach": 146697,
-      "phones": [
-        "+918881337318"
-      ],
-      "upis": [],
-      "domains": [],
-      "evidence_hashes": [
-        "89995c680cd983bb"
-      ],
-      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-      "confidence": 75,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918881337318",
-      "report_to": [
-        "MIB mib.gov.in",
-        "Copyright Board",
-        "Platform DMCA"
-      ],
-      "captured_at": "2026-05-19T14:20:00.486004+05:30"
-    }
-  },
-  {
-    "id": "363edad1a8458f9f",
-    "title": "@newupdts \u2014 crypto fraud \u00b7 119,975 subscribers",
-    "category": "crypto_fraud",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Phones: +918542006407 | Domains: youtube.com",
-    "detected_at": "2026-05-19T14:20:00.486004+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "363edad1a8458f9f",
-    "reach": 119975,
-    "phone": "+918542006407",
-    "upi": "",
-    "domain": "youtube.com",
-    "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + IPC \u00a7420",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @newupdts",
-      "Report to: FIU-IND fiuindia.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "FIU-IND fiuindia.gov.in",
-      "ED enforcement.gov.in",
-      "I4C 1930"
-    ],
-    "attribution": {
-      "phone": "+918542006407",
-      "upi": "",
-      "domain": "youtube.com",
-      "source": "telegram_deep_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://t.me/newupdts"
-      ],
-      "keywords_matched": [],
-      "reach": 119975,
-      "phones": [
-        "+918542006407"
-      ],
-      "upis": [],
-      "domains": [
-        "youtube.com"
-      ],
-      "evidence_hashes": [
-        "363edad1a8458f9f"
-      ],
-      "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + IPC \u00a7420",
-      "confidence": 80,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918542006407",
-      "report_to": [
-        "FIU-IND fiuindia.gov.in",
-        "ED enforcement.gov.in",
-        "I4C 1930"
-      ],
-      "captured_at": "2026-05-19T14:20:00.486004+05:30"
-    }
-  },
-  {
-    "id": "e570870bab4c99c8",
-    "title": "@Cash_Online_Earning_Jobs \u2014 investment fraud \u00b7 102,190 subscribers",
-    "category": "investment_fraud",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Phones: +918881428528",
-    "detected_at": "2026-05-19T14:20:00.486004+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "e570870bab4c99c8",
-    "reach": 102190,
-    "phone": "+918881428528",
-    "upi": "",
-    "domain": "",
-    "legal_basis": "SEBI Act \u00a712A + IT Act \u00a766D + IPC \u00a7420",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @Cash_Online_Earning_Jobs",
-      "Report to: SEBI sebi.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "SEBI sebi.gov.in",
-      "I4C 1930",
-      "ED enforcement.gov.in"
-    ],
-    "attribution": {
-      "phone": "+918881428528",
-      "upi": "",
-      "domain": "",
-      "source": "telegram_deep_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://t.me/Cash_Online_Earning_Jobs"
-      ],
-      "keywords_matched": [],
-      "reach": 102190,
-      "phones": [
-        "+918881428528"
-      ],
-      "upis": [],
-      "domains": [],
-      "evidence_hashes": [
-        "e570870bab4c99c8"
-      ],
-      "legal_basis": "SEBI Act \u00a712A + IT Act \u00a766D + IPC \u00a7420",
-      "confidence": 75,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918881428528",
-      "report_to": [
-        "SEBI sebi.gov.in",
-        "I4C 1930",
-        "ED enforcement.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:20:00.486004+05:30"
-    }
-  },
-  {
-    "id": "83160d9948b523ee",
-    "title": "@ipl_tips_best_betting1 \u2014 illegal betting \u00b7 67,512 subscribers",
-    "category": "illegal_betting",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Phones: +919376796380",
-    "detected_at": "2026-05-19T14:20:00.486004+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "83160d9948b523ee",
-    "reach": 67512,
-    "phone": "+919376796380",
-    "upi": "",
-    "domain": "",
-    "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @ipl_tips_best_betting1",
-      "Report to: NOGC nogc.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "NOGC nogc.gov.in",
-      "State Cybercrime",
-      "ED enforcement.gov.in"
-    ],
-    "attribution": {
-      "phone": "+919376796380",
-      "upi": "",
-      "domain": "",
-      "source": "telegram_deep_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://t.me/ipl_tips_best_betting1"
-      ],
-      "keywords_matched": [],
-      "reach": 67512,
-      "phones": [
-        "+919376796380"
-      ],
-      "upis": [],
-      "domains": [],
-      "evidence_hashes": [
-        "83160d9948b523ee"
-      ],
-      "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
-      "confidence": 75,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +919376796380",
-      "report_to": [
-        "NOGC nogc.gov.in",
-        "State Cybercrime",
-        "ED enforcement.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:20:00.486004+05:30"
-    }
-  },
-  {
-    "id": "c79a7a6ed6847207",
-    "title": "@Malayalam_Telugu_Kannada_moviess \u2014 piracy \u00b7 61,148 subscribers",
-    "category": "piracy",
-    "severity": "high",
-    "platform": "Telegram",
-    "detail": "Phones: +917703070646, +917704070174",
-    "detected_at": "2026-05-19T14:20:00.486004+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "c79a7a6ed6847207",
-    "reach": 61148,
-    "phone": "+917703070646",
-    "upi": "",
-    "domain": "",
-    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @Malayalam_Telugu_Kannada_moviess",
-      "Report to: MIB mib.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "MIB mib.gov.in",
-      "Copyright Board",
-      "Platform DMCA"
-    ],
-    "attribution": {
-      "phone": "+917703070646",
-      "upi": "",
-      "domain": "",
-      "source": "telegram_deep_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://t.me/Malayalam_Telugu_Kannada_moviess"
-      ],
-      "keywords_matched": [],
-      "reach": 61148,
-      "phones": [
-        "+917703070646",
-        "+917704070174"
-      ],
-      "upis": [],
-      "domains": [],
-      "evidence_hashes": [
-        "c79a7a6ed6847207"
-      ],
-      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-      "confidence": 80,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +917703070646",
-      "report_to": [
-        "MIB mib.gov.in",
-        "Copyright Board",
-        "Platform DMCA"
-      ],
-      "captured_at": "2026-05-19T14:20:00.486004+05:30"
-    }
-  },
-  {
     "id": "da770a9afd52e041",
     "title": "@Dream11F_winaddac_sportsc \u2014 illegal betting \u00b7 820,200 subscribers",
     "category": "illegal_betting",
@@ -26672,134 +26330,6 @@
     "domain": "okwinvip.org",
     "reach": 413976,
     "enriched_at": "2026-05-19T14:15:00.809181+05:30"
-  },
-  {
-    "id": "28b93089029adda2",
-    "title": "[YouTube] The Muscular Tourist \u2014 Shopping In World's Biggest Luxury Fake Market In China | Lu",
-    "category": "investment_fraud",
-    "severity": "high",
-    "platform": "YouTube",
-    "detail": "Channel: The Muscular Tourist \u00b7 Support My Channel UPI ID - yadav.ujjwal@yescred\n\nExplore the underground world of fake luxury shopping at Luohu Commerc",
-    "detected_at": "2026-05-13T12:13:16.146584+05:30",
-    "source": "youtube_scan",
-    "evidence_hash": "1817f33972b641b6",
-    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act \u00a712A + IPC \u00a7420",
-    "next_steps": [
-      "Preserve evidence",
-      "Report SEBI SCORES: scores.gov.in",
-      "Send YouTube takedown",
-      "Share cybercrime@sebi.gov.in",
-      "File NCCRP: cybercrime.gov.in"
-    ],
-    "report_to": [
-      "SEBI SCORES \u2014 scores.gov.in",
-      "cybercrime@sebi.gov.in",
-      "YouTube abuse"
-    ],
-    "attribution": {
-      "name": "The Muscular Tourist",
-      "email": "",
-      "phone": "",
-      "upi": "yadav.ujjwal@yescred",
-      "address": "",
-      "source": "youtube_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://www.youtube.com/@TheMuscularTourist"
-      ],
-      "channel_title": "The Muscular Tourist",
-      "video_title": "Shopping In World's Biggest Luxury Fake Market In China | Luohu Commercial City | Shenzhen",
-      "subscribers": 334051,
-      "reach": 334051,
-      "phones": [],
-      "upis": [],
-      "telegram_links": [],
-      "whatsapp_links": [],
-      "sample_post": "Support My Channel UPI ID - yadav.ujjwal@yescred\n\nExplore the underground world of fake luxury shopping at Luohu Commercial ...",
-      "keywords_matched": [
-        "first",
-        "brand",
-        "shoes",
-        "India",
-        "YouTube"
-      ],
-      "evidence_hashes": [
-        "1817f33972b641b6"
-      ],
-      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act \u00a712A + IPC \u00a7420",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "SEBI SCORES \u2014 scores.gov.in",
-        "cybercrime@sebi.gov.in",
-        "YouTube abuse"
-      ],
-      "captured_at": "2026-05-13T12:13:16.146598+05:30"
-    }
-  },
-  {
-    "id": "38a21ea3cad60841",
-    "title": "[YouTube] The Muscular Tourist \u2014 Shopping In World's Biggest Luxury Fake Market In China | Lu",
-    "category": "investment_fraud",
-    "severity": "high",
-    "platform": "YouTube",
-    "detail": "Channel: The Muscular Tourist \u00b7 Support My Channel UPI ID - yadav.ujjwal@yescred\n\nExplore the underground world of fake luxury shopping at Luohu Commerc",
-    "detected_at": "2026-05-13T12:06:48.335436+05:30",
-    "source": "youtube_scan",
-    "evidence_hash": "1817f33972b641b6",
-    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act \u00a712A + IPC \u00a7420",
-    "next_steps": [
-      "Preserve evidence",
-      "Report SEBI SCORES: scores.gov.in",
-      "Send YouTube takedown",
-      "Share cybercrime@sebi.gov.in",
-      "File NCCRP: cybercrime.gov.in"
-    ],
-    "report_to": [
-      "SEBI SCORES \u2014 scores.gov.in",
-      "cybercrime@sebi.gov.in",
-      "YouTube abuse"
-    ],
-    "attribution": {
-      "name": "The Muscular Tourist",
-      "email": "",
-      "phone": "",
-      "upi": "yadav.ujjwal@yescred",
-      "address": "",
-      "source": "youtube_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://www.youtube.com/@TheMuscularTourist"
-      ],
-      "channel_title": "The Muscular Tourist",
-      "video_title": "Shopping In World's Biggest Luxury Fake Market In China | Luohu Commercial City | Shenzhen",
-      "subscribers": 334051,
-      "reach": 334051,
-      "phones": [],
-      "upis": [],
-      "telegram_links": [],
-      "whatsapp_links": [],
-      "sample_post": "Support My Channel UPI ID - yadav.ujjwal@yescred\n\nExplore the underground world of fake luxury shopping at Luohu Commercial ...",
-      "keywords_matched": [
-        "first",
-        "brand",
-        "shoes",
-        "India",
-        "YouTube"
-      ],
-      "evidence_hashes": [
-        "1817f33972b641b6"
-      ],
-      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act \u00a712A + IPC \u00a7420",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "SEBI SCORES \u2014 scores.gov.in",
-        "cybercrime@sebi.gov.in",
-        "YouTube abuse"
-      ],
-      "captured_at": "2026-05-13T12:06:48.335606+05:30"
-    }
   },
   {
     "id": "76170989f6a7dd70",
@@ -27391,70 +26921,6 @@
     },
     "reach": 154488,
     "enriched_at": "2026-05-19T14:15:00.809397+05:30"
-  },
-  {
-    "id": "e4e091f71da99f54",
-    "title": "[YouTube] Crypto Knowledge Tamil \u2014 How to Buy Usdt at low price in India\ud83e\udd14",
-    "category": "crypto_fraud",
-    "severity": "high",
-    "platform": "YouTube",
-    "detail": "Channel: Crypto Knowledge Tamil \u00b7 For Business Inquiries Contact: cryptoknowledgetamilyt@gmail.com\nMy Twitter handle: https://twitter.com/CKTAjith\nMy Tele",
-    "detected_at": "2026-05-15T09:00:29.360286+05:30",
-    "source": "youtube_scan",
-    "evidence_hash": "fdeaab29f1a12a1b",
-    "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + SEBI \u00a712A",
-    "next_steps": [
-      "Preserve evidence",
-      "File ED: enforcement.gov.in",
-      "Report FIU-IND: fiuindia.gov.in",
-      "Send platform takedown",
-      "File NCCRP"
-    ],
-    "report_to": [
-      "ED \u2014 enforcement.gov.in",
-      "FIU-IND \u2014 fiuindia.gov.in",
-      "CERT-In"
-    ],
-    "attribution": {
-      "name": "Crypto Knowledge Tamil",
-      "email": "",
-      "phone": "",
-      "upi": "cryptoknowledgetamilyt@gmail",
-      "address": "",
-      "source": "youtube_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://www.youtube.com/@cryptoknowledgetamil"
-      ],
-      "channel_title": "Crypto Knowledge Tamil",
-      "video_title": "How to Buy Usdt at low price in India\ud83e\udd14",
-      "subscribers": 151988,
-      "reach": 151988,
-      "phones": [],
-      "upis": [],
-      "telegram_links": [],
-      "whatsapp_links": [],
-      "sample_post": "For Business Inquiries Contact: cryptoknowledgetamilyt@gmail.com\nMy Twitter handle: https://twitter.com/CKTAjith\nMy Telegram ...",
-      "keywords_matched": [
-        "crypto",
-        "trading",
-        "platform",
-        "India",
-        "invest"
-      ],
-      "evidence_hashes": [
-        "fdeaab29f1a12a1b"
-      ],
-      "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + SEBI \u00a712A",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "ED \u2014 enforcement.gov.in",
-        "FIU-IND \u2014 fiuindia.gov.in",
-        "CERT-In"
-      ],
-      "captured_at": "2026-05-15T09:00:29.360302+05:30"
-    }
   },
   {
     "id": "3657b86d271878af",
@@ -30159,6 +29625,294 @@
     },
     "phone": "+918602539889",
     "enriched_at": "2026-05-17T09:36:12.661247+05:30"
+  },
+  {
+    "id": "89995c680cd983bb",
+    "title": "@Tamil_kannada_telugu_movies_news \u2014 piracy \u00b7 146,697 subscribers",
+    "category": "piracy",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Phones: +918881337318",
+    "detected_at": "2026-05-19T14:20:00.486004+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "89995c680cd983bb",
+    "reach": 146697,
+    "phone": "+918881337318",
+    "upi": "",
+    "domain": "",
+    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @Tamil_kannada_telugu_movies_news",
+      "Report to: MIB mib.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "MIB mib.gov.in",
+      "Copyright Board",
+      "Platform DMCA"
+    ],
+    "attribution": {
+      "phone": "+918881337318",
+      "upi": "",
+      "domain": "",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/Tamil_kannada_telugu_movies_news"
+      ],
+      "keywords_matched": [],
+      "reach": 146697,
+      "phones": [
+        "+918881337318"
+      ],
+      "upis": [],
+      "domains": [],
+      "evidence_hashes": [
+        "89995c680cd983bb"
+      ],
+      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+      "confidence": 75,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918881337318",
+      "report_to": [
+        "MIB mib.gov.in",
+        "Copyright Board",
+        "Platform DMCA"
+      ],
+      "captured_at": "2026-05-19T14:20:00.486004+05:30"
+    }
+  },
+  {
+    "id": "363edad1a8458f9f",
+    "title": "@newupdts \u2014 crypto fraud \u00b7 119,975 subscribers",
+    "category": "crypto_fraud",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Phones: +918542006407 | Domains: youtube.com",
+    "detected_at": "2026-05-19T14:20:00.486004+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "363edad1a8458f9f",
+    "reach": 119975,
+    "phone": "+918542006407",
+    "upi": "",
+    "domain": "youtube.com",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + IPC \u00a7420",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @newupdts",
+      "Report to: FIU-IND fiuindia.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "FIU-IND fiuindia.gov.in",
+      "ED enforcement.gov.in",
+      "I4C 1930"
+    ],
+    "attribution": {
+      "phone": "+918542006407",
+      "upi": "",
+      "domain": "youtube.com",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/newupdts"
+      ],
+      "keywords_matched": [],
+      "reach": 119975,
+      "phones": [
+        "+918542006407"
+      ],
+      "upis": [],
+      "domains": [
+        "youtube.com"
+      ],
+      "evidence_hashes": [
+        "363edad1a8458f9f"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act \u00a765B + IPC \u00a7420",
+      "confidence": 80,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918542006407",
+      "report_to": [
+        "FIU-IND fiuindia.gov.in",
+        "ED enforcement.gov.in",
+        "I4C 1930"
+      ],
+      "captured_at": "2026-05-19T14:20:00.486004+05:30"
+    }
+  },
+  {
+    "id": "e570870bab4c99c8",
+    "title": "@Cash_Online_Earning_Jobs \u2014 investment fraud \u00b7 102,190 subscribers",
+    "category": "investment_fraud",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Phones: +918881428528",
+    "detected_at": "2026-05-19T14:20:00.486004+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "e570870bab4c99c8",
+    "reach": 102190,
+    "phone": "+918881428528",
+    "upi": "",
+    "domain": "",
+    "legal_basis": "SEBI Act \u00a712A + IT Act \u00a766D + IPC \u00a7420",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @Cash_Online_Earning_Jobs",
+      "Report to: SEBI sebi.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "SEBI sebi.gov.in",
+      "I4C 1930",
+      "ED enforcement.gov.in"
+    ],
+    "attribution": {
+      "phone": "+918881428528",
+      "upi": "",
+      "domain": "",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/Cash_Online_Earning_Jobs"
+      ],
+      "keywords_matched": [],
+      "reach": 102190,
+      "phones": [
+        "+918881428528"
+      ],
+      "upis": [],
+      "domains": [],
+      "evidence_hashes": [
+        "e570870bab4c99c8"
+      ],
+      "legal_basis": "SEBI Act \u00a712A + IT Act \u00a766D + IPC \u00a7420",
+      "confidence": 75,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918881428528",
+      "report_to": [
+        "SEBI sebi.gov.in",
+        "I4C 1930",
+        "ED enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:20:00.486004+05:30"
+    }
+  },
+  {
+    "id": "83160d9948b523ee",
+    "title": "@ipl_tips_best_betting1 \u2014 illegal betting \u00b7 67,512 subscribers",
+    "category": "illegal_betting",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Phones: +919376796380",
+    "detected_at": "2026-05-19T14:20:00.486004+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "83160d9948b523ee",
+    "reach": 67512,
+    "phone": "+919376796380",
+    "upi": "",
+    "domain": "",
+    "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @ipl_tips_best_betting1",
+      "Report to: NOGC nogc.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "NOGC nogc.gov.in",
+      "State Cybercrime",
+      "ED enforcement.gov.in"
+    ],
+    "attribution": {
+      "phone": "+919376796380",
+      "upi": "",
+      "domain": "",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/ipl_tips_best_betting1"
+      ],
+      "keywords_matched": [],
+      "reach": 67512,
+      "phones": [
+        "+919376796380"
+      ],
+      "upis": [],
+      "domains": [],
+      "evidence_hashes": [
+        "83160d9948b523ee"
+      ],
+      "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
+      "confidence": 75,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +919376796380",
+      "report_to": [
+        "NOGC nogc.gov.in",
+        "State Cybercrime",
+        "ED enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:20:00.486004+05:30"
+    }
+  },
+  {
+    "id": "c79a7a6ed6847207",
+    "title": "@Malayalam_Telugu_Kannada_moviess \u2014 piracy \u00b7 61,148 subscribers",
+    "category": "piracy",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Phones: +917703070646, +917704070174",
+    "detected_at": "2026-05-19T14:20:00.486004+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "c79a7a6ed6847207",
+    "reach": 61148,
+    "phone": "+917703070646",
+    "upi": "",
+    "domain": "",
+    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @Malayalam_Telugu_Kannada_moviess",
+      "Report to: MIB mib.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "MIB mib.gov.in",
+      "Copyright Board",
+      "Platform DMCA"
+    ],
+    "attribution": {
+      "phone": "+917703070646",
+      "upi": "",
+      "domain": "",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/Malayalam_Telugu_Kannada_moviess"
+      ],
+      "keywords_matched": [],
+      "reach": 61148,
+      "phones": [
+        "+917703070646",
+        "+917704070174"
+      ],
+      "upis": [],
+      "domains": [],
+      "evidence_hashes": [
+        "c79a7a6ed6847207"
+      ],
+      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+      "confidence": 80,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +917703070646",
+      "report_to": [
+        "MIB mib.gov.in",
+        "Copyright Board",
+        "Platform DMCA"
+      ],
+      "captured_at": "2026-05-19T14:20:00.486004+05:30"
+    }
   },
   {
     "id": "011559370c71e7ce",
@@ -44775,236 +44529,6 @@
     "enriched_at": "2026-05-17T09:36:12.685586+05:30"
   },
   {
-    "id": "83516a2faa9aa422",
-    "title": "@Dear_Kerala_Nagaland_Lotteryy \u2014 piracy \u00b7 74,739 subscribers",
-    "category": "piracy",
-    "severity": "medium",
-    "platform": "Telegram",
-    "detail": "Phones: +918881987328",
-    "detected_at": "2026-05-19T14:20:00.486004+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "83516a2faa9aa422",
-    "reach": 74739,
-    "phone": "+918881987328",
-    "upi": "",
-    "domain": "",
-    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @Dear_Kerala_Nagaland_Lotteryy",
-      "Report to: MIB mib.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "MIB mib.gov.in",
-      "Copyright Board",
-      "Platform DMCA"
-    ],
-    "attribution": {
-      "phone": "+918881987328",
-      "upi": "",
-      "domain": "",
-      "source": "telegram_deep_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://t.me/Dear_Kerala_Nagaland_Lotteryy"
-      ],
-      "keywords_matched": [],
-      "reach": 74739,
-      "phones": [
-        "+918881987328"
-      ],
-      "upis": [],
-      "domains": [],
-      "evidence_hashes": [
-        "83516a2faa9aa422"
-      ],
-      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-      "confidence": 70,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918881987328",
-      "report_to": [
-        "MIB mib.gov.in",
-        "Copyright Board",
-        "Platform DMCA"
-      ],
-      "captured_at": "2026-05-19T14:20:00.486004+05:30"
-    }
-  },
-  {
-    "id": "692d7c46bbc2dc6a",
-    "title": "@Hindi_cinema_Hotstar_latest_2026 \u2014 piracy \u00b7 68,919 subscribers",
-    "category": "piracy",
-    "severity": "medium",
-    "platform": "Telegram",
-    "detail": "Phones: +919376796380",
-    "detected_at": "2026-05-19T14:20:00.486004+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "692d7c46bbc2dc6a",
-    "reach": 68919,
-    "phone": "+919376796380",
-    "upi": "",
-    "domain": "",
-    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @Hindi_cinema_Hotstar_latest_2026",
-      "Report to: MIB mib.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "MIB mib.gov.in",
-      "Copyright Board",
-      "Platform DMCA"
-    ],
-    "attribution": {
-      "phone": "+919376796380",
-      "upi": "",
-      "domain": "",
-      "source": "telegram_deep_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://t.me/Hindi_cinema_Hotstar_latest_2026"
-      ],
-      "keywords_matched": [],
-      "reach": 68919,
-      "phones": [
-        "+919376796380"
-      ],
-      "upis": [],
-      "domains": [],
-      "evidence_hashes": [
-        "692d7c46bbc2dc6a"
-      ],
-      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-      "confidence": 70,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +919376796380",
-      "report_to": [
-        "MIB mib.gov.in",
-        "Copyright Board",
-        "Platform DMCA"
-      ],
-      "captured_at": "2026-05-19T14:20:00.486004+05:30"
-    }
-  },
-  {
-    "id": "47a5c734924ef0d2",
-    "title": "@New_Tamil_malyalam_Movies_Kannda \u2014 piracy \u00b7 62,434 subscribers",
-    "category": "piracy",
-    "severity": "medium",
-    "platform": "Telegram",
-    "detail": "Phones: +916306995021",
-    "detected_at": "2026-05-19T14:20:00.486004+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "47a5c734924ef0d2",
-    "reach": 62434,
-    "phone": "+916306995021",
-    "upi": "",
-    "domain": "",
-    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @New_Tamil_malyalam_Movies_Kannda",
-      "Report to: MIB mib.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "MIB mib.gov.in",
-      "Copyright Board",
-      "Platform DMCA"
-    ],
-    "attribution": {
-      "phone": "+916306995021",
-      "upi": "",
-      "domain": "",
-      "source": "telegram_deep_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://t.me/New_Tamil_malyalam_Movies_Kannda"
-      ],
-      "keywords_matched": [],
-      "reach": 62434,
-      "phones": [
-        "+916306995021"
-      ],
-      "upis": [],
-      "domains": [],
-      "evidence_hashes": [
-        "47a5c734924ef0d2"
-      ],
-      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-      "confidence": 70,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +916306995021",
-      "report_to": [
-        "MIB mib.gov.in",
-        "Copyright Board",
-        "Platform DMCA"
-      ],
-      "captured_at": "2026-05-19T14:20:00.486004+05:30"
-    }
-  },
-  {
-    "id": "fa1d4d78033025c3",
-    "title": "@kolkata_fatafat3 \u2014 piracy \u00b7 46,185 subscribers",
-    "category": "piracy",
-    "severity": "medium",
-    "platform": "Telegram",
-    "detail": "Phones: +918302071662 | Domains: google.com",
-    "detected_at": "2026-05-19T14:20:00.486004+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "fa1d4d78033025c3",
-    "reach": 46185,
-    "phone": "+918302071662",
-    "upi": "",
-    "domain": "google.com",
-    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @kolkata_fatafat3",
-      "Report to: MIB mib.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "MIB mib.gov.in",
-      "Copyright Board",
-      "Platform DMCA"
-    ],
-    "attribution": {
-      "phone": "+918302071662",
-      "upi": "",
-      "domain": "google.com",
-      "source": "telegram_deep_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://t.me/kolkata_fatafat3"
-      ],
-      "keywords_matched": [],
-      "reach": 46185,
-      "phones": [
-        "+918302071662"
-      ],
-      "upis": [],
-      "domains": [
-        "google.com"
-      ],
-      "evidence_hashes": [
-        "fa1d4d78033025c3"
-      ],
-      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
-      "confidence": 70,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918302071662",
-      "report_to": [
-        "MIB mib.gov.in",
-        "Copyright Board",
-        "Platform DMCA"
-      ],
-      "captured_at": "2026-05-19T14:20:00.486004+05:30"
-    }
-  },
-  {
     "id": "4e6c41f001b5e848",
     "title": "@signalb_crypto \u2014 crypto fraud \u00b7 97,340 subscribers",
     "category": "crypto_fraud",
@@ -47006,5 +46530,235 @@
     },
     "reach": 36104,
     "enriched_at": "2026-05-19T14:15:00.819817+05:30"
+  },
+  {
+    "id": "83516a2faa9aa422",
+    "title": "@Dear_Kerala_Nagaland_Lotteryy \u2014 piracy \u00b7 74,739 subscribers",
+    "category": "piracy",
+    "severity": "medium",
+    "platform": "Telegram",
+    "detail": "Phones: +918881987328",
+    "detected_at": "2026-05-19T14:20:00.486004+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "83516a2faa9aa422",
+    "reach": 74739,
+    "phone": "+918881987328",
+    "upi": "",
+    "domain": "",
+    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @Dear_Kerala_Nagaland_Lotteryy",
+      "Report to: MIB mib.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "MIB mib.gov.in",
+      "Copyright Board",
+      "Platform DMCA"
+    ],
+    "attribution": {
+      "phone": "+918881987328",
+      "upi": "",
+      "domain": "",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/Dear_Kerala_Nagaland_Lotteryy"
+      ],
+      "keywords_matched": [],
+      "reach": 74739,
+      "phones": [
+        "+918881987328"
+      ],
+      "upis": [],
+      "domains": [],
+      "evidence_hashes": [
+        "83516a2faa9aa422"
+      ],
+      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+      "confidence": 70,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918881987328",
+      "report_to": [
+        "MIB mib.gov.in",
+        "Copyright Board",
+        "Platform DMCA"
+      ],
+      "captured_at": "2026-05-19T14:20:00.486004+05:30"
+    }
+  },
+  {
+    "id": "692d7c46bbc2dc6a",
+    "title": "@Hindi_cinema_Hotstar_latest_2026 \u2014 piracy \u00b7 68,919 subscribers",
+    "category": "piracy",
+    "severity": "medium",
+    "platform": "Telegram",
+    "detail": "Phones: +919376796380",
+    "detected_at": "2026-05-19T14:20:00.486004+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "692d7c46bbc2dc6a",
+    "reach": 68919,
+    "phone": "+919376796380",
+    "upi": "",
+    "domain": "",
+    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @Hindi_cinema_Hotstar_latest_2026",
+      "Report to: MIB mib.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "MIB mib.gov.in",
+      "Copyright Board",
+      "Platform DMCA"
+    ],
+    "attribution": {
+      "phone": "+919376796380",
+      "upi": "",
+      "domain": "",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/Hindi_cinema_Hotstar_latest_2026"
+      ],
+      "keywords_matched": [],
+      "reach": 68919,
+      "phones": [
+        "+919376796380"
+      ],
+      "upis": [],
+      "domains": [],
+      "evidence_hashes": [
+        "692d7c46bbc2dc6a"
+      ],
+      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+      "confidence": 70,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +919376796380",
+      "report_to": [
+        "MIB mib.gov.in",
+        "Copyright Board",
+        "Platform DMCA"
+      ],
+      "captured_at": "2026-05-19T14:20:00.486004+05:30"
+    }
+  },
+  {
+    "id": "47a5c734924ef0d2",
+    "title": "@New_Tamil_malyalam_Movies_Kannda \u2014 piracy \u00b7 62,434 subscribers",
+    "category": "piracy",
+    "severity": "medium",
+    "platform": "Telegram",
+    "detail": "Phones: +916306995021",
+    "detected_at": "2026-05-19T14:20:00.486004+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "47a5c734924ef0d2",
+    "reach": 62434,
+    "phone": "+916306995021",
+    "upi": "",
+    "domain": "",
+    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @New_Tamil_malyalam_Movies_Kannda",
+      "Report to: MIB mib.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "MIB mib.gov.in",
+      "Copyright Board",
+      "Platform DMCA"
+    ],
+    "attribution": {
+      "phone": "+916306995021",
+      "upi": "",
+      "domain": "",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/New_Tamil_malyalam_Movies_Kannda"
+      ],
+      "keywords_matched": [],
+      "reach": 62434,
+      "phones": [
+        "+916306995021"
+      ],
+      "upis": [],
+      "domains": [],
+      "evidence_hashes": [
+        "47a5c734924ef0d2"
+      ],
+      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+      "confidence": 70,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +916306995021",
+      "report_to": [
+        "MIB mib.gov.in",
+        "Copyright Board",
+        "Platform DMCA"
+      ],
+      "captured_at": "2026-05-19T14:20:00.486004+05:30"
+    }
+  },
+  {
+    "id": "fa1d4d78033025c3",
+    "title": "@kolkata_fatafat3 \u2014 piracy \u00b7 46,185 subscribers",
+    "category": "piracy",
+    "severity": "medium",
+    "platform": "Telegram",
+    "detail": "Phones: +918302071662 | Domains: google.com",
+    "detected_at": "2026-05-19T14:20:00.486004+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "fa1d4d78033025c3",
+    "reach": 46185,
+    "phone": "+918302071662",
+    "upi": "",
+    "domain": "google.com",
+    "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @kolkata_fatafat3",
+      "Report to: MIB mib.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "MIB mib.gov.in",
+      "Copyright Board",
+      "Platform DMCA"
+    ],
+    "attribution": {
+      "phone": "+918302071662",
+      "upi": "",
+      "domain": "google.com",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/kolkata_fatafat3"
+      ],
+      "keywords_matched": [],
+      "reach": 46185,
+      "phones": [
+        "+918302071662"
+      ],
+      "upis": [],
+      "domains": [
+        "google.com"
+      ],
+      "evidence_hashes": [
+        "fa1d4d78033025c3"
+      ],
+      "legal_basis": "Copyright Act \u00a751 + IT Act \u00a765B",
+      "confidence": 70,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918302071662",
+      "report_to": [
+        "MIB mib.gov.in",
+        "Copyright Board",
+        "Platform DMCA"
+      ],
+      "captured_at": "2026-05-19T14:20:00.486004+05:30"
+    }
   }
 ]

@@ -1,63 +1,5 @@
 [
   {
-    "id": "603aedcdd4a252b4",
-    "title": "@cricketbuzz_11xplay_my99exch_id \u2014 illegal betting \u00b7 139,339 subscribers",
-    "category": "illegal_betting",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "Phones: +918808881498, +918881337318",
-    "detected_at": "2026-05-20T14:20:00.882974+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "603aedcdd4a252b4",
-    "reach": 139339,
-    "phone": "+918808881498",
-    "upi": "",
-    "domain": "",
-    "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @cricketbuzz_11xplay_my99exch_id",
-      "Report to: NOGC nogc.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "NOGC nogc.gov.in",
-      "State Cybercrime",
-      "ED enforcement.gov.in"
-    ],
-    "attribution": {
-      "phone": "+918808881498",
-      "upi": "",
-      "domain": "",
-      "source": "telegram_deep_scan"
-    },
-    "chain": {
-      "channels_found": [
-        "https://t.me/cricketbuzz_11xplay_my99exch_id"
-      ],
-      "keywords_matched": [],
-      "reach": 139339,
-      "phones": [
-        "+918808881498",
-        "+918881337318"
-      ],
-      "upis": [],
-      "domains": [],
-      "evidence_hashes": [
-        "603aedcdd4a252b4"
-      ],
-      "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
-      "confidence": 90,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918808881498",
-      "report_to": [
-        "NOGC nogc.gov.in",
-        "State Cybercrime",
-        "ED enforcement.gov.in"
-      ],
-      "captured_at": "2026-05-20T14:20:00.882974+05:30"
-    }
-  },
-  {
     "id": "7e9d590ca2360bb7",
     "title": "@Dream11F_winaddac_sportsc \u2014 colour prediction \u00b7 820,200 subscribers",
     "category": "colour_prediction",
@@ -784,6 +726,80 @@
     "enriched_at": "2026-05-20T14:15:00.222372+05:30"
   },
   {
+    "id": "cb302e2c30e37738",
+    "title": "@Vip_Prediction_Daman_Game_Sikkim \u2014 colour prediction \u00b7 413,976 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "BDG Game \u00b7 413,976 subscribers",
+    "detected_at": "2026-05-19T14:00:15.305090+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "37ba53c00e9ea1598649f5141a5e7026df00f6d603fb3e88d9f3d98023739008",
+    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+    "next_steps": [
+      "Preserve evidence",
+      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
+      "Report app to Google Play / App Store",
+      "Send Telegram takedown",
+      "If Chinese-origin: report to MeitY"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "MeitY \u2014 meity.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "+916720024887",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "1/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@Vip_Prediction_Daman_Game_Sikkim"
+      ],
+      "channel_title": "BDG Game",
+      "subscribers": 413976,
+      "keywords_matched": [
+        "okwin",
+        "wingo"
+      ],
+      "reach": 413976,
+      "phones": [
+        "+916720024887"
+      ],
+      "upis": [],
+      "domains": [
+        "okwinvip.org"
+      ],
+      "wa_links": [],
+      "sample_post": "**__WIN GO 1 MINUTE__****__\ud83c\udfae__****__\n__****__\ud83e\uddc2__****__\ud83c\udfc0__****__\ud83c\udfc8__****__\u26be\ufe0f__****__\ud83e\udd4e__****__\ud83c\udfbe__****__\n\n__****__\ud83e\udd11__**** 0511 ****\ud83c\udfae**** WIN GO 1 MINUTE\n\n\nNumber **8**\ud83c\udde6\ud83c\udde9****\u00a0 **BIG **\u27a1\ufe0f****\u00a05X**",
+      "bio": "",
+      "evidence_hashes": [
+        "37ba53c00e9ea159"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "MeitY \u2014 meity.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:00:15.305287+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "domain": "okwinvip.org",
+    "reach": 413976,
+    "enriched_at": "2026-05-20T14:15:00.229810+05:30"
+  },
+  {
     "id": "b53a4845a843975a",
     "title": "@cricbet99_cricbuzz_bet_betbhai9 \u2014 illegal betting \u00b7 337,718 subscribers",
     "category": "illegal_betting",
@@ -1163,6 +1179,79 @@
     "domain": "betbook247.com",
     "reach": 172112,
     "enriched_at": "2026-05-20T14:15:00.222455+05:30"
+  },
+  {
+    "id": "89e9db08913e85d6",
+    "title": "@Gamesyd_Ok_Lotterysf_win \u2014 colour prediction \u00b7 159,973 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "\ud83d\ude80\ud83d\ude80 Tiranga Crypto \ud83d\ude80\ud83d\ude80 \u00b7 159,973 subscribers",
+    "detected_at": "2026-05-19T14:00:29.227369+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "cb2cb7122aae2844be47660437d3e9ead32133728f80e93804297f73d90b65d3",
+    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+    "next_steps": [
+      "Preserve evidence",
+      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
+      "Report app to Google Play / App Store",
+      "Send Telegram takedown",
+      "If Chinese-origin: report to MeitY"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "MeitY \u2014 meity.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "0/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@Gamesyd_Ok_Lotterysf_win"
+      ],
+      "channel_title": "\ud83d\ude80\ud83d\ude80 Tiranga Crypto \ud83d\ude80\ud83d\ude80",
+      "subscribers": 159973,
+      "keywords_matched": [],
+      "reach": 159973,
+      "phones": [
+        "+917578990478",
+        "+919186196239"
+      ],
+      "upis": [],
+      "domains": [
+        "ITENBET.COM",
+        "itenbet.com"
+      ],
+      "wa_links": [],
+      "sample_post": "Take A BREAK \ud83d\udc94 Go HUGE Deposit",
+      "bio": "",
+      "evidence_hashes": [
+        "cb2cb7122aae2844"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "MeitY \u2014 meity.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:00:29.227534+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "domain": "ITENBET.COM",
+    "reach": 159973,
+    "enriched_at": "2026-05-20T14:15:00.229930+05:30"
   },
   {
     "id": "22453c2808825927",
@@ -1764,6 +1853,76 @@
     "domain": "instagram.com",
     "reach": 138508,
     "enriched_at": "2026-05-20T14:15:00.222572+05:30"
+  },
+  {
+    "id": "1a7eeb65dc4a679a",
+    "title": "@SATTA_MATKA_SATKA_DP_BOSS \u2014 illegal betting \u00b7 136,717 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "KALYAN MATKA \u00b7 136,717 subscribers",
+    "detected_at": "2026-05-19T14:01:08.125810+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "406c18ade4d2a03bd8d8633657c1a9d3102a5199018fd4b0f57a40a6463e76de",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 SHA-256 hash archived",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with ED if crypto/Dubai link found"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "0/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@SATTA_MATKA_SATKA_DP_BOSS"
+      ],
+      "channel_title": "KALYAN MATKA",
+      "subscribers": 136717,
+      "keywords_matched": [
+        "matka"
+      ],
+      "reach": 136717,
+      "phones": [
+        "+918808981489"
+      ],
+      "upis": [],
+      "domains": [],
+      "wa_links": [],
+      "sample_post": "Audio from RAJ BHAI IS BRAND",
+      "bio": "",
+      "evidence_hashes": [
+        "406c18ade4d2a03b"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:01:08.125897+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "reach": 136717,
+    "enriched_at": "2026-05-20T14:15:00.230138+05:30"
   },
   {
     "id": "cbb97d12d665f834",
@@ -2706,6 +2865,76 @@
     "enriched_at": "2026-05-20T14:15:00.222732+05:30"
   },
   {
+    "id": "a44150039b4e5832",
+    "title": "@Parimatch_Sure_bets \u2014 illegal betting \u00b7 127,646 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "PARIMATCH SURE BETTING TIPs \u00b7 127,646 subscribers",
+    "detected_at": "2026-05-19T14:01:27.981830+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "db676b746bea28fb7a930f0d96cd84f76dd85d7bce65312112589b98d9a10c5c",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 SHA-256 hash archived",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with ED if crypto/Dubai link found"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "0/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@Parimatch_Sure_bets"
+      ],
+      "channel_title": "PARIMATCH SURE BETTING TIPs",
+      "subscribers": 127646,
+      "keywords_matched": [
+        "betting"
+      ],
+      "reach": 127646,
+      "phones": [
+        "+918808866868"
+      ],
+      "upis": [],
+      "domains": [],
+      "wa_links": [],
+      "sample_post": "Betting has no sympathy.\n\nThe fact that you have been losing your bets does not mean that if you continue betting you will one day win.\n\nThe solution is not to continue but to stop betting on predictions games that's has no guarantees of winning and subscribe with us here where you will be given acc",
+      "bio": "",
+      "evidence_hashes": [
+        "db676b746bea28fb"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:01:27.995442+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "reach": 127646,
+    "enriched_at": "2026-05-20T14:15:00.230194+05:30"
+  },
+  {
     "id": "0e16ee4afd0b7f3c",
     "title": "@gold365_betbhai_my99exch_id \u2014 illegal betting \u00b7 126,991 subscribers",
     "category": "illegal_betting",
@@ -3341,6 +3570,148 @@
     },
     "reach": 111409,
     "enriched_at": "2026-05-18T14:05:08.565605+05:30"
+  },
+  {
+    "id": "827be9a0053487e2",
+    "title": "@golden444_online_cricket \u2014 colour prediction \u00b7 111,409 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "\ud83d\udd49\ufe0fMAHAKAL BOOK ID\ud83d\udd49\ufe0f \u00b7 111,409 subscribers",
+    "detected_at": "2026-05-19T14:02:03.971311+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "6a665cc54db026d048e0b0597ad9b683f6f3abced9c92d02aabe2bb09af1ad24",
+    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+    "next_steps": [
+      "Preserve evidence",
+      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
+      "Report app to Google Play / App Store",
+      "Send Telegram takedown",
+      "If Chinese-origin: report to MeitY"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "MeitY \u2014 meity.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "+918881524185",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "1/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@golden444_online_cricket"
+      ],
+      "channel_title": "\ud83d\udd49\ufe0fMAHAKAL BOOK ID\ud83d\udd49\ufe0f",
+      "subscribers": 111409,
+      "keywords_matched": [],
+      "reach": 111409,
+      "phones": [
+        "+918881524185"
+      ],
+      "upis": [],
+      "domains": [],
+      "wa_links": [],
+      "sample_post": "\ud83d\udc98Live Casino Ka Sabse Best \u2714\ufe0f\ud83d\udc49Experience Apko Pai Hi Milega....\ud83d\udd25\n\n\u2705700+ Live Casino Games Available Hai \ud83d\ude0d\n\n\u2705Aviator, TeenPatti, Roulette, \u2714\ufe0fAndarbahar, Dragon Tiger, Lucky 7, \u2714\ufe0fMines and More Games....\n\n\ud83d\udc9924/7 Deposit & Withdrawals \ud83d\udfe2\ud83d\udfe2 24/7 Customer Support \n\n\n\ud83d\ude2cYou Can Open Account On Whatsapp\ud83d\udc47\n\u00a0\u00a0\u00a0\u00a0 \n",
+      "bio": "",
+      "evidence_hashes": [
+        "6a665cc54db026d0"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "MeitY \u2014 meity.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:02:03.972232+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "reach": 111409,
+    "enriched_at": "2026-05-20T14:15:00.230283+05:30"
+  },
+  {
+    "id": "15f0db29e6210423",
+    "title": "@sikkim_game_prediction_vip \u2014 colour prediction \u00b7 108,244 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "VIP COLOUR PREDICTION SIKKIM GAME \u00b7 108,244 subscribers",
+    "detected_at": "2026-05-19T14:02:13.580226+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "9704c887b13552afc89c217cb741a75a4ce35ca6930c3d5d31d9b8ca68993a5b",
+    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+    "next_steps": [
+      "Preserve evidence",
+      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
+      "Report app to Google Play / App Store",
+      "Send Telegram takedown",
+      "If Chinese-origin: report to MeitY"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "MeitY \u2014 meity.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "+919818040215",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "1/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@sikkim_game_prediction_vip"
+      ],
+      "channel_title": "VIP COLOUR PREDICTION SIKKIM GAME",
+      "subscribers": 108244,
+      "keywords_matched": [
+        "wingo"
+      ],
+      "reach": 108244,
+      "phones": [
+        "+919818040215",
+        "+917703071707"
+      ],
+      "upis": [],
+      "domains": [
+        "sikkam.com"
+      ],
+      "wa_links": [],
+      "sample_post": "\ud83d\udd24\ud83d\udd24\ud83d\udd24\ud83d\udd24\ud83d\udd24\ud83d\udd24**__\ud83d\udd25__****__\ud83d\udd24__****__\ud83d\udd24__****__\ud83d\udd24__****__\ud83d\udd24__****__\n\n__****__\ud83d\udcc8__** Sikkim **__game __****__\ud83d\udca5__****__ Prediction__****__\ud83d\udcc9__**\u00a0 **__\u2b50__****__\u2705__****__\u00a0 Number -\u00a0__**7\u00a0\u00a0 **__\u2705__****\u2b50****\n\n****\ud83d\udea9****Periods ::\u00a00512\ud83d\udc4c ****\ud83d\udea9****\n\n\u00a0 ****\u2764\ufe0f\u200d\ud83d\udd25****Over Limit PLAY Game****\u2764\ufe0f\u200d\ud83d\udd25**",
+      "bio": "",
+      "evidence_hashes": [
+        "9704c887b13552af"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "MeitY \u2014 meity.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:02:13.580305+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "domain": "sikkam.com",
+    "reach": 108244,
+    "enriched_at": "2026-05-20T14:15:00.230336+05:30"
   },
   {
     "id": "5bcdabd7ef6d3da0",
@@ -4022,6 +4393,82 @@
     "enriched_at": "2026-05-20T14:15:00.222961+05:30"
   },
   {
+    "id": "588a0510a3475e94",
+    "title": "@crypto_signalf \u2014 crypto fraud \u00b7 96,932 subscribers",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Crypto signal \u00b7 96,932 subscribers",
+    "detected_at": "2026-05-19T14:02:36.900900+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "11e73747c01fc2fbe36c077fecaf086160863f2baf476c85b1c88381228cfb8e",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in",
+      "Report to CERT-In if phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "0/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@crypto_signalf"
+      ],
+      "channel_title": "Crypto signal",
+      "subscribers": 96932,
+      "keywords_matched": [
+        "usdt",
+        "btc",
+        "eth"
+      ],
+      "reach": 96932,
+      "phones": [
+        "+919859990481"
+      ],
+      "upis": [],
+      "domains": [
+        "moex.com",
+        "substack.com"
+      ],
+      "wa_links": [],
+      "sample_post": "\ud83d\udcca The United Kingdom has announced a preliminary GDP growth of 0.6% for the first quarter of 2026 compared to the previous quarter, aligning with expectations. On a year-over-year basis, GDP rose by 1.1%, exceeding the forecast of 0.8% and showing an improvement from the previous growth rate of 1%.",
+      "bio": "",
+      "evidence_hashes": [
+        "11e73747c01fc2fb"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-19T14:02:36.901162+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "domain": "moex.com",
+    "reach": 96932,
+    "enriched_at": "2026-05-20T14:15:00.230347+05:30"
+  },
+  {
     "id": "9795800b41f2ee31",
     "title": "@MAHADEVBOOK_MHADEV \u2014 illegal betting \u00b7 94,341 subscribers",
     "category": "illegal_betting",
@@ -4462,6 +4909,76 @@
     },
     "reach": 87780,
     "enriched_at": "2026-05-20T14:15:00.223039+05:30"
+  },
+  {
+    "id": "d25033582da4f625",
+    "title": "@BCCI_TOSS_MATCH_FIXER1 \u2014 illegal betting \u00b7 87,780 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "BCCI TOSS MATCH FIXER \u00b7 87,780 subscribers",
+    "detected_at": "2026-05-19T14:02:59.804199+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "5afcef08c760f0753f81461ca4b6b478044aaf15c0e9002463ce23a1939c914a",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 SHA-256 hash archived",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with ED if crypto/Dubai link found"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "0/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@BCCI_TOSS_MATCH_FIXER1"
+      ],
+      "channel_title": "BCCI TOSS MATCH FIXER",
+      "subscribers": 87780,
+      "keywords_matched": [
+        "bookie"
+      ],
+      "reach": 87780,
+      "phones": [
+        "+918881987328"
+      ],
+      "upis": [],
+      "domains": [],
+      "wa_links": [],
+      "sample_post": "**Illegal Site Per  Khelna Stop Karooo....****\u270b****\n\nPlay Only On ****Primebook.**game** \ud83d\udc4d**",
+      "bio": "",
+      "evidence_hashes": [
+        "5afcef08c760f075"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:02:59.804431+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "reach": 87780,
+    "enriched_at": "2026-05-20T14:15:00.240674+05:30"
   },
   {
     "id": "cb50c96814968e7e",
@@ -5270,6 +5787,74 @@
     "enriched_at": "2026-05-17T09:36:12.644218+05:30"
   },
   {
+    "id": "5aa63fd70785310f",
+    "title": "@toss_match_fixer4 \u2014 illegal betting \u00b7 80,603 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "IPL TOSS MATCH FIXER \u00b7 80,603 subscribers",
+    "detected_at": "2026-05-19T14:03:19.433105+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "50958b856093d6dbc653b4f7c78410dc304396160f07e386d2f06a7c6e228039",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 SHA-256 hash archived",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with ED if crypto/Dubai link found"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "0/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@toss_match_fixer4"
+      ],
+      "channel_title": "IPL TOSS MATCH FIXER",
+      "subscribers": 80603,
+      "keywords_matched": [],
+      "reach": 80603,
+      "phones": [
+        "+917065059112"
+      ],
+      "upis": [],
+      "domains": [],
+      "wa_links": [],
+      "sample_post": "__**Innings Break Update\n**\nTarget 181 Will Be Defend..\n**Close Rate 70p SRH Fav...**__\n__\n**Winner \ud83d\udc49CHENNAI WILL WIN**__",
+      "bio": "",
+      "evidence_hashes": [
+        "50958b856093d6db"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:03:19.437359+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "reach": 80603,
+    "enriched_at": "2026-05-20T14:15:00.240727+05:30"
+  },
+  {
     "id": "329effe9ca758b2d",
     "title": "@Skyexchange_tigerexchange_crypto \u2014 illegal betting \u00b7 80,566 subscribers",
     "category": "illegal_betting",
@@ -5485,6 +6070,82 @@
     "domain": "instagram.com",
     "reach": 80566,
     "enriched_at": "2026-05-20T14:15:00.223233+05:30"
+  },
+  {
+    "id": "2c680d31727e4bbd",
+    "title": "@Ipl_Toss_Match_Winner_Fixer \u2014 illegal betting \u00b7 76,432 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Ipl Toss Match Winner Fixer \u00b7 76,432 subscribers",
+    "detected_at": "2026-05-19T14:03:32.718203+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "39bc28a88b81f230b42b813c8a808c312634d96a0341b6f4175c27a7c6843486",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 SHA-256 hash archived",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with ED if crypto/Dubai link found"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "0/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@Ipl_Toss_Match_Winner_Fixer"
+      ],
+      "channel_title": "Ipl Toss Match Winner Fixer",
+      "subscribers": 76432,
+      "keywords_matched": [
+        "betting",
+        "bookie"
+      ],
+      "reach": 76432,
+      "phones": [
+        "+918881987328"
+      ],
+      "upis": [],
+      "domains": [
+        "Reddy33.com",
+        "reddy33.com",
+        "REDDY33.COM"
+      ],
+      "wa_links": [],
+      "sample_post": "**Bot Ki Tarh Follow Krlo... **\ud83d\udd13\ud83d\udd13\n\n**Paisaa.. Direct Pocket Me Aayega..** \u2764\ufe0f\u2764\ufe0f",
+      "bio": "",
+      "evidence_hashes": [
+        "39bc28a88b81f230"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:03:32.718414+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "domain": "Reddy33.com",
+    "reach": 76432,
+    "enriched_at": "2026-05-20T14:15:00.230409+05:30"
   },
   {
     "id": "11318726490be783",
@@ -8003,6 +8664,72 @@
     "domain": "mahadevonline.app"
   },
   {
+    "id": "bd01e58517da0e4d",
+    "title": "@forexb_signal \u2014 investment fraud \u00b7 57,776 subscribers",
+    "category": "investment_fraud",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Forex Signal \u00b7 57,776 subscribers",
+    "detected_at": "2026-05-19T14:05:11.360254+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "ee4596ee6d7ff2681ccfbe5b2b82332eef7e9d36db362d23ed81e2fbfc413b0b",
+    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+    "next_steps": [
+      "Preserve evidence",
+      "Report to SEBI SCORES: scores.gov.in",
+      "Send Telegram takedown",
+      "Share operator details with cybercrime@sebi.gov.in",
+      "Alert CERT-In if phishing"
+    ],
+    "report_to": [
+      "SEBI SCORES \u2014 scores.gov.in",
+      "cybercrime@sebi.gov.in",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "0/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@forexb_signal"
+      ],
+      "channel_title": "Forex Signal",
+      "subscribers": 57776,
+      "keywords_matched": [],
+      "reach": 57776,
+      "phones": [
+        "+919772732841"
+      ],
+      "upis": [],
+      "domains": [],
+      "wa_links": [],
+      "sample_post": "__**Blessed Tuesday My Champio**ns!__ \ud83d\udd25\n**\nAs we begin the session today, let's remember the importance of controlling our emotions. Stay calm, focused, and disciplined in your decisions. \n\nEmotions can influence our trades, so let's approach the markets with a steady mindset. Wishing you a successf",
+      "bio": "",
+      "evidence_hashes": [
+        "ee4596ee6d7ff268"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "SEBI SCORES \u2014 scores.gov.in",
+        "cybercrime@sebi.gov.in",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:05:11.360496+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "reach": 57776,
+    "enriched_at": "2026-05-20T14:15:00.240887+05:30"
+  },
+  {
     "id": "fb526cc737cd7f87",
     "title": "@MURUGAN_LONDON_FIXER_IPL \u2014 illegal betting \u00b7 57,731 subscribers",
     "category": "illegal_betting",
@@ -8595,6 +9322,74 @@
     "enriched_at": "2026-05-20T14:15:00.223741+05:30"
   },
   {
+    "id": "a33765fdff64ee01",
+    "title": "@Reddybookgreen_Reddybookvip \u2014 illegal betting \u00b7 50,930 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "REDDY ANNA ONLINE BOOK \u00b7 50,930 subscribers",
+    "detected_at": "2026-05-19T14:05:50.200554+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "e2402e5ed0ec6b53b200a2b858e65ae6762a9ded7b4c08ab816be09e278d1702",
+    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+    "next_steps": [
+      "Preserve evidence \u2014 SHA-256 hash archived",
+      "File NOGC complaint: nogc.gov.in",
+      "Report to state cybercrime cell with operator phone",
+      "Send Telegram takedown: abuse@telegram.org",
+      "Share with ED if crypto/Dubai link found"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "State cybercrime cell",
+      "Telegram \u2014 abuse@telegram.org",
+      "ED \u2014 enforcement.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "0/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@Reddybookgreen_Reddybookvip"
+      ],
+      "channel_title": "REDDY ANNA ONLINE BOOK",
+      "subscribers": 50930,
+      "keywords_matched": [],
+      "reach": 50930,
+      "phones": [
+        "+918896169396"
+      ],
+      "upis": [],
+      "domains": [],
+      "wa_links": [],
+      "sample_post": "Delhi me koi badmash hai kya ??",
+      "bio": "",
+      "evidence_hashes": [
+        "e2402e5ed0ec6b53"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
+      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "State cybercrime cell",
+        "Telegram \u2014 abuse@telegram.org",
+        "ED \u2014 enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:05:50.200698+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "reach": 50930,
+    "enriched_at": "2026-05-20T14:15:00.241040+05:30"
+  },
+  {
     "id": "e00c2a5696790c93",
     "title": "@fairplay_laser247_11xplay \u2014 illegal betting \u00b7 50,643 subscribers",
     "category": "illegal_betting",
@@ -9173,6 +9968,78 @@
     "domain": "bdght.com",
     "reach": 47520,
     "enriched_at": "2026-05-19T14:15:00.801817+05:30"
+  },
+  {
+    "id": "34d7ce170dfed9d3",
+    "title": "@Crypto_Daman_Games \u2014 colour prediction \u00b7 47,520 subscribers",
+    "category": "colour_prediction",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Daman Game \u2728Crypto \u00b7 47,520 subscribers",
+    "detected_at": "2026-05-19T14:06:16.579515+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "cbf137e5c48effb48cfb5c287b4c75205c351b4721d6ccd9bef1655ab7a97582",
+    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+    "next_steps": [
+      "Preserve evidence",
+      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
+      "Report app to Google Play / App Store",
+      "Send Telegram takedown",
+      "If Chinese-origin: report to MeitY"
+    ],
+    "report_to": [
+      "NOGC \u2014 nogc.gov.in",
+      "MeitY \u2014 meity.gov.in",
+      "Telegram \u2014 abuse@telegram.org",
+      "I4C \u2014 cybercrime.gov.in"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "+918724877011",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "1/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@Crypto_Daman_Games"
+      ],
+      "channel_title": "Daman Game \u2728Crypto",
+      "subscribers": 47520,
+      "keywords_matched": [],
+      "reach": 47520,
+      "phones": [
+        "+918724877011",
+        "+917522822477"
+      ],
+      "upis": [],
+      "domains": [
+        "bdght.com"
+      ],
+      "wa_links": [],
+      "sample_post": "**Ready to add some excitement to your day? \n\ud83c\udf08 Join our Color Betting Game and turn your color predictions into cash! \ud83d\udcb8 It's simple, thrilling, and you could win big! Don't miss out on the fun\u2014join now and let your lucky colors lead you to victory!\n\n****__https://t.me/Crypto_Daman_Games__****\n\ud83d\udc46\ud83d\udc46\ud83d\udc46\ud83d\udc46\ud83d\udc46\ud83d\udc46",
+      "bio": "",
+      "evidence_hashes": [
+        "cbf137e5c48effb4"
+      ],
+      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "NOGC \u2014 nogc.gov.in",
+        "MeitY \u2014 meity.gov.in",
+        "Telegram \u2014 abuse@telegram.org",
+        "I4C \u2014 cybercrime.gov.in"
+      ],
+      "captured_at": "2026-05-19T14:06:16.579634+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "domain": "bdght.com",
+    "reach": 47520,
+    "enriched_at": "2026-05-20T14:15:00.230492+05:30"
   },
   {
     "id": "7f95526b8140f80a",
@@ -9879,6 +10746,70 @@
     "enriched_at": "2026-05-20T14:15:00.223949+05:30"
   },
   {
+    "id": "5f8b06098a48e5ea",
+    "title": "@TheMoviesflix_Official \u2014 task fraud \u00b7 40,666 subscribers",
+    "category": "task_fraud",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Moviesflix HD \u00b7 40,666 subscribers",
+    "detected_at": "2026-05-19T14:06:56.246617+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "e852c18ebf67d89acd458f600514a63555de8a359542592fb45ee7b7e2c4750c",
+    "legal_basis": "IT Act 2000 \u00a766D + IPC \u00a7420",
+    "next_steps": [
+      "Preserve evidence",
+      "File complaint at cybercrime.gov.in"
+    ],
+    "report_to": [
+      "I4C \u2014 1930",
+      "Telegram \u2014 abuse@telegram.org"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "0/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@TheMoviesflix_Official"
+      ],
+      "channel_title": "Moviesflix HD",
+      "subscribers": 40666,
+      "keywords_matched": [],
+      "reach": 40666,
+      "phones": [
+        "+919079551576"
+      ],
+      "upis": [],
+      "domains": [
+        "cloudflare-dns.com",
+        "instagram.com"
+      ],
+      "wa_links": [],
+      "sample_post": "**mCloud is back online now. Sorry for the downtime.** \u2705",
+      "bio": "",
+      "evidence_hashes": [
+        "e852c18ebf67d89a"
+      ],
+      "legal_basis": "IT Act 2000 \u00a766D + IPC \u00a7420",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "I4C"
+      ],
+      "captured_at": "2026-05-19T14:06:56.246897+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "domain": "cloudflare-dns.com",
+    "reach": 40666,
+    "enriched_at": "2026-05-20T14:15:00.241263+05:30"
+  },
+  {
     "id": "dc44592ac1947db2",
     "title": "@toss_fixer_ipl_report \u2014 illegal betting \u00b7 40,274 subscribers",
     "category": "illegal_betting",
@@ -10299,6 +11230,80 @@
     },
     "reach": 38751,
     "enriched_at": "2026-05-19T14:15:00.802252+05:30"
+  },
+  {
+    "id": "dc4dacd10205199f",
+    "title": "@Maharani_Season_3_2_1 \u2014 crypto fraud \u00b7 38,629 subscribers",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Maharani Season 3 2 1 WebSeries Sony Liv Series Hindi HD Download Link \u00b7 38,629 subscribers",
+    "detected_at": "2026-05-19T14:07:23.525117+05:30",
+    "source": "telegram_deep_scan",
+    "evidence_hash": "d2625f357ab89aaba37e3366330faab59414fad3deb444e802131d0910438493",
+    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+    "next_steps": [
+      "Preserve evidence",
+      "File ED complaint: enforcement.gov.in",
+      "Report to FIU-IND: fiuindia.gov.in",
+      "File NCCRP: cybercrime.gov.in",
+      "Report to CERT-In if phishing site"
+    ],
+    "report_to": [
+      "ED \u2014 enforcement.gov.in",
+      "FIU-IND \u2014 fiuindia.gov.in",
+      "CERT-In \u2014 cert-in.org.in",
+      "I4C \u2014 1930"
+    ],
+    "attribution": {
+      "name": "",
+      "email": "",
+      "phone": "",
+      "upi": "",
+      "address": "",
+      "source": "telegram_message_scan",
+      "completeness": "0/5 fields"
+    },
+    "chain": {
+      "channels_found": [
+        "@Maharani_Season_3_2_1"
+      ],
+      "channel_title": "Maharani Season 3 2 1 WebSeries Sony Liv Series Hindi HD Download Link",
+      "subscribers": 38629,
+      "keywords_matched": [
+        "btc",
+        "binance"
+      ],
+      "reach": 38629,
+      "phones": [
+        "+918290935643"
+      ],
+      "upis": [],
+      "domains": [
+        "nepbit.com"
+      ],
+      "wa_links": [],
+      "sample_post": "**\u27a1\ufe0f C\u029c\u1d00\u0274\u0274\u1d07\u029f L\u026a\u0274\u1d0b \u27f9 **https://t.me/+QrLVh0O4eU4zOTk1**\n\n\u2705 (BluRay + Original Audios) - [1080p - 720p - 480p - 360p - 280p]\n\n\u2714\ufe0f360P - **https://t.me/+QrLVh0O4eU4zOTk1**\n\n\u2714\ufe0f480P - **https://t.me/+QrLVh0O4eU4zOTk1**\n\n\u2714\ufe0f720P - **https://t.me/+QrLVh0O4eU4zOTk1**\n\n\u2714\ufe0f1080P - **https://t.me/+QrLVh0O4eU4zOTk",
+      "bio": "",
+      "evidence_hashes": [
+        "d2625f357ab89aab"
+      ],
+      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
+      "recommended_action": "Preserve evidence",
+      "report_to": [
+        "ED \u2014 enforcement.gov.in",
+        "FIU-IND \u2014 fiuindia.gov.in",
+        "CERT-In \u2014 cert-in.org.in",
+        "I4C \u2014 1930"
+      ],
+      "captured_at": "2026-05-19T14:07:23.525394+05:30",
+      "operator_name": null,
+      "operator_network": null,
+      "confidence": 95
+    },
+    "domain": "nepbit.com",
+    "reach": 38629,
+    "enriched_at": "2026-05-20T14:15:00.241353+05:30"
   },
   {
     "id": "8aa0dc066004a3df",
@@ -20256,6 +21261,64 @@
     "enriched_at": "2026-05-17T09:36:12.644552+05:30"
   },
   {
+    "id": "603aedcdd4a252b4",
+    "title": "@cricketbuzz_11xplay_my99exch_id \u2014 illegal betting \u00b7 139,339 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detail": "Phones: +918808881498, +918881337318",
+    "detected_at": "2026-05-20T14:20:00.882974+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "603aedcdd4a252b4",
+    "reach": 139339,
+    "phone": "+918808881498",
+    "upi": "",
+    "domain": "",
+    "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @cricketbuzz_11xplay_my99exch_id",
+      "Report to: NOGC nogc.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "NOGC nogc.gov.in",
+      "State Cybercrime",
+      "ED enforcement.gov.in"
+    ],
+    "attribution": {
+      "phone": "+918808881498",
+      "upi": "",
+      "domain": "",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/cricketbuzz_11xplay_my99exch_id"
+      ],
+      "keywords_matched": [],
+      "reach": 139339,
+      "phones": [
+        "+918808881498",
+        "+918881337318"
+      ],
+      "upis": [],
+      "domains": [],
+      "evidence_hashes": [
+        "603aedcdd4a252b4"
+      ],
+      "legal_basis": "Online Gaming Act 2025 \u00a78 + PMLA 2002 \u00a73 + IT Act \u00a765B",
+      "confidence": 90,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +918808881498",
+      "report_to": [
+        "NOGC nogc.gov.in",
+        "State Cybercrime",
+        "ED enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-20T14:20:00.882974+05:30"
+    }
+  },
+  {
     "id": "6d5dee642b2322eb",
     "title": "@Hindi_Altbalaji_ullu_web_series \u2014 illegal betting \u00b7 114,573 subscribers",
     "category": "illegal_betting",
@@ -29382,659 +30445,6 @@
     "enriched_at": "2026-05-18T14:15:01.434704+05:30"
   },
   {
-    "id": "cb302e2c30e37738",
-    "title": "@Vip_Prediction_Daman_Game_Sikkim \u2014 colour prediction \u00b7 413,976 subscribers",
-    "category": "colour_prediction",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "BDG Game \u00b7 413,976 subscribers",
-    "detected_at": "2026-05-19T14:00:15.305090+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "37ba53c00e9ea1598649f5141a5e7026df00f6d603fb3e88d9f3d98023739008",
-    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
-    "next_steps": [
-      "Preserve evidence",
-      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
-      "Report app to Google Play / App Store",
-      "Send Telegram takedown",
-      "If Chinese-origin: report to MeitY"
-    ],
-    "report_to": [
-      "NOGC \u2014 nogc.gov.in",
-      "MeitY \u2014 meity.gov.in",
-      "Telegram \u2014 abuse@telegram.org",
-      "I4C \u2014 cybercrime.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "+916720024887",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "1/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@Vip_Prediction_Daman_Game_Sikkim"
-      ],
-      "channel_title": "BDG Game",
-      "subscribers": 413976,
-      "keywords_matched": [
-        "okwin",
-        "wingo"
-      ],
-      "reach": 413976,
-      "phones": [
-        "+916720024887"
-      ],
-      "upis": [],
-      "domains": [
-        "okwinvip.org"
-      ],
-      "wa_links": [],
-      "sample_post": "**__WIN GO 1 MINUTE__****__\ud83c\udfae__****__\n__****__\ud83e\uddc2__****__\ud83c\udfc0__****__\ud83c\udfc8__****__\u26be\ufe0f__****__\ud83e\udd4e__****__\ud83c\udfbe__****__\n\n__****__\ud83e\udd11__**** 0511 ****\ud83c\udfae**** WIN GO 1 MINUTE\n\n\nNumber **8**\ud83c\udde6\ud83c\udde9****\u00a0 **BIG **\u27a1\ufe0f****\u00a05X**",
-      "bio": "",
-      "evidence_hashes": [
-        "37ba53c00e9ea159"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "NOGC \u2014 nogc.gov.in",
-        "MeitY \u2014 meity.gov.in",
-        "Telegram \u2014 abuse@telegram.org",
-        "I4C \u2014 cybercrime.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:00:15.305287+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "domain": "okwinvip.org",
-    "reach": 413976,
-    "enriched_at": "2026-05-20T14:15:00.229810+05:30"
-  },
-  {
-    "id": "89e9db08913e85d6",
-    "title": "@Gamesyd_Ok_Lotterysf_win \u2014 colour prediction \u00b7 159,973 subscribers",
-    "category": "colour_prediction",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "\ud83d\ude80\ud83d\ude80 Tiranga Crypto \ud83d\ude80\ud83d\ude80 \u00b7 159,973 subscribers",
-    "detected_at": "2026-05-19T14:00:29.227369+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "cb2cb7122aae2844be47660437d3e9ead32133728f80e93804297f73d90b65d3",
-    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
-    "next_steps": [
-      "Preserve evidence",
-      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
-      "Report app to Google Play / App Store",
-      "Send Telegram takedown",
-      "If Chinese-origin: report to MeitY"
-    ],
-    "report_to": [
-      "NOGC \u2014 nogc.gov.in",
-      "MeitY \u2014 meity.gov.in",
-      "Telegram \u2014 abuse@telegram.org",
-      "I4C \u2014 cybercrime.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "0/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@Gamesyd_Ok_Lotterysf_win"
-      ],
-      "channel_title": "\ud83d\ude80\ud83d\ude80 Tiranga Crypto \ud83d\ude80\ud83d\ude80",
-      "subscribers": 159973,
-      "keywords_matched": [],
-      "reach": 159973,
-      "phones": [
-        "+917578990478",
-        "+919186196239"
-      ],
-      "upis": [],
-      "domains": [
-        "ITENBET.COM",
-        "itenbet.com"
-      ],
-      "wa_links": [],
-      "sample_post": "Take A BREAK \ud83d\udc94 Go HUGE Deposit",
-      "bio": "",
-      "evidence_hashes": [
-        "cb2cb7122aae2844"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "NOGC \u2014 nogc.gov.in",
-        "MeitY \u2014 meity.gov.in",
-        "Telegram \u2014 abuse@telegram.org",
-        "I4C \u2014 cybercrime.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:00:29.227534+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "domain": "ITENBET.COM",
-    "reach": 159973,
-    "enriched_at": "2026-05-20T14:15:00.229930+05:30"
-  },
-  {
-    "id": "1a7eeb65dc4a679a",
-    "title": "@SATTA_MATKA_SATKA_DP_BOSS \u2014 illegal betting \u00b7 136,717 subscribers",
-    "category": "illegal_betting",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "KALYAN MATKA \u00b7 136,717 subscribers",
-    "detected_at": "2026-05-19T14:01:08.125810+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "406c18ade4d2a03bd8d8633657c1a9d3102a5199018fd4b0f57a40a6463e76de",
-    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-    "next_steps": [
-      "Preserve evidence \u2014 SHA-256 hash archived",
-      "File NOGC complaint: nogc.gov.in",
-      "Report to state cybercrime cell with operator phone",
-      "Send Telegram takedown: abuse@telegram.org",
-      "Share with ED if crypto/Dubai link found"
-    ],
-    "report_to": [
-      "NOGC \u2014 nogc.gov.in",
-      "State cybercrime cell",
-      "Telegram \u2014 abuse@telegram.org",
-      "ED \u2014 enforcement.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "0/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@SATTA_MATKA_SATKA_DP_BOSS"
-      ],
-      "channel_title": "KALYAN MATKA",
-      "subscribers": 136717,
-      "keywords_matched": [
-        "matka"
-      ],
-      "reach": 136717,
-      "phones": [
-        "+918808981489"
-      ],
-      "upis": [],
-      "domains": [],
-      "wa_links": [],
-      "sample_post": "Audio from RAJ BHAI IS BRAND",
-      "bio": "",
-      "evidence_hashes": [
-        "406c18ade4d2a03b"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
-      "report_to": [
-        "NOGC \u2014 nogc.gov.in",
-        "State cybercrime cell",
-        "Telegram \u2014 abuse@telegram.org",
-        "ED \u2014 enforcement.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:01:08.125897+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "reach": 136717,
-    "enriched_at": "2026-05-20T14:15:00.230138+05:30"
-  },
-  {
-    "id": "a44150039b4e5832",
-    "title": "@Parimatch_Sure_bets \u2014 illegal betting \u00b7 127,646 subscribers",
-    "category": "illegal_betting",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "PARIMATCH SURE BETTING TIPs \u00b7 127,646 subscribers",
-    "detected_at": "2026-05-19T14:01:27.981830+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "db676b746bea28fb7a930f0d96cd84f76dd85d7bce65312112589b98d9a10c5c",
-    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-    "next_steps": [
-      "Preserve evidence \u2014 SHA-256 hash archived",
-      "File NOGC complaint: nogc.gov.in",
-      "Report to state cybercrime cell with operator phone",
-      "Send Telegram takedown: abuse@telegram.org",
-      "Share with ED if crypto/Dubai link found"
-    ],
-    "report_to": [
-      "NOGC \u2014 nogc.gov.in",
-      "State cybercrime cell",
-      "Telegram \u2014 abuse@telegram.org",
-      "ED \u2014 enforcement.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "0/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@Parimatch_Sure_bets"
-      ],
-      "channel_title": "PARIMATCH SURE BETTING TIPs",
-      "subscribers": 127646,
-      "keywords_matched": [
-        "betting"
-      ],
-      "reach": 127646,
-      "phones": [
-        "+918808866868"
-      ],
-      "upis": [],
-      "domains": [],
-      "wa_links": [],
-      "sample_post": "Betting has no sympathy.\n\nThe fact that you have been losing your bets does not mean that if you continue betting you will one day win.\n\nThe solution is not to continue but to stop betting on predictions games that's has no guarantees of winning and subscribe with us here where you will be given acc",
-      "bio": "",
-      "evidence_hashes": [
-        "db676b746bea28fb"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
-      "report_to": [
-        "NOGC \u2014 nogc.gov.in",
-        "State cybercrime cell",
-        "Telegram \u2014 abuse@telegram.org",
-        "ED \u2014 enforcement.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:01:27.995442+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "reach": 127646,
-    "enriched_at": "2026-05-20T14:15:00.230194+05:30"
-  },
-  {
-    "id": "827be9a0053487e2",
-    "title": "@golden444_online_cricket \u2014 colour prediction \u00b7 111,409 subscribers",
-    "category": "colour_prediction",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "\ud83d\udd49\ufe0fMAHAKAL BOOK ID\ud83d\udd49\ufe0f \u00b7 111,409 subscribers",
-    "detected_at": "2026-05-19T14:02:03.971311+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "6a665cc54db026d048e0b0597ad9b683f6f3abced9c92d02aabe2bb09af1ad24",
-    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
-    "next_steps": [
-      "Preserve evidence",
-      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
-      "Report app to Google Play / App Store",
-      "Send Telegram takedown",
-      "If Chinese-origin: report to MeitY"
-    ],
-    "report_to": [
-      "NOGC \u2014 nogc.gov.in",
-      "MeitY \u2014 meity.gov.in",
-      "Telegram \u2014 abuse@telegram.org",
-      "I4C \u2014 cybercrime.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "+918881524185",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "1/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@golden444_online_cricket"
-      ],
-      "channel_title": "\ud83d\udd49\ufe0fMAHAKAL BOOK ID\ud83d\udd49\ufe0f",
-      "subscribers": 111409,
-      "keywords_matched": [],
-      "reach": 111409,
-      "phones": [
-        "+918881524185"
-      ],
-      "upis": [],
-      "domains": [],
-      "wa_links": [],
-      "sample_post": "\ud83d\udc98Live Casino Ka Sabse Best \u2714\ufe0f\ud83d\udc49Experience Apko Pai Hi Milega....\ud83d\udd25\n\n\u2705700+ Live Casino Games Available Hai \ud83d\ude0d\n\n\u2705Aviator, TeenPatti, Roulette, \u2714\ufe0fAndarbahar, Dragon Tiger, Lucky 7, \u2714\ufe0fMines and More Games....\n\n\ud83d\udc9924/7 Deposit & Withdrawals \ud83d\udfe2\ud83d\udfe2 24/7 Customer Support \n\n\n\ud83d\ude2cYou Can Open Account On Whatsapp\ud83d\udc47\n\u00a0\u00a0\u00a0\u00a0 \n",
-      "bio": "",
-      "evidence_hashes": [
-        "6a665cc54db026d0"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "NOGC \u2014 nogc.gov.in",
-        "MeitY \u2014 meity.gov.in",
-        "Telegram \u2014 abuse@telegram.org",
-        "I4C \u2014 cybercrime.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:02:03.972232+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "reach": 111409,
-    "enriched_at": "2026-05-20T14:15:00.230283+05:30"
-  },
-  {
-    "id": "15f0db29e6210423",
-    "title": "@sikkim_game_prediction_vip \u2014 colour prediction \u00b7 108,244 subscribers",
-    "category": "colour_prediction",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "VIP COLOUR PREDICTION SIKKIM GAME \u00b7 108,244 subscribers",
-    "detected_at": "2026-05-19T14:02:13.580226+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "9704c887b13552afc89c217cb741a75a4ce35ca6930c3d5d31d9b8ca68993a5b",
-    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
-    "next_steps": [
-      "Preserve evidence",
-      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
-      "Report app to Google Play / App Store",
-      "Send Telegram takedown",
-      "If Chinese-origin: report to MeitY"
-    ],
-    "report_to": [
-      "NOGC \u2014 nogc.gov.in",
-      "MeitY \u2014 meity.gov.in",
-      "Telegram \u2014 abuse@telegram.org",
-      "I4C \u2014 cybercrime.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "+919818040215",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "1/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@sikkim_game_prediction_vip"
-      ],
-      "channel_title": "VIP COLOUR PREDICTION SIKKIM GAME",
-      "subscribers": 108244,
-      "keywords_matched": [
-        "wingo"
-      ],
-      "reach": 108244,
-      "phones": [
-        "+919818040215",
-        "+917703071707"
-      ],
-      "upis": [],
-      "domains": [
-        "sikkam.com"
-      ],
-      "wa_links": [],
-      "sample_post": "\ud83d\udd24\ud83d\udd24\ud83d\udd24\ud83d\udd24\ud83d\udd24\ud83d\udd24**__\ud83d\udd25__****__\ud83d\udd24__****__\ud83d\udd24__****__\ud83d\udd24__****__\ud83d\udd24__****__\n\n__****__\ud83d\udcc8__** Sikkim **__game __****__\ud83d\udca5__****__ Prediction__****__\ud83d\udcc9__**\u00a0 **__\u2b50__****__\u2705__****__\u00a0 Number -\u00a0__**7\u00a0\u00a0 **__\u2705__****\u2b50****\n\n****\ud83d\udea9****Periods ::\u00a00512\ud83d\udc4c ****\ud83d\udea9****\n\n\u00a0 ****\u2764\ufe0f\u200d\ud83d\udd25****Over Limit PLAY Game****\u2764\ufe0f\u200d\ud83d\udd25**",
-      "bio": "",
-      "evidence_hashes": [
-        "9704c887b13552af"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "NOGC \u2014 nogc.gov.in",
-        "MeitY \u2014 meity.gov.in",
-        "Telegram \u2014 abuse@telegram.org",
-        "I4C \u2014 cybercrime.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:02:13.580305+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "domain": "sikkam.com",
-    "reach": 108244,
-    "enriched_at": "2026-05-20T14:15:00.230336+05:30"
-  },
-  {
-    "id": "588a0510a3475e94",
-    "title": "@crypto_signalf \u2014 crypto fraud \u00b7 96,932 subscribers",
-    "category": "crypto_fraud",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "Crypto signal \u00b7 96,932 subscribers",
-    "detected_at": "2026-05-19T14:02:36.900900+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "11e73747c01fc2fbe36c077fecaf086160863f2baf476c85b1c88381228cfb8e",
-    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
-    "next_steps": [
-      "Preserve evidence",
-      "File ED complaint: enforcement.gov.in",
-      "Report to FIU-IND: fiuindia.gov.in",
-      "File NCCRP: cybercrime.gov.in",
-      "Report to CERT-In if phishing site"
-    ],
-    "report_to": [
-      "ED \u2014 enforcement.gov.in",
-      "FIU-IND \u2014 fiuindia.gov.in",
-      "CERT-In \u2014 cert-in.org.in",
-      "I4C \u2014 1930"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "0/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@crypto_signalf"
-      ],
-      "channel_title": "Crypto signal",
-      "subscribers": 96932,
-      "keywords_matched": [
-        "usdt",
-        "btc",
-        "eth"
-      ],
-      "reach": 96932,
-      "phones": [
-        "+919859990481"
-      ],
-      "upis": [],
-      "domains": [
-        "moex.com",
-        "substack.com"
-      ],
-      "wa_links": [],
-      "sample_post": "\ud83d\udcca The United Kingdom has announced a preliminary GDP growth of 0.6% for the first quarter of 2026 compared to the previous quarter, aligning with expectations. On a year-over-year basis, GDP rose by 1.1%, exceeding the forecast of 0.8% and showing an improvement from the previous growth rate of 1%.",
-      "bio": "",
-      "evidence_hashes": [
-        "11e73747c01fc2fb"
-      ],
-      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "ED \u2014 enforcement.gov.in",
-        "FIU-IND \u2014 fiuindia.gov.in",
-        "CERT-In \u2014 cert-in.org.in",
-        "I4C \u2014 1930"
-      ],
-      "captured_at": "2026-05-19T14:02:36.901162+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "domain": "moex.com",
-    "reach": 96932,
-    "enriched_at": "2026-05-20T14:15:00.230347+05:30"
-  },
-  {
-    "id": "2c680d31727e4bbd",
-    "title": "@Ipl_Toss_Match_Winner_Fixer \u2014 illegal betting \u00b7 76,432 subscribers",
-    "category": "illegal_betting",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "Ipl Toss Match Winner Fixer \u00b7 76,432 subscribers",
-    "detected_at": "2026-05-19T14:03:32.718203+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "39bc28a88b81f230b42b813c8a808c312634d96a0341b6f4175c27a7c6843486",
-    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-    "next_steps": [
-      "Preserve evidence \u2014 SHA-256 hash archived",
-      "File NOGC complaint: nogc.gov.in",
-      "Report to state cybercrime cell with operator phone",
-      "Send Telegram takedown: abuse@telegram.org",
-      "Share with ED if crypto/Dubai link found"
-    ],
-    "report_to": [
-      "NOGC \u2014 nogc.gov.in",
-      "State cybercrime cell",
-      "Telegram \u2014 abuse@telegram.org",
-      "ED \u2014 enforcement.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "0/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@Ipl_Toss_Match_Winner_Fixer"
-      ],
-      "channel_title": "Ipl Toss Match Winner Fixer",
-      "subscribers": 76432,
-      "keywords_matched": [
-        "betting",
-        "bookie"
-      ],
-      "reach": 76432,
-      "phones": [
-        "+918881987328"
-      ],
-      "upis": [],
-      "domains": [
-        "Reddy33.com",
-        "reddy33.com",
-        "REDDY33.COM"
-      ],
-      "wa_links": [],
-      "sample_post": "**Bot Ki Tarh Follow Krlo... **\ud83d\udd13\ud83d\udd13\n\n**Paisaa.. Direct Pocket Me Aayega..** \u2764\ufe0f\u2764\ufe0f",
-      "bio": "",
-      "evidence_hashes": [
-        "39bc28a88b81f230"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
-      "report_to": [
-        "NOGC \u2014 nogc.gov.in",
-        "State cybercrime cell",
-        "Telegram \u2014 abuse@telegram.org",
-        "ED \u2014 enforcement.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:03:32.718414+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "domain": "Reddy33.com",
-    "reach": 76432,
-    "enriched_at": "2026-05-20T14:15:00.230409+05:30"
-  },
-  {
-    "id": "34d7ce170dfed9d3",
-    "title": "@Crypto_Daman_Games \u2014 colour prediction \u00b7 47,520 subscribers",
-    "category": "colour_prediction",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "Daman Game \u2728Crypto \u00b7 47,520 subscribers",
-    "detected_at": "2026-05-19T14:06:16.579515+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "cbf137e5c48effb48cfb5c287b4c75205c351b4721d6ccd9bef1655ab7a97582",
-    "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
-    "next_steps": [
-      "Preserve evidence",
-      "File NOGC complaint \u2014 OGA 2025 \u00a78 violation",
-      "Report app to Google Play / App Store",
-      "Send Telegram takedown",
-      "If Chinese-origin: report to MeitY"
-    ],
-    "report_to": [
-      "NOGC \u2014 nogc.gov.in",
-      "MeitY \u2014 meity.gov.in",
-      "Telegram \u2014 abuse@telegram.org",
-      "I4C \u2014 cybercrime.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "+918724877011",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "1/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@Crypto_Daman_Games"
-      ],
-      "channel_title": "Daman Game \u2728Crypto",
-      "subscribers": 47520,
-      "keywords_matched": [],
-      "reach": 47520,
-      "phones": [
-        "+918724877011",
-        "+917522822477"
-      ],
-      "upis": [],
-      "domains": [
-        "bdght.com"
-      ],
-      "wa_links": [],
-      "sample_post": "**Ready to add some excitement to your day? \n\ud83c\udf08 Join our Color Betting Game and turn your color predictions into cash! \ud83d\udcb8 It's simple, thrilling, and you could win big! Don't miss out on the fun\u2014join now and let your lucky colors lead you to victory!\n\n****__https://t.me/Crypto_Daman_Games__****\n\ud83d\udc46\ud83d\udc46\ud83d\udc46\ud83d\udc46\ud83d\udc46\ud83d\udc46",
-      "bio": "",
-      "evidence_hashes": [
-        "cbf137e5c48effb4"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Online Gaming Act 2025 \u00a78 + FEMA 1999",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "NOGC \u2014 nogc.gov.in",
-        "MeitY \u2014 meity.gov.in",
-        "Telegram \u2014 abuse@telegram.org",
-        "I4C \u2014 cybercrime.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:06:16.579634+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "domain": "bdght.com",
-    "reach": 47520,
-    "enriched_at": "2026-05-20T14:15:00.230492+05:30"
-  },
-  {
     "id": "89995c680cd983bb",
     "title": "@Tamil_kannada_telugu_movies_news \u2014 piracy \u00b7 146,697 subscribers",
     "category": "piracy",
@@ -30270,416 +30680,6 @@
     "enriched_at": "2026-05-20T14:15:00.230949+05:30"
   },
   {
-    "id": "d25033582da4f625",
-    "title": "@BCCI_TOSS_MATCH_FIXER1 \u2014 illegal betting \u00b7 87,780 subscribers",
-    "category": "illegal_betting",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "BCCI TOSS MATCH FIXER \u00b7 87,780 subscribers",
-    "detected_at": "2026-05-19T14:02:59.804199+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "5afcef08c760f0753f81461ca4b6b478044aaf15c0e9002463ce23a1939c914a",
-    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-    "next_steps": [
-      "Preserve evidence \u2014 SHA-256 hash archived",
-      "File NOGC complaint: nogc.gov.in",
-      "Report to state cybercrime cell with operator phone",
-      "Send Telegram takedown: abuse@telegram.org",
-      "Share with ED if crypto/Dubai link found"
-    ],
-    "report_to": [
-      "NOGC \u2014 nogc.gov.in",
-      "State cybercrime cell",
-      "Telegram \u2014 abuse@telegram.org",
-      "ED \u2014 enforcement.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "0/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@BCCI_TOSS_MATCH_FIXER1"
-      ],
-      "channel_title": "BCCI TOSS MATCH FIXER",
-      "subscribers": 87780,
-      "keywords_matched": [
-        "bookie"
-      ],
-      "reach": 87780,
-      "phones": [
-        "+918881987328"
-      ],
-      "upis": [],
-      "domains": [],
-      "wa_links": [],
-      "sample_post": "**Illegal Site Per  Khelna Stop Karooo....****\u270b****\n\nPlay Only On ****Primebook.**game** \ud83d\udc4d**",
-      "bio": "",
-      "evidence_hashes": [
-        "5afcef08c760f075"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
-      "report_to": [
-        "NOGC \u2014 nogc.gov.in",
-        "State cybercrime cell",
-        "Telegram \u2014 abuse@telegram.org",
-        "ED \u2014 enforcement.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:02:59.804431+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "reach": 87780,
-    "enriched_at": "2026-05-20T14:15:00.240674+05:30"
-  },
-  {
-    "id": "5aa63fd70785310f",
-    "title": "@toss_match_fixer4 \u2014 illegal betting \u00b7 80,603 subscribers",
-    "category": "illegal_betting",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "IPL TOSS MATCH FIXER \u00b7 80,603 subscribers",
-    "detected_at": "2026-05-19T14:03:19.433105+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "50958b856093d6dbc653b4f7c78410dc304396160f07e386d2f06a7c6e228039",
-    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-    "next_steps": [
-      "Preserve evidence \u2014 SHA-256 hash archived",
-      "File NOGC complaint: nogc.gov.in",
-      "Report to state cybercrime cell with operator phone",
-      "Send Telegram takedown: abuse@telegram.org",
-      "Share with ED if crypto/Dubai link found"
-    ],
-    "report_to": [
-      "NOGC \u2014 nogc.gov.in",
-      "State cybercrime cell",
-      "Telegram \u2014 abuse@telegram.org",
-      "ED \u2014 enforcement.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "0/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@toss_match_fixer4"
-      ],
-      "channel_title": "IPL TOSS MATCH FIXER",
-      "subscribers": 80603,
-      "keywords_matched": [],
-      "reach": 80603,
-      "phones": [
-        "+917065059112"
-      ],
-      "upis": [],
-      "domains": [],
-      "wa_links": [],
-      "sample_post": "__**Innings Break Update\n**\nTarget 181 Will Be Defend..\n**Close Rate 70p SRH Fav...**__\n__\n**Winner \ud83d\udc49CHENNAI WILL WIN**__",
-      "bio": "",
-      "evidence_hashes": [
-        "50958b856093d6db"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
-      "report_to": [
-        "NOGC \u2014 nogc.gov.in",
-        "State cybercrime cell",
-        "Telegram \u2014 abuse@telegram.org",
-        "ED \u2014 enforcement.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:03:19.437359+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "reach": 80603,
-    "enriched_at": "2026-05-20T14:15:00.240727+05:30"
-  },
-  {
-    "id": "bd01e58517da0e4d",
-    "title": "@forexb_signal \u2014 investment fraud \u00b7 57,776 subscribers",
-    "category": "investment_fraud",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "Forex Signal \u00b7 57,776 subscribers",
-    "detected_at": "2026-05-19T14:05:11.360254+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "ee4596ee6d7ff2681ccfbe5b2b82332eef7e9d36db362d23ed81e2fbfc413b0b",
-    "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
-    "next_steps": [
-      "Preserve evidence",
-      "Report to SEBI SCORES: scores.gov.in",
-      "Send Telegram takedown",
-      "Share operator details with cybercrime@sebi.gov.in",
-      "Alert CERT-In if phishing"
-    ],
-    "report_to": [
-      "SEBI SCORES \u2014 scores.gov.in",
-      "cybercrime@sebi.gov.in",
-      "I4C \u2014 cybercrime.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "0/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@forexb_signal"
-      ],
-      "channel_title": "Forex Signal",
-      "subscribers": 57776,
-      "keywords_matched": [],
-      "reach": 57776,
-      "phones": [
-        "+919772732841"
-      ],
-      "upis": [],
-      "domains": [],
-      "wa_links": [],
-      "sample_post": "__**Blessed Tuesday My Champio**ns!__ \ud83d\udd25\n**\nAs we begin the session today, let's remember the importance of controlling our emotions. Stay calm, focused, and disciplined in your decisions. \n\nEmotions can influence our trades, so let's approach the markets with a steady mindset. Wishing you a successf",
-      "bio": "",
-      "evidence_hashes": [
-        "ee4596ee6d7ff268"
-      ],
-      "legal_basis": "IT Act 2000 \u00a766D + SEBI Act 1992 \u00a712A + IPC \u00a7420",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "SEBI SCORES \u2014 scores.gov.in",
-        "cybercrime@sebi.gov.in",
-        "I4C \u2014 cybercrime.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:05:11.360496+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "reach": 57776,
-    "enriched_at": "2026-05-20T14:15:00.240887+05:30"
-  },
-  {
-    "id": "a33765fdff64ee01",
-    "title": "@Reddybookgreen_Reddybookvip \u2014 illegal betting \u00b7 50,930 subscribers",
-    "category": "illegal_betting",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "REDDY ANNA ONLINE BOOK \u00b7 50,930 subscribers",
-    "detected_at": "2026-05-19T14:05:50.200554+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "e2402e5ed0ec6b53b200a2b858e65ae6762a9ded7b4c08ab816be09e278d1702",
-    "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-    "next_steps": [
-      "Preserve evidence \u2014 SHA-256 hash archived",
-      "File NOGC complaint: nogc.gov.in",
-      "Report to state cybercrime cell with operator phone",
-      "Send Telegram takedown: abuse@telegram.org",
-      "Share with ED if crypto/Dubai link found"
-    ],
-    "report_to": [
-      "NOGC \u2014 nogc.gov.in",
-      "State cybercrime cell",
-      "Telegram \u2014 abuse@telegram.org",
-      "ED \u2014 enforcement.gov.in"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "0/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@Reddybookgreen_Reddybookvip"
-      ],
-      "channel_title": "REDDY ANNA ONLINE BOOK",
-      "subscribers": 50930,
-      "keywords_matched": [],
-      "reach": 50930,
-      "phones": [
-        "+918896169396"
-      ],
-      "upis": [],
-      "domains": [],
-      "wa_links": [],
-      "sample_post": "Delhi me koi badmash hai kya ??",
-      "bio": "",
-      "evidence_hashes": [
-        "e2402e5ed0ec6b53"
-      ],
-      "legal_basis": "IT Act 2000 \u00a765B + Public Gambling Act 1867 + OGA 2025 \u00a78",
-      "recommended_action": "Preserve evidence \u2014 SHA-256 hash archived",
-      "report_to": [
-        "NOGC \u2014 nogc.gov.in",
-        "State cybercrime cell",
-        "Telegram \u2014 abuse@telegram.org",
-        "ED \u2014 enforcement.gov.in"
-      ],
-      "captured_at": "2026-05-19T14:05:50.200698+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "reach": 50930,
-    "enriched_at": "2026-05-20T14:15:00.241040+05:30"
-  },
-  {
-    "id": "5f8b06098a48e5ea",
-    "title": "@TheMoviesflix_Official \u2014 task fraud \u00b7 40,666 subscribers",
-    "category": "task_fraud",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "Moviesflix HD \u00b7 40,666 subscribers",
-    "detected_at": "2026-05-19T14:06:56.246617+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "e852c18ebf67d89acd458f600514a63555de8a359542592fb45ee7b7e2c4750c",
-    "legal_basis": "IT Act 2000 \u00a766D + IPC \u00a7420",
-    "next_steps": [
-      "Preserve evidence",
-      "File complaint at cybercrime.gov.in"
-    ],
-    "report_to": [
-      "I4C \u2014 1930",
-      "Telegram \u2014 abuse@telegram.org"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "0/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@TheMoviesflix_Official"
-      ],
-      "channel_title": "Moviesflix HD",
-      "subscribers": 40666,
-      "keywords_matched": [],
-      "reach": 40666,
-      "phones": [
-        "+919079551576"
-      ],
-      "upis": [],
-      "domains": [
-        "cloudflare-dns.com",
-        "instagram.com"
-      ],
-      "wa_links": [],
-      "sample_post": "**mCloud is back online now. Sorry for the downtime.** \u2705",
-      "bio": "",
-      "evidence_hashes": [
-        "e852c18ebf67d89a"
-      ],
-      "legal_basis": "IT Act 2000 \u00a766D + IPC \u00a7420",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "I4C"
-      ],
-      "captured_at": "2026-05-19T14:06:56.246897+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "domain": "cloudflare-dns.com",
-    "reach": 40666,
-    "enriched_at": "2026-05-20T14:15:00.241263+05:30"
-  },
-  {
-    "id": "dc4dacd10205199f",
-    "title": "@Maharani_Season_3_2_1 \u2014 crypto fraud \u00b7 38,629 subscribers",
-    "category": "crypto_fraud",
-    "severity": "critical",
-    "platform": "Telegram",
-    "detail": "Maharani Season 3 2 1 WebSeries Sony Liv Series Hindi HD Download Link \u00b7 38,629 subscribers",
-    "detected_at": "2026-05-19T14:07:23.525117+05:30",
-    "source": "telegram_deep_scan",
-    "evidence_hash": "d2625f357ab89aaba37e3366330faab59414fad3deb444e802131d0910438493",
-    "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
-    "next_steps": [
-      "Preserve evidence",
-      "File ED complaint: enforcement.gov.in",
-      "Report to FIU-IND: fiuindia.gov.in",
-      "File NCCRP: cybercrime.gov.in",
-      "Report to CERT-In if phishing site"
-    ],
-    "report_to": [
-      "ED \u2014 enforcement.gov.in",
-      "FIU-IND \u2014 fiuindia.gov.in",
-      "CERT-In \u2014 cert-in.org.in",
-      "I4C \u2014 1930"
-    ],
-    "attribution": {
-      "name": "",
-      "email": "",
-      "phone": "",
-      "upi": "",
-      "address": "",
-      "source": "telegram_message_scan",
-      "completeness": "0/5 fields"
-    },
-    "chain": {
-      "channels_found": [
-        "@Maharani_Season_3_2_1"
-      ],
-      "channel_title": "Maharani Season 3 2 1 WebSeries Sony Liv Series Hindi HD Download Link",
-      "subscribers": 38629,
-      "keywords_matched": [
-        "btc",
-        "binance"
-      ],
-      "reach": 38629,
-      "phones": [
-        "+918290935643"
-      ],
-      "upis": [],
-      "domains": [
-        "nepbit.com"
-      ],
-      "wa_links": [],
-      "sample_post": "**\u27a1\ufe0f C\u029c\u1d00\u0274\u0274\u1d07\u029f L\u026a\u0274\u1d0b \u27f9 **https://t.me/+QrLVh0O4eU4zOTk1**\n\n\u2705 (BluRay + Original Audios) - [1080p - 720p - 480p - 360p - 280p]\n\n\u2714\ufe0f360P - **https://t.me/+QrLVh0O4eU4zOTk1**\n\n\u2714\ufe0f480P - **https://t.me/+QrLVh0O4eU4zOTk1**\n\n\u2714\ufe0f720P - **https://t.me/+QrLVh0O4eU4zOTk1**\n\n\u2714\ufe0f1080P - **https://t.me/+QrLVh0O4eU4zOTk",
-      "bio": "",
-      "evidence_hashes": [
-        "d2625f357ab89aab"
-      ],
-      "legal_basis": "PMLA 2002 \u00a73 + IT Act 2000 \u00a765B + SEBI Act \u00a712A",
-      "recommended_action": "Preserve evidence",
-      "report_to": [
-        "ED \u2014 enforcement.gov.in",
-        "FIU-IND \u2014 fiuindia.gov.in",
-        "CERT-In \u2014 cert-in.org.in",
-        "I4C \u2014 1930"
-      ],
-      "captured_at": "2026-05-19T14:07:23.525394+05:30",
-      "operator_name": null,
-      "operator_network": null,
-      "confidence": 95
-    },
-    "domain": "nepbit.com",
-    "reach": 38629,
-    "enriched_at": "2026-05-20T14:15:00.241353+05:30"
-  },
-  {
     "id": "83516a2faa9aa422",
     "title": "@Dear_Kerala_Nagaland_Lotteryy \u2014 piracy \u00b7 74,739 subscribers",
     "category": "piracy",
@@ -30856,60 +30856,282 @@
     "enriched_at": "2026-05-20T14:15:00.241455+05:30"
   },
   {
-    "id": "8ea17afe8f3da294",
-    "title": "@Kolkata_Fatafat_Tips_fff \u2014 investment fraud \u00b7 65,090 subscribers",
-    "category": "investment_fraud",
-    "severity": "high",
+    "id": "227e6f2a0bf86405",
+    "title": "@crowdfeeding \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "crypto_fraud",
+    "severity": "critical",
     "platform": "Telegram",
-    "detail": "Phones: +917737042582",
-    "detected_at": "2026-05-20T14:20:00.882974+05:30",
-    "source": "channel_scan",
-    "evidence_hash": "8ea17afe8f3da294",
-    "reach": 65090,
-    "phone": "+917737042582",
-    "upi": "",
-    "domain": "",
-    "legal_basis": "SEBI Act \u00a712A + IT Act \u00a766D + IPC \u00a7420",
-    "next_steps": [
-      "Evidence hash preserved at detection",
-      "File takedown: abuse@telegram.org \u2014 channel @Kolkata_Fatafat_Tips_fff",
-      "Report to: SEBI sebi.gov.in",
-      "Request telecom subpoena for phone subscriber identity"
-    ],
-    "report_to": [
-      "SEBI sebi.gov.in",
-      "I4C 1930",
-      "ED enforcement.gov.in"
-    ],
-    "attribution": {
-      "phone": "+917737042582",
-      "upi": "",
-      "domain": "",
-      "source": "telegram_deep_scan"
-    },
+    "detected_at": "2026-05-21T07:24:13.664565+05:30",
+    "reach": 0,
+    "evidence_hash": "227e6f2a0bf86405",
     "chain": {
-      "channels_found": [
-        "https://t.me/Kolkata_Fatafat_Tips_fff"
-      ],
-      "keywords_matched": [],
-      "reach": 65090,
       "phones": [
-        "+917737042582"
+        "+918293202316",
+        "+917214787076",
+        "+917483732926",
+        "+916983735676",
+        "+916444884123",
+        "+916289347477",
+        "+917978384749",
+        "+916317453265",
+        "+918549705902"
       ],
       "upis": [],
-      "domains": [],
-      "evidence_hashes": [
-        "8ea17afe8f3da294"
+      "channels_found": [
+        "https://t.me/crowdfeeding"
+      ]
+    }
+  },
+  {
+    "id": "6f019729e3827398",
+    "title": "@intraday_free_tips \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "investment_fraud",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:24:44.737407+05:30",
+    "reach": 0,
+    "evidence_hash": "6f019729e3827398",
+    "chain": {
+      "phones": [
+        "+918480314479"
       ],
-      "legal_basis": "SEBI Act \u00a712A + IT Act \u00a766D + IPC \u00a7420",
-      "confidence": 70,
-      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +917737042582",
-      "report_to": [
-        "SEBI sebi.gov.in",
-        "I4C 1930",
-        "ED enforcement.gov.in"
+      "upis": [],
+      "channels_found": [
+        "https://t.me/intraday_free_tips"
+      ]
+    }
+  },
+  {
+    "id": "6a6003e46ca9c154",
+    "title": "@usdt_Trading0881 \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "crypto_fraud",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:24:55.325381+05:30",
+    "reach": 0,
+    "evidence_hash": "6a6003e46ca9c154",
+    "chain": {
+      "phones": [
+        "+917118274129",
+        "+917912575790"
       ],
-      "captured_at": "2026-05-20T14:20:00.882974+05:30"
+      "upis": [],
+      "channels_found": [
+        "https://t.me/usdt_Trading0881"
+      ]
+    }
+  },
+  {
+    "id": "a9a2fc4c07602de4",
+    "title": "@kolkataFFF_Tips \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "investment_fraud",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:25:00.608765+05:30",
+    "reach": 0,
+    "evidence_hash": "a9a2fc4c07602de4",
+    "chain": {
+      "phones": [
+        "+917383694044"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://t.me/kolkataFFF_Tips"
+      ]
+    }
+  },
+  {
+    "id": "1f5732b33bc29318",
+    "title": "@WaveShoeStore \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:25:33.637242+05:30",
+    "reach": 0,
+    "evidence_hash": "1f5732b33bc29318",
+    "chain": {
+      "phones": [
+        "+919643867029"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://t.me/WaveShoeStore"
+      ]
+    }
+  },
+  {
+    "id": "cc077928f2259ccc",
+    "title": "@A23BOOKONLIN \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:25:49.291375+05:30",
+    "reach": 0,
+    "evidence_hash": "cc077928f2259ccc",
+    "chain": {
+      "phones": [
+        "+916754266130"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://t.me/A23BOOKONLIN"
+      ]
+    }
+  },
+  {
+    "id": "2a8da11161e3e3f1",
+    "title": "@up_haryana_punjab_satta_kings \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:26:20.259184+05:30",
+    "reach": 0,
+    "evidence_hash": "2a8da11161e3e3f1",
+    "chain": {
+      "phones": [
+        "+917027613551"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://t.me/up_haryana_punjab_satta_kings"
+      ]
+    }
+  },
+  {
+    "id": "dad553bdae4a92ed",
+    "title": "@McxTradinginstituteresearch \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "investment_fraud",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:26:51.301470+05:30",
+    "reach": 0,
+    "evidence_hash": "dad553bdae4a92ed",
+    "chain": {
+      "phones": [
+        "+917451874930"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://t.me/McxTradinginstituteresearch"
+      ]
+    }
+  },
+  {
+    "id": "9f2074322a126ad7",
+    "title": "@Sarkariyojanegalu \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:26:56.480252+05:30",
+    "reach": 0,
+    "evidence_hash": "9f2074322a126ad7",
+    "chain": {
+      "phones": [
+        "+919900005849"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://t.me/Sarkariyojanegalu"
+      ]
+    }
+  },
+  {
+    "id": "d243123ea172f80d",
+    "title": "@lotterydiscussion \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:31:03.462000+05:30",
+    "reach": 0,
+    "evidence_hash": "d243123ea172f80d",
+    "chain": {
+      "phones": [
+        "+918215297917"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://t.me/lotterydiscussion"
+      ]
+    }
+  },
+  {
+    "id": "a25decf5e367a562",
+    "title": "@FilmyWorld_Reviews \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "piracy",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:31:08.699383+05:30",
+    "reach": 0,
+    "evidence_hash": "a25decf5e367a562",
+    "chain": {
+      "phones": [
+        "+916760873038"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://t.me/FilmyWorld_Reviews"
+      ]
+    }
+  },
+  {
+    "id": "8b19ee16afbd303a",
+    "title": "@dpbossk \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:34:31.790120+05:30",
+    "reach": 0,
+    "evidence_hash": "8b19ee16afbd303a",
+    "chain": {
+      "phones": [
+        "+916376801460"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://t.me/dpbossk"
+      ]
+    }
+  },
+  {
+    "id": "fd945148d728f91e",
+    "title": "@Learnlaweshow999 \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "investment_fraud",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:34:42.076037+05:30",
+    "reach": 0,
+    "evidence_hash": "fd945148d728f91e",
+    "chain": {
+      "phones": [
+        "+919445934547",
+        "+919566141938"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://t.me/Learnlaweshow999"
+      ]
+    }
+  },
+  {
+    "id": "88b5461be52f4a3a",
+    "title": "@indiatalks \u2014 scan_s2 \u00b7 0 subscribers",
+    "category": "illegal_betting",
+    "severity": "critical",
+    "platform": "Telegram",
+    "detected_at": "2026-05-21T07:40:39.507843+05:30",
+    "reach": 0,
+    "evidence_hash": "88b5461be52f4a3a",
+    "chain": {
+      "phones": [
+        "+917746589901",
+        "+917742606892",
+        "+917353016536",
+        "+917843727592"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://t.me/indiatalks"
+      ]
     }
   },
   {
@@ -35547,6 +35769,63 @@
     },
     "phone": "+918602539889",
     "enriched_at": "2026-05-17T09:36:12.661247+05:30"
+  },
+  {
+    "id": "8ea17afe8f3da294",
+    "title": "@Kolkata_Fatafat_Tips_fff \u2014 investment fraud \u00b7 65,090 subscribers",
+    "category": "investment_fraud",
+    "severity": "high",
+    "platform": "Telegram",
+    "detail": "Phones: +917737042582",
+    "detected_at": "2026-05-20T14:20:00.882974+05:30",
+    "source": "channel_scan",
+    "evidence_hash": "8ea17afe8f3da294",
+    "reach": 65090,
+    "phone": "+917737042582",
+    "upi": "",
+    "domain": "",
+    "legal_basis": "SEBI Act \u00a712A + IT Act \u00a766D + IPC \u00a7420",
+    "next_steps": [
+      "Evidence hash preserved at detection",
+      "File takedown: abuse@telegram.org \u2014 channel @Kolkata_Fatafat_Tips_fff",
+      "Report to: SEBI sebi.gov.in",
+      "Request telecom subpoena for phone subscriber identity"
+    ],
+    "report_to": [
+      "SEBI sebi.gov.in",
+      "I4C 1930",
+      "ED enforcement.gov.in"
+    ],
+    "attribution": {
+      "phone": "+917737042582",
+      "upi": "",
+      "domain": "",
+      "source": "telegram_deep_scan"
+    },
+    "chain": {
+      "channels_found": [
+        "https://t.me/Kolkata_Fatafat_Tips_fff"
+      ],
+      "keywords_matched": [],
+      "reach": 65090,
+      "phones": [
+        "+917737042582"
+      ],
+      "upis": [],
+      "domains": [],
+      "evidence_hashes": [
+        "8ea17afe8f3da294"
+      ],
+      "legal_basis": "SEBI Act \u00a712A + IT Act \u00a766D + IPC \u00a7420",
+      "confidence": 70,
+      "recommended_action": "File \u00a769A takedown \u00b7 Telecom subpoena for +917737042582",
+      "report_to": [
+        "SEBI sebi.gov.in",
+        "I4C 1930",
+        "ED enforcement.gov.in"
+      ],
+      "captured_at": "2026-05-20T14:20:00.882974+05:30"
+    }
   },
   {
     "id": "83160d9948b523ee",
@@ -53324,6 +53603,27 @@
         "Platform DMCA"
       ],
       "captured_at": "2026-05-19T14:20:00.486004+05:30"
+    }
+  },
+  {
+    "id": "be027f61c0d72ac9",
+    "title": "Arrest-confirmed fraud identifier: +917923191713",
+    "category": "confirmed_arrest",
+    "severity": "critical",
+    "platform": "Police/Court Record",
+    "detail": "Extracted from official source",
+    "source": "https://www.facebook.com/lovemygoa/posts/six-arrested-in-sangolda-ipl-betting-racketgoa-cyber-crime-police-busted-an-alle/1360704422757885/",
+    "detected_at": "2026-05-21T08:42:07.529362+05:30",
+    "reach": 0,
+    "evidence_hash": "be027f61c0d72ac9",
+    "chain": {
+      "phones": [
+        "+917923191713"
+      ],
+      "upis": [],
+      "channels_found": [
+        "https://www.facebook.com/lovemygoa/posts/six-arrested-in-sangolda-ipl-betting-racketgoa-cyber-crime-police-busted-an-alle/1360704422757885/"
+      ]
     }
   }
 ]
